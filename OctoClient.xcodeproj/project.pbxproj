@@ -496,6 +496,8 @@
 		D08721CD169E398C00016ACA /* OCTRepositorySpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCTRepositorySpec.m; sourceTree = "<group>"; };
 		D08721CE169E398C00016ACA /* OCTServerSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCTServerSpec.m; sourceTree = "<group>"; };
 		D08721CF169E398C00016ACA /* OCTUserSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCTUserSpec.m; sourceTree = "<group>"; };
+		D08721DC169E3B9000016ACA /* EXTKeyPathCoding.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EXTKeyPathCoding.h; sourceTree = "<group>"; };
+		D08721DD169E3B9000016ACA /* metamacros.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = metamacros.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -633,6 +635,8 @@
 		D0871F81169E2FE600016ACA /* libextobjc */ = {
 			isa = PBXGroup;
 			children = (
+				D08721DC169E3B9000016ACA /* EXTKeyPathCoding.h */,
+				D08721DD169E3B9000016ACA /* metamacros.h */,
 			);
 			name = libextobjc;
 			path = External/Mantle/libextobjc/extobjc;
