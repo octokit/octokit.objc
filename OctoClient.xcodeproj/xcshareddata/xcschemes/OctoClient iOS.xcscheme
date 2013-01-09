@@ -33,7 +33,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "D0871FF2169E309A00016ACA"
-               BuildableName = "OctoClientTests.octest"
+               BuildableName = "OctoClient iOS Tests.octest"
                BlueprintName = "OctoClient iOS Tests"
                ReferencedContainer = "container:OctoClient.xcodeproj">
             </BuildableReference>
