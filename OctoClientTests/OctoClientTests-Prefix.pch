@@ -1,0 +1,13 @@
+//
+// Prefix header for all source files of the 'OctoClientTests' target in the 'OctoClient' project
+//
+
+#ifdef __OBJC__
+	#import <Foundation/Foundation.h>
+    #import <OctoClient/OctoClient.h>
+
+    #import "Specta.h"
+
+    #define EXP_SHORTHAND
+    #import "Expecta.h"
+#endif
