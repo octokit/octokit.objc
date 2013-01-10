@@ -184,6 +184,8 @@
 		D08721D9169E398C00016ACA /* OCTServerSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = D08721CE169E398C00016ACA /* OCTServerSpec.m */; };
 		D08721DA169E398C00016ACA /* OCTUserSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = D08721CF169E398C00016ACA /* OCTUserSpec.m */; };
 		D08721DB169E398C00016ACA /* OCTUserSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = D08721CF169E398C00016ACA /* OCTUserSpec.m */; };
+		D087229C169E3D0500016ACA /* ISO8601DateFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = D0872299169E3D0500016ACA /* ISO8601DateFormatter.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc -Wno-format -Wno-conversion"; }; };
+		D087229D169E3D0500016ACA /* ISO8601DateFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = D0872299169E3D0500016ACA /* ISO8601DateFormatter.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc -Wno-format -Wno-conversion"; }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -498,6 +500,8 @@
 		D08721CF169E398C00016ACA /* OCTUserSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCTUserSpec.m; sourceTree = "<group>"; };
 		D08721DC169E3B9000016ACA /* EXTKeyPathCoding.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EXTKeyPathCoding.h; sourceTree = "<group>"; };
 		D08721DD169E3B9000016ACA /* metamacros.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = metamacros.h; sourceTree = "<group>"; };
+		D0872298169E3D0500016ACA /* ISO8601DateFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISO8601DateFormatter.h; sourceTree = "<group>"; };
+		D0872299169E3D0500016ACA /* ISO8601DateFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ISO8601DateFormatter.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -577,6 +581,7 @@
 			isa = PBXGroup;
 			children = (
 				D087201C169E326800016ACA /* AFNetworking */,
+				D0872297169E3CF000016ACA /* ISO8601DateFormatter */,
 				D0871F81169E2FE600016ACA /* libextobjc */,
 				D08720FA169E35D800016ACA /* Expecta.xcodeproj */,
 				D0872056169E328A00016ACA /* Mantle.xcodeproj */,
@@ -848,6 +853,16 @@
 				D08721CF169E398C00016ACA /* OCTUserSpec.m */,
 			);
 			name = Specs;
+			sourceTree = "<group>";
+		};
+		D0872297169E3CF000016ACA /* ISO8601DateFormatter */ = {
+			isa = PBXGroup;
+			children = (
+				D0872298169E3D0500016ACA /* ISO8601DateFormatter.h */,
+				D0872299169E3D0500016ACA /* ISO8601DateFormatter.m */,
+			);
+			name = ISO8601DateFormatter;
+			path = External/ISO8601DateFormatter;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1268,6 +1283,7 @@
 				D08721B1169E395F00016ACA /* OCTServer.m in Sources */,
 				D08721B7169E395F00016ACA /* OCTTeam.m in Sources */,
 				D08721BB169E395F00016ACA /* OCTUser.m in Sources */,
+				D087229C169E3D0500016ACA /* ISO8601DateFormatter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1325,6 +1341,7 @@
 				D08721B2169E395F00016ACA /* OCTServer.m in Sources */,
 				D08721B8169E395F00016ACA /* OCTTeam.m in Sources */,
 				D08721BC169E395F00016ACA /* OCTUser.m in Sources */,
+				D087229D169E3D0500016ACA /* ISO8601DateFormatter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -7,3 +7,6 @@
 [submodule "External/ReactiveCocoa"]
 	path = External/ReactiveCocoa
 	url = https://github.com/github/ReactiveCocoa.git
+[submodule "External/ISO8601DateFormatter"]
+	path = External/ISO8601DateFormatter
+	url = git://github.com/ISO8601DateFormatter/ISO8601DateFormatter.git
