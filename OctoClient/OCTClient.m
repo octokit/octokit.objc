@@ -167,7 +167,8 @@ static const NSUInteger OCTClientNotModifiedStatusCode = 304;
 		BOOL success = YES;
 		id parsedResult = [self parseResponse:responseObject withResultClass:resultClass success:&success];
 		if (!success) {
-			[subject sendError:[NSError errorWithDomain:OCTClientErrorDomain code:OCTClientErrorJSONParsingFailed description:NSLocalizedString(@"Could not parse the service response.", @"") recoverySuggestion:nil userInfo:nil]];
+			NSDictionary *userInfo = @{ NSLocalizedDescriptionKey: NSLocalizedString(@"Could not parse the service response.", @"") };
+			[subject sendError:[NSError errorWithDomain:OCTClientErrorDomain code:OCTClientErrorJSONParsingFailed userInfo:userInfo]];
 			return;
 		}
 		
