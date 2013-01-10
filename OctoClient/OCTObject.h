@@ -6,7 +6,7 @@
 //  Copyright 2011 GitHub. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import <Mantle/Mantle.h>
 
 @class OCTServer;
 

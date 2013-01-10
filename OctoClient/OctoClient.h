@@ -15,7 +15,6 @@
 #import <OctoClient/OCTIssueComment.h>
 #import <OctoClient/OCTIssueCommentEvent.h>
 #import <OctoClient/OCTIssueEvent.h>
-#import <OctoClient/OCTObject+Private.h>
 #import <OctoClient/OCTObject.h>
 #import <OctoClient/OCTOrg.h>
 #import <OctoClient/OCTPlan.h>
@@ -28,7 +27,6 @@
 #import <OctoClient/OCTRefEvent.h>
 #import <OctoClient/OCTRepository.h>
 #import <OctoClient/OCTResponse.h>
-#import <OctoClient/OCTServer+Private.h>
 #import <OctoClient/OCTServer.h>
 #import <OctoClient/OCTTeam.h>
 #import <OctoClient/OCTUser.h>

@@ -1530,7 +1530,11 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PREFIX_HEADER = "OctoClient/OctoClient-Prefix.pch";
-				HEADER_SEARCH_PATHS = External/AFNetworking;
+				HEADER_SEARCH_PATHS = (
+					External/AFNetworking,
+					"External/Mantle/MantleTests/expecta/src/**",
+					External/Mantle/MantleTests/specta/src,
+				);
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				PRODUCT_NAME = OctoClient;
@@ -1547,7 +1551,11 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PREFIX_HEADER = "OctoClient/OctoClient-Prefix.pch";
-				HEADER_SEARCH_PATHS = External/AFNetworking;
+				HEADER_SEARCH_PATHS = (
+					External/AFNetworking,
+					"External/Mantle/MantleTests/expecta/src/**",
+					External/Mantle/MantleTests/specta/src,
+				);
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				PRODUCT_NAME = OctoClient;
@@ -1660,7 +1668,11 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PREFIX_HEADER = "OctoClient/OctoClient-Prefix.pch";
-				HEADER_SEARCH_PATHS = External/AFNetworking;
+				HEADER_SEARCH_PATHS = (
+					External/AFNetworking,
+					"External/Mantle/MantleTests/expecta/src/**",
+					External/Mantle/MantleTests/specta/src,
+				);
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				PRODUCT_NAME = OctoClient;
