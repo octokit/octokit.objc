@@ -75,7 +75,7 @@ describe(@"OCTCommitCommentEvent", ^{
 		expect(event.repositoryName).to.equal(@"github/twui");
 		expect(event.actorLogin).to.equal(@"galaxas0");
 		expect(event.organizationLogin).to.equal(@"github");
-		expect(event.date).to.equal([NSDate dateWithString:@"2012-10-02 22:03:12 +0000"]);
+		expect(event.date).to.equal([[[ISO8601DateFormatter alloc] init] dateFromString:@"2012-10-02 22:03:12 +0000"]);
 
 		expect(event.comment).to.beKindOf(OCTCommitComment.class);
 	});

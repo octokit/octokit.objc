@@ -74,7 +74,7 @@ describe(@"from JSON", ^{
 		expect(repository.repoDescription).to.equal(@"This your first repo!");
 		expect(repository.private).to.beFalsy();
 		expect(repository.ownerLogin).to.equal(@"octocat");
-		expect(repository.datePushed).to.equal([NSDate dateWithString:@"2011-01-26 19:06:43 +0000"]);
+		expect(repository.datePushed).to.equal([[[ISO8601DateFormatter alloc] init] dateFromString:@"2011-01-26 19:06:43 +0000"]);
 		expect(repository.HTTPSURL).to.equal([NSURL URLWithString:@"https://github.com/octocat/Hello-World.git"]);
 		expect(repository.HTMLURL).to.equal([NSURL URLWithString:@"https://github.com/octocat/Hello-World"]);
 		expect(repository.SSHURL).to.equal(@"git@github.com:octocat/Hello-World.git");
