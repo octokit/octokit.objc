@@ -59,9 +59,14 @@ describe(@"with an ID from JSON", ^{
 	before(^{
 		obj = [[OCTObject alloc] initWithExternalRepresentation:representation];
 		expect(obj).notTo.beNil();
+	});
 
-		itShouldBehaveLike(OCTObjectArchivingSharedExamplesName, @{ OCTObjectKey: obj }, nil);
-		itShouldBehaveLike(OCTObjectExternalRepresentationSharedExamplesName, @{ OCTObjectKey: obj, OCTObjectExternalRepresentationKey: representation }, nil);
+	itShouldBehaveLike(OCTObjectArchivingSharedExamplesName, ^{
+		return @{ OCTObjectKey: obj };
+	});
+
+	itShouldBehaveLike(OCTObjectExternalRepresentationSharedExamplesName, ^{
+		return @{ OCTObjectKey: obj, OCTObjectExternalRepresentationKey: representation };
 	});
 
 	it(@"should have the same objectID", ^{

@@ -45,8 +45,10 @@ __block OCTPullRequestComment *comment;
 before(^{
 	comment = [[OCTPullRequestComment alloc] initWithExternalRepresentation:representation];
 	expect(comment).notTo.beNil();
+});
 
-	itShouldBehaveLike(OCTObjectArchivingSharedExamplesName, @{ OCTObjectKey: comment }, nil);
+itShouldBehaveLike(OCTObjectArchivingSharedExamplesName, ^{
+	return @{ OCTObjectKey: comment };
 });
 
 it(@"should initialize", ^{

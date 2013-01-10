@@ -36,12 +36,15 @@ describe(@"github.com user", ^{
 		@"type": @"User"
 	};
 
-	it(@"should initialize from an external representation", ^{
-		OCTUser *user = [[OCTUser alloc] initWithExternalRepresentation:representation];
+	__block OCTUser *user;
+
+	beforeEach(^{
+		user = [[OCTUser alloc] initWithExternalRepresentation:representation];
 		expect(user).notTo.beNil();
+	});
 
+	it(@"should initialize from an external representation", ^{
 		expect(user.server).to.equal(OCTServer.dotComServer);
-
 		expect(user.login).to.equal(@"octocat");
 		expect(user.name).to.equal(@"Mona Lisa Octocat");
 		expect(user.objectID).to.equal(@"1");
@@ -50,9 +53,14 @@ describe(@"github.com user", ^{
 		expect(user.blog).to.equal(@"https://github.com/blog");
 		expect(user.email).to.equal(@"octocat@github.com");
 		expect(user.publicRepoCount).to.equal(2);
+	});
 
-		itShouldBehaveLike(OCTObjectArchivingSharedExamplesName, @{ OCTObjectKey: user }, nil);
-		itShouldBehaveLike(OCTObjectExternalRepresentationSharedExamplesName, @{ OCTObjectKey: user, OCTObjectExternalRepresentationKey: representation }, nil);
+	itShouldBehaveLike(OCTObjectArchivingSharedExamplesName, ^{
+		return @{ OCTObjectKey: user };
+	});
+
+	itShouldBehaveLike(OCTObjectExternalRepresentationSharedExamplesName, ^{
+		return @{ OCTObjectKey: user, OCTObjectExternalRepresentationKey: representation };
 	});
 
 	it(@"should initialize with a name and email", ^{
@@ -92,14 +100,21 @@ describe(@"enterprise user", ^{
 		@"id": @2
 	};
 
-	it(@"should initialize from an external representation", ^{
-		NSURL *baseURL = [NSURL URLWithString:@"https://10.168.0.109"];
-		OCTUser *user = [[OCTUser alloc] initWithExternalRepresentation:representation];
+	__block NSURL *baseURL;
+	__block OCTUser *user;
+
+	beforeEach(^{
+		baseURL = [NSURL URLWithString:@"https://10.168.0.109"];
+
+		user = [[OCTUser alloc] initWithExternalRepresentation:representation];
+		expect(user).notTo.beNil();
+
 		// This is usually set by OCTClient, but we'll do it ourselves here to simulate
 		// what OCTClient does.
 		user.baseURL = baseURL;
-		expect(user).notTo.beNil();
+	});
 
+	it(@"should initialize from an external representation", ^{
 		OCTServer *enterpriseServer = [OCTServer serverWithBaseURL:baseURL];
 		expect(user.server).to.equal(enterpriseServer);
 
@@ -107,13 +122,18 @@ describe(@"enterprise user", ^{
 		expect(user.objectID).to.equal(@"2");
 		expect(user.avatarURL).to.equal([NSURL URLWithString:@"https://secure.gravatar.com/avatar/cac992bb300ed4f3ed5c2a6049e552f9?d=http://10.168.1.109%2Fimages%2Fgravatars%2Fgravatar-user-420.png"]);
 		expect(user.publicRepoCount).to.equal(0);
+	});
 
-		itShouldBehaveLike(OCTObjectArchivingSharedExamplesName, @{ OCTObjectKey: user }, nil);
+	itShouldBehaveLike(OCTObjectArchivingSharedExamplesName, ^{
+		return @{ OCTObjectKey: user };
+	});
 
+	itShouldBehaveLike(OCTObjectExternalRepresentationSharedExamplesName, ^{
 		// The "url" key isn't translated back for creating the external
 		// representation, so remove it.
 		NSDictionary *modifiedRepresentation = [representation mtl_dictionaryByRemovingEntriesWithKeys:[NSSet setWithObject:@"url"]];
-		itShouldBehaveLike(OCTObjectExternalRepresentationSharedExamplesName, @{ OCTObjectKey: user, OCTObjectExternalRepresentationKey: modifiedRepresentation }, nil);
+
+		return @{ OCTObjectKey: user, OCTObjectExternalRepresentationKey: modifiedRepresentation };
 	});
 	
 	it(@"should initialize with a login and password", ^{

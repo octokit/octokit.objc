@@ -74,8 +74,10 @@ __block OCTIssue *issue;
 before(^{
 	issue = [[OCTIssue alloc] initWithExternalRepresentation:representation];
 	expect(issue).notTo.beNil();
+});
 
-	itShouldBehaveLike(OCTObjectArchivingSharedExamplesName, @{ OCTObjectKey: issue }, nil);
+itShouldBehaveLike(OCTObjectArchivingSharedExamplesName, ^{
+	return @{ OCTObjectKey: issue };
 });
 
 it(@"should initialize", ^{

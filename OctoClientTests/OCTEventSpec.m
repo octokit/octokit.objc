@@ -51,12 +51,6 @@ beforeEach(^{
 		// Nothing should be an instance of OCTEvent itself.
 		expect(event.class).notTo.equal(OCTEvent.class);
 
-		// Test archiving.
-		//
-		// External representations for events are necessarily recursive, so we
-		// can't use our shared example (which doesn't support that).
-		itShouldBehaveLike(OCTObjectArchivingSharedExamplesName, @{ OCTObjectKey: event }, nil);
-
 		mutableEvents[event.objectID] = event;
 	}
 
@@ -65,6 +59,16 @@ beforeEach(^{
 	// We don't support all of the event types in the test data, so we may not
 	// have an equal amount, but we should've deserialized some.
 	expect(eventsByID.count).to.beGreaterThan(0);
+});
+
+describe(@"archiving", ^{
+	// Test archiving.
+	//
+	// External representations for events are necessarily recursive, so we
+	// can't use our shared example (which doesn't support that).
+	itShouldBehaveLike(OCTObjectArchivingSharedExamplesName, ^{
+		return @{ OCTObjectKey: eventsByID.allValues.lastObject };
+	});
 });
 
 describe(@"OCTCommitCommentEvent", ^{

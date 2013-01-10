@@ -36,9 +36,14 @@ __block OCTCommitComment *comment;
 before(^{
 	comment = [[OCTCommitComment alloc] initWithExternalRepresentation:representation];
 	expect(comment).notTo.beNil();
+});
 
-	itShouldBehaveLike(OCTObjectArchivingSharedExamplesName, @{ OCTObjectKey: comment }, nil);
-	itShouldBehaveLike(OCTObjectExternalRepresentationSharedExamplesName, @{ OCTObjectKey: comment, OCTObjectExternalRepresentationKey: representation }, nil);
+itShouldBehaveLike(OCTObjectArchivingSharedExamplesName, ^{
+	return @{ OCTObjectKey: comment };
+});
+
+itShouldBehaveLike(OCTObjectExternalRepresentationSharedExamplesName, ^{
+	return @{ OCTObjectKey: comment, OCTObjectExternalRepresentationKey: representation };
 });
 
 it(@"should initialize", ^{

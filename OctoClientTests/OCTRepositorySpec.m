@@ -56,16 +56,20 @@ describe(@"from JSON", ^{
 	before(^{
 		repository = [[OCTRepository alloc] initWithExternalRepresentation:representation];
 		expect(repository).notTo.beNil();
+	});
 
-		itShouldBehaveLike(OCTObjectArchivingSharedExamplesName, @{ OCTObjectKey: repository }, nil);
+	itShouldBehaveLike(OCTObjectArchivingSharedExamplesName, ^{
+		return @{ OCTObjectKey: repository };
+	});
 
+	itShouldBehaveLike(OCTObjectExternalRepresentationSharedExamplesName, ^{
 		// This is a bit of a special case, because dates are not converted back to
 		// strings for the external representation. Thus, testing against the
 		// original representation would fail.
 		OCTRepository *repoWithoutDate = [repository copy];
 		repoWithoutDate.datePushed = nil;
 
-		itShouldBehaveLike(OCTObjectExternalRepresentationSharedExamplesName, @{ OCTObjectKey: repoWithoutDate, OCTObjectExternalRepresentationKey: representation }, nil);
+		return @{ OCTObjectKey: repoWithoutDate, OCTObjectExternalRepresentationKey: representation };
 	});
 
 	it(@"should initialize", ^{

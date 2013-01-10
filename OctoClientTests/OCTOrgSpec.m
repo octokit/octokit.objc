@@ -45,15 +45,19 @@ __block OCTOrg *org;
 before(^{
 	org = [[OCTOrg alloc] initWithExternalRepresentation:representation];
 	expect(org).notTo.beNil();
+});
 
-	itShouldBehaveLike(OCTObjectArchivingSharedExamplesName, @{ OCTObjectKey: org }, nil);
+itShouldBehaveLike(OCTObjectArchivingSharedExamplesName, ^{
+	return @{ OCTObjectKey: org };
+});
 
+itShouldBehaveLike(OCTObjectExternalRepresentationSharedExamplesName, ^{
 	// Our shared example doesn't know how to handle recursive external
 	// representations, so don't test it.
 	NSMutableDictionary *flattenedRepresentation = [representation mutableCopy];
 	[flattenedRepresentation removeObjectForKey:@"plan"];
 
-	itShouldBehaveLike(OCTObjectExternalRepresentationSharedExamplesName, @{ OCTObjectKey: org, OCTObjectExternalRepresentationKey: flattenedRepresentation }, nil);
+	return @{ OCTObjectKey: org, OCTObjectExternalRepresentationKey: flattenedRepresentation };
 });
 
 it(@"should initialize", ^{

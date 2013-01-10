@@ -145,8 +145,10 @@ __block OCTPullRequest *pullRequest;
 before(^{
 	pullRequest = [[OCTPullRequest alloc] initWithExternalRepresentation:representation];
 	expect(pullRequest).notTo.beNil();
+});
 
-	itShouldBehaveLike(OCTObjectArchivingSharedExamplesName, @{ OCTObjectKey: pullRequest }, nil);
+itShouldBehaveLike(OCTObjectArchivingSharedExamplesName, ^{
+	return @{ OCTObjectKey: pullRequest };
 });
 
 it(@"should initialize", ^{
