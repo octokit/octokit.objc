@@ -7,13 +7,14 @@
 //
 
 #import "OCTClient.h"
-#import "OCTObject+Private.h"
-#import "OCTServer.h"
+#import "NSArray+OCTFlatteningAdditions.h"
 #import "OCTEvent.h"
+#import "OCTObject+Private.h"
 #import "OCTOrg.h"
 #import "OCTPublicKey.h"
 #import "OCTRepository.h"
 #import "OCTResponse.h"
+#import "OCTServer.h"
 #import "OCTTeam.h"
 #import "OCTUser.h"
 
@@ -179,7 +180,7 @@ static const NSUInteger OCTClientNotModifiedStatusCode = 304;
 				[accumulatedResult addObject:parsedResult];
 				[accumulatedResult addObject:x.parsedResult];
 				
-				sendResult(accumulatedResult.gh_flattenedArray);
+				sendResult(accumulatedResult.oct_flattenedArray);
 			} error:^(NSError *error) {
 				[subject sendError:error];
 			}];

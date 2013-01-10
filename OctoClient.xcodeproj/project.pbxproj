@@ -190,6 +190,8 @@
 		D08722A0169E3D6000016ACA /* OctoClient.h in Headers */ = {isa = PBXBuildFile; fileRef = D087229E169E3D6000016ACA /* OctoClient.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D08B599C169E3F13006003B8 /* test_events.json in Resources */ = {isa = PBXBuildFile; fileRef = D08B599B169E3F13006003B8 /* test_events.json */; };
 		D08B599D169E3F13006003B8 /* test_events.json in Resources */ = {isa = PBXBuildFile; fileRef = D08B599B169E3F13006003B8 /* test_events.json */; };
+		D08B59CD169E3F8F006003B8 /* NSArray+OCTFlatteningAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D08B59CA169E3F8F006003B8 /* NSArray+OCTFlatteningAdditions.m */; };
+		D08B59CE169E3F8F006003B8 /* NSArray+OCTFlatteningAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D08B59CA169E3F8F006003B8 /* NSArray+OCTFlatteningAdditions.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -508,6 +510,8 @@
 		D0872299169E3D0500016ACA /* ISO8601DateFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ISO8601DateFormatter.m; sourceTree = "<group>"; };
 		D087229E169E3D6000016ACA /* OctoClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OctoClient.h; sourceTree = "<group>"; };
 		D08B599B169E3F13006003B8 /* test_events.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = test_events.json; sourceTree = "<group>"; };
+		D08B59C9169E3F8F006003B8 /* NSArray+OCTFlatteningAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+OCTFlatteningAdditions.h"; sourceTree = "<group>"; };
+		D08B59CA169E3F8F006003B8 /* NSArray+OCTFlatteningAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+OCTFlatteningAdditions.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -610,6 +614,7 @@
 			children = (
 				D087229E169E3D6000016ACA /* OctoClient.h */,
 				D0872125169E394F00016ACA /* Classes */,
+				D08B59C8169E3F7F006003B8 /* Extensions */,
 				D0871EB2169E2EFC00016ACA /* Supporting Files */,
 			);
 			path = OctoClient;
@@ -927,6 +932,15 @@
 				D087214F169E395F00016ACA /* OCTRepository.m */,
 			);
 			name = Repositories;
+			sourceTree = "<group>";
+		};
+		D08B59C8169E3F7F006003B8 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				D08B59C9169E3F8F006003B8 /* NSArray+OCTFlatteningAdditions.h */,
+				D08B59CA169E3F8F006003B8 /* NSArray+OCTFlatteningAdditions.m */,
+			);
+			name = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1352,6 +1366,7 @@
 				D08721B7169E395F00016ACA /* OCTTeam.m in Sources */,
 				D08721BB169E395F00016ACA /* OCTUser.m in Sources */,
 				D087229C169E3D0500016ACA /* ISO8601DateFormatter.m in Sources */,
+				D08B59CD169E3F8F006003B8 /* NSArray+OCTFlatteningAdditions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1410,6 +1425,7 @@
 				D08721B8169E395F00016ACA /* OCTTeam.m in Sources */,
 				D08721BC169E395F00016ACA /* OCTUser.m in Sources */,
 				D087229D169E3D0500016ACA /* ISO8601DateFormatter.m in Sources */,
+				D08B59CE169E3F8F006003B8 /* NSArray+OCTFlatteningAdditions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
