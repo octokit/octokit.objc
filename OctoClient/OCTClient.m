@@ -116,7 +116,7 @@ static const NSUInteger OCTClientNotModifiedStatusCode = 304;
 }
 
 - (RACSignal *)fetchUserEventsNotMatchingEtag:(NSString *)etag {
-	return [self enqueueConditionalRequestWithMethod:@"GET" path:[NSString stringWithFormat:@"users/%@/received_events", self.user.login] parameters:nil notMatchingEtag:etag resultClass:OCTEvent.class page:0 fetchAllPages:NO];
+	return [self enqueueConditionalRequestWithMethod:@"GET" path:[NSString stringWithFormat:@"users/%@/received_events", self.user.login] parameters:nil notMatchingEtag:etag resultClass:OCTEvent.class fetchAllPages:NO];
 }
 
 - (RACSignal *)enqueueRequestWithMethod:(NSString *)method path:(NSString *)path parameters:(NSDictionary *)parameters resultClass:(Class)resultClass {
@@ -127,23 +127,22 @@ static const NSUInteger OCTClientNotModifiedStatusCode = 304;
 }
 
 - (RACSignal *)enqueueConditionalRequestWithMethod:(NSString *)method path:(NSString *)path parameters:(NSDictionary *)parameters notMatchingEtag:(NSString *)etag resultClass:(Class)resultClass {
-	return [self enqueueConditionalRequestWithMethod:method path:path parameters:parameters notMatchingEtag:etag resultClass:resultClass page:0 fetchAllPages:YES];
+	return [self enqueueConditionalRequestWithMethod:method path:path parameters:parameters notMatchingEtag:etag resultClass:resultClass fetchAllPages:YES];
 }
 
-- (RACSignal *)enqueueConditionalRequestWithMethod:(NSString *)method path:(NSString *)path parameters:(NSDictionary *)parameters notMatchingEtag:(NSString *)etag resultClass:(Class)resultClass page:(NSUInteger)page fetchAllPages:(BOOL)fetchAllPages {
+- (RACSignal *)enqueueConditionalRequestWithMethod:(NSString *)method path:(NSString *)path parameters:(NSDictionary *)parameters notMatchingEtag:(NSString *)etag resultClass:(Class)resultClass fetchAllPages:(BOOL)fetchAllPages {
 	NSParameterAssert(method != nil);
-		
-	NSMutableDictionary *pagedParameters = [parameters mutableCopy] ? : [NSMutableDictionary dictionary];
-	if (page > 0) {
-		pagedParameters[@"page"] = @(page);
-	}
 	
-	RACReplaySubject *subject = [RACReplaySubject subject];
-	
-	NSMutableURLRequest *request = [self requestWithMethod:method path:[path stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] parameters:pagedParameters];
+	NSMutableURLRequest *request = [self requestWithMethod:method path:[path stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] parameters:parameters];
 	if (etag != nil) {
 		[request setValue:etag forHTTPHeaderField:@"If-None-Match"];
 	}
+
+	return [self enqueueRequest:request resultClass:resultClass fetchAllPages:fetchAllPages];
+}
+
+- (RACSignal *)enqueueRequest:(NSURLRequest *)request resultClass:(Class)resultClass fetchAllPages:(BOOL)fetchAllPages {
+	RACReplaySubject *subject = [RACReplaySubject subject];
 
 	AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request success:^(AFHTTPRequestOperation *operation, id responseObject) {
 		void (^sendResult)(id) = ^(id parsedResult) {
@@ -154,14 +153,14 @@ static const NSUInteger OCTClientNotModifiedStatusCode = 304;
 			[subject sendCompleted];
 		};
 
-		if (etag != nil && operation.response.statusCode == OCTClientNotModifiedStatusCode) {
+		if (operation.response.statusCode == OCTClientNotModifiedStatusCode) {
 			// No change in the data.
 			[subject sendCompleted];
 			return;
 		}
 		
 		if (getenv("LOG_API_RESPONSES") != NULL) {
-			NSLog(@"%@ %@ => %li %@:\n%@", method, request.URL, (long)operation.response.statusCode, operation.response.allHeaderFields, responseObject);
+			NSLog(@"%@ %@ => %li %@:\n%@", request.HTTPMethod, request.URL, (long)operation.response.statusCode, operation.response.allHeaderFields, responseObject);
 		}
 
 		BOOL success = YES;
@@ -172,10 +171,13 @@ static const NSUInteger OCTClientNotModifiedStatusCode = 304;
 			return;
 		}
 		
-		NSInteger nextPage = (fetchAllPages ? [self nextPageFromOperation:operation] : -1);
-		if (nextPage > -1) {
+		NSURL *nextPageURL = (fetchAllPages ? [self nextPageURLFromOperation:operation] : nil);
+		if (nextPageURL != nil) {
+			NSMutableURLRequest *nextRequest = [request mutableCopy];
+			nextRequest.URL = nextPageURL;
+
 			// If we got this far, the etag is out of date, so don't pass it on.
-			RACSignal *nextPageResult = [self enqueueConditionalRequestWithMethod:method path:path parameters:parameters notMatchingEtag:nil resultClass:resultClass page:nextPage fetchAllPages:YES];
+			RACSignal *nextPageResult = [self enqueueRequest:nextRequest resultClass:resultClass fetchAllPages:YES];
 			[nextPageResult subscribeNext:^(OCTResponse *x) {
 				NSMutableArray *accumulatedResult = [NSMutableArray array];
 				[accumulatedResult addObject:parsedResult];
@@ -198,7 +200,7 @@ static const NSUInteger OCTClientNotModifiedStatusCode = 304;
 
 	if (getenv("LOG_REMAINING_API_CALLS") != NULL) {
 		// Avoid infinite recursion.
-		if (![path isEqualToString:@"rate_limit"]) {
+		if (![request.URL.path isEqualToString:@"rate_limit"]) {
 			[[subject sequenceNext:^{
 				return [self enqueueRequestWithMethod:@"GET" path:@"rate_limit" parameters:nil resultClass:nil];
 			}] subscribeNext:^(NSDictionary *dict) {
@@ -210,20 +212,36 @@ static const NSUInteger OCTClientNotModifiedStatusCode = 304;
 	return [subject deliverOn:RACScheduler.mainThreadScheduler];
 }
 
-- (NSInteger)nextPageFromOperation:(AFHTTPRequestOperation *)operation {
-	NSDictionary *header = [operation.response allHeaderFields];
-	NSString *link = [header objectForKey:@"Link"];
-	if(link.length < 1) return -1;
+- (NSURL *)nextPageURLFromOperation:(AFHTTPRequestOperation *)operation {
+	NSDictionary *header = operation.response.allHeaderFields;
+	NSString *linksString = header[@"Link"];
+	if (linksString.length < 1) return nil;
+
+	NSError *error = nil;
+	NSRegularExpression *relPattern = [NSRegularExpression regularExpressionWithPattern:@"rel=\\\"?(.+)\\\"?" options:NSRegularExpressionCaseInsensitive error:&error];
+	NSAssert(relPattern != nil, @"Error constructing regular expression pattern: %@", error);
+
+	NSMutableCharacterSet *whitespaceAndBracketCharacterSet = [NSCharacterSet.whitespaceCharacterSet mutableCopy];
+	[whitespaceAndBracketCharacterSet addCharactersInString:@"<>"];
 	
-	NSArray *components = [link componentsSeparatedByString:@","];
-	for(NSString *component in components) {
-		NSString *type = [[component captureComponentsMatchedByRegex:@"rel=\\\"(.+)\\\""] lastObject];
-		if([type isEqualToString:@"next"]) {
-			return [[[component captureComponentsMatchedByRegex:@"page=(\\d+)"] lastObject] integerValue];
-		}
+	NSArray *links = [linksString componentsSeparatedByString:@","];
+	for (NSString *link in links) {
+		NSRange semicolonRange = [link rangeOfString:@";"];
+		if (semicolonRange.location == NSNotFound) continue;
+
+		NSString *URLString = [[link substringToIndex:semicolonRange.location] stringByTrimmingCharactersInSet:whitespaceAndBracketCharacterSet];
+		if (URLString.length == 0) continue;
+
+		NSTextCheckingResult *result = [relPattern firstMatchInString:link options:0 range:NSMakeRange(0, link.length)];
+		if (result == nil) continue;
+
+		NSString *type = [link substringWithRange:[result rangeAtIndex:1]];
+		if (![type isEqualToString:@"next"]) continue;
+
+		return [NSURL URLWithString:URLString];
 	}
 	
-	return -1;
+	return nil;
 }
 
 - (id)parseResponse:(id)responseObject withResultClass:(Class)resultClass success:(BOOL *)success {
