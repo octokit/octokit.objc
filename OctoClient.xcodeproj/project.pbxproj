@@ -55,8 +55,8 @@
 		D0872055169E326800016ACA /* UIImageView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = D087202F169E326800016ACA /* UIImageView+AFNetworking.m */; };
 		D0872097169E32A000016ACA /* Mantle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0872069169E328B00016ACA /* Mantle.framework */; };
 		D0872098169E32A000016ACA /* ReactiveCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0872087169E328F00016ACA /* ReactiveCocoa.framework */; };
-		D087209A169E32AE00016ACA /* Mantle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = D0872069169E328B00016ACA /* Mantle.framework */; };
-		D087209B169E32B000016ACA /* ReactiveCocoa.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = D0872087169E328F00016ACA /* ReactiveCocoa.framework */; };
+		D087209A169E32AE00016ACA /* Mantle.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = D0872069169E328B00016ACA /* Mantle.framework */; };
+		D087209B169E32B000016ACA /* ReactiveCocoa.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = D0872087169E328F00016ACA /* ReactiveCocoa.framework */; };
 		D08720A0169E32BB00016ACA /* libMantle.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D087206D169E328B00016ACA /* libMantle.a */; };
 		D08720A1169E32BB00016ACA /* libReactiveCocoa-iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D0872089169E328F00016ACA /* libReactiveCocoa-iOS.a */; };
 		D08720A3169E332800016ACA /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D08720A2169E332800016ACA /* AppKit.framework */; };
@@ -373,15 +373,16 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		D0872099169E32A200016ACA /* CopyFiles */ = {
+		D0872099169E32A200016ACA /* Copy Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				D087209A169E32AE00016ACA /* Mantle.framework in CopyFiles */,
-				D087209B169E32B000016ACA /* ReactiveCocoa.framework in CopyFiles */,
+				D087209A169E32AE00016ACA /* Mantle.framework in Copy Frameworks */,
+				D087209B169E32B000016ACA /* ReactiveCocoa.framework in Copy Frameworks */,
 			);
+			name = "Copy Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -1041,7 +1042,7 @@
 				D0871EA4169E2EFC00016ACA /* Frameworks */,
 				D0871EA5169E2EFC00016ACA /* Headers */,
 				D0871EA6169E2EFC00016ACA /* Resources */,
-				D0872099169E32A200016ACA /* CopyFiles */,
+				D0872099169E32A200016ACA /* Copy Frameworks */,
 			);
 			buildRules = (
 			);
