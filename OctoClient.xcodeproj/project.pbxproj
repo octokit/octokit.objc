@@ -188,6 +188,8 @@
 		D087229D169E3D0500016ACA /* ISO8601DateFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = D0872299169E3D0500016ACA /* ISO8601DateFormatter.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc -Wno-format -Wno-conversion"; }; };
 		D087229F169E3D6000016ACA /* OctoClient.h in Headers */ = {isa = PBXBuildFile; fileRef = D087229E169E3D6000016ACA /* OctoClient.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D08722A0169E3D6000016ACA /* OctoClient.h in Headers */ = {isa = PBXBuildFile; fileRef = D087229E169E3D6000016ACA /* OctoClient.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D08B599C169E3F13006003B8 /* test_events.json in Resources */ = {isa = PBXBuildFile; fileRef = D08B599B169E3F13006003B8 /* test_events.json */; };
+		D08B599D169E3F13006003B8 /* test_events.json in Resources */ = {isa = PBXBuildFile; fileRef = D08B599B169E3F13006003B8 /* test_events.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -505,6 +507,7 @@
 		D0872298169E3D0500016ACA /* ISO8601DateFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISO8601DateFormatter.h; sourceTree = "<group>"; };
 		D0872299169E3D0500016ACA /* ISO8601DateFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ISO8601DateFormatter.m; sourceTree = "<group>"; };
 		D087229E169E3D6000016ACA /* OctoClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OctoClient.h; sourceTree = "<group>"; };
+		D08B599B169E3F13006003B8 /* test_events.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = test_events.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -637,6 +640,7 @@
 				D0871EC9169E2EFC00016ACA /* OctoClientTests-Info.plist */,
 				D0872124169E365A00016ACA /* OctoClientTests-Prefix.pch */,
 				D0871ECA169E2EFC00016ACA /* InfoPlist.strings */,
+				D08B599B169E3F13006003B8 /* test_events.json */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -1266,6 +1270,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D0871ECC169E2EFC00016ACA /* InfoPlist.strings in Resources */,
+				D08B599C169E3F13006003B8 /* test_events.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1273,6 +1278,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D08B599D169E3F13006003B8 /* test_events.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
