@@ -6,6 +6,8 @@
 //  Copyright (c) 2012 GitHub. All rights reserved.
 //
 
+#import <Mantle/Mantle.h>
+
 // The default URL scheme to use for Enterprise URLs, if none is explicitly
 // known or specified.
 extern NSString * const OCTServerDefaultEnterpriseScheme;
