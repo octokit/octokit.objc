@@ -62,7 +62,9 @@ static const NSUInteger OCTClientNotModifiedStatusCode = 304;
 }
 
 - (RACSignal *)login {
-	return [self enqueueRequestWithMethod:@"GET" path:@"user" parameters:nil resultClass:OCTUser.class];
+	return [[self enqueueRequestWithMethod:@"GET" path:@"user" parameters:nil resultClass:OCTUser.class] doNext:^(OCTUser *x) {
+		x.password = self.user.password;
+	}];
 }
 
 - (RACSignal *)fetchUserInfo {
