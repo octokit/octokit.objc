@@ -220,7 +220,7 @@ static const NSUInteger OCTClientNotModifiedStatusCode = 304;
 	if (linksString.length < 1) return nil;
 
 	NSError *error = nil;
-	NSRegularExpression *relPattern = [NSRegularExpression regularExpressionWithPattern:@"rel=\\\"?(.+)\\\"?" options:NSRegularExpressionCaseInsensitive error:&error];
+	NSRegularExpression *relPattern = [NSRegularExpression regularExpressionWithPattern:@"rel=\\\"?([^\\\"]+)\\\"?" options:NSRegularExpressionCaseInsensitive error:&error];
 	NSAssert(relPattern != nil, @"Error constructing regular expression pattern: %@", error);
 
 	NSMutableCharacterSet *whitespaceAndBracketCharacterSet = [NSCharacterSet.whitespaceCharacterSet mutableCopy];
