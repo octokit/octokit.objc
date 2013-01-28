@@ -461,7 +461,7 @@
 		D08B599B169E3F13006003B8 /* test_events.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = test_events.json; sourceTree = "<group>"; };
 		D08B59C9169E3F8F006003B8 /* NSArray+OCTFlatteningAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+OCTFlatteningAdditions.h"; sourceTree = "<group>"; };
 		D08B59CA169E3F8F006003B8 /* NSArray+OCTFlatteningAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+OCTFlatteningAdditions.m"; sourceTree = "<group>"; };
-		D08C190C16B718EE00575F24 /* ReactiveCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ReactiveCocoa.framework; path = "/Users/justin/Library/Developer/Xcode/DerivedData/OctoClient-fhiesvgduyfgynfidvcqbacmdzot/Build/Products/Debug/ReactiveCocoa.framework"; sourceTree = "<absolute>"; };
+		D08C190C16B718EE00575F24 /* ReactiveCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ReactiveCocoa.framework; path = "../../../../OctoClient-fhiesvgduyfgynfidvcqbacmdzot/Build/Products/Debug/ReactiveCocoa.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D08C190E16B718F600575F24 /* libReactiveCocoa-iOS.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libReactiveCocoa-iOS.a"; path = "External/ReactiveCocoa/ReactiveCocoaFramework/build/Release-iphoneos/libReactiveCocoa-iOS.a"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -1496,10 +1496,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D0871FC6169E2FF500016ACA /* Mac-Application.xcconfig */;
 			buildSettings = {
-				FRAMEWORK_SEARCH_PATHS = (
-					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
-					"\"/Users/justin/Library/Developer/Xcode/DerivedData/OctoClient-fhiesvgduyfgynfidvcqbacmdzot/Build/Products/Debug\"",
-				);
+				FRAMEWORK_SEARCH_PATHS = "\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"";
 				GCC_PREFIX_HEADER = "OctoClientTests/OctoClientTests-Prefix.pch";
 				INFOPLIST_FILE = "OctoClientTests/OctoClientTests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1511,10 +1508,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D0871FC6169E2FF500016ACA /* Mac-Application.xcconfig */;
 			buildSettings = {
-				FRAMEWORK_SEARCH_PATHS = (
-					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
-					"\"/Users/justin/Library/Developer/Xcode/DerivedData/OctoClient-fhiesvgduyfgynfidvcqbacmdzot/Build/Products/Debug\"",
-				);
+				FRAMEWORK_SEARCH_PATHS = "\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"";
 				GCC_PREFIX_HEADER = "OctoClientTests/OctoClientTests-Prefix.pch";
 				INFOPLIST_FILE = "OctoClientTests/OctoClientTests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1607,10 +1601,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D0871FC6169E2FF500016ACA /* Mac-Application.xcconfig */;
 			buildSettings = {
-				FRAMEWORK_SEARCH_PATHS = (
-					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
-					"\"/Users/justin/Library/Developer/Xcode/DerivedData/OctoClient-fhiesvgduyfgynfidvcqbacmdzot/Build/Products/Debug\"",
-				);
+				FRAMEWORK_SEARCH_PATHS = "\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"";
 				GCC_PREFIX_HEADER = "OctoClientTests/OctoClientTests-Prefix.pch";
 				INFOPLIST_FILE = "OctoClientTests/OctoClientTests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
