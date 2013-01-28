@@ -462,7 +462,7 @@
 		D08B59C9169E3F8F006003B8 /* NSArray+OCTFlatteningAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+OCTFlatteningAdditions.h"; sourceTree = "<group>"; };
 		D08B59CA169E3F8F006003B8 /* NSArray+OCTFlatteningAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+OCTFlatteningAdditions.m"; sourceTree = "<group>"; };
 		D08C190C16B718EE00575F24 /* ReactiveCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ReactiveCocoa.framework; path = "/Users/justin/Library/Developer/Xcode/DerivedData/OctoClient-fhiesvgduyfgynfidvcqbacmdzot/Build/Products/Debug/ReactiveCocoa.framework"; sourceTree = "<absolute>"; };
-		D08C190E16B718F600575F24 /* libReactiveCocoa-iOS.a */ = {isa = PBXFileReference; lastKnownFileType = file; name = "libReactiveCocoa-iOS.a"; path = "External/ReactiveCocoa/ReactiveCocoaFramework/build/Release-iphoneos/libReactiveCocoa-iOS.a"; sourceTree = "<group>"; };
+		D08C190E16B718F600575F24 /* libReactiveCocoa-iOS.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libReactiveCocoa-iOS.a"; path = "External/ReactiveCocoa/ReactiveCocoaFramework/build/Release-iphoneos/libReactiveCocoa-iOS.a"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1474,10 +1474,6 @@
 			buildSettings = {
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"/Users/justin/Library/Developer/Xcode/DerivedData/OctoClient-fhiesvgduyfgynfidvcqbacmdzot/Build/Products/Debug\"",
-				);
 				FRAMEWORK_VERSION = A;
 				INFOPLIST_FILE = "OctoClient/OctoClient-Info.plist";
 				WRAPPER_EXTENSION = framework;
@@ -1490,10 +1486,6 @@
 			buildSettings = {
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"/Users/justin/Library/Developer/Xcode/DerivedData/OctoClient-fhiesvgduyfgynfidvcqbacmdzot/Build/Products/Debug\"",
-				);
 				FRAMEWORK_VERSION = A;
 				INFOPLIST_FILE = "OctoClient/OctoClient-Info.plist";
 				WRAPPER_EXTENSION = framework;
@@ -1605,10 +1597,6 @@
 			buildSettings = {
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"/Users/justin/Library/Developer/Xcode/DerivedData/OctoClient-fhiesvgduyfgynfidvcqbacmdzot/Build/Products/Debug\"",
-				);
 				FRAMEWORK_VERSION = A;
 				INFOPLIST_FILE = "OctoClient/OctoClient-Info.plist";
 				WRAPPER_EXTENSION = framework;
