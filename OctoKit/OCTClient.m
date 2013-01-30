@@ -39,6 +39,18 @@ static const NSUInteger OCTClientNotModifiedStatusCode = 304;
 
 @implementation OCTClient
 
+#pragma mark Properties
+
+- (void)setUser:(OCTUser *)u {
+	if (_user == u) return;
+	
+	_user = u;
+	
+	[self setAuthorizationHeaderWithUsername:self.user.login password:self.user.password];
+}
+
+#pragma mark Lifecycle
+
 + (OCTClient *)clientForUser:(OCTUser *)user {
 	NSParameterAssert(user != nil);
 	
@@ -58,6 +70,8 @@ static const NSUInteger OCTClientNotModifiedStatusCode = 304;
 
 	return self;
 }
+
+#pragma mark Request Enqueuing
 
 - (RACSignal *)enqueueRequestWithMethod:(NSString *)method path:(NSString *)path parameters:(NSDictionary *)parameters resultClass:(Class)resultClass {
 	return [[self enqueueConditionalRequestWithMethod:method path:path parameters:parameters notMatchingEtag:nil resultClass:resultClass]
@@ -152,6 +166,8 @@ static const NSUInteger OCTClientNotModifiedStatusCode = 304;
 	return [subject deliverOn:RACScheduler.mainThreadScheduler];
 }
 
+#pragma mark Pagination
+
 - (NSURL *)nextPageURLFromOperation:(AFHTTPRequestOperation *)operation {
 	NSDictionary *header = operation.response.allHeaderFields;
 	NSString *linksString = header[@"Link"];
@@ -183,6 +199,8 @@ static const NSUInteger OCTClientNotModifiedStatusCode = 304;
 	
 	return nil;
 }
+
+#pragma mark Parsing
 
 - (id)parseResponse:(id)responseObject withResultClass:(Class)resultClass success:(BOOL *)success {
 	NSParameterAssert(resultClass == nil || [resultClass isSubclassOfClass:MTLModel.class]);
@@ -223,6 +241,8 @@ static const NSUInteger OCTClientNotModifiedStatusCode = 304;
 	
 	return parsedResult;
 }
+
+#pragma mark Error Handling
 
 + (NSString *)errorMessageFromErrorDictionary:(NSDictionary *)errorDictionary {
 	NSString *message = errorDictionary[@"message"];
@@ -294,14 +314,6 @@ static const NSUInteger OCTClientNotModifiedStatusCode = 304;
 	if (operation.error != nil) userInfo[NSUnderlyingErrorKey] = operation.error;
 	
 	return [NSError errorWithDomain:OCTClientErrorDomain code:errorCode userInfo:userInfo];
-}
-
-- (void)setUser:(OCTUser *)u {
-	if (_user == u) return;
-	
-	_user = u;
-	
-	[self setAuthorizationHeaderWithUsername:self.user.login password:self.user.password];
 }
 
 @end
