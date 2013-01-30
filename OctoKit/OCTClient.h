@@ -13,17 +13,34 @@
 @class OCTOrg;
 @class OCTTeam;
 
+// The domain for all errors originating in OCTClient.
 extern NSString * const OCTClientErrorDomain;
+
+// A request was made to an endpoint that requires authentication, and the user
+// is not logged in.
 extern const NSInteger OCTClientErrorAuthenticationFailed;
+
+// The request was invalid (HTTP error 400).
 extern const NSInteger OCTClientErrorBadRequest;
+
+// The server refused to process the request (HTTP error 422).
 extern const NSInteger OCTClientErrorServiceRequestFailed;
+
+// There was a problem connecting to the server.
 extern const NSInteger OCTClientErrorConnectionFailed;
+
+// JSON parsing failed, or a model object could not be created from the parsed
+// JSON.
 extern const NSInteger OCTClientErrorJSONParsingFailed;
 
-extern NSString * const OCTClientErrorRequestURLKey; // NSURL
-extern NSString * const OCTClientErrorHTTPStatusCodeKey; // NSNumber wrapping an NSInteger
+// A user info key associated with the NSURL of the request that failed.
+extern NSString * const OCTClientErrorRequestURLKey;
 
+// A user info key associated with an NSNumber, indicating the HTTP status code
+// that was returned with the error.
+extern NSString * const OCTClientErrorHTTPStatusCodeKey;
 
+// Represents a single GitHub session.
 @interface OCTClient : AFHTTPClient
 
 @property (nonatomic, readonly, strong) OCTUser *user;
