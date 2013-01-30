@@ -84,18 +84,20 @@ extern NSString * const OCTClientErrorHTTPStatusCodeKey;
 // will send completed regardless of whether there was new data.
 - (RACSignal *)enqueueConditionalRequestWithMethod:(NSString *)method path:(NSString *)path parameters:(NSDictionary *)parameters notMatchingEtag:(NSString *)etag resultClass:(Class)resultClass;
 
-//
-// User
-//
+@end
+
+@interface OCTClient (User)
+
 - (RACSignal *)login;
 - (RACSignal *)fetchUserInfo;
 
 - (RACSignal *)fetchUserRepos;
 - (RACSignal *)createRepoWithName:(NSString *)name description:(NSString *)description private:(BOOL)isPrivate;
 
-//
-// Orgs
-//
+@end
+
+@interface OCTClient (Orgs)
+
 - (RACSignal *)fetchUserOrgs;
 - (RACSignal *)fetchOrgInfo:(OCTOrg *)org;
 
@@ -104,15 +106,16 @@ extern NSString * const OCTClientErrorHTTPStatusCodeKey;
 
 - (RACSignal *)fetchTeamsForOrg:(OCTOrg *)org;
 
-// 
-// Public Keys
-// 
+@end
+
+@interface OCTClient (Keys)
+
 - (RACSignal *)fetchPublicKeys;
 - (RACSignal *)postPublicKey:(NSString *)key title:(NSString *)title;
 
-//
-// Events
-//
+@end
+
+@interface OCTClient (Events)
 
 // Conditionally fetches events from the logged-in user's activity stream. If
 // the latest data matches `etag`, the call does not count toward the API rate
