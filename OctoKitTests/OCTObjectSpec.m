@@ -19,8 +19,12 @@ NSString * const OCTObjectExternalRepresentationKey = @"externalRepresentation";
 SharedExamplesBegin(OCTObjectSharedExamples)
 
 sharedExamplesFor(OCTObjectArchivingSharedExamplesName, ^(NSDictionary *data){
-	OCTObject *obj = data[OCTObjectKey];
-	expect(obj).notTo.beNil();
+	__block OCTObject *obj;
+	
+	beforeEach(^{
+		obj = data[OCTObjectKey];
+		expect(obj).notTo.beNil();
+	});
 
 	it(@"should implement <NSCoding>", ^{
 		NSData *data = [NSKeyedArchiver archivedDataWithRootObject:obj];
@@ -32,19 +36,25 @@ sharedExamplesFor(OCTObjectArchivingSharedExamplesName, ^(NSDictionary *data){
 });
 
 sharedExamplesFor(OCTObjectExternalRepresentationSharedExamplesName, ^(NSDictionary *data){
-	OCTObject *obj = data[OCTObjectKey];
-	expect(obj).notTo.beNil();
+	__block OCTObject *obj;
+	__block NSDictionary *representation;
+	
+	beforeEach(^{
+		obj = data[OCTObjectKey];
+		expect(obj).notTo.beNil();
 
-	NSDictionary *representation = data[OCTObjectExternalRepresentationKey];
-	expect(representation).notTo.beNil();
+		representation = data[OCTObjectExternalRepresentationKey];
+		expect(representation).notTo.beNil();
+	});
 
-	// Check all values that exist as keys in both external representations.
-	[representation enumerateKeysAndObjectsUsingBlock:^(NSString *key, id expectedValue, BOOL *stop) {
-		id value = obj.externalRepresentation[key];
-		if (value == nil) return;
+	it(@"should be equal in all values that exist in both external representations", ^{
+		[representation enumerateKeysAndObjectsUsingBlock:^(NSString *key, id expectedValue, BOOL *stop) {
+			id value = obj.externalRepresentation[key];
+			if (value == nil) return;
 
-		expect(value).to.equal(expectedValue);
-	}];
+			expect(value).to.equal(expectedValue);
+		}];
+	});
 });
 
 SharedExamplesEnd

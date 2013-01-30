@@ -1501,6 +1501,7 @@
 				FRAMEWORK_SEARCH_PATHS = "\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"";
 				GCC_PREFIX_HEADER = "OctoKitTests/OctoKitTests-Prefix.pch";
 				INFOPLIST_FILE = "OctoKitTests/OctoKitTests-Info.plist";
+				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = "OctoKit Mac Tests";
 				WRAPPER_EXTENSION = octest;
 			};
@@ -1513,6 +1514,7 @@
 				FRAMEWORK_SEARCH_PATHS = "\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"";
 				GCC_PREFIX_HEADER = "OctoKitTests/OctoKitTests-Prefix.pch";
 				INFOPLIST_FILE = "OctoKitTests/OctoKitTests-Info.plist";
+				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = "OctoKit Mac Tests";
 				WRAPPER_EXTENSION = octest;
 			};
@@ -1548,6 +1550,7 @@
 				);
 				GCC_PREFIX_HEADER = "OctoKitTests/OctoKitTests-Prefix.pch";
 				INFOPLIST_FILE = "OctoKitTests/OctoKitTests-Info.plist";
+				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = "OctoKit iOS Tests";
 				WRAPPER_EXTENSION = octest;
 			};
@@ -1563,6 +1566,7 @@
 				);
 				GCC_PREFIX_HEADER = "OctoKitTests/OctoKitTests-Prefix.pch";
 				INFOPLIST_FILE = "OctoKitTests/OctoKitTests-Info.plist";
+				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = "OctoKit iOS Tests";
 				WRAPPER_EXTENSION = octest;
 			};
@@ -1609,6 +1613,7 @@
 				FRAMEWORK_SEARCH_PATHS = "\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"";
 				GCC_PREFIX_HEADER = "OctoKitTests/OctoKitTests-Prefix.pch";
 				INFOPLIST_FILE = "OctoKitTests/OctoKitTests-Info.plist";
+				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = "OctoKit Mac Tests";
 				WRAPPER_EXTENSION = octest;
 			};
@@ -1634,6 +1639,7 @@
 				);
 				GCC_PREFIX_HEADER = "OctoKitTests/OctoKitTests-Prefix.pch";
 				INFOPLIST_FILE = "OctoKitTests/OctoKitTests-Info.plist";
+				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = "OctoKit iOS Tests";
 				WRAPPER_EXTENSION = octest;
 			};
