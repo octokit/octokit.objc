@@ -10,6 +10,9 @@
 
 @interface OCTObject ()
 
+// The URL of the API endpoint from which the receiver came. This should only be
+// set at the time of initialization, and is responsible for filling in the
+// `server` property.
 @property (nonatomic, strong, readwrite) NSURL *baseURL;
 
 @end
