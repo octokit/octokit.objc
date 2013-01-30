@@ -71,7 +71,7 @@ static NSString * const OCTEventTypeKey = @"type";
 - (NSDictionary *)externalRepresentation {
 	NSDictionary *representation = super.externalRepresentation;
 
-	NSString *type = [[self.class.eventClassesByType allKeysForObject:self.class] lastObject];
+	NSString *type = [self.class.eventClassesByType allKeysForObject:self.class].lastObject;
 	if (type != nil) {
 		representation = [representation mtl_dictionaryByAddingEntriesFromDictionary:@{ OCTEventTypeKey: type }];
 	}
