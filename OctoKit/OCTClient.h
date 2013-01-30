@@ -49,7 +49,15 @@ extern NSString * const OCTClientErrorHTTPStatusCodeKey;
 
 // Enqueues a request that always fetches the latest data from the server.
 //
-// Returns a subscribable which, upon success, will send an instance of
+// method      - The HTTP method to use in the request (e.g., "GET" or "POST").
+// path        - The path to request, relative to the base API endpoint. This
+//               path should _not_ begin with a forward slash.
+// parameters  - HTTP parameters to encode and send with the request.
+// resultClass - A subclass of OCTObject that the response data should be
+//               returned as. If this is nil, the response is returned as the
+//               parsed JSON type (a dictionary or array).
+//
+// Returns a signal which, upon success, will send an instance of
 // `resultClass` (or an array thereof, for multi-page responses), then send
 // completed.
 - (RACSignal *)enqueueRequestWithMethod:(NSString *)method path:(NSString *)path parameters:(NSDictionary *)parameters resultClass:(Class)resultClass;
@@ -58,8 +66,21 @@ extern NSString * const OCTClientErrorHTTPStatusCodeKey;
 // server. If the latest data matches `etag`, nothing is downloaded and the call
 // does not count toward the API rate limit.
 //
-// Returns a subscribable which, upon success, will send an instance of
-// OCTResponse _if new data was retrieved_. On success, the subscribable
+// method          - The HTTP method to use in the request (e.g., "GET" or
+//                   "POST").
+// path            - The path to request, relative to the base API endpoint.
+//                   This path should _not_ begin with a forward slash.
+// parameters      - HTTP parameters to encode and send with the request.
+// notMatchingEtag - An ETag to compare the server data against, previously
+//                   retrieved from an instance of OCTResponse. If the content
+//                   has not changed since, no new data will be fetched. This
+//                   argument may be nil to always fetch the latest data.
+// resultClass     - A subclass of OCTObject that the response data should be
+//                   returned as. If this is nil, the response is returned as
+//                   the parsed JSON type (a dictionary or array).
+//
+// Returns a signal which, upon success, will send an instance of
+// OCTResponse _if new data was retrieved_. On success, the signal
 // will send completed regardless of whether there was new data.
 - (RACSignal *)enqueueConditionalRequestWithMethod:(NSString *)method path:(NSString *)path parameters:(NSDictionary *)parameters notMatchingEtag:(NSString *)etag resultClass:(Class)resultClass;
 
@@ -97,7 +118,7 @@ extern NSString * const OCTClientErrorHTTPStatusCodeKey;
 // the latest data matches `etag`, the call does not count toward the API rate
 // limit.
 //
-// Returns a subscribable which will send an array of OCTEvents if data was
+// Returns a signal which will send an array of OCTEvents if data was
 // downloaded. Unrecognized events will be omitted from the result.
 - (RACSignal *)fetchUserEventsNotMatchingEtag:(NSString *)etag;
 
