@@ -1434,7 +1434,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_PREFIX_HEADER = "OctoClient/OctoClient-Prefix.pch";
+				GCC_PREFIX_HEADER = "OctoKit/OctoKit-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
 					External/AFNetworking,
 					"External/Mantle/MantleTests/expecta/src/**",
@@ -1442,7 +1442,7 @@
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
-				PRODUCT_NAME = OctoClient;
+				PRODUCT_NAME = OctoKit;
 				SDKROOT = macosx;
 			};
 			name = Debug;
@@ -1455,7 +1455,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_PREFIX_HEADER = "OctoClient/OctoClient-Prefix.pch";
+				GCC_PREFIX_HEADER = "OctoKit/OctoKit-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
 					External/AFNetworking,
 					"External/Mantle/MantleTests/expecta/src/**",
@@ -1463,7 +1463,7 @@
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
-				PRODUCT_NAME = OctoClient;
+				PRODUCT_NAME = OctoKit;
 				SDKROOT = macosx;
 			};
 			name = Release;
@@ -1475,7 +1475,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				FRAMEWORK_VERSION = A;
-				INFOPLIST_FILE = "OctoClient/OctoKit-Info.plist";
+				INFOPLIST_FILE = "OctoKit/OctoKit-Info.plist";
 				PRODUCT_NAME = OctoKit;
 				WRAPPER_EXTENSION = framework;
 			};
@@ -1488,7 +1488,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				FRAMEWORK_VERSION = A;
-				INFOPLIST_FILE = "OctoClient/OctoKit-Info.plist";
+				INFOPLIST_FILE = "OctoKit/OctoKit-Info.plist";
 				PRODUCT_NAME = OctoKit;
 				WRAPPER_EXTENSION = framework;
 			};
@@ -1499,8 +1499,8 @@
 			baseConfigurationReference = D0871FC6169E2FF500016ACA /* Mac-Application.xcconfig */;
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = "\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"";
-				GCC_PREFIX_HEADER = "OctoClientTests/OctoKitTests-Prefix.pch";
-				INFOPLIST_FILE = "OctoClientTests/OctoKitTests-Info.plist";
+				GCC_PREFIX_HEADER = "OctoKitTests/OctoKitTests-Prefix.pch";
+				INFOPLIST_FILE = "OctoKitTests/OctoKitTests-Info.plist";
 				PRODUCT_NAME = "OctoKit Mac Tests";
 				WRAPPER_EXTENSION = octest;
 			};
@@ -1511,8 +1511,8 @@
 			baseConfigurationReference = D0871FC6169E2FF500016ACA /* Mac-Application.xcconfig */;
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = "\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"";
-				GCC_PREFIX_HEADER = "OctoClientTests/OctoKitTests-Prefix.pch";
-				INFOPLIST_FILE = "OctoClientTests/OctoKitTests-Info.plist";
+				GCC_PREFIX_HEADER = "OctoKitTests/OctoKitTests-Prefix.pch";
+				INFOPLIST_FILE = "OctoKitTests/OctoKitTests-Info.plist";
 				PRODUCT_NAME = "OctoKit Mac Tests";
 				WRAPPER_EXTENSION = octest;
 			};
@@ -1522,7 +1522,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D0871FC4169E2FF500016ACA /* iOS-StaticLibrary.xcconfig */;
 			buildSettings = {
-				DSTROOT = /tmp/OctoClient.dst;
+				DSTROOT = /tmp/OctoKit.dst;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = OctoKit;
 			};
@@ -1532,7 +1532,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D0871FC4169E2FF500016ACA /* iOS-StaticLibrary.xcconfig */;
 			buildSettings = {
-				DSTROOT = /tmp/OctoClient.dst;
+				DSTROOT = /tmp/OctoKit.dst;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = OctoKit;
 			};
@@ -1546,8 +1546,8 @@
 					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
 					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
 				);
-				GCC_PREFIX_HEADER = "OctoClientTests/OctoClientTests-Prefix.pch";
-				INFOPLIST_FILE = "OctoClientTests/OctoKitTests-Info.plist";
+				GCC_PREFIX_HEADER = "OctoKitTests/OctoKitTests-Prefix.pch";
+				INFOPLIST_FILE = "OctoKitTests/OctoKitTests-Info.plist";
 				PRODUCT_NAME = "OctoKit iOS Tests";
 				WRAPPER_EXTENSION = octest;
 			};
@@ -1561,8 +1561,8 @@
 					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
 					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
 				);
-				GCC_PREFIX_HEADER = "OctoClientTests/OctoClientTests-Prefix.pch";
-				INFOPLIST_FILE = "OctoClientTests/OctoKitTests-Info.plist";
+				GCC_PREFIX_HEADER = "OctoKitTests/OctoKitTests-Prefix.pch";
+				INFOPLIST_FILE = "OctoKitTests/OctoKitTests-Info.plist";
 				PRODUCT_NAME = "OctoKit iOS Tests";
 				WRAPPER_EXTENSION = octest;
 			};
@@ -1576,7 +1576,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_PREFIX_HEADER = "OctoClient/OctoClient-Prefix.pch";
+				GCC_PREFIX_HEADER = "OctoKit/OctoKit-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
 					External/AFNetworking,
 					"External/Mantle/MantleTests/expecta/src/**",
@@ -1584,7 +1584,7 @@
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
-				PRODUCT_NAME = OctoClient;
+				PRODUCT_NAME = OctoKit;
 				SDKROOT = macosx;
 			};
 			name = Profile;
@@ -1596,7 +1596,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				FRAMEWORK_VERSION = A;
-				INFOPLIST_FILE = "OctoClient/OctoKit-Info.plist";
+				INFOPLIST_FILE = "OctoKit/OctoKit-Info.plist";
 				PRODUCT_NAME = OctoKit;
 				WRAPPER_EXTENSION = framework;
 			};
@@ -1607,8 +1607,8 @@
 			baseConfigurationReference = D0871FC6169E2FF500016ACA /* Mac-Application.xcconfig */;
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = "\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"";
-				GCC_PREFIX_HEADER = "OctoClientTests/OctoKitTests-Prefix.pch";
-				INFOPLIST_FILE = "OctoClientTests/OctoKitTests-Info.plist";
+				GCC_PREFIX_HEADER = "OctoKitTests/OctoKitTests-Prefix.pch";
+				INFOPLIST_FILE = "OctoKitTests/OctoKitTests-Info.plist";
 				PRODUCT_NAME = "OctoKit Mac Tests";
 				WRAPPER_EXTENSION = octest;
 			};
@@ -1618,7 +1618,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D0871FC4169E2FF500016ACA /* iOS-StaticLibrary.xcconfig */;
 			buildSettings = {
-				DSTROOT = /tmp/OctoClient.dst;
+				DSTROOT = /tmp/OctoKit.dst;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = OctoKit;
 			};
@@ -1632,8 +1632,8 @@
 					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
 					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
 				);
-				GCC_PREFIX_HEADER = "OctoClientTests/OctoClientTests-Prefix.pch";
-				INFOPLIST_FILE = "OctoClientTests/OctoKitTests-Info.plist";
+				GCC_PREFIX_HEADER = "OctoKitTests/OctoKitTests-Prefix.pch";
+				INFOPLIST_FILE = "OctoKitTests/OctoKitTests-Info.plist";
 				PRODUCT_NAME = "OctoKit iOS Tests";
 				WRAPPER_EXTENSION = octest;
 			};
