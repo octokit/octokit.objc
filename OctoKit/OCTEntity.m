@@ -1,6 +1,6 @@
 //
 //  OCTEntity.m
-//  OctoClient
+//  OctoKit
 //
 //  Created by Josh Abernathy on 1/21/11.
 //  Copyright 2011 GitHub. All rights reserved.

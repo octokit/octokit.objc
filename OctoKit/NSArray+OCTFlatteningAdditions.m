@@ -1,6 +1,6 @@
 //
 //  NSArray+OCTFlatteningAdditions.m
-//  OctoClient
+//  OctoKit
 //
 //  Created by Justin Spahr-Summers on 2013-01-09.
 //  Copyright (c) 2013 GitHub. All rights reserved.

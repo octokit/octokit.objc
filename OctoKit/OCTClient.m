@@ -1,6 +1,6 @@
 //
 //  OCTClient.m
-//  OctoClient
+//  OctoKit
 //
 //  Created by Josh Abernathy on 3/6/12.
 //  Copyright (c) 2012 GitHub. All rights reserved.

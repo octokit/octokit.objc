@@ -1,6 +1,6 @@
 //
 //  OCTServer+Private.h
-//  OctoClient
+//  OctoKit
 //
 //  Created by Justin Spahr-Summers on 2012-11-01.
 //  Copyright (c) 2012 GitHub. All rights reserved.

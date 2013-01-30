@@ -13,7 +13,7 @@
 	#import <AFNetworking/AFNetworking.h>
 	#import <Mantle/Mantle.h>
 	#import <ReactiveCocoa/ReactiveCocoa.h>
-	#import <OctoClient/OctoClient.h>
+	#import <OctoKit/OctoKit.h>
 
 	#import "ISO8601DateFormatter.h"
 	#import "Specta.h"

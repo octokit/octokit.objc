@@ -1,6 +1,6 @@
 //
 //  OCTOrg.m
-//  OctoClient
+//  OctoKit
 //
 //  Created by Joe Ricioppo on 10/27/10.
 //  Copyright 2010 GitHub. All rights reserved.

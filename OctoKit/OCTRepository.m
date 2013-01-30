@@ -1,6 +1,6 @@
 //
 //  OCTRepository.m
-//  OctoClient
+//  OctoKit
 //
 //  Created by Timothy Clem on 2/14/11.
 //  Copyright 2011 GitHub. All rights reserved.

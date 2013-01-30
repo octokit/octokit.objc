@@ -1,6 +1,6 @@
 //
 //  OCTObjectSpec.m
-//  OctoClient
+//  OctoKit
 //
 //  Created by Justin Spahr-Summers on 2012-09-26.
 //  Copyright (c) 2012 GitHub. All rights reserved.

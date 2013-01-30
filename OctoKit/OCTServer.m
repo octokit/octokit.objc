@@ -1,6 +1,6 @@
 //
 //  OCTServer.m
-//  OctoClient
+//  OctoKit
 //
 //  Created by Alan Rogers on 18/10/12.
 //  Copyright (c) 2012 GitHub. All rights reserved.

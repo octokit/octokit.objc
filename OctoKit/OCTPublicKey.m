@@ -1,6 +1,6 @@
 //
 //  OCTPublicKey.m
-//  OctoClient
+//  OctoKit
 //
 //  Created by Josh Abernathy on 12/31/10.
 //  Copyright 2010 GitHub. All rights reserved.
