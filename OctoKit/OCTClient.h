@@ -43,8 +43,11 @@ extern NSString * const OCTClientErrorHTTPStatusCodeKey;
 // Represents a single GitHub session.
 @interface OCTClient : AFHTTPClient
 
+// The user used to authenticate this session.
 @property (nonatomic, readonly, strong) OCTUser *user;
 
+// Creates and returns a new OCTClient that authenticates with the given user's
+// credentials.
 + (OCTClient *)clientForUser:(OCTUser *)user;
 
 // Enqueues a request that always fetches the latest data from the server.
@@ -88,29 +91,69 @@ extern NSString * const OCTClientErrorHTTPStatusCodeKey;
 
 @interface OCTClient (User)
 
+// Logs the user in.
+//
+// Returns a signal which sends a new OCTUser on success.
 - (RACSignal *)login;
+
+// Fetches the current user's full information.
+//
+// Returns a signal which sends a new OCTUser on success.
 - (RACSignal *)fetchUserInfo;
 
+// Fetches the current user's repositories.
+//
+// Returns a signal which sends an array of OCTRepository objects on success.
 - (RACSignal *)fetchUserRepos;
+
+// Creates a repository under the user's account.
+//
+// Returns a signal which sends the new OCTRepository on success.
 - (RACSignal *)createRepoWithName:(NSString *)name description:(NSString *)description private:(BOOL)isPrivate;
 
 @end
 
 @interface OCTClient (Orgs)
 
+// Fetches the organizations that the current user is a member of.
+//
+// Returns a signal which sends an array of OCTOrg objects on success.
 - (RACSignal *)fetchUserOrgs;
+
+// Fetches the specified organization's full information.
+//
+// Returns a signal which sends a new OCTOrg on success.
 - (RACSignal *)fetchOrgInfo:(OCTOrg *)org;
 
+// Fetches the specified organization's repositories.
+//
+// Returns a signal which sends an array of OCTRepository objects on success.
 - (RACSignal *)fetchReposForOrg:(OCTOrg *)org;
+
+// Creates a repository under the specified organization's account, and
+// associates it with the given team.
+//
+// Returns a signal which sends the new OCTRepository on success.
 - (RACSignal *)createRepoWithName:(NSString *)name org:(OCTOrg *)org team:(OCTTeam *)team description:(NSString *)description private:(BOOL)isPrivate;
 
+// Fetches the specified organization's teams.
+//
+// Returns a signal which sends an array of OCTTeam objects on success.
 - (RACSignal *)fetchTeamsForOrg:(OCTOrg *)org;
 
 @end
 
 @interface OCTClient (Keys)
 
+// Fetches the current user's public keys.
+//
+// Returns a signal which sends an array of OCTPublicKey objects on success.
 - (RACSignal *)fetchPublicKeys;
+
+// Adds a new public key to the current user's profile.
+//
+// Returns a signal which sends the updated array of OCTPublicKey objects on
+// success.
 - (RACSignal *)postPublicKey:(NSString *)key title:(NSString *)title;
 
 @end
