@@ -9,7 +9,6 @@
 #import "OCTObject.h"
 
 @class OCTPlan;
-@class GHImageRequestOperation;
 
 // Represents any GitHub object which is capable of owning repositories.
 @interface OCTEntity : OCTObject
