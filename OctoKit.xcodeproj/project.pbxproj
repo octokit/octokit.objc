@@ -9,10 +9,10 @@
 /* Begin PBXBuildFile section */
 		D0871EB6169E2EFC00016ACA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D0871EB4169E2EFC00016ACA /* InfoPlist.strings */; };
 		D0871EC2169E2EFC00016ACA /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0871EC1169E2EFC00016ACA /* SenTestingKit.framework */; };
-		D0871EC6169E2EFC00016ACA /* OctoClient.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0871EA8169E2EFC00016ACA /* OctoClient.framework */; };
+		D0871EC6169E2EFC00016ACA /* OctoKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0871EA8169E2EFC00016ACA /* OctoKit.framework */; };
 		D0871ECC169E2EFC00016ACA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D0871ECA169E2EFC00016ACA /* InfoPlist.strings */; };
 		D0871FF4169E309A00016ACA /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0871EC1169E2EFC00016ACA /* SenTestingKit.framework */; };
-		D0871FFA169E309A00016ACA /* libOctoClient.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D0871FE4169E309900016ACA /* libOctoClient.a */; };
+		D0871FFA169E309A00016ACA /* libOctoKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D0871FE4169E309900016ACA /* libOctoKit.a */; };
 		D0872010169E31C000016ACA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D087200F169E31C000016ACA /* Foundation.framework */; };
 		D0872012169E31C800016ACA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0872011169E31C800016ACA /* Foundation.framework */; };
 		D0872030169E326800016ACA /* AFHTTPClient.h in Headers */ = {isa = PBXBuildFile; fileRef = D087201D169E326800016ACA /* AFHTTPClient.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -182,8 +182,8 @@
 		D08721DB169E398C00016ACA /* OCTUserSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = D08721CF169E398C00016ACA /* OCTUserSpec.m */; };
 		D087229C169E3D0500016ACA /* ISO8601DateFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = D0872299169E3D0500016ACA /* ISO8601DateFormatter.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc -Wno-format -Wno-conversion"; }; };
 		D087229D169E3D0500016ACA /* ISO8601DateFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = D0872299169E3D0500016ACA /* ISO8601DateFormatter.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc -Wno-format -Wno-conversion"; }; };
-		D087229F169E3D6000016ACA /* OctoClient.h in Headers */ = {isa = PBXBuildFile; fileRef = D087229E169E3D6000016ACA /* OctoClient.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D08722A0169E3D6000016ACA /* OctoClient.h in Headers */ = {isa = PBXBuildFile; fileRef = D087229E169E3D6000016ACA /* OctoClient.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D087229F169E3D6000016ACA /* OctoKit.h in Headers */ = {isa = PBXBuildFile; fileRef = D087229E169E3D6000016ACA /* OctoKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D08722A0169E3D6000016ACA /* OctoKit.h in Headers */ = {isa = PBXBuildFile; fileRef = D087229E169E3D6000016ACA /* OctoKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D08B599C169E3F13006003B8 /* test_events.json in Resources */ = {isa = PBXBuildFile; fileRef = D08B599B169E3F13006003B8 /* test_events.json */; };
 		D08B599D169E3F13006003B8 /* test_events.json in Resources */ = {isa = PBXBuildFile; fileRef = D08B599B169E3F13006003B8 /* test_events.json */; };
 		D08B59CD169E3F8F006003B8 /* NSArray+OCTFlatteningAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D08B59CA169E3F8F006003B8 /* NSArray+OCTFlatteningAdditions.m */; };
@@ -337,13 +337,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		D0871EA8169E2EFC00016ACA /* OctoClient.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = OctoClient.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		D0871EB3169E2EFC00016ACA /* OctoClient-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "OctoClient-Info.plist"; sourceTree = "<group>"; };
+		D0871EA8169E2EFC00016ACA /* OctoKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = OctoKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D0871EB3169E2EFC00016ACA /* OctoKit-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "OctoKit-Info.plist"; sourceTree = "<group>"; };
 		D0871EB5169E2EFC00016ACA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		D0871EB7169E2EFC00016ACA /* OctoClient-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "OctoClient-Prefix.pch"; sourceTree = "<group>"; };
-		D0871EC0169E2EFC00016ACA /* OctoClient Mac Tests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "OctoClient Mac Tests.octest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D0871EB7169E2EFC00016ACA /* OctoKit-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "OctoKit-Prefix.pch"; sourceTree = "<group>"; };
+		D0871EC0169E2EFC00016ACA /* OctoKit Mac Tests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "OctoKit Mac Tests.octest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0871EC1169E2EFC00016ACA /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
-		D0871EC9169E2EFC00016ACA /* OctoClientTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "OctoClientTests-Info.plist"; sourceTree = "<group>"; };
+		D0871EC9169E2EFC00016ACA /* OctoKitTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "OctoKitTests-Info.plist"; sourceTree = "<group>"; };
 		D0871ECB169E2EFC00016ACA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D0871FB9169E2FF500016ACA /* Common.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Common.xcconfig; sourceTree = "<group>"; };
 		D0871FBB169E2FF500016ACA /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
@@ -360,8 +360,8 @@
 		D0871FC9169E2FF500016ACA /* Mac-Framework.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Mac-Framework.xcconfig"; sourceTree = "<group>"; };
 		D0871FCA169E2FF500016ACA /* Mac-StaticLibrary.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Mac-StaticLibrary.xcconfig"; sourceTree = "<group>"; };
 		D0871FCB169E2FF500016ACA /* README.md */ = {isa = PBXFileReference; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
-		D0871FE4169E309900016ACA /* libOctoClient.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libOctoClient.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		D0871FF3169E309A00016ACA /* OctoClient iOS Tests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "OctoClient iOS Tests.octest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D0871FE4169E309900016ACA /* libOctoKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libOctoKit.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		D0871FF3169E309A00016ACA /* OctoKit iOS Tests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "OctoKit iOS Tests.octest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D087200F169E31C000016ACA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		D0872011169E31C800016ACA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		D087201D169E326800016ACA /* AFHTTPClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPClient.h; sourceTree = "<group>"; };
@@ -391,7 +391,7 @@
 		D08720AA169E338D00016ACA /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.0.sdk/System/Library/Frameworks/MobileCoreServices.framework; sourceTree = DEVELOPER_DIR; };
 		D08720FA169E35D800016ACA /* Expecta.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Expecta.xcodeproj; path = External/Mantle/MantleTests/expecta/Expecta.xcodeproj; sourceTree = "<group>"; };
 		D0872109169E35DE00016ACA /* Specta.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Specta.xcodeproj; path = External/Mantle/MantleTests/specta/Specta.xcodeproj; sourceTree = "<group>"; };
-		D0872124169E365A00016ACA /* OctoClientTests-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "OctoClientTests-Prefix.pch"; sourceTree = "<group>"; };
+		D0872124169E365A00016ACA /* OctoKitTests-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "OctoKitTests-Prefix.pch"; sourceTree = "<group>"; };
 		D0872127169E395F00016ACA /* OCTClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCTClient.h; sourceTree = "<group>"; };
 		D0872128169E395F00016ACA /* OCTClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCTClient.m; sourceTree = "<group>"; };
 		D0872129169E395F00016ACA /* OCTCommitComment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCTCommitComment.h; sourceTree = "<group>"; };
@@ -457,7 +457,7 @@
 		D08721DD169E3B9000016ACA /* metamacros.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = metamacros.h; sourceTree = "<group>"; };
 		D0872298169E3D0500016ACA /* ISO8601DateFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISO8601DateFormatter.h; sourceTree = "<group>"; };
 		D0872299169E3D0500016ACA /* ISO8601DateFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ISO8601DateFormatter.m; sourceTree = "<group>"; };
-		D087229E169E3D6000016ACA /* OctoClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OctoClient.h; sourceTree = "<group>"; };
+		D087229E169E3D6000016ACA /* OctoKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OctoKit.h; sourceTree = "<group>"; };
 		D08B599B169E3F13006003B8 /* test_events.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = test_events.json; sourceTree = "<group>"; };
 		D08B59C9169E3F8F006003B8 /* NSArray+OCTFlatteningAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+OCTFlatteningAdditions.h"; sourceTree = "<group>"; };
 		D08B59CA169E3F8F006003B8 /* NSArray+OCTFlatteningAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+OCTFlatteningAdditions.m"; sourceTree = "<group>"; };
@@ -483,7 +483,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D0871EC2169E2EFC00016ACA /* SenTestingKit.framework in Frameworks */,
-				D0871EC6169E2EFC00016ACA /* OctoClient.framework in Frameworks */,
+				D0871EC6169E2EFC00016ACA /* OctoKit.framework in Frameworks */,
 				D087211C169E35FC00016ACA /* libExpecta.a in Frameworks */,
 				D087211D169E35FC00016ACA /* libSpecta.a in Frameworks */,
 				D08C191016B718FE00575F24 /* ReactiveCocoa.framework in Frameworks */,
@@ -508,7 +508,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D0871FF4169E309A00016ACA /* SenTestingKit.framework in Frameworks */,
-				D0871FFA169E309A00016ACA /* libOctoClient.a in Frameworks */,
+				D0871FFA169E309A00016ACA /* libOctoKit.a in Frameworks */,
 				D0872122169E360600016ACA /* libExpecta-iOS.a in Frameworks */,
 				D0872123169E360600016ACA /* libSpecta-iOS.a in Frameworks */,
 			);
@@ -520,8 +520,8 @@
 		D0871E9C169E2EFC00016ACA = {
 			isa = PBXGroup;
 			children = (
-				D0871EB1169E2EFC00016ACA /* OctoClient */,
-				D0871EC7169E2EFC00016ACA /* OctoClientTests */,
+				D0871EB1169E2EFC00016ACA /* OctoKit */,
+				D0871EC7169E2EFC00016ACA /* OctoKitTests */,
 				D0871EAA169E2EFC00016ACA /* Frameworks */,
 				D0871FB7169E2FF500016ACA /* Configuration */,
 				D0871EA9169E2EFC00016ACA /* Products */,
@@ -531,10 +531,10 @@
 		D0871EA9169E2EFC00016ACA /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				D0871EA8169E2EFC00016ACA /* OctoClient.framework */,
-				D0871EC0169E2EFC00016ACA /* OctoClient Mac Tests.octest */,
-				D0871FE4169E309900016ACA /* libOctoClient.a */,
-				D0871FF3169E309A00016ACA /* OctoClient iOS Tests.octest */,
+				D0871EA8169E2EFC00016ACA /* OctoKit.framework */,
+				D0871EC0169E2EFC00016ACA /* OctoKit Mac Tests.octest */,
+				D0871FE4169E309900016ACA /* libOctoKit.a */,
+				D0871FF3169E309A00016ACA /* OctoKit iOS Tests.octest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -562,41 +562,41 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		D0871EB1169E2EFC00016ACA /* OctoClient */ = {
+		D0871EB1169E2EFC00016ACA /* OctoKit */ = {
 			isa = PBXGroup;
 			children = (
-				D087229E169E3D6000016ACA /* OctoClient.h */,
+				D087229E169E3D6000016ACA /* OctoKit.h */,
 				D0872125169E394F00016ACA /* Classes */,
 				D08B59C8169E3F7F006003B8 /* Extensions */,
 				D0871EB2169E2EFC00016ACA /* Supporting Files */,
 			);
-			path = OctoClient;
+			path = OctoKit;
 			sourceTree = "<group>";
 		};
 		D0871EB2169E2EFC00016ACA /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				D0871EB3169E2EFC00016ACA /* OctoClient-Info.plist */,
+				D0871EB3169E2EFC00016ACA /* OctoKit-Info.plist */,
 				D0871EB4169E2EFC00016ACA /* InfoPlist.strings */,
-				D0871EB7169E2EFC00016ACA /* OctoClient-Prefix.pch */,
+				D0871EB7169E2EFC00016ACA /* OctoKit-Prefix.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		D0871EC7169E2EFC00016ACA /* OctoClientTests */ = {
+		D0871EC7169E2EFC00016ACA /* OctoKitTests */ = {
 			isa = PBXGroup;
 			children = (
 				D0872126169E395300016ACA /* Specs */,
 				D0871EC8169E2EFC00016ACA /* Supporting Files */,
 			);
-			path = OctoClientTests;
+			path = OctoKitTests;
 			sourceTree = "<group>";
 		};
 		D0871EC8169E2EFC00016ACA /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				D0871EC9169E2EFC00016ACA /* OctoClientTests-Info.plist */,
-				D0872124169E365A00016ACA /* OctoClientTests-Prefix.pch */,
+				D0871EC9169E2EFC00016ACA /* OctoKitTests-Info.plist */,
+				D0872124169E365A00016ACA /* OctoKitTests-Prefix.pch */,
 				D0871ECA169E2EFC00016ACA /* InfoPlist.strings */,
 				D08B599B169E3F13006003B8 /* test_events.json */,
 			);
@@ -927,7 +927,7 @@
 				D08721AF169E395F00016ACA /* OCTServer.h in Headers */,
 				D08721B5169E395F00016ACA /* OCTTeam.h in Headers */,
 				D08721B9169E395F00016ACA /* OCTUser.h in Headers */,
-				D087229F169E3D6000016ACA /* OctoClient.h in Headers */,
+				D087229F169E3D6000016ACA /* OctoKit.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -969,16 +969,16 @@
 				D08721B0169E395F00016ACA /* OCTServer.h in Headers */,
 				D08721B6169E395F00016ACA /* OCTTeam.h in Headers */,
 				D08721BA169E395F00016ACA /* OCTUser.h in Headers */,
-				D08722A0169E3D6000016ACA /* OctoClient.h in Headers */,
+				D08722A0169E3D6000016ACA /* OctoKit.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		D0871EA7169E2EFC00016ACA /* OctoClient Mac */ = {
+		D0871EA7169E2EFC00016ACA /* OctoKit Mac */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = D0871ED2169E2EFC00016ACA /* Build configuration list for PBXNativeTarget "OctoClient Mac" */;
+			buildConfigurationList = D0871ED2169E2EFC00016ACA /* Build configuration list for PBXNativeTarget "OctoKit Mac" */;
 			buildPhases = (
 				D0871EA3169E2EFC00016ACA /* Sources */,
 				D0871EA4169E2EFC00016ACA /* Frameworks */,
@@ -990,14 +990,14 @@
 			dependencies = (
 				D0872094169E329A00016ACA /* PBXTargetDependency */,
 			);
-			name = "OctoClient Mac";
+			name = "OctoKit Mac";
 			productName = OctoClient;
-			productReference = D0871EA8169E2EFC00016ACA /* OctoClient.framework */;
+			productReference = D0871EA8169E2EFC00016ACA /* OctoKit.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		D0871EBF169E2EFC00016ACA /* OctoClient Mac Tests */ = {
+		D0871EBF169E2EFC00016ACA /* OctoKit Mac Tests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = D0871ED5169E2EFC00016ACA /* Build configuration list for PBXNativeTarget "OctoClient Mac Tests" */;
+			buildConfigurationList = D0871ED5169E2EFC00016ACA /* Build configuration list for PBXNativeTarget "OctoKit Mac Tests" */;
 			buildPhases = (
 				D0871EBB169E2EFC00016ACA /* Sources */,
 				D0871EBC169E2EFC00016ACA /* Frameworks */,
@@ -1011,14 +1011,14 @@
 				D087211B169E35ED00016ACA /* PBXTargetDependency */,
 				D0871EC5169E2EFC00016ACA /* PBXTargetDependency */,
 			);
-			name = "OctoClient Mac Tests";
+			name = "OctoKit Mac Tests";
 			productName = OctoClientTests;
-			productReference = D0871EC0169E2EFC00016ACA /* OctoClient Mac Tests.octest */;
+			productReference = D0871EC0169E2EFC00016ACA /* OctoKit Mac Tests.octest */;
 			productType = "com.apple.product-type.bundle";
 		};
-		D0871FE3169E309900016ACA /* OctoClient iOS */ = {
+		D0871FE3169E309900016ACA /* OctoKit iOS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = D0872004169E309A00016ACA /* Build configuration list for PBXNativeTarget "OctoClient iOS" */;
+			buildConfigurationList = D0872004169E309A00016ACA /* Build configuration list for PBXNativeTarget "OctoKit iOS" */;
 			buildPhases = (
 				D0871FE0169E309900016ACA /* Sources */,
 				D0871FE1169E309900016ACA /* Frameworks */,
@@ -1029,14 +1029,14 @@
 			dependencies = (
 				D087209D169E32B600016ACA /* PBXTargetDependency */,
 			);
-			name = "OctoClient iOS";
+			name = "OctoKit iOS";
 			productName = OctoClient;
-			productReference = D0871FE4169E309900016ACA /* libOctoClient.a */;
+			productReference = D0871FE4169E309900016ACA /* libOctoKit.a */;
 			productType = "com.apple.product-type.library.static";
 		};
-		D0871FF2169E309A00016ACA /* OctoClient iOS Tests */ = {
+		D0871FF2169E309A00016ACA /* OctoKit iOS Tests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = D0872007169E309A00016ACA /* Build configuration list for PBXNativeTarget "OctoClient iOS Tests" */;
+			buildConfigurationList = D0872007169E309A00016ACA /* Build configuration list for PBXNativeTarget "OctoKit iOS Tests" */;
 			buildPhases = (
 				D0871FEE169E309A00016ACA /* Sources */,
 				D0871FEF169E309A00016ACA /* Frameworks */,
@@ -1050,9 +1050,9 @@
 				D0872121169E360300016ACA /* PBXTargetDependency */,
 				D0871FF9169E309A00016ACA /* PBXTargetDependency */,
 			);
-			name = "OctoClient iOS Tests";
+			name = "OctoKit iOS Tests";
 			productName = OctoClientTests;
-			productReference = D0871FF3169E309A00016ACA /* OctoClient iOS Tests.octest */;
+			productReference = D0871FF3169E309A00016ACA /* OctoKit iOS Tests.octest */;
 			productType = "com.apple.product-type.bundle";
 		};
 /* End PBXNativeTarget section */
@@ -1064,7 +1064,7 @@
 				LastUpgradeCheck = 0450;
 				ORGANIZATIONNAME = GitHub;
 			};
-			buildConfigurationList = D0871EA1169E2EFC00016ACA /* Build configuration list for PBXProject "OctoClient" */;
+			buildConfigurationList = D0871EA1169E2EFC00016ACA /* Build configuration list for PBXProject "OctoKit" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -1090,10 +1090,10 @@
 			);
 			projectRoot = "";
 			targets = (
-				D0871EA7169E2EFC00016ACA /* OctoClient Mac */,
-				D0871EBF169E2EFC00016ACA /* OctoClient Mac Tests */,
-				D0871FE3169E309900016ACA /* OctoClient iOS */,
-				D0871FF2169E309A00016ACA /* OctoClient iOS Tests */,
+				D0871EA7169E2EFC00016ACA /* OctoKit Mac */,
+				D0871EBF169E2EFC00016ACA /* OctoKit Mac Tests */,
+				D0871FE3169E309900016ACA /* OctoKit iOS */,
+				D0871FF2169E309A00016ACA /* OctoKit iOS Tests */,
 			);
 		};
 /* End PBXProject section */
@@ -1366,12 +1366,12 @@
 /* Begin PBXTargetDependency section */
 		D0871EC5169E2EFC00016ACA /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = D0871EA7169E2EFC00016ACA /* OctoClient Mac */;
+			target = D0871EA7169E2EFC00016ACA /* OctoKit Mac */;
 			targetProxy = D0871EC4169E2EFC00016ACA /* PBXContainerItemProxy */;
 		};
 		D0871FF9169E309A00016ACA /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = D0871FE3169E309900016ACA /* OctoClient iOS */;
+			target = D0871FE3169E309900016ACA /* OctoKit iOS */;
 			targetProxy = D0871FF8169E309A00016ACA /* PBXContainerItemProxy */;
 		};
 		D0872094169E329A00016ACA /* PBXTargetDependency */ = {
@@ -1475,7 +1475,8 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				FRAMEWORK_VERSION = A;
-				INFOPLIST_FILE = "OctoClient/OctoClient-Info.plist";
+				INFOPLIST_FILE = "OctoClient/OctoKit-Info.plist";
+				PRODUCT_NAME = OctoKit;
 				WRAPPER_EXTENSION = framework;
 			};
 			name = Debug;
@@ -1487,7 +1488,8 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				FRAMEWORK_VERSION = A;
-				INFOPLIST_FILE = "OctoClient/OctoClient-Info.plist";
+				INFOPLIST_FILE = "OctoClient/OctoKit-Info.plist";
+				PRODUCT_NAME = OctoKit;
 				WRAPPER_EXTENSION = framework;
 			};
 			name = Release;
@@ -1497,9 +1499,9 @@
 			baseConfigurationReference = D0871FC6169E2FF500016ACA /* Mac-Application.xcconfig */;
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = "\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"";
-				GCC_PREFIX_HEADER = "OctoClientTests/OctoClientTests-Prefix.pch";
-				INFOPLIST_FILE = "OctoClientTests/OctoClientTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				GCC_PREFIX_HEADER = "OctoClientTests/OctoKitTests-Prefix.pch";
+				INFOPLIST_FILE = "OctoClientTests/OctoKitTests-Info.plist";
+				PRODUCT_NAME = "OctoKit Mac Tests";
 				WRAPPER_EXTENSION = octest;
 			};
 			name = Debug;
@@ -1509,9 +1511,9 @@
 			baseConfigurationReference = D0871FC6169E2FF500016ACA /* Mac-Application.xcconfig */;
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = "\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"";
-				GCC_PREFIX_HEADER = "OctoClientTests/OctoClientTests-Prefix.pch";
-				INFOPLIST_FILE = "OctoClientTests/OctoClientTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				GCC_PREFIX_HEADER = "OctoClientTests/OctoKitTests-Prefix.pch";
+				INFOPLIST_FILE = "OctoClientTests/OctoKitTests-Info.plist";
+				PRODUCT_NAME = "OctoKit Mac Tests";
 				WRAPPER_EXTENSION = octest;
 			};
 			name = Release;
@@ -1522,6 +1524,7 @@
 			buildSettings = {
 				DSTROOT = /tmp/OctoClient.dst;
 				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = OctoKit;
 			};
 			name = Debug;
 		};
@@ -1531,6 +1534,7 @@
 			buildSettings = {
 				DSTROOT = /tmp/OctoClient.dst;
 				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = OctoKit;
 			};
 			name = Release;
 		};
@@ -1543,8 +1547,8 @@
 					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
 				);
 				GCC_PREFIX_HEADER = "OctoClientTests/OctoClientTests-Prefix.pch";
-				INFOPLIST_FILE = "OctoClientTests/OctoClientTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				INFOPLIST_FILE = "OctoClientTests/OctoKitTests-Info.plist";
+				PRODUCT_NAME = "OctoKit iOS Tests";
 				WRAPPER_EXTENSION = octest;
 			};
 			name = Debug;
@@ -1558,8 +1562,8 @@
 					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
 				);
 				GCC_PREFIX_HEADER = "OctoClientTests/OctoClientTests-Prefix.pch";
-				INFOPLIST_FILE = "OctoClientTests/OctoClientTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				INFOPLIST_FILE = "OctoClientTests/OctoKitTests-Info.plist";
+				PRODUCT_NAME = "OctoKit iOS Tests";
 				WRAPPER_EXTENSION = octest;
 			};
 			name = Release;
@@ -1592,7 +1596,8 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				FRAMEWORK_VERSION = A;
-				INFOPLIST_FILE = "OctoClient/OctoClient-Info.plist";
+				INFOPLIST_FILE = "OctoClient/OctoKit-Info.plist";
+				PRODUCT_NAME = OctoKit;
 				WRAPPER_EXTENSION = framework;
 			};
 			name = Profile;
@@ -1602,9 +1607,9 @@
 			baseConfigurationReference = D0871FC6169E2FF500016ACA /* Mac-Application.xcconfig */;
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = "\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"";
-				GCC_PREFIX_HEADER = "OctoClientTests/OctoClientTests-Prefix.pch";
-				INFOPLIST_FILE = "OctoClientTests/OctoClientTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				GCC_PREFIX_HEADER = "OctoClientTests/OctoKitTests-Prefix.pch";
+				INFOPLIST_FILE = "OctoClientTests/OctoKitTests-Info.plist";
+				PRODUCT_NAME = "OctoKit Mac Tests";
 				WRAPPER_EXTENSION = octest;
 			};
 			name = Profile;
@@ -1615,6 +1620,7 @@
 			buildSettings = {
 				DSTROOT = /tmp/OctoClient.dst;
 				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = OctoKit;
 			};
 			name = Profile;
 		};
@@ -1627,8 +1633,8 @@
 					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
 				);
 				GCC_PREFIX_HEADER = "OctoClientTests/OctoClientTests-Prefix.pch";
-				INFOPLIST_FILE = "OctoClientTests/OctoClientTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				INFOPLIST_FILE = "OctoClientTests/OctoKitTests-Info.plist";
+				PRODUCT_NAME = "OctoKit iOS Tests";
 				WRAPPER_EXTENSION = octest;
 			};
 			name = Profile;
@@ -1636,7 +1642,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		D0871EA1169E2EFC00016ACA /* Build configuration list for PBXProject "OctoClient" */ = {
+		D0871EA1169E2EFC00016ACA /* Build configuration list for PBXProject "OctoKit" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D0871ED0169E2EFC00016ACA /* Debug */,
@@ -1646,7 +1652,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		D0871ED2169E2EFC00016ACA /* Build configuration list for PBXNativeTarget "OctoClient Mac" */ = {
+		D0871ED2169E2EFC00016ACA /* Build configuration list for PBXNativeTarget "OctoKit Mac" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D0871ED3169E2EFC00016ACA /* Debug */,
@@ -1656,7 +1662,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		D0871ED5169E2EFC00016ACA /* Build configuration list for PBXNativeTarget "OctoClient Mac Tests" */ = {
+		D0871ED5169E2EFC00016ACA /* Build configuration list for PBXNativeTarget "OctoKit Mac Tests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D0871ED6169E2EFC00016ACA /* Debug */,
@@ -1666,7 +1672,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		D0872004169E309A00016ACA /* Build configuration list for PBXNativeTarget "OctoClient iOS" */ = {
+		D0872004169E309A00016ACA /* Build configuration list for PBXNativeTarget "OctoKit iOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D0872005169E309A00016ACA /* Debug */,
@@ -1676,7 +1682,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		D0872007169E309A00016ACA /* Build configuration list for PBXNativeTarget "OctoClient iOS Tests" */ = {
+		D0872007169E309A00016ACA /* Build configuration list for PBXNativeTarget "OctoKit iOS Tests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D0872008169E309A00016ACA /* Debug */,

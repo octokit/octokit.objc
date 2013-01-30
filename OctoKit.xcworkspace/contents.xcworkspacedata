@@ -2,7 +2,7 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "container:OctoClient.xcodeproj">
+      location = "container:OctoKit.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:External/ReactiveCocoa/ReactiveCocoaFramework/ReactiveCocoa.xcodeproj">

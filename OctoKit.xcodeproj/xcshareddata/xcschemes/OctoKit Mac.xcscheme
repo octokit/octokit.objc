@@ -14,10 +14,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "D0871FE3169E309900016ACA"
-               BuildableName = "libOctoClient.a"
-               BlueprintName = "OctoClient iOS"
-               ReferencedContainer = "container:OctoClient.xcodeproj">
+               BlueprintIdentifier = "D0871EA7169E2EFC00016ACA"
+               BuildableName = "OctoKit.framework"
+               BlueprintName = "OctoKit Mac"
+               ReferencedContainer = "container:OctoKit.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -32,10 +32,10 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "D0871FF2169E309A00016ACA"
-               BuildableName = "OctoClient iOS Tests.octest"
-               BlueprintName = "OctoClient iOS Tests"
-               ReferencedContainer = "container:OctoClient.xcodeproj">
+               BlueprintIdentifier = "D0871EBF169E2EFC00016ACA"
+               BuildableName = "OctoKit Mac Tests.octest"
+               BlueprintName = "OctoKit Mac Tests"
+               ReferencedContainer = "container:OctoKit.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
