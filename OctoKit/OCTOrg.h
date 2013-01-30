@@ -8,8 +8,10 @@
 
 #import "OCTEntity.h"
 
+// An organization.
 @interface OCTOrg : OCTEntity
 
+// The OCTTeams in this organization.
 @property (nonatomic, copy) NSArray *teams;
 
 @end

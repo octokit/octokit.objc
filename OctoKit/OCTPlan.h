@@ -8,11 +8,19 @@
 
 #import "OCTObject.h"
 
+// Represents the billing plan of a GitHub account.
 @interface OCTPlan : OCTObject
 
+// The name of this plan.
 @property (nonatomic, copy) NSString *name;
+
+// The number of collaborators allowed by this plan.
 @property (nonatomic, assign) NSUInteger collaborators;
+
+// The number of kilobytes of disk space allowed by this plan.
 @property (nonatomic, assign) NSUInteger space;
+
+// The number of private repositories allowed by this plan.
 @property (nonatomic, assign) NSUInteger privateRepos;
 
 @end
