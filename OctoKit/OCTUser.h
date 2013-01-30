@@ -8,6 +8,7 @@
 
 #import "OCTEntity.h"
 
+// A GitHub user.
 @interface OCTUser : OCTEntity
 
 // The user's password.
