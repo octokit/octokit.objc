@@ -22,8 +22,8 @@ static NSString * const OCTEventTypeKey = @"type";
 
 #pragma mark Class cluster
 
-+ (Class)eventClassForType:(NSString *)type {
-	NSDictionary *classes = @{
++ (NSDictionary *)eventClassesByType {
+	return @{
 		@"CommitCommentEvent": OCTCommitCommentEvent.class,
 		@"CreateEvent": OCTRefEvent.class,
 		@"DeleteEvent": OCTRefEvent.class,
@@ -33,19 +33,17 @@ static NSString * const OCTEventTypeKey = @"type";
 		@"PullRequestReviewCommentEvent": OCTPullRequestCommentEvent.class,
 		@"PushEvent": OCTPushEvent.class,
 	};
-
-	return classes[type];
 }
 
 #pragma mark Lifecycle
 
 + (id)modelWithExternalRepresentation:(NSDictionary *)externalRepresentation {
-	Class eventClass = [self eventClassForType:externalRepresentation[OCTEventTypeKey]];
+	Class eventClass = self.eventClassesByType[externalRepresentation[OCTEventTypeKey]];
 	return [[eventClass alloc] initWithExternalRepresentation:externalRepresentation];
 }
 
 - (id)initWithExternalRepresentation:(NSDictionary *)externalRepresentation {
-	Class eventClass = [self.class eventClassForType:externalRepresentation[OCTEventTypeKey]];
+	Class eventClass = self.class.eventClassesByType[externalRepresentation[OCTEventTypeKey]];
 	if (eventClass == nil) return nil;
 
 	if ([self isKindOfClass:eventClass]) {
@@ -68,6 +66,17 @@ static NSString * const OCTEventTypeKey = @"type";
 	}];
 
 	return keys;
+}
+
+- (NSDictionary *)externalRepresentation {
+	NSDictionary *representation = super.externalRepresentation;
+
+	NSString *type = [[self.class.eventClassesByType allKeysForObject:self.class] lastObject];
+	if (type != nil) {
+		representation = [representation mtl_dictionaryByAddingEntriesFromDictionary:@{ OCTEventTypeKey: type }];
+	}
+
+	return representation;
 }
 
 + (NSValueTransformer *)dateTransformer {
