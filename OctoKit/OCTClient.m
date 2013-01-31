@@ -345,9 +345,12 @@ static const NSUInteger OCTClientNotModifiedStatusCode = 304;
 		if ([operation.error.domain isEqual:NSURLErrorDomain]) {
 			userInfo[NSLocalizedDescriptionKey] = NSLocalizedString(@"There was a problem connecting to the server.", @"");
 		} else {
-			userInfo[NSLocalizedDescriptionKey] = operation.error.userInfo[NSLocalizedDescriptionKey];
+			NSString *errorDescription = operation.error.userInfo[NSLocalizedDescriptionKey];
+			if (errorDescription != nil) userInfo[NSLocalizedDescriptionKey] = errorDescription;
 		}
-	} else {
+	}
+
+	if (userInfo[NSLocalizedDescriptionKey] == nil) {
 		userInfo[NSLocalizedDescriptionKey] = NSLocalizedString(@"The universe has collapsed.", @"");
 	}
 
