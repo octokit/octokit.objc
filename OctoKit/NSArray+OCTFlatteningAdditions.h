@@ -10,6 +10,9 @@
 
 @interface NSArray (OCTFlatteningAdditions)
 
+// Recursively replaces all arrays with their contents.
+//
+// Returns a flat array (one that does not contain any NSArrays itself).
 - (NSArray *)oct_flattenedArray;
 
 @end

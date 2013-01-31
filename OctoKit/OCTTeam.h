@@ -9,5 +9,6 @@
 #import <Foundation/Foundation.h>
 #import "OCTEntity.h"
 
+// Represents a team within an OCTOrg.
 @interface OCTTeam : OCTEntity
 @end

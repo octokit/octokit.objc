@@ -21,7 +21,7 @@
 // override the `+objectIDTransformer` method to change this behavior.
 @property (nonatomic, copy) NSString *objectID;
 
-// The server this object is associated with
+// The server this object is associated with.
 @property (nonatomic, strong, readonly) OCTServer *server;
 
 // Behaves like -[MTLModel externalRepresentation], but any NSNull values are

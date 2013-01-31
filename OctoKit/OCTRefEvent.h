@@ -11,8 +11,8 @@
 // Represents the type of a git reference.
 //
 // OCTRefTypeUnknown - An unknown type of reference. Ref events will never
-//                          be initialized with this value -- they will simply
-//                          fail to be created.
+//                     be initialized with this value -- they will simply
+//                     fail to be created.
 // OCTRefTypeBranch  - A branch in a repository.
 // OCTRefTypeTag     - A tag in a repository.
 typedef enum : NSUInteger {
@@ -24,8 +24,8 @@ typedef enum : NSUInteger {
 // The type of event that occurred around a reference.
 //
 // OCTRefEventUnknown - An unknown event occurred. Ref events will never be
-//                           initialized with this value -- they will simply
-//                           fail to be created.
+//                      initialized with this value -- they will simply
+//                      fail to be created.
 // OCTRefEventCreated - The reference was created on the server.
 // OCTRefEventDeleted - The reference was deleted on the server.
 typedef enum : NSUInteger {
