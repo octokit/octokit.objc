@@ -60,7 +60,7 @@ static NSString * const OCTEntityOwnedPrivateRepoCountKey = @"owned_private_repo
 }
 
 - (void)mergeRepositoriesFromModel:(OCTEntity *)entity {
-	[self mergeRepositoriesWithRemoteCountparts:entity.repositories];
+	[self mergeRepositoriesWithRemoteCounterparts:entity.repositories];
 }
 
 + (NSDictionary *)migrateExternalRepresentation:(NSDictionary *)dictionary fromVersion:(NSUInteger)fromVersion {
@@ -76,7 +76,7 @@ static NSString * const OCTEntityOwnedPrivateRepoCountKey = @"owned_private_repo
 
 #pragma mark Merging
 
-- (void)mergeRepositoriesWithRemoteCountparts:(NSArray *)remoteRepositories {
+- (void)mergeRepositoriesWithRemoteCounterparts:(NSArray *)remoteRepositories {
 	if (remoteRepositories == nil) {
 		// A nil array means that repositories were never fetched. An empty
 		// array means that there are no remote repositories, so we should clear
