@@ -69,8 +69,13 @@ static NSString * const OCTObjectModelVersionKey = @"OCTObjectModelVersionKey";
 }
 
 + (NSValueTransformer *)objectIDTransformer {
-	return [MTLValueTransformer reversibleTransformerWithForwardBlock:^(NSNumber *num) {
-			return num.stringValue;
+	return [MTLValueTransformer reversibleTransformerWithForwardBlock:^ id (id objectID) {
+			// Sometimes issues have a String ID :(
+			if ([objectID isKindOfClass:NSNumber.class]) {
+				return [objectID stringValue];
+			} else {
+				return objectID;
+			}
 		}
 		reverseBlock:^ id (NSString *str) {
 			if (str == nil) return nil;
