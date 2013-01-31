@@ -356,12 +356,13 @@ static const NSUInteger OCTClientNotModifiedStatusCode = 304;
 
 - (RACSignal *)createRepositoryWithName:(NSString *)name organization:(OCTOrganization *)organization team:(OCTTeam *)team description:(NSString *)description private:(BOOL)isPrivate {
 	NSMutableDictionary *options = [NSMutableDictionary dictionary];
-	[options setObject:name forKey:@"name"];
-	if(description != nil) [options setObject:description forKey:@"description"];
-	[options setObject:[NSNumber numberWithBool:isPrivate] forKey:@"private"];
+	options[@"name"] = name;
+	options[@"private"] = @(isPrivate);
+
+	if (description != nil) options[@"description"] = description;
 	if (team != nil) options[@"team_id"] = team.objectID;
 	
-	NSString *path = organization == nil ? @"user/repos" : [NSString stringWithFormat:@"orgs/%@/repos", organization.login];
+	NSString *path = (organization == nil ? @"user/repos" : [NSString stringWithFormat:@"orgs/%@/repos", organization.login]);
 	return [self enqueueRequestWithMethod:@"POST" path:path parameters:options resultClass:OCTRepository.class];
 }
 
@@ -378,9 +379,7 @@ static const NSUInteger OCTClientNotModifiedStatusCode = 304;
 }
 
 - (RACSignal *)postPublicKey:(NSString *)key title:(NSString *)title {
-	NSMutableDictionary *options = [NSMutableDictionary dictionary];
-	[options setObject:key forKey:@"key"];
-	[options setObject:title forKey:@"title"];
+	NSDictionary *options = @{ @"key": key, @"title": title };
 	return [self enqueueRequestWithMethod:@"POST" path:@"user/keys" parameters:options resultClass:OCTPublicKey.class];
 }
 
