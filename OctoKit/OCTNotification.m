@@ -41,7 +41,8 @@
 	};
 
 	return [MTLValueTransformer transformerWithBlock:^(NSString *name) {
-		return typesByName[name];
+		// If it's some unknown type, let's just pretend it's an issue for now.
+		return typesByName[name] ?: @(OCTNotificationTypeIssue);
 	}];
 }
 
