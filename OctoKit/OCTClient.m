@@ -39,7 +39,17 @@ static const NSUInteger OCTClientNotModifiedStatusCode = 304;
 
 @implementation OCTClient
 
-#pragma mark API
+#pragma mark Properties
+
+- (void)setUser:(OCTUser *)u {
+	if (_user == u) return;
+	
+	_user = u;
+	
+	[self setAuthorizationHeaderWithUsername:self.user.login password:self.user.password];
+}
+
+#pragma mark Lifecycle
 
 + (OCTClient *)clientForUser:(OCTUser *)user {
 	NSParameterAssert(user != nil);
@@ -61,65 +71,7 @@ static const NSUInteger OCTClientNotModifiedStatusCode = 304;
 	return self;
 }
 
-- (RACSignal *)login {
-	return [[self enqueueRequestWithMethod:@"GET" path:@"user" parameters:nil resultClass:OCTUser.class] doNext:^(OCTUser *x) {
-		x.password = self.user.password;
-	}];
-}
-
-- (RACSignal *)fetchUserInfo {
-	return [self enqueueRequestWithMethod:@"GET" path:@"user" parameters:nil resultClass:OCTUser.class];
-}
-
-- (RACSignal *)fetchUserRepos {
-	return [self enqueueRequestWithMethod:@"GET" path:@"user/repos" parameters:nil resultClass:OCTRepository.class];
-}
-
-- (RACSignal *)fetchUserOrgs {
-	return [self enqueueRequestWithMethod:@"GET" path:@"user/orgs" parameters:nil resultClass:OCTOrg.class];
-}
-
-- (RACSignal *)fetchOrgInfo:(OCTOrg *)org {
-	return [self enqueueRequestWithMethod:@"GET" path:[NSString stringWithFormat:@"orgs/%@", org.login] parameters:nil resultClass:OCTOrg.class];
-}
-
-- (RACSignal *)fetchReposForOrg:(OCTOrg *)org {
-	return [self enqueueRequestWithMethod:@"GET" path:[NSString stringWithFormat:@"orgs/%@/repos", org.login] parameters:nil resultClass:OCTRepository.class];
-}
-
-- (RACSignal *)fetchPublicKeys {
-	return [self enqueueRequestWithMethod:@"GET" path:@"user/keys" parameters:nil resultClass:OCTPublicKey.class];
-}
-
-- (RACSignal *)createRepoWithName:(NSString *)name description:(NSString *)description private:(BOOL)isPrivate {
-	return [self createRepoWithName:name org:nil team:nil description:description private:isPrivate];
-}
-
-- (RACSignal *)createRepoWithName:(NSString *)name org:(OCTOrg *)org team:(OCTTeam *)team description:(NSString *)description private:(BOOL)isPrivate {
-	NSMutableDictionary *options = [NSMutableDictionary dictionary];
-	[options setObject:name forKey:@"name"];
-	if(description != nil) [options setObject:description forKey:@"description"];
-	[options setObject:[NSNumber numberWithBool:isPrivate] forKey:@"private"];
-	if (team != nil) options[@"team_id"] = team.objectID;
-	
-	NSString *path = org == nil ? @"user/repos" : [NSString stringWithFormat:@"orgs/%@/repos", org.login];
-	return [self enqueueRequestWithMethod:@"POST" path:path parameters:options resultClass:OCTRepository.class];
-}
-
-- (RACSignal *)fetchTeamsForOrg:(OCTOrg *)org {
-	return [self enqueueRequestWithMethod:@"GET" path:[NSString stringWithFormat:@"orgs/%@/teams", org.login] parameters:nil resultClass:OCTTeam.class];
-}
-
-- (RACSignal *)postPublicKey:(NSString *)key title:(NSString *)title {
-	NSMutableDictionary *options = [NSMutableDictionary dictionary];
-	[options setObject:key forKey:@"key"];
-	[options setObject:title forKey:@"title"];
-	return [self enqueueRequestWithMethod:@"POST" path:@"user/keys" parameters:options resultClass:OCTPublicKey.class];
-}
-
-- (RACSignal *)fetchUserEventsNotMatchingEtag:(NSString *)etag {
-	return [self enqueueConditionalRequestWithMethod:@"GET" path:[NSString stringWithFormat:@"users/%@/received_events", self.user.login] parameters:nil notMatchingEtag:etag resultClass:OCTEvent.class fetchAllPages:NO];
-}
+#pragma mark Request Enqueuing
 
 - (RACSignal *)enqueueRequestWithMethod:(NSString *)method path:(NSString *)path parameters:(NSDictionary *)parameters resultClass:(Class)resultClass {
 	return [[self enqueueConditionalRequestWithMethod:method path:path parameters:parameters notMatchingEtag:nil resultClass:resultClass]
@@ -214,6 +166,8 @@ static const NSUInteger OCTClientNotModifiedStatusCode = 304;
 	return [subject deliverOn:RACScheduler.mainThreadScheduler];
 }
 
+#pragma mark Pagination
+
 - (NSURL *)nextPageURLFromOperation:(AFHTTPRequestOperation *)operation {
 	NSDictionary *header = operation.response.allHeaderFields;
 	NSString *linksString = header[@"Link"];
@@ -245,6 +199,8 @@ static const NSUInteger OCTClientNotModifiedStatusCode = 304;
 	
 	return nil;
 }
+
+#pragma mark Parsing
 
 - (id)parseResponse:(id)responseObject withResultClass:(Class)resultClass success:(BOOL *)success {
 	NSParameterAssert(resultClass == nil || [resultClass isSubclassOfClass:MTLModel.class]);
@@ -285,6 +241,8 @@ static const NSUInteger OCTClientNotModifiedStatusCode = 304;
 	
 	return parsedResult;
 }
+
+#pragma mark Error Handling
 
 + (NSString *)errorMessageFromErrorDictionary:(NSDictionary *)errorDictionary {
 	NSString *message = errorDictionary[@"message"];
@@ -361,12 +319,80 @@ static const NSUInteger OCTClientNotModifiedStatusCode = 304;
 	return [NSError errorWithDomain:OCTClientErrorDomain code:errorCode userInfo:userInfo];
 }
 
-- (void)setUser:(OCTUser *)u {
-	if (_user == u) return;
+@end
+
+@implementation OCTClient (User)
+
+- (RACSignal *)login {
+	return [[self enqueueRequestWithMethod:@"GET" path:@"user" parameters:nil resultClass:OCTUser.class] doNext:^(OCTUser *x) {
+		x.password = self.user.password;
+	}];
+}
+
+- (RACSignal *)fetchUserInfo {
+	return [self enqueueRequestWithMethod:@"GET" path:@"user" parameters:nil resultClass:OCTUser.class];
+}
+
+- (RACSignal *)fetchUserRepos {
+	return [self enqueueRequestWithMethod:@"GET" path:@"user/repos" parameters:nil resultClass:OCTRepository.class];
+}
+
+- (RACSignal *)createRepoWithName:(NSString *)name description:(NSString *)description private:(BOOL)isPrivate {
+	return [self createRepoWithName:name org:nil team:nil description:description private:isPrivate];
+}
+
+@end
+
+@implementation OCTClient (Orgs)
+
+- (RACSignal *)fetchUserOrgs {
+	return [self enqueueRequestWithMethod:@"GET" path:@"user/orgs" parameters:nil resultClass:OCTOrg.class];
+}
+
+- (RACSignal *)fetchOrgInfo:(OCTOrg *)org {
+	return [self enqueueRequestWithMethod:@"GET" path:[NSString stringWithFormat:@"orgs/%@", org.login] parameters:nil resultClass:OCTOrg.class];
+}
+
+- (RACSignal *)fetchReposForOrg:(OCTOrg *)org {
+	return [self enqueueRequestWithMethod:@"GET" path:[NSString stringWithFormat:@"orgs/%@/repos", org.login] parameters:nil resultClass:OCTRepository.class];
+}
+
+- (RACSignal *)createRepoWithName:(NSString *)name org:(OCTOrg *)org team:(OCTTeam *)team description:(NSString *)description private:(BOOL)isPrivate {
+	NSMutableDictionary *options = [NSMutableDictionary dictionary];
+	[options setObject:name forKey:@"name"];
+	if(description != nil) [options setObject:description forKey:@"description"];
+	[options setObject:[NSNumber numberWithBool:isPrivate] forKey:@"private"];
+	if (team != nil) options[@"team_id"] = team.objectID;
 	
-	_user = u;
-	
-	[self setAuthorizationHeaderWithUsername:self.user.login password:self.user.password];
+	NSString *path = org == nil ? @"user/repos" : [NSString stringWithFormat:@"orgs/%@/repos", org.login];
+	return [self enqueueRequestWithMethod:@"POST" path:path parameters:options resultClass:OCTRepository.class];
+}
+
+- (RACSignal *)fetchTeamsForOrg:(OCTOrg *)org {
+	return [self enqueueRequestWithMethod:@"GET" path:[NSString stringWithFormat:@"orgs/%@/teams", org.login] parameters:nil resultClass:OCTTeam.class];
+}
+
+@end
+
+@implementation OCTClient (Keys)
+
+- (RACSignal *)fetchPublicKeys {
+	return [self enqueueRequestWithMethod:@"GET" path:@"user/keys" parameters:nil resultClass:OCTPublicKey.class];
+}
+
+- (RACSignal *)postPublicKey:(NSString *)key title:(NSString *)title {
+	NSMutableDictionary *options = [NSMutableDictionary dictionary];
+	[options setObject:key forKey:@"key"];
+	[options setObject:title forKey:@"title"];
+	return [self enqueueRequestWithMethod:@"POST" path:@"user/keys" parameters:options resultClass:OCTPublicKey.class];
+}
+
+@end
+
+@implementation OCTClient (Events)
+
+- (RACSignal *)fetchUserEventsNotMatchingEtag:(NSString *)etag {
+	return [self enqueueConditionalRequestWithMethod:@"GET" path:[NSString stringWithFormat:@"users/%@/received_events", self.user.login] parameters:nil notMatchingEtag:etag resultClass:OCTEvent.class fetchAllPages:NO];
 }
 
 @end

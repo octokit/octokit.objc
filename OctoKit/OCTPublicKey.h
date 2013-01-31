@@ -8,9 +8,13 @@
 
 #import "OCTObject.h"
 
+// A public SSH key.
 @interface OCTPublicKey : OCTObject
 
+// The public key data itself.
 @property (nonatomic, copy) NSString *publicKey;
+
+// The name given to this key by the user.
 @property (nonatomic, copy) NSString *title;
 
 @end

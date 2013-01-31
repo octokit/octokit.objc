@@ -8,10 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
-//
 // Represents a parsed response from the GitHub API, along with any useful
 // headers.
-//
 @interface OCTResponse : NSObject <NSCopying>
 
 // The parsed MTLModel object corresponding to the API response.
