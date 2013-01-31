@@ -348,7 +348,9 @@ static const NSUInteger OCTClientNotModifiedStatusCode = 304;
 			NSString *errorDescription = operation.error.userInfo[NSLocalizedDescriptionKey];
 			if (errorDescription != nil) userInfo[NSLocalizedDescriptionKey] = errorDescription;
 		}
-	} else {
+	}
+
+	if (userInfo[NSLocalizedDescriptionKey] == nil) {
 		userInfo[NSLocalizedDescriptionKey] = NSLocalizedString(@"The universe has collapsed.", @"");
 	}
 
