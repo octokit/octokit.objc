@@ -1,16 +1,16 @@
 //
-//  OCTOrgSpec.m
+//  OCTOrganizationSpec.m
 //  OctoKit
 //
 //  Created by Justin Spahr-Summers on 2012-09-26.
 //  Copyright (c) 2012 GitHub. All rights reserved.
 //
 
-#import "OCTOrg.h"
+#import "OCTOrganization.h"
 #import "OCTPlan.h"
 #import "OCTObjectSpec.h"
 
-SpecBegin(OCTOrg)
+SpecBegin(OCTOrganization)
 
 NSDictionary *representation = @{
 	@"login": @"github",
@@ -40,15 +40,15 @@ NSDictionary *representation = @{
 	}
 };
 
-__block OCTOrg *org;
+__block OCTOrganization *organization;
 
 before(^{
-	org = [[OCTOrg alloc] initWithExternalRepresentation:representation];
-	expect(org).notTo.beNil();
+	organization = [[OCTOrganization alloc] initWithExternalRepresentation:representation];
+	expect(organization).notTo.beNil();
 });
 
 itShouldBehaveLike(OCTObjectArchivingSharedExamplesName, ^{
-	return @{ OCTObjectKey: org };
+	return @{ OCTObjectKey: organization };
 });
 
 itShouldBehaveLike(OCTObjectExternalRepresentationSharedExamplesName, ^{
@@ -57,26 +57,26 @@ itShouldBehaveLike(OCTObjectExternalRepresentationSharedExamplesName, ^{
 	NSMutableDictionary *flattenedRepresentation = [representation mutableCopy];
 	[flattenedRepresentation removeObjectForKey:@"plan"];
 
-	return @{ OCTObjectKey: org, OCTObjectExternalRepresentationKey: flattenedRepresentation };
+	return @{ OCTObjectKey: organization, OCTObjectExternalRepresentationKey: flattenedRepresentation };
 });
 
 it(@"should initialize", ^{
-	expect(org.login).to.equal(@"github");
-	expect(org.name).to.equal(@"github");
-	expect(org.objectID).to.equal(@"1");
-	expect(org.avatarURL).to.equal([NSURL URLWithString:@"https://github.com/images/error/octocat_happy.gif"]);
-	expect(org.company).to.equal(@"GitHub");
-	expect(org.blog).to.equal(@"https://github.com/blog");
-	expect(org.email).to.equal(@"octocat@github.com");
-	expect(org.publicRepoCount).to.equal(2);
-	expect(org.privateRepoCount).to.equal(100);
-	expect(org.diskUsage).to.equal(10000);
-	expect(org.collaborators).to.equal(8);
+	expect(organization.login).to.equal(@"github");
+	expect(organization.name).to.equal(@"github");
+	expect(organization.objectID).to.equal(@"1");
+	expect(organization.avatarURL).to.equal([NSURL URLWithString:@"https://github.com/images/error/octocat_happy.gif"]);
+	expect(organization.company).to.equal(@"GitHub");
+	expect(organization.blog).to.equal(@"https://github.com/blog");
+	expect(organization.email).to.equal(@"octocat@github.com");
+	expect(organization.publicRepoCount).to.equal(2);
+	expect(organization.privateRepoCount).to.equal(100);
+	expect(organization.diskUsage).to.equal(10000);
+	expect(organization.collaborators).to.equal(8);
 
-	expect(org.plan).notTo.beNil();
-	expect(org.plan.name).to.equal(@"Medium");
-	expect(org.plan.space).to.equal(400);
-	expect(org.plan.privateRepos).to.equal(20);
+	expect(organization.plan).notTo.beNil();
+	expect(organization.plan.name).to.equal(@"Medium");
+	expect(organization.plan.space).to.equal(400);
+	expect(organization.plan.privateRepos).to.equal(20);
 });
 
 SpecEnd

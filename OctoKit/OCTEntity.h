@@ -56,8 +56,6 @@
 
 // Updates the receiver's repositories with data from the set of remote
 // repositories.
-//
-// TODO: Fix this to "RemoteCounterparts".
-- (void)mergeRepositoriesWithRemoteCountparts:(NSArray *)remoteRepositories;
+- (void)mergeRepositoriesWithRemoteCounterparts:(NSArray *)remoteRepositories;
 
 @end

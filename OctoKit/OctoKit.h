@@ -16,7 +16,7 @@
 #import <OctoKit/OCTIssueCommentEvent.h>
 #import <OctoKit/OCTIssueEvent.h>
 #import <OctoKit/OCTObject.h>
-#import <OctoKit/OCTOrg.h>
+#import <OctoKit/OCTOrganization.h>
 #import <OctoKit/OCTPlan.h>
 #import <OctoKit/OCTPublicKey.h>
 #import <OctoKit/OCTPullRequest.h>

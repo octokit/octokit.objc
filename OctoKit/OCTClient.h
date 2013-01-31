@@ -10,7 +10,7 @@
 #import <ReactiveCocoa/ReactiveCocoa.h>
 
 @class OCTUser;
-@class OCTOrg;
+@class OCTOrganization;
 @class OCTTeam;
 
 // The domain for all errors originating in OCTClient.
@@ -104,42 +104,42 @@ extern NSString * const OCTClientErrorHTTPStatusCodeKey;
 // Fetches the current user's repositories.
 //
 // Returns a signal which sends an array of OCTRepository objects on success.
-- (RACSignal *)fetchUserRepos;
+- (RACSignal *)fetchUserRepositories;
 
 // Creates a repository under the user's account.
 //
 // Returns a signal which sends the new OCTRepository on success.
-- (RACSignal *)createRepoWithName:(NSString *)name description:(NSString *)description private:(BOOL)isPrivate;
+- (RACSignal *)createRepositoryWithName:(NSString *)name description:(NSString *)description private:(BOOL)isPrivate;
 
 @end
 
-@interface OCTClient (Orgs)
+@interface OCTClient (Organizations)
 
 // Fetches the organizations that the current user is a member of.
 //
-// Returns a signal which sends an array of OCTOrg objects on success.
-- (RACSignal *)fetchUserOrgs;
+// Returns a signal which sends an array of OCTOrganization objects on success.
+- (RACSignal *)fetchUserOrganizations;
 
 // Fetches the specified organization's full information.
 //
-// Returns a signal which sends a new OCTOrg on success.
-- (RACSignal *)fetchOrgInfo:(OCTOrg *)org;
+// Returns a signal which sends a new OCTOrganization on success.
+- (RACSignal *)fetchOrganizationInfo:(OCTOrganization *)organization;
 
 // Fetches the specified organization's repositories.
 //
 // Returns a signal which sends an array of OCTRepository objects on success.
-- (RACSignal *)fetchReposForOrg:(OCTOrg *)org;
+- (RACSignal *)fetchRepositoriesForOrganization:(OCTOrganization *)organization;
 
 // Creates a repository under the specified organization's account, and
 // associates it with the given team.
 //
 // Returns a signal which sends the new OCTRepository on success.
-- (RACSignal *)createRepoWithName:(NSString *)name org:(OCTOrg *)org team:(OCTTeam *)team description:(NSString *)description private:(BOOL)isPrivate;
+- (RACSignal *)createRepositoryWithName:(NSString *)name organization:(OCTOrganization *)organization team:(OCTTeam *)team description:(NSString *)description private:(BOOL)isPrivate;
 
 // Fetches the specified organization's teams.
 //
 // Returns a signal which sends an array of OCTTeam objects on success.
-- (RACSignal *)fetchTeamsForOrg:(OCTOrg *)org;
+- (RACSignal *)fetchTeamsForOrganization:(OCTOrganization *)organization;
 
 @end
 
