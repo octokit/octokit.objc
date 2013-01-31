@@ -104,12 +104,12 @@ extern NSString * const OCTClientErrorHTTPStatusCodeKey;
 // Fetches the current user's repositories.
 //
 // Returns a signal which sends an array of OCTRepository objects on success.
-- (RACSignal *)fetchUserRepos;
+- (RACSignal *)fetchUserRepositories;
 
 // Creates a repository under the user's account.
 //
 // Returns a signal which sends the new OCTRepository on success.
-- (RACSignal *)createRepoWithName:(NSString *)name description:(NSString *)description private:(BOOL)isPrivate;
+- (RACSignal *)createRepositoryWithName:(NSString *)name description:(NSString *)description private:(BOOL)isPrivate;
 
 @end
 
@@ -128,13 +128,13 @@ extern NSString * const OCTClientErrorHTTPStatusCodeKey;
 // Fetches the specified organization's repositories.
 //
 // Returns a signal which sends an array of OCTRepository objects on success.
-- (RACSignal *)fetchReposForOrganization:(OCTOrganization *)organization;
+- (RACSignal *)fetchRepositoriesForOrganization:(OCTOrganization *)organization;
 
 // Creates a repository under the specified organization's account, and
 // associates it with the given team.
 //
 // Returns a signal which sends the new OCTRepository on success.
-- (RACSignal *)createRepoWithName:(NSString *)name organization:(OCTOrganization *)organization team:(OCTTeam *)team description:(NSString *)description private:(BOOL)isPrivate;
+- (RACSignal *)createRepositoryWithName:(NSString *)name organization:(OCTOrganization *)organization team:(OCTTeam *)team description:(NSString *)description private:(BOOL)isPrivate;
 
 // Fetches the specified organization's teams.
 //

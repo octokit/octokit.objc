@@ -330,12 +330,12 @@ static const NSUInteger OCTClientNotModifiedStatusCode = 304;
 	return [self enqueueRequestWithMethod:@"GET" path:@"user" parameters:nil resultClass:OCTUser.class];
 }
 
-- (RACSignal *)fetchUserRepos {
+- (RACSignal *)fetchUserRepositories {
 	return [self enqueueRequestWithMethod:@"GET" path:@"user/repos" parameters:nil resultClass:OCTRepository.class];
 }
 
-- (RACSignal *)createRepoWithName:(NSString *)name description:(NSString *)description private:(BOOL)isPrivate {
-	return [self createRepoWithName:name organization:nil team:nil description:description private:isPrivate];
+- (RACSignal *)createRepositoryWithName:(NSString *)name description:(NSString *)description private:(BOOL)isPrivate {
+	return [self createRepositoryWithName:name organization:nil team:nil description:description private:isPrivate];
 }
 
 @end
@@ -350,11 +350,11 @@ static const NSUInteger OCTClientNotModifiedStatusCode = 304;
 	return [self enqueueRequestWithMethod:@"GET" path:[NSString stringWithFormat:@"orgs/%@", organization.login] parameters:nil resultClass:OCTOrganization.class];
 }
 
-- (RACSignal *)fetchReposForOrganization:(OCTOrganization *)organization {
+- (RACSignal *)fetchRepositoriesForOrganization:(OCTOrganization *)organization {
 	return [self enqueueRequestWithMethod:@"GET" path:[NSString stringWithFormat:@"orgs/%@/repos", organization.login] parameters:nil resultClass:OCTRepository.class];
 }
 
-- (RACSignal *)createRepoWithName:(NSString *)name organization:(OCTOrganization *)organization team:(OCTTeam *)team description:(NSString *)description private:(BOOL)isPrivate {
+- (RACSignal *)createRepositoryWithName:(NSString *)name organization:(OCTOrganization *)organization team:(OCTTeam *)team description:(NSString *)description private:(BOOL)isPrivate {
 	NSMutableDictionary *options = [NSMutableDictionary dictionary];
 	[options setObject:name forKey:@"name"];
 	if(description != nil) [options setObject:description forKey:@"description"];
