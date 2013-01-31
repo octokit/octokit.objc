@@ -13,8 +13,8 @@
 // The type of action performed on an issue or pull request.
 //
 // OCTIssueActionUnknown  - An unknown action occurred. Issue events will
-//                               never be initialized with this value -- they
-//                               will simply fail to be created.
+//                          never be initialized with this value -- they
+//                          will simply fail to be created.
 // OCTIssueActionOpened   - The issue or pull request was opened.
 // OCTIssueActionClosed   - The issue or pull request was closed.
 // OCTIssueActionReopened - The issue or pull request was reopened.
