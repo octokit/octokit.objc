@@ -1,5 +1,5 @@
 //
-//  OCTOrg.h
+//  OCTOrganization.h
 //  OctoKit
 //
 //  Created by Joe Ricioppo on 10/27/10.
@@ -9,7 +9,7 @@
 #import "OCTEntity.h"
 
 // An organization.
-@interface OCTOrg : OCTEntity
+@interface OCTOrganization : OCTEntity
 
 // The OCTTeams in this organization.
 @property (nonatomic, copy) NSArray *teams;

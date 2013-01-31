@@ -10,7 +10,7 @@
 #import "NSArray+OCTFlatteningAdditions.h"
 #import "OCTEvent.h"
 #import "OCTObject+Private.h"
-#import "OCTOrg.h"
+#import "OCTOrganization.h"
 #import "OCTPublicKey.h"
 #import "OCTRepository.h"
 #import "OCTResponse.h"
@@ -333,43 +333,44 @@ static const NSUInteger OCTClientNotModifiedStatusCode = 304;
 	return [self enqueueRequestWithMethod:@"GET" path:@"user" parameters:nil resultClass:OCTUser.class];
 }
 
-- (RACSignal *)fetchUserRepos {
+- (RACSignal *)fetchUserRepositories {
 	return [self enqueueRequestWithMethod:@"GET" path:@"user/repos" parameters:nil resultClass:OCTRepository.class];
 }
 
-- (RACSignal *)createRepoWithName:(NSString *)name description:(NSString *)description private:(BOOL)isPrivate {
-	return [self createRepoWithName:name org:nil team:nil description:description private:isPrivate];
+- (RACSignal *)createRepositoryWithName:(NSString *)name description:(NSString *)description private:(BOOL)isPrivate {
+	return [self createRepositoryWithName:name organization:nil team:nil description:description private:isPrivate];
 }
 
 @end
 
-@implementation OCTClient (Orgs)
+@implementation OCTClient (Organizations)
 
-- (RACSignal *)fetchUserOrgs {
-	return [self enqueueRequestWithMethod:@"GET" path:@"user/orgs" parameters:nil resultClass:OCTOrg.class];
+- (RACSignal *)fetchUserOrganizations {
+	return [self enqueueRequestWithMethod:@"GET" path:@"user/orgs" parameters:nil resultClass:OCTOrganization.class];
 }
 
-- (RACSignal *)fetchOrgInfo:(OCTOrg *)org {
-	return [self enqueueRequestWithMethod:@"GET" path:[NSString stringWithFormat:@"orgs/%@", org.login] parameters:nil resultClass:OCTOrg.class];
+- (RACSignal *)fetchOrganizationInfo:(OCTOrganization *)organization {
+	return [self enqueueRequestWithMethod:@"GET" path:[NSString stringWithFormat:@"orgs/%@", organization.login] parameters:nil resultClass:OCTOrganization.class];
 }
 
-- (RACSignal *)fetchReposForOrg:(OCTOrg *)org {
-	return [self enqueueRequestWithMethod:@"GET" path:[NSString stringWithFormat:@"orgs/%@/repos", org.login] parameters:nil resultClass:OCTRepository.class];
+- (RACSignal *)fetchRepositoriesForOrganization:(OCTOrganization *)organization {
+	return [self enqueueRequestWithMethod:@"GET" path:[NSString stringWithFormat:@"orgs/%@/repos", organization.login] parameters:nil resultClass:OCTRepository.class];
 }
 
-- (RACSignal *)createRepoWithName:(NSString *)name org:(OCTOrg *)org team:(OCTTeam *)team description:(NSString *)description private:(BOOL)isPrivate {
+- (RACSignal *)createRepositoryWithName:(NSString *)name organization:(OCTOrganization *)organization team:(OCTTeam *)team description:(NSString *)description private:(BOOL)isPrivate {
 	NSMutableDictionary *options = [NSMutableDictionary dictionary];
-	[options setObject:name forKey:@"name"];
-	if(description != nil) [options setObject:description forKey:@"description"];
-	[options setObject:[NSNumber numberWithBool:isPrivate] forKey:@"private"];
+	options[@"name"] = name;
+	options[@"private"] = @(isPrivate);
+
+	if (description != nil) options[@"description"] = description;
 	if (team != nil) options[@"team_id"] = team.objectID;
 	
-	NSString *path = org == nil ? @"user/repos" : [NSString stringWithFormat:@"orgs/%@/repos", org.login];
+	NSString *path = (organization == nil ? @"user/repos" : [NSString stringWithFormat:@"orgs/%@/repos", organization.login]);
 	return [self enqueueRequestWithMethod:@"POST" path:path parameters:options resultClass:OCTRepository.class];
 }
 
-- (RACSignal *)fetchTeamsForOrg:(OCTOrg *)org {
-	return [self enqueueRequestWithMethod:@"GET" path:[NSString stringWithFormat:@"orgs/%@/teams", org.login] parameters:nil resultClass:OCTTeam.class];
+- (RACSignal *)fetchTeamsForOrganization:(OCTOrganization *)organization {
+	return [self enqueueRequestWithMethod:@"GET" path:[NSString stringWithFormat:@"orgs/%@/teams", organization.login] parameters:nil resultClass:OCTTeam.class];
 }
 
 @end
@@ -381,9 +382,7 @@ static const NSUInteger OCTClientNotModifiedStatusCode = 304;
 }
 
 - (RACSignal *)postPublicKey:(NSString *)key title:(NSString *)title {
-	NSMutableDictionary *options = [NSMutableDictionary dictionary];
-	[options setObject:key forKey:@"key"];
-	[options setObject:title forKey:@"title"];
+	NSDictionary *options = @{ @"key": key, @"title": title };
 	return [self enqueueRequestWithMethod:@"POST" path:@"user/keys" parameters:options resultClass:OCTPublicKey.class];
 }
 
