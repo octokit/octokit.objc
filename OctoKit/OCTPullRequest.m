@@ -10,21 +10,4 @@
 
 @implementation OCTPullRequest
 
-#pragma mark MTLModel
-
-+ (NSDictionary *)externalRepresentationKeyPathsByPropertyKey {
-	NSMutableDictionary *keys = [super.externalRepresentationKeyPathsByPropertyKey mutableCopy];
-	
-	[keys addEntriesFromDictionary:@{
-		@"HTMLURL": @"html_url",
-		@"objectID": @"number",
-	}];
-
-	return keys;
-}
-
-+ (NSValueTransformer *)HTMLURLTransformer {
-	return [NSValueTransformer valueTransformerForName:MTLURLValueTransformerName];
-}
-
 @end

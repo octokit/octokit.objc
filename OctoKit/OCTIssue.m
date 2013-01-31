@@ -29,6 +29,8 @@
 		@"objectID": self.objectID,
 		@"HTMLURL": self.pullRequestHTMLURL,
 		@"title": self.title,
+		@"body": self.body,
+		@"commentsURL": self.commentsURL,
 	}];
 }
 
@@ -41,6 +43,8 @@
 		@"HTMLURL": @"html_url",
 		@"objectID": @"number",
 		@"pullRequestHTMLURL": @"pull_request.html_url",
+		@"body": @"body",
+		@"commentsURL": @"comments_url",
 	}];
 
 	return keys;
@@ -51,6 +55,10 @@
 }
 
 + (NSValueTransformer *)pullRequestHTMLURLTransformer {
+	return [NSValueTransformer valueTransformerForName:MTLURLValueTransformerName];
+}
+
++ (NSValueTransformer *)commentsURLTransformer {
 	return [NSValueTransformer valueTransformerForName:MTLURLValueTransformerName];
 }
 
