@@ -191,6 +191,10 @@
 		D08C190D16B718EE00575F24 /* ReactiveCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D08C190C16B718EE00575F24 /* ReactiveCocoa.framework */; };
 		D08C190F16B718F600575F24 /* libReactiveCocoa-iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D08C190E16B718F600575F24 /* libReactiveCocoa-iOS.a */; };
 		D08C191016B718FE00575F24 /* ReactiveCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D08C190C16B718EE00575F24 /* ReactiveCocoa.framework */; };
+		D0B9C8F416BC78970029C5B4 /* ISO8601DateFormatter+OCTFormattingAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D0B9C8F116BC78970029C5B4 /* ISO8601DateFormatter+OCTFormattingAdditions.m */; };
+		D0B9C8F516BC78970029C5B4 /* ISO8601DateFormatter+OCTFormattingAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D0B9C8F116BC78970029C5B4 /* ISO8601DateFormatter+OCTFormattingAdditions.m */; };
+		D0B9C8FD16BC7A260029C5B4 /* ISO8601DateFormatterAdditionsSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = D0B9C8FC16BC7A260029C5B4 /* ISO8601DateFormatterAdditionsSpec.m */; };
+		D0B9C8FE16BC7A260029C5B4 /* ISO8601DateFormatterAdditionsSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = D0B9C8FC16BC7A260029C5B4 /* ISO8601DateFormatterAdditionsSpec.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -463,6 +467,9 @@
 		D08B59CA169E3F8F006003B8 /* NSArray+OCTFlatteningAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+OCTFlatteningAdditions.m"; sourceTree = "<group>"; };
 		D08C190C16B718EE00575F24 /* ReactiveCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ReactiveCocoa.framework; path = "../../../../OctoClient-fhiesvgduyfgynfidvcqbacmdzot/Build/Products/Debug/ReactiveCocoa.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D08C190E16B718F600575F24 /* libReactiveCocoa-iOS.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libReactiveCocoa-iOS.a"; path = "External/ReactiveCocoa/ReactiveCocoaFramework/build/Release-iphoneos/libReactiveCocoa-iOS.a"; sourceTree = "<group>"; };
+		D0B9C8F016BC78970029C5B4 /* ISO8601DateFormatter+OCTFormattingAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ISO8601DateFormatter+OCTFormattingAdditions.h"; sourceTree = "<group>"; };
+		D0B9C8F116BC78970029C5B4 /* ISO8601DateFormatter+OCTFormattingAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ISO8601DateFormatter+OCTFormattingAdditions.m"; sourceTree = "<group>"; };
+		D0B9C8FC16BC7A260029C5B4 /* ISO8601DateFormatterAdditionsSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ISO8601DateFormatterAdditionsSpec.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -749,6 +756,7 @@
 		D0872126169E395300016ACA /* Specs */ = {
 			isa = PBXGroup;
 			children = (
+				D0B9C8FC16BC7A260029C5B4 /* ISO8601DateFormatterAdditionsSpec.m */,
 				D08721BD169E396F00016ACA /* OCTCommitCommentSpec.m */,
 				D08721BE169E396F00016ACA /* OCTEventSpec.m */,
 				D08721BF169E396F00016ACA /* OCTIssueSpec.m */,
@@ -880,6 +888,8 @@
 		D08B59C8169E3F7F006003B8 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				D0B9C8F016BC78970029C5B4 /* ISO8601DateFormatter+OCTFormattingAdditions.h */,
+				D0B9C8F116BC78970029C5B4 /* ISO8601DateFormatter+OCTFormattingAdditions.m */,
 				D08B59C9169E3F8F006003B8 /* NSArray+OCTFlatteningAdditions.h */,
 				D08B59CA169E3F8F006003B8 /* NSArray+OCTFlatteningAdditions.m */,
 			);
@@ -1282,6 +1292,7 @@
 				D08721BB169E395F00016ACA /* OCTUser.m in Sources */,
 				D087229C169E3D0500016ACA /* ISO8601DateFormatter.m in Sources */,
 				D08B59CD169E3F8F006003B8 /* NSArray+OCTFlatteningAdditions.m in Sources */,
+				D0B9C8F416BC78970029C5B4 /* ISO8601DateFormatter+OCTFormattingAdditions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1299,6 +1310,7 @@
 				D08721D6169E398C00016ACA /* OCTRepositorySpec.m in Sources */,
 				D08721D8169E398C00016ACA /* OCTServerSpec.m in Sources */,
 				D08721DA169E398C00016ACA /* OCTUserSpec.m in Sources */,
+				D0B9C8FD16BC7A260029C5B4 /* ISO8601DateFormatterAdditionsSpec.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1341,6 +1353,7 @@
 				D08721BC169E395F00016ACA /* OCTUser.m in Sources */,
 				D087229D169E3D0500016ACA /* ISO8601DateFormatter.m in Sources */,
 				D08B59CE169E3F8F006003B8 /* NSArray+OCTFlatteningAdditions.m in Sources */,
+				D0B9C8F516BC78970029C5B4 /* ISO8601DateFormatter+OCTFormattingAdditions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1358,6 +1371,7 @@
 				D08721D7169E398C00016ACA /* OCTRepositorySpec.m in Sources */,
 				D08721D9169E398C00016ACA /* OCTServerSpec.m in Sources */,
 				D08721DB169E398C00016ACA /* OCTUserSpec.m in Sources */,
+				D0B9C8FE16BC7A260029C5B4 /* ISO8601DateFormatterAdditionsSpec.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
