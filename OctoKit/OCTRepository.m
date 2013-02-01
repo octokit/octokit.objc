@@ -55,13 +55,16 @@ static const NSUInteger OCTRepositoryModelVersion = 3;
 }
 
 + (NSValueTransformer *)datePushedTransformer {
-	// Don't support reverse transformation. This means that we'll never
-	// serialize an NSString for this date (which is the Right Thing to do), but
-	// we do have to check the type of the deserialized object.
-	return [MTLValueTransformer transformerWithBlock:^ id (id date) {
+	return [MTLValueTransformer reversibleTransformerWithForwardBlock:^ id (id date) {
+		// Some version 3 instances serialized this property as an NSDate, so
+		// handle that case too.
 		if (![date isKindOfClass:NSString.class]) return date;
 
 		return [[[ISO8601DateFormatter alloc] init] dateFromString:date];
+	} reverseBlock:^(NSDate *date) {
+		ISO8601DateFormatter *formatter = [[ISO8601DateFormatter alloc] init];
+		formatter.includeTime = YES;
+		return [formatter stringFromDate:date];
 	}];
 }
 
