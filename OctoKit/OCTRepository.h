@@ -15,34 +15,34 @@
 //
 // This is the second half of a unique GitHub repository name, which follows the
 // form `ownerLogin/name`.
-@property (nonatomic, copy) NSString *name;
+@property (nonatomic, copy, readonly) NSString *name;
 
 // The login of the account which owns this repository.
 //
 // This is the first half of a unique GitHub repository name, which follows the
 // form `ownerLogin/name`.
-@property (nonatomic, copy) NSString *ownerLogin;
+@property (nonatomic, copy, readonly) NSString *ownerLogin;
 
 // The description of this repository.
-@property (nonatomic, copy) NSString *repoDescription;
+@property (nonatomic, copy, readonly) NSString *repoDescription;
 
 // Whether this repository is private to the owner.
-@property (nonatomic, assign, getter=isPrivate) BOOL private;
+@property (nonatomic, assign, getter = isPrivate, readonly) BOOL private;
 
 // The date of the last push to this repository.
-@property (nonatomic, strong) NSDate *datePushed;
+@property (nonatomic, strong, readonly) NSDate *datePushed;
 
 // The URL for pushing and pulling this repository over HTTPS.
-@property (nonatomic, copy) NSURL *HTTPSURL;
+@property (nonatomic, copy, readonly) NSURL *HTTPSURL;
 
 // The URL for pushing and pulling this repository over SSH, formatted as
 // a string because SSH URLs are not correctly interpreted by NSURL.
-@property (nonatomic, copy) NSString *SSHURL;
+@property (nonatomic, copy, readonly) NSString *SSHURL;
 
 // The URL for pulling this repository over the `git://` protocol.
-@property (nonatomic, copy) NSURL *gitURL;
+@property (nonatomic, copy, readonly) NSURL *gitURL;
 
 // The URL for visiting this repository on the web.
-@property (nonatomic, copy) NSURL *HTMLURL;
+@property (nonatomic, copy, readonly) NSURL *HTMLURL;
 
 @end
