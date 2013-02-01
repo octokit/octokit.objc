@@ -276,9 +276,6 @@ static const NSUInteger OCTClientNotModifiedStatusCode = 304;
 	NSParameterAssert(operation != nil);
 	
 	NSInteger HTTPCode = operation.response.statusCode;
-	// Trust the status code that everything's cool.
-	if (HTTPCode == 200) return nil;
-		
 	NSMutableDictionary *userInfo = [NSMutableDictionary dictionary];
 	NSInteger errorCode = OCTClientErrorServiceRequestFailed;
 	NSDictionary *responseDictionary = operation.responseJSON;
