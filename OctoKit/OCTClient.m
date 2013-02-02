@@ -206,11 +206,11 @@ static const NSUInteger OCTClientNotModifiedStatusCode = 304;
 	NSParameterAssert(resultClass == nil || [resultClass isSubclassOfClass:MTLModel.class]);
 
 	id parsedResult = nil;
-	if(resultClass != nil) {
-		if([responseObject isKindOfClass:NSArray.class]) {
+	if (resultClass != nil) {
+		if ([responseObject isKindOfClass:NSArray.class]) {
 			parsedResult = [NSMutableArray array];
-			for(NSDictionary *info in responseObject) {
-				if(![info isKindOfClass:NSDictionary.class]) {
+			for (NSDictionary *info in responseObject) {
+				if (![info isKindOfClass:NSDictionary.class]) {
 					NSLog(@"Invalid array element type: %@", info);
 					continue;
 				}
@@ -224,7 +224,7 @@ static const NSUInteger OCTClientNotModifiedStatusCode = 304;
 				newObject.baseURL = self.baseURL;
 				[parsedResult addObject:newObject];
 			}
-		} else if([responseObject isKindOfClass:NSDictionary.class]) {
+		} else if ([responseObject isKindOfClass:NSDictionary.class]) {
 			parsedResult = [resultClass modelWithExternalRepresentation:responseObject];
 		} else {
 			NSLog(@"Response wasn't an array or dictionary (%@): %@", NSStringFromClass([responseObject class]), responseObject);
