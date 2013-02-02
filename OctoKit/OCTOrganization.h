@@ -12,6 +12,6 @@
 @interface OCTOrganization : OCTEntity
 
 // The OCTTeams in this organization.
-@property (nonatomic, copy) NSArray *teams;
+@property (nonatomic, copy, readonly) NSArray *teams;
 
 @end
