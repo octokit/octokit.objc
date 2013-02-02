@@ -63,16 +63,7 @@ describe(@"from JSON", ^{
 	});
 
 	itShouldBehaveLike(OCTObjectExternalRepresentationSharedExamplesName, ^{
-		// This is a bit of a special case, because dates are not converted back to
-		// strings for the external representation. Thus, testing against the
-		// original representation would fail.
-		OCTRepository *repoWithoutDate = [repository copy];
-
-		// TODO: This shouldn't be necessary if we can fix date formatting to
-		// match the original string.
-		[repoWithoutDate setValue:nil forKey:@keypath(repository.datePushed)];
-
-		return @{ OCTObjectKey: repoWithoutDate, OCTObjectExternalRepresentationKey: representation };
+		return @{ OCTObjectKey: repository, OCTObjectExternalRepresentationKey: representation };
 	});
 
 	it(@"should initialize", ^{

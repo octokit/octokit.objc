@@ -7,6 +7,7 @@
 //
 
 #import "OCTEvent.h"
+#import "NSValueTransformer+OCTPredefinedTransformerAdditions.h"
 #import "OCTCommitCommentEvent.h"
 #import "OCTIssueEvent.h"
 #import "OCTIssueCommentEvent.h"
@@ -14,7 +15,6 @@
 #import "OCTPullRequestCommentEvent.h"
 #import "OCTPushEvent.h"
 #import "OCTRefEvent.h"
-#import "ISO8601DateFormatter.h"
 
 static NSString * const OCTEventTypeKey = @"type";
 
@@ -80,14 +80,7 @@ static NSString * const OCTEventTypeKey = @"type";
 }
 
 + (NSValueTransformer *)dateTransformer {
-	// Don't support reverse transformation. This means that we'll never
-	// serialize an NSString for this date (which is the Right Thing to do), but
-	// we do have to check the type of the deserialized object.
-	return [MTLValueTransformer transformerWithBlock:^ id (id date) {
-		if (![date isKindOfClass:NSString.class]) return date;
-
-		return [[[ISO8601DateFormatter alloc] init] dateFromString:date];
-	}];
+	return [NSValueTransformer valueTransformerForName:OCTDateValueTransformerName];
 }
 
 + (NSValueTransformer *)objectIDTransformer {

@@ -7,7 +7,7 @@
 //
 
 #import "OCTRepository.h"
-#import "ISO8601DateFormatter.h"
+#import "NSValueTransformer+OCTPredefinedTransformerAdditions.h"
 
 // Keys used in parsing and migration.
 static NSString * const OCTRepositoryHTMLURLKey = @"html_url";
@@ -55,17 +55,7 @@ static const NSUInteger OCTRepositoryModelVersion = 3;
 }
 
 + (NSValueTransformer *)datePushedTransformer {
-	return [MTLValueTransformer reversibleTransformerWithForwardBlock:^ id (id date) {
-		// Some version 3 instances serialized this property as an NSDate, so
-		// handle that case too.
-		if (![date isKindOfClass:NSString.class]) return date;
-
-		return [[[ISO8601DateFormatter alloc] init] dateFromString:date];
-	} reverseBlock:^(NSDate *date) {
-		ISO8601DateFormatter *formatter = [[ISO8601DateFormatter alloc] init];
-		formatter.includeTime = YES;
-		return [formatter stringFromDate:date];
-	}];
+	return [NSValueTransformer valueTransformerForName:OCTDateValueTransformerName];
 }
 
 + (NSDictionary *)migrateExternalRepresentation:(NSDictionary *)dictionary fromVersion:(NSUInteger)fromVersion {
