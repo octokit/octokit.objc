@@ -16,13 +16,15 @@ static NSString * const OCTEntityOwnedPrivateRepoCountKey = @"owned_private_repo
 
 @interface OCTEntity ()
 
-@property (nonatomic, readwrite, strong) OCTPlan *plan;
+@property (atomic, copy, readwrite) NSArray *repositories;
 
 @end
 
 @implementation OCTEntity
 
 #pragma mark Properties
+
+@synthesize name = _name;
 
 - (NSString *)name {
 	return _name ?: self.login;
@@ -84,13 +86,15 @@ static NSString * const OCTEntityOwnedPrivateRepoCountKey = @"owned_private_repo
 		return;
 	}
 
+	NSArray *localRepositories = [self.repositories copy];
+
 	NSMutableArray *reposToAdd = [remoteRepositories mutableCopy];
-	[reposToAdd removeObjectsInArray:self.repositories];
+	[reposToAdd removeObjectsInArray:localRepositories];
 	
-	NSMutableArray *reposToRemove = [self.repositories mutableCopy];
+	NSMutableArray *reposToRemove = [localRepositories mutableCopy];
 	[reposToRemove removeObjectsInArray:remoteRepositories];
 	
-	NSMutableArray *allRepos = [self.repositories mutableCopy] ? : [NSMutableArray array];
+	NSMutableArray *allRepos = [localRepositories mutableCopy] ? : [NSMutableArray array];
 	[allRepos addObjectsFromArray:reposToAdd];
 	[allRepos removeObjectsInArray:reposToRemove];
 	
