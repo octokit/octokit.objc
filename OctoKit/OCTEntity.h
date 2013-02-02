@@ -23,9 +23,9 @@
 
 // The OCTRepository objects associated with this entity.
 //
-// Most endpoints do not actually set this property. It is provided mostly as
-// a convenience for model merging.
-@property (atomic, copy, readonly) NSArray *repositories;
+// OCTClient endpoints do not actually set this property. It is provided as
+// a convenience for persistence and model merging.
+@property (atomic, copy) NSArray *repositories;
 
 // The email address for this account.
 @property (nonatomic, copy, readonly) NSString *email;

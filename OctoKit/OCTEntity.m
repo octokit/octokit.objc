@@ -14,12 +14,6 @@
 static NSString * const OCTEntityPublicRepoCountKey = @"public_repos";
 static NSString * const OCTEntityOwnedPrivateRepoCountKey = @"owned_private_repos";
 
-@interface OCTEntity ()
-
-@property (atomic, copy, readwrite) NSArray *repositories;
-
-@end
-
 @implementation OCTEntity
 
 #pragma mark Properties
