@@ -15,6 +15,14 @@
 		D0772E7A16BD2A06009DFF72 /* NSValueTransformer+OCTPredefinedTransformerAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D0772E7616BD2A06009DFF72 /* NSValueTransformer+OCTPredefinedTransformerAdditions.m */; };
 		D0772E7C16BD2AD5009DFF72 /* NSValueTransformerAdditionsSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = D0772E7B16BD2AD5009DFF72 /* NSValueTransformerAdditionsSpec.m */; };
 		D0772E7D16BD2AD5009DFF72 /* NSValueTransformerAdditionsSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = D0772E7B16BD2AD5009DFF72 /* NSValueTransformerAdditionsSpec.m */; };
+		D0772E8C16BD305B009DFF72 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0772E8B16BD305B009DFF72 /* Foundation.framework */; };
+		D0772E8E16BD305F009DFF72 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0772E8D16BD305F009DFF72 /* MobileCoreServices.framework */; };
+		D0772E9016BD3064009DFF72 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0772E8F16BD3064009DFF72 /* SystemConfiguration.framework */; };
+		D0772E9216BD3067009DFF72 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0772E9116BD3067009DFF72 /* UIKit.framework */; };
+		D0772E9316BD3072009DFF72 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0772E9116BD3067009DFF72 /* UIKit.framework */; };
+		D0772E9416BD3072009DFF72 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0772E8F16BD3064009DFF72 /* SystemConfiguration.framework */; };
+		D0772E9516BD3072009DFF72 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0772E8D16BD305F009DFF72 /* MobileCoreServices.framework */; };
+		D0772E9616BD3072009DFF72 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0772E8B16BD305B009DFF72 /* Foundation.framework */; };
 		D0871EB6169E2EFC00016ACA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D0871EB4169E2EFC00016ACA /* InfoPlist.strings */; };
 		D0871EC2169E2EFC00016ACA /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0871EC1169E2EFC00016ACA /* SenTestingKit.framework */; };
 		D0871EC6169E2EFC00016ACA /* OctoKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0871EA8169E2EFC00016ACA /* OctoKit.framework */; };
@@ -22,7 +30,6 @@
 		D0871FF4169E309A00016ACA /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0871EC1169E2EFC00016ACA /* SenTestingKit.framework */; };
 		D0871FFA169E309A00016ACA /* libOctoKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D0871FE4169E309900016ACA /* libOctoKit.a */; };
 		D0872010169E31C000016ACA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D087200F169E31C000016ACA /* Foundation.framework */; };
-		D0872012169E31C800016ACA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0872011169E31C800016ACA /* Foundation.framework */; };
 		D0872030169E326800016ACA /* AFHTTPClient.h in Headers */ = {isa = PBXBuildFile; fileRef = D087201D169E326800016ACA /* AFHTTPClient.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D0872031169E326800016ACA /* AFHTTPClient.h in Headers */ = {isa = PBXBuildFile; fileRef = D087201D169E326800016ACA /* AFHTTPClient.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D0872032169E326800016ACA /* AFHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = D087201E169E326800016ACA /* AFHTTPClient.m */; };
@@ -65,9 +72,6 @@
 		D08720A0169E32BB00016ACA /* libMantle.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D087206D169E328B00016ACA /* libMantle.a */; };
 		D08720A3169E332800016ACA /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D08720A2169E332800016ACA /* AppKit.framework */; };
 		D08720A5169E332E00016ACA /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D08720A4169E332E00016ACA /* SystemConfiguration.framework */; };
-		D08720A7169E333800016ACA /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D08720A6169E333800016ACA /* SystemConfiguration.framework */; };
-		D08720A9169E333B00016ACA /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D08720A8169E333B00016ACA /* UIKit.framework */; };
-		D08720AB169E338D00016ACA /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D08720AA169E338D00016ACA /* MobileCoreServices.framework */; };
 		D087211C169E35FC00016ACA /* libExpecta.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D0872102169E35D800016ACA /* libExpecta.a */; };
 		D087211D169E35FC00016ACA /* libSpecta.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D0872111169E35DE00016ACA /* libSpecta.a */; };
 		D0872122169E360600016ACA /* libExpecta-iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D0872104169E35D800016ACA /* libExpecta-iOS.a */; };
@@ -352,6 +356,10 @@
 		D0772E7516BD2A05009DFF72 /* NSValueTransformer+OCTPredefinedTransformerAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSValueTransformer+OCTPredefinedTransformerAdditions.h"; sourceTree = "<group>"; };
 		D0772E7616BD2A06009DFF72 /* NSValueTransformer+OCTPredefinedTransformerAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSValueTransformer+OCTPredefinedTransformerAdditions.m"; sourceTree = "<group>"; };
 		D0772E7B16BD2AD5009DFF72 /* NSValueTransformerAdditionsSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSValueTransformerAdditionsSpec.m; sourceTree = "<group>"; };
+		D0772E8B16BD305B009DFF72 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.1.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		D0772E8D16BD305F009DFF72 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.1.sdk/System/Library/Frameworks/MobileCoreServices.framework; sourceTree = DEVELOPER_DIR; };
+		D0772E8F16BD3064009DFF72 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.1.sdk/System/Library/Frameworks/SystemConfiguration.framework; sourceTree = DEVELOPER_DIR; };
+		D0772E9116BD3067009DFF72 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.1.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
 		D0871EA8169E2EFC00016ACA /* OctoKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = OctoKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0871EB3169E2EFC00016ACA /* OctoKit-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "OctoKit-Info.plist"; sourceTree = "<group>"; };
 		D0871EB5169E2EFC00016ACA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -378,7 +386,6 @@
 		D0871FE4169E309900016ACA /* libOctoKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libOctoKit.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0871FF3169E309A00016ACA /* OctoKit iOS Tests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "OctoKit iOS Tests.octest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D087200F169E31C000016ACA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		D0872011169E31C800016ACA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		D087201D169E326800016ACA /* AFHTTPClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPClient.h; sourceTree = "<group>"; };
 		D087201E169E326800016ACA /* AFHTTPClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFHTTPClient.m; sourceTree = "<group>"; };
 		D087201F169E326800016ACA /* AFHTTPRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperation.h; sourceTree = "<group>"; };
@@ -401,9 +408,6 @@
 		D0872056169E328A00016ACA /* Mantle.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Mantle.xcodeproj; path = External/Mantle/Mantle.xcodeproj; sourceTree = "<group>"; };
 		D08720A2169E332800016ACA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		D08720A4169E332E00016ACA /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
-		D08720A6169E333800016ACA /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.0.sdk/System/Library/Frameworks/SystemConfiguration.framework; sourceTree = DEVELOPER_DIR; };
-		D08720A8169E333B00016ACA /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.0.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
-		D08720AA169E338D00016ACA /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.0.sdk/System/Library/Frameworks/MobileCoreServices.framework; sourceTree = DEVELOPER_DIR; };
 		D08720FA169E35D800016ACA /* Expecta.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Expecta.xcodeproj; path = External/Mantle/MantleTests/expecta/Expecta.xcodeproj; sourceTree = "<group>"; };
 		D0872109169E35DE00016ACA /* Specta.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Specta.xcodeproj; path = External/Mantle/MantleTests/specta/Specta.xcodeproj; sourceTree = "<group>"; };
 		D0872124169E365A00016ACA /* OctoKitTests-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "OctoKitTests-Prefix.pch"; sourceTree = "<group>"; };
@@ -512,12 +516,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D0772E9216BD3067009DFF72 /* UIKit.framework in Frameworks */,
+				D0772E9016BD3064009DFF72 /* SystemConfiguration.framework in Frameworks */,
+				D0772E8E16BD305F009DFF72 /* MobileCoreServices.framework in Frameworks */,
+				D0772E8C16BD305B009DFF72 /* Foundation.framework in Frameworks */,
 				D08C190F16B718F600575F24 /* libReactiveCocoa-iOS.a in Frameworks */,
-				D08720AB169E338D00016ACA /* MobileCoreServices.framework in Frameworks */,
-				D08720A9169E333B00016ACA /* UIKit.framework in Frameworks */,
-				D08720A7169E333800016ACA /* SystemConfiguration.framework in Frameworks */,
 				D08720A0169E32BB00016ACA /* libMantle.a in Frameworks */,
-				D0872012169E31C800016ACA /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -529,6 +533,10 @@
 				D0871FFA169E309A00016ACA /* libOctoKit.a in Frameworks */,
 				D0872122169E360600016ACA /* libExpecta-iOS.a in Frameworks */,
 				D0872123169E360600016ACA /* libSpecta-iOS.a in Frameworks */,
+				D0772E9316BD3072009DFF72 /* UIKit.framework in Frameworks */,
+				D0772E9416BD3072009DFF72 /* SystemConfiguration.framework in Frameworks */,
+				D0772E9516BD3072009DFF72 /* MobileCoreServices.framework in Frameworks */,
+				D0772E9616BD3072009DFF72 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -568,14 +576,14 @@
 				D0872109169E35DE00016ACA /* Specta.xcodeproj */,
 				D08720A2169E332800016ACA /* AppKit.framework */,
 				D087200F169E31C000016ACA /* Foundation.framework */,
-				D0872011169E31C800016ACA /* Foundation.framework */,
-				D08720AA169E338D00016ACA /* MobileCoreServices.framework */,
 				D0871EC1169E2EFC00016ACA /* SenTestingKit.framework */,
 				D08720A4169E332E00016ACA /* SystemConfiguration.framework */,
-				D08720A6169E333800016ACA /* SystemConfiguration.framework */,
-				D08720A8169E333B00016ACA /* UIKit.framework */,
 				D08C190E16B718F600575F24 /* libReactiveCocoa-iOS.a */,
 				D08C190C16B718EE00575F24 /* ReactiveCocoa.framework */,
+				D0772E9116BD3067009DFF72 /* UIKit.framework */,
+				D0772E8F16BD3064009DFF72 /* SystemConfiguration.framework */,
+				D0772E8D16BD305F009DFF72 /* MobileCoreServices.framework */,
+				D0772E8B16BD305B009DFF72 /* Foundation.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1586,7 +1594,7 @@
 				);
 				GCC_PREFIX_HEADER = "OctoKitTests/OctoKitTests-Prefix.pch";
 				INFOPLIST_FILE = "OctoKitTests/OctoKitTests-Info.plist";
-				OTHER_LDFLAGS = "-all_load";
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "OctoKit iOS Tests";
 				WRAPPER_EXTENSION = octest;
 			};
@@ -1602,7 +1610,7 @@
 				);
 				GCC_PREFIX_HEADER = "OctoKitTests/OctoKitTests-Prefix.pch";
 				INFOPLIST_FILE = "OctoKitTests/OctoKitTests-Info.plist";
-				OTHER_LDFLAGS = "-all_load";
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "OctoKit iOS Tests";
 				WRAPPER_EXTENSION = octest;
 			};
@@ -1675,7 +1683,7 @@
 				);
 				GCC_PREFIX_HEADER = "OctoKitTests/OctoKitTests-Prefix.pch";
 				INFOPLIST_FILE = "OctoKitTests/OctoKitTests-Info.plist";
-				OTHER_LDFLAGS = "-all_load";
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "OctoKit iOS Tests";
 				WRAPPER_EXTENSION = octest;
 			};
