@@ -48,7 +48,7 @@ extern NSString * const OCTClientErrorHTTPStatusCodeKey;
 //
 // To avoid hitting the network for a result that won't be used, **no request
 // will be sent until the returned signal is subscribed to.** To cancel an
-// in-flight request, simply dispose of all subscriptions to the result.
+// in-flight request, simply dispose of all subscriptions.
 @interface OCTClient : AFHTTPClient
 
 // The user used to authenticate this session.
