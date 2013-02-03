@@ -13,7 +13,25 @@
 
 + (NSDate *)oct_dateFromString:(NSString *)str {
 	NSParameterAssert(str != nil);
-	return [[[ISO8601DateFormatter alloc] init] dateFromString:str];
+
+	// ISO8601DateFormatter isn't thread-safe, because all instances share some
+	// unsynchronized global state, so we want to always access it from the same
+	// GCD queue and avoid any race conditions.
+	static ISO8601DateFormatter *dateParsingFormatter;
+	static dispatch_queue_t dateParsingQueue;
+	static dispatch_once_t pred;
+
+	dispatch_once(&pred, ^{
+		dateParsingFormatter = [[ISO8601DateFormatter alloc] init];
+		dateParsingQueue = dispatch_queue_create("com.github.OctoKit.NSDateFormatter", DISPATCH_QUEUE_SERIAL);
+	});
+
+	__block NSDate *date;
+	dispatch_sync(dateParsingQueue, ^{
+		date = [dateParsingFormatter dateFromString:str];
+	});
+
+	return date;
 }
 
 + (NSString *)oct_stringFromDate:(NSDate *)date {
