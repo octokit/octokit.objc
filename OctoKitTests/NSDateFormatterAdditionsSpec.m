@@ -18,4 +18,12 @@ it(@"should parse an ISO 8601 string into a date and back", ^{
 	expect([NSDateFormatter oct_stringFromDate:date]).to.equal(str);
 });
 
+it(@"shouldn't use ISO week-numbering year", ^{
+	NSString *str = @"2012-01-01T00:00:00Z";
+
+	NSDate *date = [NSDateFormatter oct_dateFromString:str];
+	expect(date).notTo.beNil();
+	expect([NSDateFormatter oct_stringFromDate:date]).to.equal(str);
+});
+
 SpecEnd
