@@ -96,74 +96,78 @@ static const NSUInteger OCTClientNotModifiedStatusCode = 304;
 }
 
 - (RACSignal *)enqueueRequest:(NSURLRequest *)request resultClass:(Class)resultClass fetchAllPages:(BOOL)fetchAllPages {
-	RACReplaySubject *subject = [RACReplaySubject subject];
+	RACSignal *signal = [RACSignal createSignal:^(id<RACSubscriber> subscriber) {
+		AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request success:^(AFHTTPRequestOperation *operation, id responseObject) {
+			void (^sendResult)(id) = ^(id parsedResult) {
+				OCTResponse *response = [[OCTResponse alloc] initWithHTTPURLResponse:operation.response parsedResult:parsedResult];
+				NSAssert(response != nil, @"Could not create OCTResponse with response %@ and parsedResult %@", operation.response, parsedResult);
 
-	AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request success:^(AFHTTPRequestOperation *operation, id responseObject) {
-		void (^sendResult)(id) = ^(id parsedResult) {
-			OCTResponse *response = [[OCTResponse alloc] initWithHTTPURLResponse:operation.response parsedResult:parsedResult];
-			NSAssert(response != nil, @"Could not create OCTResponse with response %@ and parsedResult %@", operation.response, parsedResult);
+				[subscriber sendNext:response];
+				[subscriber sendCompleted];
+			};
 
-			[subject sendNext:response];
-			[subject sendCompleted];
-		};
+			if (operation.response.statusCode == OCTClientNotModifiedStatusCode) {
+				// No change in the data.
+				[subscriber sendCompleted];
+				return;
+			}
+			
+			if (getenv("LOG_API_RESPONSES") != NULL) {
+				NSLog(@"%@ %@ => %li %@:\n%@", request.HTTPMethod, request.URL, (long)operation.response.statusCode, operation.response.allHeaderFields, responseObject);
+			}
 
-		if (operation.response.statusCode == OCTClientNotModifiedStatusCode) {
-			// No change in the data.
-			[subject sendCompleted];
-			return;
-		}
-		
-		if (getenv("LOG_API_RESPONSES") != NULL) {
-			NSLog(@"%@ %@ => %li %@:\n%@", request.HTTPMethod, request.URL, (long)operation.response.statusCode, operation.response.allHeaderFields, responseObject);
-		}
+			BOOL success = YES;
+			id parsedResult = [self parseResponse:responseObject withResultClass:resultClass success:&success];
+			if (!success) {
+				NSDictionary *userInfo = @{ NSLocalizedDescriptionKey: NSLocalizedString(@"Could not parse the service response.", @"") };
+				[subscriber sendError:[NSError errorWithDomain:OCTClientErrorDomain code:OCTClientErrorJSONParsingFailed userInfo:userInfo]];
+				return;
+			}
+			
+			NSURL *nextPageURL = (fetchAllPages ? [self nextPageURLFromOperation:operation] : nil);
+			if (nextPageURL != nil) {
+				NSMutableURLRequest *nextRequest = [request mutableCopy];
+				nextRequest.URL = nextPageURL;
 
-		BOOL success = YES;
-		id parsedResult = [self parseResponse:responseObject withResultClass:resultClass success:&success];
-		if (!success) {
-			NSDictionary *userInfo = @{ NSLocalizedDescriptionKey: NSLocalizedString(@"Could not parse the service response.", @"") };
-			[subject sendError:[NSError errorWithDomain:OCTClientErrorDomain code:OCTClientErrorJSONParsingFailed userInfo:userInfo]];
-			return;
-		}
-		
-		NSURL *nextPageURL = (fetchAllPages ? [self nextPageURLFromOperation:operation] : nil);
-		if (nextPageURL != nil) {
-			NSMutableURLRequest *nextRequest = [request mutableCopy];
-			nextRequest.URL = nextPageURL;
+				// If we got this far, the etag is out of date, so don't pass it on.
+				RACSignal *nextPageResult = [self enqueueRequest:nextRequest resultClass:resultClass fetchAllPages:YES];
+				[nextPageResult subscribeNext:^(OCTResponse *x) {
+					NSMutableArray *accumulatedResult = [NSMutableArray array];
+					[accumulatedResult addObject:parsedResult];
+					[accumulatedResult addObject:x.parsedResult];
+					
+					sendResult(accumulatedResult.oct_flattenedArray);
+				} error:^(NSError *error) {
+					[subscriber sendError:error];
+				}];
+			} else {
+				sendResult(parsedResult);
+			}
+		} failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+			[subscriber sendError:[self.class errorFromRequestOperation:(AFJSONRequestOperation *)operation]];
+		}];
 
-			// If we got this far, the etag is out of date, so don't pass it on.
-			RACSignal *nextPageResult = [self enqueueRequest:nextRequest resultClass:resultClass fetchAllPages:YES];
-			[nextPageResult subscribeNext:^(OCTResponse *x) {
-				NSMutableArray *accumulatedResult = [NSMutableArray array];
-				[accumulatedResult addObject:parsedResult];
-				[accumulatedResult addObject:x.parsedResult];
-				
-				sendResult(accumulatedResult.oct_flattenedArray);
-			} error:^(NSError *error) {
-				[subject sendError:error];
-			}];
-		} else {
-			sendResult(parsedResult);
-		}
-	} failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-		[subject sendError:[self.class errorFromRequestOperation:(AFJSONRequestOperation *)operation]];
+		operation.successCallbackQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+		operation.failureCallbackQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+		[self enqueueHTTPRequestOperation:operation];
+
+		return [RACDisposable disposableWithBlock:^{
+			[operation cancel];
+		}];
 	}];
-
-	operation.successCallbackQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-	operation.failureCallbackQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-	[self enqueueHTTPRequestOperation:operation];
 
 	if (getenv("LOG_REMAINING_API_CALLS") != NULL) {
 		// Avoid infinite recursion.
 		if (![request.URL.path isEqualToString:@"rate_limit"]) {
-			[[subject sequenceNext:^{
-				return [self enqueueRequestWithMethod:@"GET" path:@"rate_limit" parameters:nil resultClass:nil];
-			}] subscribeNext:^(NSDictionary *dict) {
-				NSLog(@"Remaining API calls: %@", dict[@"rate"][@"remaining"]);
+			signal = [signal doCompleted:^{
+				[[self enqueueRequestWithMethod:@"GET" path:@"rate_limit" parameters:nil resultClass:nil] subscribeNext:^(NSDictionary *dict) {
+					NSLog(@"Remaining API calls: %@", dict[@"rate"][@"remaining"]);
+				}];
 			}];
 		}
 	}
 	
-	return [subject deliverOn:RACScheduler.mainThreadScheduler];
+	return [[signal replayLazily] setNameWithFormat:@"-enqueueRequest: %@ resultClass: %@ fetchAllPages: %i", request, resultClass, (int)fetchAllPages];
 }
 
 #pragma mark Pagination
@@ -206,11 +210,11 @@ static const NSUInteger OCTClientNotModifiedStatusCode = 304;
 	NSParameterAssert(resultClass == nil || [resultClass isSubclassOfClass:MTLModel.class]);
 
 	id parsedResult = nil;
-	if(resultClass != nil) {
-		if([responseObject isKindOfClass:NSArray.class]) {
+	if (resultClass != nil) {
+		if ([responseObject isKindOfClass:NSArray.class]) {
 			parsedResult = [NSMutableArray array];
-			for(NSDictionary *info in responseObject) {
-				if(![info isKindOfClass:NSDictionary.class]) {
+			for (NSDictionary *info in responseObject) {
+				if (![info isKindOfClass:NSDictionary.class]) {
 					NSLog(@"Invalid array element type: %@", info);
 					continue;
 				}
@@ -224,7 +228,7 @@ static const NSUInteger OCTClientNotModifiedStatusCode = 304;
 				newObject.baseURL = self.baseURL;
 				[parsedResult addObject:newObject];
 			}
-		} else if([responseObject isKindOfClass:NSDictionary.class]) {
+		} else if ([responseObject isKindOfClass:NSDictionary.class]) {
 			parsedResult = [resultClass modelWithExternalRepresentation:responseObject];
 		} else {
 			NSLog(@"Response wasn't an array or dictionary (%@): %@", NSStringFromClass([responseObject class]), responseObject);
