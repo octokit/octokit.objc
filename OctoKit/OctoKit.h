@@ -6,6 +6,8 @@
 //  Copyright (c) 2013 GitHub. All rights reserved.
 //
 
+#import <OctoKit/NSDateFormatter+OCTFormattingAdditions.h>
+#import <OctoKit/NSValueTransformer+OCTPredefinedTransformerAdditions.h>
 #import <OctoKit/OCTClient.h>
 #import <OctoKit/OCTCommitComment.h>
 #import <OctoKit/OCTCommitCommentEvent.h>

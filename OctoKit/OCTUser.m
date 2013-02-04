@@ -16,18 +16,20 @@
 #pragma mark Lifecycle
 
 + (instancetype)userWithName:(NSString *)name email:(NSString *)email {
-	OCTUser *user = [[self alloc] init];
-	user.name = name;
-	user.email = email;
-	return user;
+	NSMutableDictionary *userDict = [NSMutableDictionary dictionary];
+	if (name != nil) userDict[@keypath(OCTUser.new, name)] = name;
+	if (email != nil) userDict[@keypath(OCTUser.new, email)] = email;
+
+	return [self modelWithDictionary:userDict];
 }
 
 + (instancetype)userWithLogin:(NSString *)login password:(NSString *)password server:(OCTServer *)server {
-	OCTUser *user = [[self alloc] init];
-	user.login = login;
-	user.password = password;
-	user.baseURL = server.baseURL;
-	return user;
+	NSMutableDictionary *userDict = [NSMutableDictionary dictionary];
+	if (login != nil) userDict[@keypath(OCTUser.new, login)] = login;
+	if (password != nil) userDict[@keypath(OCTUser.new, password)] = password;
+	if (server.baseURL != nil) userDict[@keypath(OCTUser.new, baseURL)] = server.baseURL;
+
+	return [self modelWithDictionary:userDict];
 }
 
 @end

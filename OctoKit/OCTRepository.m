@@ -7,7 +7,7 @@
 //
 
 #import "OCTRepository.h"
-#import "ISO8601DateFormatter.h"
+#import "NSValueTransformer+OCTPredefinedTransformerAdditions.h"
 
 // Keys used in parsing and migration.
 static NSString * const OCTRepositoryHTMLURLKey = @"html_url";
@@ -55,14 +55,7 @@ static const NSUInteger OCTRepositoryModelVersion = 3;
 }
 
 + (NSValueTransformer *)datePushedTransformer {
-	// Don't support reverse transformation. This means that we'll never
-	// serialize an NSString for this date (which is the Right Thing to do), but
-	// we do have to check the type of the deserialized object.
-	return [MTLValueTransformer transformerWithBlock:^ id (id date) {
-		if (![date isKindOfClass:NSString.class]) return date;
-
-		return [[[ISO8601DateFormatter alloc] init] dateFromString:date];
-	}];
+	return [NSValueTransformer valueTransformerForName:OCTDateValueTransformerName];
 }
 
 + (NSDictionary *)migrateExternalRepresentation:(NSDictionary *)dictionary fromVersion:(NSUInteger)fromVersion {
