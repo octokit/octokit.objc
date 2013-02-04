@@ -12,15 +12,15 @@
 @interface OCTPlan : OCTObject
 
 // The name of this plan.
-@property (nonatomic, copy) NSString *name;
+@property (nonatomic, copy, readonly) NSString *name;
 
 // The number of collaborators allowed by this plan.
-@property (nonatomic, assign) NSUInteger collaborators;
+@property (nonatomic, assign, readonly) NSUInteger collaborators;
 
 // The number of kilobytes of disk space allowed by this plan.
-@property (nonatomic, assign) NSUInteger space;
+@property (nonatomic, assign, readonly) NSUInteger space;
 
 // The number of private repositories allowed by this plan.
-@property (nonatomic, assign) NSUInteger privateRepos;
+@property (nonatomic, assign, readonly) NSUInteger privateRepos;
 
 @end

@@ -19,7 +19,7 @@
 // By default, the external representation for this property assumes a numeric
 // representation (which is the case for most API objects). Subclasses may
 // override the `+objectIDTransformer` method to change this behavior.
-@property (nonatomic, copy) NSString *objectID;
+@property (nonatomic, copy, readonly) NSString *objectID;
 
 // The server this object is associated with.
 @property (nonatomic, strong, readonly) OCTServer *server;

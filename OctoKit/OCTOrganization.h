@@ -12,6 +12,9 @@
 @interface OCTOrganization : OCTEntity
 
 // The OCTTeams in this organization.
-@property (nonatomic, copy) NSArray *teams;
+//
+// OCTClient endpoints do not actually set this property. It is provided as
+// a convenience for persistence and model merging.
+@property (atomic, copy) NSArray *teams;
 
 @end
