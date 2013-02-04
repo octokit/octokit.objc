@@ -167,10 +167,7 @@ static const NSUInteger OCTClientNotModifiedStatusCode = 304;
 		}
 	}
 	
-	return [[[signal
-		deliverOn:[RACScheduler scheduler]]
-		replayLazily]
-		setNameWithFormat:@"-enqueueRequest: %@ resultClass: %@ fetchAllPages: %i", request, resultClass, (int)fetchAllPages];
+	return [[signal replayLazily] setNameWithFormat:@"-enqueueRequest: %@ resultClass: %@ fetchAllPages: %i", request, resultClass, (int)fetchAllPages];
 }
 
 #pragma mark Pagination
