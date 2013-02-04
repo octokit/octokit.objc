@@ -88,7 +88,7 @@ static NSString * const OCTEntityOwnedPrivateRepoCountKey = @"owned_private_repo
 	NSMutableArray *reposToRemove = [localRepositories mutableCopy];
 	[reposToRemove removeObjectsInArray:remoteRepositories];
 	
-	NSMutableArray *allRepos = [localRepositories mutableCopy] ? : [NSMutableArray array];
+	NSMutableArray *allRepos = [localRepositories mutableCopy] ?: [NSMutableArray array];
 	[allRepos addObjectsFromArray:reposToAdd];
 	[allRepos removeObjectsInArray:reposToRemove];
 	
