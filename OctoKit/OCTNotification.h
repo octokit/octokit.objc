@@ -8,6 +8,8 @@
 
 #import "OCTObject.h"
 
+@class OCTRepository;
+
 // The type of the notification.
 typedef enum : NSUInteger {
 	// An issue notification.
@@ -34,5 +36,11 @@ typedef enum : NSUInteger {
 
 // The notification type.
 @property (nonatomic, readonly, assign) OCTNotificationType type;
+
+// The repository to which the notification belongs.
+@property (nonatomic, readonly, strong) OCTRepository *repository;
+
+// The date on which the notification was last updated.
+@property (nonatomic, readonly, strong) NSDate *lastUpdatedDate;
 
 @end
