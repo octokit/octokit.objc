@@ -8,6 +8,7 @@
 
 #import "OCTIssue.h"
 #import "OCTPullRequest.h"
+#import "OCTUser.h"
 
 @interface OCTIssue ()
 
@@ -31,6 +32,7 @@
 		@"title": self.title,
 		@"body": self.body,
 		@"commentsURL": self.commentsURL,
+		@"user": self.user,
 	}];
 }
 
@@ -45,6 +47,7 @@
 		@"pullRequestHTMLURL": @"pull_request.html_url",
 		@"body": @"body",
 		@"commentsURL": @"comments_url",
+		@"user": @"user",
 	}];
 
 	return keys;
@@ -60,6 +63,10 @@
 
 + (NSValueTransformer *)commentsURLTransformer {
 	return [NSValueTransformer valueTransformerForName:MTLURLValueTransformerName];
+}
+
++ (NSValueTransformer *)userTransformer {
+	return [MTLValueTransformer mtl_externalRepresentationTransformerWithModelClass:OCTUser.class];
 }
 
 @end
