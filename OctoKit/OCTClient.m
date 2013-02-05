@@ -427,10 +427,6 @@ static const NSUInteger OCTClientNotModifiedStatusCode = 304;
 	return [self patchNotification:notification withReadStatus:YES];
 }
 
-- (RACSignal *)markNotificationAsUnread:(OCTNotification *)notification {
-	return [self patchNotification:notification withReadStatus:NO];
-}
-
 - (RACSignal *)patchNotification:(OCTNotification *)notification withReadStatus:(BOOL)read {
 	return [[self enqueueRequestWithMethod:@"PATCH" URL:notification.threadURL parameters:@{ @"read": @(read) } resultClass:nil] ignoreElements];
 }

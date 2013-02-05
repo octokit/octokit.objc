@@ -194,13 +194,6 @@ extern NSString * const OCTClientErrorHTTPStatusCodeKey;
 // Returns a signal which will complete or error.
 - (RACSignal *)markNotificationAsRead:(OCTNotification *)notification;
 
-// Mark the notification as having not been read.
-//
-// notification - The notification to mark as unread. Cannot be nil.
-//
-// Returns a signal which will complete or error.
-- (RACSignal *)markNotificationAsUnread:(OCTNotification *)notification;
-
 @end
 
 @interface OCTClient (Issues)
