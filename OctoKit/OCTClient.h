@@ -170,6 +170,9 @@ extern NSString * const OCTClientErrorHTTPStatusCodeKey;
 // downloaded. Unrecognized events will be omitted from the result.
 - (RACSignal *)fetchUserEventsNotMatchingEtag:(NSString *)etag;
 
+// Calls through to -fetchUserEventsNotMatchEtag: with a nil etag.
+- (RACSignal *)fetchUserEvents;
+
 @end
 
 @interface OCTClient (Notifications)
