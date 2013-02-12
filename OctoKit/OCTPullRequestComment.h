@@ -8,6 +8,9 @@
 
 #import "OCTObject.h"
 
+@class OCTUser;
+
+
 // A single comment on a pull request.
 @interface OCTPullRequestComment : OCTObject
 
@@ -16,5 +19,9 @@
 
 // The API URL for the pull request upon which this comment appears.
 @property (nonatomic, copy, readonly) NSURL *pullRequestAPIURL;
+
+@property (nonatomic, copy, readonly) NSString *body;
+
+@property (nonatomic, copy, readonly) OCTUser *commenter;
 
 @end

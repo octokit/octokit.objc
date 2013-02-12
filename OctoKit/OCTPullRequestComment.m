@@ -7,6 +7,7 @@
 //
 
 #import "OCTPullRequestComment.h"
+#import "OCTUser.h"
 
 @implementation OCTPullRequestComment
 
@@ -18,6 +19,8 @@
 	[keys addEntriesFromDictionary:@{
 		@"HTMLURL": @"_links.html.href",
 		@"pullRequestAPIURL": @"_links.pull_request.href",
+		@"body": @"body",
+		@"commenter": @"user"
 	}];
 
 	return keys;
@@ -29,6 +32,10 @@
 
 + (NSValueTransformer *)pullRequestAPIURLTransformer {
 	return [NSValueTransformer valueTransformerForName:MTLURLValueTransformerName];
+}
+
++ (NSValueTransformer *)commenterTransformer {
+	return [NSValueTransformer mtl_externalRepresentationTransformerWithModelClass:OCTUser.class];
 }
 
 @end
