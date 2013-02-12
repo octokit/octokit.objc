@@ -20,6 +20,8 @@
 #import "OCTNotification.h"
 #import "OCTIssue.h"
 #import "OCTIssueComment.h"
+#import "OCTPullRequest.h"
+#import <libextobjc/EXTScope.h>
 
 NSString * const OCTClientErrorDomain = @"OCTClientErrorDomain";
 const NSInteger OCTClientErrorAuthenticationFailed = 666;
@@ -449,6 +451,38 @@ static const NSUInteger OCTClientNotModifiedStatusCode = 304;
 
 - (RACSignal *)fetchCommentsForIssue:(OCTIssue *)issue {
 	return [self enqueueRequestWithMethod:@"GET" URL:issue.commentsURL parameters:nil resultClass:OCTIssueComment.class];
+}
+
+@end
+
+@implementation OCTClient (PullRequests)
+
+- (RACSignal *)fetchAllPullRequests {
+	@weakify(self);
+	return [[self fetchUserRepositories] flattenMap:^(NSArray *repositories) {
+		@strongify(self);
+		OCTRepository *repo = repositories[0];
+		NSArray *signals = [repositories mtl_mapUsingBlock:^(OCTRepository *repo) {
+			
+			NSString *path = [NSString stringWithFormat:@"repos/%@/%@/pulls", repo.ownerLogin, repo.name];
+
+			return [self enqueueRequestWithMethod:@"GET" path:path parameters:nil resultClass:OCTPullRequest.class];
+		}] ;
+
+		return [[RACSignal merge:signals] scanWithStart:@[] combine:^(id running, id next) {
+			return [running arrayByAddingObjectsFromArray:next];
+		}];
+	}];
+}
+
+@end
+
+@implementation OCTClient (Stars)
+
+- (RACSignal *)fetchAllStars {
+	NSString *path = [NSString stringWithFormat:@"users/%@/starred", self.user.name];
+
+	return [self enqueueRequestWithMethod:@"GET" path:path parameters:nil resultClass:OCTRepository.class];
 }
 
 @end

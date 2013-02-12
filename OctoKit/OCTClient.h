@@ -211,3 +211,15 @@ extern NSString * const OCTClientErrorHTTPStatusCodeKey;
 - (RACSignal *)fetchCommentsForIssue:(OCTIssue *)issue;
 
 @end
+
+@interface OCTClient (PullRequests)
+
+- (RACSignal *)fetchAllPullRequests;
+
+@end
+
+@interface OCTClient (Stars)
+
+- (RACSignal *)fetchAllStars;
+
+@end
