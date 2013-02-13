@@ -10,10 +10,24 @@
 #import "OCTServer.h"
 #import "EXTKeyPathCoding.h"
 #import "OCTObject+Private.h"
+#import "ISO8601DateFormatter.h"
 
 @implementation OCTUser
 
 #pragma mark Lifecycle
+
++ (NSDictionary *)externalRepresentationKeyPathsByPropertyKey {
+	NSMutableDictionary *keys = [[super externalRepresentationKeyPathsByPropertyKey] mutableCopy];
+
+	[keys addEntriesFromDictionary:@{
+		@"location": @"location",
+		@"followers": @"followers",
+		@"following": @"following",
+		@"createdAt": @"created_at"
+	}];
+
+	return [keys copy];
+}
 
 + (instancetype)userWithName:(NSString *)name email:(NSString *)email {
 	OCTUser *user = [[self alloc] init];
@@ -28,6 +42,16 @@
 	user.password = password;
 	user.baseURL = server.baseURL;
 	return user;
+}
+
++ (NSValueTransformer *)createdAtTransformer {
+	return [MTLValueTransformer
+		reversibleTransformerWithForwardBlock:^(NSString *string) {
+			return [[ISO8601DateFormatter new] dateFromString:string];
+		}
+		reverseBlock:^(NSDate *date) {
+			return [[ISO8601DateFormatter new] stringFromDate:date];
+		}];
 }
 
 @end

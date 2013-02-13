@@ -17,6 +17,14 @@
 // from the credential storage unless we need it.
 @property (atomic, copy) NSString *password;
 
+@property (nonatomic, copy) NSString *location;
+
+@property (nonatomic, copy) NSDate *createdAt;
+
+@property (nonatomic, copy) NSNumber *followers;
+
+@property (nonatomic, copy) NSNumber *following;
+
 // Returns a user that has the given name and email address.
 + (instancetype)userWithName:(NSString *)name email:(NSString *)email;
 
