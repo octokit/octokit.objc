@@ -28,7 +28,7 @@
 	return [NSValueTransformer mtl_JSONDictionaryTransformerWithModelClass:OCTIssue.class];
 }
 
-+ (NSValueTransformer *)actionTransformer {
++ (NSValueTransformer *)actionJSONTransformer {
 	NSDictionary *actionsByName = @{
 		@"opened": @(OCTIssueActionOpened),
 		@"closed": @(OCTIssueActionClosed),
