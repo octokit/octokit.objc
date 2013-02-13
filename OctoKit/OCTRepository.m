@@ -9,44 +9,35 @@
 #import "OCTRepository.h"
 #import "NSValueTransformer+OCTPredefinedTransformerAdditions.h"
 
-// Keys used in parsing and migration.
-static NSString * const OCTRepositoryHTMLURLKey = @"html_url";
-static NSString * const OCTRepositoryOwnerKey = @"owner";
-static NSString * const OCTRepositoryLoginKey = @"login";
-
 @implementation OCTRepository
 
-#pragma mark MTLModel
+#pragma mark MTLJSONSerializing
 
-+ (NSDictionary *)externalRepresentationKeyPathsByPropertyKey {
-	NSMutableDictionary *keys = [[super externalRepresentationKeyPathsByPropertyKey] mutableCopy];
-	
-	[keys addEntriesFromDictionary:@{
++ (NSDictionary *)JSONKeyPathsByPropertyKey {
+	return [super.JSONKeyPathsByPropertyKey mtl_dictionaryByAddingEntriesFromDictionary:@{
 		@"HTTPSURL": @"clone_url",
 		@"SSHURL": @"ssh_url",
 		@"gitURL": @"git_url",
-		@"HTMLURL": OCTRepositoryHTMLURLKey,
-		@"ownerLogin": [OCTRepositoryOwnerKey stringByAppendingFormat:@".%@", OCTRepositoryLoginKey],
+		@"HTMLURL": @"html_url",
+		@"ownerLogin": @"owner.login",
 		@"datePushed": @"pushed_at",
 		@"repoDescription": @"description",
 	}];
-
-	return keys;
 }
 
-+ (NSValueTransformer *)HTTPSURLTransformer {
++ (NSValueTransformer *)HTTPSURLJSONTransformer {
 	return [NSValueTransformer valueTransformerForName:MTLURLValueTransformerName];
 }
 
-+ (NSValueTransformer *)HTMLURLTransformer {
++ (NSValueTransformer *)HTMLURLJSONTransformer {
 	return [NSValueTransformer valueTransformerForName:MTLURLValueTransformerName];
 }
 
-+ (NSValueTransformer *)gitURLTransformer {
++ (NSValueTransformer *)gitURLJSONTransformer {
 	return [NSValueTransformer valueTransformerForName:MTLURLValueTransformerName];
 }
 
-+ (NSValueTransformer *)datePushedTransformer {
++ (NSValueTransformer *)datePushedJSONTransformer {
 	return [NSValueTransformer valueTransformerForName:OCTDateValueTransformerName];
 }
 
