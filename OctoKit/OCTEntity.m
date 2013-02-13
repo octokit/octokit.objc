@@ -84,7 +84,7 @@
 #pragma mark Migration
 
 + (NSDictionary *)dictionaryValueFromArchivedExternalRepresentation:(NSDictionary *)externalRepresentation version:(NSUInteger)fromVersion {
-	NSMutableDictionary *dictionaryValue = [NSMutableDictionary dictionaryWithCapacity:externalRepresentation.count];
+	NSMutableDictionary *dictionaryValue = [[super dictionaryValueFromArchivedExternalRepresentation:externalRepresentation version:fromVersion] mutableCopy];
 
 	// These keys will be copied as-is, one-to-one.
 	NSArray *keysToCopy = @[ @"login", @"name", @"email", @"blog", @"company", @"collaborators" ];

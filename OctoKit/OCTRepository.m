@@ -44,7 +44,7 @@
 #pragma mark Migration
 
 + (NSDictionary *)dictionaryValueFromArchivedExternalRepresentation:(NSDictionary *)externalRepresentation version:(NSUInteger)fromVersion {
-	NSMutableDictionary *dictionaryValue = [NSMutableDictionary dictionaryWithCapacity:externalRepresentation.count];
+	NSMutableDictionary *dictionaryValue = [[super dictionaryValueFromArchivedExternalRepresentation:externalRepresentation version:fromVersion] mutableCopy];
 
 	// Although some of these keys match JSON key paths, the format of this
 	// external representation is fixed (since it's always old data), thus the

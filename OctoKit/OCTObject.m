@@ -42,6 +42,13 @@
 	return 5;
 }
 
++ (NSDictionary *)dictionaryValueFromArchivedExternalRepresentation:(NSDictionary *)externalRepresentation version:(NSUInteger)fromVersion {
+	id objectID = externalRepresentation[@"id"];
+	if (objectID == nil) return nil;
+
+	return @{ @"objectID": objectID };
+}
+
 #pragma mark MTLJSONSerializing
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
