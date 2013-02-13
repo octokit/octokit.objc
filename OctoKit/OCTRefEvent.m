@@ -10,27 +10,24 @@
 
 @implementation OCTRefEvent
 
-#pragma mark MTLModel
+#pragma mark MTLJSONSerializing
 
-+ (NSDictionary *)externalRepresentationKeyPathsByPropertyKey {
-	NSMutableDictionary *keys = [super.externalRepresentationKeyPathsByPropertyKey mutableCopy];
-	
-	[keys addEntriesFromDictionary:@{
++ (NSDictionary *)JSONKeyPathsByPropertyKey {
+	return [super.JSONKeyPathsByPropertyKey mtl_dictionaryByAddingEntriesFromDictionary:@{
 		@"eventType": @"type",
 		@"refType": @"payload.ref_type",
 		@"refName": @"payload.ref",
 	}];
-
-	return keys;
 }
 
-+ (NSValueTransformer *)refTypeTransformer {
++ (NSValueTransformer *)refTypeJSONTransformer {
 	NSDictionary *typesByName = @{
 		@"branch": @(OCTRefTypeBranch),
 		@"tag": @(OCTRefTypeTag),
 	};
 
-	return [MTLValueTransformer reversibleTransformerWithForwardBlock:^(NSString *typeName) {
+	return [MTLValueTransformer
+		reversibleTransformerWithForwardBlock:^(NSString *typeName) {
 			return typesByName[typeName];
 		}
 		reverseBlock:^(NSNumber *type) {
@@ -38,13 +35,14 @@
 		}];
 }
 
-+ (NSValueTransformer *)eventTypeTransformer {
++ (NSValueTransformer *)eventTypeJSONTransformer {
 	NSDictionary *typesByName = @{
 		@"CreateEvent": @(OCTRefEventCreated),
 		@"DeleteEvent": @(OCTRefEventDeleted),
 	};
 
-	return [MTLValueTransformer reversibleTransformerWithForwardBlock:^(NSString *typeName) {
+	return [MTLValueTransformer
+		reversibleTransformerWithForwardBlock:^(NSString *typeName) {
 			return typesByName[typeName];
 		}
 		reverseBlock:^(NSNumber *type) {

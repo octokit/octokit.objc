@@ -43,7 +43,7 @@ NSDictionary *representation = @{
 __block OCTPullRequestComment *comment;
 
 before(^{
-	comment = [[OCTPullRequestComment alloc] initWithExternalRepresentation:representation];
+	comment = [MTLJSONAdapter modelOfClass:OCTPullRequestComment.class fromJSONDictionary:representation];
 	expect(comment).notTo.beNil();
 });
 

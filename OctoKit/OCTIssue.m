@@ -26,31 +26,27 @@
 	// We don't have a "real" pull request model within the issue data, but we
 	// have enough information to construct one.
 	return [OCTPullRequest modelWithDictionary:@{
-		@"objectID": self.objectID,
-		@"HTMLURL": self.pullRequestHTMLURL,
-		@"title": self.title,
+		@keypath(OCTPullRequest.new, objectID): self.objectID,
+		@keypath(OCTPullRequest.new, HTMLURL): self.pullRequestHTMLURL,
+		@keypath(OCTPullRequest.new, title): self.title,
 	}];
 }
 
-#pragma mark MTLModel
+#pragma mark MTLJSONSerializing
 
-+ (NSDictionary *)externalRepresentationKeyPathsByPropertyKey {
-	NSMutableDictionary *keys = [super.externalRepresentationKeyPathsByPropertyKey mutableCopy];
-	
-	[keys addEntriesFromDictionary:@{
++ (NSDictionary *)JSONKeyPathsByPropertyKey {
+	return [super.JSONKeyPathsByPropertyKey mtl_dictionaryByAddingEntriesFromDictionary:@{
 		@"HTMLURL": @"html_url",
 		@"objectID": @"number",
 		@"pullRequestHTMLURL": @"pull_request.html_url",
 	}];
-
-	return keys;
 }
 
-+ (NSValueTransformer *)HTMLURLTransformer {
++ (NSValueTransformer *)HTMLURLJSONTransformer {
 	return [NSValueTransformer valueTransformerForName:MTLURLValueTransformerName];
 }
 
-+ (NSValueTransformer *)pullRequestHTMLURLTransformer {
++ (NSValueTransformer *)pullRequestHTMLURLJSONTransformer {
 	return [NSValueTransformer valueTransformerForName:MTLURLValueTransformerName];
 }
 

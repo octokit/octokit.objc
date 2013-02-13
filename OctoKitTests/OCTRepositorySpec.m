@@ -54,7 +54,7 @@ describe(@"from JSON", ^{
 	__block OCTRepository *repository;
 
 	before(^{
-		repository = [[OCTRepository alloc] initWithExternalRepresentation:representation];
+		repository = [MTLJSONAdapter modelOfClass:OCTRepository.class fromJSONDictionary:representation];
 		expect(repository).notTo.beNil();
 	});
 
@@ -99,7 +99,7 @@ it(@"should migrate from pre-MTLModel OCTObject", ^{
 		@"watchers": @1
 	};
 
-	OCTRepository *repository = [[OCTRepository alloc] initWithExternalRepresentation:representation];
+	OCTRepository *repository = [MTLJSONAdapter modelOfClass:OCTRepository.class fromJSONDictionary:representation];
 	expect(repository).notTo.beNil();
 
 	// Test a key that actually changed format.

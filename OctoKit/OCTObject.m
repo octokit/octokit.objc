@@ -45,10 +45,10 @@
 #pragma mark MTLJSONSerializing
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
-	return [super.JSONKeyPathsByPropertyKey mtl_dictionaryByAddingEntriesFromDictionary:@{
+	return @{
 		@"objectID": @"id",
 		@"server": NSNull.null,
-	}];
+	};
 }
 
 + (NSValueTransformer *)objectIDJSONTransformer {

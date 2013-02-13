@@ -16,7 +16,12 @@
 #import "OCTPushEvent.h"
 #import "OCTRefEvent.h"
 
-static NSString * const OCTEventTypeKey = @"type";
+@interface OCTEvent ()
+
+// The event type of the receiver.
+@property (nonatomic, copy, readonly) NSString *type;
+
+@end
 
 @implementation OCTEvent
 
@@ -37,53 +42,46 @@ static NSString * const OCTEventTypeKey = @"type";
 
 #pragma mark Lifecycle
 
-+ (id)modelWithExternalRepresentation:(NSDictionary *)externalRepresentation {
-	Class eventClass = self.eventClassesByType[externalRepresentation[OCTEventTypeKey]];
-	return [[eventClass alloc] initWithExternalRepresentation:externalRepresentation];
-}
-
-- (id)initWithExternalRepresentation:(NSDictionary *)externalRepresentation {
-	Class eventClass = self.class.eventClassesByType[externalRepresentation[OCTEventTypeKey]];
++ (id)modelWithDictionary:(NSDictionary *)dictionaryValue {
+	NSString *type = dictionaryValue[@keypath(OCTEvent.new, type)];
+	Class eventClass = self.eventClassesByType[type];
 	if (eventClass == nil) return nil;
 
-	if ([self isKindOfClass:eventClass]) {
-		return [super initWithExternalRepresentation:externalRepresentation];
+	if ([self isSubclassOfClass:eventClass]) {
+		return [super modelWithDictionary:dictionaryValue];
 	} else {
-		return [eventClass modelWithExternalRepresentation:externalRepresentation];
+		return [[eventClass alloc] initWithDictionary:dictionaryValue];
 	}
 }
 
-#pragma mark MTLModel
+- (id)initWithDictionary:(NSDictionary *)dictionaryValue {
+	NSString *type = dictionaryValue[@keypath(self.type)];
+	Class eventClass = self.class.eventClassesByType[type];
+	if (eventClass == nil) return nil;
 
-+ (NSDictionary *)externalRepresentationKeyPathsByPropertyKey {
-	NSMutableDictionary *keys = [super.externalRepresentationKeyPathsByPropertyKey mutableCopy];
-	
-	[keys addEntriesFromDictionary:@{
+	if ([self isKindOfClass:eventClass]) {
+		return [super initWithDictionary:dictionaryValue];
+	} else {
+		return [[eventClass alloc] initWithDictionary:dictionaryValue];
+	}
+}
+
+#pragma mark MTLJSONSerializing
+
++ (NSDictionary *)JSONKeyPathsByPropertyKey {
+	return [super.JSONKeyPathsByPropertyKey mtl_dictionaryByAddingEntriesFromDictionary:@{
 		@"repositoryName": @"repo.name",
 		@"actorLogin": @"actor.login",
 		@"organizationLogin": @"org.login",
 		@"date": @"created_at",
 	}];
-
-	return keys;
 }
 
-- (NSDictionary *)externalRepresentation {
-	NSDictionary *representation = super.externalRepresentation;
-
-	NSString *type = [self.class.eventClassesByType allKeysForObject:self.class].lastObject;
-	if (type != nil) {
-		representation = [representation mtl_dictionaryByAddingEntriesFromDictionary:@{ OCTEventTypeKey: type }];
-	}
-
-	return representation;
-}
-
-+ (NSValueTransformer *)dateTransformer {
++ (NSValueTransformer *)dateJSONTransformer {
 	return [NSValueTransformer valueTransformerForName:OCTDateValueTransformerName];
 }
 
-+ (NSValueTransformer *)objectIDTransformer {
++ (NSValueTransformer *)objectIDJSONTransformer {
 	// The "id" field for events comes through as a string, which matches the
 	// type of our objectID property.
 	return nil;

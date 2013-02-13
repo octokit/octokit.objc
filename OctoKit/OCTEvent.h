@@ -23,7 +23,4 @@
 // The date that this event occurred.
 @property (nonatomic, copy, readonly) NSDate *date;
 
-// Initializes and returns a subclass appropriate for the given event data.
-- (instancetype)initWithExternalRepresentation:(NSDictionary *)externalRepresentation;
-
 @end

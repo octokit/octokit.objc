@@ -34,7 +34,7 @@ NSDictionary *representation = @{
 __block OCTCommitComment *comment;
 
 before(^{
-	comment = [[OCTCommitComment alloc] initWithExternalRepresentation:representation];
+	comment = [MTLJSONAdapter modelOfClass:OCTCommitComment.class fromJSONDictionary:representation];
 	expect(comment).notTo.beNil();
 });
 
