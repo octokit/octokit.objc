@@ -469,7 +469,6 @@ static const NSUInteger OCTClientNotModifiedStatusCode = 304;
 - (RACSignal *)fetchAllPullRequests {
 	__weak OCTClient *weakSelf = self;
 	return [[self fetchUserRepositories] flattenMap:^(NSArray *repositories) {
-		OCTRepository *repo = repositories[0];
 		NSArray *signals = [repositories mtl_mapUsingBlock:^(OCTRepository *repo) {
 			
 			NSString *path = [NSString stringWithFormat:@"repos/%@/%@/pulls", repo.ownerLogin, repo.name];
