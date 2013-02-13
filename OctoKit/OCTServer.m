@@ -24,32 +24,6 @@ NSString * const OCTServerDefaultEnterpriseScheme = @"http";
 
 @implementation OCTServer
 
-+ (instancetype)dotComServer {
-	static OCTServer *dotComServer = nil;
-	static dispatch_once_t onceToken;
-	dispatch_once(&onceToken, ^{
-		dotComServer = [[self alloc] initWithBaseURL:nil];
-	});
-	return dotComServer;
-}
-
-+ (instancetype)serverWithBaseURL:(NSURL *)baseURL {
-	if (baseURL == nil) return self.dotComServer;
-
-	return [[OCTServer alloc] initWithBaseURL:baseURL];
-}
-
-#pragma mark Lifecycle
-
-- (instancetype)initWithBaseURL:(NSURL *)baseURL {
-	self = [super init];
-	if (self == nil) return nil;
-
-	_baseURL = baseURL;
-
-	return self;
-}
-
 #pragma mark Properties
 
 - (NSURL *)APIEndpoint {
@@ -75,6 +49,43 @@ NSString * const OCTServerDefaultEnterpriseScheme = @"http";
 
 - (BOOL)isEnterprise {
 	return self.baseURL != nil;
+}
+
+#pragma mark Lifecycle
+
++ (instancetype)dotComServer {
+	static OCTServer *dotComServer = nil;
+	static dispatch_once_t onceToken;
+	dispatch_once(&onceToken, ^{
+		dotComServer = [[self alloc] initWithBaseURL:nil];
+	});
+	return dotComServer;
+}
+
++ (instancetype)serverWithBaseURL:(NSURL *)baseURL {
+	if (baseURL == nil) return self.dotComServer;
+
+	return [[OCTServer alloc] initWithBaseURL:baseURL];
+}
+
+- (instancetype)initWithBaseURL:(NSURL *)baseURL {
+	self = [super init];
+	if (self == nil) return nil;
+
+	_baseURL = baseURL;
+
+	return self;
+}
+
+#pragma mark Migration
+
++ (NSDictionary *)dictionaryValueFromArchivedExternalRepresentation:(NSDictionary *)externalRepresentation version:(NSUInteger)fromVersion {
+	NSMutableDictionary *dictionaryValue = [[super dictionaryValueFromArchivedExternalRepresentation:externalRepresentation version:fromVersion] mutableCopy];
+
+	NSString *baseURLString = externalRepresentation[@"baseURL"];
+	if (baseURLString != nil) dictionaryValue[@"baseURL"] = [NSURL URLWithString:baseURLString] ?: NSNull.null;
+
+	return dictionaryValue;
 }
 
 @end
