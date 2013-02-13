@@ -40,33 +40,11 @@
 	};
 }
 
-#pragma mark Lifecycle
-
-+ (id)modelWithDictionary:(NSDictionary *)dictionaryValue {
-	NSString *type = dictionaryValue[@keypath(OCTEvent.new, type)];
-	Class eventClass = self.eventClassesByType[type];
-	if (eventClass == nil) return nil;
-
-	if ([self isSubclassOfClass:eventClass]) {
-		return [super modelWithDictionary:dictionaryValue];
-	} else {
-		return [[eventClass alloc] initWithDictionary:dictionaryValue];
-	}
-}
-
-- (id)initWithDictionary:(NSDictionary *)dictionaryValue {
-	NSString *type = dictionaryValue[@keypath(self.type)];
-	Class eventClass = self.class.eventClassesByType[type];
-	if (eventClass == nil) return nil;
-
-	if ([self isKindOfClass:eventClass]) {
-		return [super initWithDictionary:dictionaryValue];
-	} else {
-		return [[eventClass alloc] initWithDictionary:dictionaryValue];
-	}
-}
-
 #pragma mark MTLJSONSerializing
+
++ (Class)classForParsingJSONDictionary:(NSDictionary *)JSONDictionary {
+	return self.eventClassesByType[JSONDictionary[@"type"]];
+}
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
 	return [super.JSONKeyPathsByPropertyKey mtl_dictionaryByAddingEntriesFromDictionary:@{
