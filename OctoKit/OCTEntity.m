@@ -10,10 +10,6 @@
 #import "OCTPlan.h"
 #import "OCTRepository.h"
 
-// Keys used in parsing and migration.
-static NSString * const OCTEntityPublicRepoCountKey = @"public_repos";
-static NSString * const OCTEntityOwnedPrivateRepoCountKey = @"owned_private_repos";
-
 @implementation OCTEntity
 
 #pragma mark Properties
@@ -26,36 +22,32 @@ static NSString * const OCTEntityOwnedPrivateRepoCountKey = @"owned_private_repo
 
 #pragma mark MTLJSONSerializing
 
-+ (NSDictionary *)externalRepresentationKeyPathsByPropertyKey {
-	NSMutableDictionary *keys = [[super externalRepresentationKeyPathsByPropertyKey] mutableCopy];
-	
-	[keys addEntriesFromDictionary:@{
++ (NSDictionary *)JSONKeyPathsByPropertyKey {
+	return [super.JSONKeyPathsByPropertyKey mtl_dictionaryByAddingEntriesFromDictionary:@{
 		@"avatarURL": @"avatar_url",
-		@"publicRepoCount": OCTEntityPublicRepoCountKey,
-		@"privateRepoCount": OCTEntityOwnedPrivateRepoCountKey,
+		@"publicRepoCount": @"public_repos",
+		@"privateRepoCount": @"owned_private_repos",
 		@"diskUsage": @"disk_usage",
 	}];
-
-	return keys;
 }
 
-+ (NSValueTransformer *)repositoriesTransformer {
-	return [NSValueTransformer mtl_externalRepresentationArrayTransformerWithModelClass:OCTRepository.class];
++ (NSValueTransformer *)repositoriesJSONTransformer {
+	return [NSValueTransformer mtl_JSONArrayTransformerWithModelClass:OCTRepository.class];
 }
 
-+ (NSValueTransformer *)avatarURLTransformer {
++ (NSValueTransformer *)avatarURLJSONTransformer {
 	return [NSValueTransformer valueTransformerForName:MTLURLValueTransformerName];
 }
 
-+ (NSValueTransformer *)planTransformer {
-	return [NSValueTransformer mtl_externalRepresentationTransformerWithModelClass:OCTPlan.class];
++ (NSValueTransformer *)planJSONTransformer {
+	return [NSValueTransformer mtl_JSONDictionaryTransformerWithModelClass:OCTPlan.class];
 }
+
+#pragma mark Merging
 
 - (void)mergeRepositoriesFromModel:(OCTEntity *)entity {
 	[self mergeRepositoriesWithRemoteCounterparts:entity.repositories];
 }
-
-#pragma mark Merging
 
 - (void)mergeRepositoriesWithRemoteCounterparts:(NSArray *)remoteRepositories {
 	if (remoteRepositories == nil) {
