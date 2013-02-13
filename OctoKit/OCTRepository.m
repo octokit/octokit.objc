@@ -58,15 +58,34 @@ static const NSUInteger OCTRepositoryModelVersion = 3;
 	return [NSValueTransformer valueTransformerForName:OCTDateValueTransformerName];
 }
 
-+ (NSDictionary *)migrateExternalRepresentation:(NSDictionary *)dictionary fromVersion:(NSUInteger)fromVersion {
-	NSMutableDictionary *convertedDictionary = [[super migrateExternalRepresentation:dictionary fromVersion:fromVersion] mutableCopy];
-	
-	if (fromVersion < 3) {
-		convertedDictionary[OCTRepositoryHTMLURLKey] = dictionary[@"url"] ?: NSNull.null;
-		convertedDictionary[OCTRepositoryOwnerKey] = @{ OCTRepositoryLoginKey: (dictionary[@"owner"] ?: NSNull.null) };
+#pragma mark Migration
+
++ (NSDictionary *)dictionaryValueFromArchivedExternalRepresentation:(NSDictionary *)externalRepresentation version:(NSUInteger)fromVersion {
+	NSMutableDictionary *dictionaryValue = [NSMutableDictionary dictionaryWithCapacity:externalRepresentation.count];
+
+	// Although some of these keys match JSON key paths, the format of this
+	// external representation is fixed (since it's always old data), thus the
+	// hard-coding.
+	dictionaryValue[@"name"] = externalRepresentation[@"name"];
+
+	id owner = externalRepresentation[@"owner"];
+	if ([owner isKindOfClass:NSString.class]) {
+		dictionaryValue[@"ownerLogin"] = owner;
+	} else if ([owner isKindOfClass:NSDictionary.class]) {
+		dictionaryValue[@"ownerLogin"] = owner[@"login"];
 	}
-	
-	return convertedDictionary;
+
+	dictionaryValue[@"repoDescription"] = externalRepresentation[@"description"] ?: NSNull.null;
+	dictionaryValue[@"private"] = externalRepresentation[@"private"] ?: @NO;
+	dictionaryValue[@"datePushed"] = [self.datePushedJSONTransformer transformedValue:externalRepresentation[@"pushed_at"]] ?: NSNull.null;
+	dictionaryValue[@"HTTPSURL"] = [self.HTTPSURLJSONTransformer transformedValue:externalRepresentation[@"clone_url"]] ?: NSNull.null;
+	dictionaryValue[@"SSHURL"] = externalRepresentation[@"ssh_url"] ?: NSNull.null;
+	dictionaryValue[@"gitURL"] = [self.gitURLJSONTransformer transformedValue:externalRepresentation[@"git_url"]] ?: NSNull.null;
+
+	NSString *HTMLURLString = externalRepresentation[@"html_url"] ?: externalRepresentation[@"url"];
+	dictionaryValue[@"HTMLURL"] = [self.HTMLURLJSONTransformer transformedValue:HTMLURLString] ?: NSNull.null;
+
+	return dictionaryValue;
 }
 
 @end
