@@ -50,16 +50,6 @@ NSString * const OCTServerDefaultEnterpriseScheme = @"http";
 	return self;
 }
 
-- (NSDictionary *)externalRepresentation {
-	return [super.externalRepresentation mtl_filterEntriesUsingBlock:^ BOOL (id _, id value) {
-		return ![value isEqual:NSNull.null];
-	}];
-}
-
-+ (NSValueTransformer *)baseURLTransformer {
-	return [NSValueTransformer valueTransformerForName:MTLURLValueTransformerName];
-}
-
 #pragma mark Properties
 
 - (NSURL *)APIEndpoint {
@@ -85,21 +75,6 @@ NSString * const OCTServerDefaultEnterpriseScheme = @"http";
 
 - (BOOL)isEnterprise {
 	return self.baseURL != nil;
-}
-
-#pragma mark NSObject
-
-- (BOOL)isEqual:(OCTServer *)object {
-	if (object == self) return YES;
-	if (![object isKindOfClass:self.class]) return NO;
-
-	if (self.baseURL == nil && object.baseURL == nil) return YES;
-
-	return [self.baseURL isEqual:object.baseURL];
-}
-
-- (NSUInteger)hash {
-	return self.baseURL.hash;
 }
 
 @end
