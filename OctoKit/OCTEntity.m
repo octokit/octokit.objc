@@ -24,7 +24,7 @@ static NSString * const OCTEntityOwnedPrivateRepoCountKey = @"owned_private_repo
 	return _name ?: self.login;
 }
 
-#pragma mark MTLModel
+#pragma mark MTLJSONSerializing
 
 + (NSDictionary *)externalRepresentationKeyPathsByPropertyKey {
 	NSMutableDictionary *keys = [[super externalRepresentationKeyPathsByPropertyKey] mutableCopy];
@@ -37,10 +37,6 @@ static NSString * const OCTEntityOwnedPrivateRepoCountKey = @"owned_private_repo
 	}];
 
 	return keys;
-}
-
-+ (NSUInteger)modelVersion {
-	return 2;
 }
 
 + (NSValueTransformer *)repositoriesTransformer {

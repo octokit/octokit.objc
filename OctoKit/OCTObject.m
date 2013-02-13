@@ -38,6 +38,10 @@
 	return keys;
 }
 
++ (NSUInteger)modelVersion {
+	return 5;
+}
+
 #pragma mark MTLJSONSerializing
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey {

@@ -14,17 +14,9 @@ static NSString * const OCTRepositoryHTMLURLKey = @"html_url";
 static NSString * const OCTRepositoryOwnerKey = @"owner";
 static NSString * const OCTRepositoryLoginKey = @"login";
 
-// 1.0 => 1.2.4: OCTRepositoryModelVersion = 0;
-// 1.2.4 => current: OCTRepositoryModelVersion = 2;
-static const NSUInteger OCTRepositoryModelVersion = 3;
-
 @implementation OCTRepository
 
 #pragma mark MTLModel
-
-+ (NSUInteger)modelVersion {
-	return OCTRepositoryModelVersion;
-}
 
 + (NSDictionary *)externalRepresentationKeyPathsByPropertyKey {
 	NSMutableDictionary *keys = [[super externalRepresentationKeyPathsByPropertyKey] mutableCopy];
