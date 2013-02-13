@@ -108,6 +108,13 @@ extern NSString * const OCTClientErrorHTTPStatusCodeKey;
 // Returns a signal which sends an array of OCTRepository objects on success.
 - (RACSignal *)fetchUserRepositories;
 
+// Fetches the current user's repositories.
+//
+// parameters - The parameters to pass in the request.
+//
+// Returns a signal which sends an array of OCTRepository objects on success.
+- (RACSignal *)fetchUserRepositoriesWithParameters:(NSDictionary *)parameters;
+
 // Creates a repository under the user's account.
 //
 // Returns a signal which sends the new OCTRepository on success.

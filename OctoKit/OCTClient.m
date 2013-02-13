@@ -351,7 +351,11 @@ static const NSUInteger OCTClientNotModifiedStatusCode = 304;
 }
 
 - (RACSignal *)fetchUserRepositories {
-	return [self enqueueRequestWithMethod:@"GET" path:@"user/repos" parameters:nil resultClass:OCTRepository.class];
+	return [self fetchUserRepositoriesWithParameters:nil];
+}
+
+- (RACSignal *)fetchUserRepositoriesWithParameters:(NSDictionary *)parameters {
+	return [self enqueueRequestWithMethod:@"GET" path:@"user/repos" parameters:parameters resultClass:OCTRepository.class];
 }
 
 - (RACSignal *)createRepositoryWithName:(NSString *)name description:(NSString *)description private:(BOOL)isPrivate {
