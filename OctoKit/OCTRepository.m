@@ -37,6 +37,7 @@ static const NSUInteger OCTRepositoryModelVersion = 3;
 		@"ownerLogin": [OCTRepositoryOwnerKey stringByAppendingFormat:@".%@", OCTRepositoryLoginKey],
 		@"datePushed": @"pushed_at",
 		@"repoDescription": @"description",
+		@"watcherCount": @"watchers"
 	}];
 
 	return keys;

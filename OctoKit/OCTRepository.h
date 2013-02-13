@@ -45,4 +45,7 @@
 // The URL for visiting this repository on the web.
 @property (nonatomic, copy) NSURL *HTMLURL;
 
+// The number of users watching this repository.
+@property (nonatomic, copy) NSNumber *watcherCount;
+
 @end
