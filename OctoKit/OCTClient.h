@@ -49,6 +49,11 @@ extern NSString * const OCTClientErrorHTTPStatusCodeKey;
 // To avoid hitting the network for a result that won't be used, **no request
 // will be sent until the returned signal is subscribed to.** To cancel an
 // in-flight request, simply dispose of all subscriptions.
+//
+// For more information about the behavior of requests, see
+// -enqueueRequestWithMethod:path:parameters:resultClass: and
+// -enqueueConditionalRequestWithMethod:path:parameters:notMatchingEtag:resultClass:,
+// upon which all the other request methods are built.
 @interface OCTClient : AFHTTPClient
 
 // The user used to authenticate this session.
@@ -60,22 +65,35 @@ extern NSString * const OCTClientErrorHTTPStatusCodeKey;
 
 // Enqueues a request that always fetches the latest data from the server.
 //
+// This will automatically fetch all pages of the given endpoint. Each object
+// from each page will be sent independently on the returned signal, so
+// subscribers don't have to know or care about this pagination behavior.
+//
+// To stop fetching pages, simply dispose of all subscriptions to the signal.
+//
 // method      - The HTTP method to use in the request (e.g., "GET" or "POST").
 // path        - The path to request, relative to the base API endpoint. This
 //               path should _not_ begin with a forward slash.
 // parameters  - HTTP parameters to encode and send with the request.
 // resultClass - A subclass of OCTObject that the response data should be
-//               returned as. If this is nil, the response is returned as the
-//               parsed JSON type (a dictionary or array).
+//               returned as. If this is nil, the returned signal will send an
+//               NSDictionary for each object in the JSON received.
 //
-// Returns a signal which, upon success, will send an instance of
-// `resultClass` (or an array thereof, for multi-page responses), then send
-// completed.
+// Returns a signal which will send an instance of `resultClass` for each parsed
+// JSON object, then complete. If an error occurs at any point, the returned
+// signal will send it immediately, then terminate.
 - (RACSignal *)enqueueRequestWithMethod:(NSString *)method path:(NSString *)path parameters:(NSDictionary *)parameters resultClass:(Class)resultClass;
 
 // Enqueues a request which will conditionally fetch the latest data from the
 // server. If the latest data matches `etag`, nothing is downloaded and the call
 // does not count toward the API rate limit.
+//
+// If the latest data does not match `etag`, this will automatically fetch all
+// pages of the given endpoint. Each object from each page will be sent as
+// independent OCTResponse objects on the returned signal, so subscribers don't
+// have to know or care about this pagination behavior.
+//
+// To stop fetching pages, simply dispose of all subscriptions to the signal.
 //
 // method          - The HTTP method to use in the request (e.g., "GET" or
 //                   "POST").
@@ -86,13 +104,14 @@ extern NSString * const OCTClientErrorHTTPStatusCodeKey;
 //                   retrieved from an instance of OCTResponse. If the content
 //                   has not changed since, no new data will be fetched. This
 //                   argument may be nil to always fetch the latest data.
-// resultClass     - A subclass of OCTObject that the response data should be
-//                   returned as. If this is nil, the response is returned as
-//                   the parsed JSON type (a dictionary or array).
+// resultClass     - A subclass of OCTObject to use for each
+//                   OCTResponse.parsedResult. If this is nil, the
+//                   `parsedResult` will be an NSDictionary.
 //
-// Returns a signal which, upon success, will send an instance of
-// OCTResponse _if new data was retrieved_. On success, the signal
-// will send completed regardless of whether there was new data.
+// Returns a signal which will send an instance of OCTResponse for each JSON
+// object _if new data was retrieved_. On success, the signal will send
+// completed regardless of whether there was new data. If an error occurs at any
+// point, the returned signal will send it immediately, then terminate.
 - (RACSignal *)enqueueConditionalRequestWithMethod:(NSString *)method path:(NSString *)path parameters:(NSDictionary *)parameters notMatchingEtag:(NSString *)etag resultClass:(Class)resultClass;
 
 @end
@@ -101,22 +120,22 @@ extern NSString * const OCTClientErrorHTTPStatusCodeKey;
 
 // Logs the user in.
 //
-// Returns a signal which sends a new OCTUser on success.
+// Returns a signal which sends a new OCTUser.
 - (RACSignal *)login;
 
 // Fetches the current user's full information.
 //
-// Returns a signal which sends a new OCTUser on success.
+// Returns a signal which sends a new OCTUser.
 - (RACSignal *)fetchUserInfo;
 
 // Fetches the current user's repositories.
 //
-// Returns a signal which sends an array of OCTRepository objects on success.
+// Returns a signal which sends zero or more OCTRepository objects.
 - (RACSignal *)fetchUserRepositories;
 
 // Creates a repository under the user's account.
 //
-// Returns a signal which sends the new OCTRepository on success.
+// Returns a signal which sends the new OCTRepository.
 - (RACSignal *)createRepositoryWithName:(NSString *)name description:(NSString *)description private:(BOOL)isPrivate;
 
 @end
@@ -125,28 +144,28 @@ extern NSString * const OCTClientErrorHTTPStatusCodeKey;
 
 // Fetches the organizations that the current user is a member of.
 //
-// Returns a signal which sends an array of OCTOrganization objects on success.
+// Returns a signal which sends zero or more OCTOrganization objects.
 - (RACSignal *)fetchUserOrganizations;
 
 // Fetches the specified organization's full information.
 //
-// Returns a signal which sends a new OCTOrganization on success.
+// Returns a signal which sends a new OCTOrganization.
 - (RACSignal *)fetchOrganizationInfo:(OCTOrganization *)organization;
 
 // Fetches the specified organization's repositories.
 //
-// Returns a signal which sends an array of OCTRepository objects on success.
+// Returns a signal which sends zero or more OCTRepository objects.
 - (RACSignal *)fetchRepositoriesForOrganization:(OCTOrganization *)organization;
 
 // Creates a repository under the specified organization's account, and
 // associates it with the given team.
 //
-// Returns a signal which sends the new OCTRepository on success.
+// Returns a signal which sends the new OCTRepository.
 - (RACSignal *)createRepositoryWithName:(NSString *)name organization:(OCTOrganization *)organization team:(OCTTeam *)team description:(NSString *)description private:(BOOL)isPrivate;
 
 // Fetches the specified organization's teams.
 //
-// Returns a signal which sends an array of OCTTeam objects on success.
+// Returns a signal which sends zero or more OCTTeam objects.
 - (RACSignal *)fetchTeamsForOrganization:(OCTOrganization *)organization;
 
 @end
@@ -155,13 +174,12 @@ extern NSString * const OCTClientErrorHTTPStatusCodeKey;
 
 // Fetches the current user's public keys.
 //
-// Returns a signal which sends an array of OCTPublicKey objects on success.
+// Returns a signal which sends zero or more OCTPublicKey objects.
 - (RACSignal *)fetchPublicKeys;
 
 // Adds a new public key to the current user's profile.
 //
-// Returns a signal which sends the updated array of OCTPublicKey objects on
-// success.
+// Returns a signal which sends the new OCTPublicKey.
 - (RACSignal *)postPublicKey:(NSString *)key title:(NSString *)title;
 
 @end
@@ -172,8 +190,9 @@ extern NSString * const OCTClientErrorHTTPStatusCodeKey;
 // the latest data matches `etag`, the call does not count toward the API rate
 // limit.
 //
-// Returns a signal which will send an array of OCTEvents if data was
-// downloaded. Unrecognized events will be omitted from the result.
+// Returns a signal which will send zero or more OCTEvents if new data was
+// downloaded. Unrecognized events will be omitted from the result. On success,
+// the signal will send completed regardless of whether there was new data.
 - (RACSignal *)fetchUserEventsNotMatchingEtag:(NSString *)etag;
 
 @end
