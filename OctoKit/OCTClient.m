@@ -98,14 +98,6 @@ static const NSUInteger OCTClientNotModifiedStatusCode = 304;
 - (RACSignal *)enqueueRequest:(NSURLRequest *)request resultClass:(Class)resultClass fetchAllPages:(BOOL)fetchAllPages {
 	RACSignal *signal = [RACSignal createSignal:^(id<RACSubscriber> subscriber) {
 		AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request success:^(AFHTTPRequestOperation *operation, id responseObject) {
-			void (^sendResult)(id) = ^(id parsedResult) {
-				OCTResponse *response = [[OCTResponse alloc] initWithHTTPURLResponse:operation.response parsedResult:parsedResult];
-				NSAssert(response != nil, @"Could not create OCTResponse with response %@ and parsedResult %@", operation.response, parsedResult);
-
-				[subscriber sendNext:response];
-				[subscriber sendCompleted];
-			};
-
 			if (operation.response.statusCode == OCTClientNotModifiedStatusCode) {
 				// No change in the data.
 				[subscriber sendCompleted];
@@ -116,33 +108,25 @@ static const NSUInteger OCTClientNotModifiedStatusCode = 304;
 				NSLog(@"%@ %@ => %li %@:\n%@", request.HTTPMethod, request.URL, (long)operation.response.statusCode, operation.response.allHeaderFields, responseObject);
 			}
 
-			BOOL success = YES;
-			NSError *error = nil;
-			id parsedResult = [[[self parsedResponseOfClass:resultClass fromJSON:responseObject] collect] firstOrDefault:nil success:&success error:&error];
-			if (!success) {
-				[subscriber sendError:error];
-				return;
-			}
+			RACSignal *thisPageSignal = [[self parsedResponseOfClass:resultClass fromJSON:responseObject]
+				map:^(id parsedResult) {
+					OCTResponse *response = [[OCTResponse alloc] initWithHTTPURLResponse:operation.response parsedResult:parsedResult];
+					NSAssert(response != nil, @"Could not create OCTResponse with response %@ and parsedResult %@", operation.response, parsedResult);
+
+					return response;
+				}];
 			
+			RACSignal *nextPageSignal = [RACSignal empty];
 			NSURL *nextPageURL = (fetchAllPages ? [self nextPageURLFromOperation:operation] : nil);
 			if (nextPageURL != nil) {
+				// If we got this far, the etag is out of date, so don't pass it on.
 				NSMutableURLRequest *nextRequest = [request mutableCopy];
 				nextRequest.URL = nextPageURL;
 
-				// If we got this far, the etag is out of date, so don't pass it on.
-				RACSignal *nextPageResult = [self enqueueRequest:nextRequest resultClass:resultClass fetchAllPages:YES];
-				[nextPageResult subscribeNext:^(OCTResponse *x) {
-					NSMutableArray *accumulatedResult = [NSMutableArray array];
-					[accumulatedResult addObject:parsedResult];
-					[accumulatedResult addObject:x.parsedResult];
-					
-					sendResult(accumulatedResult.oct_flattenedArray);
-				} error:^(NSError *error) {
-					[subscriber sendError:error];
-				}];
-			} else {
-				sendResult(parsedResult);
+				nextPageSignal = [self enqueueRequest:nextRequest resultClass:resultClass fetchAllPages:YES];
 			}
+
+			[[thisPageSignal concat:nextPageSignal] subscribe:subscriber];
 		} failure:^(AFHTTPRequestOperation *operation, NSError *error) {
 			[subscriber sendError:[self.class errorFromRequestOperation:(AFJSONRequestOperation *)operation]];
 		}];
