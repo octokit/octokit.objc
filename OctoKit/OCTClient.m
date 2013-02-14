@@ -117,10 +117,10 @@ static const NSUInteger OCTClientNotModifiedStatusCode = 304;
 			}
 
 			BOOL success = YES;
-			id parsedResult = [self parseResponse:responseObject withResultClass:resultClass success:&success];
+			NSError *error = nil;
+			id parsedResult = [[[self parsedResponseOfClass:resultClass fromJSON:responseObject] collect] firstOrDefault:nil success:&success error:&error];
 			if (!success) {
-				NSDictionary *userInfo = @{ NSLocalizedDescriptionKey: NSLocalizedString(@"Could not parse the service response.", @"") };
-				[subscriber sendError:[NSError errorWithDomain:OCTClientErrorDomain code:OCTClientErrorJSONParsingFailed userInfo:userInfo]];
+				[subscriber sendError:error];
 				return;
 			}
 			
@@ -206,44 +206,64 @@ static const NSUInteger OCTClientNotModifiedStatusCode = 304;
 
 #pragma mark Parsing
 
-- (id)parseResponse:(id)responseObject withResultClass:(Class)resultClass success:(BOOL *)success {
-	NSParameterAssert(resultClass == nil || [resultClass isSubclassOfClass:MTLModel.class]);
+- (NSError *)parsingErrorWithFailureReason:(NSString *)localizedFailureReason {
+	NSMutableDictionary *userInfo = [NSMutableDictionary dictionary];
+	userInfo[NSLocalizedDescriptionKey] = NSLocalizedString(@"Could not parse the service response.", @"");
 
-	id parsedResult = nil;
-	if (resultClass != nil) {
-		if ([responseObject isKindOfClass:NSArray.class]) {
-			parsedResult = [NSMutableArray array];
-			for (NSDictionary *JSONDictionary in responseObject) {
-				if (![JSONDictionary isKindOfClass:NSDictionary.class]) {
-					NSLog(@"Invalid array element type: %@", JSONDictionary);
-					continue;
-				}
-				
-				OCTObject *newObject = [MTLJSONAdapter modelOfClass:resultClass fromJSONDictionary:JSONDictionary];
-				if (newObject == nil) continue;
-
-				NSAssert([newObject isKindOfClass:OCTObject.class], @"Parsed model object is not an OCTObject: %@", newObject);
-
-				// Record the server that this object has come from.
-				newObject.baseURL = self.baseURL;
-				[parsedResult addObject:newObject];
-			}
-		} else if ([responseObject isKindOfClass:NSDictionary.class]) {
-			parsedResult = [MTLJSONAdapter modelOfClass:resultClass fromJSONDictionary:responseObject];
-		} else {
-			NSLog(@"Response wasn't an array or dictionary (%@): %@", NSStringFromClass([responseObject class]), responseObject);
-			if (success != NULL) *success = NO;
-		}
-	} else {
-		parsedResult = responseObject;
+	if (localizedFailureReason != nil) {
+		userInfo[NSLocalizedFailureReasonErrorKey] = localizedFailureReason;
 	}
 
-	// Record the server that this object has come from.
-	if ([parsedResult isKindOfClass:OCTObject.class]) [parsedResult setBaseURL:self.baseURL];
+	return [NSError errorWithDomain:OCTClientErrorDomain code:OCTClientErrorJSONParsingFailed userInfo:userInfo];
+}
 
-	if (success != NULL) *success = YES;
-	
-	return parsedResult;
+- (RACSignal *)parsedResponseOfClass:(Class)resultClass fromJSON:(id)responseObject {
+	NSParameterAssert(resultClass == nil || [resultClass isSubclassOfClass:MTLModel.class]);
+
+	return [RACSignal createSignal:^ id (id<RACSubscriber> subscriber) {
+		void (^parseJSONDictionary)(NSDictionary *) = ^(NSDictionary *JSONDictionary) {
+			if (resultClass == nil) {
+				[subscriber sendNext:JSONDictionary];
+				return;
+			}
+
+			OCTObject *parsedObject = [MTLJSONAdapter modelOfClass:resultClass fromJSONDictionary:JSONDictionary];
+			if (parsedObject == nil) {
+				// TODO: Fix up event fetching so that we can treat this as an
+				// error.
+				NSLog(@"Could not parse %@ from: %@", resultClass, JSONDictionary);
+				return;
+			}
+
+			NSAssert([parsedObject isKindOfClass:OCTObject.class], @"Parsed model object is not an OCTObject: %@", parsedObject);
+
+			// Record the server that this object has come from.
+			parsedObject.baseURL = self.baseURL;
+			[subscriber sendNext:parsedObject];
+		};
+
+		if ([responseObject isKindOfClass:NSArray.class]) {
+			for (NSDictionary *JSONDictionary in responseObject) {
+				if (![JSONDictionary isKindOfClass:NSDictionary.class]) {
+					NSString *failureReason = [NSString stringWithFormat:NSLocalizedString(@"Invalid JSON array element: %@", @""), JSONDictionary];
+					[subscriber sendError:[self parsingErrorWithFailureReason:failureReason]];
+					return nil;
+				}
+
+				parseJSONDictionary(JSONDictionary);
+			}
+
+			[subscriber sendCompleted];
+		} else if ([responseObject isKindOfClass:NSDictionary.class]) {
+			parseJSONDictionary(responseObject);
+			[subscriber sendCompleted];
+		} else {
+			NSString *failureReason = [NSString stringWithFormat:NSLocalizedString(@"Response wasn't an array or dictionary (%@): %@", @""), [responseObject class], responseObject];
+			[subscriber sendError:[self parsingErrorWithFailureReason:failureReason]];
+		}
+
+		return nil;
+	}];
 }
 
 #pragma mark Error Handling
