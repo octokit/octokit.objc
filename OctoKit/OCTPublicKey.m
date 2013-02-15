@@ -10,16 +10,12 @@
 
 @implementation OCTPublicKey
 
-#pragma mark MTLModel
+#pragma mark MTLJSONSerializing
 
-+ (NSDictionary *)externalRepresentationKeyPathsByPropertyKey {
-	NSMutableDictionary *keys = [[super externalRepresentationKeyPathsByPropertyKey] mutableCopy];
-	
-	[keys addEntriesFromDictionary:@{
++ (NSDictionary *)JSONKeyPathsByPropertyKey {
+	return [super.JSONKeyPathsByPropertyKey mtl_dictionaryByAddingEntriesFromDictionary:@{
 		@"publicKey": @"key",
 	}];
-
-	return keys;
 }
 
 @end

@@ -12,25 +12,21 @@
 
 @implementation OCTIssueCommentEvent
 
-#pragma mark MTLModel
+#pragma mark MTLJSONSerializing
 
-+ (NSDictionary *)externalRepresentationKeyPathsByPropertyKey {
-	NSMutableDictionary *keys = [super.externalRepresentationKeyPathsByPropertyKey mutableCopy];
-	
-	[keys addEntriesFromDictionary:@{
++ (NSDictionary *)JSONKeyPathsByPropertyKey {
+	return [super.JSONKeyPathsByPropertyKey mtl_dictionaryByAddingEntriesFromDictionary:@{
 		@"comment": @"payload.comment",
 		@"issue": @"payload.issue",
 	}];
-
-	return keys;
 }
 
-+ (NSValueTransformer *)commentTransformer {
-	return [NSValueTransformer mtl_externalRepresentationTransformerWithModelClass:OCTIssueComment.class];
++ (NSValueTransformer *)commentJSONTransformer {
+	return [NSValueTransformer mtl_JSONDictionaryTransformerWithModelClass:OCTIssueComment.class];
 }
 
-+ (NSValueTransformer *)issueTransformer {
-	return [NSValueTransformer mtl_externalRepresentationTransformerWithModelClass:OCTIssue.class];
++ (NSValueTransformer *)issueJSONTransformer {
+	return [NSValueTransformer mtl_JSONDictionaryTransformerWithModelClass:OCTIssue.class];
 }
 
 @end
