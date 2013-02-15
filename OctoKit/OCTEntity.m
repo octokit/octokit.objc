@@ -10,10 +10,6 @@
 #import "OCTPlan.h"
 #import "OCTRepository.h"
 
-// Keys used in parsing and migration.
-static NSString * const OCTEntityPublicRepoCountKey = @"public_repos";
-static NSString * const OCTEntityOwnedPrivateRepoCountKey = @"owned_private_repos";
-
 @implementation OCTEntity
 
 #pragma mark Properties
@@ -24,53 +20,34 @@ static NSString * const OCTEntityOwnedPrivateRepoCountKey = @"owned_private_repo
 	return _name ?: self.login;
 }
 
-#pragma mark MTLModel
+#pragma mark MTLJSONSerializing
 
-+ (NSDictionary *)externalRepresentationKeyPathsByPropertyKey {
-	NSMutableDictionary *keys = [[super externalRepresentationKeyPathsByPropertyKey] mutableCopy];
-	
-	[keys addEntriesFromDictionary:@{
++ (NSDictionary *)JSONKeyPathsByPropertyKey {
+	return [super.JSONKeyPathsByPropertyKey mtl_dictionaryByAddingEntriesFromDictionary:@{
 		@"avatarURL": @"avatar_url",
-		@"publicRepoCount": OCTEntityPublicRepoCountKey,
-		@"privateRepoCount": OCTEntityOwnedPrivateRepoCountKey,
+		@"publicRepoCount": @"public_repos",
+		@"privateRepoCount": @"owned_private_repos",
 		@"diskUsage": @"disk_usage",
 	}];
-
-	return keys;
 }
 
-+ (NSUInteger)modelVersion {
-	return 2;
++ (NSValueTransformer *)repositoriesJSONTransformer {
+	return [NSValueTransformer mtl_JSONArrayTransformerWithModelClass:OCTRepository.class];
 }
 
-+ (NSValueTransformer *)repositoriesTransformer {
-	return [NSValueTransformer mtl_externalRepresentationArrayTransformerWithModelClass:OCTRepository.class];
-}
-
-+ (NSValueTransformer *)avatarURLTransformer {
++ (NSValueTransformer *)avatarURLJSONTransformer {
 	return [NSValueTransformer valueTransformerForName:MTLURLValueTransformerName];
 }
 
-+ (NSValueTransformer *)planTransformer {
-	return [NSValueTransformer mtl_externalRepresentationTransformerWithModelClass:OCTPlan.class];
++ (NSValueTransformer *)planJSONTransformer {
+	return [NSValueTransformer mtl_JSONDictionaryTransformerWithModelClass:OCTPlan.class];
 }
+
+#pragma mark Merging
 
 - (void)mergeRepositoriesFromModel:(OCTEntity *)entity {
 	[self mergeRepositoriesWithRemoteCounterparts:entity.repositories];
 }
-
-+ (NSDictionary *)migrateExternalRepresentation:(NSDictionary *)dictionary fromVersion:(NSUInteger)fromVersion {
-	NSMutableDictionary *convertedDictionary = [[super migrateExternalRepresentation:dictionary fromVersion:fromVersion] mutableCopy];
-	
-	if (fromVersion < 2) {
-		convertedDictionary[OCTEntityPublicRepoCountKey] = dictionary[@"public_repo_count"] ?: @0;
-		convertedDictionary[OCTEntityOwnedPrivateRepoCountKey] = dictionary[@"owned_private_repo_count"] ?: @0;
-	}
-	
-	return convertedDictionary;
-}
-
-#pragma mark Merging
 
 - (void)mergeRepositoriesWithRemoteCounterparts:(NSArray *)remoteRepositories {
 	if (remoteRepositories == nil) {
@@ -102,6 +79,32 @@ static NSString * const OCTEntityOwnedPrivateRepoCountKey = @"owned_private_repo
 	}
 	
 	self.repositories = allRepos;
+}
+
+#pragma mark Migration
+
++ (NSDictionary *)dictionaryValueFromArchivedExternalRepresentation:(NSDictionary *)externalRepresentation version:(NSUInteger)fromVersion {
+	NSMutableDictionary *dictionaryValue = [[super dictionaryValueFromArchivedExternalRepresentation:externalRepresentation version:fromVersion] mutableCopy];
+
+	// These keys will be copied as-is, one-to-one.
+	NSArray *keysToCopy = @[ @"login", @"name", @"email", @"blog", @"company", @"collaborators" ];
+	for (NSString *key in keysToCopy) {
+		if (externalRepresentation[key] == nil) continue;
+
+		dictionaryValue[key] = externalRepresentation[key];
+	}
+
+	// Although some of these keys match JSON key paths, the format of this
+	// external representation is fixed (since it's always old data), thus the
+	// hard-coding.
+	dictionaryValue[@"repositories"] = [self.repositoriesJSONTransformer transformedValue:externalRepresentation[@"repositories"]] ?: NSNull.null;
+	dictionaryValue[@"avatarURL"] = [self.avatarURLJSONTransformer transformedValue:externalRepresentation[@"avatar_url"]] ?: NSNull.null;
+	dictionaryValue[@"publicRepoCount"] = externalRepresentation[@"public_repos"] ?: externalRepresentation[@"public_repo_count"] ?: @0;
+	dictionaryValue[@"privateRepoCount"] = externalRepresentation[@"owned_private_repos"] ?: externalRepresentation[@"owned_private_repo_count"] ?: @0;
+	dictionaryValue[@"diskUsage"] = externalRepresentation[@"disk_usage"] ?: @0;
+	dictionaryValue[@"plan"] = [self.planJSONTransformer transformedValue:externalRepresentation[@"plan"]] ?: NSNull.null;
+
+	return dictionaryValue;
 }
 
 @end

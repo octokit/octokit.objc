@@ -11,20 +11,16 @@
 
 @implementation OCTCommitCommentEvent
 
-#pragma mark MTLModel
+#pragma mark MTLJSONSerializing
 
-+ (NSDictionary *)externalRepresentationKeyPathsByPropertyKey {
-	NSMutableDictionary *keys = [super.externalRepresentationKeyPathsByPropertyKey mutableCopy];
-	
-	[keys addEntriesFromDictionary:@{
++ (NSDictionary *)JSONKeyPathsByPropertyKey {
+	return [super.JSONKeyPathsByPropertyKey mtl_dictionaryByAddingEntriesFromDictionary:@{
 		@"comment": @"payload.comment",
 	}];
-
-	return keys;
 }
 
-+ (NSValueTransformer *)commentTransformer {
-	return [NSValueTransformer mtl_externalRepresentationTransformerWithModelClass:OCTCommitComment.class];
++ (NSValueTransformer *)commentJSONTransformer {
+	return [NSValueTransformer mtl_JSONDictionaryTransformerWithModelClass:OCTCommitComment.class];
 }
 
 @end

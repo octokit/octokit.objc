@@ -11,35 +11,32 @@
 
 @implementation OCTIssueEvent
 
-#pragma mark MTLModel
+#pragma mark MTLJSONSerializing
 
-+ (NSDictionary *)externalRepresentationKeyPathsByPropertyKey {
-	NSMutableDictionary *keys = [super.externalRepresentationKeyPathsByPropertyKey mutableCopy];
-	
-	[keys addEntriesFromDictionary:@{
++ (NSDictionary *)JSONKeyPathsByPropertyKey {
+	return [super.JSONKeyPathsByPropertyKey mtl_dictionaryByAddingEntriesFromDictionary:@{
 		@"issue": @"payload.issue",
 		@"action": @"payload.action",
 	}];
-
-	return keys;
 }
 
-+ (NSValueTransformer *)issueTransformer {
-	return [NSValueTransformer mtl_externalRepresentationTransformerWithModelClass:OCTIssue.class];
++ (NSValueTransformer *)issueJSONTransformer {
+	return [NSValueTransformer mtl_JSONDictionaryTransformerWithModelClass:OCTIssue.class];
 }
 
-+ (NSValueTransformer *)pullRequestTransformer {
-	return [NSValueTransformer mtl_externalRepresentationTransformerWithModelClass:OCTIssue.class];
++ (NSValueTransformer *)pullRequestJSONTransformer {
+	return [NSValueTransformer mtl_JSONDictionaryTransformerWithModelClass:OCTIssue.class];
 }
 
-+ (NSValueTransformer *)actionTransformer {
++ (NSValueTransformer *)actionJSONTransformer {
 	NSDictionary *actionsByName = @{
 		@"opened": @(OCTIssueActionOpened),
 		@"closed": @(OCTIssueActionClosed),
 		@"reopened": @(OCTIssueActionReopened),
 	};
 
-	return [MTLValueTransformer reversibleTransformerWithForwardBlock:^(NSString *actionName) {
+	return [MTLValueTransformer
+		reversibleTransformerWithForwardBlock:^(NSString *actionName) {
 			return actionsByName[actionName];
 		}
 		reverseBlock:^(NSNumber *action) {

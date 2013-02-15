@@ -213,23 +213,23 @@ static const NSUInteger OCTClientNotModifiedStatusCode = 304;
 	if (resultClass != nil) {
 		if ([responseObject isKindOfClass:NSArray.class]) {
 			parsedResult = [NSMutableArray array];
-			for (NSDictionary *info in responseObject) {
-				if (![info isKindOfClass:NSDictionary.class]) {
-					NSLog(@"Invalid array element type: %@", info);
+			for (NSDictionary *JSONDictionary in responseObject) {
+				if (![JSONDictionary isKindOfClass:NSDictionary.class]) {
+					NSLog(@"Invalid array element type: %@", JSONDictionary);
 					continue;
 				}
 				
-				OCTObject *newObject = [resultClass modelWithExternalRepresentation:info];
+				OCTObject *newObject = [MTLJSONAdapter modelOfClass:resultClass fromJSONDictionary:JSONDictionary];
 				if (newObject == nil) continue;
 
-				NSAssert([newObject isKindOfClass:OCTObject.class], @"Parsed model object is not a OCTObject: %@", newObject);
+				NSAssert([newObject isKindOfClass:OCTObject.class], @"Parsed model object is not an OCTObject: %@", newObject);
 
 				// Record the server that this object has come from.
 				newObject.baseURL = self.baseURL;
 				[parsedResult addObject:newObject];
 			}
 		} else if ([responseObject isKindOfClass:NSDictionary.class]) {
-			parsedResult = [resultClass modelWithExternalRepresentation:responseObject];
+			parsedResult = [MTLJSONAdapter modelOfClass:resultClass fromJSONDictionary:responseObject];
 		} else {
 			NSLog(@"Response wasn't an array or dictionary (%@): %@", NSStringFromClass([responseObject class]), responseObject);
 			if (success != NULL) *success = NO;

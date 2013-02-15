@@ -13,8 +13,8 @@
 
 #pragma mark MTLModel
 
-+ (NSValueTransformer *)teamsTransformer {
-	return [NSValueTransformer mtl_externalRepresentationArrayTransformerWithModelClass:OCTTeam.class];
++ (NSValueTransformer *)teamsJSONTransformer {
+	return [NSValueTransformer mtl_JSONArrayTransformerWithModelClass:OCTTeam.class];
 }
 
 - (void)mergeTeamsFromModel:(OCTOrganization *)model {
