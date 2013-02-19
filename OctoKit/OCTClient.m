@@ -375,7 +375,14 @@ static const NSUInteger OCTClientNotModifiedStatusCode = 304;
 }
 
 - (RACSignal *)fetchUserRepositories {
-	return [self enqueueRequestWithMethod:@"GET" path:@"user/repos" parameters:nil resultClass:OCTRepository.class];
+	if (self.user == nil) return [RACSignal error:self.class.userRequiredError];
+
+	if (self.authenticated) {
+		return [self enqueueRequestWithMethod:@"GET" path:@"user/repos" parameters:nil resultClass:OCTRepository.class];
+	} else {
+		NSString *path = [NSString stringWithFormat:@"users/%@/repos", self.user.login];
+		return [self enqueueRequestWithMethod:@"GET" path:path parameters:nil resultClass:OCTRepository.class];
+	}
 }
 
 - (RACSignal *)createRepositoryWithName:(NSString *)name description:(NSString *)description private:(BOOL)isPrivate {

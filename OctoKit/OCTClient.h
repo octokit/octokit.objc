@@ -169,9 +169,11 @@ extern NSString * const OCTClientErrorHTTPStatusCodeKey;
 // not. If no `user` is set, the signal will error immediately.
 - (RACSignal *)fetchUserInfo;
 
-// Fetches the current user's repositories.
+// Fetches the repositories of the current `user`.
 //
-// Returns a signal which sends zero or more OCTRepository objects.
+// Returns a signal which sends zero or more OCTRepository objects. Private
+// repositories will only be included if the client is `authenticated`. If no
+// `user` is set, the signal will error immediately.
 - (RACSignal *)fetchUserRepositories;
 
 // Creates a repository under the user's account.
