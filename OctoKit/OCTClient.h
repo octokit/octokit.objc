@@ -162,9 +162,11 @@ extern NSString * const OCTClientErrorHTTPStatusCodeKey;
 
 @interface OCTClient (User)
 
-// Fetches the current user's full information.
+// Fetches the full information of the current `user`.
 //
-// Returns a signal which sends a new OCTUser.
+// Returns a signal which sends a new OCTUser. The user may contain different
+// levels of information depending on whether the client is `authenticated` or
+// not. If no `user` is set, the signal will error immediately.
 - (RACSignal *)fetchUserInfo;
 
 // Fetches the current user's repositories.

@@ -35,8 +35,15 @@ static const NSUInteger OCTClientNotModifiedStatusCode = 304;
 @property (nonatomic, strong, readwrite) OCTUser *user;
 @property (nonatomic, getter = isAuthenticated, readwrite) BOOL authenticated;
 
-@end
+// An error indicating that a request required a valid user, but no `user`
+// property was set.
++ (NSError *)userRequiredError;
 
+// An error indicating that a request required authentication, but the client
+// was not created with a password.
++ (NSError *)authenticationRequiredError;
+
+@end
 
 @implementation OCTClient
 
@@ -334,12 +341,37 @@ static const NSUInteger OCTClientNotModifiedStatusCode = 304;
 	return [NSError errorWithDomain:OCTClientErrorDomain code:errorCode userInfo:userInfo];
 }
 
++ (NSError *)userRequiredError {
+	NSDictionary *userInfo = @{
+		NSLocalizedDescriptionKey: NSLocalizedString(@"Username Required", @""),
+		NSLocalizedFailureReasonErrorKey: NSLocalizedString(@"No username was provided for getting user information.", @""),
+	};
+
+	return [NSError errorWithDomain:OCTClientErrorDomain code:OCTClientErrorAuthenticationFailed userInfo:userInfo];
+}
+
++ (NSError *)authenticationRequiredError {
+	NSDictionary *userInfo = @{
+		NSLocalizedDescriptionKey: NSLocalizedString(@"Login Required", @""),
+		NSLocalizedFailureReasonErrorKey: NSLocalizedString(@"You must log in to access user information.", @""),
+	};
+
+	return [NSError errorWithDomain:OCTClientErrorDomain code:OCTClientErrorAuthenticationFailed userInfo:userInfo];
+}
+
 @end
 
 @implementation OCTClient (User)
 
 - (RACSignal *)fetchUserInfo {
-	return [self enqueueRequestWithMethod:@"GET" path:@"user" parameters:nil resultClass:OCTUser.class];
+	if (self.user == nil) return [RACSignal error:self.class.userRequiredError];
+
+	if (self.authenticated) {
+		return [self enqueueRequestWithMethod:@"GET" path:@"user" parameters:nil resultClass:OCTUser.class];
+	} else {
+		NSString *path = [NSString stringWithFormat:@"users/%@", self.user.login];
+		return [self enqueueRequestWithMethod:@"GET" path:path parameters:nil resultClass:OCTUser.class];
+	}
 }
 
 - (RACSignal *)fetchUserRepositories {
