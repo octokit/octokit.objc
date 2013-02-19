@@ -468,6 +468,8 @@ static const NSUInteger OCTClientNotModifiedStatusCode = 304;
 @implementation OCTClient (Events)
 
 - (RACSignal *)fetchUserEventsNotMatchingEtag:(NSString *)etag {
+	if (self.user == nil) return [RACSignal error:self.class.userRequiredError];
+
 	return [self enqueueConditionalRequestWithMethod:@"GET" path:[NSString stringWithFormat:@"users/%@/received_events", self.user.login] parameters:nil notMatchingEtag:etag resultClass:OCTEvent.class fetchAllPages:NO];
 }
 
