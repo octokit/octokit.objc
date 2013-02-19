@@ -8,13 +8,29 @@
 
 SpecBegin(OCTClient)
 
-void (^stubResponseForPath)(NSString *, NSString *) = ^(NSString *path, NSString *responseFilename) {
+void (^stubResponseWithHeaders)(NSString *, NSString *, NSDictionary *) = ^(NSString *path, NSString *responseFilename, NSDictionary *headers) {
+	headers = [headers mtl_dictionaryByAddingEntriesFromDictionary:@{
+		@"Content-Type": @"application/json",
+	}];
+
 	[OHHTTPStubs addRequestHandler:^ id (NSURLRequest *request, BOOL onlyCheck) {
 		if (![request.URL.path isEqual:path]) return nil;
 		
 		NSURL *fileURL = [[NSBundle bundleForClass:self.class] URLForResource:responseFilename.stringByDeletingPathExtension withExtension:responseFilename.pathExtension];
-		return [OHHTTPStubsResponse responseWithFileURL:fileURL contentType:@"application/json" responseTime:0];
+		return [OHHTTPStubsResponse responseWithFileURL:fileURL statusCode:200 responseTime:0 headers:headers];
 	}];
+};
+
+void (^stubResponseWithStatusCode)(NSString *, int) = ^(NSString *path, int statusCode) {
+	[OHHTTPStubs addRequestHandler:^ id (NSURLRequest *request, BOOL onlyCheck) {
+		if (![request.URL.path isEqual:path]) return nil;
+
+		return [OHHTTPStubsResponse responseWithData:[NSData data] statusCode:statusCode responseTime:0 headers:nil];
+	}];
+};
+
+void (^stubResponse)(NSString *, NSString *) = ^(NSString *path, NSString *responseFilename) {
+	stubResponseWithHeaders(path, responseFilename, @{});
 };
 
 describe(@"unauthenticated", ^{
@@ -29,7 +45,7 @@ describe(@"unauthenticated", ^{
 	});
 
 	it(@"should GET a JSON dictionary", ^{
-		stubResponseForPath(@"/rate_limit", @"rate_limit.json");
+		stubResponse(@"/rate_limit", @"rate_limit.json");
 
 		RACSignal *request = [client enqueueRequestWithMethod:@"GET" path:@"rate_limit" parameters:nil resultClass:nil];
 		NSDictionary *result = [request asynchronousFirstOrDefault:nil success:&success error:&error];
@@ -44,6 +60,41 @@ describe(@"unauthenticated", ^{
 		};
 
 		expect(result).to.equal(expected);
+	});
+
+	it(@"should conditionally GET a modified JSON dictionary", ^{
+		NSString *etag = @"644b5b0155e6404a9cc4bd9d8b1ae730";
+
+		stubResponseWithHeaders(@"/rate_limit", @"rate_limit.json", @{
+			@"ETag": etag,
+		});
+
+		RACSignal *request = [client enqueueConditionalRequestWithMethod:@"GET" path:@"rate_limit" parameters:nil notMatchingEtag:nil resultClass:nil];
+		OCTResponse *response = [request asynchronousFirstOrDefault:nil success:&success error:&error];
+		expect(response).notTo.beNil();
+		expect(success).to.beTruthy();
+		expect(error).to.beNil();
+
+		NSDictionary *expected = @{
+			@"rate": @{
+				@"remaining": @4999,
+				@"limit": @5000,
+			},
+		};
+
+		expect(response.parsedResult).to.equal(expected);
+		expect(response.etag).to.equal(etag);
+	});
+
+	it(@"should conditionally GET an unmodified endpoint", ^{
+		NSString *etag = @"644b5b0155e6404a9cc4bd9d8b1ae730";
+
+		stubResponseWithStatusCode(@"/rate_limit", 304);
+
+		RACSignal *request = [client enqueueConditionalRequestWithMethod:@"GET" path:@"rate_limit" parameters:nil notMatchingEtag:etag resultClass:nil];
+		expect([request asynchronousFirstOrDefault:nil success:&success error:&error]).to.beNil();
+		expect(success).to.beTruthy();
+		expect(error).to.beNil();
 	});
 });
 
