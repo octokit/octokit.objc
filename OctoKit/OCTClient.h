@@ -200,13 +200,16 @@ extern NSString * const OCTClientErrorHTTPStatusCodeKey;
 
 // Fetches the specified organization's repositories.
 //
-// Returns a signal which sends zero or more OCTRepository objects.
+// Returns a signal which sends zero or more OCTRepository objects. Private
+// repositories will only be included if the client is `authenticated` and the
+// `user` has permission to see them.
 - (RACSignal *)fetchRepositoriesForOrganization:(OCTOrganization *)organization;
 
 // Creates a repository under the specified organization's account, and
 // associates it with the given team.
 //
-// Returns a signal which sends the new OCTRepository.
+// Returns a signal which sends the new OCTRepository. If the client is not
+// `authenticated`, the signal will error immediately.
 - (RACSignal *)createRepositoryWithName:(NSString *)name organization:(OCTOrganization *)organization team:(OCTTeam *)team description:(NSString *)description private:(BOOL)isPrivate;
 
 // Fetches the specified organization's teams.
