@@ -456,7 +456,7 @@ static const NSUInteger OCTClientNotModifiedStatusCode = 304;
 	if (!self.authenticated) return [RACSignal error:self.class.authenticationRequiredError];
 
 	OCTPublicKey *publicKey = [OCTPublicKey modelWithDictionary:@{
-		@keypath(OCTPublicKey.new, key): key,
+		@keypath(OCTPublicKey.new, publicKey): key,
 		@keypath(OCTPublicKey.new, title): title,
 	}];
 
