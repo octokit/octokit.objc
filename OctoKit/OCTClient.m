@@ -386,6 +386,8 @@ static const NSUInteger OCTClientNotModifiedStatusCode = 304;
 }
 
 - (RACSignal *)createRepositoryWithName:(NSString *)name description:(NSString *)description private:(BOOL)isPrivate {
+	if (!self.authenticated) return [RACSignal error:self.class.authenticationRequiredError];
+
 	return [self createRepositoryWithName:name organization:nil team:nil description:description private:isPrivate];
 }
 

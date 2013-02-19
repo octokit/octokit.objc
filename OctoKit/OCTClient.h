@@ -178,7 +178,8 @@ extern NSString * const OCTClientErrorHTTPStatusCodeKey;
 
 // Creates a repository under the user's account.
 //
-// Returns a signal which sends the new OCTRepository.
+// Returns a signal which sends the new OCTRepository. If the client is not
+// `authenticated`, the signal will error immediately.
 - (RACSignal *)createRepositoryWithName:(NSString *)name description:(NSString *)description private:(BOOL)isPrivate;
 
 @end
