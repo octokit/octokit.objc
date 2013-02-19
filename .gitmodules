@@ -10,3 +10,6 @@
 [submodule "External/ISO8601DateFormatter"]
 	path = External/ISO8601DateFormatter
 	url = git://github.com/ISO8601DateFormatter/ISO8601DateFormatter.git
+[submodule "External/OHHTTPStubs"]
+	path = External/OHHTTPStubs
+	url = https://github.com/github/OHHTTPStubs.git
