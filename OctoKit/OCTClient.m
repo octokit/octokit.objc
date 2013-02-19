@@ -307,8 +307,10 @@ static const NSUInteger OCTClientNotModifiedStatusCode = 304;
 	NSString *message = responseDictionary[@"message"];
 	
 	if (HTTPCode == 401) {
-		errorCode = OCTClientErrorAuthenticationFailed;
-		userInfo[NSLocalizedDescriptionKey] = NSLocalizedString(@"Please login to use this end point.", @"");
+		NSError *errorTemplate = self.class.authenticationRequiredError;
+
+		errorCode = errorTemplate.code;
+		[userInfo addEntriesFromDictionary:errorTemplate.userInfo];
 	} else if (HTTPCode == 400) {
 		errorCode = OCTClientErrorBadRequest;
 		if (message != nil) userInfo[NSLocalizedDescriptionKey] = message;
