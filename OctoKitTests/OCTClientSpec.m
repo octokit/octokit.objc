@@ -33,7 +33,7 @@ describe(@"unauthenticated", ^{
 
 		RACSignal *request = [client enqueueRequestWithMethod:@"GET" path:@"rate_limit" parameters:nil resultClass:nil];
 		NSDictionary *result = [request asynchronousFirstOrDefault:nil success:&success error:&error];
-		expect(success).will.beTruthy();
+		expect(success).to.beTruthy();
 		expect(error).to.beNil();
 
 		NSDictionary *expected = @{
