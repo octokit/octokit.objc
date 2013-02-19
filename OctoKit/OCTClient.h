@@ -188,7 +188,9 @@ extern NSString * const OCTClientErrorHTTPStatusCodeKey;
 
 // Fetches the organizations that the current user is a member of.
 //
-// Returns a signal which sends zero or more OCTOrganization objects.
+// Returns a signal which sends zero or more OCTOrganization objects. Private
+// organizations will only be included if the client is `authenticated`. If no
+// `user` is set, the signal will error immediately.
 - (RACSignal *)fetchUserOrganizations;
 
 // Fetches the specified organization's full information.

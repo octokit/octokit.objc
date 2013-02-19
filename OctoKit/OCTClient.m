@@ -396,7 +396,14 @@ static const NSUInteger OCTClientNotModifiedStatusCode = 304;
 @implementation OCTClient (Organizations)
 
 - (RACSignal *)fetchUserOrganizations {
-	return [self enqueueRequestWithMethod:@"GET" path:@"user/orgs" parameters:nil resultClass:OCTOrganization.class];
+	if (self.user == nil) return [RACSignal error:self.class.userRequiredError];
+
+	if (self.authenticated) {
+		return [self enqueueRequestWithMethod:@"GET" path:@"user/orgs" parameters:nil resultClass:OCTOrganization.class];
+	} else {
+		NSString *path = [NSString stringWithFormat:@"users/%@/orgs", self.user.login];
+		return [self enqueueRequestWithMethod:@"GET" path:path parameters:nil resultClass:OCTUser.class];
+	}
 }
 
 - (RACSignal *)fetchOrganizationInfo:(OCTOrganization *)organization {
