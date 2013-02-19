@@ -33,13 +33,13 @@ void (^stubResponse)(NSString *, NSString *) = ^(NSString *path, NSString *respo
 	stubResponseWithHeaders(path, responseFilename, @{});
 };
 
-describe(@"unauthenticated", ^{
+describe(@"without a user", ^{
 	__block OCTClient *client;
 	__block BOOL success;
 	__block NSError *error;
 
 	beforeEach(^{
-		client = [OCTClient clientForUser:[OCTUser userWithName:@"Test User" email:nil]];
+		client = [[OCTClient alloc] initWithServer:OCTServer.dotComServer];
 		success = NO;
 		error = nil;
 	});

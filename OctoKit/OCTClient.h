@@ -9,9 +9,10 @@
 #import "AFNetworking.h"
 #import <ReactiveCocoa/ReactiveCocoa.h>
 
-@class OCTUser;
 @class OCTOrganization;
+@class OCTServer;
 @class OCTTeam;
+@class OCTUser;
 
 // The domain for all errors originating in OCTClient.
 extern NSString * const OCTClientErrorDomain;
@@ -56,12 +57,46 @@ extern NSString * const OCTClientErrorHTTPStatusCodeKey;
 // upon which all the other request methods are built.
 @interface OCTClient : AFHTTPClient
 
-// The user used to authenticate this session.
-@property (nonatomic, readonly, strong) OCTUser *user;
+// The active user for this session.
+//
+// This may be set regardless of whether the session is authenticated or
+// unauthenticated, and will control which username is used for endpoints
+// that require one. For example, this user's login will be used with
+// -fetchUserEventsNotMatchingEtag:.
+@property (nonatomic, strong, readonly) OCTUser *user;
 
-// Creates and returns a new OCTClient that authenticates with the given user's
-// credentials.
-+ (OCTClient *)clientForUser:(OCTUser *)user;
+// Initializes the receiver to make requests to the given GitHub server.
+// 
+// When using this initializer, the `user` property will not be set.
+// +authenticatedClientWithUser:password: or +unauthenticatedClientWithUser:
+// should typically be used instead.
+//
+// server - The GitHub server to connect to. This argument must not be nil.
+//
+// This is the designated initializer for this class.
+- (id)initWithServer:(OCTServer *)server;
+
+// Creates a client which will attempt to authenticate as the given user, using
+// the given password.
+//
+// Note that this method does not actually perform a login or make a request to
+// the server – it only sets an authorization header for future requests.
+//
+// user     - The user to authenticate as. The `user` property of the returned
+//            client will be set to this object. This argument must not be nil.
+// password - The password for the given user.
+//
+// Returns a new client.
++ (instancetype)authenticatedClientWithUser:(OCTUser *)user password:(NSString *)password;
+
+// Creates a client which can access any endpoints that don't require
+// authentication.
+//
+// user - The active user. The `user` property of the returned client will be
+//        set to this object. This argument must not be nil.
+//
+// Returns a new client.
++ (instancetype)unauthenticatedClientWithUser:(OCTUser *)user;
 
 // Enqueues a request that always fetches the latest data from the server.
 //
@@ -117,11 +152,6 @@ extern NSString * const OCTClientErrorHTTPStatusCodeKey;
 @end
 
 @interface OCTClient (User)
-
-// Logs the user in.
-//
-// Returns a signal which sends a new OCTUser.
-- (RACSignal *)login;
 
 // Fetches the current user's full information.
 //

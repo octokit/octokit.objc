@@ -32,36 +32,44 @@ static const NSUInteger OCTClientNotModifiedStatusCode = 304;
 
 @interface OCTClient ()
 
-@property (nonatomic, strong) OCTUser *user;
+@property (nonatomic, strong, readwrite) OCTUser *user;
 
 @end
 
 
 @implementation OCTClient
 
-#pragma mark Properties
-
-- (void)setUser:(OCTUser *)u {
-	if (_user == u) return;
-	
-	_user = u;
-	
-	[self setAuthorizationHeaderWithUsername:self.user.login password:self.user.password];
-}
-
 #pragma mark Lifecycle
 
-+ (OCTClient *)clientForUser:(OCTUser *)user {
++ (instancetype)authenticatedClientWithUser:(OCTUser *)user password:(NSString *)password {
 	NSParameterAssert(user != nil);
-	
+	NSParameterAssert(password != nil);
+
+	OCTClient *client = [[self alloc] initWithServer:user.server];
+	[client setAuthorizationHeaderWithUsername:user.login password:password];
+
+	client.user = user;
+	return client;
+}
+
++ (instancetype)unauthenticatedClientWithUser:(OCTUser *)user {
+	NSParameterAssert(user != nil);
+
 	OCTClient *client = [[self alloc] initWithServer:user.server];
 	client.user = user;
 	return client;
 }
 
+- (id)initWithBaseURL:(NSURL *)url {
+	NSAssert(NO, @"%@ must be initialized using -initWithServer:", self.class);
+	return nil;
+}
+
 - (id)initWithServer:(OCTServer *)server {
+	NSParameterAssert(server != nil);
+
 	self = [super initWithBaseURL:server.APIEndpoint];
-	if(self == nil) return nil;
+	if (self == nil) return nil;
 	
 	self.parameterEncoding = AFJSONParameterEncoding;
 	[self registerHTTPOperationClass:AFJSONRequestOperation.class];
@@ -327,12 +335,6 @@ static const NSUInteger OCTClientNotModifiedStatusCode = 304;
 @end
 
 @implementation OCTClient (User)
-
-- (RACSignal *)login {
-	return [[self enqueueRequestWithMethod:@"GET" path:@"user" parameters:nil resultClass:OCTUser.class] doNext:^(OCTUser *x) {
-		x.password = self.user.password;
-	}];
-}
 
 - (RACSignal *)fetchUserInfo {
 	return [self enqueueRequestWithMethod:@"GET" path:@"user" parameters:nil resultClass:OCTUser.class];
