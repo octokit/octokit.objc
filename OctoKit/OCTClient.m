@@ -429,6 +429,8 @@ static const NSUInteger OCTClientNotModifiedStatusCode = 304;
 }
 
 - (RACSignal *)fetchTeamsForOrganization:(OCTOrganization *)organization {
+	if (!self.authenticated) return [RACSignal error:self.class.authenticationRequiredError];
+
 	return [self enqueueRequestWithMethod:@"GET" path:[NSString stringWithFormat:@"orgs/%@/teams", organization.login] parameters:nil resultClass:OCTTeam.class];
 }
 

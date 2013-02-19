@@ -214,7 +214,8 @@ extern NSString * const OCTClientErrorHTTPStatusCodeKey;
 
 // Fetches the specified organization's teams.
 //
-// Returns a signal which sends zero or more OCTTeam objects.
+// Returns a signal which sends zero or more OCTTeam objects. If the client is
+// not `authenticated`, the signal will error immediately.
 - (RACSignal *)fetchTeamsForOrganization:(OCTOrganization *)organization;
 
 @end
