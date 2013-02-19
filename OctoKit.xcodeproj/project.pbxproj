@@ -10,6 +10,8 @@
 		D02E48FE16CBAB7A00257645 /* Mantle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0872069169E328B00016ACA /* Mantle.framework */; };
 		D05E74E516D3550A001AA17B /* OHHTTPStubs.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D05E74E016D354FD001AA17B /* OHHTTPStubs.framework */; };
 		D05E74E816D35513001AA17B /* libOHHTTPStubs.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D05E74DE16D354FD001AA17B /* libOHHTTPStubs.a */; };
+		D05E751516D35834001AA17B /* events.json in Resources */ = {isa = PBXBuildFile; fileRef = D05E751416D35834001AA17B /* events.json */; };
+		D05E751616D35834001AA17B /* events.json in Resources */ = {isa = PBXBuildFile; fileRef = D05E751416D35834001AA17B /* events.json */; };
 		D0772E7316BD27B5009DFF72 /* NSDateFormatter+OCTFormattingAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = D0B9C8F016BC78970029C5B4 /* NSDateFormatter+OCTFormattingAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D0772E7416BD27B6009DFF72 /* NSDateFormatter+OCTFormattingAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = D0B9C8F016BC78970029C5B4 /* NSDateFormatter+OCTFormattingAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D0772E7716BD2A06009DFF72 /* NSValueTransformer+OCTPredefinedTransformerAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = D0772E7516BD2A05009DFF72 /* NSValueTransformer+OCTPredefinedTransformerAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -199,8 +201,6 @@
 		D087229D169E3D0500016ACA /* ISO8601DateFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = D0872299169E3D0500016ACA /* ISO8601DateFormatter.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc -Wno-format -Wno-conversion"; }; };
 		D087229F169E3D6000016ACA /* OctoKit.h in Headers */ = {isa = PBXBuildFile; fileRef = D087229E169E3D6000016ACA /* OctoKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D08722A0169E3D6000016ACA /* OctoKit.h in Headers */ = {isa = PBXBuildFile; fileRef = D087229E169E3D6000016ACA /* OctoKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D08B599C169E3F13006003B8 /* test_events.json in Resources */ = {isa = PBXBuildFile; fileRef = D08B599B169E3F13006003B8 /* test_events.json */; };
-		D08B599D169E3F13006003B8 /* test_events.json in Resources */ = {isa = PBXBuildFile; fileRef = D08B599B169E3F13006003B8 /* test_events.json */; };
 		D08B59CD169E3F8F006003B8 /* NSArray+OCTFlatteningAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D08B59CA169E3F8F006003B8 /* NSArray+OCTFlatteningAdditions.m */; };
 		D08B59CE169E3F8F006003B8 /* NSArray+OCTFlatteningAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D08B59CA169E3F8F006003B8 /* NSArray+OCTFlatteningAdditions.m */; };
 		D08C190D16B718EE00575F24 /* ReactiveCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D08C190C16B718EE00575F24 /* ReactiveCocoa.framework */; };
@@ -385,6 +385,7 @@
 
 /* Begin PBXFileReference section */
 		D05E74D416D354FD001AA17B /* OHHTTPStubs.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = OHHTTPStubs.xcodeproj; path = External/OHHTTPStubs/OHHTTPStubs/OHHTTPStubs.xcodeproj; sourceTree = "<group>"; };
+		D05E751416D35834001AA17B /* events.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = events.json; sourceTree = "<group>"; };
 		D0772E7516BD2A05009DFF72 /* NSValueTransformer+OCTPredefinedTransformerAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSValueTransformer+OCTPredefinedTransformerAdditions.h"; sourceTree = "<group>"; };
 		D0772E7616BD2A06009DFF72 /* NSValueTransformer+OCTPredefinedTransformerAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSValueTransformer+OCTPredefinedTransformerAdditions.m"; sourceTree = "<group>"; };
 		D0772E7B16BD2AD5009DFF72 /* NSValueTransformerAdditionsSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSValueTransformerAdditionsSpec.m; sourceTree = "<group>"; };
@@ -509,7 +510,6 @@
 		D0872298169E3D0500016ACA /* ISO8601DateFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISO8601DateFormatter.h; sourceTree = "<group>"; };
 		D0872299169E3D0500016ACA /* ISO8601DateFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ISO8601DateFormatter.m; sourceTree = "<group>"; };
 		D087229E169E3D6000016ACA /* OctoKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OctoKit.h; sourceTree = "<group>"; };
-		D08B599B169E3F13006003B8 /* test_events.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = test_events.json; sourceTree = "<group>"; };
 		D08B59C9169E3F8F006003B8 /* NSArray+OCTFlatteningAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+OCTFlatteningAdditions.h"; sourceTree = "<group>"; };
 		D08B59CA169E3F8F006003B8 /* NSArray+OCTFlatteningAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+OCTFlatteningAdditions.m"; sourceTree = "<group>"; };
 		D08C190C16B718EE00575F24 /* ReactiveCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ReactiveCocoa.framework; path = "../../../../OctoClient-fhiesvgduyfgynfidvcqbacmdzot/Build/Products/Debug/ReactiveCocoa.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -585,6 +585,14 @@
 				D05E74E016D354FD001AA17B /* OHHTTPStubs.framework */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		D05E751316D35834001AA17B /* Stubs */ = {
+			isa = PBXGroup;
+			children = (
+				D05E751416D35834001AA17B /* events.json */,
+			);
+			path = Stubs;
 			sourceTree = "<group>";
 		};
 		D0871E9C169E2EFC00016ACA = {
@@ -666,10 +674,10 @@
 		D0871EC8169E2EFC00016ACA /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				D05E751316D35834001AA17B /* Stubs */,
 				D0871EC9169E2EFC00016ACA /* OctoKitTests-Info.plist */,
 				D0872124169E365A00016ACA /* OctoKitTests-Prefix.pch */,
 				D0871ECA169E2EFC00016ACA /* InfoPlist.strings */,
-				D08B599B169E3F13006003B8 /* test_events.json */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -1300,7 +1308,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D0871ECC169E2EFC00016ACA /* InfoPlist.strings in Resources */,
-				D08B599C169E3F13006003B8 /* test_events.json in Resources */,
+				D05E751516D35834001AA17B /* events.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1308,7 +1316,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D08B599D169E3F13006003B8 /* test_events.json in Resources */,
+				D05E751616D35834001AA17B /* events.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
