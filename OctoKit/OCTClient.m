@@ -33,6 +33,7 @@ static const NSUInteger OCTClientNotModifiedStatusCode = 304;
 @interface OCTClient ()
 
 @property (nonatomic, strong, readwrite) OCTUser *user;
+@property (nonatomic, getter = isAuthenticated, readwrite) BOOL authenticated;
 
 @end
 
@@ -46,9 +47,10 @@ static const NSUInteger OCTClientNotModifiedStatusCode = 304;
 	NSParameterAssert(password != nil);
 
 	OCTClient *client = [[self alloc] initWithServer:user.server];
-	[client setAuthorizationHeaderWithUsername:user.login password:password];
-
+	client.authenticated = YES;
 	client.user = user;
+
+	[client setAuthorizationHeaderWithUsername:user.login password:password];
 	return client;
 }
 

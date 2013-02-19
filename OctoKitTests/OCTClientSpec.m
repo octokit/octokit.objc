@@ -40,6 +40,10 @@ describe(@"without a user", ^{
 
 	beforeEach(^{
 		client = [[OCTClient alloc] initWithServer:OCTServer.dotComServer];
+		expect(client).notTo.beNil();
+		expect(client.user).to.beNil();
+		expect(client.authenticated).to.beFalsy();
+
 		success = NO;
 		error = nil;
 	});

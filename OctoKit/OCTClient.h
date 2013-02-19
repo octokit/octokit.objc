@@ -65,6 +65,15 @@ extern NSString * const OCTClientErrorHTTPStatusCodeKey;
 // -fetchUserEventsNotMatchingEtag:.
 @property (nonatomic, strong, readonly) OCTUser *user;
 
+// Whether this client supports authenticated endpoints.
+//
+// Note that this property does not specify whether the client has successfully
+// authenticated with the server – only whether it will attempt to.
+//
+// This will only be YES when created with
+// +authenticatedClientWithUser:password:.
+@property (nonatomic, getter = isAuthenticated, readonly) BOOL authenticated;
+
 // Initializes the receiver to make requests to the given GitHub server.
 // 
 // When using this initializer, the `user` property will not be set.
