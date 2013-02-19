@@ -222,9 +222,11 @@ extern NSString * const OCTClientErrorHTTPStatusCodeKey;
 
 @interface OCTClient (Keys)
 
-// Fetches the current user's public keys.
+// Fetches the public keys for the current `user`.
 //
-// Returns a signal which sends zero or more OCTPublicKey objects.
+// Returns a signal which sends zero or more OCTPublicKey objects. Unverified
+// keys will only be included if the client is `authenticated`. If no `user` is
+// set, the signal will error immediately.
 - (RACSignal *)fetchPublicKeys;
 
 // Adds a new public key to the current user's profile.

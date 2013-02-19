@@ -439,7 +439,14 @@ static const NSUInteger OCTClientNotModifiedStatusCode = 304;
 @implementation OCTClient (Keys)
 
 - (RACSignal *)fetchPublicKeys {
-	return [self enqueueRequestWithMethod:@"GET" path:@"user/keys" parameters:nil resultClass:OCTPublicKey.class];
+	if (self.user == nil) return [RACSignal error:self.class.userRequiredError];
+
+	if (self.authenticated) {
+		return [self enqueueRequestWithMethod:@"GET" path:@"user/keys" parameters:nil resultClass:OCTPublicKey.class];
+	} else {
+		NSString *path = [NSString stringWithFormat:@"users/%@/keys", self.user.login];
+		return [self enqueueRequestWithMethod:@"GET" path:path parameters:nil resultClass:OCTUser.class];
+	}
 }
 
 - (RACSignal *)postPublicKey:(NSString *)key title:(NSString *)title {
