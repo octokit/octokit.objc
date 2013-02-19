@@ -96,6 +96,34 @@ describe(@"unauthenticated", ^{
 		expect(success).to.beTruthy();
 		expect(error).to.beNil();
 	});
+
+	it(@"should GET a paginated endpoint", ^{
+		stubResponseWithHeaders(@"/items1", @"page1.json", @{
+			@"Link": @"<https://api.github.com/items2>; rel=\"next\", <https://api.github.com/items3>; rel=\"last\"",
+		});
+
+		stubResponseWithHeaders(@"/items2", @"page2.json", @{
+			@"Link": @"<https://api.github.com/items3>; rel=\"next\", <https://api.github.com/items3>; rel=\"last\"",
+		});
+
+		stubResponse(@"/items3", @"page3.json");
+
+		RACSignal *request = [client enqueueRequestWithMethod:@"GET" path:@"items1" parameters:nil resultClass:nil];
+
+		__block NSMutableArray *items = [NSMutableArray array];
+		[request subscribeNext:^(NSDictionary *dict) {
+			expect(dict).to.beKindOf(NSDictionary.class);
+			expect(dict[@"item"]).notTo.beNil();
+
+			[items addObject:dict[@"item"]];
+		}];
+
+		expect([request asynchronouslyWaitUntilCompleted:&error]).to.beTruthy();
+		expect(error).to.beNil();
+
+		NSArray *expected = @[ @1, @2, @3, @4, @5, @6, @7, @8, @9 ];
+		expect(items).to.equal(expected);
+	});
 });
 
 SpecEnd

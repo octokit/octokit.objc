@@ -214,6 +214,12 @@
 		D0B9C8F516BC78970029C5B4 /* NSDateFormatter+OCTFormattingAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D0B9C8F116BC78970029C5B4 /* NSDateFormatter+OCTFormattingAdditions.m */; };
 		D0B9C8FD16BC7A260029C5B4 /* NSDateFormatterAdditionsSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = D0B9C8FC16BC7A260029C5B4 /* NSDateFormatterAdditionsSpec.m */; };
 		D0B9C8FE16BC7A260029C5B4 /* NSDateFormatterAdditionsSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = D0B9C8FC16BC7A260029C5B4 /* NSDateFormatterAdditionsSpec.m */; };
+		D0D5801716D409F000EF08D5 /* page1.json in Resources */ = {isa = PBXBuildFile; fileRef = D0D5801416D409F000EF08D5 /* page1.json */; };
+		D0D5801816D409F000EF08D5 /* page1.json in Resources */ = {isa = PBXBuildFile; fileRef = D0D5801416D409F000EF08D5 /* page1.json */; };
+		D0D5801916D409F000EF08D5 /* page2.json in Resources */ = {isa = PBXBuildFile; fileRef = D0D5801516D409F000EF08D5 /* page2.json */; };
+		D0D5801A16D409F000EF08D5 /* page2.json in Resources */ = {isa = PBXBuildFile; fileRef = D0D5801516D409F000EF08D5 /* page2.json */; };
+		D0D5801B16D409F000EF08D5 /* page3.json in Resources */ = {isa = PBXBuildFile; fileRef = D0D5801616D409F000EF08D5 /* page3.json */; };
+		D0D5801C16D409F000EF08D5 /* page3.json in Resources */ = {isa = PBXBuildFile; fileRef = D0D5801616D409F000EF08D5 /* page3.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -523,6 +529,9 @@
 		D0B9C8F016BC78970029C5B4 /* NSDateFormatter+OCTFormattingAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDateFormatter+OCTFormattingAdditions.h"; sourceTree = "<group>"; };
 		D0B9C8F116BC78970029C5B4 /* NSDateFormatter+OCTFormattingAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDateFormatter+OCTFormattingAdditions.m"; sourceTree = "<group>"; };
 		D0B9C8FC16BC7A260029C5B4 /* NSDateFormatterAdditionsSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSDateFormatterAdditionsSpec.m; sourceTree = "<group>"; };
+		D0D5801416D409F000EF08D5 /* page1.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = page1.json; sourceTree = "<group>"; };
+		D0D5801516D409F000EF08D5 /* page2.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = page2.json; sourceTree = "<group>"; };
+		D0D5801616D409F000EF08D5 /* page3.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = page3.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -597,6 +606,9 @@
 			isa = PBXGroup;
 			children = (
 				D05E751416D35834001AA17B /* events.json */,
+				D0D5801416D409F000EF08D5 /* page1.json */,
+				D0D5801516D409F000EF08D5 /* page2.json */,
+				D0D5801616D409F000EF08D5 /* page3.json */,
 				D05E752816D35C1A001AA17B /* rate_limit.json */,
 			);
 			path = Stubs;
@@ -1318,6 +1330,9 @@
 				D0871ECC169E2EFC00016ACA /* InfoPlist.strings in Resources */,
 				D05E751516D35834001AA17B /* events.json in Resources */,
 				D05E752916D35C1A001AA17B /* rate_limit.json in Resources */,
+				D0D5801716D409F000EF08D5 /* page1.json in Resources */,
+				D0D5801916D409F000EF08D5 /* page2.json in Resources */,
+				D0D5801B16D409F000EF08D5 /* page3.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1327,6 +1342,9 @@
 			files = (
 				D05E751616D35834001AA17B /* events.json in Resources */,
 				D05E752A16D35C1A001AA17B /* rate_limit.json in Resources */,
+				D0D5801816D409F000EF08D5 /* page1.json in Resources */,
+				D0D5801A16D409F000EF08D5 /* page2.json in Resources */,
+				D0D5801C16D409F000EF08D5 /* page3.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
