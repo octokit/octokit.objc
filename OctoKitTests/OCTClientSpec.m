@@ -32,16 +32,7 @@ describe(@"unauthenticated", ^{
 		stubResponseForPath(@"/rate_limit", @"rate_limit.json");
 
 		RACSignal *request = [client enqueueRequestWithMethod:@"GET" path:@"rate_limit" parameters:nil resultClass:nil];
-
-		__block NSDictionary *result;
-		[request subscribeNext:^(id x) {
-			result = x;
-		} error:^(NSError *e) {
-			error = e;
-		} completed:^{
-			success = YES;
-		}];
-
+		NSDictionary *result = [request asynchronousFirstOrDefault:nil success:&success error:&error];
 		expect(success).will.beTruthy();
 		expect(error).to.beNil();
 
