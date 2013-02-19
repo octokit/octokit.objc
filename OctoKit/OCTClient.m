@@ -450,8 +450,17 @@ static const NSUInteger OCTClientNotModifiedStatusCode = 304;
 }
 
 - (RACSignal *)postPublicKey:(NSString *)key title:(NSString *)title {
-	NSDictionary *options = @{ @"key": key, @"title": title };
-	return [self enqueueRequestWithMethod:@"POST" path:@"user/keys" parameters:options resultClass:OCTPublicKey.class];
+	NSParameterAssert(key != nil);
+	NSParameterAssert(title != nil);
+
+	if (!self.authenticated) return [RACSignal error:self.class.authenticationRequiredError];
+
+	OCTPublicKey *publicKey = [OCTPublicKey modelWithDictionary:@{
+		@keypath(OCTPublicKey.new, key): key,
+		@keypath(OCTPublicKey.new, title): title,
+	}];
+
+	return [self enqueueRequestWithMethod:@"POST" path:@"user/keys" parameters:[MTLJSONAdapter JSONDictionaryFromModel:publicKey] resultClass:OCTPublicKey.class];
 }
 
 @end

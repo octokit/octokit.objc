@@ -231,7 +231,8 @@ extern NSString * const OCTClientErrorHTTPStatusCodeKey;
 
 // Adds a new public key to the current user's profile.
 //
-// Returns a signal which sends the new OCTPublicKey.
+// Returns a signal which sends the new OCTPublicKey. If the client is not
+// `authenticated`, the signal will error immediately.
 - (RACSignal *)postPublicKey:(NSString *)key title:(NSString *)title;
 
 @end
