@@ -103,6 +103,10 @@ static const NSUInteger OCTClientNotModifiedStatusCode = 304;
 
 - (RACSignal *)enqueueConditionalRequestWithMethod:(NSString *)method path:(NSString *)path parameters:(NSDictionary *)parameters notMatchingEtag:(NSString *)etag resultClass:(Class)resultClass fetchAllPages:(BOOL)fetchAllPages {
 	NSParameterAssert(method != nil);
+
+	parameters = [parameters mtl_dictionaryByAddingEntriesFromDictionary:@{
+		@"per_page": @100
+	}];
 	
 	NSMutableURLRequest *request = [self requestWithMethod:method path:[path stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] parameters:parameters];
 	if (etag != nil) {
