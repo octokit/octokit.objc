@@ -86,6 +86,10 @@ static const NSUInteger OCTClientNotModifiedStatusCode = 304;
 
 - (RACSignal *)enqueueConditionalRequestWithMethod:(NSString *)method path:(NSString *)path parameters:(NSDictionary *)parameters notMatchingEtag:(NSString *)etag resultClass:(Class)resultClass fetchAllPages:(BOOL)fetchAllPages {
 	NSParameterAssert(method != nil);
+
+	parameters = [parameters mtl_dictionaryByAddingEntriesFromDictionary:@{
+		@"per_page": @100
+	}];
 	
 	NSMutableURLRequest *request = [self requestWithMethod:method path:[path stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] parameters:parameters];
 	if (etag != nil) {
@@ -98,14 +102,6 @@ static const NSUInteger OCTClientNotModifiedStatusCode = 304;
 - (RACSignal *)enqueueRequest:(NSURLRequest *)request resultClass:(Class)resultClass fetchAllPages:(BOOL)fetchAllPages {
 	RACSignal *signal = [RACSignal createSignal:^(id<RACSubscriber> subscriber) {
 		AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request success:^(AFHTTPRequestOperation *operation, id responseObject) {
-			void (^sendResult)(id) = ^(id parsedResult) {
-				OCTResponse *response = [[OCTResponse alloc] initWithHTTPURLResponse:operation.response parsedResult:parsedResult];
-				NSAssert(response != nil, @"Could not create OCTResponse with response %@ and parsedResult %@", operation.response, parsedResult);
-
-				[subscriber sendNext:response];
-				[subscriber sendCompleted];
-			};
-
 			if (operation.response.statusCode == OCTClientNotModifiedStatusCode) {
 				// No change in the data.
 				[subscriber sendCompleted];
@@ -116,33 +112,25 @@ static const NSUInteger OCTClientNotModifiedStatusCode = 304;
 				NSLog(@"%@ %@ => %li %@:\n%@", request.HTTPMethod, request.URL, (long)operation.response.statusCode, operation.response.allHeaderFields, responseObject);
 			}
 
-			BOOL success = YES;
-			id parsedResult = [self parseResponse:responseObject withResultClass:resultClass success:&success];
-			if (!success) {
-				NSDictionary *userInfo = @{ NSLocalizedDescriptionKey: NSLocalizedString(@"Could not parse the service response.", @"") };
-				[subscriber sendError:[NSError errorWithDomain:OCTClientErrorDomain code:OCTClientErrorJSONParsingFailed userInfo:userInfo]];
-				return;
-			}
+			RACSignal *thisPageSignal = [[self parsedResponseOfClass:resultClass fromJSON:responseObject]
+				map:^(id parsedResult) {
+					OCTResponse *response = [[OCTResponse alloc] initWithHTTPURLResponse:operation.response parsedResult:parsedResult];
+					NSAssert(response != nil, @"Could not create OCTResponse with response %@ and parsedResult %@", operation.response, parsedResult);
+
+					return response;
+				}];
 			
+			RACSignal *nextPageSignal = [RACSignal empty];
 			NSURL *nextPageURL = (fetchAllPages ? [self nextPageURLFromOperation:operation] : nil);
 			if (nextPageURL != nil) {
+				// If we got this far, the etag is out of date, so don't pass it on.
 				NSMutableURLRequest *nextRequest = [request mutableCopy];
 				nextRequest.URL = nextPageURL;
 
-				// If we got this far, the etag is out of date, so don't pass it on.
-				RACSignal *nextPageResult = [self enqueueRequest:nextRequest resultClass:resultClass fetchAllPages:YES];
-				[nextPageResult subscribeNext:^(OCTResponse *x) {
-					NSMutableArray *accumulatedResult = [NSMutableArray array];
-					[accumulatedResult addObject:parsedResult];
-					[accumulatedResult addObject:x.parsedResult];
-					
-					sendResult(accumulatedResult.oct_flattenedArray);
-				} error:^(NSError *error) {
-					[subscriber sendError:error];
-				}];
-			} else {
-				sendResult(parsedResult);
+				nextPageSignal = [self enqueueRequest:nextRequest resultClass:resultClass fetchAllPages:YES];
 			}
+
+			[[thisPageSignal concat:nextPageSignal] subscribe:subscriber];
 		} failure:^(AFHTTPRequestOperation *operation, NSError *error) {
 			[subscriber sendError:[self.class errorFromRequestOperation:(AFJSONRequestOperation *)operation]];
 		}];
@@ -206,44 +194,64 @@ static const NSUInteger OCTClientNotModifiedStatusCode = 304;
 
 #pragma mark Parsing
 
-- (id)parseResponse:(id)responseObject withResultClass:(Class)resultClass success:(BOOL *)success {
-	NSParameterAssert(resultClass == nil || [resultClass isSubclassOfClass:MTLModel.class]);
+- (NSError *)parsingErrorWithFailureReason:(NSString *)localizedFailureReason {
+	NSMutableDictionary *userInfo = [NSMutableDictionary dictionary];
+	userInfo[NSLocalizedDescriptionKey] = NSLocalizedString(@"Could not parse the service response.", @"");
 
-	id parsedResult = nil;
-	if (resultClass != nil) {
-		if ([responseObject isKindOfClass:NSArray.class]) {
-			parsedResult = [NSMutableArray array];
-			for (NSDictionary *JSONDictionary in responseObject) {
-				if (![JSONDictionary isKindOfClass:NSDictionary.class]) {
-					NSLog(@"Invalid array element type: %@", JSONDictionary);
-					continue;
-				}
-				
-				OCTObject *newObject = [MTLJSONAdapter modelOfClass:resultClass fromJSONDictionary:JSONDictionary];
-				if (newObject == nil) continue;
-
-				NSAssert([newObject isKindOfClass:OCTObject.class], @"Parsed model object is not an OCTObject: %@", newObject);
-
-				// Record the server that this object has come from.
-				newObject.baseURL = self.baseURL;
-				[parsedResult addObject:newObject];
-			}
-		} else if ([responseObject isKindOfClass:NSDictionary.class]) {
-			parsedResult = [MTLJSONAdapter modelOfClass:resultClass fromJSONDictionary:responseObject];
-		} else {
-			NSLog(@"Response wasn't an array or dictionary (%@): %@", NSStringFromClass([responseObject class]), responseObject);
-			if (success != NULL) *success = NO;
-		}
-	} else {
-		parsedResult = responseObject;
+	if (localizedFailureReason != nil) {
+		userInfo[NSLocalizedFailureReasonErrorKey] = localizedFailureReason;
 	}
 
-	// Record the server that this object has come from.
-	if ([parsedResult isKindOfClass:OCTObject.class]) [parsedResult setBaseURL:self.baseURL];
+	return [NSError errorWithDomain:OCTClientErrorDomain code:OCTClientErrorJSONParsingFailed userInfo:userInfo];
+}
 
-	if (success != NULL) *success = YES;
-	
-	return parsedResult;
+- (RACSignal *)parsedResponseOfClass:(Class)resultClass fromJSON:(id)responseObject {
+	NSParameterAssert(resultClass == nil || [resultClass isSubclassOfClass:MTLModel.class]);
+
+	return [RACSignal createSignal:^ id (id<RACSubscriber> subscriber) {
+		void (^parseJSONDictionary)(NSDictionary *) = ^(NSDictionary *JSONDictionary) {
+			if (resultClass == nil) {
+				[subscriber sendNext:JSONDictionary];
+				return;
+			}
+
+			OCTObject *parsedObject = [MTLJSONAdapter modelOfClass:resultClass fromJSONDictionary:JSONDictionary];
+			if (parsedObject == nil) {
+				// TODO: Fix up event fetching so that we can treat this as an
+				// error.
+				NSLog(@"Could not parse %@ from: %@", resultClass, JSONDictionary);
+				return;
+			}
+
+			NSAssert([parsedObject isKindOfClass:OCTObject.class], @"Parsed model object is not an OCTObject: %@", parsedObject);
+
+			// Record the server that this object has come from.
+			parsedObject.baseURL = self.baseURL;
+			[subscriber sendNext:parsedObject];
+		};
+
+		if ([responseObject isKindOfClass:NSArray.class]) {
+			for (NSDictionary *JSONDictionary in responseObject) {
+				if (![JSONDictionary isKindOfClass:NSDictionary.class]) {
+					NSString *failureReason = [NSString stringWithFormat:NSLocalizedString(@"Invalid JSON array element: %@", @""), JSONDictionary];
+					[subscriber sendError:[self parsingErrorWithFailureReason:failureReason]];
+					return nil;
+				}
+
+				parseJSONDictionary(JSONDictionary);
+			}
+
+			[subscriber sendCompleted];
+		} else if ([responseObject isKindOfClass:NSDictionary.class]) {
+			parseJSONDictionary(responseObject);
+			[subscriber sendCompleted];
+		} else {
+			NSString *failureReason = [NSString stringWithFormat:NSLocalizedString(@"Response wasn't an array or dictionary (%@): %@", @""), [responseObject class], responseObject];
+			[subscriber sendError:[self parsingErrorWithFailureReason:failureReason]];
+		}
+
+		return nil;
+	}];
 }
 
 #pragma mark Error Handling
