@@ -41,7 +41,7 @@ __block NSDictionary *eventsByID;
 beforeEach(^{
 	NSMutableDictionary *mutableEvents = [NSMutableDictionary dictionaryWithCapacity:eventDictionaries.count];
 	for (NSDictionary *eventDict in eventDictionaries) {
-		OCTEvent *event = [MTLJSONAdapter modelOfClass:OCTEvent.class fromJSONDictionary:eventDict];
+		OCTEvent *event = [MTLJSONAdapter modelOfClass:OCTEvent.class fromJSONDictionary:eventDict error:NULL];
 
 		// We don't support all event types yet.
 		if (event == nil) continue;
