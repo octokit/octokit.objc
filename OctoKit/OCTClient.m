@@ -218,9 +218,13 @@ static const NSUInteger OCTClientNotModifiedStatusCode = 304;
 			NSError *error = nil;
 			OCTObject *parsedObject = [MTLJSONAdapter modelOfClass:resultClass fromJSONDictionary:JSONDictionary error:&error];
 			if (parsedObject == nil) {
-				// TODO: Fix up event fetching so that we can treat this as an
-				// error.
-				NSLog(@"Could not parse %@ from %@: %@", resultClass, JSONDictionary, error);
+				// Don't treat "no class found" errors as real parsing failures.
+				// In theory, this makes parsing code forward-compatible with
+				// API additions.
+				if (![error.domain isEqual:MTLJSONAdapterErrorDomain] || error.code != MTLJSONAdapterErrorNoClassFound) {
+					[subscriber sendError:error];
+				}
+
 				return;
 			}
 
