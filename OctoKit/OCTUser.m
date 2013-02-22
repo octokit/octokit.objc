@@ -23,10 +23,9 @@
 	return [self modelWithDictionary:userDict];
 }
 
-+ (instancetype)userWithLogin:(NSString *)login password:(NSString *)password server:(OCTServer *)server {
++ (instancetype)userWithLogin:(NSString *)login server:(OCTServer *)server {
 	NSMutableDictionary *userDict = [NSMutableDictionary dictionary];
 	if (login != nil) userDict[@keypath(OCTUser.new, login)] = login;
-	if (password != nil) userDict[@keypath(OCTUser.new, password)] = password;
 	if (server.baseURL != nil) userDict[@keypath(OCTUser.new, baseURL)] = server.baseURL;
 
 	return [self modelWithDictionary:userDict];

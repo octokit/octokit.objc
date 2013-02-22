@@ -14,6 +14,7 @@
 	#import <Mantle/Mantle.h>
 	#import <ReactiveCocoa/ReactiveCocoa.h>
 	#import <OctoKit/OctoKit.h>
+    #import <OHHTTPStubs/OHHTTPStubs.h>
 
 	#import "ISO8601DateFormatter.h"
 	#import "Specta.h"
