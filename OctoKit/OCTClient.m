@@ -43,6 +43,21 @@ static const NSUInteger OCTClientNotModifiedStatusCode = 304;
 // was not created with a password.
 + (NSError *)authenticationRequiredError;
 
+// Enqueues a request to fetch information about the current user by accessing
+// a path relative to the user object.
+//
+// method       - The HTTP method to use.
+// relativePath - The path to fetch, relative to the user object. For example,
+//				  to request `user/orgs` or `users/:user/orgs`, simply pass in
+//				  `orgs`.
+// parameters   - HTTP parameters to encode and send with the request.
+// resultClass  - The class that response data should be returned as.
+//
+// Returns a signal which will send an instance of `resultClass` for each parsed
+// JSON object, then complete. If no `user` is set on the receiver, the signal
+// will error immediately.
+- (RACSignal *)enqueueUserRequestWithMethod:(NSString *)method relativePath:(NSString *)relativePath parameters:(NSDictionary *)parameters resultClass:(Class)resultClass;
+
 @end
 
 @implementation OCTClient
@@ -173,6 +188,21 @@ static const NSUInteger OCTClientNotModifiedStatusCode = 304;
 	}
 	
 	return [[signal replayLazily] setNameWithFormat:@"-enqueueRequest: %@ resultClass: %@ fetchAllPages: %i", request, resultClass, (int)fetchAllPages];
+}
+
+- (RACSignal *)enqueueUserRequestWithMethod:(NSString *)method relativePath:(NSString *)relativePath parameters:(NSDictionary *)parameters resultClass:(Class)resultClass {
+	NSParameterAssert(method != nil);
+	NSParameterAssert(relativePath.length > 0);
+
+	if (self.user == nil) return [RACSignal error:self.class.userRequiredError];
+
+	if (self.authenticated) {
+		NSString *path = [NSString stringWithFormat:@"user/%@", relativePath];
+		return [self enqueueRequestWithMethod:method path:path parameters:parameters resultClass:resultClass];
+	} else {
+		NSString *path = [NSString stringWithFormat:@"users/%@/%@", self.user.login, relativePath];
+		return [self enqueueRequestWithMethod:method path:path parameters:parameters resultClass:resultClass];
+	}
 }
 
 #pragma mark Pagination
@@ -381,14 +411,7 @@ static const NSUInteger OCTClientNotModifiedStatusCode = 304;
 }
 
 - (RACSignal *)fetchUserRepositories {
-	if (self.user == nil) return [RACSignal error:self.class.userRequiredError];
-
-	if (self.authenticated) {
-		return [self enqueueRequestWithMethod:@"GET" path:@"user/repos" parameters:nil resultClass:OCTRepository.class];
-	} else {
-		NSString *path = [NSString stringWithFormat:@"users/%@/repos", self.user.login];
-		return [self enqueueRequestWithMethod:@"GET" path:path parameters:nil resultClass:OCTRepository.class];
-	}
+	return [self enqueueUserRequestWithMethod:@"GET" relativePath:@"repos" parameters:nil resultClass:OCTRepository.class];
 }
 
 - (RACSignal *)createRepositoryWithName:(NSString *)name description:(NSString *)description private:(BOOL)isPrivate {
@@ -402,14 +425,7 @@ static const NSUInteger OCTClientNotModifiedStatusCode = 304;
 @implementation OCTClient (Organizations)
 
 - (RACSignal *)fetchUserOrganizations {
-	if (self.user == nil) return [RACSignal error:self.class.userRequiredError];
-
-	if (self.authenticated) {
-		return [self enqueueRequestWithMethod:@"GET" path:@"user/orgs" parameters:nil resultClass:OCTOrganization.class];
-	} else {
-		NSString *path = [NSString stringWithFormat:@"users/%@/orgs", self.user.login];
-		return [self enqueueRequestWithMethod:@"GET" path:path parameters:nil resultClass:OCTUser.class];
-	}
+	return [self enqueueUserRequestWithMethod:@"GET" relativePath:@"orgs" parameters:nil resultClass:OCTOrganization.class];
 }
 
 - (RACSignal *)fetchOrganizationInfo:(OCTOrganization *)organization {
@@ -445,14 +461,7 @@ static const NSUInteger OCTClientNotModifiedStatusCode = 304;
 @implementation OCTClient (Keys)
 
 - (RACSignal *)fetchPublicKeys {
-	if (self.user == nil) return [RACSignal error:self.class.userRequiredError];
-
-	if (self.authenticated) {
-		return [self enqueueRequestWithMethod:@"GET" path:@"user/keys" parameters:nil resultClass:OCTPublicKey.class];
-	} else {
-		NSString *path = [NSString stringWithFormat:@"users/%@/keys", self.user.login];
-		return [self enqueueRequestWithMethod:@"GET" path:path parameters:nil resultClass:OCTUser.class];
-	}
+	return [self enqueueUserRequestWithMethod:@"GET" relativePath:@"keys" parameters:nil resultClass:OCTPublicKey.class];
 }
 
 - (RACSignal *)postPublicKey:(NSString *)key title:(NSString *)title {
