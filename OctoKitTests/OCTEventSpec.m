@@ -26,7 +26,7 @@ SpecBegin(OCTEvent)
 __block NSArray *eventDictionaries;
 
 beforeAll(^{
-	NSURL *testDataURL = [[NSBundle bundleForClass:self.class] URLForResource:@"test_events" withExtension:@"json"];
+	NSURL *testDataURL = [[NSBundle bundleForClass:self.class] URLForResource:@"events" withExtension:@"json"];
 	expect(testDataURL).notTo.beNil();
 
 	NSData *testEventData = [NSData dataWithContentsOfURL:testDataURL];
