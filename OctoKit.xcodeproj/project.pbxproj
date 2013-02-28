@@ -222,6 +222,8 @@
 		D0D8C09C16DFF1540070399E /* page3.json in Resources */ = {isa = PBXBuildFile; fileRef = D0D8C09316DFF1540070399E /* page3.json */; };
 		D0D8C09D16DFF1540070399E /* rate_limit.json in Resources */ = {isa = PBXBuildFile; fileRef = D0D8C09416DFF1540070399E /* rate_limit.json */; };
 		D0D8C09E16DFF1540070399E /* rate_limit.json in Resources */ = {isa = PBXBuildFile; fileRef = D0D8C09416DFF1540070399E /* rate_limit.json */; };
+		D0E41B8716DFF37E00E321CF /* notifications.json in Resources */ = {isa = PBXBuildFile; fileRef = D0E41B8616DFF37E00E321CF /* notifications.json */; };
+		D0E41B8816DFF37E00E321CF /* notifications.json in Resources */ = {isa = PBXBuildFile; fileRef = D0E41B8616DFF37E00E321CF /* notifications.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -534,6 +536,7 @@
 		D0D8C09216DFF1540070399E /* page2.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = page2.json; sourceTree = "<group>"; };
 		D0D8C09316DFF1540070399E /* page3.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = page3.json; sourceTree = "<group>"; };
 		D0D8C09416DFF1540070399E /* rate_limit.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = rate_limit.json; sourceTree = "<group>"; };
+		D0E41B8616DFF37E00E321CF /* notifications.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = notifications.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -993,6 +996,7 @@
 			isa = PBXGroup;
 			children = (
 				D0D8C09016DFF1540070399E /* events.json */,
+				D0E41B8616DFF37E00E321CF /* notifications.json */,
 				D0D8C09116DFF1540070399E /* page1.json */,
 				D0D8C09216DFF1540070399E /* page2.json */,
 				D0D8C09316DFF1540070399E /* page3.json */,
@@ -1345,6 +1349,7 @@
 				D0D8C09916DFF1540070399E /* page2.json in Resources */,
 				D0D8C09B16DFF1540070399E /* page3.json in Resources */,
 				D0D8C09D16DFF1540070399E /* rate_limit.json in Resources */,
+				D0E41B8716DFF37E00E321CF /* notifications.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1357,6 +1362,7 @@
 				D0D8C09A16DFF1540070399E /* page2.json in Resources */,
 				D0D8C09C16DFF1540070399E /* page3.json in Resources */,
 				D0D8C09E16DFF1540070399E /* rate_limit.json in Resources */,
+				D0E41B8816DFF37E00E321CF /* notifications.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
