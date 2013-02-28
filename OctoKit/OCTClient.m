@@ -478,7 +478,7 @@ static const NSUInteger OCTClientNotModifiedStatusCode = 304;
 	OCTPublicKey *publicKey = [OCTPublicKey modelWithDictionary:@{
 		@keypath(OCTPublicKey.new, publicKey): key,
 		@keypath(OCTPublicKey.new, title): title,
-	}];
+	} error:NULL];
 
 	return [self enqueueRequestWithMethod:@"POST" path:@"user/keys" parameters:[MTLJSONAdapter JSONDictionaryFromModel:publicKey] resultClass:OCTPublicKey.class];
 }
