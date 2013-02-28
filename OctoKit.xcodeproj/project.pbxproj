@@ -903,9 +903,9 @@
 				D08B5997169E3E0C006003B8 /* Entities */,
 				D08B5996169E3DE6006003B8 /* Events */,
 				D08722A2169E3D7C00016ACA /* Issues */,
+				8848E19916AF62F1005449AB /* Notifications */,
 				D08B5998169E3E69006003B8 /* Pull Requests */,
 				D08B599A169E3E8D006003B8 /* Repositories */,
-				8848E19916AF62F1005449AB /* Notifications */,
 			);
 			name = Models;
 			sourceTree = "<group>";
