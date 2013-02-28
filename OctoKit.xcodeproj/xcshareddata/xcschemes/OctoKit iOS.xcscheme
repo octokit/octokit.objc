@@ -20,6 +20,20 @@
                ReferencedContainer = "container:OctoKit.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "NO"
+            buildForArchiving = "NO"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "D0871FF2169E309A00016ACA"
+               BuildableName = "OctoKit iOS Tests.octest"
+               BlueprintName = "OctoKit iOS Tests"
+               ReferencedContainer = "container:OctoKit.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction
