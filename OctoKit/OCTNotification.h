@@ -29,14 +29,14 @@ typedef enum : NSUInteger {
 // The title of the notification.
 @property (nonatomic, readonly, copy) NSString *title;
 
-// The URL to the thread in the notifications API.
+// The API URL to the notification's thread.
 @property (nonatomic, readonly, copy) NSURL *threadURL;
 
-// The URL to the subject that the notification was generated for (e.g., the
+// The API URL to the subject that the notification was generated for (e.g., the
 // issue or pull request).
 @property (nonatomic, readonly, copy) NSURL *subjectURL;
 
-// The URL to the latest comment in the thread.
+// The API URL to the latest comment in the thread.
 @property (nonatomic, readonly, copy) NSURL *latestCommentURL;
 
 // The notification type.
