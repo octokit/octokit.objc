@@ -43,7 +43,7 @@ NSDictionary *representation = @{
 __block OCTOrganization *organization;
 
 before(^{
-	organization = [[OCTOrganization alloc] initWithExternalRepresentation:representation];
+	organization = [MTLJSONAdapter modelOfClass:OCTOrganization.class fromJSONDictionary:representation error:NULL];
 	expect(organization).notTo.beNil();
 });
 

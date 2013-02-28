@@ -48,8 +48,10 @@ sharedExamplesFor(OCTObjectExternalRepresentationSharedExamplesName, ^(NSDiction
 	});
 
 	it(@"should be equal in all values that exist in both external representations", ^{
+		NSDictionary *JSONDictionary = [MTLJSONAdapter JSONDictionaryFromModel:obj];
+
 		[representation enumerateKeysAndObjectsUsingBlock:^(NSString *key, id expectedValue, BOOL *stop) {
-			id value = obj.externalRepresentation[key];
+			id value = JSONDictionary[key];
 			if (value == nil) return;
 
 			expect(value).to.equal(expectedValue);
@@ -67,7 +69,7 @@ describe(@"with an ID from JSON", ^{
 	__block OCTObject *obj;
 	
 	before(^{
-		obj = [[OCTObject alloc] initWithExternalRepresentation:representation];
+		obj = [MTLJSONAdapter modelOfClass:OCTObject.class fromJSONDictionary:representation error:NULL];
 		expect(obj).notTo.beNil();
 	});
 
@@ -84,7 +86,7 @@ describe(@"with an ID from JSON", ^{
 	});
 
 	it(@"should be equal to another object with the same objectID", ^{
-		OCTObject *secondObject = [[OCTObject alloc] initWithExternalRepresentation:representation];
+		OCTObject *secondObject = [MTLJSONAdapter modelOfClass:OCTObject.class fromJSONDictionary:representation error:NULL];
 		expect(obj).to.equal(secondObject);
 	});
 
@@ -99,7 +101,7 @@ describe(@"with an objectID and a baseURL", ^{
 	__block OCTObject *obj;
 
 	before(^{
-		obj = [[OCTObject alloc] initWithDictionary:dictionary];
+		obj = [[OCTObject alloc] initWithDictionary:dictionary error:NULL];
 		expect(obj).notTo.beNil();
 	});
 
@@ -112,18 +114,10 @@ describe(@"with an objectID and a baseURL", ^{
 	});
 
 	it(@"should be equal to another object with the same objectID from the same server", ^{
-		OCTObject *secondObject = [[OCTObject alloc] initWithDictionary:dictionary];
+		OCTObject *secondObject = [[OCTObject alloc] initWithDictionary:dictionary error:NULL];
 		expect(obj).to.equal(secondObject);
 	});
 
-});
-
-it(@"should omit NSNulls from its external representation", ^{
-	OCTObject *obj = [[OCTObject alloc] init];
-	expect(obj).notTo.beNil();
-	expect(obj.objectID).to.beNil();
-
-	expect(obj.externalRepresentation[@"id"]).to.beNil();
 });
 
 it(@"should not equal a OCTObject from another server", ^{
@@ -135,6 +129,5 @@ it(@"should not equal a OCTObject from another server", ^{
 
 	expect(enterpriseObject).toNot.equal(dotComObject);
 });
-
 
 SpecEnd

@@ -10,26 +10,23 @@
 
 @implementation OCTPushEvent
 
-#pragma mark MTLModel
+#pragma mark MTLJSONSerializing
 
-+ (NSDictionary *)externalRepresentationKeyPathsByPropertyKey {
-	NSMutableDictionary *keys = [super.externalRepresentationKeyPathsByPropertyKey mutableCopy];
-	
-	[keys addEntriesFromDictionary:@{
++ (NSDictionary *)JSONKeyPathsByPropertyKey {
+	return [super.JSONKeyPathsByPropertyKey mtl_dictionaryByAddingEntriesFromDictionary:@{
 		@"commitCount": @"payload.size",
 		@"distinctCommitCount": @"payload.distinct_size",
 		@"previousHeadSHA": @"payload.before",
 		@"currentHeadSHA": @"payload.head",
 		@"branchName": @"payload.ref",
 	}];
-
-	return keys;
 }
 
-+ (NSValueTransformer *)branchNameTransformer {
++ (NSValueTransformer *)branchNameJSONTransformer {
 	static NSString * const branchRefPrefix = @"refs/heads/";
 
-	return [MTLValueTransformer reversibleTransformerWithForwardBlock:^ id (NSString *ref) {
+	return [MTLValueTransformer
+		reversibleTransformerWithForwardBlock:^ id (NSString *ref) {
 			if (![ref hasPrefix:branchRefPrefix]) {
 				NSLog(@"%s: Unrecognized ref prefix: %@", __func__, ref);
 				return nil;

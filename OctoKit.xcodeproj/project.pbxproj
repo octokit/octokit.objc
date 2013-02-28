@@ -11,6 +11,27 @@
 		8848E19E16AF630B005449AB /* OCTNotification.h in Headers */ = {isa = PBXBuildFile; fileRef = 8848E19B16AF630B005449AB /* OCTNotification.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8848E19F16AF630B005449AB /* OCTNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = 8848E19C16AF630B005449AB /* OCTNotification.m */; };
 		8848E1A016AF630B005449AB /* OCTNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = 8848E19C16AF630B005449AB /* OCTNotification.m */; };
+		D02E48FE16CBAB7A00257645 /* Mantle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0872069169E328B00016ACA /* Mantle.framework */; };
+		D05E74E516D3550A001AA17B /* OHHTTPStubs.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D05E74E016D354FD001AA17B /* OHHTTPStubs.framework */; };
+		D05E74E816D35513001AA17B /* libOHHTTPStubs.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D05E74DE16D354FD001AA17B /* libOHHTTPStubs.a */; };
+		D05E752016D35886001AA17B /* OCTClientSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = D05E751F16D35886001AA17B /* OCTClientSpec.m */; };
+		D05E752116D35886001AA17B /* OCTClientSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = D05E751F16D35886001AA17B /* OCTClientSpec.m */; };
+		D0772E7316BD27B5009DFF72 /* NSDateFormatter+OCTFormattingAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = D0B9C8F016BC78970029C5B4 /* NSDateFormatter+OCTFormattingAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D0772E7416BD27B6009DFF72 /* NSDateFormatter+OCTFormattingAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = D0B9C8F016BC78970029C5B4 /* NSDateFormatter+OCTFormattingAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D0772E7716BD2A06009DFF72 /* NSValueTransformer+OCTPredefinedTransformerAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = D0772E7516BD2A05009DFF72 /* NSValueTransformer+OCTPredefinedTransformerAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D0772E7816BD2A06009DFF72 /* NSValueTransformer+OCTPredefinedTransformerAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = D0772E7516BD2A05009DFF72 /* NSValueTransformer+OCTPredefinedTransformerAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D0772E7916BD2A06009DFF72 /* NSValueTransformer+OCTPredefinedTransformerAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D0772E7616BD2A06009DFF72 /* NSValueTransformer+OCTPredefinedTransformerAdditions.m */; };
+		D0772E7A16BD2A06009DFF72 /* NSValueTransformer+OCTPredefinedTransformerAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D0772E7616BD2A06009DFF72 /* NSValueTransformer+OCTPredefinedTransformerAdditions.m */; };
+		D0772E7C16BD2AD5009DFF72 /* NSValueTransformerAdditionsSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = D0772E7B16BD2AD5009DFF72 /* NSValueTransformerAdditionsSpec.m */; };
+		D0772E7D16BD2AD5009DFF72 /* NSValueTransformerAdditionsSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = D0772E7B16BD2AD5009DFF72 /* NSValueTransformerAdditionsSpec.m */; };
+		D0772E8C16BD305B009DFF72 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0772E8B16BD305B009DFF72 /* Foundation.framework */; };
+		D0772E8E16BD305F009DFF72 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0772E8D16BD305F009DFF72 /* MobileCoreServices.framework */; };
+		D0772E9016BD3064009DFF72 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0772E8F16BD3064009DFF72 /* SystemConfiguration.framework */; };
+		D0772E9216BD3067009DFF72 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0772E9116BD3067009DFF72 /* UIKit.framework */; };
+		D0772E9316BD3072009DFF72 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0772E9116BD3067009DFF72 /* UIKit.framework */; };
+		D0772E9416BD3072009DFF72 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0772E8F16BD3064009DFF72 /* SystemConfiguration.framework */; };
+		D0772E9516BD3072009DFF72 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0772E8D16BD305F009DFF72 /* MobileCoreServices.framework */; };
+		D0772E9616BD3072009DFF72 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0772E8B16BD305B009DFF72 /* Foundation.framework */; };
 		D0871EB6169E2EFC00016ACA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D0871EB4169E2EFC00016ACA /* InfoPlist.strings */; };
 		D0871EC2169E2EFC00016ACA /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0871EC1169E2EFC00016ACA /* SenTestingKit.framework */; };
 		D0871EC6169E2EFC00016ACA /* OctoKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0871EA8169E2EFC00016ACA /* OctoKit.framework */; };
@@ -18,7 +39,6 @@
 		D0871FF4169E309A00016ACA /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0871EC1169E2EFC00016ACA /* SenTestingKit.framework */; };
 		D0871FFA169E309A00016ACA /* libOctoKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D0871FE4169E309900016ACA /* libOctoKit.a */; };
 		D0872010169E31C000016ACA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D087200F169E31C000016ACA /* Foundation.framework */; };
-		D0872012169E31C800016ACA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0872011169E31C800016ACA /* Foundation.framework */; };
 		D0872030169E326800016ACA /* AFHTTPClient.h in Headers */ = {isa = PBXBuildFile; fileRef = D087201D169E326800016ACA /* AFHTTPClient.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D0872031169E326800016ACA /* AFHTTPClient.h in Headers */ = {isa = PBXBuildFile; fileRef = D087201D169E326800016ACA /* AFHTTPClient.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D0872032169E326800016ACA /* AFHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = D087201E169E326800016ACA /* AFHTTPClient.m */; };
@@ -61,9 +81,6 @@
 		D08720A0169E32BB00016ACA /* libMantle.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D087206D169E328B00016ACA /* libMantle.a */; };
 		D08720A3169E332800016ACA /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D08720A2169E332800016ACA /* AppKit.framework */; };
 		D08720A5169E332E00016ACA /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D08720A4169E332E00016ACA /* SystemConfiguration.framework */; };
-		D08720A7169E333800016ACA /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D08720A6169E333800016ACA /* SystemConfiguration.framework */; };
-		D08720A9169E333B00016ACA /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D08720A8169E333B00016ACA /* UIKit.framework */; };
-		D08720AB169E338D00016ACA /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D08720AA169E338D00016ACA /* MobileCoreServices.framework */; };
 		D087211C169E35FC00016ACA /* libExpecta.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D0872102169E35D800016ACA /* libExpecta.a */; };
 		D087211D169E35FC00016ACA /* libSpecta.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D0872111169E35DE00016ACA /* libSpecta.a */; };
 		D0872122169E360600016ACA /* libExpecta-iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D0872104169E35D800016ACA /* libExpecta-iOS.a */; };
@@ -188,16 +205,54 @@
 		D087229D169E3D0500016ACA /* ISO8601DateFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = D0872299169E3D0500016ACA /* ISO8601DateFormatter.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc -Wno-format -Wno-conversion"; }; };
 		D087229F169E3D6000016ACA /* OctoKit.h in Headers */ = {isa = PBXBuildFile; fileRef = D087229E169E3D6000016ACA /* OctoKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D08722A0169E3D6000016ACA /* OctoKit.h in Headers */ = {isa = PBXBuildFile; fileRef = D087229E169E3D6000016ACA /* OctoKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D08B599C169E3F13006003B8 /* test_events.json in Resources */ = {isa = PBXBuildFile; fileRef = D08B599B169E3F13006003B8 /* test_events.json */; };
-		D08B599D169E3F13006003B8 /* test_events.json in Resources */ = {isa = PBXBuildFile; fileRef = D08B599B169E3F13006003B8 /* test_events.json */; };
-		D08B59CD169E3F8F006003B8 /* NSArray+OCTFlatteningAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D08B59CA169E3F8F006003B8 /* NSArray+OCTFlatteningAdditions.m */; };
-		D08B59CE169E3F8F006003B8 /* NSArray+OCTFlatteningAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D08B59CA169E3F8F006003B8 /* NSArray+OCTFlatteningAdditions.m */; };
 		D08C190D16B718EE00575F24 /* ReactiveCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D08C190C16B718EE00575F24 /* ReactiveCocoa.framework */; };
 		D08C190F16B718F600575F24 /* libReactiveCocoa-iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D08C190E16B718F600575F24 /* libReactiveCocoa-iOS.a */; };
 		D08C191016B718FE00575F24 /* ReactiveCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D08C190C16B718EE00575F24 /* ReactiveCocoa.framework */; };
+		D0B9C8F416BC78970029C5B4 /* NSDateFormatter+OCTFormattingAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D0B9C8F116BC78970029C5B4 /* NSDateFormatter+OCTFormattingAdditions.m */; };
+		D0B9C8F516BC78970029C5B4 /* NSDateFormatter+OCTFormattingAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D0B9C8F116BC78970029C5B4 /* NSDateFormatter+OCTFormattingAdditions.m */; };
+		D0B9C8FD16BC7A260029C5B4 /* NSDateFormatterAdditionsSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = D0B9C8FC16BC7A260029C5B4 /* NSDateFormatterAdditionsSpec.m */; };
+		D0B9C8FE16BC7A260029C5B4 /* NSDateFormatterAdditionsSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = D0B9C8FC16BC7A260029C5B4 /* NSDateFormatterAdditionsSpec.m */; };
+		D0D8C09516DFF1540070399E /* events.json in Resources */ = {isa = PBXBuildFile; fileRef = D0D8C09016DFF1540070399E /* events.json */; };
+		D0D8C09616DFF1540070399E /* events.json in Resources */ = {isa = PBXBuildFile; fileRef = D0D8C09016DFF1540070399E /* events.json */; };
+		D0D8C09716DFF1540070399E /* page1.json in Resources */ = {isa = PBXBuildFile; fileRef = D0D8C09116DFF1540070399E /* page1.json */; };
+		D0D8C09816DFF1540070399E /* page1.json in Resources */ = {isa = PBXBuildFile; fileRef = D0D8C09116DFF1540070399E /* page1.json */; };
+		D0D8C09916DFF1540070399E /* page2.json in Resources */ = {isa = PBXBuildFile; fileRef = D0D8C09216DFF1540070399E /* page2.json */; };
+		D0D8C09A16DFF1540070399E /* page2.json in Resources */ = {isa = PBXBuildFile; fileRef = D0D8C09216DFF1540070399E /* page2.json */; };
+		D0D8C09B16DFF1540070399E /* page3.json in Resources */ = {isa = PBXBuildFile; fileRef = D0D8C09316DFF1540070399E /* page3.json */; };
+		D0D8C09C16DFF1540070399E /* page3.json in Resources */ = {isa = PBXBuildFile; fileRef = D0D8C09316DFF1540070399E /* page3.json */; };
+		D0D8C09D16DFF1540070399E /* rate_limit.json in Resources */ = {isa = PBXBuildFile; fileRef = D0D8C09416DFF1540070399E /* rate_limit.json */; };
+		D0D8C09E16DFF1540070399E /* rate_limit.json in Resources */ = {isa = PBXBuildFile; fileRef = D0D8C09416DFF1540070399E /* rate_limit.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		D05E74DD16D354FD001AA17B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D05E74D416D354FD001AA17B /* OHHTTPStubs.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 09793579161B6251006DB5D5;
+			remoteInfo = "OHHTTPStubs-iOS";
+		};
+		D05E74DF16D354FD001AA17B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D05E74D416D354FD001AA17B /* OHHTTPStubs.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F6DDA028164C4E070044ECAE;
+			remoteInfo = OHHTTPStubs;
+		};
+		D05E74E316D35506001AA17B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D05E74D416D354FD001AA17B /* OHHTTPStubs.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = F6DDA027164C4E070044ECAE;
+			remoteInfo = OHHTTPStubs;
+		};
+		D05E74E616D3550E001AA17B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D05E74D416D354FD001AA17B /* OHHTTPStubs.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 09793578161B6251006DB5D5;
+			remoteInfo = "OHHTTPStubs-iOS";
+		};
 		D0871EC4169E2EFC00016ACA /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D0871E9E169E2EFC00016ACA /* Project object */;
@@ -343,6 +398,17 @@
 /* Begin PBXFileReference section */
 		8848E19B16AF630B005449AB /* OCTNotification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCTNotification.h; sourceTree = "<group>"; };
 		8848E19C16AF630B005449AB /* OCTNotification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCTNotification.m; sourceTree = "<group>"; };
+		D05E74D416D354FD001AA17B /* OHHTTPStubs.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = OHHTTPStubs.xcodeproj; path = External/OHHTTPStubs/OHHTTPStubs/OHHTTPStubs.xcodeproj; sourceTree = "<group>"; };
+		D05E751F16D35886001AA17B /* OCTClientSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCTClientSpec.m; sourceTree = "<group>"; };
+		D0772E7516BD2A05009DFF72 /* NSValueTransformer+OCTPredefinedTransformerAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSValueTransformer+OCTPredefinedTransformerAdditions.h"; sourceTree = "<group>"; };
+		D0772E7616BD2A06009DFF72 /* NSValueTransformer+OCTPredefinedTransformerAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSValueTransformer+OCTPredefinedTransformerAdditions.m"; sourceTree = "<group>"; };
+		D0772E7B16BD2AD5009DFF72 /* NSValueTransformerAdditionsSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSValueTransformerAdditionsSpec.m; sourceTree = "<group>"; };
+		D0772E8B16BD305B009DFF72 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.1.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		D0772E8D16BD305F009DFF72 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.1.sdk/System/Library/Frameworks/MobileCoreServices.framework; sourceTree = DEVELOPER_DIR; };
+		D0772E8F16BD3064009DFF72 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.1.sdk/System/Library/Frameworks/SystemConfiguration.framework; sourceTree = DEVELOPER_DIR; };
+		D0772E9116BD3067009DFF72 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.1.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
+		D0871EA8169E2EFC00016ACA /* OctoKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = OctoKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D0871EB3169E2EFC00016ACA /* OctoKit-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "OctoKit-Info.plist"; sourceTree = "<group>"; };
 		D0871EB5169E2EFC00016ACA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D0871EB7169E2EFC00016ACA /* OctoKit-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "OctoKit-Prefix.pch"; sourceTree = "<group>"; };
 		D0871EC0169E2EFC00016ACA /* OctoKit Mac Tests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "OctoKit Mac Tests.octest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -367,7 +433,6 @@
 		D0871FE4169E309900016ACA /* libOctoKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libOctoKit.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0871FF3169E309A00016ACA /* OctoKit iOS Tests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "OctoKit iOS Tests.octest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D087200F169E31C000016ACA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		D0872011169E31C800016ACA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		D087201D169E326800016ACA /* AFHTTPClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPClient.h; sourceTree = "<group>"; };
 		D087201E169E326800016ACA /* AFHTTPClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFHTTPClient.m; sourceTree = "<group>"; };
 		D087201F169E326800016ACA /* AFHTTPRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperation.h; sourceTree = "<group>"; };
@@ -390,9 +455,6 @@
 		D0872056169E328A00016ACA /* Mantle.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Mantle.xcodeproj; path = External/Mantle/Mantle.xcodeproj; sourceTree = "<group>"; };
 		D08720A2169E332800016ACA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		D08720A4169E332E00016ACA /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
-		D08720A6169E333800016ACA /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.0.sdk/System/Library/Frameworks/SystemConfiguration.framework; sourceTree = DEVELOPER_DIR; };
-		D08720A8169E333B00016ACA /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.0.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
-		D08720AA169E338D00016ACA /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.0.sdk/System/Library/Frameworks/MobileCoreServices.framework; sourceTree = DEVELOPER_DIR; };
 		D08720FA169E35D800016ACA /* Expecta.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Expecta.xcodeproj; path = External/Mantle/MantleTests/expecta/Expecta.xcodeproj; sourceTree = "<group>"; };
 		D0872109169E35DE00016ACA /* Specta.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Specta.xcodeproj; path = External/Mantle/MantleTests/specta/Specta.xcodeproj; sourceTree = "<group>"; };
 		D0872124169E365A00016ACA /* OctoKitTests-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "OctoKitTests-Prefix.pch"; sourceTree = "<group>"; };
@@ -462,11 +524,16 @@
 		D0872298169E3D0500016ACA /* ISO8601DateFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISO8601DateFormatter.h; sourceTree = "<group>"; };
 		D0872299169E3D0500016ACA /* ISO8601DateFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ISO8601DateFormatter.m; sourceTree = "<group>"; };
 		D087229E169E3D6000016ACA /* OctoKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OctoKit.h; sourceTree = "<group>"; };
-		D08B599B169E3F13006003B8 /* test_events.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = test_events.json; sourceTree = "<group>"; };
-		D08B59C9169E3F8F006003B8 /* NSArray+OCTFlatteningAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+OCTFlatteningAdditions.h"; sourceTree = "<group>"; };
-		D08B59CA169E3F8F006003B8 /* NSArray+OCTFlatteningAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+OCTFlatteningAdditions.m"; sourceTree = "<group>"; };
 		D08C190C16B718EE00575F24 /* ReactiveCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ReactiveCocoa.framework; path = "../../../../OctoClient-fhiesvgduyfgynfidvcqbacmdzot/Build/Products/Debug/ReactiveCocoa.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D08C190E16B718F600575F24 /* libReactiveCocoa-iOS.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libReactiveCocoa-iOS.a"; path = "External/ReactiveCocoa/ReactiveCocoaFramework/build/Release-iphoneos/libReactiveCocoa-iOS.a"; sourceTree = "<group>"; };
+		D0B9C8F016BC78970029C5B4 /* NSDateFormatter+OCTFormattingAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDateFormatter+OCTFormattingAdditions.h"; sourceTree = "<group>"; };
+		D0B9C8F116BC78970029C5B4 /* NSDateFormatter+OCTFormattingAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDateFormatter+OCTFormattingAdditions.m"; sourceTree = "<group>"; };
+		D0B9C8FC16BC7A260029C5B4 /* NSDateFormatterAdditionsSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSDateFormatterAdditionsSpec.m; sourceTree = "<group>"; };
+		D0D8C09016DFF1540070399E /* events.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = events.json; sourceTree = "<group>"; };
+		D0D8C09116DFF1540070399E /* page1.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = page1.json; sourceTree = "<group>"; };
+		D0D8C09216DFF1540070399E /* page2.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = page2.json; sourceTree = "<group>"; };
+		D0D8C09316DFF1540070399E /* page3.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = page3.json; sourceTree = "<group>"; };
+		D0D8C09416DFF1540070399E /* rate_limit.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = rate_limit.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -486,6 +553,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D05E74E516D3550A001AA17B /* OHHTTPStubs.framework in Frameworks */,
+				D02E48FE16CBAB7A00257645 /* Mantle.framework in Frameworks */,
 				D0871EC2169E2EFC00016ACA /* SenTestingKit.framework in Frameworks */,
 				D0871EC6169E2EFC00016ACA /* OctoKit.framework in Frameworks */,
 				D087211C169E35FC00016ACA /* libExpecta.a in Frameworks */,
@@ -498,12 +567,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D0772E9216BD3067009DFF72 /* UIKit.framework in Frameworks */,
+				D0772E9016BD3064009DFF72 /* SystemConfiguration.framework in Frameworks */,
+				D0772E8E16BD305F009DFF72 /* MobileCoreServices.framework in Frameworks */,
+				D0772E8C16BD305B009DFF72 /* Foundation.framework in Frameworks */,
 				D08C190F16B718F600575F24 /* libReactiveCocoa-iOS.a in Frameworks */,
-				D08720AB169E338D00016ACA /* MobileCoreServices.framework in Frameworks */,
-				D08720A9169E333B00016ACA /* UIKit.framework in Frameworks */,
-				D08720A7169E333800016ACA /* SystemConfiguration.framework in Frameworks */,
 				D08720A0169E32BB00016ACA /* libMantle.a in Frameworks */,
-				D0872012169E31C800016ACA /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -511,10 +580,15 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D05E74E816D35513001AA17B /* libOHHTTPStubs.a in Frameworks */,
 				D0871FF4169E309A00016ACA /* SenTestingKit.framework in Frameworks */,
 				D0871FFA169E309A00016ACA /* libOctoKit.a in Frameworks */,
 				D0872122169E360600016ACA /* libExpecta-iOS.a in Frameworks */,
 				D0872123169E360600016ACA /* libSpecta-iOS.a in Frameworks */,
+				D0772E9316BD3072009DFF72 /* UIKit.framework in Frameworks */,
+				D0772E9416BD3072009DFF72 /* SystemConfiguration.framework in Frameworks */,
+				D0772E9516BD3072009DFF72 /* MobileCoreServices.framework in Frameworks */,
+				D0772E9616BD3072009DFF72 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -528,6 +602,15 @@
 				8848E19C16AF630B005449AB /* OCTNotification.m */,
 			);
 			name = Notifications;
+			sourceTree = "<group>";
+		};
+		D05E74D516D354FD001AA17B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D05E74DE16D354FD001AA17B /* libOHHTTPStubs.a */,
+				D05E74E016D354FD001AA17B /* OHHTTPStubs.framework */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 		D0871E9C169E2EFC00016ACA = {
@@ -561,16 +644,17 @@
 				D08720FA169E35D800016ACA /* Expecta.xcodeproj */,
 				D0872056169E328A00016ACA /* Mantle.xcodeproj */,
 				D0872109169E35DE00016ACA /* Specta.xcodeproj */,
+				D05E74D416D354FD001AA17B /* OHHTTPStubs.xcodeproj */,
 				D08720A2169E332800016ACA /* AppKit.framework */,
 				D087200F169E31C000016ACA /* Foundation.framework */,
-				D0872011169E31C800016ACA /* Foundation.framework */,
-				D08720AA169E338D00016ACA /* MobileCoreServices.framework */,
 				D0871EC1169E2EFC00016ACA /* SenTestingKit.framework */,
 				D08720A4169E332E00016ACA /* SystemConfiguration.framework */,
-				D08720A6169E333800016ACA /* SystemConfiguration.framework */,
-				D08720A8169E333B00016ACA /* UIKit.framework */,
 				D08C190E16B718F600575F24 /* libReactiveCocoa-iOS.a */,
 				D08C190C16B718EE00575F24 /* ReactiveCocoa.framework */,
+				D0772E9116BD3067009DFF72 /* UIKit.framework */,
+				D0772E8F16BD3064009DFF72 /* SystemConfiguration.framework */,
+				D0772E8D16BD305F009DFF72 /* MobileCoreServices.framework */,
+				D0772E8B16BD305B009DFF72 /* Foundation.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -608,10 +692,10 @@
 		D0871EC8169E2EFC00016ACA /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				D0D8C08F16DFF1540070399E /* Stubs */,
 				D0871EC9169E2EFC00016ACA /* OctoKitTests-Info.plist */,
 				D0872124169E365A00016ACA /* OctoKitTests-Prefix.pch */,
 				D0871ECA169E2EFC00016ACA /* InfoPlist.strings */,
-				D08B599B169E3F13006003B8 /* test_events.json */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -762,6 +846,9 @@
 		D0872126169E395300016ACA /* Specs */ = {
 			isa = PBXGroup;
 			children = (
+				D0B9C8FC16BC7A260029C5B4 /* NSDateFormatterAdditionsSpec.m */,
+				D0772E7B16BD2AD5009DFF72 /* NSValueTransformerAdditionsSpec.m */,
+				D05E751F16D35886001AA17B /* OCTClientSpec.m */,
 				D08721BD169E396F00016ACA /* OCTCommitCommentSpec.m */,
 				D08721BE169E396F00016ACA /* OCTEventSpec.m */,
 				D08721BF169E396F00016ACA /* OCTIssueSpec.m */,
@@ -894,10 +981,24 @@
 		D08B59C8169E3F7F006003B8 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				D08B59C9169E3F8F006003B8 /* NSArray+OCTFlatteningAdditions.h */,
-				D08B59CA169E3F8F006003B8 /* NSArray+OCTFlatteningAdditions.m */,
+				D0B9C8F016BC78970029C5B4 /* NSDateFormatter+OCTFormattingAdditions.h */,
+				D0B9C8F116BC78970029C5B4 /* NSDateFormatter+OCTFormattingAdditions.m */,
+				D0772E7516BD2A05009DFF72 /* NSValueTransformer+OCTPredefinedTransformerAdditions.h */,
+				D0772E7616BD2A06009DFF72 /* NSValueTransformer+OCTPredefinedTransformerAdditions.m */,
 			);
 			name = Extensions;
+			sourceTree = "<group>";
+		};
+		D0D8C08F16DFF1540070399E /* Stubs */ = {
+			isa = PBXGroup;
+			children = (
+				D0D8C09016DFF1540070399E /* events.json */,
+				D0D8C09116DFF1540070399E /* page1.json */,
+				D0D8C09216DFF1540070399E /* page2.json */,
+				D0D8C09316DFF1540070399E /* page3.json */,
+				D0D8C09416DFF1540070399E /* rate_limit.json */,
+			);
+			path = Stubs;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -943,6 +1044,8 @@
 				D08721B9169E395F00016ACA /* OCTUser.h in Headers */,
 				D087229F169E3D6000016ACA /* OctoKit.h in Headers */,
 				8848E19D16AF630B005449AB /* OCTNotification.h in Headers */,
+				D0772E7316BD27B5009DFF72 /* NSDateFormatter+OCTFormattingAdditions.h in Headers */,
+				D0772E7716BD2A06009DFF72 /* NSValueTransformer+OCTPredefinedTransformerAdditions.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -986,6 +1089,8 @@
 				D08721BA169E395F00016ACA /* OCTUser.h in Headers */,
 				D08722A0169E3D6000016ACA /* OctoKit.h in Headers */,
 				8848E19E16AF630B005449AB /* OCTNotification.h in Headers */,
+				D0772E7416BD27B6009DFF72 /* NSDateFormatter+OCTFormattingAdditions.h in Headers */,
+				D0772E7816BD2A06009DFF72 /* NSValueTransformer+OCTPredefinedTransformerAdditions.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1023,6 +1128,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				D05E74E416D35506001AA17B /* PBXTargetDependency */,
 				D0872119169E35ED00016ACA /* PBXTargetDependency */,
 				D087211B169E35ED00016ACA /* PBXTargetDependency */,
 				D0871EC5169E2EFC00016ACA /* PBXTargetDependency */,
@@ -1062,6 +1168,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				D05E74E716D3550E001AA17B /* PBXTargetDependency */,
 				D087211F169E360300016ACA /* PBXTargetDependency */,
 				D0872121169E360300016ACA /* PBXTargetDependency */,
 				D0871FF9169E309A00016ACA /* PBXTargetDependency */,
@@ -1100,6 +1207,10 @@
 					ProjectRef = D0872056169E328A00016ACA /* Mantle.xcodeproj */;
 				},
 				{
+					ProductGroup = D05E74D516D354FD001AA17B /* Products */;
+					ProjectRef = D05E74D416D354FD001AA17B /* OHHTTPStubs.xcodeproj */;
+				},
+				{
 					ProductGroup = D087210A169E35DE00016ACA /* Products */;
 					ProjectRef = D0872109169E35DE00016ACA /* Specta.xcodeproj */;
 				},
@@ -1115,6 +1226,20 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
+		D05E74DE16D354FD001AA17B /* libOHHTTPStubs.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libOHHTTPStubs.a;
+			remoteRef = D05E74DD16D354FD001AA17B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		D05E74E016D354FD001AA17B /* OHHTTPStubs.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = OHHTTPStubs.framework;
+			remoteRef = D05E74DF16D354FD001AA17B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		D0872069169E328B00016ACA /* Mantle.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
@@ -1215,7 +1340,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				D0871ECC169E2EFC00016ACA /* InfoPlist.strings in Resources */,
-				D08B599C169E3F13006003B8 /* test_events.json in Resources */,
+				D0D8C09516DFF1540070399E /* events.json in Resources */,
+				D0D8C09716DFF1540070399E /* page1.json in Resources */,
+				D0D8C09916DFF1540070399E /* page2.json in Resources */,
+				D0D8C09B16DFF1540070399E /* page3.json in Resources */,
+				D0D8C09D16DFF1540070399E /* rate_limit.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1223,7 +1352,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D08B599D169E3F13006003B8 /* test_events.json in Resources */,
+				D0D8C09616DFF1540070399E /* events.json in Resources */,
+				D0D8C09816DFF1540070399E /* page1.json in Resources */,
+				D0D8C09A16DFF1540070399E /* page2.json in Resources */,
+				D0D8C09C16DFF1540070399E /* page3.json in Resources */,
+				D0D8C09E16DFF1540070399E /* rate_limit.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1297,8 +1430,9 @@
 				D08721B7169E395F00016ACA /* OCTTeam.m in Sources */,
 				D08721BB169E395F00016ACA /* OCTUser.m in Sources */,
 				D087229C169E3D0500016ACA /* ISO8601DateFormatter.m in Sources */,
-				D08B59CD169E3F8F006003B8 /* NSArray+OCTFlatteningAdditions.m in Sources */,
 				8848E19F16AF630B005449AB /* OCTNotification.m in Sources */,
+				D0B9C8F416BC78970029C5B4 /* NSDateFormatter+OCTFormattingAdditions.m in Sources */,
+				D0772E7916BD2A06009DFF72 /* NSValueTransformer+OCTPredefinedTransformerAdditions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1316,6 +1450,9 @@
 				D08721D6169E398C00016ACA /* OCTRepositorySpec.m in Sources */,
 				D08721D8169E398C00016ACA /* OCTServerSpec.m in Sources */,
 				D08721DA169E398C00016ACA /* OCTUserSpec.m in Sources */,
+				D0B9C8FD16BC7A260029C5B4 /* NSDateFormatterAdditionsSpec.m in Sources */,
+				D0772E7C16BD2AD5009DFF72 /* NSValueTransformerAdditionsSpec.m in Sources */,
+				D05E752016D35886001AA17B /* OCTClientSpec.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1357,8 +1494,9 @@
 				D08721B8169E395F00016ACA /* OCTTeam.m in Sources */,
 				D08721BC169E395F00016ACA /* OCTUser.m in Sources */,
 				D087229D169E3D0500016ACA /* ISO8601DateFormatter.m in Sources */,
-				D08B59CE169E3F8F006003B8 /* NSArray+OCTFlatteningAdditions.m in Sources */,
 				8848E1A016AF630B005449AB /* OCTNotification.m in Sources */,
+				D0B9C8F516BC78970029C5B4 /* NSDateFormatter+OCTFormattingAdditions.m in Sources */,
+				D0772E7A16BD2A06009DFF72 /* NSValueTransformer+OCTPredefinedTransformerAdditions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1376,12 +1514,25 @@
 				D08721D7169E398C00016ACA /* OCTRepositorySpec.m in Sources */,
 				D08721D9169E398C00016ACA /* OCTServerSpec.m in Sources */,
 				D08721DB169E398C00016ACA /* OCTUserSpec.m in Sources */,
+				D0B9C8FE16BC7A260029C5B4 /* NSDateFormatterAdditionsSpec.m in Sources */,
+				D0772E7D16BD2AD5009DFF72 /* NSValueTransformerAdditionsSpec.m in Sources */,
+				D05E752116D35886001AA17B /* OCTClientSpec.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		D05E74E416D35506001AA17B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = OHHTTPStubs;
+			targetProxy = D05E74E316D35506001AA17B /* PBXContainerItemProxy */;
+		};
+		D05E74E716D3550E001AA17B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "OHHTTPStubs-iOS";
+			targetProxy = D05E74E616D3550E001AA17B /* PBXContainerItemProxy */;
+		};
 		D0871EC5169E2EFC00016ACA /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = D0871EA7169E2EFC00016ACA /* OctoKit Mac */;
@@ -1568,7 +1719,7 @@
 				);
 				GCC_PREFIX_HEADER = "OctoKitTests/OctoKitTests-Prefix.pch";
 				INFOPLIST_FILE = "OctoKitTests/OctoKitTests-Info.plist";
-				OTHER_LDFLAGS = "-all_load";
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "OctoKit iOS Tests";
 				WRAPPER_EXTENSION = octest;
 			};
@@ -1584,7 +1735,7 @@
 				);
 				GCC_PREFIX_HEADER = "OctoKitTests/OctoKitTests-Prefix.pch";
 				INFOPLIST_FILE = "OctoKitTests/OctoKitTests-Info.plist";
-				OTHER_LDFLAGS = "-all_load";
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "OctoKit iOS Tests";
 				WRAPPER_EXTENSION = octest;
 			};
@@ -1657,7 +1808,7 @@
 				);
 				GCC_PREFIX_HEADER = "OctoKitTests/OctoKitTests-Prefix.pch";
 				INFOPLIST_FILE = "OctoKitTests/OctoKitTests-Info.plist";
-				OTHER_LDFLAGS = "-all_load";
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "OctoKit iOS Tests";
 				WRAPPER_EXTENSION = octest;
 			};

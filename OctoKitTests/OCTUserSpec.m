@@ -39,7 +39,7 @@ describe(@"github.com user", ^{
 	__block OCTUser *user;
 
 	beforeEach(^{
-		user = [[OCTUser alloc] initWithExternalRepresentation:representation];
+		user = [MTLJSONAdapter modelOfClass:OCTUser.class fromJSONDictionary:representation error:NULL];
 		expect(user).notTo.beNil();
 	});
 
@@ -68,19 +68,16 @@ describe(@"github.com user", ^{
 		expect(user).notTo.beNil();
 
 		expect(user.server).to.equal(OCTServer.dotComServer);
-
 		expect(user.name).to.equal(@"foobar");
 		expect(user.email).to.equal(@"foo@bar.com");
 	});
 	
-	it(@"should initialize with a login and password", ^{
-		OCTUser *user = [OCTUser userWithLogin:@"foo" password:@"bar" server:OCTServer.dotComServer];
+	it(@"should initialize with a login and server", ^{
+		OCTUser *user = [OCTUser userWithLogin:@"foo" server:OCTServer.dotComServer];
 		expect(user).notTo.beNil();
 
 		expect(user.server).to.equal(OCTServer.dotComServer);
-
 		expect(user.login).to.equal(@"foo");
-		expect(user.password).to.equal(@"bar");
 	});
 });
 
@@ -106,7 +103,7 @@ describe(@"enterprise user", ^{
 	beforeEach(^{
 		baseURL = [NSURL URLWithString:@"https://10.168.0.109"];
 
-		user = [[OCTUser alloc] initWithExternalRepresentation:representation];
+		user = [MTLJSONAdapter modelOfClass:OCTUser.class fromJSONDictionary:representation error:NULL];
 		expect(user).notTo.beNil();
 
 		// This is usually set by OCTClient, but we'll do it ourselves here to simulate
@@ -136,16 +133,14 @@ describe(@"enterprise user", ^{
 		return @{ OCTObjectKey: user, OCTObjectExternalRepresentationKey: modifiedRepresentation };
 	});
 	
-	it(@"should initialize with a login and password", ^{
+	it(@"should initialize with a login and server", ^{
 		NSURL *baseURL = [NSURL URLWithString:@"https://10.168.1.109"];
 		OCTServer *server = [OCTServer serverWithBaseURL:baseURL];
-		OCTUser *user = [OCTUser userWithLogin:@"foo" password:@"bar" server:server];
+		OCTUser *user = [OCTUser userWithLogin:@"foo" server:server];
 		expect(user).notTo.beNil();
 
 		expect(user.server).to.equal(server);
-
 		expect(user.login).to.equal(@"foo");
-		expect(user.password).to.equal(@"bar");
 	});
 });
 

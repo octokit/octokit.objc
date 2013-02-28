@@ -12,24 +12,20 @@
 
 @implementation OCTPullRequestCommentEvent
 
-#pragma mark MTLModel
+#pragma mark MTLJSONSerializing
 
-+ (NSDictionary *)externalRepresentationKeyPathsByPropertyKey {
-	NSMutableDictionary *keys = [super.externalRepresentationKeyPathsByPropertyKey mutableCopy];
-	
-	[keys addEntriesFromDictionary:@{
++ (NSDictionary *)JSONKeyPathsByPropertyKey {
+	return [super.JSONKeyPathsByPropertyKey mtl_dictionaryByAddingEntriesFromDictionary:@{
 		@"comment": @"payload.comment",
 	}];
-
-	return keys;
 }
 
-+ (NSValueTransformer *)commentTransformer {
-	return [NSValueTransformer mtl_externalRepresentationTransformerWithModelClass:OCTPullRequestComment.class];
++ (NSValueTransformer *)commentJSONTransformer {
+	return [NSValueTransformer mtl_JSONDictionaryTransformerWithModelClass:OCTPullRequestComment.class];
 }
 
-+ (NSValueTransformer *)pullRequestTransformer {
-	return [NSValueTransformer mtl_externalRepresentationTransformerWithModelClass:OCTPullRequest.class];
++ (NSValueTransformer *)pullRequestJSONTransformer {
+	return [NSValueTransformer mtl_JSONDictionaryTransformerWithModelClass:OCTPullRequest.class];
 }
 
 @end

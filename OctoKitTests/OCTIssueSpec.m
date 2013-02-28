@@ -72,7 +72,7 @@ NSDictionary *representation = @{
 __block OCTIssue *issue;
 
 before(^{
-	issue = [[OCTIssue alloc] initWithExternalRepresentation:representation];
+	issue = [MTLJSONAdapter modelOfClass:OCTIssue.class fromJSONDictionary:representation error:NULL];
 	expect(issue).notTo.beNil();
 });
 

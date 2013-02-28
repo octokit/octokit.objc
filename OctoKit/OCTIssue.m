@@ -27,21 +27,19 @@
 	// We don't have a "real" pull request model within the issue data, but we
 	// have enough information to construct one.
 	return [OCTPullRequest modelWithDictionary:@{
-		@"objectID": self.objectID,
-		@"HTMLURL": self.pullRequestHTMLURL,
-		@"title": self.title,
-		@"body": self.body,
-		@"commentsURL": self.commentsURL,
-		@"user": self.user,
-	}];
+		@keypath(OCTPullRequest.new, objectID): self.objectID,
+		@keypath(OCTPullRequest.new, HTMLURL): self.pullRequestHTMLURL,
+		@keypath(OCTPullRequest.new, title): self.title,
+		@keypath(OCTPullRequest.new, body): self.body,
+		@keypath(OCTPullRequest.new, commentsURL): self.commentsURL,
+		@keypath(OCTPullRequest.new, user): self.user,
+	} error:NULL];
 }
 
-#pragma mark MTLModel
+#pragma mark MTLJSONSerializing
 
-+ (NSDictionary *)externalRepresentationKeyPathsByPropertyKey {
-	NSMutableDictionary *keys = [super.externalRepresentationKeyPathsByPropertyKey mutableCopy];
-	
-	[keys addEntriesFromDictionary:@{
++ (NSDictionary *)JSONKeyPathsByPropertyKey {
+	return [super.JSONKeyPathsByPropertyKey mtl_dictionaryByAddingEntriesFromDictionary:@{
 		@"HTMLURL": @"html_url",
 		@"objectID": @"number",
 		@"pullRequestHTMLURL": @"pull_request.html_url",
@@ -49,24 +47,22 @@
 		@"commentsURL": @"comments_url",
 		@"user": @"user",
 	}];
-
-	return keys;
 }
 
-+ (NSValueTransformer *)HTMLURLTransformer {
++ (NSValueTransformer *)HTMLURLJSONTransformer {
 	return [NSValueTransformer valueTransformerForName:MTLURLValueTransformerName];
 }
 
-+ (NSValueTransformer *)pullRequestHTMLURLTransformer {
++ (NSValueTransformer *)pullRequestHTMLURLJSONTransformer {
 	return [NSValueTransformer valueTransformerForName:MTLURLValueTransformerName];
 }
 
-+ (NSValueTransformer *)commentsURLTransformer {
++ (NSValueTransformer *)commentsURLJSONTransformer {
 	return [NSValueTransformer valueTransformerForName:MTLURLValueTransformerName];
 }
 
-+ (NSValueTransformer *)userTransformer {
-	return [MTLValueTransformer mtl_externalRepresentationTransformerWithModelClass:OCTUser.class];
++ (NSValueTransformer *)userJSONTransformer {
+	return [MTLValueTransformer mtl_JSONDictionaryTransformerWithModelClass:OCTUser.class];
 }
 
 @end

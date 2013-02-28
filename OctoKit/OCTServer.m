@@ -24,42 +24,6 @@ NSString * const OCTServerDefaultEnterpriseScheme = @"http";
 
 @implementation OCTServer
 
-+ (instancetype)dotComServer {
-	static OCTServer *dotComServer = nil;
-	static dispatch_once_t onceToken;
-	dispatch_once(&onceToken, ^{
-		dotComServer = [[self alloc] initWithBaseURL:nil];
-	});
-	return dotComServer;
-}
-
-+ (instancetype)serverWithBaseURL:(NSURL *)baseURL {
-	if (baseURL == nil) return self.dotComServer;
-
-	return [[OCTServer alloc] initWithBaseURL:baseURL];
-}
-
-#pragma mark Lifecycle
-
-- (instancetype)initWithBaseURL:(NSURL *)baseURL {
-	self = [super init];
-	if (self == nil) return nil;
-
-	_baseURL = baseURL;
-
-	return self;
-}
-
-- (NSDictionary *)externalRepresentation {
-	return [super.externalRepresentation mtl_filterEntriesUsingBlock:^ BOOL (id _, id value) {
-		return ![value isEqual:NSNull.null];
-	}];
-}
-
-+ (NSValueTransformer *)baseURLTransformer {
-	return [NSValueTransformer valueTransformerForName:MTLURLValueTransformerName];
-}
-
 #pragma mark Properties
 
 - (NSURL *)APIEndpoint {
@@ -87,19 +51,41 @@ NSString * const OCTServerDefaultEnterpriseScheme = @"http";
 	return self.baseURL != nil;
 }
 
-#pragma mark NSObject
+#pragma mark Lifecycle
 
-- (BOOL)isEqual:(OCTServer *)object {
-	if (object == self) return YES;
-	if (![object isKindOfClass:self.class]) return NO;
-
-	if (self.baseURL == nil && object.baseURL == nil) return YES;
-
-	return [self.baseURL isEqual:object.baseURL];
++ (instancetype)dotComServer {
+	static OCTServer *dotComServer = nil;
+	static dispatch_once_t onceToken;
+	dispatch_once(&onceToken, ^{
+		dotComServer = [[self alloc] initWithBaseURL:nil];
+	});
+	return dotComServer;
 }
 
-- (NSUInteger)hash {
-	return self.baseURL.hash;
++ (instancetype)serverWithBaseURL:(NSURL *)baseURL {
+	if (baseURL == nil) return self.dotComServer;
+
+	return [[OCTServer alloc] initWithBaseURL:baseURL];
+}
+
+- (instancetype)initWithBaseURL:(NSURL *)baseURL {
+	self = [super init];
+	if (self == nil) return nil;
+
+	_baseURL = baseURL;
+
+	return self;
+}
+
+#pragma mark Migration
+
++ (NSDictionary *)dictionaryValueFromArchivedExternalRepresentation:(NSDictionary *)externalRepresentation version:(NSUInteger)fromVersion {
+	NSMutableDictionary *dictionaryValue = [[super dictionaryValueFromArchivedExternalRepresentation:externalRepresentation version:fromVersion] mutableCopy];
+
+	NSString *baseURLString = externalRepresentation[@"baseURL"];
+	if (baseURLString != nil) dictionaryValue[@"baseURL"] = [NSURL URLWithString:baseURLString] ?: NSNull.null;
+
+	return dictionaryValue;
 }
 
 @end

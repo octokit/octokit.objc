@@ -10,10 +10,6 @@
 #import "OCTServer.h"
 #import "OCTObject+Private.h"
 
-// This shouldn't be used for anything new. It exists solely for backwards
-// compatibility.
-static NSString * const OCTObjectModelVersionKey = @"OCTObjectModelVersionKey";
-
 @interface OCTObject ()
 
 @property (nonatomic, strong, readwrite) OCTServer *server;
@@ -33,43 +29,38 @@ static NSString * const OCTObjectModelVersionKey = @"OCTObjectModelVersionKey";
 	return self;
 }
 
-- (instancetype)initWithExternalRepresentation:(NSDictionary *)externalRepresentation {
-	// Manually migrate if we find the old model version key.
-	if (externalRepresentation[OCTObjectModelVersionKey] != nil) {
-		NSUInteger version = [externalRepresentation[OCTObjectModelVersionKey] unsignedIntegerValue];
-		if (version < self.class.modelVersion) externalRepresentation = [self.class migrateExternalRepresentation:externalRepresentation fromVersion:version];
-	}
++ (NSSet *)propertyKeys {
+	NSMutableSet *keys = [super.propertyKeys mutableCopy];
 
-	return [super initWithExternalRepresentation:externalRepresentation];
-}
-
-+ (NSDictionary *)externalRepresentationKeyPathsByPropertyKey {
-	NSMutableDictionary *keys = [[super externalRepresentationKeyPathsByPropertyKey] mutableCopy];
-	
-	[keys addEntriesFromDictionary:@{
-		@"objectID": @"id",
-		// For local persistence only (not present in JSON)
-		@"baseURL": @"OCTServer_baseURL",
-		@"server": @"OCTServer_server"
-	}];
+	// This is a derived property.
+	[keys removeObject:@keypath(OCTObject.new, baseURL)];
 
 	return keys;
 }
 
-- (NSDictionary *)externalRepresentation {
-	NSMutableDictionary *filteredRepresentation = [[[super externalRepresentation] mtl_filterEntriesUsingBlock:^ BOOL (id _, id value) {
-		return ![value isEqual:NSNull.null];
-	}] mutableCopy];
++ (NSUInteger)modelVersion {
+	return 5;
+}
 
-	// So that older versions of GHfM don't crash outright if they try to read
-	// this representation, we include the model version key they know about.
-	filteredRepresentation[OCTObjectModelVersionKey] = @(self.class.modelVersion);
++ (NSDictionary *)dictionaryValueFromArchivedExternalRepresentation:(NSDictionary *)externalRepresentation version:(NSUInteger)fromVersion {
+	id objectID = externalRepresentation[@"id"];
+	if (objectID == nil) return nil;
 
-	return filteredRepresentation;
+	return @{ @"objectID": objectID };
+}
+
+#pragma mark MTLJSONSerializing
+
++ (NSDictionary *)JSONKeyPathsByPropertyKey {
+	return @{
+		@"objectID": @"id",
+		@"server": NSNull.null,
+	};
 }
 
 + (NSValueTransformer *)objectIDTransformer {
-	return [MTLValueTransformer reversibleTransformerWithForwardBlock:^ id (id objectID) {
+	return [MTLValueTransformer
+		reversibleTransformerWithForwardBlock:^ id (id objectID) {
 			// Sometimes issues have a String ID :(
 			if ([objectID isKindOfClass:NSNumber.class]) {
 				return [objectID stringValue];
@@ -84,26 +75,21 @@ static NSString * const OCTObjectModelVersionKey = @"OCTObjectModelVersionKey";
 		}];
 }
 
-+ (NSValueTransformer *)baseURLTransformer {
-	return [NSValueTransformer valueTransformerForName:MTLURLValueTransformerName];
-}
-
-+ (NSValueTransformer *)serverTransformer {
-	return [NSValueTransformer mtl_externalRepresentationTransformerWithModelClass:OCTServer.class];
-}
-
 #pragma mark Properties
 
+- (NSURL *)baseURL {
+	return self.server.baseURL;
+}
+
 - (void)setBaseURL:(NSURL *)baseURL {
-	if ([_baseURL isEqual:baseURL]) return;
+	if ([self.baseURL isEqual:baseURL]) return;
+
 	if (baseURL == nil || [baseURL.host isEqual:@"api.github.com"]) {
-		_baseURL = nil;
+		self.server = OCTServer.dotComServer;
 	} else {
 		NSString *baseURLString = [NSString stringWithFormat:@"%@://%@", baseURL.scheme, baseURL.host];
-		_baseURL = [NSURL URLWithString:baseURLString];
+		self.server = [OCTServer serverWithBaseURL:[NSURL URLWithString:baseURLString]];
 	}
-
-	self.server = [OCTServer serverWithBaseURL:self.baseURL];
 }
 
 #pragma mark NSObject
@@ -116,9 +102,7 @@ static NSString * const OCTObjectModelVersionKey = @"OCTObjectModelVersionKey";
 	if (self == obj) return YES;
 	if (![obj isMemberOfClass:self.class]) return NO;
 	
-	if (![obj.server isEqual:self.server]) return NO;
-
-	return [obj.objectID isEqual:self.objectID];
+	return [obj.server isEqual:self.server] && [obj.objectID isEqual:self.objectID];
 }
 
 @end

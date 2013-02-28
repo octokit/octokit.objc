@@ -7,73 +7,68 @@
 //
 
 #import "OCTRepository.h"
-#import "ISO8601DateFormatter.h"
-
-// Keys used in parsing and migration.
-static NSString * const OCTRepositoryHTMLURLKey = @"html_url";
-static NSString * const OCTRepositoryOwnerKey = @"owner";
-static NSString * const OCTRepositoryLoginKey = @"login";
-
-// 1.0 => 1.2.4: OCTRepositoryModelVersion = 0;
-// 1.2.4 => current: OCTRepositoryModelVersion = 2;
-static const NSUInteger OCTRepositoryModelVersion = 3;
+#import "NSValueTransformer+OCTPredefinedTransformerAdditions.h"
 
 @implementation OCTRepository
 
-#pragma mark MTLModel
+#pragma mark MTLJSONSerializing
 
-+ (NSUInteger)modelVersion {
-	return OCTRepositoryModelVersion;
-}
-
-+ (NSDictionary *)externalRepresentationKeyPathsByPropertyKey {
-	NSMutableDictionary *keys = [[super externalRepresentationKeyPathsByPropertyKey] mutableCopy];
-	
-	[keys addEntriesFromDictionary:@{
++ (NSDictionary *)JSONKeyPathsByPropertyKey {
+	return [super.JSONKeyPathsByPropertyKey mtl_dictionaryByAddingEntriesFromDictionary:@{
 		@"HTTPSURL": @"clone_url",
 		@"SSHURL": @"ssh_url",
 		@"gitURL": @"git_url",
-		@"HTMLURL": OCTRepositoryHTMLURLKey,
-		@"ownerLogin": [OCTRepositoryOwnerKey stringByAppendingFormat:@".%@", OCTRepositoryLoginKey],
+		@"HTMLURL": @"html_url",
+		@"ownerLogin": @"owner.login",
 		@"datePushed": @"pushed_at",
 		@"repoDescription": @"description",
 	}];
-
-	return keys;
 }
 
-+ (NSValueTransformer *)HTTPSURLTransformer {
++ (NSValueTransformer *)HTTPSURLJSONTransformer {
 	return [NSValueTransformer valueTransformerForName:MTLURLValueTransformerName];
 }
 
-+ (NSValueTransformer *)HTMLURLTransformer {
++ (NSValueTransformer *)HTMLURLJSONTransformer {
 	return [NSValueTransformer valueTransformerForName:MTLURLValueTransformerName];
 }
 
-+ (NSValueTransformer *)gitURLTransformer {
++ (NSValueTransformer *)gitURLJSONTransformer {
 	return [NSValueTransformer valueTransformerForName:MTLURLValueTransformerName];
 }
 
-+ (NSValueTransformer *)datePushedTransformer {
-	// Don't support reverse transformation. This means that we'll never
-	// serialize an NSString for this date (which is the Right Thing to do), but
-	// we do have to check the type of the deserialized object.
-	return [MTLValueTransformer transformerWithBlock:^ id (id date) {
-		if (![date isKindOfClass:NSString.class]) return date;
-
-		return [[[ISO8601DateFormatter alloc] init] dateFromString:date];
-	}];
++ (NSValueTransformer *)datePushedJSONTransformer {
+	return [NSValueTransformer valueTransformerForName:OCTDateValueTransformerName];
 }
 
-+ (NSDictionary *)migrateExternalRepresentation:(NSDictionary *)dictionary fromVersion:(NSUInteger)fromVersion {
-	NSMutableDictionary *convertedDictionary = [[super migrateExternalRepresentation:dictionary fromVersion:fromVersion] mutableCopy];
-	
-	if (fromVersion < 3) {
-		convertedDictionary[OCTRepositoryHTMLURLKey] = dictionary[@"url"] ?: NSNull.null;
-		convertedDictionary[OCTRepositoryOwnerKey] = @{ OCTRepositoryLoginKey: (dictionary[@"owner"] ?: NSNull.null) };
+#pragma mark Migration
+
++ (NSDictionary *)dictionaryValueFromArchivedExternalRepresentation:(NSDictionary *)externalRepresentation version:(NSUInteger)fromVersion {
+	NSMutableDictionary *dictionaryValue = [[super dictionaryValueFromArchivedExternalRepresentation:externalRepresentation version:fromVersion] mutableCopy];
+
+	// Although some of these keys match JSON key paths, the format of this
+	// external representation is fixed (since it's always old data), thus the
+	// hard-coding.
+	dictionaryValue[@"name"] = externalRepresentation[@"name"];
+
+	id owner = externalRepresentation[@"owner"];
+	if ([owner isKindOfClass:NSString.class]) {
+		dictionaryValue[@"ownerLogin"] = owner;
+	} else if ([owner isKindOfClass:NSDictionary.class]) {
+		dictionaryValue[@"ownerLogin"] = owner[@"login"];
 	}
-	
-	return convertedDictionary;
+
+	dictionaryValue[@"repoDescription"] = externalRepresentation[@"description"] ?: NSNull.null;
+	dictionaryValue[@"private"] = externalRepresentation[@"private"] ?: @NO;
+	dictionaryValue[@"datePushed"] = [self.datePushedJSONTransformer transformedValue:externalRepresentation[@"pushed_at"]] ?: NSNull.null;
+	dictionaryValue[@"HTTPSURL"] = [self.HTTPSURLJSONTransformer transformedValue:externalRepresentation[@"clone_url"]] ?: NSNull.null;
+	dictionaryValue[@"SSHURL"] = externalRepresentation[@"ssh_url"] ?: NSNull.null;
+	dictionaryValue[@"gitURL"] = [self.gitURLJSONTransformer transformedValue:externalRepresentation[@"git_url"]] ?: NSNull.null;
+
+	NSString *HTMLURLString = externalRepresentation[@"html_url"] ?: externalRepresentation[@"url"];
+	dictionaryValue[@"HTMLURL"] = [self.HTMLURLJSONTransformer transformedValue:HTMLURLString] ?: NSNull.null;
+
+	return dictionaryValue;
 }
 
 @end

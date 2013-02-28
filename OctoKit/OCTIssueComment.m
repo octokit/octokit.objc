@@ -7,44 +7,30 @@
 //
 
 #import "OCTIssueComment.h"
+#import "NSValueTransformer+OCTPredefinedTransformerAdditions.h"
 #import "OCTUser.h"
-#import "ISO8601DateFormatter.h"
 
 @implementation OCTIssueComment
 
 #pragma mark MTLModel
 
-+ (NSDictionary *)externalRepresentationKeyPathsByPropertyKey {
-	NSMutableDictionary *keys = [super.externalRepresentationKeyPathsByPropertyKey mutableCopy];
-
-	[keys addEntriesFromDictionary:@{
-		@"body": @"body",
-		@"user": @"user",
++ (NSDictionary *)JSONKeyPathsByPropertyKey {
+	return [super.JSONKeyPathsByPropertyKey mtl_dictionaryByAddingEntriesFromDictionary:@{
 		@"created": @"created_at",
 		@"updated": @"updated_at",
-	 }];
-
-	return keys;
-}
-
-+ (NSValueTransformer *)createdTransformer {
-	return [MTLValueTransformer transformerWithBlock:^ id (id date) {
-		if (![date isKindOfClass:NSString.class]) return date;
-
-		return [[[ISO8601DateFormatter alloc] init] dateFromString:date];
 	}];
 }
 
-+ (NSValueTransformer *)updatedTransformer {
-	return [MTLValueTransformer transformerWithBlock:^ id (id date) {
-		if (![date isKindOfClass:NSString.class]) return date;
-
-		return [[[ISO8601DateFormatter alloc] init] dateFromString:date];
-	}];
++ (NSValueTransformer *)createdJSONTransformer {
+	return [NSValueTransformer valueTransformerForName:OCTDateValueTransformerName];
 }
 
-+ (NSValueTransformer *)userTransformer {
-	return [NSValueTransformer mtl_externalRepresentationTransformerWithModelClass:OCTUser.class];
++ (NSValueTransformer *)updatedJSONTransformer {
+	return [NSValueTransformer valueTransformerForName:OCTDateValueTransformerName];
+}
+
++ (NSValueTransformer *)userJSONTransformer {
+	return [NSValueTransformer mtl_JSONDictionaryTransformerWithModelClass:OCTUser.class];
 }
 
 @end

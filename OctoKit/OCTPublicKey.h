@@ -12,9 +12,9 @@
 @interface OCTPublicKey : OCTObject
 
 // The public key data itself.
-@property (nonatomic, copy) NSString *publicKey;
+@property (nonatomic, copy, readonly) NSString *publicKey;
 
 // The name given to this key by the user.
-@property (nonatomic, copy) NSString *title;
+@property (nonatomic, copy, readonly) NSString *title;
 
 @end

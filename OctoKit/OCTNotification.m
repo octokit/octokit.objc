@@ -7,49 +7,41 @@
 //
 
 #import "OCTNotification.h"
+#import "NSValueTransformer+OCTPredefinedTransformerAdditions.h"
 #import "OCTRepository.h"
-#import "ISO8601DateFormatter.h"
 
 @implementation OCTNotification
 
 #pragma mark MTLModel
 
-+ (NSDictionary *)externalRepresentationKeyPathsByPropertyKey {
-	NSMutableDictionary *keys = [[super externalRepresentationKeyPathsByPropertyKey] mutableCopy];
-
-	[keys addEntriesFromDictionary:@{
++ (NSDictionary *)JSONKeyPathsByPropertyKey {
+	return [super.JSONKeyPathsByPropertyKey mtl_dictionaryByAddingEntriesFromDictionary:@{
 		@"title": @"subject.title",
 		@"threadURL": @"url",
 		@"subjectURL": @"subject.url",
 		@"type": @"subject.type",
 		@"repository": @"repository",
 		@"lastUpdatedDate": @"updated_at",
-	 }];
-
-	return keys;
-}
-
-+ (NSValueTransformer *)threadURLTransformer {
-	return [NSValueTransformer valueTransformerForName:MTLURLValueTransformerName];
-}
-
-+ (NSValueTransformer *)subjectURLTransformer {
-	return [NSValueTransformer valueTransformerForName:MTLURLValueTransformerName];
-}
-
-+ (NSValueTransformer *)repositoryTransformer {
-	return [MTLValueTransformer mtl_externalRepresentationTransformerWithModelClass:OCTRepository.class];
-}
-
-+ (NSValueTransformer *)lastUpdatedDateTransformer {
-	return [MTLValueTransformer transformerWithBlock:^ id (id date) {
-		if (![date isKindOfClass:NSString.class]) return date;
-
-		return [[[ISO8601DateFormatter alloc] init] dateFromString:date];
 	}];
 }
 
-+ (NSValueTransformer *)typeTransformer {
++ (NSValueTransformer *)threadURLJSONTransformer {
+	return [NSValueTransformer valueTransformerForName:MTLURLValueTransformerName];
+}
+
++ (NSValueTransformer *)subjectURLJSONTransformer {
+	return [NSValueTransformer valueTransformerForName:MTLURLValueTransformerName];
+}
+
++ (NSValueTransformer *)repositoryJSONTransformer {
+	return [MTLValueTransformer mtl_JSONDictionaryTransformerWithModelClass:OCTRepository.class];
+}
+
++ (NSValueTransformer *)lastUpdatedDateJSONTransformer {
+	return [NSValueTransformer valueTransformerForName:OCTDateValueTransformerName];
+}
+
++ (NSValueTransformer *)typeJSONTransformer {
 	NSDictionary *typesByName = @{
 		@"Issue": @(OCTNotificationTypeIssue),
 		@"PullRequest": @(OCTNotificationTypePullRequest),
