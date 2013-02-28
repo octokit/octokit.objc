@@ -498,8 +498,8 @@ static const NSUInteger OCTClientNotModifiedStatusCode = 304;
 
 @implementation OCTClient (Notifications)
 
-- (RACSignal *)fetchNotifications {
-	return [self enqueueRequestWithMethod:@"GET" path:@"notifications" parameters:nil resultClass:OCTNotification.class];
+- (RACSignal *)fetchNotificationsNotMatchingEtag:(NSString *)etag {
+	return [self enqueueConditionalRequestWithMethod:@"GET" path:@"notifications" parameters:nil notMatchingEtag:etag resultClass:OCTNotification.class];
 }
 
 - (RACSignal *)markNotificationAsRead:(OCTNotification *)notification {

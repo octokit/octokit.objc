@@ -244,20 +244,23 @@ extern NSString * const OCTClientErrorHTTPStatusCodeKey;
 // the latest data matches `etag`, the call does not count toward the API rate
 // limit.
 //
-// Returns a signal which will send zero or more OCTEvents if new data was
-// downloaded. Unrecognized events will be omitted from the result. On success,
-// the signal will send completed regardless of whether there was new data. If
-// no `user` is set, the signal will error immediately.
+// Returns a signal which will send zero or more OCTResponses (of OCTEvents) if
+// new data was downloaded. Unrecognized events will be omitted from the result.
+// On success, the signal will send completed regardless of whether there was
+// new data. If no `user` is set, the signal will error immediately.
 - (RACSignal *)fetchUserEventsNotMatchingEtag:(NSString *)etag;
 
 @end
 
 @interface OCTClient (Notifications)
 
-// Fetch all unread notifications for the user.
+// Conditionally fetch unread notifications for the user. If the latest data
+// matches `etag`, the call does not count toward the API rate limit.
 //
-// Returns a signal which will zero or more OCTNotifications.
-- (RACSignal *)fetchNotifications;
+// Returns a signal which will zero or more OCTResponses (of OCTNotifications)
+// if new data was downloaded. On success, the signal will send completed
+// regardless of whether there was new data.
+- (RACSignal *)fetchNotificationsNotMatchingEtag:(NSString *)etag;
 
 // Mark the notification has having been read.
 //
