@@ -7,7 +7,6 @@
 //
 
 #import "OCTClient.h"
-#import "NSArray+OCTFlatteningAdditions.h"
 #import "OCTEvent.h"
 #import "OCTObject+Private.h"
 #import "OCTOrganization.h"
