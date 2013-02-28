@@ -499,6 +499,8 @@ static const NSUInteger OCTClientNotModifiedStatusCode = 304;
 @implementation OCTClient (Notifications)
 
 - (RACSignal *)fetchNotificationsNotMatchingEtag:(NSString *)etag {
+	if (!self.authenticated) return [RACSignal error:self.class.authenticationRequiredError];
+
 	return [self enqueueConditionalRequestWithMethod:@"GET" path:@"notifications" parameters:nil notMatchingEtag:etag resultClass:OCTNotification.class];
 }
 
@@ -507,6 +509,10 @@ static const NSUInteger OCTClientNotModifiedStatusCode = 304;
 }
 
 - (RACSignal *)patchNotification:(OCTNotification *)notification withReadStatus:(BOOL)read {
+	NSParameterAssert(notification != nil);
+
+	if (!self.authenticated) return [RACSignal error:self.class.authenticationRequiredError];
+
 	NSMutableURLRequest *request = [self requestWithMethod:@"PATCH" path:@"" parameters:@{ @"read": @(read) }];
 	request.URL = notification.threadURL;
 	return [[self enqueueRequest:request resultClass:nil fetchAllPages:NO] ignoreElements];

@@ -259,14 +259,16 @@ extern NSString * const OCTClientErrorHTTPStatusCodeKey;
 //
 // Returns a signal which will zero or more OCTResponses (of OCTNotifications)
 // if new data was downloaded. On success, the signal will send completed
-// regardless of whether there was new data.
+// regardless of whether there was new data. If the client is not
+// `authenticated`, the signal will error immediately.
 - (RACSignal *)fetchNotificationsNotMatchingEtag:(NSString *)etag;
 
 // Mark the notification has having been read.
 //
 // notification - The notification to mark as read. Cannot be nil.
 //
-// Returns a signal which will complete or error.
+// Returns a signal which will send completed on success. If the client is not
+// `authenticated`, the signal will error immediately.
 - (RACSignal *)markNotificationAsRead:(OCTNotification *)notification;
 
 @end
