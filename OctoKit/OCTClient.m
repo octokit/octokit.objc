@@ -17,8 +17,6 @@
 #import "OCTTeam.h"
 #import "OCTUser.h"
 #import "OCTNotification.h"
-#import "OCTIssue.h"
-#import "OCTIssueComment.h"
 
 NSString * const OCTClientErrorDomain = @"OCTClientErrorDomain";
 const NSInteger OCTClientErrorAuthenticationFailed = 666;
@@ -517,9 +515,6 @@ static const NSUInteger OCTClientNotModifiedStatusCode = 304;
 		request.cachePolicy = NSURLRequestReloadIgnoringCacheData;
 	}];
 }
-- (RACSignal *)fetchIssueForNotification:(OCTNotification *)notification {
-	return [self enqueueRequestWithMethod:@"GET" URL:notification.subjectURL parameters:nil resultClass:OCTIssue.class];
-}
 
 - (RACSignal *)markNotificationAsRead:(OCTNotification *)notification {
 	return [self patchNotification:notification withReadStatus:YES];
@@ -527,26 +522,6 @@ static const NSUInteger OCTClientNotModifiedStatusCode = 304;
 
 - (RACSignal *)patchNotification:(OCTNotification *)notification withReadStatus:(BOOL)read {
 	return [[self enqueueRequestWithMethod:@"PATCH" URL:notification.threadURL parameters:@{ @"read": @(read) } resultClass:nil] ignoreElements];
-}
-
-@end
-
-@implementation OCTClient (Issues)
-
-- (RACSignal *)fetchAssignedIssues {
-	return [self fetchIssuesWithParameters:nil];
-}
-
-- (RACSignal *)fetchIssuesWithParameters:(NSDictionary *)parameters {
-	return [[self enqueueRequestWithMethod:@"GET" path:@"issues" parameters:parameters resultClass:OCTIssue.class] map:^(NSArray *issues) {
-		return [issues mtl_filterUsingBlock:^ BOOL (OCTIssue *issue) {
-			return issue.pullRequest == nil;
-		}];
-	}];
-}
-
-- (RACSignal *)fetchCommentsForIssue:(OCTIssue *)issue {
-	return [self enqueueRequestWithMethod:@"GET" URL:issue.commentsURL parameters:nil resultClass:OCTIssueComment.class];
 }
 
 @end

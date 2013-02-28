@@ -6,9 +6,15 @@
 //  Copyright (c) 2012 GitHub. All rights reserved.
 //
 
-#import "OCTIssue.h"
+#import "OCTObject.h"
 
 // A pull request on a repository.
-@interface OCTPullRequest : OCTIssue
+@interface OCTPullRequest : OCTObject
+
+// The webpage URL for this pull request.
+@property (nonatomic, copy, readonly) NSURL *HTMLURL;
+
+// The title of this pull request.
+@property (nonatomic, copy, readonly) NSString *title;
 
 @end

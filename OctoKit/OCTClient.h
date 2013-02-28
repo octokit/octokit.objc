@@ -9,7 +9,6 @@
 #import "AFNetworking.h"
 #import <ReactiveCocoa/ReactiveCocoa.h>
 
-@class OCTIssue;
 @class OCTNotification;
 @class OCTOrganization;
 @class OCTServer;
@@ -260,35 +259,11 @@ extern NSString * const OCTClientErrorHTTPStatusCodeKey;
 // Returns a signal which will send an array of OCTNotifications.
 - (RACSignal *)fetchNotifications;
 
-// Fetch the issue associated with the notification.
-//
-// notification - The issue notification whose issue should be fetched. Cannot
-//                be nil.
-//
-// Returns a signal which will send the OCTIssue.
-- (RACSignal *)fetchIssueForNotification:(OCTNotification *)notification;
-
 // Mark the notification has having been read.
 //
 // notification - The notification to mark as read. Cannot be nil.
 //
 // Returns a signal which will complete or error.
 - (RACSignal *)markNotificationAsRead:(OCTNotification *)notification;
-
-@end
-
-@interface OCTClient (Issues)
-
-// Fetch all issues assigned to the user.
-//
-// Returns a signal which will send an array of OCTIssues.
-- (RACSignal *)fetchAssignedIssues;
-
-// Fetch the comments for the issue.
-//
-// issue - The issue whose comments should be fetched. Cannot be nil.
-//
-// Returns a signal which will send an array of OCTIssueComments.
-- (RACSignal *)fetchCommentsForIssue:(OCTIssue *)issue;
 
 @end
