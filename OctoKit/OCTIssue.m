@@ -29,7 +29,7 @@
 		@keypath(OCTPullRequest.new, objectID): self.objectID,
 		@keypath(OCTPullRequest.new, HTMLURL): self.pullRequestHTMLURL,
 		@keypath(OCTPullRequest.new, title): self.title,
-	}];
+	} error:NULL];
 }
 
 #pragma mark MTLJSONSerializing

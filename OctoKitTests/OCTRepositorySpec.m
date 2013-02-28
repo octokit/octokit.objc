@@ -54,7 +54,7 @@ describe(@"from JSON", ^{
 	__block OCTRepository *repository;
 
 	before(^{
-		repository = [MTLJSONAdapter modelOfClass:OCTRepository.class fromJSONDictionary:representation];
+		repository = [MTLJSONAdapter modelOfClass:OCTRepository.class fromJSONDictionary:representation error:NULL];
 		expect(repository).notTo.beNil();
 	});
 
@@ -103,7 +103,7 @@ it(@"should migrate from pre-MTLModel OCTObject", ^{
 	NSDictionary *dictionaryValue = [OCTRepository dictionaryValueFromArchivedExternalRepresentation:representation version:0];
 	expect(dictionaryValue).notTo.beNil();
 
-	OCTRepository *repository = [OCTRepository modelWithDictionary:dictionaryValue];
+	OCTRepository *repository = [OCTRepository modelWithDictionary:dictionaryValue error:NULL];
 	expect(repository).notTo.beNil();
 
 	// Test a key that actually changed format.

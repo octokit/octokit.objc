@@ -39,7 +39,7 @@ describe(@"github.com user", ^{
 	__block OCTUser *user;
 
 	beforeEach(^{
-		user = [MTLJSONAdapter modelOfClass:OCTUser.class fromJSONDictionary:representation];
+		user = [MTLJSONAdapter modelOfClass:OCTUser.class fromJSONDictionary:representation error:NULL];
 		expect(user).notTo.beNil();
 	});
 
@@ -103,7 +103,7 @@ describe(@"enterprise user", ^{
 	beforeEach(^{
 		baseURL = [NSURL URLWithString:@"https://10.168.0.109"];
 
-		user = [MTLJSONAdapter modelOfClass:OCTUser.class fromJSONDictionary:representation];
+		user = [MTLJSONAdapter modelOfClass:OCTUser.class fromJSONDictionary:representation error:NULL];
 		expect(user).notTo.beNil();
 
 		// This is usually set by OCTClient, but we'll do it ourselves here to simulate

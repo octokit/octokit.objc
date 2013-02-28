@@ -69,7 +69,7 @@ describe(@"with an ID from JSON", ^{
 	__block OCTObject *obj;
 	
 	before(^{
-		obj = [MTLJSONAdapter modelOfClass:OCTObject.class fromJSONDictionary:representation];
+		obj = [MTLJSONAdapter modelOfClass:OCTObject.class fromJSONDictionary:representation error:NULL];
 		expect(obj).notTo.beNil();
 	});
 
@@ -86,7 +86,7 @@ describe(@"with an ID from JSON", ^{
 	});
 
 	it(@"should be equal to another object with the same objectID", ^{
-		OCTObject *secondObject = [MTLJSONAdapter modelOfClass:OCTObject.class fromJSONDictionary:representation];
+		OCTObject *secondObject = [MTLJSONAdapter modelOfClass:OCTObject.class fromJSONDictionary:representation error:NULL];
 		expect(obj).to.equal(secondObject);
 	});
 
@@ -101,7 +101,7 @@ describe(@"with an objectID and a baseURL", ^{
 	__block OCTObject *obj;
 
 	before(^{
-		obj = [[OCTObject alloc] initWithDictionary:dictionary];
+		obj = [[OCTObject alloc] initWithDictionary:dictionary error:NULL];
 		expect(obj).notTo.beNil();
 	});
 
@@ -114,7 +114,7 @@ describe(@"with an objectID and a baseURL", ^{
 	});
 
 	it(@"should be equal to another object with the same objectID from the same server", ^{
-		OCTObject *secondObject = [[OCTObject alloc] initWithDictionary:dictionary];
+		OCTObject *secondObject = [[OCTObject alloc] initWithDictionary:dictionary error:NULL];
 		expect(obj).to.equal(secondObject);
 	});
 

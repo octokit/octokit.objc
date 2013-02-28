@@ -143,7 +143,7 @@ NSDictionary *representation = @{
 __block OCTPullRequest *pullRequest;
 
 before(^{
-	pullRequest = [MTLJSONAdapter modelOfClass:OCTPullRequest.class fromJSONDictionary:representation];
+	pullRequest = [MTLJSONAdapter modelOfClass:OCTPullRequest.class fromJSONDictionary:representation error:NULL];
 	expect(pullRequest).notTo.beNil();
 });
 
