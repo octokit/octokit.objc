@@ -20,7 +20,7 @@
 	if (name != nil) userDict[@keypath(OCTUser.new, name)] = name;
 	if (email != nil) userDict[@keypath(OCTUser.new, email)] = email;
 
-	return [self modelWithDictionary:userDict];
+	return [self modelWithDictionary:userDict error:NULL];
 }
 
 + (instancetype)userWithLogin:(NSString *)login server:(OCTServer *)server {
@@ -28,7 +28,7 @@
 	if (login != nil) userDict[@keypath(OCTUser.new, login)] = login;
 	if (server.baseURL != nil) userDict[@keypath(OCTUser.new, baseURL)] = server.baseURL;
 
-	return [self modelWithDictionary:userDict];
+	return [self modelWithDictionary:userDict error:NULL];
 }
 
 @end
