@@ -36,6 +36,9 @@ void (^stubResponse)(NSString *, NSString *) = ^(NSString *path, NSString *respo
 __block BOOL success;
 __block NSError *error;
 
+// A random ETag for testing.
+NSString *etag = @"644b5b0155e6404a9cc4bd9d8b1ae730";
+
 beforeEach(^{
 	success = NO;
 	error = nil;
@@ -70,8 +73,6 @@ describe(@"without a user", ^{
 	});
 
 	it(@"should conditionally GET a modified JSON dictionary", ^{
-		NSString *etag = @"644b5b0155e6404a9cc4bd9d8b1ae730";
-
 		stubResponseWithHeaders(@"/rate_limit", @"rate_limit.json", @{
 			@"ETag": etag,
 		});
@@ -94,8 +95,6 @@ describe(@"without a user", ^{
 	});
 
 	it(@"should conditionally GET an unmodified endpoint", ^{
-		NSString *etag = @"644b5b0155e6404a9cc4bd9d8b1ae730";
-
 		stubResponseWithStatusCode(@"/rate_limit", 304);
 
 		RACSignal *request = [client enqueueConditionalRequestWithMethod:@"GET" path:@"rate_limit" parameters:nil notMatchingEtag:etag resultClass:nil];
@@ -167,6 +166,15 @@ describe(@"authenticated", ^{
 
 		expect(notification.repository).notTo.beNil();
 		expect(notification.repository.name).to.equal(@"Hello-World");
+	});
+
+	it(@"should return nothing if notifications are unmodified", ^{
+		stubResponseWithStatusCode(@"/notifications", 304);
+
+		RACSignal *request = [client fetchNotificationsNotMatchingEtag:etag];
+		expect([request asynchronousFirstOrDefault:nil success:&success error:&error]).to.beNil();
+		expect(success).to.beTruthy();
+		expect(error).to.beNil();
 	});
 });
 
