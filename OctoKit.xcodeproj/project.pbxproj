@@ -205,8 +205,6 @@
 		D087229D169E3D0500016ACA /* ISO8601DateFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = D0872299169E3D0500016ACA /* ISO8601DateFormatter.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc -Wno-format -Wno-conversion"; }; };
 		D087229F169E3D6000016ACA /* OctoKit.h in Headers */ = {isa = PBXBuildFile; fileRef = D087229E169E3D6000016ACA /* OctoKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D08722A0169E3D6000016ACA /* OctoKit.h in Headers */ = {isa = PBXBuildFile; fileRef = D087229E169E3D6000016ACA /* OctoKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D08B59CD169E3F8F006003B8 /* NSArray+OCTFlatteningAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D08B59CA169E3F8F006003B8 /* NSArray+OCTFlatteningAdditions.m */; };
-		D08B59CE169E3F8F006003B8 /* NSArray+OCTFlatteningAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D08B59CA169E3F8F006003B8 /* NSArray+OCTFlatteningAdditions.m */; };
 		D08C190D16B718EE00575F24 /* ReactiveCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D08C190C16B718EE00575F24 /* ReactiveCocoa.framework */; };
 		D08C190F16B718F600575F24 /* libReactiveCocoa-iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D08C190E16B718F600575F24 /* libReactiveCocoa-iOS.a */; };
 		D08C191016B718FE00575F24 /* ReactiveCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D08C190C16B718EE00575F24 /* ReactiveCocoa.framework */; };
@@ -522,8 +520,6 @@
 		D0872298169E3D0500016ACA /* ISO8601DateFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISO8601DateFormatter.h; sourceTree = "<group>"; };
 		D0872299169E3D0500016ACA /* ISO8601DateFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ISO8601DateFormatter.m; sourceTree = "<group>"; };
 		D087229E169E3D6000016ACA /* OctoKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OctoKit.h; sourceTree = "<group>"; };
-		D08B59C9169E3F8F006003B8 /* NSArray+OCTFlatteningAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+OCTFlatteningAdditions.h"; sourceTree = "<group>"; };
-		D08B59CA169E3F8F006003B8 /* NSArray+OCTFlatteningAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+OCTFlatteningAdditions.m"; sourceTree = "<group>"; };
 		D08C190C16B718EE00575F24 /* ReactiveCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ReactiveCocoa.framework; path = "../../../../OctoClient-fhiesvgduyfgynfidvcqbacmdzot/Build/Products/Debug/ReactiveCocoa.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D08C190E16B718F600575F24 /* libReactiveCocoa-iOS.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libReactiveCocoa-iOS.a"; path = "External/ReactiveCocoa/ReactiveCocoaFramework/build/Release-iphoneos/libReactiveCocoa-iOS.a"; sourceTree = "<group>"; };
 		D0B9C8F016BC78970029C5B4 /* NSDateFormatter+OCTFormattingAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDateFormatter+OCTFormattingAdditions.h"; sourceTree = "<group>"; };
@@ -981,8 +977,6 @@
 		D08B59C8169E3F7F006003B8 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				D08B59C9169E3F8F006003B8 /* NSArray+OCTFlatteningAdditions.h */,
-				D08B59CA169E3F8F006003B8 /* NSArray+OCTFlatteningAdditions.m */,
 				D0B9C8F016BC78970029C5B4 /* NSDateFormatter+OCTFormattingAdditions.h */,
 				D0B9C8F116BC78970029C5B4 /* NSDateFormatter+OCTFormattingAdditions.m */,
 				D0772E7516BD2A05009DFF72 /* NSValueTransformer+OCTPredefinedTransformerAdditions.h */,
@@ -1418,7 +1412,6 @@
 				D08721B7169E395F00016ACA /* OCTTeam.m in Sources */,
 				D08721BB169E395F00016ACA /* OCTUser.m in Sources */,
 				D087229C169E3D0500016ACA /* ISO8601DateFormatter.m in Sources */,
-				D08B59CD169E3F8F006003B8 /* NSArray+OCTFlatteningAdditions.m in Sources */,
 				D0B9C8F416BC78970029C5B4 /* NSDateFormatter+OCTFormattingAdditions.m in Sources */,
 				D0772E7916BD2A06009DFF72 /* NSValueTransformer+OCTPredefinedTransformerAdditions.m in Sources */,
 			);
@@ -1482,7 +1475,6 @@
 				D08721B8169E395F00016ACA /* OCTTeam.m in Sources */,
 				D08721BC169E395F00016ACA /* OCTUser.m in Sources */,
 				D087229D169E3D0500016ACA /* ISO8601DateFormatter.m in Sources */,
-				D08B59CE169E3F8F006003B8 /* NSArray+OCTFlatteningAdditions.m in Sources */,
 				D0B9C8F516BC78970029C5B4 /* NSDateFormatter+OCTFormattingAdditions.m in Sources */,
 				D0772E7A16BD2A06009DFF72 /* NSValueTransformer+OCTPredefinedTransformerAdditions.m in Sources */,
 			);
