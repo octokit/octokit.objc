@@ -19,6 +19,7 @@
 		@"title": @"subject.title",
 		@"threadURL": @"url",
 		@"subjectURL": @"subject.url",
+		@"latestCommentURL": @"subject.latest_comment_url",
 		@"type": @"subject.type",
 		@"repository": @"repository",
 		@"lastUpdatedDate": @"updated_at",
@@ -30,6 +31,10 @@
 }
 
 + (NSValueTransformer *)subjectURLJSONTransformer {
+	return [NSValueTransformer valueTransformerForName:MTLURLValueTransformerName];
+}
+
++ (NSValueTransformer *)latestCommentURLJSONTransformer {
 	return [NSValueTransformer valueTransformerForName:MTLURLValueTransformerName];
 }
 

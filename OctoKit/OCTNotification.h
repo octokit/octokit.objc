@@ -36,6 +36,9 @@ typedef enum : NSUInteger {
 // issue or pull request).
 @property (nonatomic, readonly, copy) NSURL *subjectURL;
 
+// The URL to the latest comment in the thread.
+@property (nonatomic, readonly, copy) NSURL *latestCommentURL;
+
 // The notification type.
 @property (nonatomic, readonly, assign) OCTNotificationType type;
 
