@@ -48,10 +48,12 @@
 		@"Commit": @(OCTNotificationTypeCommit),
 	};
 
-	return [MTLValueTransformer transformerWithBlock:^(NSString *name) {
-		// If it's some unknown type, let's just pretend it's an issue for now.
-		return typesByName[name] ?: @(OCTNotificationTypeIssue);
-	}];
+	return [MTLValueTransformer
+		reversibleTransformerWithForwardBlock:^(NSString *name) {
+			return typesByName[name] ?: @(OCTNotificationTypeUnknown);
+		} reverseBlock:^(NSNumber *type) {
+			return [typesByName allKeysForObject:type].lastObject;
+		}];
 }
 
 @end

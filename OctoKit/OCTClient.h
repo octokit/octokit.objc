@@ -256,7 +256,7 @@ extern NSString * const OCTClientErrorHTTPStatusCodeKey;
 
 // Fetch all unread notifications for the user.
 //
-// Returns a signal which will send an array of OCTNotifications.
+// Returns a signal which will zero or more OCTNotifications.
 - (RACSignal *)fetchNotifications;
 
 // Mark the notification has having been read.

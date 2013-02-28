@@ -105,22 +105,11 @@ static const NSUInteger OCTClientNotModifiedStatusCode = 304;
 
 #pragma mark Request Enqueuing
 
-- (RACSignal *)enqueueRequestWithMethod:(NSString *)method URL:(NSURL *)URL parameters:(NSDictionary *)parameters resultClass:(Class)resultClass {
-	return [self enqueueRequestWithMethod:method path:@"" parameters:parameters resultClass:resultClass customizationBlock:^(NSMutableURLRequest *request) {
-		request.URL = URL;
-	}];
-}
-
-- (RACSignal *)enqueueRequestWithMethod:(NSString *)method path:(NSString *)path parameters:(NSDictionary *)parameters resultClass:(Class)resultClass customizationBlock:(void (^)(NSMutableURLRequest *request))customizationBlock {
-	NSMutableURLRequest *request = [self requestWithMethod:method path:[path stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] parameters:parameters];
-	if (customizationBlock != NULL) customizationBlock(request);
-	return [[self enqueueRequest:request resultClass:resultClass fetchAllPages:YES] map:^(OCTResponse *response) {
-		return response.parsedResult;
-	}];
-}
-
 - (RACSignal *)enqueueRequestWithMethod:(NSString *)method path:(NSString *)path parameters:(NSDictionary *)parameters resultClass:(Class)resultClass {
-	return [self enqueueRequestWithMethod:method path:path parameters:parameters resultClass:resultClass customizationBlock:nil];
+	return [[self enqueueConditionalRequestWithMethod:method path:path parameters:parameters notMatchingEtag:nil resultClass:resultClass]
+		map:^(OCTResponse *response) {
+			return response.parsedResult;
+		}];
 }
 
 - (RACSignal *)enqueueConditionalRequestWithMethod:(NSString *)method path:(NSString *)path parameters:(NSDictionary *)parameters notMatchingEtag:(NSString *)etag resultClass:(Class)resultClass {
@@ -510,10 +499,7 @@ static const NSUInteger OCTClientNotModifiedStatusCode = 304;
 @implementation OCTClient (Notifications)
 
 - (RACSignal *)fetchNotifications {
-	return [self enqueueRequestWithMethod:@"GET" path:@"notifications" parameters:nil resultClass:OCTNotification.class customizationBlock:^(NSMutableURLRequest *request) {
-		// No caching #yolo
-		request.cachePolicy = NSURLRequestReloadIgnoringCacheData;
-	}];
+	return [self enqueueRequestWithMethod:@"GET" path:@"notifications" parameters:nil resultClass:OCTNotification.class];
 }
 
 - (RACSignal *)markNotificationAsRead:(OCTNotification *)notification {
@@ -521,7 +507,9 @@ static const NSUInteger OCTClientNotModifiedStatusCode = 304;
 }
 
 - (RACSignal *)patchNotification:(OCTNotification *)notification withReadStatus:(BOOL)read {
-	return [[self enqueueRequestWithMethod:@"PATCH" URL:notification.threadURL parameters:@{ @"read": @(read) } resultClass:nil] ignoreElements];
+	NSMutableURLRequest *request = [self requestWithMethod:@"PATCH" path:@"" parameters:@{ @"read": @(read) }];
+	request.URL = notification.threadURL;
+	return [[self enqueueRequest:request resultClass:nil fetchAllPages:NO] ignoreElements];
 }
 
 @end

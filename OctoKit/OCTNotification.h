@@ -11,14 +11,15 @@
 @class OCTRepository;
 
 // The type of the notification.
+//
+// OCTNotificationTypeUnknown     - An unknown type of notification.
+// OCTNotificationTypeIssue       - A new issue, or a new comment on one.
+// OCTNotificationTypePullRequest - A new pull request, or a new comment on one.
+// OCTNotificationTypeCommit      - A new comment on a commit.
 typedef enum : NSUInteger {
-	// An issue notification.
+    OCTNotificationTypeUnknown,
 	OCTNotificationTypeIssue,
-
-	// A pull request notification.
 	OCTNotificationTypePullRequest,
-
-	// A commit comment notification.
 	OCTNotificationTypeCommit,
 } OCTNotificationType;
 
@@ -28,10 +29,11 @@ typedef enum : NSUInteger {
 // The title of the notification.
 @property (nonatomic, readonly, copy) NSString *title;
 
-// The URL to the thread.
+// The URL to the thread in the notifications API.
 @property (nonatomic, readonly, copy) NSURL *threadURL;
 
-// The URL to the subject.
+// The URL to the subject that the notification was generated for (e.g., the
+// issue or pull request).
 @property (nonatomic, readonly, copy) NSURL *subjectURL;
 
 // The notification type.
