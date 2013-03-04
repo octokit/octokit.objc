@@ -125,7 +125,10 @@ static const NSUInteger OCTClientNotModifiedStatusCode = 304;
 	NSMutableURLRequest *request = [self requestWithMethod:method path:[path stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] parameters:parameters];
 	if (etag != nil) {
 		[request setValue:etag forHTTPHeaderField:@"If-None-Match"];
-	}
+	} else {
+        // ignore cache data so we definitely re-fatch from the server
+        request.cachePolicy = NSURLRequestReloadIgnoringLocalCacheData;
+    }
 
 	return [self enqueueRequest:request resultClass:resultClass fetchAllPages:fetchAllPages];
 }
