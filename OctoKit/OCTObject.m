@@ -58,11 +58,17 @@
 	};
 }
 
-+ (NSValueTransformer *)objectIDJSONTransformer {
++ (NSValueTransformer *)objectIDTransformer {
 	return [MTLValueTransformer
-		reversibleTransformerWithForwardBlock:^(NSNumber *num) {
-			return num.stringValue;
-		} reverseBlock:^ id (NSString *str) {
+		reversibleTransformerWithForwardBlock:^ id (id objectID) {
+			// Sometimes issues have a String ID :(
+			if ([objectID isKindOfClass:NSNumber.class]) {
+				return [objectID stringValue];
+			} else {
+				return objectID;
+			}
+		}
+		reverseBlock:^ id (NSString *str) {
 			if (str == nil) return nil;
 
 			return [NSDecimalNumber decimalNumberWithString:str];

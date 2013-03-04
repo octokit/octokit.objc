@@ -8,6 +8,7 @@
 
 #import "OCTIssue.h"
 #import "OCTPullRequest.h"
+#import "OCTUser.h"
 
 @interface OCTIssue ()
 
@@ -29,6 +30,9 @@
 		@keypath(OCTPullRequest.new, objectID): self.objectID,
 		@keypath(OCTPullRequest.new, HTMLURL): self.pullRequestHTMLURL,
 		@keypath(OCTPullRequest.new, title): self.title,
+		@keypath(OCTPullRequest.new, body): self.body,
+		@keypath(OCTPullRequest.new, commentsURL): self.commentsURL,
+		@keypath(OCTPullRequest.new, user): self.user,
 	} error:NULL];
 }
 
@@ -39,6 +43,9 @@
 		@"HTMLURL": @"html_url",
 		@"objectID": @"number",
 		@"pullRequestHTMLURL": @"pull_request.html_url",
+		@"body": @"body",
+		@"commentsURL": @"comments_url",
+		@"user": @"user",
 	}];
 }
 
@@ -48,6 +55,14 @@
 
 + (NSValueTransformer *)pullRequestHTMLURLJSONTransformer {
 	return [NSValueTransformer valueTransformerForName:MTLURLValueTransformerName];
+}
+
++ (NSValueTransformer *)commentsURLJSONTransformer {
+	return [NSValueTransformer valueTransformerForName:MTLURLValueTransformerName];
+}
+
++ (NSValueTransformer *)userJSONTransformer {
+	return [MTLValueTransformer mtl_JSONDictionaryTransformerWithModelClass:OCTUser.class];
 }
 
 @end

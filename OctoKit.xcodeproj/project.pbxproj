@@ -7,15 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8848E19D16AF630B005449AB /* OCTNotification.h in Headers */ = {isa = PBXBuildFile; fileRef = 8848E19B16AF630B005449AB /* OCTNotification.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8848E19E16AF630B005449AB /* OCTNotification.h in Headers */ = {isa = PBXBuildFile; fileRef = 8848E19B16AF630B005449AB /* OCTNotification.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8848E19F16AF630B005449AB /* OCTNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = 8848E19C16AF630B005449AB /* OCTNotification.m */; };
+		8848E1A016AF630B005449AB /* OCTNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = 8848E19C16AF630B005449AB /* OCTNotification.m */; };
 		D02E48FE16CBAB7A00257645 /* Mantle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0872069169E328B00016ACA /* Mantle.framework */; };
 		D05E74E516D3550A001AA17B /* OHHTTPStubs.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D05E74E016D354FD001AA17B /* OHHTTPStubs.framework */; };
 		D05E74E816D35513001AA17B /* libOHHTTPStubs.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D05E74DE16D354FD001AA17B /* libOHHTTPStubs.a */; };
-		D05E751516D35834001AA17B /* events.json in Resources */ = {isa = PBXBuildFile; fileRef = D05E751416D35834001AA17B /* events.json */; };
-		D05E751616D35834001AA17B /* events.json in Resources */ = {isa = PBXBuildFile; fileRef = D05E751416D35834001AA17B /* events.json */; };
 		D05E752016D35886001AA17B /* OCTClientSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = D05E751F16D35886001AA17B /* OCTClientSpec.m */; };
 		D05E752116D35886001AA17B /* OCTClientSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = D05E751F16D35886001AA17B /* OCTClientSpec.m */; };
-		D05E752916D35C1A001AA17B /* rate_limit.json in Resources */ = {isa = PBXBuildFile; fileRef = D05E752816D35C1A001AA17B /* rate_limit.json */; };
-		D05E752A16D35C1A001AA17B /* rate_limit.json in Resources */ = {isa = PBXBuildFile; fileRef = D05E752816D35C1A001AA17B /* rate_limit.json */; };
 		D0772E7316BD27B5009DFF72 /* NSDateFormatter+OCTFormattingAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = D0B9C8F016BC78970029C5B4 /* NSDateFormatter+OCTFormattingAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D0772E7416BD27B6009DFF72 /* NSDateFormatter+OCTFormattingAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = D0B9C8F016BC78970029C5B4 /* NSDateFormatter+OCTFormattingAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D0772E7716BD2A06009DFF72 /* NSValueTransformer+OCTPredefinedTransformerAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = D0772E7516BD2A05009DFF72 /* NSValueTransformer+OCTPredefinedTransformerAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -212,12 +212,16 @@
 		D0B9C8F516BC78970029C5B4 /* NSDateFormatter+OCTFormattingAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D0B9C8F116BC78970029C5B4 /* NSDateFormatter+OCTFormattingAdditions.m */; };
 		D0B9C8FD16BC7A260029C5B4 /* NSDateFormatterAdditionsSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = D0B9C8FC16BC7A260029C5B4 /* NSDateFormatterAdditionsSpec.m */; };
 		D0B9C8FE16BC7A260029C5B4 /* NSDateFormatterAdditionsSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = D0B9C8FC16BC7A260029C5B4 /* NSDateFormatterAdditionsSpec.m */; };
-		D0D5801716D409F000EF08D5 /* page1.json in Resources */ = {isa = PBXBuildFile; fileRef = D0D5801416D409F000EF08D5 /* page1.json */; };
-		D0D5801816D409F000EF08D5 /* page1.json in Resources */ = {isa = PBXBuildFile; fileRef = D0D5801416D409F000EF08D5 /* page1.json */; };
-		D0D5801916D409F000EF08D5 /* page2.json in Resources */ = {isa = PBXBuildFile; fileRef = D0D5801516D409F000EF08D5 /* page2.json */; };
-		D0D5801A16D409F000EF08D5 /* page2.json in Resources */ = {isa = PBXBuildFile; fileRef = D0D5801516D409F000EF08D5 /* page2.json */; };
-		D0D5801B16D409F000EF08D5 /* page3.json in Resources */ = {isa = PBXBuildFile; fileRef = D0D5801616D409F000EF08D5 /* page3.json */; };
-		D0D5801C16D409F000EF08D5 /* page3.json in Resources */ = {isa = PBXBuildFile; fileRef = D0D5801616D409F000EF08D5 /* page3.json */; };
+		D0D8C09516DFF1540070399E /* events.json in Resources */ = {isa = PBXBuildFile; fileRef = D0D8C09016DFF1540070399E /* events.json */; };
+		D0D8C09616DFF1540070399E /* events.json in Resources */ = {isa = PBXBuildFile; fileRef = D0D8C09016DFF1540070399E /* events.json */; };
+		D0D8C09716DFF1540070399E /* page1.json in Resources */ = {isa = PBXBuildFile; fileRef = D0D8C09116DFF1540070399E /* page1.json */; };
+		D0D8C09816DFF1540070399E /* page1.json in Resources */ = {isa = PBXBuildFile; fileRef = D0D8C09116DFF1540070399E /* page1.json */; };
+		D0D8C09916DFF1540070399E /* page2.json in Resources */ = {isa = PBXBuildFile; fileRef = D0D8C09216DFF1540070399E /* page2.json */; };
+		D0D8C09A16DFF1540070399E /* page2.json in Resources */ = {isa = PBXBuildFile; fileRef = D0D8C09216DFF1540070399E /* page2.json */; };
+		D0D8C09B16DFF1540070399E /* page3.json in Resources */ = {isa = PBXBuildFile; fileRef = D0D8C09316DFF1540070399E /* page3.json */; };
+		D0D8C09C16DFF1540070399E /* page3.json in Resources */ = {isa = PBXBuildFile; fileRef = D0D8C09316DFF1540070399E /* page3.json */; };
+		D0D8C09D16DFF1540070399E /* rate_limit.json in Resources */ = {isa = PBXBuildFile; fileRef = D0D8C09416DFF1540070399E /* rate_limit.json */; };
+		D0D8C09E16DFF1540070399E /* rate_limit.json in Resources */ = {isa = PBXBuildFile; fileRef = D0D8C09416DFF1540070399E /* rate_limit.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -392,10 +396,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		8848E19B16AF630B005449AB /* OCTNotification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCTNotification.h; sourceTree = "<group>"; };
+		8848E19C16AF630B005449AB /* OCTNotification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCTNotification.m; sourceTree = "<group>"; };
 		D05E74D416D354FD001AA17B /* OHHTTPStubs.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = OHHTTPStubs.xcodeproj; path = External/OHHTTPStubs/OHHTTPStubs/OHHTTPStubs.xcodeproj; sourceTree = "<group>"; };
-		D05E751416D35834001AA17B /* events.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = events.json; sourceTree = "<group>"; };
 		D05E751F16D35886001AA17B /* OCTClientSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCTClientSpec.m; sourceTree = "<group>"; };
-		D05E752816D35C1A001AA17B /* rate_limit.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = rate_limit.json; sourceTree = "<group>"; };
 		D0772E7516BD2A05009DFF72 /* NSValueTransformer+OCTPredefinedTransformerAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSValueTransformer+OCTPredefinedTransformerAdditions.h"; sourceTree = "<group>"; };
 		D0772E7616BD2A06009DFF72 /* NSValueTransformer+OCTPredefinedTransformerAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSValueTransformer+OCTPredefinedTransformerAdditions.m"; sourceTree = "<group>"; };
 		D0772E7B16BD2AD5009DFF72 /* NSValueTransformerAdditionsSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSValueTransformerAdditionsSpec.m; sourceTree = "<group>"; };
@@ -525,9 +529,11 @@
 		D0B9C8F016BC78970029C5B4 /* NSDateFormatter+OCTFormattingAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDateFormatter+OCTFormattingAdditions.h"; sourceTree = "<group>"; };
 		D0B9C8F116BC78970029C5B4 /* NSDateFormatter+OCTFormattingAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDateFormatter+OCTFormattingAdditions.m"; sourceTree = "<group>"; };
 		D0B9C8FC16BC7A260029C5B4 /* NSDateFormatterAdditionsSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSDateFormatterAdditionsSpec.m; sourceTree = "<group>"; };
-		D0D5801416D409F000EF08D5 /* page1.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = page1.json; sourceTree = "<group>"; };
-		D0D5801516D409F000EF08D5 /* page2.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = page2.json; sourceTree = "<group>"; };
-		D0D5801616D409F000EF08D5 /* page3.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = page3.json; sourceTree = "<group>"; };
+		D0D8C09016DFF1540070399E /* events.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = events.json; sourceTree = "<group>"; };
+		D0D8C09116DFF1540070399E /* page1.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = page1.json; sourceTree = "<group>"; };
+		D0D8C09216DFF1540070399E /* page2.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = page2.json; sourceTree = "<group>"; };
+		D0D8C09316DFF1540070399E /* page3.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = page3.json; sourceTree = "<group>"; };
+		D0D8C09416DFF1540070399E /* rate_limit.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = rate_limit.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -589,6 +595,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8848E19916AF62F1005449AB /* Notifications */ = {
+			isa = PBXGroup;
+			children = (
+				8848E19B16AF630B005449AB /* OCTNotification.h */,
+				8848E19C16AF630B005449AB /* OCTNotification.m */,
+			);
+			name = Notifications;
+			sourceTree = "<group>";
+		};
 		D05E74D516D354FD001AA17B /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -596,18 +611,6 @@
 				D05E74E016D354FD001AA17B /* OHHTTPStubs.framework */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		D05E751316D35834001AA17B /* Stubs */ = {
-			isa = PBXGroup;
-			children = (
-				D05E751416D35834001AA17B /* events.json */,
-				D0D5801416D409F000EF08D5 /* page1.json */,
-				D0D5801516D409F000EF08D5 /* page2.json */,
-				D0D5801616D409F000EF08D5 /* page3.json */,
-				D05E752816D35C1A001AA17B /* rate_limit.json */,
-			);
-			path = Stubs;
 			sourceTree = "<group>";
 		};
 		D0871E9C169E2EFC00016ACA = {
@@ -689,7 +692,7 @@
 		D0871EC8169E2EFC00016ACA /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				D05E751316D35834001AA17B /* Stubs */,
+				D0D8C08F16DFF1540070399E /* Stubs */,
 				D0871EC9169E2EFC00016ACA /* OctoKitTests-Info.plist */,
 				D0872124169E365A00016ACA /* OctoKitTests-Prefix.pch */,
 				D0871ECA169E2EFC00016ACA /* InfoPlist.strings */,
@@ -899,6 +902,7 @@
 				D08722A2169E3D7C00016ACA /* Issues */,
 				D08B5998169E3E69006003B8 /* Pull Requests */,
 				D08B599A169E3E8D006003B8 /* Repositories */,
+				8848E19916AF62F1005449AB /* Notifications */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -985,6 +989,18 @@
 			name = Extensions;
 			sourceTree = "<group>";
 		};
+		D0D8C08F16DFF1540070399E /* Stubs */ = {
+			isa = PBXGroup;
+			children = (
+				D0D8C09016DFF1540070399E /* events.json */,
+				D0D8C09116DFF1540070399E /* page1.json */,
+				D0D8C09216DFF1540070399E /* page2.json */,
+				D0D8C09316DFF1540070399E /* page3.json */,
+				D0D8C09416DFF1540070399E /* rate_limit.json */,
+			);
+			path = Stubs;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -1027,6 +1043,7 @@
 				D08721B5169E395F00016ACA /* OCTTeam.h in Headers */,
 				D08721B9169E395F00016ACA /* OCTUser.h in Headers */,
 				D087229F169E3D6000016ACA /* OctoKit.h in Headers */,
+				8848E19D16AF630B005449AB /* OCTNotification.h in Headers */,
 				D0772E7316BD27B5009DFF72 /* NSDateFormatter+OCTFormattingAdditions.h in Headers */,
 				D0772E7716BD2A06009DFF72 /* NSValueTransformer+OCTPredefinedTransformerAdditions.h in Headers */,
 			);
@@ -1071,6 +1088,7 @@
 				D08721B6169E395F00016ACA /* OCTTeam.h in Headers */,
 				D08721BA169E395F00016ACA /* OCTUser.h in Headers */,
 				D08722A0169E3D6000016ACA /* OctoKit.h in Headers */,
+				8848E19E16AF630B005449AB /* OCTNotification.h in Headers */,
 				D0772E7416BD27B6009DFF72 /* NSDateFormatter+OCTFormattingAdditions.h in Headers */,
 				D0772E7816BD2A06009DFF72 /* NSValueTransformer+OCTPredefinedTransformerAdditions.h in Headers */,
 			);
@@ -1322,11 +1340,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				D0871ECC169E2EFC00016ACA /* InfoPlist.strings in Resources */,
-				D05E751516D35834001AA17B /* events.json in Resources */,
-				D05E752916D35C1A001AA17B /* rate_limit.json in Resources */,
-				D0D5801716D409F000EF08D5 /* page1.json in Resources */,
-				D0D5801916D409F000EF08D5 /* page2.json in Resources */,
-				D0D5801B16D409F000EF08D5 /* page3.json in Resources */,
+				D0D8C09516DFF1540070399E /* events.json in Resources */,
+				D0D8C09716DFF1540070399E /* page1.json in Resources */,
+				D0D8C09916DFF1540070399E /* page2.json in Resources */,
+				D0D8C09B16DFF1540070399E /* page3.json in Resources */,
+				D0D8C09D16DFF1540070399E /* rate_limit.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1334,11 +1352,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D05E751616D35834001AA17B /* events.json in Resources */,
-				D05E752A16D35C1A001AA17B /* rate_limit.json in Resources */,
-				D0D5801816D409F000EF08D5 /* page1.json in Resources */,
-				D0D5801A16D409F000EF08D5 /* page2.json in Resources */,
-				D0D5801C16D409F000EF08D5 /* page3.json in Resources */,
+				D0D8C09616DFF1540070399E /* events.json in Resources */,
+				D0D8C09816DFF1540070399E /* page1.json in Resources */,
+				D0D8C09A16DFF1540070399E /* page2.json in Resources */,
+				D0D8C09C16DFF1540070399E /* page3.json in Resources */,
+				D0D8C09E16DFF1540070399E /* rate_limit.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1412,6 +1430,7 @@
 				D08721B7169E395F00016ACA /* OCTTeam.m in Sources */,
 				D08721BB169E395F00016ACA /* OCTUser.m in Sources */,
 				D087229C169E3D0500016ACA /* ISO8601DateFormatter.m in Sources */,
+				8848E19F16AF630B005449AB /* OCTNotification.m in Sources */,
 				D0B9C8F416BC78970029C5B4 /* NSDateFormatter+OCTFormattingAdditions.m in Sources */,
 				D0772E7916BD2A06009DFF72 /* NSValueTransformer+OCTPredefinedTransformerAdditions.m in Sources */,
 			);
@@ -1475,6 +1494,7 @@
 				D08721B8169E395F00016ACA /* OCTTeam.m in Sources */,
 				D08721BC169E395F00016ACA /* OCTUser.m in Sources */,
 				D087229D169E3D0500016ACA /* ISO8601DateFormatter.m in Sources */,
+				8848E1A016AF630B005449AB /* OCTNotification.m in Sources */,
 				D0B9C8F516BC78970029C5B4 /* NSDateFormatter+OCTFormattingAdditions.m in Sources */,
 				D0772E7A16BD2A06009DFF72 /* NSValueTransformer+OCTPredefinedTransformerAdditions.m in Sources */,
 			);

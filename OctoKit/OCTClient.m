@@ -16,6 +16,9 @@
 #import "OCTServer.h"
 #import "OCTTeam.h"
 #import "OCTUser.h"
+#import "OCTNotification.h"
+#import "OCTIssue.h"
+#import "OCTIssueComment.h"
 
 NSString * const OCTClientErrorDomain = @"OCTClientErrorDomain";
 const NSInteger OCTClientErrorAuthenticationFailed = 666;
@@ -104,11 +107,22 @@ static const NSUInteger OCTClientNotModifiedStatusCode = 304;
 
 #pragma mark Request Enqueuing
 
+- (RACSignal *)enqueueRequestWithMethod:(NSString *)method URL:(NSURL *)URL parameters:(NSDictionary *)parameters resultClass:(Class)resultClass {
+	return [self enqueueRequestWithMethod:method path:@"" parameters:parameters resultClass:resultClass customizationBlock:^(NSMutableURLRequest *request) {
+		request.URL = URL;
+	}];
+}
+
+- (RACSignal *)enqueueRequestWithMethod:(NSString *)method path:(NSString *)path parameters:(NSDictionary *)parameters resultClass:(Class)resultClass customizationBlock:(void (^)(NSMutableURLRequest *request))customizationBlock {
+	NSMutableURLRequest *request = [self requestWithMethod:method path:[path stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] parameters:parameters];
+	if (customizationBlock != NULL) customizationBlock(request);
+	return [[self enqueueRequest:request resultClass:resultClass fetchAllPages:YES] map:^(OCTResponse *response) {
+		return response.parsedResult;
+	}];
+}
+
 - (RACSignal *)enqueueRequestWithMethod:(NSString *)method path:(NSString *)path parameters:(NSDictionary *)parameters resultClass:(Class)resultClass {
-	return [[self enqueueConditionalRequestWithMethod:method path:path parameters:parameters notMatchingEtag:nil resultClass:resultClass]
-		map:^(OCTResponse *response) {
-			return response.parsedResult;
-		}];
+	return [self enqueueRequestWithMethod:method path:path parameters:parameters resultClass:resultClass customizationBlock:nil];
 }
 
 - (RACSignal *)enqueueConditionalRequestWithMethod:(NSString *)method path:(NSString *)path parameters:(NSDictionary *)parameters notMatchingEtag:(NSString *)etag resultClass:(Class)resultClass {
@@ -123,6 +137,7 @@ static const NSUInteger OCTClientNotModifiedStatusCode = 304;
 	}];
 	
 	NSMutableURLRequest *request = [self requestWithMethod:method path:[path stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] parameters:parameters];
+
 	if (etag != nil) {
 		[request setValue:etag forHTTPHeaderField:@"If-None-Match"];
 	} else {
@@ -500,6 +515,48 @@ static const NSUInteger OCTClientNotModifiedStatusCode = 304;
 	if (self.user == nil) return [RACSignal error:self.class.userRequiredError];
 
 	return [self enqueueConditionalRequestWithMethod:@"GET" path:[NSString stringWithFormat:@"users/%@/received_events", self.user.login] parameters:nil notMatchingEtag:etag resultClass:OCTEvent.class fetchAllPages:NO];
+}
+
+@end
+
+@implementation OCTClient (Notifications)
+
+- (RACSignal *)fetchNotifications {
+	return [self enqueueRequestWithMethod:@"GET" path:@"notifications" parameters:nil resultClass:OCTNotification.class customizationBlock:^(NSMutableURLRequest *request) {
+		// No caching #yolo
+		request.cachePolicy = NSURLRequestReloadIgnoringCacheData;
+	}];
+}
+- (RACSignal *)fetchIssueForNotification:(OCTNotification *)notification {
+	return [self enqueueRequestWithMethod:@"GET" URL:notification.subjectURL parameters:nil resultClass:OCTIssue.class];
+}
+
+- (RACSignal *)markNotificationAsRead:(OCTNotification *)notification {
+	return [self patchNotification:notification withReadStatus:YES];
+}
+
+- (RACSignal *)patchNotification:(OCTNotification *)notification withReadStatus:(BOOL)read {
+	return [[self enqueueRequestWithMethod:@"PATCH" URL:notification.threadURL parameters:@{ @"read": @(read) } resultClass:nil] ignoreElements];
+}
+
+@end
+
+@implementation OCTClient (Issues)
+
+- (RACSignal *)fetchAssignedIssues {
+	return [self fetchIssuesWithParameters:nil];
+}
+
+- (RACSignal *)fetchIssuesWithParameters:(NSDictionary *)parameters {
+	return [[self enqueueRequestWithMethod:@"GET" path:@"issues" parameters:parameters resultClass:OCTIssue.class] map:^(NSArray *issues) {
+		return [issues mtl_filterUsingBlock:^ BOOL (OCTIssue *issue) {
+			return issue.pullRequest == nil;
+		}];
+	}];
+}
+
+- (RACSignal *)fetchCommentsForIssue:(OCTIssue *)issue {
+	return [self enqueueRequestWithMethod:@"GET" URL:issue.commentsURL parameters:nil resultClass:OCTIssueComment.class];
 }
 
 @end
