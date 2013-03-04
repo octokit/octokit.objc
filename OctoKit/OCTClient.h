@@ -159,6 +159,11 @@ extern NSString * const OCTClientErrorHTTPStatusCodeKey;
 // point, the returned signal will send it immediately, then terminate.
 - (RACSignal *)enqueueConditionalRequestWithMethod:(NSString *)method path:(NSString *)path parameters:(NSDictionary *)parameters notMatchingEtag:(NSString *)etag resultClass:(Class)resultClass;
 
+// Behaves like
+// -enqueueConditionalRequestWithMethod:path:parameters:notMatchingEtag:resultClass:,
+// but allows a full URL to be passed in.
+- (RACSignal *)enqueueConditionalRequestWithMethod:(NSString *)method URL:(NSURL *)URL parameters:(NSDictionary *)parameters notMatchingEtag:(NSString *)etag resultClass:(Class)resultClass;
+
 @end
 
 @interface OCTClient (User)

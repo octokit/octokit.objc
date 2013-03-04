@@ -58,6 +58,17 @@ static const NSUInteger OCTClientNotModifiedStatusCode = 304;
 // will error immediately.
 - (RACSignal *)enqueueUserRequestWithMethod:(NSString *)method relativePath:(NSString *)relativePath parameters:(NSDictionary *)parameters resultClass:(Class)resultClass;
 
+// Creates a request.
+//
+// method - The HTTP method to use in the request (e.g., "GET" or "POST").
+// path   - The path to request, relative to the base API endpoint. This path
+//			should _not_ begin with a forward slash.
+// etag   - An ETag to compare the server data against, previously retrieved
+//			from an instance of OCTResponse.
+//
+// Returns a request which can be modified further before being enqueued.
+- (NSMutableURLRequest *)requestWithMethod:(NSString *)method path:(NSString *)path parameters:(NSDictionary *)parameters notMatchingEtag:(NSString *)etag;
+
 @end
 
 @implementation OCTClient
@@ -103,6 +114,27 @@ static const NSUInteger OCTClientNotModifiedStatusCode = 304;
 	return self;
 }
 
+#pragma mark Request Creation
+
+- (NSMutableURLRequest *)requestWithMethod:(NSString *)method path:(NSString *)path parameters:(NSDictionary *)parameters notMatchingEtag:(NSString *)etag {
+	NSParameterAssert(method != nil);
+
+	parameters = [parameters mtl_dictionaryByAddingEntriesFromDictionary:@{
+		@"per_page": @100
+	}];
+	
+	NSMutableURLRequest *request = [self requestWithMethod:method path:[path stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] parameters:parameters];
+
+	if (etag != nil) {
+		[request setValue:etag forHTTPHeaderField:@"If-None-Match"];
+	} else {
+        // Ignore cache data so we definitely re-fetch from the server.
+        request.cachePolicy = NSURLRequestReloadIgnoringLocalCacheData;
+    }
+
+	return request;
+}
+
 #pragma mark Request Enqueuing
 
 - (RACSignal *)enqueueRequestWithMethod:(NSString *)method path:(NSString *)path parameters:(NSDictionary *)parameters resultClass:(Class)resultClass {
@@ -117,22 +149,18 @@ static const NSUInteger OCTClientNotModifiedStatusCode = 304;
 }
 
 - (RACSignal *)enqueueConditionalRequestWithMethod:(NSString *)method path:(NSString *)path parameters:(NSDictionary *)parameters notMatchingEtag:(NSString *)etag resultClass:(Class)resultClass fetchAllPages:(BOOL)fetchAllPages {
-	NSParameterAssert(method != nil);
-
-	parameters = [parameters mtl_dictionaryByAddingEntriesFromDictionary:@{
-		@"per_page": @100
-	}];
-	
-	NSMutableURLRequest *request = [self requestWithMethod:method path:[path stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] parameters:parameters];
-
-	if (etag != nil) {
-		[request setValue:etag forHTTPHeaderField:@"If-None-Match"];
-	} else {
-        // ignore cache data so we definitely re-fatch from the server
-        request.cachePolicy = NSURLRequestReloadIgnoringLocalCacheData;
-    }
-
+	NSURLRequest *request = [self requestWithMethod:method path:path parameters:parameters notMatchingEtag:etag];
 	return [self enqueueRequest:request resultClass:resultClass fetchAllPages:fetchAllPages];
+}
+
+- (RACSignal *)enqueueConditionalRequestWithMethod:(NSString *)method URL:(NSURL *)URL parameters:(NSDictionary *)parameters notMatchingEtag:(NSString *)etag resultClass:(Class)resultClass {
+	NSMutableURLRequest *request = [self requestWithMethod:method path:@"" parameters:parameters notMatchingEtag:etag];
+	request.URL = URL;
+	return [self enqueueRequest:request resultClass:resultClass fetchAllPages:YES];
+}
+
+- (RACSignal *)enqueueRequest:(NSURLRequest *)request resultClass:(Class)resultClass {
+	return [self enqueueRequest:request resultClass:resultClass fetchAllPages:YES];
 }
 
 - (RACSignal *)enqueueRequest:(NSURLRequest *)request resultClass:(Class)resultClass fetchAllPages:(BOOL)fetchAllPages {
@@ -523,7 +551,7 @@ static const NSUInteger OCTClientNotModifiedStatusCode = 304;
 
 	if (!self.authenticated) return [RACSignal error:self.class.authenticationRequiredError];
 
-	NSMutableURLRequest *request = [self requestWithMethod:@"PATCH" path:@"" parameters:@{ @"read": @(read) }];
+	NSMutableURLRequest *request = [self requestWithMethod:@"PATCH" path:@"" parameters:@{ @"read": @(read) } notMatchingEtag:nil];
 	request.URL = notification.threadURL;
 	return [[self enqueueRequest:request resultClass:nil fetchAllPages:NO] ignoreElements];
 }
