@@ -127,7 +127,10 @@ static const NSUInteger OCTClientNotModifiedStatusCode = 304;
 
 	if (etag != nil) {
 		[request setValue:etag forHTTPHeaderField:@"If-None-Match"];
-	}
+	} else {
+        // ignore cache data so we definitely re-fatch from the server
+        request.cachePolicy = NSURLRequestReloadIgnoringLocalCacheData;
+    }
 
 	return [self enqueueRequest:request resultClass:resultClass fetchAllPages:fetchAllPages];
 }
@@ -357,11 +360,18 @@ static const NSUInteger OCTClientNotModifiedStatusCode = 304;
 	} else if (HTTPCode == 422) {
 		errorCode = OCTClientErrorServiceRequestFailed;
 		
-		NSArray *errors = [responseDictionary[@"errors"] mtl_mapUsingBlock:^(NSDictionary *errorDictionary) {
-			return [self errorMessageFromErrorDictionary:errorDictionary];
-		}];
-		NSString *fullMessage = [NSString stringWithFormat:NSLocalizedString(@"%@:\n\n%@", @""), message, [errors componentsJoinedByString:@"\n"]];
-		userInfo[NSLocalizedDescriptionKey] = fullMessage;
+		NSArray *errorDictionaries = responseDictionary[@"errors"];
+		if ([errorDictionaries isKindOfClass:NSArray.class]) {
+			NSMutableArray *errors = [NSMutableArray arrayWithCapacity:errorDictionaries.count];
+			for (NSDictionary *errorDictionary in errorDictionaries) {
+				NSString *message = [self errorMessageFromErrorDictionary:errorDictionary];
+				if (message == nil) continue;
+				
+				[errors addObject:message];
+			}
+
+			userInfo[NSLocalizedDescriptionKey] = [NSString stringWithFormat:NSLocalizedString(@"%@:\n\n%@", @""), message, [errors componentsJoinedByString:@"\n"]];
+		}
 	} else if (operation.error != nil) {
 		errorCode = OCTClientErrorConnectionFailed;
 		if ([operation.error.domain isEqual:NSURLErrorDomain]) {
