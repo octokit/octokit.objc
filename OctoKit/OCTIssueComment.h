@@ -11,4 +11,7 @@
 // A single comment on an issue.
 @interface OCTIssueComment : OCTObject
 
+// The webpage URL for this comment.
+@property (nonatomic, copy, readonly) NSURL *HTMLURL;
+
 @end

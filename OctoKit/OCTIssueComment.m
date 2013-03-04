@@ -10,4 +10,16 @@
 
 @implementation OCTIssueComment
 
+#pragma mark MTLJSONSerializing
+
++ (NSDictionary *)JSONKeyPathsByPropertyKey {
+	return [super.JSONKeyPathsByPropertyKey mtl_dictionaryByAddingEntriesFromDictionary:@{
+		@"HTMLURL": @"html_url",
+	}];
+}
+
++ (NSValueTransformer *)HTMLURLJSONTransformer {
+	return [NSValueTransformer valueTransformerForName:MTLURLValueTransformerName];
+}
+
 @end
