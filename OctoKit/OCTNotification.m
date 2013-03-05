@@ -27,7 +27,15 @@
 }
 
 + (NSValueTransformer *)objectIDJSONTransformer {
-	return nil;
+	return [MTLValueTransformer transformerWithBlock:^(id num) {
+		if ([num isKindOfClass:NSString.class]) {
+			return num;
+		} else if ([num isKindOfClass:NSNumber.class]) {
+			return [num stringValue];
+		} else {
+			return nil;
+		}
+	}];
 }
 
 + (NSValueTransformer *)threadURLJSONTransformer {
