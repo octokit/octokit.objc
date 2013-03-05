@@ -26,6 +26,10 @@
 	}];
 }
 
++ (NSValueTransformer *)objectIDJSONTransformer {
+	return nil;
+}
+
 + (NSValueTransformer *)threadURLJSONTransformer {
 	return [NSValueTransformer valueTransformerForName:MTLURLValueTransformerName];
 }
