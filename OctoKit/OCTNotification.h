@@ -48,4 +48,7 @@ typedef enum : NSUInteger {
 // The date on which the notification was last updated.
 @property (nonatomic, readonly, strong) NSDate *lastUpdatedDate;
 
+// Whether this notification has yet to be read.
+@property (nonatomic, readonly, getter = isUnread) BOOL unread;
+
 @end
