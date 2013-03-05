@@ -16,6 +16,7 @@
 	return [super.JSONKeyPathsByPropertyKey mtl_dictionaryByAddingEntriesFromDictionary:@{
 		@"HTMLURL": @"_links.html.href",
 		@"pullRequestAPIURL": @"_links.pull_request.href",
+		@"commenterLogin": @"user.login",
 	}];
 }
 

@@ -17,4 +17,7 @@
 // The API URL for the pull request upon which this comment appears.
 @property (nonatomic, copy, readonly) NSURL *pullRequestAPIURL;
 
+// The login of the user who created this comment.
+@property (nonatomic, copy, readonly) NSString *commenterLogin;
+
 @end
