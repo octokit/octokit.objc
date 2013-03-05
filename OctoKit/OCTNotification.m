@@ -27,7 +27,7 @@
 }
 
 + (NSValueTransformer *)objectIDJSONTransformer {
-	return [MTLValueTransformer transformerWithBlock:^(id num) {
+	return [MTLValueTransformer transformerWithBlock:^ id (id num) {
 		if ([num isKindOfClass:NSString.class]) {
 			return num;
 		} else if ([num isKindOfClass:NSNumber.class]) {
