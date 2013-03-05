@@ -149,7 +149,7 @@ describe(@"authenticated", ^{
 	it(@"should fetch notifications", ^{
 		stubResponse(@"/notifications", @"notifications.json");
 
-		RACSignal *request = [client fetchNotificationsNotMatchingEtag:nil];
+		RACSignal *request = [client fetchNotificationsNotMatchingEtag:nil includeReadNotifications:NO updatedSince:nil];
 		OCTResponse *response = [request asynchronousFirstOrDefault:nil success:&success error:&error];
 		expect(success).to.beTruthy();
 		expect(error).to.beNil();
@@ -171,7 +171,7 @@ describe(@"authenticated", ^{
 	it(@"should return nothing if notifications are unmodified", ^{
 		stubResponseWithStatusCode(@"/notifications", 304);
 
-		RACSignal *request = [client fetchNotificationsNotMatchingEtag:etag];
+		RACSignal *request = [client fetchNotificationsNotMatchingEtag:etag includeReadNotifications:NO updatedSince:nil];
 		expect([request asynchronousFirstOrDefault:nil success:&success error:&error]).to.beNil();
 		expect(success).to.beTruthy();
 		expect(error).to.beNil();

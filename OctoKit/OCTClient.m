@@ -7,6 +7,7 @@
 //
 
 #import "OCTClient.h"
+#import "NSDateFormatter+OCTFormattingAdditions.h"
 #import "OCTEvent.h"
 #import "OCTObject+Private.h"
 #import "OCTOrganization.h"
@@ -536,10 +537,17 @@ static const NSUInteger OCTClientNotModifiedStatusCode = 304;
 
 @implementation OCTClient (Notifications)
 
-- (RACSignal *)fetchNotificationsNotMatchingEtag:(NSString *)etag {
+- (RACSignal *)fetchNotificationsNotMatchingEtag:(NSString *)etag includeReadNotifications:(BOOL)includeRead updatedSince:(NSDate *)since {
 	if (!self.authenticated) return [RACSignal error:self.class.authenticationRequiredError];
 
-	return [self enqueueConditionalRequestWithMethod:@"GET" path:@"notifications" parameters:nil notMatchingEtag:etag resultClass:OCTNotification.class];
+	NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+	parameters[@"read"] = @(includeRead);
+
+	if (since != nil) {
+		parameters[@"since"] = [NSDateFormatter oct_stringFromDate:since];
+	}
+
+	return [self enqueueConditionalRequestWithMethod:@"GET" path:@"notifications" parameters:parameters notMatchingEtag:etag resultClass:OCTNotification.class];
 }
 
 - (RACSignal *)markNotificationAsRead:(OCTNotification *)notification {
