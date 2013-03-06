@@ -541,7 +541,7 @@ static const NSUInteger OCTClientNotModifiedStatusCode = 304;
 	if (!self.authenticated) return [RACSignal error:self.class.authenticationRequiredError];
 
 	NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
-	parameters[@"read"] = @(includeRead);
+	parameters[@"all"] = @(includeRead);
 
 	if (since != nil) {
 		parameters[@"since"] = [NSDateFormatter oct_stringFromDate:since];
