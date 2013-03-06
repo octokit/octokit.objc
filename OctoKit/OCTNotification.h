@@ -37,6 +37,9 @@ typedef enum : NSUInteger {
 @property (nonatomic, readonly, copy) NSURL *subjectURL;
 
 // The API URL to the latest comment in the thread.
+//
+// If the notification does not represent a comment, this will be the same as
+// the subjectURL.
 @property (nonatomic, readonly, copy) NSURL *latestCommentURL;
 
 // The notification type.
