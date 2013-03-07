@@ -29,8 +29,8 @@ NSString * const OCTClientErrorHTTPStatusCodeKey = @"OCTClientErrorHTTPStatusCod
 
 static const NSUInteger OCTClientNotModifiedStatusCode = 304;
 
-static NSString * const OCTClientPOSTMethodString = @"POST";
-static NSString * const OCTClientGETMethodString = @"GET";
+NSString * const OCTClientHTTPMethodPOST = @"POST";
+NSString * const OCTClientHTTPMethodGET = @"GET";
 
 @interface RACSignal (OCTClientAdditions)
 
@@ -139,17 +139,18 @@ static NSString * const OCTClientGETMethodString = @"GET";
 
 #pragma mark Request Enqueuing
 
-- (RACSignal *)enqueueGETRequestWithPath:(NSString *)path parameters:(NSDictionary *)parameters notMatchingEtag:(NSString *)etag resultClass:(Class)resultClass fetchAllPages:(BOOL)fetchAllPages {
-    return [self enqueueRequestWithMethod:OCTClientGETMethodString path:path parameters:parameters notMatchingEtag:etag resultClass:resultClass fetchAllPages:fetchAllPages];
-}
-
-- (RACSignal *)enqueuePOSTRequestWithPath:(NSString *)path parameters:(NSDictionary *)parameters resultClass:(Class)resultClass {
-    return [self enqueueRequestWithMethod:OCTClientPOSTMethodString path:path parameters:parameters notMatchingEtag:nil resultClass:resultClass fetchAllPages:YES];
+- (RACSignal *)enqueueRequestWithMethod:(NSString *)method path:(NSString *)path parameters:(NSDictionary *)parameters notMatchingEtag:(NSString *)etag resultClass:(Class)resultClass {
+    NSURLRequest *request = [self requestWithMethod:method path:path parameters:parameters];
+    return [self enqueueRequest:request resultClass:resultClass];
 }
 
 - (RACSignal *)enqueueRequestWithMethod:(NSString *)method path:(NSString *)path parameters:(NSDictionary *)parameters notMatchingEtag:(NSString *)etag resultClass:(Class)resultClass fetchAllPages:(BOOL)fetchAllPages {
     NSURLRequest *request = [self requestWithMethod:method path:path parameters:parameters];
     return [self enqueueRequest:request resultClass:resultClass fetchAllPages:fetchAllPages];
+}
+
+- (RACSignal *)enqueueRequest:(NSURLRequest *)request resultClass:(Class)resultClass {
+    return [self enqueueRequest:request resultClass:resultClass fetchAllPages:YES];
 }
 
 - (RACSignal *)enqueueRequest:(NSURLRequest *)request resultClass:(Class)resultClass fetchAllPages:(BOOL)fetchAllPages {
@@ -201,7 +202,7 @@ static NSString * const OCTClientGETMethodString = @"GET";
 		// Avoid infinite recursion.
 		if (![request.URL.path isEqualToString:@"rate_limit"]) {
 			signal = [signal doCompleted:^{
-				[[self enqueueRequestWithMethod:@"GET" path:@"rate_limit" parameters:nil notMatchingEtag:nil resultClass:nil fetchAllPages:YES] subscribeNext:^(NSDictionary *dict) {
+				[[self enqueueRequestWithMethod:OCTClientHTTPMethodGET path:@"rate_limit" parameters:nil notMatchingEtag:nil resultClass:nil fetchAllPages:YES] subscribeNext:^(NSDictionary *dict) {
 					NSLog(@"Remaining API calls: %@", dict[@"rate"][@"remaining"]);
 				}];
 			}];
@@ -440,15 +441,15 @@ static NSString * const OCTClientGETMethodString = @"GET";
 	if (self.authenticated) {
         NSMutableURLRequest *userRequest = [self requestWithMethod:@"GET" path:@"user" parameters:nil];
         userRequest.cachePolicy = NSURLRequestReloadIgnoringLocalCacheData;
-		return [[self enqueueRequest:userRequest resultClass:OCTUser.class fetchAllPages:YES] parsedResult];
+		return [[self enqueueRequest:userRequest resultClass:OCTUser.class] parsedResult];
 	} else {
 		NSString *path = [NSString stringWithFormat:@"users/%@", self.user.login];
-		return [[self enqueueGETRequestWithPath:path parameters:nil notMatchingEtag:nil resultClass:OCTUser.class fetchAllPages:YES] parsedResult];
+		return [[self enqueueRequestWithMethod:OCTClientHTTPMethodGET path:path parameters:nil notMatchingEtag:nil resultClass:OCTUser.class] parsedResult];
 	}
 }
 
 - (RACSignal *)fetchUserRepositories {
-	return [[self enqueueUserRequestWithMethod:@"GET" relativePath:@"repos" parameters:nil resultClass:OCTRepository.class] parsedResult];
+	return [[self enqueueUserRequestWithMethod:OCTClientHTTPMethodGET relativePath:@"repos" parameters:nil resultClass:OCTRepository.class] parsedResult];
 }
 
 - (RACSignal *)createRepositoryWithName:(NSString *)name description:(NSString *)description private:(BOOL)isPrivate {
@@ -462,15 +463,15 @@ static NSString * const OCTClientGETMethodString = @"GET";
 @implementation OCTClient (Organizations)
 
 - (RACSignal *)fetchUserOrganizations {
-	return [[self enqueueUserRequestWithMethod:@"GET" relativePath:@"orgs" parameters:nil resultClass:OCTOrganization.class] parsedResult];
+	return [[self enqueueUserRequestWithMethod:OCTClientHTTPMethodGET relativePath:@"orgs" parameters:nil resultClass:OCTOrganization.class] parsedResult];
 }
 
 - (RACSignal *)fetchOrganizationInfo:(OCTOrganization *)organization {
-	return [[self enqueueGETRequestWithPath:[NSString stringWithFormat:@"orgs/%@", organization.login] parameters:nil notMatchingEtag:nil resultClass:OCTOrganization.class fetchAllPages:YES] parsedResult];
+	return [[self enqueueRequestWithMethod:OCTClientHTTPMethodGET path:[NSString stringWithFormat:@"orgs/%@", organization.login] parameters:nil notMatchingEtag:nil resultClass:OCTOrganization.class] parsedResult];
 }
 
 - (RACSignal *)fetchRepositoriesForOrganization:(OCTOrganization *)organization {
-	return [[self enqueueGETRequestWithPath:[NSString stringWithFormat:@"orgs/%@/repos", organization.login] parameters:nil notMatchingEtag:nil resultClass:OCTRepository.class fetchAllPages:YES] parsedResult];
+	return [[self enqueueRequestWithMethod:OCTClientHTTPMethodGET path:[NSString stringWithFormat:@"orgs/%@/repos", organization.login] parameters:nil notMatchingEtag:nil resultClass:OCTRepository.class] parsedResult];
 }
 
 - (RACSignal *)createRepositoryWithName:(NSString *)name organization:(OCTOrganization *)organization team:(OCTTeam *)team description:(NSString *)description private:(BOOL)isPrivate {
@@ -484,13 +485,13 @@ static NSString * const OCTClientGETMethodString = @"GET";
 	if (team != nil) options[@"team_id"] = team.objectID;
 	
 	NSString *path = (organization == nil ? @"user/repos" : [NSString stringWithFormat:@"orgs/%@/repos", organization.login]);
-	return [[self enqueuePOSTRequestWithPath:path parameters:options resultClass:OCTRepository.class] parsedResult];
+	return [[self enqueueRequestWithMethod:OCTClientHTTPMethodPOST path:path parameters:options notMatchingEtag:nil resultClass:OCTRepository.class] parsedResult];
 }
 
 - (RACSignal *)fetchTeamsForOrganization:(OCTOrganization *)organization {
 	if (!self.authenticated) return [RACSignal error:self.class.authenticationRequiredError];
 
-	return [[self enqueueGETRequestWithPath:[NSString stringWithFormat:@"orgs/%@/teams", organization.login] parameters:nil notMatchingEtag:nil resultClass:OCTTeam.class fetchAllPages:YES] parsedResult];
+	return [[self enqueueRequestWithMethod:OCTClientHTTPMethodGET path:[NSString stringWithFormat:@"orgs/%@/teams", organization.login] parameters:nil notMatchingEtag:nil resultClass:OCTTeam.class] parsedResult];
 }
 
 @end
@@ -498,7 +499,7 @@ static NSString * const OCTClientGETMethodString = @"GET";
 @implementation OCTClient (Keys)
 
 - (RACSignal *)fetchPublicKeys {
-	return [[self enqueueUserRequestWithMethod:@"GET" relativePath:@"keys" parameters:nil resultClass:OCTPublicKey.class] parsedResult];
+	return [[self enqueueUserRequestWithMethod:OCTClientHTTPMethodGET relativePath:@"keys" parameters:nil resultClass:OCTPublicKey.class] parsedResult];
 }
 
 - (RACSignal *)postPublicKey:(NSString *)key title:(NSString *)title {
@@ -512,7 +513,7 @@ static NSString * const OCTClientGETMethodString = @"GET";
 		@keypath(OCTPublicKey.new, title): title,
 	} error:NULL];
 
-	return [[self enqueuePOSTRequestWithPath:@"user/keys" parameters:[MTLJSONAdapter JSONDictionaryFromModel:publicKey] resultClass:OCTPublicKey.class] parsedResult];
+	return [[self enqueueRequestWithMethod:OCTClientHTTPMethodPOST path:@"user/keys" parameters:[MTLJSONAdapter JSONDictionaryFromModel:publicKey] notMatchingEtag:nil resultClass:OCTPublicKey.class] parsedResult];
 }
 
 @end
@@ -522,7 +523,7 @@ static NSString * const OCTClientGETMethodString = @"GET";
 - (RACSignal *)fetchUserEventsNotMatchingEtag:(NSString *)etag {
 	if (self.user == nil) return [RACSignal error:self.class.userRequiredError];
 
-	return [self enqueueGETRequestWithPath:[NSString stringWithFormat:@"users/%@/received_events", self.user.login] parameters:nil notMatchingEtag:etag resultClass:OCTEvent.class fetchAllPages:NO];
+	return [self enqueueRequestWithMethod:OCTClientHTTPMethodGET path:[NSString stringWithFormat:@"users/%@/received_events", self.user.login] parameters:nil notMatchingEtag:etag resultClass:OCTEvent.class fetchAllPages:NO];
 }
 
 @end

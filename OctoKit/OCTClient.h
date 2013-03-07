@@ -14,6 +14,12 @@
 @class OCTTeam;
 @class OCTUser;
 
+// The GET HTTP method to use in a request.
+extern NSString * const OCTClientHTTPMethodGET;
+
+// The POST HTTP method to use in a request.
+extern NSString * const OCTClientHTTPMethodPOST;
+
 // The domain for all errors originating in OCTClient.
 extern NSString * const OCTClientErrorDomain;
 
@@ -107,27 +113,42 @@ extern NSString * const OCTClientErrorHTTPStatusCodeKey;
 // Returns a new client.
 + (instancetype)unauthenticatedClientWithUser:(OCTUser *)user;
 
+// Creates a mutable URL request, which when sent will conditionally fetch the
+// latest data from the server. If the latest data matches `etag`, nothing is
+// downloaded and the call does not count toward the API rate limit.
+//
+// method          - The HTTP method to use in the request
+//                   (e.g., "GET" or "POST").
+// path            - The path to request, relative to the base API endpoint.
+//                   This path should _not_ begin with a forward slash.
+// parameters      - HTTP parameters to encode and send with the request.
+// notMatchingEtag - An ETag to compare the server data against, previously
+//                   retrieved from an instance of OCTResponse. If the content
+//                   has not changed since, no new data will be fetched when
+//                   this request is sent. This argument may be nil to always
+//                   fetch the latest data.
+//
+// You can enqueue this request using
+// -enqueueRequest:resultClass:.
+//
+// Returns an NSMutableURLRequest.
 - (NSMutableURLRequest *)requestWithMethod:(NSString *)method path:(NSString *)path parameters:(NSDictionary *)parameters notMatchingEtag:(NSString *)etag;
 
-// Enqueues a request that always fetches the latest data from the server.
+// Enqueues a request to be sent to the server.
 //
 // This will automatically fetch all pages of the given endpoint. Each object
 // from each page will be sent independently on the returned signal, so
 // subscribers don't have to know or care about this pagination behavior.
 //
-// To stop fetching pages, simply dispose of all subscriptions to the signal.
+// request       - The previously constructed URL request for the endpoint.
+// resultClass   - A subclass of OCTObject that the response data should be
+//                 returned as. If this is nil, the returned signal will send an
+//                 NSDictionary for each object in the JSON received.
 //
-// method      - The HTTP method to use in the request (e.g., "GET" or "POST").
-// path        - The path to request, relative to the base API endpoint. This
-//               path should _not_ begin with a forward slash.
-// parameters  - HTTP parameters to encode and send with the request.
-// resultClass - A subclass of OCTObject that the response data should be
-//               returned as. If this is nil, the returned signal will send an
-//               NSDictionary for each object in the JSON received.
-//
-// Returns a signal which will send an instance of `resultClass` for each parsed
+// Returns a signal which will send an instance of `OCTResponse` for each parsed
 // JSON object, then complete. If an error occurs at any point, the returned
 // signal will send it immediately, then terminate.
+- (RACSignal *)enqueueRequest:(NSURLRequest *)request resultClass:(Class)resultClass;
 
 // Enqueues a request which will conditionally fetch the latest data from the
 // server. If the latest data matches `etag`, nothing is downloaded and the call
@@ -157,9 +178,7 @@ extern NSString * const OCTClientErrorHTTPStatusCodeKey;
 // object _if new data was retrieved_. On success, the signal will send
 // completed regardless of whether there was new data. If an error occurs at any
 // point, the returned signal will send it immediately, then terminate.
-- (RACSignal *)enqueueRequestWithMethod:(NSString *)method path:(NSString *)path parameters:(NSDictionary *)parameters notMatchingEtag:(NSString *)etag resultClass:(Class)resultClass fetchAllPages:(BOOL)fetchAllPages;
-
-- (RACSignal *)enqueueGETRequestWithPath:(NSString *)path parameters:(NSDictionary *)parameters notMatchingEtag:(NSString *)etag resultClass:(Class)resultClass fetchAllPages:(BOOL)fetchAllPages;
+- (RACSignal *)enqueueRequestWithMethod:(NSString *)method path:(NSString *)path parameters:(NSDictionary *)parameters notMatchingEtag:(NSString *)etag resultClass:(Class)resultClass;
 
 @end
 

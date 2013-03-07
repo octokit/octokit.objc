@@ -51,7 +51,7 @@ describe(@"without a user", ^{
 	it(@"should GET a JSON dictionary", ^{
 		stubResponse(@"/rate_limit", @"rate_limit.json");
 
-		RACSignal *request = [client enqueueGETRequestWithPath:@"rate_limit" parameters:nil notMatchingEtag:nil resultClass:nil fetchAllPages:NO];
+		RACSignal *request = [client enqueueRequestWithMethod:OCTClientHTTPMethodGET path:@"rate_limit" parameters:nil notMatchingEtag:nil resultClass:nil];
 		OCTResponse *response = [request asynchronousFirstOrDefault:nil success:&success error:&error];
         expect(response).notTo.beNil();
 		expect(success).to.beTruthy();
@@ -74,7 +74,7 @@ describe(@"without a user", ^{
 			@"ETag": etag,
 		});
 
-		RACSignal *request = [client enqueueGETRequestWithPath:@"rate_limit" parameters:nil notMatchingEtag:nil resultClass:nil fetchAllPages:NO];
+		RACSignal *request = [client enqueueRequestWithMethod:OCTClientHTTPMethodGET path:@"rate_limit" parameters:nil notMatchingEtag:nil resultClass:nil];
 		OCTResponse *response = [request asynchronousFirstOrDefault:nil success:&success error:&error];
 		expect(response).notTo.beNil();
 		expect(success).to.beTruthy();
@@ -96,7 +96,7 @@ describe(@"without a user", ^{
 
 		stubResponseWithStatusCode(@"/rate_limit", 304);
 
-        RACSignal *request = [client enqueueGETRequestWithPath:@"rate_limit" parameters:nil notMatchingEtag:etag resultClass:nil fetchAllPages:NO];
+        RACSignal *request = [client enqueueRequestWithMethod:OCTClientHTTPMethodGET path:@"rate_limit" parameters:nil notMatchingEtag:etag resultClass:nil];
 
 		expect([request asynchronousFirstOrDefault:nil success:&success error:&error]).to.beNil();
 		expect(success).to.beTruthy();
@@ -114,7 +114,7 @@ describe(@"without a user", ^{
 
 		stubResponse(@"/items3", @"page3.json");
 
-		RACSignal *request = [client enqueueGETRequestWithPath:@"items1" parameters:nil notMatchingEtag:nil resultClass:nil fetchAllPages:YES];
+		RACSignal *request = [client enqueueRequestWithMethod:OCTClientHTTPMethodGET path:@"items1" parameters:nil notMatchingEtag:nil resultClass:nil];
 
 		__block NSMutableArray *items = [NSMutableArray array];
 		[request subscribeNext:^(OCTResponse *response) {
