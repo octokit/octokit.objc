@@ -455,7 +455,7 @@
 		D0872109169E35DE00016ACA /* Specta.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Specta.xcodeproj; path = External/Mantle/MantleTests/specta/Specta.xcodeproj; sourceTree = "<group>"; };
 		D0872124169E365A00016ACA /* OctoKitTests-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "OctoKitTests-Prefix.pch"; sourceTree = "<group>"; };
 		D0872127169E395F00016ACA /* OCTClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCTClient.h; sourceTree = "<group>"; };
-		D0872128169E395F00016ACA /* OCTClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCTClient.m; sourceTree = "<group>"; };
+		D0872128169E395F00016ACA /* OCTClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCTClient.m; sourceTree = "<group>"; usesTabs = 1; };
 		D0872129169E395F00016ACA /* OCTCommitComment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCTCommitComment.h; sourceTree = "<group>"; };
 		D087212A169E395F00016ACA /* OCTCommitComment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCTCommitComment.m; sourceTree = "<group>"; };
 		D087212B169E395F00016ACA /* OCTCommitCommentEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCTCommitCommentEvent.h; sourceTree = "<group>"; };
@@ -620,6 +620,7 @@
 				D0871EA9169E2EFC00016ACA /* Products */,
 			);
 			sourceTree = "<group>";
+			usesTabs = 1;
 		};
 		D0871EA9169E2EFC00016ACA /* Products */ = {
 			isa = PBXGroup;
