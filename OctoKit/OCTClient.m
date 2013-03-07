@@ -208,7 +208,7 @@ NSString * const OCTClientHTTPMethodGET = @"GET";
 		// Avoid infinite recursion.
 		if (![request.URL.path isEqualToString:@"rate_limit"]) {
 			signal = [signal doCompleted:^{
-				[[self enqueueRequestWithMethod:OCTClientHTTPMethodGET path:@"rate_limit" parameters:nil notMatchingEtag:nil resultClass:nil fetchAllPages:YES] subscribeNext:^(NSDictionary *dict) {
+				[[self enqueueRequestWithMethod:OCTClientHTTPMethodGET path:@"rate_limit" parameters:nil notMatchingEtag:nil resultClass:nil] subscribeNext:^(NSDictionary *dict) {
 					NSLog(@"Remaining API calls: %@", dict[@"rate"][@"remaining"]);
 				}];
 			}];
@@ -228,10 +228,10 @@ NSString * const OCTClientHTTPMethodGET = @"GET";
 
 	if (self.authenticated) {
 		NSString *path = [NSString stringWithFormat:@"user/%@", relativePath];
-		return [self enqueueRequestWithMethod:method path:path parameters:parameters notMatchingEtag:nil resultClass:resultClass fetchAllPages:YES];
+		return [self enqueueRequestWithMethod:method path:path parameters:parameters notMatchingEtag:nil resultClass:resultClass];
 	} else {
 		NSString *path = [NSString stringWithFormat:@"users/%@/%@", self.user.login, relativePath];
-		return [self enqueueRequestWithMethod:method path:path parameters:parameters notMatchingEtag:nil resultClass:resultClass fetchAllPages:YES];
+		return [self enqueueRequestWithMethod:method path:path parameters:parameters notMatchingEtag:nil resultClass:resultClass];
 	}
 }
 
