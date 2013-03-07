@@ -126,6 +126,8 @@ extern NSString * const OCTClientErrorHTTPStatusCodeKey;
 // Returns a signal which will send an instance of `resultClass` for each parsed
 // JSON object, then complete. If an error occurs at any point, the returned
 // signal will send it immediately, then terminate.
+- (RACSignal *)enqueueRequestWithMethod:(NSString *)method path:(NSString *)path parameters:(NSDictionary *)parameters cachePolicy:(NSURLRequestCachePolicy)cachePolicy resultClass:(Class)resultClass;
+
 - (RACSignal *)enqueueRequestWithMethod:(NSString *)method path:(NSString *)path parameters:(NSDictionary *)parameters resultClass:(Class)resultClass;
 
 // Enqueues a request which will conditionally fetch the latest data from the
@@ -156,6 +158,8 @@ extern NSString * const OCTClientErrorHTTPStatusCodeKey;
 // object _if new data was retrieved_. On success, the signal will send
 // completed regardless of whether there was new data. If an error occurs at any
 // point, the returned signal will send it immediately, then terminate.
+- (RACSignal *)enqueueConditionalRequestWithMethod:(NSString *)method path:(NSString *)path parameters:(NSDictionary *)parameters notMatchingEtag:(NSString *)etag cachePolicy:(NSURLRequestCachePolicy)cachePolicy resultClass:(Class)resultClass;
+
 - (RACSignal *)enqueueConditionalRequestWithMethod:(NSString *)method path:(NSString *)path parameters:(NSDictionary *)parameters notMatchingEtag:(NSString *)etag resultClass:(Class)resultClass;
 
 @end
