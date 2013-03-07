@@ -107,6 +107,8 @@ extern NSString * const OCTClientErrorHTTPStatusCodeKey;
 // Returns a new client.
 + (instancetype)unauthenticatedClientWithUser:(OCTUser *)user;
 
+- (NSMutableURLRequest *)requestWithMethod:(NSString *)method path:(NSString *)path parameters:(NSDictionary *)parameters notMatchingEtag:(NSString *)etag;
+
 // Enqueues a request that always fetches the latest data from the server.
 //
 // This will automatically fetch all pages of the given endpoint. Each object
@@ -126,7 +128,6 @@ extern NSString * const OCTClientErrorHTTPStatusCodeKey;
 // Returns a signal which will send an instance of `resultClass` for each parsed
 // JSON object, then complete. If an error occurs at any point, the returned
 // signal will send it immediately, then terminate.
-- (RACSignal *)enqueueRequestWithMethod:(NSString *)method path:(NSString *)path parameters:(NSDictionary *)parameters resultClass:(Class)resultClass;
 
 // Enqueues a request which will conditionally fetch the latest data from the
 // server. If the latest data matches `etag`, nothing is downloaded and the call
@@ -156,7 +157,9 @@ extern NSString * const OCTClientErrorHTTPStatusCodeKey;
 // object _if new data was retrieved_. On success, the signal will send
 // completed regardless of whether there was new data. If an error occurs at any
 // point, the returned signal will send it immediately, then terminate.
-- (RACSignal *)enqueueConditionalRequestWithMethod:(NSString *)method path:(NSString *)path parameters:(NSDictionary *)parameters notMatchingEtag:(NSString *)etag resultClass:(Class)resultClass;
+- (RACSignal *)enqueueRequestWithMethod:(NSString *)method path:(NSString *)path parameters:(NSDictionary *)parameters notMatchingEtag:(NSString *)etag resultClass:(Class)resultClass fetchAllPages:(BOOL)fetchAllPages;
+
+- (RACSignal *)enqueueGETRequestWithPath:(NSString *)path parameters:(NSDictionary *)parameters notMatchingEtag:(NSString *)etag resultClass:(Class)resultClass fetchAllPages:(BOOL)fetchAllPages;
 
 @end
 

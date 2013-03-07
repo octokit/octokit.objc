@@ -51,8 +51,9 @@ describe(@"without a user", ^{
 	it(@"should GET a JSON dictionary", ^{
 		stubResponse(@"/rate_limit", @"rate_limit.json");
 
-		RACSignal *request = [client enqueueRequestWithMethod:@"GET" path:@"rate_limit" parameters:nil resultClass:nil];
-		NSDictionary *result = [request asynchronousFirstOrDefault:nil success:&success error:&error];
+		RACSignal *request = [client enqueueGETRequestWithPath:@"rate_limit" parameters:nil notMatchingEtag:nil resultClass:nil fetchAllPages:NO];
+		OCTResponse *response = [request asynchronousFirstOrDefault:nil success:&success error:&error];
+        expect(response).notTo.beNil();
 		expect(success).to.beTruthy();
 		expect(error).to.beNil();
 
@@ -62,8 +63,8 @@ describe(@"without a user", ^{
 				@"limit": @5000,
 			},
 		};
-
-		expect(result).to.equal(expected);
+        
+		expect(response.parsedResult).to.equal(expected);
 	});
 
 	it(@"should conditionally GET a modified JSON dictionary", ^{
@@ -73,7 +74,7 @@ describe(@"without a user", ^{
 			@"ETag": etag,
 		});
 
-		RACSignal *request = [client enqueueConditionalRequestWithMethod:@"GET" path:@"rate_limit" parameters:nil notMatchingEtag:nil resultClass:nil];
+		RACSignal *request = [client enqueueGETRequestWithPath:@"rate_limit" parameters:nil notMatchingEtag:nil resultClass:nil fetchAllPages:NO];
 		OCTResponse *response = [request asynchronousFirstOrDefault:nil success:&success error:&error];
 		expect(response).notTo.beNil();
 		expect(success).to.beTruthy();
@@ -95,7 +96,8 @@ describe(@"without a user", ^{
 
 		stubResponseWithStatusCode(@"/rate_limit", 304);
 
-		RACSignal *request = [client enqueueConditionalRequestWithMethod:@"GET" path:@"rate_limit" parameters:nil notMatchingEtag:etag resultClass:nil];
+        RACSignal *request = [client enqueueGETRequestWithPath:@"rate_limit" parameters:nil notMatchingEtag:etag resultClass:nil fetchAllPages:NO];
+
 		expect([request asynchronousFirstOrDefault:nil success:&success error:&error]).to.beNil();
 		expect(success).to.beTruthy();
 		expect(error).to.beNil();
@@ -112,10 +114,11 @@ describe(@"without a user", ^{
 
 		stubResponse(@"/items3", @"page3.json");
 
-		RACSignal *request = [client enqueueRequestWithMethod:@"GET" path:@"items1" parameters:nil resultClass:nil];
+		RACSignal *request = [client enqueueGETRequestWithPath:@"items1" parameters:nil notMatchingEtag:nil resultClass:nil fetchAllPages:YES];
 
 		__block NSMutableArray *items = [NSMutableArray array];
-		[request subscribeNext:^(NSDictionary *dict) {
+		[request subscribeNext:^(OCTResponse *response) {
+            NSDictionary *dict = response.parsedResult;
 			expect(dict).to.beKindOf(NSDictionary.class);
 			expect(dict[@"item"]).notTo.beNil();
 
