@@ -445,7 +445,7 @@ NSString * const OCTClientHTTPMethodGET = @"GET";
 	if (self.user == nil) return [RACSignal error:self.class.userRequiredError];
 
 	if (self.authenticated) {
-		NSMutableURLRequest *userRequest = [self requestWithMethod:@"GET" path:@"user" parameters:nil];
+		NSMutableURLRequest *userRequest = [self requestWithMethod:OCTClientHTTPMethodGET path:@"user" parameters:nil];
 		userRequest.cachePolicy = NSURLRequestReloadIgnoringLocalCacheData;
 		return [[self enqueueRequest:userRequest resultClass:OCTUser.class] parsedResult];
 	} else {
