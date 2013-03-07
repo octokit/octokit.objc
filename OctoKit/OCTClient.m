@@ -46,10 +46,10 @@ NSString * const OCTClientHTTPMethodGET = @"GET";
 @implementation RACSignal (OCTClientAdditions)
 
 - (RACSignal *)parsedResult {
-    return [self map:^(OCTResponse *response) {
-        NSParameterAssert([response isKindOfClass:OCTResponse.class]);
-        return response.parsedResult;
-    }];
+	return [self map:^(OCTResponse *response) {
+		NSParameterAssert([response isKindOfClass:OCTResponse.class]);
+		return response.parsedResult;
+	}];
 }
 
 @end
@@ -72,8 +72,8 @@ NSString * const OCTClientHTTPMethodGET = @"GET";
 //
 // method       - The HTTP method to use.
 // relativePath - The path to fetch, relative to the user object. For example,
-//				  to request `user/orgs` or `users/:user/orgs`, simply pass in
-//				  `orgs`.
+//                to request `user/orgs` or `users/:user/orgs`, simply pass in
+//                `orgs`.
 // parameters   - HTTP parameters to encode and send with the request.
 // resultClass  - The class that response data should be returned as.
 //
@@ -130,33 +130,33 @@ NSString * const OCTClientHTTPMethodGET = @"GET";
 #pragma Request creation
 
 - (NSMutableURLRequest *)requestWithMethod:(NSString *)method path:(NSString *)path parameters:(NSDictionary *)parameters notMatchingEtag:(NSString *)etag {
-    NSParameterAssert(method != nil);
-    
-    parameters = [parameters mtl_dictionaryByAddingEntriesFromDictionary:@{
-        @"per_page": @100
-    }];
+	NSParameterAssert(method != nil);
 
-    NSMutableURLRequest *request = [self requestWithMethod:method path:[path stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] parameters:parameters];
+	parameters = [parameters mtl_dictionaryByAddingEntriesFromDictionary:@{
+		@"per_page": @100
+	}];
+
+	NSMutableURLRequest *request = [self requestWithMethod:method path:[path stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] parameters:parameters];
 	if (etag != nil) {
 		[request setValue:etag forHTTPHeaderField:@"If-None-Match"];
 	}
-    return request;
+	return request;
 }
 
 #pragma mark Request Enqueuing
 
 - (RACSignal *)enqueueRequestWithMethod:(NSString *)method path:(NSString *)path parameters:(NSDictionary *)parameters notMatchingEtag:(NSString *)etag resultClass:(Class)resultClass {
-    NSURLRequest *request = [self requestWithMethod:method path:path parameters:parameters];
-    return [self enqueueRequest:request resultClass:resultClass];
+	NSURLRequest *request = [self requestWithMethod:method path:path parameters:parameters];
+	return [self enqueueRequest:request resultClass:resultClass];
 }
 
 - (RACSignal *)enqueueRequestWithMethod:(NSString *)method path:(NSString *)path parameters:(NSDictionary *)parameters notMatchingEtag:(NSString *)etag resultClass:(Class)resultClass fetchAllPages:(BOOL)fetchAllPages {
-    NSURLRequest *request = [self requestWithMethod:method path:path parameters:parameters];
-    return [self enqueueRequest:request resultClass:resultClass fetchAllPages:fetchAllPages];
+	NSURLRequest *request = [self requestWithMethod:method path:path parameters:parameters];
+	return [self enqueueRequest:request resultClass:resultClass fetchAllPages:fetchAllPages];
 }
 
 - (RACSignal *)enqueueRequest:(NSURLRequest *)request resultClass:(Class)resultClass {
-    return [self enqueueRequest:request resultClass:resultClass fetchAllPages:YES];
+	return [self enqueueRequest:request resultClass:resultClass fetchAllPages:YES];
 }
 
 - (RACSignal *)enqueueRequest:(NSURLRequest *)request resultClass:(Class)resultClass fetchAllPages:(BOOL)fetchAllPages {
@@ -216,8 +216,8 @@ NSString * const OCTClientHTTPMethodGET = @"GET";
 	}
 	
 	return [[signal
-        replayLazily]
-        setNameWithFormat:@"-enqueueRequest: %@ resultClass: %@ fetchAllPages: %i", request, resultClass, (int)fetchAllPages];
+		replayLazily]
+		setNameWithFormat:@"-enqueueRequest: %@ resultClass: %@ fetchAllPages: %i", request, resultClass, (int)fetchAllPages];
 }
 
 - (RACSignal *)enqueueUserRequestWithMethod:(NSString *)method relativePath:(NSString *)relativePath parameters:(NSDictionary *)parameters resultClass:(Class)resultClass {
@@ -445,8 +445,8 @@ NSString * const OCTClientHTTPMethodGET = @"GET";
 	if (self.user == nil) return [RACSignal error:self.class.userRequiredError];
 
 	if (self.authenticated) {
-        NSMutableURLRequest *userRequest = [self requestWithMethod:@"GET" path:@"user" parameters:nil];
-        userRequest.cachePolicy = NSURLRequestReloadIgnoringLocalCacheData;
+		NSMutableURLRequest *userRequest = [self requestWithMethod:@"GET" path:@"user" parameters:nil];
+		userRequest.cachePolicy = NSURLRequestReloadIgnoringLocalCacheData;
 		return [[self enqueueRequest:userRequest resultClass:OCTUser.class] parsedResult];
 	} else {
 		NSString *path = [NSString stringWithFormat:@"users/%@", self.user.login];

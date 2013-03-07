@@ -53,7 +53,7 @@ describe(@"without a user", ^{
 
 		RACSignal *request = [client enqueueRequestWithMethod:OCTClientHTTPMethodGET path:@"rate_limit" parameters:nil notMatchingEtag:nil resultClass:nil];
 		OCTResponse *response = [request asynchronousFirstOrDefault:nil success:&success error:&error];
-        expect(response).notTo.beNil();
+		expect(response).notTo.beNil();
 		expect(success).to.beTruthy();
 		expect(error).to.beNil();
 
@@ -63,7 +63,7 @@ describe(@"without a user", ^{
 				@"limit": @5000,
 			},
 		};
-        
+
 		expect(response.parsedResult).to.equal(expected);
 	});
 
@@ -96,7 +96,7 @@ describe(@"without a user", ^{
 
 		stubResponseWithStatusCode(@"/rate_limit", 304);
 
-        RACSignal *request = [client enqueueRequestWithMethod:OCTClientHTTPMethodGET path:@"rate_limit" parameters:nil notMatchingEtag:etag resultClass:nil];
+		RACSignal *request = [client enqueueRequestWithMethod:OCTClientHTTPMethodGET path:@"rate_limit" parameters:nil notMatchingEtag:etag resultClass:nil];
 
 		expect([request asynchronousFirstOrDefault:nil success:&success error:&error]).to.beNil();
 		expect(success).to.beTruthy();
@@ -118,7 +118,7 @@ describe(@"without a user", ^{
 
 		__block NSMutableArray *items = [NSMutableArray array];
 		[request subscribeNext:^(OCTResponse *response) {
-            NSDictionary *dict = response.parsedResult;
+			NSDictionary *dict = response.parsedResult;
 			expect(dict).to.beKindOf(NSDictionary.class);
 			expect(dict[@"item"]).notTo.beNil();
 
