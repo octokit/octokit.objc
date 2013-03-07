@@ -32,8 +32,13 @@ static const NSUInteger OCTClientNotModifiedStatusCode = 304;
 NSString * const OCTClientHTTPMethodPOST = @"POST";
 NSString * const OCTClientHTTPMethodGET = @"GET";
 
+// Convenience category to retreive parsedResults from OCTResponses.
 @interface RACSignal (OCTClientAdditions)
 
+// This method assumes that the receiver is a signal of OCTResponses.
+//
+// Returns a signal that maps the receiver to become a signal of
+// OCTResponse.parsedResult.
 - (RACSignal *)parsedResult;
 
 @end
@@ -42,6 +47,7 @@ NSString * const OCTClientHTTPMethodGET = @"GET";
 
 - (RACSignal *)parsedResult {
     return [self map:^(OCTResponse *response) {
+        NSParameterAssert([response isKindOfClass:OCTResponse.class]);
         return response.parsedResult;
     }];
 }
