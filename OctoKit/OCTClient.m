@@ -105,17 +105,29 @@ static const NSUInteger OCTClientNotModifiedStatusCode = 304;
 #pragma mark Request Enqueuing
 
 - (RACSignal *)enqueueRequestWithMethod:(NSString *)method path:(NSString *)path parameters:(NSDictionary *)parameters resultClass:(Class)resultClass {
-	return [[self enqueueConditionalRequestWithMethod:method path:path parameters:parameters notMatchingEtag:nil resultClass:resultClass]
+    return [self enqueueRequestWithMethod:method path:path parameters:parameters cachePolicy:NSURLRequestUseProtocolCachePolicy resultClass:resultClass];
+}
+
+- (RACSignal *)enqueueRequestWithMethod:(NSString *)method path:(NSString *)path parameters:(NSDictionary *)parameters cachePolicy:(NSURLRequestCachePolicy)cachePolicy resultClass:(Class)resultClass {
+	return [[self enqueueConditionalRequestWithMethod:method path:path parameters:parameters notMatchingEtag:nil cachePolicy:cachePolicy resultClass:resultClass]
 		map:^(OCTResponse *response) {
 			return response.parsedResult;
 		}];
 }
 
+- (RACSignal *)enqueueConditionalRequestWithMethod:(NSString *)method path:(NSString *)path parameters:(NSDictionary *)parameters notMatchingEtag:(NSString *)etag cachePolicy:(NSURLRequestCachePolicy)cachePolicy resultClass:(Class)resultClass {
+	return [self enqueueConditionalRequestWithMethod:method path:path parameters:parameters notMatchingEtag:etag cachePolicy:cachePolicy resultClass:resultClass fetchAllPages:YES];
+}
+
 - (RACSignal *)enqueueConditionalRequestWithMethod:(NSString *)method path:(NSString *)path parameters:(NSDictionary *)parameters notMatchingEtag:(NSString *)etag resultClass:(Class)resultClass {
-	return [self enqueueConditionalRequestWithMethod:method path:path parameters:parameters notMatchingEtag:etag resultClass:resultClass fetchAllPages:YES];
+	return [self enqueueConditionalRequestWithMethod:method path:path parameters:parameters notMatchingEtag:etag cachePolicy:NSURLRequestUseProtocolCachePolicy resultClass:resultClass];
 }
 
 - (RACSignal *)enqueueConditionalRequestWithMethod:(NSString *)method path:(NSString *)path parameters:(NSDictionary *)parameters notMatchingEtag:(NSString *)etag resultClass:(Class)resultClass fetchAllPages:(BOOL)fetchAllPages {
+    return [self enqueueConditionalRequestWithMethod:method path:path parameters:parameters notMatchingEtag:etag cachePolicy:NSURLRequestUseProtocolCachePolicy resultClass:resultClass fetchAllPages:fetchAllPages];
+}
+
+- (RACSignal *)enqueueConditionalRequestWithMethod:(NSString *)method path:(NSString *)path parameters:(NSDictionary *)parameters notMatchingEtag:(NSString *)etag cachePolicy:(NSURLRequestCachePolicy)cachePolicy resultClass:(Class)resultClass fetchAllPages:(BOOL)fetchAllPages {
 	NSParameterAssert(method != nil);
 
 	parameters = [parameters mtl_dictionaryByAddingEntriesFromDictionary:@{
@@ -125,10 +137,8 @@ static const NSUInteger OCTClientNotModifiedStatusCode = 304;
 	NSMutableURLRequest *request = [self requestWithMethod:method path:[path stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] parameters:parameters];
 	if (etag != nil) {
 		[request setValue:etag forHTTPHeaderField:@"If-None-Match"];
-	} else {
-        // ignore cache data so we definitely re-fatch from the server
-        request.cachePolicy = NSURLRequestReloadIgnoringLocalCacheData;
-    }
+	}
+    request.cachePolicy = cachePolicy;
 
 	return [self enqueueRequest:request resultClass:resultClass fetchAllPages:fetchAllPages];
 }
@@ -417,7 +427,7 @@ static const NSUInteger OCTClientNotModifiedStatusCode = 304;
 	if (self.user == nil) return [RACSignal error:self.class.userRequiredError];
 
 	if (self.authenticated) {
-		return [self enqueueRequestWithMethod:@"GET" path:@"user" parameters:nil resultClass:OCTUser.class];
+		return [self enqueueRequestWithMethod:@"GET" path:@"user" parameters:nil cachePolicy:NSURLRequestReloadIgnoringLocalCacheData resultClass:OCTUser.class];
 	} else {
 		NSString *path = [NSString stringWithFormat:@"users/%@", self.user.login];
 		return [self enqueueRequestWithMethod:@"GET" path:path parameters:nil resultClass:OCTUser.class];
