@@ -106,7 +106,7 @@ NSString * const OCTClientHTTPMethodGET = @"GET";
 	return self;
 }
 
-#pragma Request creation
+#pragma mark Request Creation
 
 - (NSMutableURLRequest *)requestWithMethod:(NSString *)method path:(NSString *)path parameters:(NSDictionary *)parameters notMatchingEtag:(NSString *)etag {
 	NSParameterAssert(method != nil);
@@ -412,7 +412,8 @@ NSString * const OCTClientHTTPMethodGET = @"GET";
 	
 	NSString *path = (self.authenticated ? @"user" : [NSString stringWithFormat:@"users/%@", self.user.login]);
 	NSMutableURLRequest *userRequest = [self requestWithMethod:OCTClientHTTPMethodGET path:path parameters:nil notMatchingEtag:nil];
-	userRequest.cachePolicy = NSURLRequestReloadIgnoringLocalCacheData;
+	
+	if (self.authenticated) userRequest.cachePolicy = NSURLRequestReloadIgnoringLocalCacheData;
 
 	return [[self enqueueRequest:userRequest resultClass:OCTUser.class] oct_parsedResult];
 }
