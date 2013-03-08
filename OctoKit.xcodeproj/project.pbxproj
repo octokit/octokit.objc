@@ -218,8 +218,8 @@
 		D0D5801A16D409F000EF08D5 /* page2.json in Resources */ = {isa = PBXBuildFile; fileRef = D0D5801516D409F000EF08D5 /* page2.json */; };
 		D0D5801B16D409F000EF08D5 /* page3.json in Resources */ = {isa = PBXBuildFile; fileRef = D0D5801616D409F000EF08D5 /* page3.json */; };
 		D0D5801C16D409F000EF08D5 /* page3.json in Resources */ = {isa = PBXBuildFile; fileRef = D0D5801616D409F000EF08D5 /* page3.json */; };
-		F6CF78D416E993A500A75F63 /* RACSignal+OCTClientAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = F6CF78D216E993A500A75F63 /* RACSignal+OCTClientAdditions.h */; };
-		F6CF78D516E993A500A75F63 /* RACSignal+OCTClientAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = F6CF78D216E993A500A75F63 /* RACSignal+OCTClientAdditions.h */; };
+		F6CF78D416E993A500A75F63 /* RACSignal+OCTClientAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = F6CF78D216E993A500A75F63 /* RACSignal+OCTClientAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F6CF78D516E993A500A75F63 /* RACSignal+OCTClientAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = F6CF78D216E993A500A75F63 /* RACSignal+OCTClientAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F6CF78D616E993A500A75F63 /* RACSignal+OCTClientAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = F6CF78D316E993A500A75F63 /* RACSignal+OCTClientAdditions.m */; };
 		F6CF78D816E993A500A75F63 /* RACSignal+OCTClientAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = F6CF78D316E993A500A75F63 /* RACSignal+OCTClientAdditions.m */; };
 /* End PBXBuildFile section */
