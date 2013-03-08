@@ -49,8 +49,8 @@ static const NSUInteger OCTClientNotModifiedStatusCode = 304;
 //
 // method       - The HTTP method to use.
 // relativePath - The path to fetch, relative to the user object. For example,
-//				  to request `user/orgs` or `users/:user/orgs`, simply pass in
-//				  `orgs`.
+//                to request `user/orgs` or `users/:user/orgs`, simply pass in
+//                `orgs`.
 // parameters   - HTTP parameters to encode and send with the request.
 // resultClass  - The class that response data should be returned as.
 //
@@ -63,9 +63,9 @@ static const NSUInteger OCTClientNotModifiedStatusCode = 304;
 //
 // method - The HTTP method to use in the request (e.g., "GET" or "POST").
 // path   - The path to request, relative to the base API endpoint. This path
-//			should _not_ begin with a forward slash.
+//          should _not_ begin with a forward slash.
 // etag   - An ETag to compare the server data against, previously retrieved
-//			from an instance of OCTResponse.
+//          from an instance of OCTResponse.
 //
 // Returns a request which can be modified further before being enqueued.
 - (NSMutableURLRequest *)requestWithMethod:(NSString *)method path:(NSString *)path parameters:(NSDictionary *)parameters notMatchingEtag:(NSString *)etag;
@@ -129,8 +129,8 @@ static const NSUInteger OCTClientNotModifiedStatusCode = 304;
 	if (etag != nil) {
 		[request setValue:etag forHTTPHeaderField:@"If-None-Match"];
 	} else {
-        // Ignore cache data so we definitely re-fetch from the server.
-        request.cachePolicy = NSURLRequestReloadIgnoringLocalCacheData;
+		// Ignore cache data so we definitely re-fetch from the server.
+		request.cachePolicy = NSURLRequestReloadIgnoringLocalCacheData;
     }
 
 	return request;
