@@ -16,6 +16,7 @@
 #import "OCTServer.h"
 #import "OCTTeam.h"
 #import "OCTUser.h"
+#import "RACSignal+OCTClientAdditions.h"
 
 NSString * const OCTClientErrorDomain = @"OCTClientErrorDomain";
 const NSInteger OCTClientErrorAuthenticationFailed = 666;
@@ -31,28 +32,6 @@ static const NSUInteger OCTClientNotModifiedStatusCode = 304;
 
 NSString * const OCTClientHTTPMethodPOST = @"POST";
 NSString * const OCTClientHTTPMethodGET = @"GET";
-
-// Convenience category to retreive parsedResults from OCTResponses.
-@interface RACSignal (OCTClientAdditions)
-
-// This method assumes that the receiver is a signal of OCTResponses.
-//
-// Returns a signal that maps the receiver to become a signal of
-// OCTResponse.parsedResult.
-- (RACSignal *)parsedResult;
-
-@end
-
-@implementation RACSignal (OCTClientAdditions)
-
-- (RACSignal *)parsedResult {
-	return [self map:^(OCTResponse *response) {
-		NSParameterAssert([response isKindOfClass:OCTResponse.class]);
-		return response.parsedResult;
-	}];
-}
-
-@end
 
 @interface OCTClient ()
 
@@ -435,11 +414,11 @@ NSString * const OCTClientHTTPMethodGET = @"GET";
 	NSMutableURLRequest *userRequest = [self requestWithMethod:OCTClientHTTPMethodGET path:path parameters:nil notMatchingEtag:nil];
 	userRequest.cachePolicy = NSURLRequestReloadIgnoringLocalCacheData;
 
-	return [[self enqueueRequest:userRequest resultClass:OCTUser.class] parsedResult];
+	return [[self enqueueRequest:userRequest resultClass:OCTUser.class] oct_parsedResult];
 }
 
 - (RACSignal *)fetchUserRepositories {
-	return [[self enqueueUserRequestWithMethod:OCTClientHTTPMethodGET relativePath:@"repos" parameters:nil resultClass:OCTRepository.class] parsedResult];
+	return [[self enqueueUserRequestWithMethod:OCTClientHTTPMethodGET relativePath:@"repos" parameters:nil resultClass:OCTRepository.class] oct_parsedResult];
 }
 
 - (RACSignal *)createRepositoryWithName:(NSString *)name description:(NSString *)description private:(BOOL)isPrivate {
@@ -453,17 +432,17 @@ NSString * const OCTClientHTTPMethodGET = @"GET";
 @implementation OCTClient (Organizations)
 
 - (RACSignal *)fetchUserOrganizations {
-	return [[self enqueueUserRequestWithMethod:OCTClientHTTPMethodGET relativePath:@"orgs" parameters:nil resultClass:OCTOrganization.class] parsedResult];
+	return [[self enqueueUserRequestWithMethod:OCTClientHTTPMethodGET relativePath:@"orgs" parameters:nil resultClass:OCTOrganization.class] oct_parsedResult];
 }
 
 - (RACSignal *)fetchOrganizationInfo:(OCTOrganization *)organization {
 	NSURLRequest *request = [self requestWithMethod:OCTClientHTTPMethodGET path:[NSString stringWithFormat:@"orgs/%@", organization.login] parameters:nil notMatchingEtag:nil];
-	return [[self enqueueRequest:request resultClass:OCTOrganization.class] parsedResult];
+	return [[self enqueueRequest:request resultClass:OCTOrganization.class] oct_parsedResult];
 }
 
 - (RACSignal *)fetchRepositoriesForOrganization:(OCTOrganization *)organization {
 	NSURLRequest *request = [self requestWithMethod:OCTClientHTTPMethodGET path:[NSString stringWithFormat:@"orgs/%@/repos", organization.login] parameters:nil notMatchingEtag:nil];
-	return [[self enqueueRequest:request resultClass:OCTRepository.class] parsedResult];
+	return [[self enqueueRequest:request resultClass:OCTRepository.class] oct_parsedResult];
 }
 
 - (RACSignal *)createRepositoryWithName:(NSString *)name organization:(OCTOrganization *)organization team:(OCTTeam *)team description:(NSString *)description private:(BOOL)isPrivate {
@@ -479,7 +458,7 @@ NSString * const OCTClientHTTPMethodGET = @"GET";
 	NSString *path = (organization == nil ? @"user/repos" : [NSString stringWithFormat:@"orgs/%@/repos", organization.login]);
 	NSURLRequest *request = [self requestWithMethod:OCTClientHTTPMethodGET path:path parameters:options notMatchingEtag:nil];
 	
-	return [[self enqueueRequest:request resultClass:OCTRepository.class] parsedResult];
+	return [[self enqueueRequest:request resultClass:OCTRepository.class] oct_parsedResult];
 }
 
 - (RACSignal *)fetchTeamsForOrganization:(OCTOrganization *)organization {
@@ -487,7 +466,7 @@ NSString * const OCTClientHTTPMethodGET = @"GET";
 
 	NSURLRequest *request = [self requestWithMethod:OCTClientHTTPMethodGET path:[NSString stringWithFormat:@"orgs/%@/teams", organization.login] parameters:nil notMatchingEtag:nil];
 	
-	return [[self enqueueRequest:request resultClass:OCTTeam.class] parsedResult];
+	return [[self enqueueRequest:request resultClass:OCTTeam.class] oct_parsedResult];
 }
 
 @end
@@ -495,7 +474,7 @@ NSString * const OCTClientHTTPMethodGET = @"GET";
 @implementation OCTClient (Keys)
 
 - (RACSignal *)fetchPublicKeys {
-	return [[self enqueueUserRequestWithMethod:OCTClientHTTPMethodGET relativePath:@"keys" parameters:nil resultClass:OCTPublicKey.class] parsedResult];
+	return [[self enqueueUserRequestWithMethod:OCTClientHTTPMethodGET relativePath:@"keys" parameters:nil resultClass:OCTPublicKey.class] oct_parsedResult];
 }
 
 - (RACSignal *)postPublicKey:(NSString *)key title:(NSString *)title {
@@ -511,7 +490,7 @@ NSString * const OCTClientHTTPMethodGET = @"GET";
 	
 	NSURLRequest *request = [self requestWithMethod:OCTClientHTTPMethodPOST path:@"user/keys"parameters:[MTLJSONAdapter JSONDictionaryFromModel:publicKey] notMatchingEtag:nil];
 
-	return [[self enqueueRequest:request resultClass:OCTPublicKey.class] parsedResult];
+	return [[self enqueueRequest:request resultClass:OCTPublicKey.class] oct_parsedResult];
 }
 
 @end
