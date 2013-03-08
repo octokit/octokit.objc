@@ -559,9 +559,7 @@ static const NSUInteger OCTClientNotModifiedStatusCode = 304;
 
 	if (!self.authenticated) return [RACSignal error:self.class.authenticationRequiredError];
 
-	NSMutableURLRequest *request = [self requestWithMethod:@"PATCH" path:@"" parameters:@{ @"read": @(read) } notMatchingEtag:nil];
-	request.URL = notification.threadURL;
-	return [[self enqueueRequest:request resultClass:nil fetchAllPages:NO] ignoreElements];
+	return [[self enqueueConditionalRequestWithMethod:@"PATCH" URL:notification.threadURL parameters:@{ @"read": @(read) } notMatchingEtag:nil resultClass:nil] ignoreElements];
 }
 
 @end
