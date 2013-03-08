@@ -51,7 +51,7 @@ describe(@"without a user", ^{
 	it(@"should GET a JSON dictionary", ^{
 		stubResponse(@"/rate_limit", @"rate_limit.json");
 
-		NSURLRequest *request = [client requestWithMethod:OCTClientHTTPMethodGET path:@"rate_limit" parameters:nil notMatchingEtag:nil];
+		NSURLRequest *request = [client requestWithMethod:@"GET" path:@"rate_limit" parameters:nil notMatchingEtag:nil];
 		RACSignal *result = [client enqueueRequest:request resultClass:nil];
 		OCTResponse *response = [result asynchronousFirstOrDefault:nil success:&success error:&error];
 		expect(response).notTo.beNil();
@@ -75,7 +75,7 @@ describe(@"without a user", ^{
 			@"ETag": etag,
 		});
 
-		NSURLRequest *request = [client requestWithMethod:OCTClientHTTPMethodGET path:@"rate_limit" parameters:nil notMatchingEtag:nil];
+		NSURLRequest *request = [client requestWithMethod:@"GET" path:@"rate_limit" parameters:nil notMatchingEtag:nil];
 		RACSignal *result = [client enqueueRequest:request resultClass:nil];
 		OCTResponse *response = [result asynchronousFirstOrDefault:nil success:&success error:&error];
 		expect(response).notTo.beNil();
@@ -98,7 +98,7 @@ describe(@"without a user", ^{
 
 		stubResponseWithStatusCode(@"/rate_limit", 304);
 
-		NSURLRequest *request = [client requestWithMethod:OCTClientHTTPMethodGET path:@"rate_limit" parameters:nil notMatchingEtag:etag];
+		NSURLRequest *request = [client requestWithMethod:@"GET" path:@"rate_limit" parameters:nil notMatchingEtag:etag];
 		RACSignal *result = [client enqueueRequest:request resultClass:nil];
 
 		expect([result asynchronousFirstOrDefault:nil success:&success error:&error]).to.beNil();
@@ -117,7 +117,7 @@ describe(@"without a user", ^{
 
 		stubResponse(@"/items3", @"page3.json");
 
-		NSURLRequest *request = [client requestWithMethod:OCTClientHTTPMethodGET path:@"items1" parameters:nil notMatchingEtag:nil];
+		NSURLRequest *request = [client requestWithMethod:@"GET" path:@"items1" parameters:nil notMatchingEtag:nil];
 		RACSignal *result = [client enqueueRequest:request resultClass:nil];
 
 		__block NSMutableArray *items = [NSMutableArray array];

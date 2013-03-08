@@ -14,12 +14,6 @@
 @class OCTTeam;
 @class OCTUser;
 
-// The GET HTTP method to use in a request.
-extern NSString * const OCTClientHTTPMethodGET;
-
-// The POST HTTP method to use in a request.
-extern NSString * const OCTClientHTTPMethodPOST;
-
 // The domain for all errors originating in OCTClient.
 extern NSString * const OCTClientErrorDomain;
 
