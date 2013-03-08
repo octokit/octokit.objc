@@ -150,36 +150,6 @@ extern NSString * const OCTClientErrorHTTPStatusCodeKey;
 // signal will send it immediately, then terminate.
 - (RACSignal *)enqueueRequest:(NSURLRequest *)request resultClass:(Class)resultClass;
 
-// Enqueues a request which will conditionally fetch the latest data from the
-// server. If the latest data matches `etag`, nothing is downloaded and the call
-// does not count toward the API rate limit.
-//
-// If the latest data does not match `etag`, this will automatically fetch all
-// pages of the given endpoint. Each object from each page will be sent as
-// independent OCTResponse objects on the returned signal, so subscribers don't
-// have to know or care about this pagination behavior.
-//
-// To stop fetching pages, simply dispose of all subscriptions to the signal.
-//
-// method          - The HTTP method to use in the request (e.g., "GET" or
-//                   "POST").
-// path            - The path to request, relative to the base API endpoint.
-//                   This path should _not_ begin with a forward slash.
-// parameters      - HTTP parameters to encode and send with the request.
-// notMatchingEtag - An ETag to compare the server data against, previously
-//                   retrieved from an instance of OCTResponse. If the content
-//                   has not changed since, no new data will be fetched. This
-//                   argument may be nil to always fetch the latest data.
-// resultClass     - A subclass of OCTObject to use for each
-//                   OCTResponse.parsedResult. If this is nil, the
-//                   `parsedResult` will be an NSDictionary.
-//
-// Returns a signal which will send an instance of OCTResponse for each JSON
-// object _if new data was retrieved_. On success, the signal will send
-// completed regardless of whether there was new data. If an error occurs at any
-// point, the returned signal will send it immediately, then terminate.
-- (RACSignal *)enqueueRequestWithMethod:(NSString *)method path:(NSString *)path parameters:(NSDictionary *)parameters notMatchingEtag:(NSString *)etag resultClass:(Class)resultClass;
-
 @end
 
 @interface OCTClient (User)
