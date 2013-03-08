@@ -122,10 +122,9 @@ extern NSString * const OCTClientErrorHTTPStatusCodeKey;
 //                   this request is sent. This argument may be nil to always
 //                   fetch the latest data.
 //
-// You can enqueue this request using
+// Returns an NSMutableURLRequest that you can enqueue using
 // -enqueueRequest:resultClass:.
-//
-// Returns an NSMutableURLRequest.
+
 - (NSMutableURLRequest *)requestWithMethod:(NSString *)method path:(NSString *)path parameters:(NSDictionary *)parameters notMatchingEtag:(NSString *)etag;
 
 // Enqueues a request to be sent to the server.
