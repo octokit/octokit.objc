@@ -131,7 +131,7 @@ static const NSUInteger OCTClientNotModifiedStatusCode = 304;
 	} else {
 		// Ignore cache data so we definitely re-fetch from the server.
 		request.cachePolicy = NSURLRequestReloadIgnoringLocalCacheData;
-    }
+	}
 
 	return request;
 }
