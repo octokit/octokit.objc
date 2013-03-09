@@ -20,10 +20,14 @@ NSDictionary *representation = @{
 	@"commit_id": @"6dcb09b5b57875f334f61aebed695e2e4193db5e",
 	@"user": @{
 		@"login": @"octocat",
+
+		// Omitted because the JSON parsing does not preserve these keys.
+		/*
 		@"id": @1,
 		@"avatar_url": @"https://github.com/images/error/octocat_happy.gif",
 		@"gravatar_id": @"somehexcode",
 		@"url": @"https://api.github.com/users/octocat"
+		*/
 	},
 	@"created_at": @"2011-04-14T16:00:49Z",
 	@"updated_at": @"2011-04-14T16:00:49Z",

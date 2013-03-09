@@ -9,6 +9,7 @@
 #import "AFNetworking.h"
 #import <ReactiveCocoa/ReactiveCocoa.h>
 
+@class OCTNotification;
 @class OCTOrganization;
 @class OCTServer;
 @class OCTTeam;
@@ -158,6 +159,11 @@ extern NSString * const OCTClientErrorHTTPStatusCodeKey;
 // point, the returned signal will send it immediately, then terminate.
 - (RACSignal *)enqueueConditionalRequestWithMethod:(NSString *)method path:(NSString *)path parameters:(NSDictionary *)parameters notMatchingEtag:(NSString *)etag resultClass:(Class)resultClass;
 
+// Behaves like
+// -enqueueConditionalRequestWithMethod:path:parameters:notMatchingEtag:resultClass:,
+// but allows a full URL to be passed in.
+- (RACSignal *)enqueueConditionalRequestWithMethod:(NSString *)method URL:(NSURL *)URL parameters:(NSDictionary *)parameters notMatchingEtag:(NSString *)etag resultClass:(Class)resultClass;
+
 @end
 
 @interface OCTClient (User)
@@ -243,10 +249,37 @@ extern NSString * const OCTClientErrorHTTPStatusCodeKey;
 // the latest data matches `etag`, the call does not count toward the API rate
 // limit.
 //
-// Returns a signal which will send zero or more OCTEvents if new data was
-// downloaded. Unrecognized events will be omitted from the result. On success,
-// the signal will send completed regardless of whether there was new data. If
-// no `user` is set, the signal will error immediately.
+// Returns a signal which will send zero or more OCTResponses (of OCTEvents) if
+// new data was downloaded. Unrecognized events will be omitted from the result.
+// On success, the signal will send completed regardless of whether there was
+// new data. If no `user` is set, the signal will error immediately.
 - (RACSignal *)fetchUserEventsNotMatchingEtag:(NSString *)etag;
+
+@end
+
+@interface OCTClient (Notifications)
+
+// Conditionally fetch unread notifications for the user. If the latest data
+// matches `etag`, the call does not count toward the API rate limit.
+//
+// etag        - An Etag from a previous request, used to avoid downloading
+//               unnecessary data.
+// includeRead - Whether to include notifications that have already been read.
+// since       - If not nil, only notifications updated after this date will be
+//               included.
+//
+// Returns a signal which will zero or more OCTResponses (of OCTNotifications)
+// if new data was downloaded. On success, the signal will send completed
+// regardless of whether there was new data. If the client is not
+// `authenticated`, the signal will error immediately.
+- (RACSignal *)fetchNotificationsNotMatchingEtag:(NSString *)etag includeReadNotifications:(BOOL)includeRead updatedSince:(NSDate *)since;
+
+// Mark the notification has having been read.
+//
+// notification - The notification to mark as read. Cannot be nil.
+//
+// Returns a signal which will send completed on success. If the client is not
+// `authenticated`, the signal will error immediately.
+- (RACSignal *)markNotificationAsRead:(OCTNotification *)notification;
 
 @end

@@ -17,4 +17,7 @@
 // The SHA of the commit being commented upon.
 @property (nonatomic, copy, readonly) NSString *commitSHA;
 
+// The login of the user who created this comment.
+@property (nonatomic, copy, readonly) NSString *commenterLogin;
+
 @end

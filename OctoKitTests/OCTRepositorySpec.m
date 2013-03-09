@@ -24,8 +24,7 @@ describe(@"from JSON", ^{
 		@"owner": @{
 			@"login": @"octocat",
 
-			// Omitted because OCTRepository.externalRepresentation does not
-			// preserve these keys.
+			// Omitted because the JSON parsing does not preserve these keys.
 			/*
 			@"id": @1,
 			@"avatar_url": @"https://github.com/images/error/octocat_happy.gif",
