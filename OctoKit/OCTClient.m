@@ -189,12 +189,17 @@ static const NSUInteger OCTClientNotModifiedStatusCode = 304;
 
 - (RACSignal *)enqueueUserRequestWithMethod:(NSString *)method relativePath:(NSString *)relativePath parameters:(NSDictionary *)parameters resultClass:(Class)resultClass {
 	NSParameterAssert(method != nil);
-	NSParameterAssert(relativePath.length > 0);
-
+	
 	if (self.user == nil) return [RACSignal error:self.class.userRequiredError];
-
-	NSString *path = (self.authenticated ? [NSString stringWithFormat:@"user/%@", relativePath] : [NSString stringWithFormat:@"users/%@/%@", self.user.login, relativePath]);
-	NSURLRequest *request = [self requestWithMethod:method path:path parameters:parameters notMatchingEtag:nil];
+	
+	if (relativePath == nil) relativePath = @"";
+	
+	NSString *constructedRelativePath = (relativePath.length > 0 ? [NSString stringWithFormat:@"/%@", relativePath] : relativePath);
+	
+	NSString *path = (self.authenticated ? [NSString stringWithFormat:@"user%@", constructedRelativePath] : [NSString stringWithFormat:@"users/%@%@", self.user.login, constructedRelativePath]);
+	NSMutableURLRequest *request = [self requestWithMethod:method path:path parameters:parameters notMatchingEtag:nil];
+	if (self.authenticated) request.cachePolicy = NSURLRequestReloadIgnoringLocalCacheData;
+	
 	return [self enqueueRequest:request resultClass:resultClass];
 }
 
@@ -407,12 +412,7 @@ static const NSUInteger OCTClientNotModifiedStatusCode = 304;
 - (RACSignal *)fetchUserInfo {
 	if (self.user == nil) return [RACSignal error:self.class.userRequiredError];
 	
-	NSString *path = (self.authenticated ? @"user" : [NSString stringWithFormat:@"users/%@", self.user.login]);
-	NSMutableURLRequest *userRequest = [self requestWithMethod:@"GET" path:path parameters:nil notMatchingEtag:nil];
-	
-	if (self.authenticated) userRequest.cachePolicy = NSURLRequestReloadIgnoringLocalCacheData;
-
-	return [[self enqueueRequest:userRequest resultClass:OCTUser.class] oct_parsedResult];
+	return [[self enqueueUserRequestWithMethod:@"GET" relativePath:@"" parameters:nil resultClass:OCTUser.class] oct_parsedResult];
 }
 
 - (RACSignal *)fetchUserRepositories {
