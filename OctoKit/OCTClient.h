@@ -124,7 +124,6 @@ extern NSString * const OCTClientErrorHTTPStatusCodeKey;
 //
 // Returns an NSMutableURLRequest that you can enqueue using
 // -enqueueRequest:resultClass:.
-
 - (NSMutableURLRequest *)requestWithMethod:(NSString *)method path:(NSString *)path parameters:(NSDictionary *)parameters notMatchingEtag:(NSString *)etag;
 
 // Enqueues a request to be sent to the server.
@@ -135,8 +134,9 @@ extern NSString * const OCTClientErrorHTTPStatusCodeKey;
 //
 // request       - The previously constructed URL request for the endpoint.
 // resultClass   - A subclass of OCTObject that the response data should be
-//                 returned as. If this is nil, the returned signal will send an
-//                 NSDictionary for each object in the JSON received.
+//                 returned as, and will be accessible from the parsedResult
+//                 property on each OCTResponse. If this is nil, NSDictionary
+//                 will be used for each object in the JSON received.
 //
 // Returns a signal which will send an instance of `OCTResponse` for each parsed
 // JSON object, then complete. If an error occurs at any point, the returned
