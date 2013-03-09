@@ -17,7 +17,7 @@ it(@"should map OCTResponses to parsedResults", ^{
 		[[OCTResponse alloc] initWithHTTPURLResponse:nil parsedResult:@{ @"key": @"value2" }],
 	];
 	
-	RACSignal *signal = [testValues.rac_sequence.signal replayLazily];
+	RACSignal *signal = testValues.rac_sequence.signal;
 	
 	__block NSUInteger count = 0;
 	[signal subscribeNext:^(id x) {

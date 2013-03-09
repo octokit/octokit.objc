@@ -63,7 +63,7 @@ describe(@"without a user", ^{
 	});
 	
 	it(@"should create a request using etags", ^{
-		NSString *etag = @"deadbeef";
+		NSString *etag = @"\"deadbeef\"";
 		NSURLRequest *request = [client requestWithMethod:@"GET" path:@"diver/dan" parameters:nil notMatchingEtag:etag];
 		
 		expect(request).toNot.beNil();
