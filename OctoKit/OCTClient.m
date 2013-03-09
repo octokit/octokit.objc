@@ -49,7 +49,8 @@ static const NSUInteger OCTClientNotModifiedStatusCode = 304;
 // method       - The HTTP method to use.
 // relativePath - The path to fetch, relative to the user object. For example,
 //                to request `user/orgs` or `users/:user/orgs`, simply pass in
-//                `orgs`.
+//                `/orgs`. This may not be nil, and must either start with a '/'
+//                or be an empty string.
 // parameters   - HTTP parameters to encode and send with the request.
 // resultClass  - The class that response data should be returned as.
 //
@@ -109,7 +110,7 @@ static const NSUInteger OCTClientNotModifiedStatusCode = 304;
 	NSParameterAssert(method != nil);
 	
 	if ([method isEqualToString:@"GET"]) {
-		parameters = [(parameters ?: [NSDictionary dictionary]) mtl_dictionaryByAddingEntriesFromDictionary:@{
+		parameters = [parameters ?: [NSDictionary dictionary] mtl_dictionaryByAddingEntriesFromDictionary:@{
 			@"per_page": @100
 		}];
 	}
@@ -191,13 +192,11 @@ static const NSUInteger OCTClientNotModifiedStatusCode = 304;
 
 - (RACSignal *)enqueueUserRequestWithMethod:(NSString *)method relativePath:(NSString *)relativePath parameters:(NSDictionary *)parameters resultClass:(Class)resultClass {
 	NSParameterAssert(method != nil);
+	NSAssert([relativePath isEqualToString:@""] || [relativePath hasPrefix:@"/"], @"%@ is not a valid relativePath, it must start with @\"/\", or equal @\"\"", relativePath);
 	
 	if (self.user == nil) return [RACSignal error:self.class.userRequiredError];
-	
-	relativePath = relativePath ?: @"";
-	NSString *constructedRelativePath = (relativePath.length > 0 ? [NSString stringWithFormat:@"/%@", relativePath] : relativePath);
-	
-	NSString *path = (self.authenticated ? [NSString stringWithFormat:@"user%@", constructedRelativePath] : [NSString stringWithFormat:@"users/%@%@", self.user.login, constructedRelativePath]);
+		
+	NSString *path = (self.authenticated ? [NSString stringWithFormat:@"user%@", relativePath] : [NSString stringWithFormat:@"users/%@%@", self.user.login, relativePath]);
 	NSMutableURLRequest *request = [self requestWithMethod:method path:path parameters:parameters notMatchingEtag:nil];
 	if (self.authenticated) request.cachePolicy = NSURLRequestReloadIgnoringLocalCacheData;
 	
@@ -411,11 +410,11 @@ static const NSUInteger OCTClientNotModifiedStatusCode = 304;
 @implementation OCTClient (User)
 
 - (RACSignal *)fetchUserInfo {
-	return [[self enqueueUserRequestWithMethod:@"GET" relativePath:nil parameters:nil resultClass:OCTUser.class] oct_parsedResults];
+	return [[self enqueueUserRequestWithMethod:@"GET" relativePath:@"" parameters:nil resultClass:OCTUser.class] oct_parsedResults];
 }
 
 - (RACSignal *)fetchUserRepositories {
-	return [[self enqueueUserRequestWithMethod:@"GET" relativePath:@"repos" parameters:nil resultClass:OCTRepository.class] oct_parsedResults];
+	return [[self enqueueUserRequestWithMethod:@"GET" relativePath:@"/repos" parameters:nil resultClass:OCTRepository.class] oct_parsedResults];
 }
 
 - (RACSignal *)createRepositoryWithName:(NSString *)name description:(NSString *)description private:(BOOL)isPrivate {
@@ -429,7 +428,7 @@ static const NSUInteger OCTClientNotModifiedStatusCode = 304;
 @implementation OCTClient (Organizations)
 
 - (RACSignal *)fetchUserOrganizations {
-	return [[self enqueueUserRequestWithMethod:@"GET" relativePath:@"orgs" parameters:nil resultClass:OCTOrganization.class] oct_parsedResults];
+	return [[self enqueueUserRequestWithMethod:@"GET" relativePath:@"/orgs" parameters:nil resultClass:OCTOrganization.class] oct_parsedResults];
 }
 
 - (RACSignal *)fetchOrganizationInfo:(OCTOrganization *)organization {
@@ -471,7 +470,7 @@ static const NSUInteger OCTClientNotModifiedStatusCode = 304;
 @implementation OCTClient (Keys)
 
 - (RACSignal *)fetchPublicKeys {
-	return [[self enqueueUserRequestWithMethod:@"GET" relativePath:@"keys" parameters:nil resultClass:OCTPublicKey.class] oct_parsedResults];
+	return [[self enqueueUserRequestWithMethod:@"GET" relativePath:@"/keys" parameters:nil resultClass:OCTPublicKey.class] oct_parsedResults];
 }
 
 - (RACSignal *)postPublicKey:(NSString *)key title:(NSString *)title {
