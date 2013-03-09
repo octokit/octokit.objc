@@ -107,8 +107,8 @@ static const NSUInteger OCTClientNotModifiedStatusCode = 304;
 
 - (NSMutableURLRequest *)requestWithMethod:(NSString *)method path:(NSString *)path parameters:(NSDictionary *)parameters notMatchingEtag:(NSString *)etag {
 	NSParameterAssert(method != nil);
-
-	parameters = [parameters mtl_dictionaryByAddingEntriesFromDictionary:@{
+	
+	parameters = [(parameters ?: [NSDictionary dictionary]) mtl_dictionaryByAddingEntriesFromDictionary:@{
 		@"per_page": @100
 	}];
 

@@ -47,6 +47,22 @@ describe(@"without a user", ^{
 		success = NO;
 		error = nil;
 	});
+	
+	it(@"should create a request with default parameters", ^{
+		NSURLRequest *request = [client requestWithMethod:@"GET" path:@"rate_limit" parameters:nil notMatchingEtag:nil];
+		
+		expect(request).toNot.beNil();
+		expect(request.URL).to.equal([NSURL URLWithString:@"https://api.github.com/rate_limit?per_page=100"]);
+	});
+	
+	it(@"should create a request using etags", ^{
+		NSString *etag = @"deadbeef";
+		NSURLRequest *request = [client requestWithMethod:@"GET" path:@"diver/dan" parameters:nil notMatchingEtag:etag];
+		
+		expect(request).toNot.beNil();
+		expect(request.URL).to.equal([NSURL URLWithString:@"https://api.github.com/diver/dan?per_page=100"]);
+		expect(request.allHTTPHeaderFields[@"If-None-Match"]).to.equal(etag);
+	});
 
 	it(@"should GET a JSON dictionary", ^{
 		stubResponse(@"/rate_limit", @"rate_limit.json");
