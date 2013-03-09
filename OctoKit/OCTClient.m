@@ -108,9 +108,11 @@ static const NSUInteger OCTClientNotModifiedStatusCode = 304;
 - (NSMutableURLRequest *)requestWithMethod:(NSString *)method path:(NSString *)path parameters:(NSDictionary *)parameters notMatchingEtag:(NSString *)etag {
 	NSParameterAssert(method != nil);
 	
-	parameters = [(parameters ?: [NSDictionary dictionary]) mtl_dictionaryByAddingEntriesFromDictionary:@{
-		@"per_page": @100
-	}];
+	if ([method isEqualToString:@"GET"]) {
+		parameters = [(parameters ?: [NSDictionary dictionary]) mtl_dictionaryByAddingEntriesFromDictionary:@{
+			@"per_page": @100
+		}];
+	}
 
 	NSMutableURLRequest *request = [self requestWithMethod:method path:[path stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] parameters:parameters];
 	if (etag != nil) {

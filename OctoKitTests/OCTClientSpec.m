@@ -48,11 +48,18 @@ describe(@"without a user", ^{
 		error = nil;
 	});
 	
-	it(@"should create a request with default parameters", ^{
+	it(@"should create a GET request with default parameters", ^{
 		NSURLRequest *request = [client requestWithMethod:@"GET" path:@"rate_limit" parameters:nil notMatchingEtag:nil];
 		
 		expect(request).toNot.beNil();
 		expect(request.URL).to.equal([NSURL URLWithString:@"https://api.github.com/rate_limit?per_page=100"]);
+	});
+	
+	it(@"should create a POST request with default parameters", ^{
+		NSURLRequest *request = [client requestWithMethod:@"POST" path:@"diver/dave" parameters:nil notMatchingEtag:nil];
+		
+		expect(request).toNot.beNil();
+		expect(request.URL).to.equal([NSURL URLWithString:@"https://api.github.com/diver/dave"]);
 	});
 	
 	it(@"should create a request using etags", ^{
