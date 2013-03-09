@@ -194,8 +194,7 @@ static const NSUInteger OCTClientNotModifiedStatusCode = 304;
 	
 	if (self.user == nil) return [RACSignal error:self.class.userRequiredError];
 	
-	if (relativePath == nil) relativePath = @"";
-	
+	relativePath = relativePath ?: @"";
 	NSString *constructedRelativePath = (relativePath.length > 0 ? [NSString stringWithFormat:@"/%@", relativePath] : relativePath);
 	
 	NSString *path = (self.authenticated ? [NSString stringWithFormat:@"user%@", constructedRelativePath] : [NSString stringWithFormat:@"users/%@%@", self.user.login, constructedRelativePath]);
