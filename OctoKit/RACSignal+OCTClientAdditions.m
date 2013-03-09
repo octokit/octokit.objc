@@ -13,7 +13,7 @@
 
 - (RACSignal *)oct_parsedResults {
 	return [self map:^(OCTResponse *response) {
-		NSAssert([response isKindOfClass:OCTResponse.class], @"Expected signal value to be an OCTResponse, but was %@", NSStringFromClass(response.class));
+		NSAssert([response isKindOfClass:OCTResponse.class], @"Expected %@ to be an OCTResponse.", response);
 		return response.parsedResult;
 	}];
 }
