@@ -11,7 +11,7 @@
 
 @implementation RACSignal (OCTClientAdditions)
 
-- (RACSignal *)oct_parsedResult {
+- (RACSignal *)oct_parsedResults {
 	return [self map:^(OCTResponse *response) {
 		NSAssert([response isKindOfClass:OCTResponse.class], @"Expected signal value to be an OCTResponse, but was %@", NSStringFromClass(response.class));
 		return response.parsedResult;

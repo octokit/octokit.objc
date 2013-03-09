@@ -15,6 +15,6 @@
 //
 // Returns a signal that maps the receiver to become a signal of
 // OCTResponse.parsedResult.
-- (RACSignal *)oct_parsedResult;
+- (RACSignal *)oct_parsedResults;
 
 @end

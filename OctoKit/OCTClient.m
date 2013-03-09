@@ -410,11 +410,11 @@ static const NSUInteger OCTClientNotModifiedStatusCode = 304;
 @implementation OCTClient (User)
 
 - (RACSignal *)fetchUserInfo {
-	return [[self enqueueUserRequestWithMethod:@"GET" relativePath:nil parameters:nil resultClass:OCTUser.class] oct_parsedResult];
+	return [[self enqueueUserRequestWithMethod:@"GET" relativePath:nil parameters:nil resultClass:OCTUser.class] oct_parsedResults];
 }
 
 - (RACSignal *)fetchUserRepositories {
-	return [[self enqueueUserRequestWithMethod:@"GET" relativePath:@"repos" parameters:nil resultClass:OCTRepository.class] oct_parsedResult];
+	return [[self enqueueUserRequestWithMethod:@"GET" relativePath:@"repos" parameters:nil resultClass:OCTRepository.class] oct_parsedResults];
 }
 
 - (RACSignal *)createRepositoryWithName:(NSString *)name description:(NSString *)description private:(BOOL)isPrivate {
@@ -428,17 +428,17 @@ static const NSUInteger OCTClientNotModifiedStatusCode = 304;
 @implementation OCTClient (Organizations)
 
 - (RACSignal *)fetchUserOrganizations {
-	return [[self enqueueUserRequestWithMethod:@"GET" relativePath:@"orgs" parameters:nil resultClass:OCTOrganization.class] oct_parsedResult];
+	return [[self enqueueUserRequestWithMethod:@"GET" relativePath:@"orgs" parameters:nil resultClass:OCTOrganization.class] oct_parsedResults];
 }
 
 - (RACSignal *)fetchOrganizationInfo:(OCTOrganization *)organization {
 	NSURLRequest *request = [self requestWithMethod:@"GET" path:[NSString stringWithFormat:@"orgs/%@", organization.login] parameters:nil notMatchingEtag:nil];
-	return [[self enqueueRequest:request resultClass:OCTOrganization.class] oct_parsedResult];
+	return [[self enqueueRequest:request resultClass:OCTOrganization.class] oct_parsedResults];
 }
 
 - (RACSignal *)fetchRepositoriesForOrganization:(OCTOrganization *)organization {
 	NSURLRequest *request = [self requestWithMethod:@"GET" path:[NSString stringWithFormat:@"orgs/%@/repos", organization.login] parameters:nil notMatchingEtag:nil];
-	return [[self enqueueRequest:request resultClass:OCTRepository.class] oct_parsedResult];
+	return [[self enqueueRequest:request resultClass:OCTRepository.class] oct_parsedResults];
 }
 
 - (RACSignal *)createRepositoryWithName:(NSString *)name organization:(OCTOrganization *)organization team:(OCTTeam *)team description:(NSString *)description private:(BOOL)isPrivate {
@@ -454,7 +454,7 @@ static const NSUInteger OCTClientNotModifiedStatusCode = 304;
 	NSString *path = (organization == nil ? @"user/repos" : [NSString stringWithFormat:@"orgs/%@/repos", organization.login]);
 	NSURLRequest *request = [self requestWithMethod:@"POST" path:path parameters:options notMatchingEtag:nil];
 	
-	return [[self enqueueRequest:request resultClass:OCTRepository.class] oct_parsedResult];
+	return [[self enqueueRequest:request resultClass:OCTRepository.class] oct_parsedResults];
 }
 
 - (RACSignal *)fetchTeamsForOrganization:(OCTOrganization *)organization {
@@ -462,7 +462,7 @@ static const NSUInteger OCTClientNotModifiedStatusCode = 304;
 
 	NSURLRequest *request = [self requestWithMethod:@"GET" path:[NSString stringWithFormat:@"orgs/%@/teams", organization.login] parameters:nil notMatchingEtag:nil];
 	
-	return [[self enqueueRequest:request resultClass:OCTTeam.class] oct_parsedResult];
+	return [[self enqueueRequest:request resultClass:OCTTeam.class] oct_parsedResults];
 }
 
 @end
@@ -470,7 +470,7 @@ static const NSUInteger OCTClientNotModifiedStatusCode = 304;
 @implementation OCTClient (Keys)
 
 - (RACSignal *)fetchPublicKeys {
-	return [[self enqueueUserRequestWithMethod:@"GET" relativePath:@"keys" parameters:nil resultClass:OCTPublicKey.class] oct_parsedResult];
+	return [[self enqueueUserRequestWithMethod:@"GET" relativePath:@"keys" parameters:nil resultClass:OCTPublicKey.class] oct_parsedResults];
 }
 
 - (RACSignal *)postPublicKey:(NSString *)key title:(NSString *)title {
@@ -486,7 +486,7 @@ static const NSUInteger OCTClientNotModifiedStatusCode = 304;
 	
 	NSURLRequest *request = [self requestWithMethod:@"POST" path:@"user/keys" parameters:[MTLJSONAdapter JSONDictionaryFromModel:publicKey] notMatchingEtag:nil];
 
-	return [[self enqueueRequest:request resultClass:OCTPublicKey.class] oct_parsedResult];
+	return [[self enqueueRequest:request resultClass:OCTPublicKey.class] oct_parsedResults];
 }
 
 @end
