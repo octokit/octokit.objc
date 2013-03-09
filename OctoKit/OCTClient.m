@@ -410,9 +410,7 @@ static const NSUInteger OCTClientNotModifiedStatusCode = 304;
 @implementation OCTClient (User)
 
 - (RACSignal *)fetchUserInfo {
-	if (self.user == nil) return [RACSignal error:self.class.userRequiredError];
-	
-	return [[self enqueueUserRequestWithMethod:@"GET" relativePath:@"" parameters:nil resultClass:OCTUser.class] oct_parsedResult];
+	return [[self enqueueUserRequestWithMethod:@"GET" relativePath:nil parameters:nil resultClass:OCTUser.class] oct_parsedResult];
 }
 
 - (RACSignal *)fetchUserRepositories {
@@ -454,7 +452,7 @@ static const NSUInteger OCTClientNotModifiedStatusCode = 304;
 	if (team != nil) options[@"team_id"] = team.objectID;
 	
 	NSString *path = (organization == nil ? @"user/repos" : [NSString stringWithFormat:@"orgs/%@/repos", organization.login]);
-	NSURLRequest *request = [self requestWithMethod:@"GET" path:path parameters:options notMatchingEtag:nil];
+	NSURLRequest *request = [self requestWithMethod:@"POST" path:path parameters:options notMatchingEtag:nil];
 	
 	return [[self enqueueRequest:request resultClass:OCTRepository.class] oct_parsedResult];
 }
@@ -486,7 +484,7 @@ static const NSUInteger OCTClientNotModifiedStatusCode = 304;
 		@keypath(OCTPublicKey.new, title): title,
 	} error:NULL];
 	
-	NSURLRequest *request = [self requestWithMethod:@"POST" path:@"user/keys"parameters:[MTLJSONAdapter JSONDictionaryFromModel:publicKey] notMatchingEtag:nil];
+	NSURLRequest *request = [self requestWithMethod:@"POST" path:@"user/keys" parameters:[MTLJSONAdapter JSONDictionaryFromModel:publicKey] notMatchingEtag:nil];
 
 	return [[self enqueueRequest:request resultClass:OCTPublicKey.class] oct_parsedResult];
 }
