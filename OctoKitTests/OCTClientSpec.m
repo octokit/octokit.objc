@@ -33,19 +33,25 @@ void (^stubResponse)(NSString *, NSString *) = ^(NSString *path, NSString *respo
 	stubResponseWithHeaders(path, responseFilename, @{});
 };
 
+__block BOOL success;
+__block NSError *error;
+
+// A random ETag for testing.
+NSString *etag = @"644b5b0155e6404a9cc4bd9d8b1ae730";
+
+beforeEach(^{
+	success = NO;
+	error = nil;
+});
+
 describe(@"without a user", ^{
 	__block OCTClient *client;
-	__block BOOL success;
-	__block NSError *error;
 
 	beforeEach(^{
 		client = [[OCTClient alloc] initWithServer:OCTServer.dotComServer];
 		expect(client).notTo.beNil();
 		expect(client.user).to.beNil();
 		expect(client.authenticated).to.beFalsy();
-
-		success = NO;
-		error = nil;
 	});
 
 	it(@"should GET a JSON dictionary", ^{
@@ -67,8 +73,6 @@ describe(@"without a user", ^{
 	});
 
 	it(@"should conditionally GET a modified JSON dictionary", ^{
-		NSString *etag = @"644b5b0155e6404a9cc4bd9d8b1ae730";
-
 		stubResponseWithHeaders(@"/rate_limit", @"rate_limit.json", @{
 			@"ETag": etag,
 		});
@@ -91,8 +95,6 @@ describe(@"without a user", ^{
 	});
 
 	it(@"should conditionally GET an unmodified endpoint", ^{
-		NSString *etag = @"644b5b0155e6404a9cc4bd9d8b1ae730";
-
 		stubResponseWithStatusCode(@"/rate_limit", 304);
 
 		RACSignal *request = [client enqueueConditionalRequestWithMethod:@"GET" path:@"rate_limit" parameters:nil notMatchingEtag:etag resultClass:nil];
@@ -127,6 +129,52 @@ describe(@"without a user", ^{
 
 		NSArray *expected = @[ @1, @2, @3, @4, @5, @6, @7, @8, @9 ];
 		expect(items).to.equal(expected);
+	});
+});
+
+describe(@"authenticated", ^{
+	__block OCTUser *user;
+	__block OCTClient *client;
+
+	beforeEach(^{
+		user = [OCTUser userWithLogin:@"mac-testing-user" server:OCTServer.dotComServer];
+		expect(user).notTo.beNil();
+
+		client = [OCTClient authenticatedClientWithUser:user password:@""];
+		expect(client).notTo.beNil();
+		expect(client.user).to.equal(user);
+		expect(client.authenticated).to.beTruthy();
+	});
+
+	it(@"should fetch notifications", ^{
+		stubResponse(@"/notifications", @"notifications.json");
+
+		RACSignal *request = [client fetchNotificationsNotMatchingEtag:nil includeReadNotifications:NO updatedSince:nil];
+		OCTResponse *response = [request asynchronousFirstOrDefault:nil success:&success error:&error];
+		expect(success).to.beTruthy();
+		expect(error).to.beNil();
+
+		OCTNotification *notification = response.parsedResult;
+		expect(notification).to.beKindOf(OCTNotification.class);
+		expect(notification.objectID).to.equal(@"1");
+		expect(notification.title).to.equal(@"Greetings");
+		expect(notification.threadURL).to.equal([NSURL URLWithString:@"https://api.github.com/notifications/threads/1"]);
+		expect(notification.subjectURL).to.equal([NSURL URLWithString:@"https://api.github.com/repos/pengwynn/octokit/issues/123"]);
+		expect(notification.latestCommentURL).to.equal([NSURL URLWithString:@"https://api.github.com/repos/pengwynn/octokit/issues/comments/123"]);
+		expect(notification.type).to.equal(OCTNotificationTypeIssue);
+		expect(notification.lastUpdatedDate).to.equal([[[ISO8601DateFormatter alloc] init] dateFromString:@"2012-09-25T07:54:41-07:00"]);
+
+		expect(notification.repository).notTo.beNil();
+		expect(notification.repository.name).to.equal(@"Hello-World");
+	});
+
+	it(@"should return nothing if notifications are unmodified", ^{
+		stubResponseWithStatusCode(@"/notifications", 304);
+
+		RACSignal *request = [client fetchNotificationsNotMatchingEtag:etag includeReadNotifications:NO updatedSince:nil];
+		expect([request asynchronousFirstOrDefault:nil success:&success error:&error]).to.beNil();
+		expect(success).to.beTruthy();
+		expect(error).to.beNil();
 	});
 });
 
