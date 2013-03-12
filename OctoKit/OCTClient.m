@@ -542,7 +542,7 @@ static const NSUInteger OCTClientNotModifiedStatusCode = 304;
 
 	NSMutableURLRequest *request = [self requestWithMethod:@"PATCH" path:@"" parameters:@{ @"read": @(read) }];
 	request.URL = notification.threadURL;
-	return [[self enqueueRequest:request resultClass:OCTNotification.class] ignoreElements];
+	return [[self enqueueRequest:request resultClass:nil] ignoreElements];
 }
 
 @end
