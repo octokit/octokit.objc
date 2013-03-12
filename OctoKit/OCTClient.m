@@ -545,13 +545,13 @@ static const NSUInteger OCTClientNotModifiedStatusCode = 304;
 	return [[self enqueueRequest:request resultClass:nil] ignoreElements];
 }
 
-- (RACSignal *)muteNotificationThread:(OCTNotification *)notification {
-	NSParameterAssert(notification != nil);
+- (RACSignal *)muteNotificationThreadAtURL:(NSURL *)threadURL {
+	NSParameterAssert(threadURL != nil);
 
 	if (!self.authenticated) return [RACSignal error:self.class.authenticationRequiredError];
 
 	NSMutableURLRequest *request = [self requestWithMethod:@"PUT" path:@"" parameters:@{ @"ignored": @(YES) }];
-	request.URL = [notification.threadURL URLByAppendingPathComponent:@"subscription"];
+	request.URL = [threadURL URLByAppendingPathComponent:@"subscription"];
 	return [[self enqueueRequest:request resultClass:nil] ignoreElements];
 }
 

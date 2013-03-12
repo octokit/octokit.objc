@@ -264,10 +264,10 @@ extern NSString * const OCTClientErrorHTTPStatusCodeKey;
 
 // Mutes all further notifications from a thread.
 //
-// notification - A notification from the thread to mute. Cannot be nil.
+// threadURL - The API URL of the thread to mute. Cannot be nil.
 //
 // Returns a signal which will send completed on success. If the client is not
 // `authenticated`, the signal will error immediately.
-- (RACSignal *)muteNotificationThread:(OCTNotification *)notification;
+- (RACSignal *)muteNotificationThreadAtURL:(NSURL *)threadURL;
 
 @end
