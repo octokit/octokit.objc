@@ -18,6 +18,7 @@
 #import "OCTTeam.h"
 #import "OCTUser.h"
 #import "OCTNotification.h"
+#import "RACSignal+OCTClientAdditions.h"
 
 NSString * const OCTClientErrorDomain = @"OCTClientErrorDomain";
 const NSInteger OCTClientErrorAuthenticationFailed = 666;
@@ -50,7 +51,8 @@ static const NSUInteger OCTClientNotModifiedStatusCode = 304;
 // method       - The HTTP method to use.
 // relativePath - The path to fetch, relative to the user object. For example,
 //                to request `user/orgs` or `users/:user/orgs`, simply pass in
-//                `orgs`.
+//                `/orgs`. This may not be nil, and must either start with a '/'
+//                or be an empty string.
 // parameters   - HTTP parameters to encode and send with the request.
 // resultClass  - The class that response data should be returned as.
 //
@@ -119,46 +121,21 @@ static const NSUInteger OCTClientNotModifiedStatusCode = 304;
 
 - (NSMutableURLRequest *)requestWithMethod:(NSString *)method path:(NSString *)path parameters:(NSDictionary *)parameters notMatchingEtag:(NSString *)etag {
 	NSParameterAssert(method != nil);
-
-	parameters = [parameters mtl_dictionaryByAddingEntriesFromDictionary:@{
-		@"per_page": @100
-	}];
 	
-	NSMutableURLRequest *request = [self requestWithMethod:method path:[path stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] parameters:parameters];
-
-	if (etag != nil) {
-		[request setValue:etag forHTTPHeaderField:@"If-None-Match"];
-	} else {
-		// Ignore cache data so we definitely re-fetch from the server.
-		request.cachePolicy = NSURLRequestReloadIgnoringLocalCacheData;
+	if ([method isEqualToString:@"GET"]) {
+		parameters = [parameters ?: [NSDictionary dictionary] mtl_dictionaryByAddingEntriesFromDictionary:@{
+			@"per_page": @100
+		}];
 	}
 
+	NSMutableURLRequest *request = [self requestWithMethod:method path:[path stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] parameters:parameters];
+	if (etag != nil) {
+		[request setValue:etag forHTTPHeaderField:@"If-None-Match"];
+	}
 	return request;
 }
 
 #pragma mark Request Enqueuing
-
-- (RACSignal *)enqueueRequestWithMethod:(NSString *)method path:(NSString *)path parameters:(NSDictionary *)parameters resultClass:(Class)resultClass {
-	return [[self enqueueConditionalRequestWithMethod:method path:path parameters:parameters notMatchingEtag:nil resultClass:resultClass]
-		map:^(OCTResponse *response) {
-			return response.parsedResult;
-		}];
-}
-
-- (RACSignal *)enqueueConditionalRequestWithMethod:(NSString *)method path:(NSString *)path parameters:(NSDictionary *)parameters notMatchingEtag:(NSString *)etag resultClass:(Class)resultClass {
-	return [self enqueueConditionalRequestWithMethod:method path:path parameters:parameters notMatchingEtag:etag resultClass:resultClass fetchAllPages:YES];
-}
-
-- (RACSignal *)enqueueConditionalRequestWithMethod:(NSString *)method path:(NSString *)path parameters:(NSDictionary *)parameters notMatchingEtag:(NSString *)etag resultClass:(Class)resultClass fetchAllPages:(BOOL)fetchAllPages {
-	NSURLRequest *request = [self requestWithMethod:method path:path parameters:parameters notMatchingEtag:etag];
-	return [self enqueueRequest:request resultClass:resultClass fetchAllPages:fetchAllPages];
-}
-
-- (RACSignal *)enqueueConditionalRequestWithMethod:(NSString *)method URL:(NSURL *)URL parameters:(NSDictionary *)parameters notMatchingEtag:(NSString *)etag resultClass:(Class)resultClass {
-	NSMutableURLRequest *request = [self requestWithMethod:method path:@"" parameters:parameters notMatchingEtag:etag];
-	request.URL = URL;
-	return [self enqueueRequest:request resultClass:resultClass fetchAllPages:YES];
-}
 
 - (RACSignal *)enqueueRequest:(NSURLRequest *)request resultClass:(Class)resultClass {
 	return [self enqueueRequest:request resultClass:resultClass fetchAllPages:YES];
@@ -213,29 +190,30 @@ static const NSUInteger OCTClientNotModifiedStatusCode = 304;
 		// Avoid infinite recursion.
 		if (![request.URL.path isEqualToString:@"rate_limit"]) {
 			signal = [signal doCompleted:^{
-				[[self enqueueRequestWithMethod:@"GET" path:@"rate_limit" parameters:nil resultClass:nil] subscribeNext:^(NSDictionary *dict) {
+				NSURLRequest *request = [self requestWithMethod:@"GET" path:@"rate_limit" parameters:nil notMatchingEtag:nil];
+				[[self enqueueRequest:request resultClass:nil] subscribeNext:^(NSDictionary *dict) {
 					NSLog(@"Remaining API calls: %@", dict[@"rate"][@"remaining"]);
 				}];
 			}];
 		}
 	}
 	
-	return [[signal replayLazily] setNameWithFormat:@"-enqueueRequest: %@ resultClass: %@ fetchAllPages: %i", request, resultClass, (int)fetchAllPages];
+	return [[signal
+		replayLazily]
+		setNameWithFormat:@"-enqueueRequest: %@ resultClass: %@ fetchAllPages: %i", request, resultClass, (int)fetchAllPages];
 }
 
 - (RACSignal *)enqueueUserRequestWithMethod:(NSString *)method relativePath:(NSString *)relativePath parameters:(NSDictionary *)parameters resultClass:(Class)resultClass {
 	NSParameterAssert(method != nil);
-	NSParameterAssert(relativePath.length > 0);
-
+	NSAssert([relativePath isEqualToString:@""] || [relativePath hasPrefix:@"/"], @"%@ is not a valid relativePath, it must start with @\"/\", or equal @\"\"", relativePath);
+	
 	if (self.user == nil) return [RACSignal error:self.class.userRequiredError];
-
-	if (self.authenticated) {
-		NSString *path = [NSString stringWithFormat:@"user/%@", relativePath];
-		return [self enqueueRequestWithMethod:method path:path parameters:parameters resultClass:resultClass];
-	} else {
-		NSString *path = [NSString stringWithFormat:@"users/%@/%@", self.user.login, relativePath];
-		return [self enqueueRequestWithMethod:method path:path parameters:parameters resultClass:resultClass];
-	}
+		
+	NSString *path = (self.authenticated ? [NSString stringWithFormat:@"user%@", relativePath] : [NSString stringWithFormat:@"users/%@%@", self.user.login, relativePath]);
+	NSMutableURLRequest *request = [self requestWithMethod:method path:path parameters:parameters notMatchingEtag:nil];
+	if (self.authenticated) request.cachePolicy = NSURLRequestReloadIgnoringLocalCacheData;
+	
+	return [self enqueueRequest:request resultClass:resultClass];
 }
 
 #pragma mark Pagination
@@ -445,18 +423,11 @@ static const NSUInteger OCTClientNotModifiedStatusCode = 304;
 @implementation OCTClient (User)
 
 - (RACSignal *)fetchUserInfo {
-	if (self.user == nil) return [RACSignal error:self.class.userRequiredError];
-
-	if (self.authenticated) {
-		return [self enqueueRequestWithMethod:@"GET" path:@"user" parameters:nil resultClass:OCTUser.class];
-	} else {
-		NSString *path = [NSString stringWithFormat:@"users/%@", self.user.login];
-		return [self enqueueRequestWithMethod:@"GET" path:path parameters:nil resultClass:OCTUser.class];
-	}
+	return [[self enqueueUserRequestWithMethod:@"GET" relativePath:@"" parameters:nil resultClass:OCTUser.class] oct_parsedResults];
 }
 
 - (RACSignal *)fetchUserRepositories {
-	return [self enqueueUserRequestWithMethod:@"GET" relativePath:@"repos" parameters:nil resultClass:OCTRepository.class];
+	return [[self enqueueUserRequestWithMethod:@"GET" relativePath:@"/repos" parameters:nil resultClass:OCTRepository.class] oct_parsedResults];
 }
 
 - (RACSignal *)createRepositoryWithName:(NSString *)name description:(NSString *)description private:(BOOL)isPrivate {
@@ -470,15 +441,17 @@ static const NSUInteger OCTClientNotModifiedStatusCode = 304;
 @implementation OCTClient (Organizations)
 
 - (RACSignal *)fetchUserOrganizations {
-	return [self enqueueUserRequestWithMethod:@"GET" relativePath:@"orgs" parameters:nil resultClass:OCTOrganization.class];
+	return [[self enqueueUserRequestWithMethod:@"GET" relativePath:@"/orgs" parameters:nil resultClass:OCTOrganization.class] oct_parsedResults];
 }
 
 - (RACSignal *)fetchOrganizationInfo:(OCTOrganization *)organization {
-	return [self enqueueRequestWithMethod:@"GET" path:[NSString stringWithFormat:@"orgs/%@", organization.login] parameters:nil resultClass:OCTOrganization.class];
+	NSURLRequest *request = [self requestWithMethod:@"GET" path:[NSString stringWithFormat:@"orgs/%@", organization.login] parameters:nil notMatchingEtag:nil];
+	return [[self enqueueRequest:request resultClass:OCTOrganization.class] oct_parsedResults];
 }
 
 - (RACSignal *)fetchRepositoriesForOrganization:(OCTOrganization *)organization {
-	return [self enqueueRequestWithMethod:@"GET" path:[NSString stringWithFormat:@"orgs/%@/repos", organization.login] parameters:nil resultClass:OCTRepository.class];
+	NSURLRequest *request = [self requestWithMethod:@"GET" path:[NSString stringWithFormat:@"orgs/%@/repos", organization.login] parameters:nil notMatchingEtag:nil];
+	return [[self enqueueRequest:request resultClass:OCTRepository.class] oct_parsedResults];
 }
 
 - (RACSignal *)createRepositoryWithName:(NSString *)name organization:(OCTOrganization *)organization team:(OCTTeam *)team description:(NSString *)description private:(BOOL)isPrivate {
@@ -492,13 +465,17 @@ static const NSUInteger OCTClientNotModifiedStatusCode = 304;
 	if (team != nil) options[@"team_id"] = team.objectID;
 	
 	NSString *path = (organization == nil ? @"user/repos" : [NSString stringWithFormat:@"orgs/%@/repos", organization.login]);
-	return [self enqueueRequestWithMethod:@"POST" path:path parameters:options resultClass:OCTRepository.class];
+	NSURLRequest *request = [self requestWithMethod:@"POST" path:path parameters:options notMatchingEtag:nil];
+	
+	return [[self enqueueRequest:request resultClass:OCTRepository.class] oct_parsedResults];
 }
 
 - (RACSignal *)fetchTeamsForOrganization:(OCTOrganization *)organization {
 	if (!self.authenticated) return [RACSignal error:self.class.authenticationRequiredError];
 
-	return [self enqueueRequestWithMethod:@"GET" path:[NSString stringWithFormat:@"orgs/%@/teams", organization.login] parameters:nil resultClass:OCTTeam.class];
+	NSURLRequest *request = [self requestWithMethod:@"GET" path:[NSString stringWithFormat:@"orgs/%@/teams", organization.login] parameters:nil notMatchingEtag:nil];
+	
+	return [[self enqueueRequest:request resultClass:OCTTeam.class] oct_parsedResults];
 }
 
 @end
@@ -506,7 +483,7 @@ static const NSUInteger OCTClientNotModifiedStatusCode = 304;
 @implementation OCTClient (Keys)
 
 - (RACSignal *)fetchPublicKeys {
-	return [self enqueueUserRequestWithMethod:@"GET" relativePath:@"keys" parameters:nil resultClass:OCTPublicKey.class];
+	return [[self enqueueUserRequestWithMethod:@"GET" relativePath:@"/keys" parameters:nil resultClass:OCTPublicKey.class] oct_parsedResults];
 }
 
 - (RACSignal *)postPublicKey:(NSString *)key title:(NSString *)title {
@@ -519,8 +496,10 @@ static const NSUInteger OCTClientNotModifiedStatusCode = 304;
 		@keypath(OCTPublicKey.new, publicKey): key,
 		@keypath(OCTPublicKey.new, title): title,
 	} error:NULL];
+	
+	NSURLRequest *request = [self requestWithMethod:@"POST" path:@"user/keys" parameters:[MTLJSONAdapter JSONDictionaryFromModel:publicKey] notMatchingEtag:nil];
 
-	return [self enqueueRequestWithMethod:@"POST" path:@"user/keys" parameters:[MTLJSONAdapter JSONDictionaryFromModel:publicKey] resultClass:OCTPublicKey.class];
+	return [[self enqueueRequest:request resultClass:OCTPublicKey.class] oct_parsedResults];
 }
 
 @end
@@ -530,7 +509,9 @@ static const NSUInteger OCTClientNotModifiedStatusCode = 304;
 - (RACSignal *)fetchUserEventsNotMatchingEtag:(NSString *)etag {
 	if (self.user == nil) return [RACSignal error:self.class.userRequiredError];
 
-	return [self enqueueConditionalRequestWithMethod:@"GET" path:[NSString stringWithFormat:@"users/%@/received_events", self.user.login] parameters:nil notMatchingEtag:etag resultClass:OCTEvent.class fetchAllPages:NO];
+	NSURLRequest *request = [self requestWithMethod:@"GET" path:[NSString stringWithFormat:@"users/%@/received_events", self.user.login] parameters:nil notMatchingEtag:etag];
+	
+	return [self enqueueRequest:request resultClass:OCTEvent.class fetchAllPages:NO];
 }
 
 @end
@@ -546,8 +527,8 @@ static const NSUInteger OCTClientNotModifiedStatusCode = 304;
 	if (since != nil) {
 		parameters[@"since"] = [NSDateFormatter oct_stringFromDate:since];
 	}
-
-	return [self enqueueConditionalRequestWithMethod:@"GET" path:@"notifications" parameters:parameters notMatchingEtag:etag resultClass:OCTNotification.class];
+	NSURLRequest *request = [self requestWithMethod:@"GET" path:@"notifications" parameters:parameters notMatchingEtag:etag];
+	return [self enqueueRequest:request resultClass:OCTNotification.class];
 }
 
 - (RACSignal *)markNotificationAsRead:(OCTNotification *)notification {
@@ -559,7 +540,9 @@ static const NSUInteger OCTClientNotModifiedStatusCode = 304;
 
 	if (!self.authenticated) return [RACSignal error:self.class.authenticationRequiredError];
 
-	return [[self enqueueConditionalRequestWithMethod:@"PATCH" URL:notification.threadURL parameters:@{ @"read": @(read) } notMatchingEtag:nil resultClass:nil] ignoreElements];
+	NSMutableURLRequest *request = [self requestWithMethod:@"PATCH" path:@"" parameters:@{ @"read": @(read) }];
+	request.URL = notification.threadURL;
+	return [[self enqueueRequest:request resultClass:OCTNotification.class] ignoreElements];
 }
 
 @end

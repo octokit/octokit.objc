@@ -53,12 +53,37 @@ describe(@"without a user", ^{
 		expect(client.user).to.beNil();
 		expect(client.authenticated).to.beFalsy();
 	});
+	
+	it(@"should create a GET request with default parameters", ^{
+		NSURLRequest *request = [client requestWithMethod:@"GET" path:@"rate_limit" parameters:nil notMatchingEtag:nil];
+		
+		expect(request).toNot.beNil();
+		expect(request.URL).to.equal([NSURL URLWithString:@"https://api.github.com/rate_limit?per_page=100"]);
+	});
+	
+	it(@"should create a POST request with default parameters", ^{
+		NSURLRequest *request = [client requestWithMethod:@"POST" path:@"diver/dave" parameters:nil notMatchingEtag:nil];
+		
+		expect(request).toNot.beNil();
+		expect(request.URL).to.equal([NSURL URLWithString:@"https://api.github.com/diver/dave"]);
+	});
+	
+	it(@"should create a request using etags", ^{
+		NSString *etag = @"\"deadbeef\"";
+		NSURLRequest *request = [client requestWithMethod:@"GET" path:@"diver/dan" parameters:nil notMatchingEtag:etag];
+		
+		expect(request).toNot.beNil();
+		expect(request.URL).to.equal([NSURL URLWithString:@"https://api.github.com/diver/dan?per_page=100"]);
+		expect(request.allHTTPHeaderFields[@"If-None-Match"]).to.equal(etag);
+	});
 
 	it(@"should GET a JSON dictionary", ^{
 		stubResponse(@"/rate_limit", @"rate_limit.json");
 
-		RACSignal *request = [client enqueueRequestWithMethod:@"GET" path:@"rate_limit" parameters:nil resultClass:nil];
-		NSDictionary *result = [request asynchronousFirstOrDefault:nil success:&success error:&error];
+		NSURLRequest *request = [client requestWithMethod:@"GET" path:@"rate_limit" parameters:nil notMatchingEtag:nil];
+		RACSignal *result = [client enqueueRequest:request resultClass:nil];
+		OCTResponse *response = [result asynchronousFirstOrDefault:nil success:&success error:&error];
+		expect(response).notTo.beNil();
 		expect(success).to.beTruthy();
 		expect(error).to.beNil();
 
@@ -69,7 +94,7 @@ describe(@"without a user", ^{
 			},
 		};
 
-		expect(result).to.equal(expected);
+		expect(response.parsedResult).to.equal(expected);
 	});
 
 	it(@"should conditionally GET a modified JSON dictionary", ^{
@@ -77,8 +102,9 @@ describe(@"without a user", ^{
 			@"ETag": etag,
 		});
 
-		RACSignal *request = [client enqueueConditionalRequestWithMethod:@"GET" path:@"rate_limit" parameters:nil notMatchingEtag:nil resultClass:nil];
-		OCTResponse *response = [request asynchronousFirstOrDefault:nil success:&success error:&error];
+		NSURLRequest *request = [client requestWithMethod:@"GET" path:@"rate_limit" parameters:nil notMatchingEtag:nil];
+		RACSignal *result = [client enqueueRequest:request resultClass:nil];
+		OCTResponse *response = [result asynchronousFirstOrDefault:nil success:&success error:&error];
 		expect(response).notTo.beNil();
 		expect(success).to.beTruthy();
 		expect(error).to.beNil();
@@ -97,8 +123,10 @@ describe(@"without a user", ^{
 	it(@"should conditionally GET an unmodified endpoint", ^{
 		stubResponseWithStatusCode(@"/rate_limit", 304);
 
-		RACSignal *request = [client enqueueConditionalRequestWithMethod:@"GET" path:@"rate_limit" parameters:nil notMatchingEtag:etag resultClass:nil];
-		expect([request asynchronousFirstOrDefault:nil success:&success error:&error]).to.beNil();
+		NSURLRequest *request = [client requestWithMethod:@"GET" path:@"rate_limit" parameters:nil notMatchingEtag:etag];
+		RACSignal *result = [client enqueueRequest:request resultClass:nil];
+
+		expect([result asynchronousFirstOrDefault:nil success:&success error:&error]).to.beNil();
 		expect(success).to.beTruthy();
 		expect(error).to.beNil();
 	});
@@ -114,17 +142,19 @@ describe(@"without a user", ^{
 
 		stubResponse(@"/items3", @"page3.json");
 
-		RACSignal *request = [client enqueueRequestWithMethod:@"GET" path:@"items1" parameters:nil resultClass:nil];
+		NSURLRequest *request = [client requestWithMethod:@"GET" path:@"items1" parameters:nil notMatchingEtag:nil];
+		RACSignal *result = [client enqueueRequest:request resultClass:nil];
 
 		__block NSMutableArray *items = [NSMutableArray array];
-		[request subscribeNext:^(NSDictionary *dict) {
+		[result subscribeNext:^(OCTResponse *response) {
+			NSDictionary *dict = response.parsedResult;
 			expect(dict).to.beKindOf(NSDictionary.class);
 			expect(dict[@"item"]).notTo.beNil();
 
 			[items addObject:dict[@"item"]];
 		}];
 
-		expect([request asynchronouslyWaitUntilCompleted:&error]).to.beTruthy();
+		expect([result asynchronouslyWaitUntilCompleted:&error]).to.beTruthy();
 		expect(error).to.beNil();
 
 		NSArray *expected = @[ @1, @2, @3, @4, @5, @6, @7, @8, @9 ];
