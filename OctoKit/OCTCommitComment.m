@@ -16,6 +16,7 @@
 	return [super.JSONKeyPathsByPropertyKey mtl_dictionaryByAddingEntriesFromDictionary:@{
 		@"HTMLURL": @"html_url",
 		@"commitSHA": @"commit_id",
+		@"commenterLogin": @"user.login",
 	}];
 }
 

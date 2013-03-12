@@ -7,6 +7,7 @@
 //
 
 #import "OCTClient.h"
+#import "NSDateFormatter+OCTFormattingAdditions.h"
 #import "OCTEvent.h"
 #import "OCTObject+Private.h"
 #import "OCTOrganization.h"
@@ -16,6 +17,7 @@
 #import "OCTServer.h"
 #import "OCTTeam.h"
 #import "OCTUser.h"
+#import "OCTNotification.h"
 #import "RACSignal+OCTClientAdditions.h"
 
 NSString * const OCTClientErrorDomain = @"OCTClientErrorDomain";
@@ -58,6 +60,17 @@ static const NSUInteger OCTClientNotModifiedStatusCode = 304;
 // JSON object, then complete. If no `user` is set on the receiver, the signal
 // will error immediately.
 - (RACSignal *)enqueueUserRequestWithMethod:(NSString *)method relativePath:(NSString *)relativePath parameters:(NSDictionary *)parameters resultClass:(Class)resultClass;
+
+// Creates a request.
+//
+// method - The HTTP method to use in the request (e.g., "GET" or "POST").
+// path   - The path to request, relative to the base API endpoint. This path
+//          should _not_ begin with a forward slash.
+// etag   - An ETag to compare the server data against, previously retrieved
+//          from an instance of OCTResponse.
+//
+// Returns a request which can be modified further before being enqueued.
+- (NSMutableURLRequest *)requestWithMethod:(NSString *)method path:(NSString *)path parameters:(NSDictionary *)parameters notMatchingEtag:(NSString *)etag;
 
 @end
 
@@ -499,6 +512,37 @@ static const NSUInteger OCTClientNotModifiedStatusCode = 304;
 	NSURLRequest *request = [self requestWithMethod:@"GET" path:[NSString stringWithFormat:@"users/%@/received_events", self.user.login] parameters:nil notMatchingEtag:etag];
 	
 	return [self enqueueRequest:request resultClass:OCTEvent.class fetchAllPages:NO];
+}
+
+@end
+
+@implementation OCTClient (Notifications)
+
+- (RACSignal *)fetchNotificationsNotMatchingEtag:(NSString *)etag includeReadNotifications:(BOOL)includeRead updatedSince:(NSDate *)since {
+	if (!self.authenticated) return [RACSignal error:self.class.authenticationRequiredError];
+
+	NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+	parameters[@"all"] = @(includeRead);
+
+	if (since != nil) {
+		parameters[@"since"] = [NSDateFormatter oct_stringFromDate:since];
+	}
+	NSURLRequest *request = [self requestWithMethod:@"GET" path:@"notifications" parameters:parameters notMatchingEtag:etag];
+	return [self enqueueRequest:request resultClass:OCTNotification.class];
+}
+
+- (RACSignal *)markNotificationAsRead:(OCTNotification *)notification {
+	return [self patchNotification:notification withReadStatus:YES];
+}
+
+- (RACSignal *)patchNotification:(OCTNotification *)notification withReadStatus:(BOOL)read {
+	NSParameterAssert(notification != nil);
+
+	if (!self.authenticated) return [RACSignal error:self.class.authenticationRequiredError];
+
+	NSMutableURLRequest *request = [self requestWithMethod:@"PATCH" path:@"" parameters:@{ @"read": @(read) }];
+	request.URL = notification.threadURL;
+	return [[self enqueueRequest:request resultClass:OCTNotification.class] ignoreElements];
 }
 
 @end
