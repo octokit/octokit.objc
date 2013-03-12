@@ -308,7 +308,7 @@ static const NSUInteger OCTClientNotModifiedStatusCode = 304;
 		} else if ([responseObject isKindOfClass:NSDictionary.class]) {
 			parseJSONDictionary(responseObject);
 			[subscriber sendCompleted];
-		} else {
+		} else if (responseObject != nil && ![responseObject isEqual:NSNull.null]) {
 			NSString *failureReason = [NSString stringWithFormat:NSLocalizedString(@"Response wasn't an array or dictionary (%@): %@", @""), [responseObject class], responseObject];
 			[subscriber sendError:[self parsingErrorWithFailureReason:failureReason]];
 		}
