@@ -224,6 +224,12 @@
 		D0D8C09E16DFF1540070399E /* rate_limit.json in Resources */ = {isa = PBXBuildFile; fileRef = D0D8C09416DFF1540070399E /* rate_limit.json */; };
 		D0E41B8716DFF37E00E321CF /* notifications.json in Resources */ = {isa = PBXBuildFile; fileRef = D0E41B8616DFF37E00E321CF /* notifications.json */; };
 		D0E41B8816DFF37E00E321CF /* notifications.json in Resources */ = {isa = PBXBuildFile; fileRef = D0E41B8616DFF37E00E321CF /* notifications.json */; };
+		F6CF78D416E993A500A75F63 /* RACSignal+OCTClientAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = F6CF78D216E993A500A75F63 /* RACSignal+OCTClientAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F6CF78D516E993A500A75F63 /* RACSignal+OCTClientAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = F6CF78D216E993A500A75F63 /* RACSignal+OCTClientAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F6CF78D616E993A500A75F63 /* RACSignal+OCTClientAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = F6CF78D316E993A500A75F63 /* RACSignal+OCTClientAdditions.m */; };
+		F6CF78D816E993A500A75F63 /* RACSignal+OCTClientAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = F6CF78D316E993A500A75F63 /* RACSignal+OCTClientAdditions.m */; };
+		F6E2EC4016EB04C60096C268 /* RACSignalAdditionsSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = F6E2EC3F16EB04C50096C268 /* RACSignalAdditionsSpec.m */; };
+		F6E2EC4116EB04C60096C268 /* RACSignalAdditionsSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = F6E2EC3F16EB04C50096C268 /* RACSignalAdditionsSpec.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -461,7 +467,7 @@
 		D0872109169E35DE00016ACA /* Specta.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Specta.xcodeproj; path = External/Mantle/MantleTests/specta/Specta.xcodeproj; sourceTree = "<group>"; };
 		D0872124169E365A00016ACA /* OctoKitTests-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "OctoKitTests-Prefix.pch"; sourceTree = "<group>"; };
 		D0872127169E395F00016ACA /* OCTClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCTClient.h; sourceTree = "<group>"; };
-		D0872128169E395F00016ACA /* OCTClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCTClient.m; sourceTree = "<group>"; };
+		D0872128169E395F00016ACA /* OCTClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCTClient.m; sourceTree = "<group>"; usesTabs = 1; };
 		D0872129169E395F00016ACA /* OCTCommitComment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCTCommitComment.h; sourceTree = "<group>"; };
 		D087212A169E395F00016ACA /* OCTCommitComment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCTCommitComment.m; sourceTree = "<group>"; };
 		D087212B169E395F00016ACA /* OCTCommitCommentEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCTCommitCommentEvent.h; sourceTree = "<group>"; };
@@ -537,6 +543,9 @@
 		D0D8C09316DFF1540070399E /* page3.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = page3.json; sourceTree = "<group>"; };
 		D0D8C09416DFF1540070399E /* rate_limit.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = rate_limit.json; sourceTree = "<group>"; };
 		D0E41B8616DFF37E00E321CF /* notifications.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = notifications.json; sourceTree = "<group>"; };
+		F6CF78D216E993A500A75F63 /* RACSignal+OCTClientAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RACSignal+OCTClientAdditions.h"; sourceTree = "<group>"; };
+		F6CF78D316E993A500A75F63 /* RACSignal+OCTClientAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "RACSignal+OCTClientAdditions.m"; sourceTree = "<group>"; };
+		F6E2EC3F16EB04C50096C268 /* RACSignalAdditionsSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RACSignalAdditionsSpec.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -626,6 +635,7 @@
 				D0871EA9169E2EFC00016ACA /* Products */,
 			);
 			sourceTree = "<group>";
+			usesTabs = 1;
 		};
 		D0871EA9169E2EFC00016ACA /* Products */ = {
 			isa = PBXGroup;
@@ -851,6 +861,7 @@
 			children = (
 				D0B9C8FC16BC7A260029C5B4 /* NSDateFormatterAdditionsSpec.m */,
 				D0772E7B16BD2AD5009DFF72 /* NSValueTransformerAdditionsSpec.m */,
+				F6E2EC3F16EB04C50096C268 /* RACSignalAdditionsSpec.m */,
 				D05E751F16D35886001AA17B /* OCTClientSpec.m */,
 				D08721BD169E396F00016ACA /* OCTCommitCommentSpec.m */,
 				D08721BE169E396F00016ACA /* OCTEventSpec.m */,
@@ -988,6 +999,8 @@
 				D0B9C8F116BC78970029C5B4 /* NSDateFormatter+OCTFormattingAdditions.m */,
 				D0772E7516BD2A05009DFF72 /* NSValueTransformer+OCTPredefinedTransformerAdditions.h */,
 				D0772E7616BD2A06009DFF72 /* NSValueTransformer+OCTPredefinedTransformerAdditions.m */,
+				F6CF78D216E993A500A75F63 /* RACSignal+OCTClientAdditions.h */,
+				F6CF78D316E993A500A75F63 /* RACSignal+OCTClientAdditions.m */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -1050,6 +1063,7 @@
 				8848E19D16AF630B005449AB /* OCTNotification.h in Headers */,
 				D0772E7316BD27B5009DFF72 /* NSDateFormatter+OCTFormattingAdditions.h in Headers */,
 				D0772E7716BD2A06009DFF72 /* NSValueTransformer+OCTPredefinedTransformerAdditions.h in Headers */,
+				F6CF78D416E993A500A75F63 /* RACSignal+OCTClientAdditions.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1095,6 +1109,7 @@
 				8848E19E16AF630B005449AB /* OCTNotification.h in Headers */,
 				D0772E7416BD27B6009DFF72 /* NSDateFormatter+OCTFormattingAdditions.h in Headers */,
 				D0772E7816BD2A06009DFF72 /* NSValueTransformer+OCTPredefinedTransformerAdditions.h in Headers */,
+				F6CF78D516E993A500A75F63 /* RACSignal+OCTClientAdditions.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1439,6 +1454,7 @@
 				8848E19F16AF630B005449AB /* OCTNotification.m in Sources */,
 				D0B9C8F416BC78970029C5B4 /* NSDateFormatter+OCTFormattingAdditions.m in Sources */,
 				D0772E7916BD2A06009DFF72 /* NSValueTransformer+OCTPredefinedTransformerAdditions.m in Sources */,
+				F6CF78D616E993A500A75F63 /* RACSignal+OCTClientAdditions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1459,6 +1475,7 @@
 				D0B9C8FD16BC7A260029C5B4 /* NSDateFormatterAdditionsSpec.m in Sources */,
 				D0772E7C16BD2AD5009DFF72 /* NSValueTransformerAdditionsSpec.m in Sources */,
 				D05E752016D35886001AA17B /* OCTClientSpec.m in Sources */,
+				F6E2EC4016EB04C60096C268 /* RACSignalAdditionsSpec.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1503,6 +1520,7 @@
 				8848E1A016AF630B005449AB /* OCTNotification.m in Sources */,
 				D0B9C8F516BC78970029C5B4 /* NSDateFormatter+OCTFormattingAdditions.m in Sources */,
 				D0772E7A16BD2A06009DFF72 /* NSValueTransformer+OCTPredefinedTransformerAdditions.m in Sources */,
+				F6CF78D816E993A500A75F63 /* RACSignal+OCTClientAdditions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1523,6 +1541,7 @@
 				D0B9C8FE16BC7A260029C5B4 /* NSDateFormatterAdditionsSpec.m in Sources */,
 				D0772E7D16BD2AD5009DFF72 /* NSValueTransformerAdditionsSpec.m in Sources */,
 				D05E752116D35886001AA17B /* OCTClientSpec.m in Sources */,
+				F6E2EC4116EB04C60096C268 /* RACSignalAdditionsSpec.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
