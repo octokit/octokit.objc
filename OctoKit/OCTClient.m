@@ -531,17 +531,17 @@ static const NSUInteger OCTClientNotModifiedStatusCode = 304;
 	return [self enqueueRequest:request resultClass:OCTNotification.class];
 }
 
-- (RACSignal *)markNotificationAsRead:(OCTNotification *)notification {
-	return [self patchNotification:notification withReadStatus:YES];
+- (RACSignal *)markNotificationThreadAsReadAtURL:(NSURL *)threadURL {
+	return [self patchThreadURL:threadURL withReadStatus:YES];
 }
 
-- (RACSignal *)patchNotification:(OCTNotification *)notification withReadStatus:(BOOL)read {
-	NSParameterAssert(notification != nil);
+- (RACSignal *)patchThreadURL:(NSURL *)threadURL withReadStatus:(BOOL)read {
+	NSParameterAssert(threadURL != nil);
 
 	if (!self.authenticated) return [RACSignal error:self.class.authenticationRequiredError];
 
 	NSMutableURLRequest *request = [self requestWithMethod:@"PATCH" path:@"" parameters:@{ @"read": @(read) }];
-	request.URL = notification.threadURL;
+	request.URL = threadURL;
 	return [[self enqueueRequest:request resultClass:nil] ignoreElements];
 }
 
