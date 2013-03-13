@@ -550,7 +550,7 @@ static const NSUInteger OCTClientNotModifiedStatusCode = 304;
 
 	if (!self.authenticated) return [RACSignal error:self.class.authenticationRequiredError];
 
-	NSMutableURLRequest *request = [self requestWithMethod:@"PUT" path:@"" parameters:@{ @"ignored": @(YES) }];
+	NSMutableURLRequest *request = [self requestWithMethod:@"PUT" path:@"" parameters:@{ @"ignored": @YES }];
 	request.URL = [threadURL URLByAppendingPathComponent:@"subscription"];
 	return [[self enqueueRequest:request resultClass:nil] ignoreElements];
 }
