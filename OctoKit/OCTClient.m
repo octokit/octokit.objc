@@ -308,7 +308,7 @@ static const NSUInteger OCTClientNotModifiedStatusCode = 304;
 		} else if ([responseObject isKindOfClass:NSDictionary.class]) {
 			parseJSONDictionary(responseObject);
 			[subscriber sendCompleted];
-		} else {
+		} else if (responseObject != nil) {
 			NSString *failureReason = [NSString stringWithFormat:NSLocalizedString(@"Response wasn't an array or dictionary (%@): %@", @""), [responseObject class], responseObject];
 			[subscriber sendError:[self parsingErrorWithFailureReason:failureReason]];
 		}
@@ -531,18 +531,28 @@ static const NSUInteger OCTClientNotModifiedStatusCode = 304;
 	return [self enqueueRequest:request resultClass:OCTNotification.class];
 }
 
-- (RACSignal *)markNotificationAsRead:(OCTNotification *)notification {
-	return [self patchNotification:notification withReadStatus:YES];
+- (RACSignal *)markNotificationThreadAsReadAtURL:(NSURL *)threadURL {
+	return [self patchThreadURL:threadURL withReadStatus:YES];
 }
 
-- (RACSignal *)patchNotification:(OCTNotification *)notification withReadStatus:(BOOL)read {
-	NSParameterAssert(notification != nil);
+- (RACSignal *)patchThreadURL:(NSURL *)threadURL withReadStatus:(BOOL)read {
+	NSParameterAssert(threadURL != nil);
 
 	if (!self.authenticated) return [RACSignal error:self.class.authenticationRequiredError];
 
 	NSMutableURLRequest *request = [self requestWithMethod:@"PATCH" path:@"" parameters:@{ @"read": @(read) }];
-	request.URL = notification.threadURL;
-	return [[self enqueueRequest:request resultClass:OCTNotification.class] ignoreElements];
+	request.URL = threadURL;
+	return [[self enqueueRequest:request resultClass:nil] ignoreElements];
+}
+
+- (RACSignal *)muteNotificationThreadAtURL:(NSURL *)threadURL {
+	NSParameterAssert(threadURL != nil);
+
+	if (!self.authenticated) return [RACSignal error:self.class.authenticationRequiredError];
+
+	NSMutableURLRequest *request = [self requestWithMethod:@"PUT" path:@"" parameters:@{ @"ignored": @YES }];
+	request.URL = [threadURL URLByAppendingPathComponent:@"subscription"];
+	return [[self enqueueRequest:request resultClass:nil] ignoreElements];
 }
 
 @end
