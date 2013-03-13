@@ -254,12 +254,20 @@ extern NSString * const OCTClientErrorHTTPStatusCodeKey;
 // `authenticated`, the signal will error immediately.
 - (RACSignal *)fetchNotificationsNotMatchingEtag:(NSString *)etag includeReadNotifications:(BOOL)includeRead updatedSince:(NSDate *)since;
 
-// Mark the notification has having been read.
+// Mark a notification thread as having been read.
 //
-// notification - The notification to mark as read. Cannot be nil.
+// threadURL - The API URL of the thread to mark as read. Cannot be nil.
 //
 // Returns a signal which will send completed on success. If the client is not
 // `authenticated`, the signal will error immediately.
-- (RACSignal *)markNotificationAsRead:(OCTNotification *)notification;
+- (RACSignal *)markNotificationThreadAsReadAtURL:(NSURL *)threadURL;
+
+// Mutes all further notifications from a thread.
+//
+// threadURL - The API URL of the thread to mute. Cannot be nil.
+//
+// Returns a signal which will send completed on success. If the client is not
+// `authenticated`, the signal will error immediately.
+- (RACSignal *)muteNotificationThreadAtURL:(NSURL *)threadURL;
 
 @end
