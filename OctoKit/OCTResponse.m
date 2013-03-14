@@ -19,6 +19,9 @@
 	_parsedResult = parsedResult;
 	_etag = [response.allHeaderFields[@"ETag"] copy];
 
+	_maximumRequestsPerHour = [response.allHeaderFields[@"X-RateLimit-Limit"] integerValue];
+	_remainingRequests = [response.allHeaderFields[@"X-RateLimit-Remaining"] integerValue];
+
 	NSString *intervalString = response.allHeaderFields[@"X-Poll-Interval"];
 	if (intervalString.length > 0) {
 		_pollInterval = @(intervalString.doubleValue);

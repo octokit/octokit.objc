@@ -21,8 +21,18 @@
 // Set to any X-Poll-Interval header returned by the server, or nil if no such
 // header was returned.
 //
-// This is currently only meaningful for the events API.
+// This is used with the events and notifications APIs to support server-driven
+// polling rates.
 @property (nonatomic, copy, readonly) NSNumber *pollInterval;
+
+// Set to the X-RateLimit-Limit header sent by the server, indicating how many
+// unconditional requests the user is allowed to make per hour.
+@property (nonatomic, assign, readonly) NSInteger maximumRequestsPerHour;
+
+// Set to the X-RateLimit-Remaining header sent by the server, indicating how
+// many remaining unconditional requests the user can make this hour (in server
+// time).
+@property (nonatomic, assign, readonly) NSInteger remainingRequests;
 
 // Initializes the receiver with the headers from the given response, and the
 // given parsed model object(s).
