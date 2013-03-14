@@ -12,6 +12,8 @@
 		8848E19F16AF630B005449AB /* OCTNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = 8848E19C16AF630B005449AB /* OCTNotification.m */; };
 		8848E1A016AF630B005449AB /* OCTNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = 8848E19C16AF630B005449AB /* OCTNotification.m */; };
 		D02E48FE16CBAB7A00257645 /* Mantle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0872069169E328B00016ACA /* Mantle.framework */; };
+		D058675616F2649800941A32 /* OCTResponseSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = D058675516F2649800941A32 /* OCTResponseSpec.m */; };
+		D058675716F2649800941A32 /* OCTResponseSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = D058675516F2649800941A32 /* OCTResponseSpec.m */; };
 		D05E74E516D3550A001AA17B /* OHHTTPStubs.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D05E74E016D354FD001AA17B /* OHHTTPStubs.framework */; };
 		D05E74E816D35513001AA17B /* libOHHTTPStubs.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D05E74DE16D354FD001AA17B /* libOHHTTPStubs.a */; };
 		D05E752016D35886001AA17B /* OCTClientSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = D05E751F16D35886001AA17B /* OCTClientSpec.m */; };
@@ -406,6 +408,7 @@
 /* Begin PBXFileReference section */
 		8848E19B16AF630B005449AB /* OCTNotification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCTNotification.h; sourceTree = "<group>"; };
 		8848E19C16AF630B005449AB /* OCTNotification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCTNotification.m; sourceTree = "<group>"; };
+		D058675516F2649800941A32 /* OCTResponseSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCTResponseSpec.m; sourceTree = "<group>"; };
 		D05E74D416D354FD001AA17B /* OHHTTPStubs.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = OHHTTPStubs.xcodeproj; path = External/OHHTTPStubs/OHHTTPStubs/OHHTTPStubs.xcodeproj; sourceTree = "<group>"; };
 		D05E751F16D35886001AA17B /* OCTClientSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCTClientSpec.m; sourceTree = "<group>"; };
 		D0772E7516BD2A05009DFF72 /* NSValueTransformer+OCTPredefinedTransformerAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSValueTransformer+OCTPredefinedTransformerAdditions.h"; sourceTree = "<group>"; };
@@ -872,6 +875,7 @@
 				D08721CB169E398C00016ACA /* OCTPullRequestCommentSpec.m */,
 				D08721CC169E398C00016ACA /* OCTPullRequestSpec.m */,
 				D08721CD169E398C00016ACA /* OCTRepositorySpec.m */,
+				D058675516F2649800941A32 /* OCTResponseSpec.m */,
 				D08721CE169E398C00016ACA /* OCTServerSpec.m */,
 				D08721CF169E398C00016ACA /* OCTUserSpec.m */,
 			);
@@ -1476,6 +1480,7 @@
 				D0772E7C16BD2AD5009DFF72 /* NSValueTransformerAdditionsSpec.m in Sources */,
 				D05E752016D35886001AA17B /* OCTClientSpec.m in Sources */,
 				F6E2EC4016EB04C60096C268 /* RACSignalAdditionsSpec.m in Sources */,
+				D058675616F2649800941A32 /* OCTResponseSpec.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1542,6 +1547,7 @@
 				D0772E7D16BD2AD5009DFF72 /* NSValueTransformerAdditionsSpec.m in Sources */,
 				D05E752116D35886001AA17B /* OCTClientSpec.m in Sources */,
 				F6E2EC4116EB04C60096C268 /* RACSignalAdditionsSpec.m in Sources */,
+				D058675716F2649800941A32 /* OCTResponseSpec.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
