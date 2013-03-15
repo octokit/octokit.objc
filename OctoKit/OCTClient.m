@@ -144,14 +144,14 @@ static const NSInteger OCTClientNotModifiedStatusCode = 304;
 - (RACSignal *)enqueueRequest:(NSURLRequest *)request resultClass:(Class)resultClass fetchAllPages:(BOOL)fetchAllPages {
 	RACSignal *signal = [RACSignal createSignal:^(id<RACSubscriber> subscriber) {
 		AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request success:^(AFHTTPRequestOperation *operation, id responseObject) {
+			if (getenv("LOG_API_RESPONSES") != NULL) {
+				NSLog(@"%@ %@ %@ => %li %@:\n%@", request.HTTPMethod, request.URL, request.allHTTPHeaderFields, (long)operation.response.statusCode, operation.response.allHeaderFields, responseObject);
+			}
+
 			if (operation.response.statusCode == OCTClientNotModifiedStatusCode) {
 				// No change in the data.
 				[subscriber sendCompleted];
 				return;
-			}
-			
-			if (getenv("LOG_API_RESPONSES") != NULL) {
-				NSLog(@"%@ %@ => %li %@:\n%@", request.HTTPMethod, request.URL, (long)operation.response.statusCode, operation.response.allHeaderFields, responseObject);
 			}
 
 			RACSignal *thisPageSignal = [[self parsedResponseOfClass:resultClass fromJSON:responseObject]
