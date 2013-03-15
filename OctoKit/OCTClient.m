@@ -30,7 +30,7 @@ const NSInteger OCTClientErrorBadRequest = 670;
 NSString * const OCTClientErrorRequestURLKey = @"OCTClientErrorRequestURLKey";
 NSString * const OCTClientErrorHTTPStatusCodeKey = @"OCTClientErrorHTTPStatusCodeKey";
 
-static const NSUInteger OCTClientNotModifiedStatusCode = 304;
+static const NSInteger OCTClientNotModifiedStatusCode = 304;
 
 @interface OCTClient ()
 
