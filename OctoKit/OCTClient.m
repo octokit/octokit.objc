@@ -131,7 +131,12 @@ static const NSInteger OCTClientNotModifiedStatusCode = 304;
 	NSMutableURLRequest *request = [self requestWithMethod:method path:[path stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] parameters:parameters];
 	if (etag != nil) {
 		[request setValue:etag forHTTPHeaderField:@"If-None-Match"];
+
+		// If an etag is specified, we want 304 responses to be treated as 304s,
+		// not served from NSURLCache with a status of 200.
+		request.cachePolicy = NSURLRequestReloadIgnoringLocalCacheData;
 	}
+
 	return request;
 }
 
