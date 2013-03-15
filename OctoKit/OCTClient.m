@@ -30,7 +30,7 @@ const NSInteger OCTClientErrorBadRequest = 670;
 NSString * const OCTClientErrorRequestURLKey = @"OCTClientErrorRequestURLKey";
 NSString * const OCTClientErrorHTTPStatusCodeKey = @"OCTClientErrorHTTPStatusCodeKey";
 
-static const NSUInteger OCTClientNotModifiedStatusCode = 304;
+static const NSInteger OCTClientNotModifiedStatusCode = 304;
 
 @interface OCTClient ()
 
@@ -131,7 +131,12 @@ static const NSUInteger OCTClientNotModifiedStatusCode = 304;
 	NSMutableURLRequest *request = [self requestWithMethod:method path:[path stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] parameters:parameters];
 	if (etag != nil) {
 		[request setValue:etag forHTTPHeaderField:@"If-None-Match"];
+
+		// If an etag is specified, we want 304 responses to be treated as 304s,
+		// not served from NSURLCache with a status of 200.
+		request.cachePolicy = NSURLRequestReloadIgnoringLocalCacheData;
 	}
+
 	return request;
 }
 
@@ -144,14 +149,14 @@ static const NSUInteger OCTClientNotModifiedStatusCode = 304;
 - (RACSignal *)enqueueRequest:(NSURLRequest *)request resultClass:(Class)resultClass fetchAllPages:(BOOL)fetchAllPages {
 	RACSignal *signal = [RACSignal createSignal:^(id<RACSubscriber> subscriber) {
 		AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request success:^(AFHTTPRequestOperation *operation, id responseObject) {
+			if (getenv("LOG_API_RESPONSES") != NULL) {
+				NSLog(@"%@ %@ %@ => %li %@:\n%@", request.HTTPMethod, request.URL, request.allHTTPHeaderFields, (long)operation.response.statusCode, operation.response.allHeaderFields, responseObject);
+			}
+
 			if (operation.response.statusCode == OCTClientNotModifiedStatusCode) {
 				// No change in the data.
 				[subscriber sendCompleted];
 				return;
-			}
-			
-			if (getenv("LOG_API_RESPONSES") != NULL) {
-				NSLog(@"%@ %@ => %li %@:\n%@", request.HTTPMethod, request.URL, (long)operation.response.statusCode, operation.response.allHeaderFields, responseObject);
 			}
 
 			RACSignal *thisPageSignal = [[self parsedResponseOfClass:resultClass fromJSON:responseObject]
@@ -161,6 +166,16 @@ static const NSUInteger OCTClientNotModifiedStatusCode = 304;
 
 					return response;
 				}];
+
+			if (getenv("LOG_REMAINING_API_CALLS") != NULL) {
+				__block BOOL loggedRemaining = NO;
+				thisPageSignal = [thisPageSignal doNext:^(OCTResponse *response) {
+					if (loggedRemaining) return;
+
+					NSLog(@"Remaining API calls: %li/%li", (long)response.remainingRequests, (long)response.maximumRequestsPerHour);
+					loggedRemaining = YES;
+				}];
+			}
 			
 			RACSignal *nextPageSignal = [RACSignal empty];
 			NSURL *nextPageURL = (fetchAllPages ? [self nextPageURLFromOperation:operation] : nil);
@@ -185,18 +200,6 @@ static const NSUInteger OCTClientNotModifiedStatusCode = 304;
 			[operation cancel];
 		}];
 	}];
-
-	if (getenv("LOG_REMAINING_API_CALLS") != NULL) {
-		// Avoid infinite recursion.
-		if (![request.URL.path isEqualToString:@"rate_limit"]) {
-			signal = [signal doCompleted:^{
-				NSURLRequest *request = [self requestWithMethod:@"GET" path:@"rate_limit" parameters:nil notMatchingEtag:nil];
-				[[self enqueueRequest:request resultClass:nil] subscribeNext:^(NSDictionary *dict) {
-					NSLog(@"Remaining API calls: %@", dict[@"rate"][@"remaining"]);
-				}];
-			}];
-		}
-	}
 	
 	return [[signal
 		replayLazily]
