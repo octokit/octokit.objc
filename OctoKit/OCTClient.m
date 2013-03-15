@@ -161,6 +161,16 @@ static const NSInteger OCTClientNotModifiedStatusCode = 304;
 
 					return response;
 				}];
+
+			if (getenv("LOG_REMAINING_API_CALLS") != NULL) {
+				__block BOOL loggedRemaining = NO;
+				thisPageSignal = [thisPageSignal doNext:^(OCTResponse *response) {
+					if (loggedRemaining) return;
+
+					NSLog(@"Remaining API calls: %li/%li", (long)response.remainingRequests, (long)response.maximumRequestsPerHour);
+					loggedRemaining = YES;
+				}];
+			}
 			
 			RACSignal *nextPageSignal = [RACSignal empty];
 			NSURL *nextPageURL = (fetchAllPages ? [self nextPageURLFromOperation:operation] : nil);
@@ -185,18 +195,6 @@ static const NSInteger OCTClientNotModifiedStatusCode = 304;
 			[operation cancel];
 		}];
 	}];
-
-	if (getenv("LOG_REMAINING_API_CALLS") != NULL) {
-		// Avoid infinite recursion.
-		if (![request.URL.path isEqualToString:@"rate_limit"]) {
-			signal = [signal doCompleted:^{
-				NSURLRequest *request = [self requestWithMethod:@"GET" path:@"rate_limit" parameters:nil notMatchingEtag:nil];
-				[[self enqueueRequest:request resultClass:nil] subscribeNext:^(NSDictionary *dict) {
-					NSLog(@"Remaining API calls: %@", dict[@"rate"][@"remaining"]);
-				}];
-			}];
-		}
-	}
 	
 	return [[signal
 		replayLazily]
