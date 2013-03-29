@@ -45,4 +45,7 @@
 // The URL for visiting this repository on the web.
 @property (nonatomic, copy, readonly) NSURL *HTMLURL;
 
+// The default branch's name.
+@property (nonatomic, copy, readonly) NSString *defaultBranch;
+
 @end

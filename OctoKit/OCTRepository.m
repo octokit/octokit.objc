@@ -22,6 +22,7 @@
 		@"ownerLogin": @"owner.login",
 		@"datePushed": @"pushed_at",
 		@"repoDescription": @"description",
+		@"defaultBranch": @"default_branch",
 	}];
 }
 
