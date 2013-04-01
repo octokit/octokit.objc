@@ -47,7 +47,8 @@ describe(@"from JSON", ^{
 		@"open_issues": @0,
 		@"pushed_at": @"2011-01-26T19:06:43Z",
 		@"created_at": @"2011-01-26T19:01:12Z",
-		@"updated_at": @"2011-01-26T19:14:43Z"
+		@"updated_at": @"2011-01-26T19:14:43Z",
+		@"default_branch": @"master",
 	};
 
 	__block OCTRepository *repository;
@@ -75,6 +76,7 @@ describe(@"from JSON", ^{
 		expect(repository.HTTPSURL).to.equal([NSURL URLWithString:@"https://github.com/octocat/Hello-World.git"]);
 		expect(repository.HTMLURL).to.equal([NSURL URLWithString:@"https://github.com/octocat/Hello-World"]);
 		expect(repository.SSHURL).to.equal(@"git@github.com:octocat/Hello-World.git");
+		expect(repository.defaultBranch).to.equal(@"master");
 	});
 });
 
