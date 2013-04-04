@@ -162,6 +162,15 @@ extern NSString * const OCTClientErrorHTTPStatusCodeKey;
 // `user` is set, the signal will error immediately.
 - (RACSignal *)fetchUserRepositories;
 
+// Fetches the users corresponding to the given NSNumber IDs.
+//
+// This method uses bulk requests to fetch the user objects, which will be more
+// efficient than a separate request for each ID.
+//
+// Returns a signal which sends zero or more OCTUser objects in the order that
+// the IDs were specified.
+- (RACSignal *)fetchUsersWithIDs:(NSArray *)userIDs;
+
 // Creates a repository under the user's account.
 //
 // Returns a signal which sends the new OCTRepository. If the client is not
