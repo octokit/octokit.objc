@@ -32,6 +32,9 @@ NSString * const OCTClientErrorHTTPStatusCodeKey = @"OCTClientErrorHTTPStatusCod
 
 static const NSInteger OCTClientNotModifiedStatusCode = 304;
 
+// The maximum number of user IDs to pass to the /users/collection API at once.
+static const NSUInteger OCTClientIDsPerBulkUserRequest = 100;
+
 @interface OCTClient ()
 
 @property (nonatomic, strong, readwrite) OCTUser *user;
@@ -431,6 +434,28 @@ static const NSInteger OCTClientNotModifiedStatusCode = 304;
 
 - (RACSignal *)fetchUserRepositories {
 	return [[self enqueueUserRequestWithMethod:@"GET" relativePath:@"/repos" parameters:nil resultClass:OCTRepository.class] oct_parsedResults];
+}
+
+- (RACSignal *)fetchUsersWithIDs:(NSArray *)userIDs {
+	NSParameterAssert(userIDs != nil);
+
+	NSUInteger count = userIDs.count;
+	RACSignal *signal = [RACSignal empty];
+
+	for (NSUInteger index = 0; index < count; index += OCTClientIDsPerBulkUserRequest) {
+		NSUInteger thisRequestCount = OCTClientIDsPerBulkUserRequest;
+		if (index + thisRequestCount > count) {
+			thisRequestCount = count - index;
+		}
+
+		NSArray *thisRequestIDs = [userIDs subarrayWithRange:NSMakeRange(index, thisRequestCount)];
+		NSString *argument = [thisRequestIDs componentsJoinedByString:@","];
+
+		NSURLRequest *request = [self requestWithMethod:@"GET" path:@"users/collection" parameters:@{ @"id": argument } notMatchingEtag:nil];
+		signal = [signal concat:[self enqueueRequest:request resultClass:OCTUser.class]];
+	}
+
+	return [signal oct_parsedResults];
 }
 
 - (RACSignal *)createRepositoryWithName:(NSString *)name description:(NSString *)description private:(BOOL)isPrivate {
