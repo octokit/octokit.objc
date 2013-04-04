@@ -33,7 +33,7 @@ NSString * const OCTClientErrorHTTPStatusCodeKey = @"OCTClientErrorHTTPStatusCod
 static const NSInteger OCTClientNotModifiedStatusCode = 304;
 
 // The maximum number of user IDs to pass to the /users/collection API at once.
-static const NSInteger OCTClientIDsPerBulkUserRequest = 100;
+static const NSUInteger OCTClientIDsPerBulkUserRequest = 100;
 
 @interface OCTClient ()
 
@@ -437,6 +437,8 @@ static const NSInteger OCTClientIDsPerBulkUserRequest = 100;
 }
 
 - (RACSignal *)fetchUsersWithIDs:(NSArray *)userIDs {
+	NSParameterAssert(userIDs != nil);
+
 	NSUInteger count = userIDs.count;
 	RACSignal *signal = [RACSignal empty];
 
