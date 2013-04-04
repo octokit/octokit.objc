@@ -162,7 +162,7 @@ extern NSString * const OCTClientErrorHTTPStatusCodeKey;
 // `user` is set, the signal will error immediately.
 - (RACSignal *)fetchUserRepositories;
 
-// Fetches the users corresponding to the given NSNumber IDs.
+// Fetches the users corresponding to the given NSString IDs.
 //
 // This method uses bulk requests to fetch the user objects, which will be more
 // efficient than a separate request for each ID.
