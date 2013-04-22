@@ -271,3 +271,17 @@ extern NSString * const OCTClientErrorHTTPStatusCodeKey;
 - (RACSignal *)muteNotificationThreadAtURL:(NSURL *)threadURL;
 
 @end
+
+@interface OCTClient (PullRequests)
+
+// Fetches a pull request from a repository.
+//
+// pullRequestNumber - The ID of the pull request to retrieve, as a string.
+// repositoryNWO     - The fully-qualified name (e.g. `ownerLogin/name`) of the
+//                     repository to get the pull request from.
+//
+// Returns a signal which sends an OCTPullRequest, if the `user` has permission
+// to see it.
+- (RACSignal *)fetchPullRequestNumber:(NSString *)pullRequestNumber fromRepository:(NSString *)repositoryNWO;
+
+@end
