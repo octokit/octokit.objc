@@ -12,7 +12,6 @@
 #import "OCTObject+Private.h"
 #import "OCTOrganization.h"
 #import "OCTPublicKey.h"
-#import "OCTPullRequest.h"
 #import "OCTRepository.h"
 #import "OCTResponse.h"
 #import "OCTServer.h"
@@ -564,18 +563,6 @@ static const NSInteger OCTClientNotModifiedStatusCode = 304;
 	NSMutableURLRequest *request = [self requestWithMethod:@"PUT" path:@"" parameters:@{ @"ignored": @YES }];
 	request.URL = [threadURL URLByAppendingPathComponent:@"subscription"];
 	return [[self enqueueRequest:request resultClass:nil] ignoreElements];
-}
-
-@end
-
-@implementation OCTClient (PullRequests)
-
-- (RACSignal *)fetchPullRequestNumber:(NSString *)pullRequestNumber fromRepository:(NSString *)repositoryNWO {
-	NSParameterAssert(pullRequestNumber != nil);
-	NSParameterAssert(repositoryNWO != nil);
-
-	NSURLRequest *request = [self requestWithMethod:@"GET" path:[NSString stringWithFormat:@"repos/%@/pulls/%@", repositoryNWO, pullRequestNumber] parameters:nil notMatchingEtag:nil];
-	return [[self enqueueRequest:request resultClass:OCTPullRequest.class] oct_parsedResults];
 }
 
 @end

@@ -155,10 +155,6 @@ it(@"should initialize", ^{
 	expect(pullRequest.objectID).to.equal(@"1");
 	expect(pullRequest.HTMLURL).to.equal([NSURL URLWithString:@"https://github.com/octocat/Hello-World/pulls/1"]);
 	expect(pullRequest.title).to.equal(@"new-feature");
-	expect(pullRequest.baseBranch).to.equal(@"master");
-	expect(pullRequest.headBranch).to.equal(@"new-topic");
-	expect(pullRequest.baseRepository.name).to.equal(@"Hello-World");
-	expect(pullRequest.baseRepository).to.equal(pullRequest.headRepository);
 });
 
 SpecEnd

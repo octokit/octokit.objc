@@ -7,7 +7,6 @@
 //
 
 #import "OCTPullRequest.h"
-#import "OCTRepository.h"
 
 @implementation OCTPullRequest
 
@@ -17,23 +16,11 @@
 	return [super.JSONKeyPathsByPropertyKey mtl_dictionaryByAddingEntriesFromDictionary:@{
 		@"HTMLURL": @"html_url",
 		@"objectID": @"number",
-		@"baseRepository": @"base.repo",
-		@"baseBranch": @"base.ref",
-		@"headRepository": @"head.repo",
-		@"headBranch": @"head.ref",
 	}];
 }
 
 + (NSValueTransformer *)HTMLURLJSONTransformer {
 	return [NSValueTransformer valueTransformerForName:MTLURLValueTransformerName];
-}
-
-+ (NSValueTransformer *)baseRepositoryJSONTransformer {
-	return [NSValueTransformer mtl_JSONDictionaryTransformerWithModelClass:OCTRepository.class];
-}
-
-+ (NSValueTransformer *)headRepositoryJSONTransformer {
-	return [NSValueTransformer mtl_JSONDictionaryTransformerWithModelClass:OCTRepository.class];
 }
 
 @end
