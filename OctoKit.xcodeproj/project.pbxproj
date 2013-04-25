@@ -1655,6 +1655,7 @@
 					"External/Mantle/MantleTests/expecta/src/**",
 					External/Mantle/MantleTests/specta/src,
 					External/OHHTTPStubs,
+					External/AFNetworking,
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
@@ -1677,6 +1678,7 @@
 					"External/Mantle/MantleTests/expecta/src/**",
 					External/Mantle/MantleTests/specta/src,
 					External/OHHTTPStubs,
+					External/AFNetworking,
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
@@ -1717,6 +1719,12 @@
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = "\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"";
 				GCC_PREFIX_HEADER = "OctoKitTests/OctoKitTests-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					External/AFNetworking,
+					"External/Mantle/MantleTests/expecta/src/**",
+					External/Mantle/MantleTests/specta/src,
+					External/OHHTTPStubs,
+				);
 				INFOPLIST_FILE = "OctoKitTests/OctoKitTests-Info.plist";
 				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = "OctoKit Mac Tests";
@@ -1730,6 +1738,12 @@
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = "\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"";
 				GCC_PREFIX_HEADER = "OctoKitTests/OctoKitTests-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					External/AFNetworking,
+					"External/Mantle/MantleTests/expecta/src/**",
+					External/Mantle/MantleTests/specta/src,
+					External/OHHTTPStubs,
+				);
 				INFOPLIST_FILE = "OctoKitTests/OctoKitTests-Info.plist";
 				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = "OctoKit Mac Tests";
@@ -1742,6 +1756,10 @@
 			baseConfigurationReference = D0871FC4169E2FF500016ACA /* iOS-StaticLibrary.xcconfig */;
 			buildSettings = {
 				DSTROOT = /tmp/OctoKit.dst;
+				HEADER_SEARCH_PATHS = (
+					"$(OBJROOT)/UninstalledProducts/include",
+					"$(inherited)",
+				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = OctoKit;
 			};
@@ -1752,6 +1770,10 @@
 			baseConfigurationReference = D0871FC4169E2FF500016ACA /* iOS-StaticLibrary.xcconfig */;
 			buildSettings = {
 				DSTROOT = /tmp/OctoKit.dst;
+				HEADER_SEARCH_PATHS = (
+					"$(OBJROOT)/UninstalledProducts/include",
+					"$(inherited)",
+				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = OctoKit;
 			};
@@ -1766,6 +1788,12 @@
 					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
 				);
 				GCC_PREFIX_HEADER = "OctoKitTests/OctoKitTests-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"$(OBJROOT)/UninstalledProducts/include",
+					"$(inherited)",
+					External/Mantle/MantleTests/specta/src,
+					"External/Mantle/MantleTests/expecta/src/**",
+				);
 				INFOPLIST_FILE = "OctoKitTests/OctoKitTests-Info.plist";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "OctoKit iOS Tests";
@@ -1782,6 +1810,12 @@
 					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
 				);
 				GCC_PREFIX_HEADER = "OctoKitTests/OctoKitTests-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"$(OBJROOT)/UninstalledProducts/include",
+					"$(inherited)",
+					External/Mantle/MantleTests/specta/src,
+					"External/Mantle/MantleTests/expecta/src/**",
+				);
 				INFOPLIST_FILE = "OctoKitTests/OctoKitTests-Info.plist";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "OctoKit iOS Tests";
@@ -1803,6 +1837,7 @@
 					"External/Mantle/MantleTests/expecta/src/**",
 					External/Mantle/MantleTests/specta/src,
 					External/OHHTTPStubs,
+					External/AFNetworking,
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
@@ -1830,6 +1865,12 @@
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = "\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"";
 				GCC_PREFIX_HEADER = "OctoKitTests/OctoKitTests-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					External/AFNetworking,
+					"External/Mantle/MantleTests/expecta/src/**",
+					External/Mantle/MantleTests/specta/src,
+					External/OHHTTPStubs,
+				);
 				INFOPLIST_FILE = "OctoKitTests/OctoKitTests-Info.plist";
 				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = "OctoKit Mac Tests";
@@ -1842,6 +1883,10 @@
 			baseConfigurationReference = D0871FC4169E2FF500016ACA /* iOS-StaticLibrary.xcconfig */;
 			buildSettings = {
 				DSTROOT = /tmp/OctoKit.dst;
+				HEADER_SEARCH_PATHS = (
+					"$(OBJROOT)/UninstalledProducts/include",
+					"$(inherited)",
+				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = OctoKit;
 			};
@@ -1856,6 +1901,12 @@
 					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
 				);
 				GCC_PREFIX_HEADER = "OctoKitTests/OctoKitTests-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"$(OBJROOT)/UninstalledProducts/include",
+					"$(inherited)",
+					External/Mantle/MantleTests/specta/src,
+					"External/Mantle/MantleTests/expecta/src/**",
+				);
 				INFOPLIST_FILE = "OctoKitTests/OctoKitTests-Info.plist";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "OctoKit iOS Tests";
