@@ -356,7 +356,14 @@ static const NSInteger OCTClientNotModifiedStatusCode = 304;
 	NSInteger HTTPCode = operation.response.statusCode;
 	NSMutableDictionary *userInfo = [NSMutableDictionary dictionary];
 	NSInteger errorCode = OCTClientErrorServiceRequestFailed;
-	NSDictionary *responseDictionary = operation.responseJSON;
+
+	NSDictionary *responseDictionary = nil;
+	if ([operation.responseJSON isKindOfClass:NSDictionary.class]) {
+		responseDictionary = operation.responseJSON;
+	} else {
+		NSLog(@"Unexpected JSON for error response: %@", operation.responseJSON);
+	}
+
 	NSString *message = responseDictionary[@"message"];
 	
 	if (HTTPCode == 401) {
