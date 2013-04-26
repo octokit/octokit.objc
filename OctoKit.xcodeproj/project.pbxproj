@@ -15,7 +15,7 @@
 		D058675616F2649800941A32 /* OCTResponseSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = D058675516F2649800941A32 /* OCTResponseSpec.m */; };
 		D058675716F2649800941A32 /* OCTResponseSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = D058675516F2649800941A32 /* OCTResponseSpec.m */; };
 		D05E74E516D3550A001AA17B /* OHHTTPStubs.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D05E74E016D354FD001AA17B /* OHHTTPStubs.framework */; };
-		D05E74E816D35513001AA17B /* libOHHTTPStubs.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D05E74DE16D354FD001AA17B /* libOHHTTPStubs.a */; };
+		D05E74E816D35513001AA17B /* libOHHTTPStubs-iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D05E74DE16D354FD001AA17B /* libOHHTTPStubs-iOS.a */; };
 		D05E752016D35886001AA17B /* OCTClientSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = D05E751F16D35886001AA17B /* OCTClientSpec.m */; };
 		D05E752116D35886001AA17B /* OCTClientSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = D05E751F16D35886001AA17B /* OCTClientSpec.m */; };
 		D0772E7316BD27B5009DFF72 /* NSDateFormatter+OCTFormattingAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = D0B9C8F016BC78970029C5B4 /* NSDateFormatter+OCTFormattingAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -253,7 +253,7 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = D05E74D416D354FD001AA17B /* OHHTTPStubs.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = F6DDA027164C4E070044ECAE;
+			remoteGlobalIDString = F6C37B9F16F6C8680082B630;
 			remoteInfo = OHHTTPStubs;
 		};
 		D05E74E616D3550E001AA17B /* PBXContainerItemProxy */ = {
@@ -402,6 +402,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = E9B777A314BA294B00D8DC76;
 			remoteInfo = "Specta-iOS";
+		};
+		F66B4E4F172AA3D300561C11 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D05E74D416D354FD001AA17B /* OHHTTPStubs.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 098368CE168FC7920082B1A4;
+			remoteInfo = UnitTests;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -595,7 +602,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D05E74E816D35513001AA17B /* libOHHTTPStubs.a in Frameworks */,
+				D05E74E816D35513001AA17B /* libOHHTTPStubs-iOS.a in Frameworks */,
 				D0871FF4169E309A00016ACA /* SenTestingKit.framework in Frameworks */,
 				D0871FFA169E309A00016ACA /* libOctoKit.a in Frameworks */,
 				D0872122169E360600016ACA /* libExpecta-iOS.a in Frameworks */,
@@ -622,7 +629,8 @@
 		D05E74D516D354FD001AA17B /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				D05E74DE16D354FD001AA17B /* libOHHTTPStubs.a */,
+				D05E74DE16D354FD001AA17B /* libOHHTTPStubs-iOS.a */,
+				F66B4E50172AA3D300561C11 /* UnitTests.octest */,
 				D05E74E016D354FD001AA17B /* OHHTTPStubs.framework */,
 			);
 			name = Products;
@@ -1249,10 +1257,10 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		D05E74DE16D354FD001AA17B /* libOHHTTPStubs.a */ = {
+		D05E74DE16D354FD001AA17B /* libOHHTTPStubs-iOS.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
-			path = libOHHTTPStubs.a;
+			path = "libOHHTTPStubs-iOS.a";
 			remoteRef = D05E74DD16D354FD001AA17B /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
@@ -1345,6 +1353,13 @@
 			fileType = wrapper.cfbundle;
 			path = "Specta-iOSTests.octest";
 			remoteRef = D0872116169E35DE00016ACA /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		F66B4E50172AA3D300561C11 /* UnitTests.octest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = UnitTests.octest;
+			remoteRef = F66B4E4F172AA3D300561C11 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -1639,6 +1654,7 @@
 					External/AFNetworking,
 					"External/Mantle/MantleTests/expecta/src/**",
 					External/Mantle/MantleTests/specta/src,
+					External/OHHTTPStubs,
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
@@ -1660,6 +1676,7 @@
 					External/AFNetworking,
 					"External/Mantle/MantleTests/expecta/src/**",
 					External/Mantle/MantleTests/specta/src,
+					External/OHHTTPStubs,
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
@@ -1785,6 +1802,7 @@
 					External/AFNetworking,
 					"External/Mantle/MantleTests/expecta/src/**",
 					External/Mantle/MantleTests/specta/src,
+					External/OHHTTPStubs,
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
