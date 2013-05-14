@@ -31,4 +31,13 @@
 	return [self modelWithDictionary:userDict error:NULL];
 }
 
+#pragma mark MTLModel
+
+- (void)mergeLoginFromModel:(MTLModel *)model {
+	// Don't ever replace the login property, as this could be different
+	// to the login property returned by the API (eg. LDAP logins
+	// have any characters in [a-z0-9-] replaced with '-' for their GitHub
+	// Enterprise 'login').
+}
+
 @end
