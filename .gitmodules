@@ -9,7 +9,7 @@
 	url = https://github.com/ReactiveCocoa/ReactiveCocoa.git
 [submodule "External/ISO8601DateFormatter"]
 	path = External/ISO8601DateFormatter
-	url = git://github.com/ISO8601DateFormatter/ISO8601DateFormatter.git
+	url = https://github.com/boredzo/iso-8601-date-formatter.git
 [submodule "External/OHHTTPStubs"]
 	path = External/OHHTTPStubs
 	url = https://github.com/github/OHHTTPStubs.git
