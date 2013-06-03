@@ -25,14 +25,13 @@ To add OctoKit to your application:
     * **On iOS**, add `libOctoKit.a`.
     * **On OS X**, add `OctoKit.framework`. The framework as well as its
       subframeworks (`ReactiveCocoa.framework` and `Mantle.framework`) must also
-      be added to any "Copy Frameworks" build phase. Please see the section
-      "[copying the frameworks](#copying-the-frameworks)" for instructions.
+      be added to any ["Copy Frameworks"](#copying-the-frameworks) build phase.
  1. Add `$(BUILD_ROOT)/../IntermediateBuildFilesPath/UninstalledProducts/include
     $(inherited)` to the "Header Search Paths" build setting (this is only
     necessary for archive builds, but it has no negative effect otherwise).
  1. **For iOS targets**, add `-ObjC` to the "Other Linker Flags" build setting.
 
-### Copying the frameworks
+### Copying the Frameworks
 
 _This is only needed **on OS X**._
 
@@ -43,8 +42,8 @@ _This is only needed **on OS X**._
     into the "Copy Files" build phase you just created (or the one that you
     already had).
  1. A reference to the framework will now appear at the top of your
-    application’s Xcode group, select it and show the "File Inspector" Change
-    the "Location" to "Relative to Build Products".
+    application’s Xcode group, select it and show the "File Inspector".
+ 1. Change the "Location" to "Relative to Build Products".
  1. Now do the same (starting at step 2) for the ReactiveCocoa and Mantle frameworks.
 
 
