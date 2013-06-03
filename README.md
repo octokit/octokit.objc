@@ -17,8 +17,8 @@ To add OctoKit to your application:
  1. Add the OctoKit repository as a submodule of your application's
     repository.
  1. Run `script/bootstrap` from within the OctoKit folder.
- 1. Drag and drop `OctoKit.xcodeproj` into your application's Xcode project or
-    workspace.
+ 1. Drag and drop `OctoKit.xcodeproj` into the top-level of your application's workspace (or into the top-level of your project file to create a new workspace).
+ 1. Drag and drop `ReactiveCocoa.xcodeproj` into the top level of your workspace. (This project can be found in the `External` folder).
  1. On the "Build Phases" tab of your application target, add OctoKit to the "Link
     Binary With Libraries" phase.
     * **On iOS**, add `libOctoKit.a`.
