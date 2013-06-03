@@ -25,7 +25,8 @@ To add OctoKit to your application:
      * **For iOS targets,** add `OctoKit iOS` to "Target Dependencies".
      * **For OS X targets,** add `OctoKit Mac` to "Target Dependencies".
   1. Link with OctoKit.
-     * **For iOS targets,** add `libOctoKit.a` to "Link Binary With Libraries".
+     * **For iOS targets,** add `libOctoKit.a`, `MobileCoreServices.framework`
+     and `SystemConfiguration.framework` to "Link Binary With Libraries".
      * **For OS X targets,** add `OctoKit.framework` to "Link Binary With Libraries".
   1. **For OS X targets,** copy `OctoKit.framework` into the application’s `Frameworks` folder. If you don't already have one, add a "Copy Files" build phase and target the "Frameworks" destination. Then add `OctoKit.framework` to it.
 
