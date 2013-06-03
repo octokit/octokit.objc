@@ -41,11 +41,11 @@ project once before commencing._
  1. If you don't already have one, add a "Copy Files" build phase and target
     the "Frameworks" destination.
  1. Drag `OctoKit.framework` from the OctoKit project’s `Products` Xcode group
-    into the "Copy Files" build phase just created.
+    into the "Copy Files" build phase you just created (or that you already had).
  1. A reference to the framework will now appear at the top of your
     application’s Xcode group, select it and show the "File Inspector" Change
     the "Location" to "Relative to Build Products".
- 1. Now do the same (from step 2) for the ReactiveCocoa and Mantle frameworks.
+ 1. Now do the same (starting at step 2) for the ReactiveCocoa and Mantle frameworks.
 
 
 ## License
