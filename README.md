@@ -19,16 +19,37 @@ To add OctoKit to your application:
  1. Run `script/bootstrap` from within the OctoKit folder.
  1. Drag and drop `OctoKit.xcodeproj` into the top-level of your application's workspace (or into the top-level of your project file to create a new workspace).
  1. Drag and drop `ReactiveCocoa.xcodeproj` into the top level of your workspace. (This project can be found in the `External` folder).
- 1. On the "Build Phases" tab of your application target, add OctoKit to the "Link
-    Binary With Libraries" phase.
+ 1. Drag and drop `Mantle.xcodeproj` into the top level of your workspace. (This project can be found in the `External` folder).
+ 1. On the "Build Phases" tab of your application target, add OctoKit to the
+    "Link Binary With Libraries" phase.
     * **On iOS**, add `libOctoKit.a`.
-    * **On OS X**, add `OctoKit.framework`. The framework must also be added to any
-      "Copy Frameworks" build phase. If you don't already have one, simply add
-      a "Copy Files" build phase and target the "Frameworks" destination.
+    * **On OS X**, add `OctoKit.framework`. The framework as well as its
+      subframeworks (`ReactiveCocoa.framework` and `Mantle.framework`) must also
+      be added to any "Copy Frameworks" build phase. Please see the section
+      "[copying the frameworks](#copying-the-frameworks)" for instructions.
  1. Add `$(BUILD_ROOT)/../IntermediateBuildFilesPath/UninstalledProducts/include
     $(inherited)` to the "Header Search Paths" build setting (this is only
     necessary for archive builds, but it has no negative effect otherwise).
  1. **For iOS targets**, add `-ObjC` to the "Other Linker Flags" build setting.
+
+### Copying the frameworks
+
+_This is only needed **on OS X** the guide also requires that you build the
+project once before commencing._
+
+ 1. Go to the "Build Phases" tab of your application target.
+ 1. If you don't already have one, add a "Copy Files" build phase and target
+    the "Frameworks" destination.
+ 1. Drag `OctoKit.framework` from the OctoKit project’s `Products` Xcode group
+    into the "Copy Files" build phase just created.
+ 1. A reference to the framework will now appear at the top of your
+    application’s Xcode group, select it and show the "File Inspector"
+    1. Change the "Location" to "Relative to Build Products".
+    1. Click the icon besides the location path and select the
+       `OctoKit.framework` bundle in the `DerivedData` directory for your app.
+       * Normally located at `~/Library/Developer/Xcode/DerivedData/<YourApp-UUID>/Build/Products/<configuration>/OctoKit.framework`.
+ 1. Now do the same (from step 2) for the ReactiveCocoa and Mantle frameworks.
+
 
 ## License
 
