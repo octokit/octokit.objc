@@ -43,11 +43,8 @@ project once before commencing._
  1. Drag `OctoKit.framework` from the OctoKit project’s `Products` Xcode group
     into the "Copy Files" build phase just created.
  1. A reference to the framework will now appear at the top of your
-    application’s Xcode group, select it and show the "File Inspector"
-    1. Change the "Location" to "Relative to Build Products".
-    1. Click the icon besides the location path and select the
-       `OctoKit.framework` bundle in the `DerivedData` directory for your app.
-       (Normally located at `~/Library/Developer/Xcode/DerivedData/<YourApp-UUID>/Build/Products/Debug/OctoKit.framework`.)
+    application’s Xcode group, select it and show the "File Inspector" Change
+    the "Location" to "Relative to Build Products".
  1. Now do the same (from step 2) for the ReactiveCocoa and Mantle frameworks.
 
 
