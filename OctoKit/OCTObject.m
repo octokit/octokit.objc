@@ -8,6 +8,7 @@
 
 #import "OCTObject.h"
 #import "OCTServer.h"
+#import "EXTKeyPathCoding.h"
 #import "OCTObject+Private.h"
 
 @interface OCTObject ()
