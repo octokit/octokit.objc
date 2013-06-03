@@ -34,14 +34,14 @@ To add OctoKit to your application:
 
 ### Copying the frameworks
 
-_This is only needed **on OS X** the guide also requires that you build the
-project once before commencing._
+_This is only needed **on OS X**._
 
  1. Go to the "Build Phases" tab of your application target.
  1. If you don't already have one, add a "Copy Files" build phase and target
     the "Frameworks" destination.
  1. Drag `OctoKit.framework` from the OctoKit project’s `Products` Xcode group
-    into the "Copy Files" build phase you just created (or that you already had).
+    into the "Copy Files" build phase you just created (or the one that you
+    already had).
  1. A reference to the framework will now appear at the top of your
     application’s Xcode group, select it and show the "File Inspector" Change
     the "Location" to "Relative to Build Products".
