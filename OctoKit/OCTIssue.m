@@ -8,6 +8,7 @@
 
 #import "OCTIssue.h"
 #import "OCTPullRequest.h"
+#import "EXTKeyPathCoding.h"
 
 @interface OCTIssue ()
 

@@ -8,6 +8,7 @@
 
 #import "NSValueTransformer+OCTPredefinedTransformerAdditions.h"
 #import "NSDateFormatter+OCTFormattingAdditions.h"
+#import "MTLValueTransformer.h"
 
 NSString * const OCTDateValueTransformerName = @"OCTDateValueTransformerName";
 
