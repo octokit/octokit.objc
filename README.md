@@ -31,6 +31,9 @@ To add OctoKit to your application:
     necessary for archive builds, but it has no negative effect otherwise).
  1. **For iOS targets**, add `-ObjC` to the "Other Linker Flags" build setting.
 
+If you would prefer to use [CocoaPods](http://cocoapods.org), there are some [OctoKit podspecs](https://github.com/CocoaPods/Specs/tree/master/OctoKit)
+that have been generously contributed by third parties.
+
 ### Copying the Frameworks
 
 _This is only needed **on OS X**._
@@ -45,7 +48,6 @@ _This is only needed **on OS X**._
     application’s Xcode group, select it and show the "File Inspector".
  1. Change the "Location" to "Relative to Build Products".
  1. Now do the same (starting at step 2) for the ReactiveCocoa and Mantle frameworks.
-
 
 ## License
 
