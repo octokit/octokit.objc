@@ -410,13 +410,6 @@
 			remoteGlobalIDString = E9B777A314BA294B00D8DC76;
 			remoteInfo = "Specta-iOS";
 		};
-		F66B4E4F172AA3D300561C11 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D05E74D416D354FD001AA17B /* OHHTTPStubs.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 098368CE168FC7920082B1A4;
-			remoteInfo = UnitTests;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -544,8 +537,6 @@
 		D08721CD169E398C00016ACA /* OCTRepositorySpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCTRepositorySpec.m; sourceTree = "<group>"; };
 		D08721CE169E398C00016ACA /* OCTServerSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCTServerSpec.m; sourceTree = "<group>"; };
 		D08721CF169E398C00016ACA /* OCTUserSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCTUserSpec.m; sourceTree = "<group>"; };
-		D08721DC169E3B9000016ACA /* EXTKeyPathCoding.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EXTKeyPathCoding.h; sourceTree = "<group>"; };
-		D08721DD169E3B9000016ACA /* metamacros.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = metamacros.h; sourceTree = "<group>"; };
 		D0872298169E3D0500016ACA /* ISO8601DateFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISO8601DateFormatter.h; sourceTree = "<group>"; };
 		D0872299169E3D0500016ACA /* ISO8601DateFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ISO8601DateFormatter.m; sourceTree = "<group>"; };
 		D087229E169E3D6000016ACA /* OctoKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OctoKit.h; sourceTree = "<group>"; };
@@ -671,7 +662,6 @@
 			children = (
 				D087201C169E326800016ACA /* AFNetworking */,
 				D0872297169E3CF000016ACA /* ISO8601DateFormatter */,
-				D0871F81169E2FE600016ACA /* libextobjc */,
 				D08720FA169E35D800016ACA /* Expecta.xcodeproj */,
 				D0872056169E328A00016ACA /* Mantle.xcodeproj */,
 				D0872109169E35DE00016ACA /* Specta.xcodeproj */,
@@ -729,16 +719,6 @@
 				D0871ECA169E2EFC00016ACA /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		D0871F81169E2FE600016ACA /* libextobjc */ = {
-			isa = PBXGroup;
-			children = (
-				D08721DC169E3B9000016ACA /* EXTKeyPathCoding.h */,
-				D08721DD169E3B9000016ACA /* metamacros.h */,
-			);
-			name = libextobjc;
-			path = External/Mantle/libextobjc/extobjc;
 			sourceTree = "<group>";
 		};
 		D0871FB7169E2FF500016ACA /* Configuration */ = {
@@ -1367,13 +1347,6 @@
 			fileType = wrapper.cfbundle;
 			path = "Specta-iOSTests.octest";
 			remoteRef = D0872116169E35DE00016ACA /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		F66B4E50172AA3D300561C11 /* UnitTests.octest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = UnitTests.octest;
-			remoteRef = F66B4E4F172AA3D300561C11 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
