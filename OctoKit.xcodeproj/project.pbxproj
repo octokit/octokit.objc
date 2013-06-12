@@ -226,6 +226,8 @@
 		D0D8C09E16DFF1540070399E /* rate_limit.json in Resources */ = {isa = PBXBuildFile; fileRef = D0D8C09416DFF1540070399E /* rate_limit.json */; };
 		D0E41B8716DFF37E00E321CF /* notifications.json in Resources */ = {isa = PBXBuildFile; fileRef = D0E41B8616DFF37E00E321CF /* notifications.json */; };
 		D0E41B8816DFF37E00E321CF /* notifications.json in Resources */ = {isa = PBXBuildFile; fileRef = D0E41B8616DFF37E00E321CF /* notifications.json */; };
+		DACD39A91769017F004FAF1B /* OCTMilestoneSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = DACD39A71769017F004FAF1B /* OCTMilestoneSpec.m */; };
+		DACD39AB1769017F004FAF1B /* OCTMilestoneSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = DACD39A71769017F004FAF1B /* OCTMilestoneSpec.m */; };
 		DAED4BCE1768C049001C9E52 /* OCTMilestone.h in Headers */ = {isa = PBXBuildFile; fileRef = DAED4BCC1768C049001C9E52 /* OCTMilestone.h */; };
 		DAED4BCF1768C049001C9E52 /* OCTMilestone.h in Headers */ = {isa = PBXBuildFile; fileRef = DAED4BCC1768C049001C9E52 /* OCTMilestone.h */; };
 		DAED4BD01768C049001C9E52 /* OCTMilestone.m in Sources */ = {isa = PBXBuildFile; fileRef = DAED4BCD1768C049001C9E52 /* OCTMilestone.m */; };
@@ -555,6 +557,7 @@
 		D0D8C09316DFF1540070399E /* page3.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = page3.json; sourceTree = "<group>"; };
 		D0D8C09416DFF1540070399E /* rate_limit.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = rate_limit.json; sourceTree = "<group>"; };
 		D0E41B8616DFF37E00E321CF /* notifications.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = notifications.json; sourceTree = "<group>"; };
+		DACD39A71769017F004FAF1B /* OCTMilestoneSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCTMilestoneSpec.m; sourceTree = "<group>"; };
 		DAED4BCC1768C049001C9E52 /* OCTMilestone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCTMilestone.h; sourceTree = "<group>"; };
 		DAED4BCD1768C049001C9E52 /* OCTMilestone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCTMilestone.m; sourceTree = "<group>"; };
 		F6CF78D216E993A500A75F63 /* RACSignal+OCTClientAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RACSignal+OCTClientAdditions.h"; sourceTree = "<group>"; };
@@ -863,6 +866,7 @@
 		D0872126169E395300016ACA /* Specs */ = {
 			isa = PBXGroup;
 			children = (
+				DACD39A71769017F004FAF1B /* OCTMilestoneSpec.m */,
 				D0B9C8FC16BC7A260029C5B4 /* NSDateFormatterAdditionsSpec.m */,
 				D0772E7B16BD2AD5009DFF72 /* NSValueTransformerAdditionsSpec.m */,
 				F6E2EC3F16EB04C50096C268 /* RACSignalAdditionsSpec.m */,
@@ -1502,6 +1506,7 @@
 				D05E752016D35886001AA17B /* OCTClientSpec.m in Sources */,
 				F6E2EC4016EB04C60096C268 /* RACSignalAdditionsSpec.m in Sources */,
 				D058675616F2649800941A32 /* OCTResponseSpec.m in Sources */,
+				DACD39A91769017F004FAF1B /* OCTMilestoneSpec.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1570,6 +1575,7 @@
 				D05E752116D35886001AA17B /* OCTClientSpec.m in Sources */,
 				F6E2EC4116EB04C60096C268 /* RACSignalAdditionsSpec.m in Sources */,
 				D058675716F2649800941A32 /* OCTResponseSpec.m in Sources */,
+				DACD39AB1769017F004FAF1B /* OCTMilestoneSpec.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
