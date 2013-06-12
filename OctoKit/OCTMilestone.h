@@ -8,7 +8,7 @@
 
 #import "OCTObject.h"
 
-@class OTCIssue
+@class OTCIssue;
 
 @interface OCTMilestone : OCTObject
 
@@ -23,5 +23,7 @@
 
 // The date of the deadline
 @property (nonatomic, strong, readonly) NSDate *dueOnDate;
+
+@property (nonatomic, readonly) int number;
 
 @end
