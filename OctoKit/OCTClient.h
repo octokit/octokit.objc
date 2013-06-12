@@ -271,3 +271,34 @@ extern NSString * const OCTClientErrorHTTPStatusCodeKey;
 - (RACSignal *)muteNotificationThreadAtURL:(NSURL *)threadURL;
 
 @end
+
+
+
+
+@interface OCTClient (Milestones)
+
+// Fetches the specified milestone's full information.
+//
+// Returns a signal which sends a new OCTMilestone.
+- (RACSignal *)fetchMilestoneInfo:(OCTMilestone *)milestone forRepository:(OCTRepository *)respository;
+
+// Fetches the specified organization's repositories.
+//
+// Returns a signal which sends zero or more OCTMilestone objects. Private
+// repository milestones will only be included if the client is `authenticated` and the
+// `user` has permission to see them.
+- (RACSignal *)fetchMilestonesForRepository:(OCTRepository *)repository;
+
+// Creates a milestone under the specified repository
+// Returns a signal which sends the new OCTMilestone. If the client is not
+// `authenticated`, the signal will error immediately.
+- (RACSignal *)createMilestoneWithRepository:(OCTRepository *)repository organization:(OCTOrganization *)organization title:(NSString *)title description:(NSString *)description;
+
+// Fetches the specified milestone's issues.
+//
+// Returns a signal which sends zero or more OCTTeam objects. If the client is
+// not `authenticated`, the signal will error immediately.
+//- (RACSignal *)fetchIssuesForMilestone:(OCTOrganization *)organization;
+
+@end
+
