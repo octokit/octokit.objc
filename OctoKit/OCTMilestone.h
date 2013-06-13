@@ -24,6 +24,10 @@
 // The date of the deadline
 @property (nonatomic, strong, readonly) NSDate *dueOnDate;
 
+// The date of creation
+@property (nonatomic, strong, readonly) NSDate *dateCreated;
+
+
 @property (nonatomic, readonly) int number;
 
 @end

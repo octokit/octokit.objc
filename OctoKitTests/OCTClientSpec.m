@@ -5,6 +5,7 @@
 //  Created by Justin Spahr-Summers on 2013-02-18.
 //  Copyright (c) 2013 GitHub. All rights reserved.
 //
+#import "OCTMilestone.h"
 
 SpecBegin(OCTClient)
 
@@ -206,6 +207,7 @@ describe(@"authenticated", ^{
 		expect(success).to.beTruthy();
 		expect(error).to.beNil();
 	});
+	
 });
 
 SpecEnd

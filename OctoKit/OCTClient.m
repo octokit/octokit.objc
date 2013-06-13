@@ -595,28 +595,23 @@ static const NSInteger OCTClientNotModifiedStatusCode = 304;
 //// Creates a milestone under the specified repository
 //// Returns a signal which sends the new OCTMilestone. If the client is not
 //// `authenticated`, the signal will error immediately.
-//- (RACSignal *)createMilestoneWithRepository:(OCTRepository *)repository organization:(OCTOrganization *)organization title:(NSString *)title description:(NSString *)description {
-//	if (!self.authenticated) return [RACSignal error:self.class.authenticationRequiredError];
-//	
-//	NSMutableDictionary *options = [NSMutableDictionary dictionary];
-//	options[@"title"] = title;
-//
-//	if (state != nil) options[@"state"] = state;
-//	if (description != nil) options[@"description"] = description;
-//	if (due_on != nil) options[@"due_on"] = due_on;
-//
-//	
-//	NSString *path = [NSString stringWithFormat:@"repos/%@/%@/milestones", organization.login, repository.name]);
-//	NSURLRequest *request = [self requestWithMethod:@"POST" path:path parameters:options notMatchingEtag:nil];
-//	
-//	return [[self enqueueRequest:request resultClass:OCTMilestone.class] oct_parsedResults];
-//}
+- (RACSignal *)createMilestoneWithRepository:(OCTRepository *)repository organization:(OCTOrganization *)organization title:(NSString *)title description:(NSString *)description dueOnDate:(NSDate *)dueOnDate state:(NSString *)state {
 
-// Fetches the specified milestone's issues.
-//
-// Returns a signal which sends zero or more OCTTeam objects. If the client is
-// not `authenticated`, the signal will error immediately.
-//- (RACSignal *)fetchIssuesForMilestone:(OCTOrganization *)organization;
+	if (!self.authenticated) return [RACSignal error:self.class.authenticationRequiredError];
+	
+	NSMutableDictionary *options = [NSMutableDictionary dictionary];
+	options[@"title"] = title;
+
+	if (state != nil) options[@"state"] = state;
+	if (description != nil) options[@"description"] = description;
+	if (dueOnDate != nil) options[@"due_on"] = dueOnDate;
+
+	
+	NSString *path = [NSString stringWithFormat:@"repos/%@/%@/milestones", organization.login, repository.name];
+	NSURLRequest *request = [self requestWithMethod:@"POST" path:path parameters:options notMatchingEtag:nil];
+	
+	return [[self enqueueRequest:request resultClass:OCTMilestone.class] oct_parsedResults];
+}
 
 @end
 

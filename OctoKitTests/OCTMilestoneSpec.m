@@ -12,7 +12,7 @@
 SpecBegin(OCTMilestone)
 
 NSDictionary *representation = @{
-								 @"html_url" : @"https://github.com/octocat/Hello-World/milestones/1",
+									 @"html_url" : @"https://github.com/octocat/Hello-World/milestones/1",
 									 @"url": @"https://api.github.com/repos/octocat/Hello-World/milestones/1",
 									 @"number": @1,
 									 @"state": @"open",
@@ -27,7 +27,7 @@ NSDictionary *representation = @{
 									},
 				 @"open_issues": @4,
 				 @"closed_issues": @8,
-				 @"created_at": @"2011-04-10T20:09:31Z",
+				 @"created_at": [NSDateFormatter oct_dateFromString:@"2011-04-10T20:09:31Z"],
 				 @"due_on": NSNull.null
 		 };
 
@@ -43,10 +43,11 @@ itShouldBehaveLike(OCTObjectArchivingSharedExamplesName, ^{
 });
 
 it(@"should initialize", ^{
-	expect(milestone.objectID).to.equal(@1);
+	expect(milestone.objectID).to.equal(@"1");
 	expect(milestone.HTMLURL).to.equal([NSURL URLWithString:@"https://github.com/octocat/Hello-World/milestones/1"]);
 	expect(milestone.title).to.equal(@"v1.0");
-	
+	expect(milestone.dueOnDate).to.equal(nil);
+	expect(milestone.dateCreated).to.equal([NSDateFormatter oct_dateFromString:@"2011-04-10T20:09:31Z"]);
 });
 
 SpecEnd

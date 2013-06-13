@@ -294,13 +294,7 @@ extern NSString * const OCTClientErrorHTTPStatusCodeKey;
 // Creates a milestone under the specified repository
 // Returns a signal which sends the new OCTMilestone. If the client is not
 // `authenticated`, the signal will error immediately.
-//- (RACSignal *)createMilestoneWithRepository:(OCTRepository *)repository organization:(OCTOrganization *)organization title:(NSString *)title description:(NSString *)description;
-
-// Fetches the specified milestone's issues.
-//
-// Returns a signal which sends zero or more OCTTeam objects. If the client is
-// not `authenticated`, the signal will error immediately.
-//- (RACSignal *)fetchIssuesForMilestone:(OCTOrganization *)organization;
+- (RACSignal *)createMilestoneWithRepository:(OCTRepository *)repository organization:(OCTOrganization *)organization title:(NSString *)title description:(NSString *)description dueOnDate:(NSDate *)dueOnDate state:(NSString *)state;
 
 @end
 
