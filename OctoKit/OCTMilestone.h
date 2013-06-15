@@ -10,6 +10,15 @@
 
 @class OTCIssue;
 
+// The state of the milestone.
+//
+// OCTMilestoneStateOpen		- The milestone is open for commits.
+// OCTMilestoneStateClosed		- The milestone is closed to commits.
+typedef enum : NSString {
+    OCTMilestoneStateOpen	= @"open",
+    OCTMilestoneStateClosed	= @"closed",
+} OCTMilestoneState;
+
 @interface OCTMilestone : OCTObject
 
 // The webpage URL for this milestone.
@@ -27,7 +36,7 @@
 // The date of creation
 @property (nonatomic, strong, readonly) NSDate *dateCreated;
 
-
-@property (nonatomic, readonly) int number;
+// The number associated with the milestone, relative to the repository
+@property (nonatomic, readonly) NSNumber number;
 
 @end

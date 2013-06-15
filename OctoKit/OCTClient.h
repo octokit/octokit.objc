@@ -274,14 +274,18 @@ extern NSString * const OCTClientErrorHTTPStatusCodeKey;
 
 @end
 
-
-
-
 @interface OCTClient (Milestones)
 
 // Fetches the specified milestone's full information.
 //
 // Returns a signal which sends a new OCTMilestone.
+//
+// milestone        - The milestone for the fetch
+// repository		- The repository that owns the milestone
+// organization		- The organization that owns the repository
+//
+// Milestones for private repositories will only be included if the client is `authenticated`
+// and the `user` has permission to see them.
 - (RACSignal *)fetchMilestoneInfo:(OCTMilestone *)milestone forRepository:(OCTRepository *)repository inOrganization:(OCTOrganization *)organization;
 
 // Fetches the specified organization's repositories.
@@ -289,9 +293,23 @@ extern NSString * const OCTClientErrorHTTPStatusCodeKey;
 // Returns a signal which sends zero or more OCTMilestone objects. Private
 // repository milestones will only be included if the client is `authenticated` and the
 // `user` has permission to see them.
+//
+// repository		- The repository that owns the milestone
+// organization		- The organization that owns the repository
+//
+// Milestones for private repositories will only be included if the client is `authenticated`
+// and the `user` has permission to see them.
 - (RACSignal *)fetchMilestonesForRepository:(OCTRepository *)repository inOrganization:(OCTOrganization *)organization;
 
 // Creates a milestone under the specified repository
+//
+// repository		- The repository that owns the milestone
+// organization		- The organization that owns the repository
+// title			- The title of the milestone
+// description		- The description (optional) for the milestone
+// dueOnDate        - The deadline date for the milestone
+// state			- One of the availabile states for the milestone (open, closed)
+//
 // Returns a signal which sends the new OCTMilestone. If the client is not
 // `authenticated`, the signal will error immediately.
 - (RACSignal *)createMilestoneWithRepository:(OCTRepository *)repository organization:(OCTOrganization *)organization title:(NSString *)title description:(NSString *)description dueOnDate:(NSDate *)dueOnDate state:(NSString *)state;
