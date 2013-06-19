@@ -12,6 +12,7 @@
 #import <OctoKit/OCTClient.h>
 #import <OctoKit/OCTCommitComment.h>
 #import <OctoKit/OCTCommitCommentEvent.h>
+#import <OctoKit/OCTCreateEvent.h>
 #import <OctoKit/OCTEntity.h>
 #import <OctoKit/OCTEvent.h>
 #import <OctoKit/OCTIssue.h>

@@ -15,6 +15,7 @@
 #import "OCTPullRequestCommentEvent.h"
 #import "OCTPushEvent.h"
 #import "OCTRefEvent.h"
+#import "OCTCreateEvent.h"
 
 @interface OCTEvent ()
 
@@ -30,7 +31,7 @@
 + (NSDictionary *)eventClassesByType {
 	return @{
 		@"CommitCommentEvent": OCTCommitCommentEvent.class,
-		@"CreateEvent": OCTRefEvent.class,
+		@"CreateEvent": OCTCreateEvent.class,
 		@"DeleteEvent": OCTRefEvent.class,
 		@"IssueCommentEvent": OCTIssueCommentEvent.class,
 		@"IssuesEvent": OCTIssueEvent.class,

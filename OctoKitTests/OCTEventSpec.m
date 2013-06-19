@@ -159,19 +159,6 @@ describe(@"OCTIssueEvent", ^{
 });
 
 describe(@"OCTRefEvent", ^{
-	it(@"should deserialize a creation event", ^{
-		OCTRefEvent *event = eventsByID[@"1605847125"];
-		expect(event).to.beKindOf(OCTRefEvent.class);
-
-		expect(event.repositoryName).to.equal(@"github/ReactiveCocoa");
-		expect(event.actorLogin).to.equal(@"joshaber");
-		expect(event.organizationLogin).to.equal(@"github");
-
-		expect(event.refType).to.equal(OCTRefTypeBranch);
-		expect(event.eventType).to.equal(OCTRefEventCreated);
-		expect(event.refName).to.equal(@"perform-selector");
-	});
-
 	it(@"should deserialize a deletion event", ^{
 		OCTRefEvent *event = eventsByID[@"1605820410"];
 		expect(event).to.beKindOf(OCTRefEvent.class);
@@ -183,6 +170,24 @@ describe(@"OCTRefEvent", ^{
 		expect(event.refType).to.equal(OCTRefTypeBranch);
 		expect(event.eventType).to.equal(OCTRefEventDeleted);
 		expect(event.refName).to.equal(@"fix-make-first-responder");
+	});
+
+	describe(@"OCTCreateEvent", ^{
+		it(@"should deserialize", ^{
+			OCTCreateEvent *event = eventsByID[@"1605847125"];
+
+			expect(event).to.beKindOf(OCTCreateEvent.class);
+
+			expect(event.repositoryName).to.equal(@"github/ReactiveCocoa");
+			expect(event.actorLogin).to.equal(@"joshaber");
+			expect(event.organizationLogin).to.equal(@"github");
+
+			expect(event.refType).to.equal(OCTRefTypeBranch);
+			expect(event.eventType).to.equal(OCTRefEventCreated);
+			expect(event.refName).to.equal(@"perform-selector");
+			expect(event.masterBranch).to.equal(@"master");
+			expect(event.repositoryDescription).to.equal(@"A framework for composing and transforming sequences of values.");
+		});
 	});
 });
 
