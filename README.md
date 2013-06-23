@@ -17,15 +17,15 @@ To add OctoKit to your application:
  1. Add the OctoKit repository as a submodule of your application's
     repository.
  1. Run `script/bootstrap` from within the OctoKit folder.
- 1. Drag and drop `OctoKit.xcodeproj` into the top-level of your application's workspace (or into the top-level of your project file to create a new workspace).
- 1. Drag and drop `ReactiveCocoa.xcodeproj` into the top level of your workspace. (This project can be found in the `External` folder).
- 1. Drag and drop `Mantle.xcodeproj` into the top level of your workspace. (This project can be found in the `External` folder).
- 1. On the "Build Phases" tab of your application target, add OctoKit to the
-    "Link Binary With Libraries" phase.
-    * **On iOS**, add `libOctoKit.a`.
-    * **On OS X**, add `OctoKit.framework`. The framework as well as its
-      subframeworks (`ReactiveCocoa.framework` and `Mantle.framework`) must also
-      be added to any ["Copy Frameworks"](#copying-the-frameworks) build phase.
+ 1. Drag and drop `OctoKit.xcodeproj`, `ReactiveCocoa.xcodeproj`, and
+    `Mantle.xcodeproj` into the top-level of your application's project file or
+    workspace. ReactiveCocoa and Mantle can be found within the `External`
+    folder.
+ 1. On the "Build Phases" tab of your application target, add OctoKit,
+    ReactiveCocoa, and Mantle to the "Link Binary With Libraries" phase.
+    * **On iOS**, add the `.a` libraries.
+    * **On OS X**, add the `.framework` bundles. All of the frames must also be
+      added to any ["Copy Frameworks"](#copying-the-frameworks) build phase.
  1. Add `$(BUILD_ROOT)/../IntermediateBuildFilesPath/UninstalledProducts/include
     $(inherited)` to the "Header Search Paths" build setting (this is only
     necessary for archive builds, but it has no negative effect otherwise).
