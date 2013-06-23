@@ -80,7 +80,6 @@
 		D0872054169E326800016ACA /* UIImageView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = D087202F169E326800016ACA /* UIImageView+AFNetworking.m */; };
 		D0872055169E326800016ACA /* UIImageView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = D087202F169E326800016ACA /* UIImageView+AFNetworking.m */; };
 		D0872097169E32A000016ACA /* Mantle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0872069169E328B00016ACA /* Mantle.framework */; };
-		D08720A0169E32BB00016ACA /* libMantle.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D087206D169E328B00016ACA /* libMantle.a */; };
 		D08720A3169E332800016ACA /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D08720A2169E332800016ACA /* AppKit.framework */; };
 		D08720A5169E332E00016ACA /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D08720A4169E332E00016ACA /* SystemConfiguration.framework */; };
 		D087211C169E35FC00016ACA /* libExpecta.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D0872102169E35D800016ACA /* libExpecta.a */; };
@@ -212,8 +211,9 @@
 		D0B9C8FD16BC7A260029C5B4 /* NSDateFormatterAdditionsSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = D0B9C8FC16BC7A260029C5B4 /* NSDateFormatterAdditionsSpec.m */; };
 		D0B9C8FE16BC7A260029C5B4 /* NSDateFormatterAdditionsSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = D0B9C8FC16BC7A260029C5B4 /* NSDateFormatterAdditionsSpec.m */; };
 		D0C636731777ABD300F486A9 /* ReactiveCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0C636681777AB9300F486A9 /* ReactiveCocoa.framework */; };
-		D0C636761777ABDA00F486A9 /* libReactiveCocoa-iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D0C6366A1777AB9300F486A9 /* libReactiveCocoa-iOS.a */; };
 		D0C636771777ABE000F486A9 /* ReactiveCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0C636681777AB9300F486A9 /* ReactiveCocoa.framework */; };
+		D0C636931777B00900F486A9 /* libMantle.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D087206D169E328B00016ACA /* libMantle.a */; };
+		D0C636941777B00900F486A9 /* libReactiveCocoa-iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D0C6366A1777AB9300F486A9 /* libReactiveCocoa-iOS.a */; };
 		D0D8C09516DFF1540070399E /* events.json in Resources */ = {isa = PBXBuildFile; fileRef = D0D8C09016DFF1540070399E /* events.json */; };
 		D0D8C09616DFF1540070399E /* events.json in Resources */ = {isa = PBXBuildFile; fileRef = D0D8C09016DFF1540070399E /* events.json */; };
 		D0D8C09716DFF1540070399E /* page1.json in Resources */ = {isa = PBXBuildFile; fileRef = D0D8C09116DFF1540070399E /* page1.json */; };
@@ -628,12 +628,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D0C636761777ABDA00F486A9 /* libReactiveCocoa-iOS.a in Frameworks */,
 				D0772E9216BD3067009DFF72 /* UIKit.framework in Frameworks */,
 				D0772E9016BD3064009DFF72 /* SystemConfiguration.framework in Frameworks */,
 				D0772E8E16BD305F009DFF72 /* MobileCoreServices.framework in Frameworks */,
 				D0772E8C16BD305B009DFF72 /* Foundation.framework in Frameworks */,
-				D08720A0169E32BB00016ACA /* libMantle.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -641,6 +639,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D0C636931777B00900F486A9 /* libMantle.a in Frameworks */,
+				D0C636941777B00900F486A9 /* libReactiveCocoa-iOS.a in Frameworks */,
 				D05E74E816D35513001AA17B /* libOHHTTPStubs-iOS.a in Frameworks */,
 				D0871FF4169E309A00016ACA /* SenTestingKit.framework in Frameworks */,
 				D0871FFA169E309A00016ACA /* libOctoKit.a in Frameworks */,
