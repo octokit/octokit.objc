@@ -10,11 +10,7 @@
 		#import <MobileCoreServices/MobileCoreServices.h>
 	#endif
 
-#if __IPHONE_OS_VERSION_MIN_REQUIRED
-	#import "AFNetworking.h"
-#else
 	#import <AFNetworking/AFNetworking.h>
-#endif
 	#import <Mantle/Mantle.h>
 	#import <ReactiveCocoa/ReactiveCocoa.h>
 	#import <OctoKit/OctoKit.h>

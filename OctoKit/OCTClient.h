@@ -6,7 +6,7 @@
 //  Copyright (c) 2012 GitHub. All rights reserved.
 //
 
-#import "AFNetworking.h"
+#import <AFNetworking/AFNetworking.h>
 
 @class OCTNotification;
 @class OCTOrganization;
