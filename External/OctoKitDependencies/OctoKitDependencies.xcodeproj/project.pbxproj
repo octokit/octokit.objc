@@ -1,0 +1,151 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXFileReference section */
+		D0476DA4177916770071F3CB /* Common.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Common.xcconfig; sourceTree = "<group>"; };
+		D0476DA6177916770071F3CB /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
+		D0476DA7177916770071F3CB /* Profile.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Profile.xcconfig; sourceTree = "<group>"; };
+		D0476DA8177916770071F3CB /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
+		D0476DA9177916770071F3CB /* Test.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Test.xcconfig; sourceTree = "<group>"; };
+		D0476DAB177916770071F3CB /* Application.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Application.xcconfig; sourceTree = "<group>"; };
+		D0476DAC177916770071F3CB /* StaticLibrary.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = StaticLibrary.xcconfig; sourceTree = "<group>"; };
+		D0476DAE177916770071F3CB /* iOS-Application.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "iOS-Application.xcconfig"; sourceTree = "<group>"; };
+		D0476DAF177916770071F3CB /* iOS-Base.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "iOS-Base.xcconfig"; sourceTree = "<group>"; };
+		D0476DB0177916770071F3CB /* iOS-StaticLibrary.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "iOS-StaticLibrary.xcconfig"; sourceTree = "<group>"; };
+		D0476DB2177916770071F3CB /* Mac-Application.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Mac-Application.xcconfig"; sourceTree = "<group>"; };
+		D0476DB3177916770071F3CB /* Mac-Base.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Mac-Base.xcconfig"; sourceTree = "<group>"; };
+		D0476DB4177916770071F3CB /* Mac-DynamicLibrary.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Mac-DynamicLibrary.xcconfig"; sourceTree = "<group>"; };
+		D0476DB5177916770071F3CB /* Mac-Framework.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Mac-Framework.xcconfig"; sourceTree = "<group>"; };
+		D0476DB6177916770071F3CB /* Mac-StaticLibrary.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Mac-StaticLibrary.xcconfig"; sourceTree = "<group>"; };
+		D0476DB7177916770071F3CB /* README.md */ = {isa = PBXFileReference; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		D0476D9B177916250071F3CB = {
+			isa = PBXGroup;
+			children = (
+				D0476DA2177916770071F3CB /* Configuration */,
+			);
+			sourceTree = "<group>";
+		};
+		D0476DA2177916770071F3CB /* Configuration */ = {
+			isa = PBXGroup;
+			children = (
+				D0476DA3177916770071F3CB /* Base */,
+				D0476DAD177916770071F3CB /* iOS */,
+				D0476DB1177916770071F3CB /* Mac OS X */,
+				D0476DB7177916770071F3CB /* README.md */,
+			);
+			name = Configuration;
+			path = ../Mantle/Configuration;
+			sourceTree = "<group>";
+		};
+		D0476DA3177916770071F3CB /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				D0476DA4177916770071F3CB /* Common.xcconfig */,
+				D0476DA5177916770071F3CB /* Configurations */,
+				D0476DAA177916770071F3CB /* Targets */,
+			);
+			path = Base;
+			sourceTree = "<group>";
+		};
+		D0476DA5177916770071F3CB /* Configurations */ = {
+			isa = PBXGroup;
+			children = (
+				D0476DA6177916770071F3CB /* Debug.xcconfig */,
+				D0476DA7177916770071F3CB /* Profile.xcconfig */,
+				D0476DA8177916770071F3CB /* Release.xcconfig */,
+				D0476DA9177916770071F3CB /* Test.xcconfig */,
+			);
+			path = Configurations;
+			sourceTree = "<group>";
+		};
+		D0476DAA177916770071F3CB /* Targets */ = {
+			isa = PBXGroup;
+			children = (
+				D0476DAB177916770071F3CB /* Application.xcconfig */,
+				D0476DAC177916770071F3CB /* StaticLibrary.xcconfig */,
+			);
+			path = Targets;
+			sourceTree = "<group>";
+		};
+		D0476DAD177916770071F3CB /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				D0476DAE177916770071F3CB /* iOS-Application.xcconfig */,
+				D0476DAF177916770071F3CB /* iOS-Base.xcconfig */,
+				D0476DB0177916770071F3CB /* iOS-StaticLibrary.xcconfig */,
+			);
+			path = iOS;
+			sourceTree = "<group>";
+		};
+		D0476DB1177916770071F3CB /* Mac OS X */ = {
+			isa = PBXGroup;
+			children = (
+				D0476DB2177916770071F3CB /* Mac-Application.xcconfig */,
+				D0476DB3177916770071F3CB /* Mac-Base.xcconfig */,
+				D0476DB4177916770071F3CB /* Mac-DynamicLibrary.xcconfig */,
+				D0476DB5177916770071F3CB /* Mac-Framework.xcconfig */,
+				D0476DB6177916770071F3CB /* Mac-StaticLibrary.xcconfig */,
+			);
+			path = "Mac OS X";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXProject section */
+		D0476D9C177916250071F3CB /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0460;
+			};
+			buildConfigurationList = D0476D9F177916250071F3CB /* Build configuration list for PBXProject "OctoKitDependencies" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = D0476D9B177916250071F3CB;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+			);
+		};
+/* End PBXProject section */
+
+/* Begin XCBuildConfiguration section */
+		D0476DA0177916250071F3CB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		D0476DA1177916250071F3CB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		D0476D9F177916250071F3CB /* Build configuration list for PBXProject "OctoKitDependencies" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D0476DA0177916250071F3CB /* Debug */,
+				D0476DA1177916250071F3CB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = D0476D9C177916250071F3CB /* Project object */;
+}
