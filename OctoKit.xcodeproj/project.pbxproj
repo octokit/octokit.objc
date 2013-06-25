@@ -15,6 +15,9 @@
 		D0476E43177919380071F3CB /* AFNetworking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0476E3C177919200071F3CB /* AFNetworking.framework */; };
 		D0476E44177919450071F3CB /* AFNetworking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0476E3C177919200071F3CB /* AFNetworking.framework */; };
 		D0476E4F177919F70071F3CB /* libAFNetworking.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D0476E3E177919200071F3CB /* libAFNetworking.a */; };
+		D0476EBF17791C3B0071F3CB /* ISO8601DateFormatter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0476EB317791C280071F3CB /* ISO8601DateFormatter.framework */; };
+		D0476EC017791C3E0071F3CB /* ISO8601DateFormatter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0476EB317791C280071F3CB /* ISO8601DateFormatter.framework */; };
+		D0476EC117791C470071F3CB /* libISO8601DateFormatter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D0476EB517791C280071F3CB /* libISO8601DateFormatter.a */; };
 		D058675616F2649800941A32 /* OCTResponseSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = D058675516F2649800941A32 /* OCTResponseSpec.m */; };
 		D058675716F2649800941A32 /* OCTResponseSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = D058675516F2649800941A32 /* OCTResponseSpec.m */; };
 		D05E74E516D3550A001AA17B /* OHHTTPStubs.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D05E74E016D354FD001AA17B /* OHHTTPStubs.framework */; };
@@ -167,8 +170,6 @@
 		D08721D9169E398C00016ACA /* OCTServerSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = D08721CE169E398C00016ACA /* OCTServerSpec.m */; };
 		D08721DA169E398C00016ACA /* OCTUserSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = D08721CF169E398C00016ACA /* OCTUserSpec.m */; };
 		D08721DB169E398C00016ACA /* OCTUserSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = D08721CF169E398C00016ACA /* OCTUserSpec.m */; };
-		D087229C169E3D0500016ACA /* ISO8601DateFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = D0872299169E3D0500016ACA /* ISO8601DateFormatter.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc -Wno-format -Wno-conversion"; }; };
-		D087229D169E3D0500016ACA /* ISO8601DateFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = D0872299169E3D0500016ACA /* ISO8601DateFormatter.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc -Wno-format -Wno-conversion"; }; };
 		D087229F169E3D6000016ACA /* OctoKit.h in Headers */ = {isa = PBXBuildFile; fileRef = D087229E169E3D6000016ACA /* OctoKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D08722A0169E3D6000016ACA /* OctoKit.h in Headers */ = {isa = PBXBuildFile; fileRef = D087229E169E3D6000016ACA /* OctoKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D0B9C8F416BC78970029C5B4 /* NSDateFormatter+OCTFormattingAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D0B9C8F116BC78970029C5B4 /* NSDateFormatter+OCTFormattingAdditions.m */; };
@@ -234,6 +235,34 @@
 			proxyType = 1;
 			remoteGlobalIDString = D0476DFE177917050071F3CB;
 			remoteInfo = "AFNetworking iOS";
+		};
+		D0476EB217791C280071F3CB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D0476E36177919200071F3CB /* OctoKitDependencies.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D0476E5E17791AA50071F3CB;
+			remoteInfo = "ISO8601DateFormatter Mac";
+		};
+		D0476EB417791C280071F3CB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D0476E36177919200071F3CB /* OctoKitDependencies.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D0476E8817791AE70071F3CB;
+			remoteInfo = "ISO8601DateFormatter iOS";
+		};
+		D0476EBB17791C300071F3CB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D0476E36177919200071F3CB /* OctoKitDependencies.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = D0476E5D17791AA50071F3CB;
+			remoteInfo = "ISO8601DateFormatter Mac";
+		};
+		D0476EBD17791C350071F3CB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D0476E36177919200071F3CB /* OctoKitDependencies.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = D0476E8717791AE70071F3CB;
+			remoteInfo = "ISO8601DateFormatter iOS";
 		};
 		D05E74DD16D354FD001AA17B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -554,8 +583,6 @@
 		D08721CD169E398C00016ACA /* OCTRepositorySpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCTRepositorySpec.m; sourceTree = "<group>"; };
 		D08721CE169E398C00016ACA /* OCTServerSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCTServerSpec.m; sourceTree = "<group>"; };
 		D08721CF169E398C00016ACA /* OCTUserSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCTUserSpec.m; sourceTree = "<group>"; };
-		D0872298169E3D0500016ACA /* ISO8601DateFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISO8601DateFormatter.h; sourceTree = "<group>"; };
-		D0872299169E3D0500016ACA /* ISO8601DateFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ISO8601DateFormatter.m; sourceTree = "<group>"; };
 		D087229E169E3D6000016ACA /* OctoKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OctoKit.h; sourceTree = "<group>"; };
 		D0B9C8F016BC78970029C5B4 /* NSDateFormatter+OCTFormattingAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDateFormatter+OCTFormattingAdditions.h"; sourceTree = "<group>"; };
 		D0B9C8F116BC78970029C5B4 /* NSDateFormatter+OCTFormattingAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDateFormatter+OCTFormattingAdditions.m"; sourceTree = "<group>"; };
@@ -577,6 +604,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D0476EBF17791C3B0071F3CB /* ISO8601DateFormatter.framework in Frameworks */,
 				D0476E44177919450071F3CB /* AFNetworking.framework in Frameworks */,
 				D0C636731777ABD300F486A9 /* ReactiveCocoa.framework in Frameworks */,
 				D08720A5169E332E00016ACA /* SystemConfiguration.framework in Frameworks */,
@@ -590,6 +618,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D0476EC017791C3E0071F3CB /* ISO8601DateFormatter.framework in Frameworks */,
 				D0476E43177919380071F3CB /* AFNetworking.framework in Frameworks */,
 				D0C636771777ABE000F486A9 /* ReactiveCocoa.framework in Frameworks */,
 				D05E74E516D3550A001AA17B /* OHHTTPStubs.framework in Frameworks */,
@@ -616,6 +645,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D0476EC117791C470071F3CB /* libISO8601DateFormatter.a in Frameworks */,
 				D0476E4F177919F70071F3CB /* libAFNetworking.a in Frameworks */,
 				D0C636931777B00900F486A9 /* libMantle.a in Frameworks */,
 				D0C636941777B00900F486A9 /* libReactiveCocoa-iOS.a in Frameworks */,
@@ -648,6 +678,8 @@
 			children = (
 				D0476E3C177919200071F3CB /* AFNetworking.framework */,
 				D0476E3E177919200071F3CB /* libAFNetworking.a */,
+				D0476EB317791C280071F3CB /* ISO8601DateFormatter.framework */,
+				D0476EB517791C280071F3CB /* libISO8601DateFormatter.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -688,7 +720,6 @@
 		D0871EAA169E2EFC00016ACA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				D0872297169E3CF000016ACA /* ISO8601DateFormatter */,
 				D08720FA169E35D800016ACA /* Expecta.xcodeproj */,
 				D0872056169E328A00016ACA /* Mantle.xcodeproj */,
 				D0872109169E35DE00016ACA /* Specta.xcodeproj */,
@@ -875,16 +906,6 @@
 				D08721CF169E398C00016ACA /* OCTUserSpec.m */,
 			);
 			name = Specs;
-			sourceTree = "<group>";
-		};
-		D0872297169E3CF000016ACA /* ISO8601DateFormatter */ = {
-			isa = PBXGroup;
-			children = (
-				D0872298169E3D0500016ACA /* ISO8601DateFormatter.h */,
-				D0872299169E3D0500016ACA /* ISO8601DateFormatter.m */,
-			);
-			name = ISO8601DateFormatter;
-			path = External/ISO8601DateFormatter;
 			sourceTree = "<group>";
 		};
 		D08722A2169E3D7C00016ACA /* Issues */ = {
@@ -1118,6 +1139,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				D0476EBC17791C300071F3CB /* PBXTargetDependency */,
 				D0476E40177919290071F3CB /* PBXTargetDependency */,
 				D0C636721777ABCF00F486A9 /* PBXTargetDependency */,
 				D0872094169E329A00016ACA /* PBXTargetDependency */,
@@ -1160,6 +1182,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				D0476EBE17791C350071F3CB /* PBXTargetDependency */,
 				D0476E42177919310071F3CB /* PBXTargetDependency */,
 				D0C636751777ABD700F486A9 /* PBXTargetDependency */,
 				D087209D169E32B600016ACA /* PBXTargetDependency */,
@@ -1266,6 +1289,20 @@
 			fileType = archive.ar;
 			path = libAFNetworking.a;
 			remoteRef = D0476E3D177919200071F3CB /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		D0476EB317791C280071F3CB /* ISO8601DateFormatter.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = ISO8601DateFormatter.framework;
+			remoteRef = D0476EB217791C280071F3CB /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		D0476EB517791C280071F3CB /* libISO8601DateFormatter.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libISO8601DateFormatter.a;
+			remoteRef = D0476EB417791C280071F3CB /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		D05E74DE16D354FD001AA17B /* libOHHTTPStubs-iOS.a */ = {
@@ -1492,7 +1529,6 @@
 				D08721B1169E395F00016ACA /* OCTServer.m in Sources */,
 				D08721B7169E395F00016ACA /* OCTTeam.m in Sources */,
 				D08721BB169E395F00016ACA /* OCTUser.m in Sources */,
-				D087229C169E3D0500016ACA /* ISO8601DateFormatter.m in Sources */,
 				8848E19F16AF630B005449AB /* OCTNotification.m in Sources */,
 				D0B9C8F416BC78970029C5B4 /* NSDateFormatter+OCTFormattingAdditions.m in Sources */,
 				D0772E7916BD2A06009DFF72 /* NSValueTransformer+OCTPredefinedTransformerAdditions.m in Sources */,
@@ -1550,7 +1586,6 @@
 				D08721B2169E395F00016ACA /* OCTServer.m in Sources */,
 				D08721B8169E395F00016ACA /* OCTTeam.m in Sources */,
 				D08721BC169E395F00016ACA /* OCTUser.m in Sources */,
-				D087229D169E3D0500016ACA /* ISO8601DateFormatter.m in Sources */,
 				8848E1A016AF630B005449AB /* OCTNotification.m in Sources */,
 				D0B9C8F516BC78970029C5B4 /* NSDateFormatter+OCTFormattingAdditions.m in Sources */,
 				D0772E7A16BD2A06009DFF72 /* NSValueTransformer+OCTPredefinedTransformerAdditions.m in Sources */,
@@ -1592,6 +1627,16 @@
 			isa = PBXTargetDependency;
 			name = "AFNetworking iOS";
 			targetProxy = D0476E41177919310071F3CB /* PBXContainerItemProxy */;
+		};
+		D0476EBC17791C300071F3CB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "ISO8601DateFormatter Mac";
+			targetProxy = D0476EBB17791C300071F3CB /* PBXContainerItemProxy */;
+		};
+		D0476EBE17791C350071F3CB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "ISO8601DateFormatter iOS";
+			targetProxy = D0476EBD17791C350071F3CB /* PBXContainerItemProxy */;
 		};
 		D05E74E416D35506001AA17B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -1685,7 +1730,6 @@
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PREFIX_HEADER = "OctoKit/OctoKit-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
-					External/AFNetworking,
 					"External/Mantle/MantleTests/expecta/src/**",
 					External/Mantle/MantleTests/specta/src,
 					External/OHHTTPStubs,
@@ -1707,7 +1751,6 @@
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PREFIX_HEADER = "OctoKit/OctoKit-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
-					External/AFNetworking,
 					"External/Mantle/MantleTests/expecta/src/**",
 					External/Mantle/MantleTests/specta/src,
 					External/OHHTTPStubs,
@@ -1865,7 +1908,6 @@
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PREFIX_HEADER = "OctoKit/OctoKit-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
-					External/AFNetworking,
 					"External/Mantle/MantleTests/expecta/src/**",
 					External/Mantle/MantleTests/specta/src,
 					External/OHHTTPStubs,

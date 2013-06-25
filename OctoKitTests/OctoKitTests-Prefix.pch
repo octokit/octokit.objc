@@ -21,7 +21,7 @@
     #import <OHHTTPStubs/OHHTTPStubs.h>
 #endif
 
-	#import "ISO8601DateFormatter.h"
+	#import <ISO8601DateFormatter/ISO8601DateFormatter.h>
 	#import "Specta.h"
 
 	#define EXP_SHORTHAND
