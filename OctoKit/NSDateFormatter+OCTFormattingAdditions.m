@@ -7,7 +7,7 @@
 //
 
 #import "NSDateFormatter+OCTFormattingAdditions.h"
-#import "ISO8601DateFormatter.h"
+#import <ISO8601DateFormatter/ISO8601DateFormatter.h>
 
 @implementation NSDateFormatter (OCTFormattingAdditions)
 
