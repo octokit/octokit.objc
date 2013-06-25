@@ -19,6 +19,7 @@
 #import "OCTUser.h"
 #import "OCTNotification.h"
 #import "RACSignal+OCTClientAdditions.h"
+#import <ReactiveCocoa/ReactiveCocoa.h>
 
 NSString * const OCTClientErrorDomain = @"OCTClientErrorDomain";
 const NSInteger OCTClientErrorAuthenticationFailed = 666;
