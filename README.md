@@ -17,10 +17,10 @@ To add OctoKit to your application:
  1. Add the OctoKit repository as a submodule of your application's
     repository.
  1. Run `script/bootstrap` from within the OctoKit folder.
- 1. Drag and drop `OctoKit.xcodeproj`, `ReactiveCocoa.xcodeproj`, and
-    `Mantle.xcodeproj` into the top-level of your application's project file or
-    workspace. ReactiveCocoa and Mantle can be found within the `External`
-    folder.
+ 1. Drag and drop `OctoKit.xcodeproj`, `OctoKitDependencies.xcodeproj`,
+    `ReactiveCocoa.xcodeproj`, and `Mantle.xcodeproj` into the top-level of your
+    application's project file or workspace. The latter three projects can be
+    found within the `External` folder.
  1. On the "Build Phases" tab of your application target, add OctoKit,
     ReactiveCocoa, and Mantle to the "Link Binary With Libraries" phase.
     * **On iOS**, add the `.a` libraries.
@@ -47,7 +47,8 @@ _This is only needed **on OS X**._
  1. A reference to the framework will now appear at the top of your
     application’s Xcode group, select it and show the "File Inspector".
  1. Change the "Location" to "Relative to Build Products".
- 1. Now do the same (starting at step 2) for the ReactiveCocoa and Mantle frameworks.
+ 1. Now do the same (starting at step 2) for the frameworks within the External
+    folder.
 
 ## License
 
