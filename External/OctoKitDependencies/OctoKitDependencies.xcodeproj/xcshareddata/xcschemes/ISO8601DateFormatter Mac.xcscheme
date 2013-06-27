@@ -14,24 +14,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "D0871FE3169E309900016ACA"
-               BuildableName = "libOctoKit.a"
-               BlueprintName = "OctoKit iOS"
-               ReferencedContainer = "container:OctoKit.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "NO"
-            buildForArchiving = "NO"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "D0871FF2169E309A00016ACA"
-               BuildableName = "OctoKit iOS Tests.octest"
-               BlueprintName = "OctoKit iOS Tests"
-               ReferencedContainer = "container:OctoKit.xcodeproj">
+               BlueprintIdentifier = "D0476E5D17791AA50071F3CB"
+               BuildableName = "ISO8601DateFormatter.framework"
+               BlueprintName = "ISO8601DateFormatter Mac"
+               ReferencedContainer = "container:OctoKitDependencies.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -42,16 +28,6 @@
       shouldUseLaunchSchemeArgsEnv = "YES"
       buildConfiguration = "Debug">
       <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "D0871FF2169E309A00016ACA"
-               BuildableName = "OctoKit iOS Tests.octest"
-               BlueprintName = "OctoKit iOS Tests"
-               ReferencedContainer = "container:OctoKit.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction

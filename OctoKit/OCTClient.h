@@ -6,14 +6,14 @@
 //  Copyright (c) 2012 GitHub. All rights reserved.
 //
 
-#import "AFNetworking.h"
-#import <ReactiveCocoa/ReactiveCocoa.h>
+#import <AFNetworking/AFNetworking.h>
 
 @class OCTNotification;
 @class OCTOrganization;
 @class OCTServer;
 @class OCTTeam;
 @class OCTUser;
+@class RACSignal;
 
 // The domain for all errors originating in OCTClient.
 extern NSString * const OCTClientErrorDomain;
