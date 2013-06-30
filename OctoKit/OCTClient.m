@@ -553,7 +553,7 @@ static const NSInteger OCTClientNotModifiedStatusCode = 304;
 
 	NSMutableURLRequest *request = [self requestWithMethod:@"PATCH" path:@"" parameters:@{ @"read": @(read) }];
 	request.URL = threadURL;
-	return [[self enqueueRequest:request resultClass:nil] ignoreElements];
+	return [[self enqueueRequest:request resultClass:nil] ignoreValues];
 }
 
 - (RACSignal *)muteNotificationThreadAtURL:(NSURL *)threadURL {
@@ -563,7 +563,7 @@ static const NSInteger OCTClientNotModifiedStatusCode = 304;
 
 	NSMutableURLRequest *request = [self requestWithMethod:@"PUT" path:@"" parameters:@{ @"ignored": @YES }];
 	request.URL = [threadURL URLByAppendingPathComponent:@"subscription"];
-	return [[self enqueueRequest:request resultClass:nil] ignoreElements];
+	return [[self enqueueRequest:request resultClass:nil] ignoreValues];
 }
 
 @end
