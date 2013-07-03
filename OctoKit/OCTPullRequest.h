@@ -8,10 +8,10 @@
 
 #import "OCTObject.h"
 
-// The state of the pull request. open or closed. Default is open.
+// The state of the pull request. open or closed.
 //
-// OCTPullRequestStateOpen  - The pull request is open.
-// OCTPullRequestStateClosed   - The pull request is closed.
+// OCTPullRequestStateOpen      - The pull request is open.
+// OCTPullRequestStateClosed    - The pull request is closed.
 typedef enum : NSUInteger {
     OCTPullRequestStateOpen,
     OCTPullRequestStateClosed
@@ -38,7 +38,7 @@ typedef enum : NSUInteger {
 // The body text for this pull request.
 @property (nonatomic, copy, readonly) NSString *body;
 
-// The state of this pull request. open or closed. Default is open.
+// The state of this pull request.
 @property (nonatomic, readonly) OCTPullRequestState state;
 
 

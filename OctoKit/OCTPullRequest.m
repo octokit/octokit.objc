@@ -45,12 +45,12 @@
 	};
 
 	return [MTLValueTransformer
-            reversibleTransformerWithForwardBlock:^(NSString *stateName) {
-                return statesByName[stateName];
-            }
-            reverseBlock:^(NSNumber *state) {
-                return [statesByName allKeysForObject:state].lastObject;
-            }];
+			reversibleTransformerWithForwardBlock:^(NSString *stateName) {
+				return statesByName[stateName];
+			}
+			reverseBlock:^(NSNumber *state) {
+				return [statesByName allKeysForObject:state].lastObject;
+			}];
 }
 
 @end
