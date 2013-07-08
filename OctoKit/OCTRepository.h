@@ -29,6 +29,9 @@
 // Whether this repository is private to the owner.
 @property (nonatomic, assign, getter = isPrivate, readonly) BOOL private;
 
+// Whether this repository is a fork of another repository.
+@property (nonatomic, assign, getter = isFork, readonly) BOOL fork;
+
 // The date of the last push to this repository.
 @property (nonatomic, strong, readonly) NSDate *datePushed;
 
