@@ -585,4 +585,16 @@ static const NSInteger OCTClientNotModifiedStatusCode = 304;
 	return [[self enqueueRequest:request resultClass:OCTContent.class] oct_parsedResults];
 }
 
+- (RACSignal *)fetchRepositoryReadme:(OCTRepository *)repository
+{
+	NSParameterAssert(repository != nil);
+	NSParameterAssert(repository.name.length > 0);
+	NSParameterAssert(repository.ownerLogin.length > 0);
+	
+	NSString *path = [NSString stringWithFormat:@"repos/%@/%@/readme", repository.ownerLogin, repository.name];
+	NSMutableURLRequest *request = [self requestWithMethod:@"GET" path:path parameters:nil notMatchingEtag:nil];
+	
+	return [[self enqueueRequest:request resultClass:OCTContent.class] oct_parsedResults];
+}
+
 @end

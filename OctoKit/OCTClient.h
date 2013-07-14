@@ -290,4 +290,11 @@ extern NSString * const OCTClientErrorHTTPStatusCodeKey;
 // relative path resolves at all or, resolves to a file or directory.
 - (RACSignal *)fetchRepositoryContent:(OCTRepository *)repository relativePath:(NSString *)relativePath reference:(NSString *)reference;
 
+// Fetches the readme of a `repository`.
+//
+// repository - The repository for which the readme should be fetched.
+//
+// Returns a signal which will send zero or one OCTContent.
+- (RACSignal *)fetchRepositoryReadme:(OCTRepository *)repository;
+
 @end
