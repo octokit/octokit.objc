@@ -567,3 +567,18 @@ static const NSInteger OCTClientNotModifiedStatusCode = 304;
 }
 
 @end
+
+@implementation OCTClient (Repository)
+
+- (RACSignal *)fetchRepositoryWithName:(NSString *)name owner:(NSString *)owner
+{
+	NSParameterAssert(name.length > 0);
+	NSParameterAssert(owner.length > 0);
+	
+	NSString *path = [NSString stringWithFormat:@"repos/%@/%@", owner, name];
+	NSMutableURLRequest *request = [self requestWithMethod:@"GET" path:path parameters:nil notMatchingEtag:nil];
+	
+	return [[self enqueueRequest:request resultClass:OCTRepository.class] oct_parsedResults];
+}
+
+@end
