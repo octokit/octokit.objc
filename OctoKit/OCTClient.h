@@ -14,6 +14,7 @@
 @class OCTTeam;
 @class OCTUser;
 @class RACSignal;
+@class OCTRepository;
 
 // The domain for all errors originating in OCTClient.
 extern NSString * const OCTClientErrorDomain;
@@ -269,5 +270,24 @@ extern NSString * const OCTClientErrorHTTPStatusCodeKey;
 // Returns a signal which will send completed on success. If the client is not
 // `authenticated`, the signal will error immediately.
 - (RACSignal *)muteNotificationThreadAtURL:(NSURL *)threadURL;
+
+@end
+
+@interface OCTClient (Repository)
+
+// Fetches the content at `relativePath` at the given `reference` from the
+// `repository`.
+//
+// In case `relativePath` is `nil` the contents of the repository root will be
+// sent.
+//
+// repository   - The repository from which the file should be fetched.
+// relativePath - The relative path (from the repository root) of the file that
+//                should be fetched, may be `nil`.
+// reference    - The name of the commit, branch or tag. Defaults to `master`.
+//
+// Returns a signal which will send zero or more OCTContents depending on if the
+// relative path resolves at all or, resolves to a file or directory.
+- (RACSignal *)fetchRepositoryContent:(OCTRepository *)repository relativePath:(NSString *)relativePath reference:(NSString *)reference;
 
 @end

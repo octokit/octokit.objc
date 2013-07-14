@@ -7,6 +7,7 @@
 //
 
 #import "OCTClient.h"
+#import "OCTContent.h"
 #import "NSDateFormatter+OCTFormattingAdditions.h"
 #import "OCTEvent.h"
 #import "OCTObject+Private.h"
@@ -564,6 +565,24 @@ static const NSInteger OCTClientNotModifiedStatusCode = 304;
 	NSMutableURLRequest *request = [self requestWithMethod:@"PUT" path:@"" parameters:@{ @"ignored": @YES }];
 	request.URL = [threadURL URLByAppendingPathComponent:@"subscription"];
 	return [[self enqueueRequest:request resultClass:nil] ignoreValues];
+}
+
+@end
+
+@implementation OCTClient (Repository)
+
+- (RACSignal *)fetchRepositoryContent:(OCTRepository *)repository relativePath:(NSString *)relativePath reference:(NSString *)reference
+{
+	NSParameterAssert(repository != nil);
+	NSParameterAssert(repository.name.length > 0);
+	NSParameterAssert(repository.ownerLogin.length > 0);
+	
+	relativePath = relativePath.length > 0 ? relativePath : @"";
+	NSString *path = [NSString stringWithFormat:@"repos/%@/%@/contents/%@", repository.ownerLogin, repository.name, relativePath];
+	NSDictionary *parameters = reference.length > 0 ? @{ @"ref": reference } : nil;
+	NSMutableURLRequest *request = [self requestWithMethod:@"GET" path:path parameters:parameters notMatchingEtag:nil];
+	
+	return [[self enqueueRequest:request resultClass:OCTContent.class] oct_parsedResults];
 }
 
 @end
