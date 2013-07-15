@@ -34,6 +34,12 @@
 
 #pragma mark MTLJSONSerializing
 
++ (NSDictionary *)JSONKeyPathsByPropertyKey {
+	return [super.JSONKeyPathsByPropertyKey mtl_dictionaryByAddingEntriesFromDictionary:@{
+		@"SHA": @"sha",
+	}];
+}
+
 + (Class)classForParsingJSONDictionary:(NSDictionary *)JSONDictionary {
 	return self.contentClassesByType[JSONDictionary[@"type"]];
 }

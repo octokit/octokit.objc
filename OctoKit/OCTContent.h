@@ -22,6 +22,6 @@
 @property (nonatomic, copy, readonly) NSString *path;
 
 // The sha reference of the item.
-@property (nonatomic, copy, readonly) NSString *sha;
+@property (nonatomic, copy, readonly) NSString *SHA;
 
 @end
