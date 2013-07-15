@@ -284,7 +284,8 @@ extern NSString * const OCTClientErrorHTTPStatusCodeKey;
 // repository   - The repository from which the file should be fetched.
 // relativePath - The relative path (from the repository root) of the file that
 //                should be fetched, may be `nil`.
-// reference    - The name of the commit, branch or tag. Defaults to `master`.
+// reference    - The name of the commit, branch or tag, may be `nil` in which
+//                case it defaults to the default repo branch.
 //
 // Returns a signal which will send zero or more OCTContents depending on if the
 // relative path resolves at all or, resolves to a file or directory.
