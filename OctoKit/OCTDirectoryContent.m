@@ -12,8 +12,7 @@
 
 #pragma mark MTLJSONSerializing
 
-+ (NSDictionary *)JSONKeyPathsByPropertyKey
-{
++ (NSDictionary *)JSONKeyPathsByPropertyKey {
 	return [super.JSONKeyPathsByPropertyKey mtl_dictionaryByAddingEntriesFromDictionary:@{
 		@"size": NSNull.null,
 	}];

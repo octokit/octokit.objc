@@ -571,8 +571,7 @@ static const NSInteger OCTClientNotModifiedStatusCode = 304;
 
 @implementation OCTClient (Repository)
 
-- (RACSignal *)fetchRepositoryContent:(OCTRepository *)repository relativePath:(NSString *)relativePath reference:(NSString *)reference
-{
+- (RACSignal *)fetchRepositoryContent:(OCTRepository *)repository relativePath:(NSString *)relativePath reference:(NSString *)reference {
 	NSParameterAssert(repository != nil);
 	NSParameterAssert(repository.name.length > 0);
 	NSParameterAssert(repository.ownerLogin.length > 0);
@@ -585,8 +584,7 @@ static const NSInteger OCTClientNotModifiedStatusCode = 304;
 	return [[self enqueueRequest:request resultClass:OCTContent.class] oct_parsedResults];
 }
 
-- (RACSignal *)fetchRepositoryReadme:(OCTRepository *)repository
-{
+- (RACSignal *)fetchRepositoryReadme:(OCTRepository *)repository {
 	NSParameterAssert(repository != nil);
 	NSParameterAssert(repository.name.length > 0);
 	NSParameterAssert(repository.ownerLogin.length > 0);
