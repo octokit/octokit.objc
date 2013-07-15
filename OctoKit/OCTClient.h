@@ -76,13 +76,13 @@ extern NSString * const OCTClientErrorHTTPStatusCodeKey;
 // authenticated with the server – only whether it will attempt to.
 //
 // This will only be YES when created with
-// +authenticatedClientWithUser:password:.
+// +authenticatedClientWithUser:token:.
 @property (nonatomic, getter = isAuthenticated, readonly) BOOL authenticated;
 
 // Initializes the receiver to make requests to the given GitHub server.
 // 
 // When using this initializer, the `user` property will not be set.
-// +authenticatedClientWithUser:password: or +unauthenticatedClientWithUser:
+// +authenticatedClientWithUser:token: or +unauthenticatedClientWithUser:
 // should typically be used instead.
 //
 // server - The GitHub server to connect to. This argument must not be nil.
@@ -91,17 +91,17 @@ extern NSString * const OCTClientErrorHTTPStatusCodeKey;
 - (id)initWithServer:(OCTServer *)server;
 
 // Creates a client which will attempt to authenticate as the given user, using
-// the given password.
+// the given authorization token.
 //
 // Note that this method does not actually perform a login or make a request to
 // the server – it only sets an authorization header for future requests.
 //
-// user     - The user to authenticate as. The `user` property of the returned
-//            client will be set to this object. This argument must not be nil.
-// password - The password for the given user.
+// user  - The user to authenticate as. The `user` property of the returned
+//         client will be set to this object. This argument must not be nil.
+// token - The authorization token for the given user.
 //
 // Returns a new client.
-+ (instancetype)authenticatedClientWithUser:(OCTUser *)user password:(NSString *)password;
++ (instancetype)authenticatedClientWithUser:(OCTUser *)user token:(NSString *)token;
 
 // Creates a client which can access any endpoints that don't require
 // authentication.
@@ -152,28 +152,31 @@ extern NSString * const OCTClientErrorHTTPStatusCodeKey;
 
 @interface OCTClient (Authorization)
 
-// Requests an authorization token with the current `user`.
+// Requests an authorization token with the current `user` and given password.
 //
 // If `user` has two-factor authentication turned on, the authorization will be
-// rejected with an error with the code
+// rejected with an error whose code is
 // `OCTClientErrorTwoFactorAuthenticationOneTimePasswordRequired`. The user will
 // be sent a one-time password to enter to approve the authorization. You can
-// then use `-requestAuthorizationTokenWithOneTimePassword:` to again request
-// authorization with the one-time password.
+// then use `-requestAuthorizationTokenWithPassword:oneTimePassword:` to again
+// request authorization with the one-time password.
+//
+// password - The user's password. Cannot be nil.
 //
 // Returns a signal which will send an NSString token. If no `user` is set, the
 // signal will error immediately.
-- (RACSignal *)requestAuthorizationToken;
+- (RACSignal *)requestAuthorizationTokenWithPassword:(NSString *)password;
 
-// Requests an authorization token with the current `user` and the given one-
+// Requests an authorization token with the current `user`, password, and one-
 // time password.
 //
-// password - The one-time password to use for this authorization request.
-//            Cannot be nil.
+// password        - The user's password. Cannot be nil.
+// oneTimePassword - The one-time password to approve the authorization request.
+//                   Cannot be nil.
 //
 // Returns a signal which will send an NSString token. If no `user` is set, the
 // signal will error immediately.
-- (RACSignal *)requestAuthorizationTokenWithOneTimePassword:(NSString *)password;
+- (RACSignal *)requestAuthorizationTokenWithPassword:(NSString *)password oneTimePassword:(NSString *)oneTimePassword;
 
 @end
 

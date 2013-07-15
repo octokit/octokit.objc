@@ -46,7 +46,7 @@ static NSString * const OCTClientOneTimePasswordHeaderField = @"X-GitHub-OTP";
 + (NSError *)userRequiredError;
 
 // An error indicating that a request required authentication, but the client
-// was not created with a password.
+// was not created with a token.
 + (NSError *)authenticationRequiredError;
 
 // Enqueues a request to fetch information about the current user by accessing
@@ -82,15 +82,15 @@ static NSString * const OCTClientOneTimePasswordHeaderField = @"X-GitHub-OTP";
 
 #pragma mark Lifecycle
 
-+ (instancetype)authenticatedClientWithUser:(OCTUser *)user password:(NSString *)password {
++ (instancetype)authenticatedClientWithUser:(OCTUser *)user token:(NSString *)token {
 	NSParameterAssert(user != nil);
-	NSParameterAssert(password != nil);
+	NSParameterAssert(token != nil);
 
 	OCTClient *client = [[self alloc] initWithServer:user.server];
 	client.authenticated = YES;
 	client.user = user;
 
-	[client setAuthorizationHeaderWithUsername:user.login password:password];
+	[client setAuthorizationHeaderWithUsername:user.login password:token];
 	return client;
 }
 
@@ -441,20 +441,61 @@ static NSString * const OCTClientOneTimePasswordHeaderField = @"X-GitHub-OTP";
 
 @implementation OCTClient (Authorization)
 
-- (RACSignal *)requestAuthorizationToken {
-	if (self.user == nil) return [RACSignal error:self.class.userRequiredError];
+// This is just a shameless c&p of AFBase64EncodedStringFromString since it's
+// not exported :(
+static NSString * OCTBase64EncodedStringFromString(NSString *string) {
+    NSData *data = [NSData dataWithBytes:[string UTF8String] length:[string lengthOfBytesUsingEncoding:NSUTF8StringEncoding]];
+    NSUInteger length = [data length];
+    NSMutableData *mutableData = [NSMutableData dataWithLength:((length + 2) / 3) * 4];
 
-	NSURLRequest *request = [self requestWithMethod:@"POST" path:@"authorizations" parameters:nil];
-	return [[self enqueueRequest:request resultClass:nil] oct_parsedResults];
+    uint8_t *input = (uint8_t *)[data bytes];
+    uint8_t *output = (uint8_t *)[mutableData mutableBytes];
+
+    for (NSUInteger i = 0; i < length; i += 3) {
+        NSUInteger value = 0;
+        for (NSUInteger j = i; j < (i + 3); j++) {
+            value <<= 8;
+            if (j < length) {
+                value |= (0xFF & input[j]);
+            }
+        }
+
+        static uint8_t const kAFBase64EncodingTable[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+
+        NSUInteger idx = (i / 3) * 4;
+        output[idx + 0] = kAFBase64EncodingTable[(value >> 18) & 0x3F];
+        output[idx + 1] = kAFBase64EncodingTable[(value >> 12) & 0x3F];
+        output[idx + 2] = (i + 1) < length ? kAFBase64EncodingTable[(value >> 6)  & 0x3F] : '=';
+        output[idx + 3] = (i + 2) < length ? kAFBase64EncodingTable[(value >> 0)  & 0x3F] : '=';
+    }
+
+    return [[NSString alloc] initWithData:mutableData encoding:NSASCIIStringEncoding];
 }
 
-- (RACSignal *)requestAuthorizationTokenWithOneTimePassword:(NSString *)password {
+- (NSString *)basicAuthorizationStringWithPassword:(NSString *)password {
+	NSString *credentials = [NSString stringWithFormat:@"%@:%@", self.user.login, password];
+	return [NSString stringWithFormat:@"Basic %@", OCTBase64EncodedStringFromString(credentials)];
+}
+
+- (RACSignal *)requestAuthorizationTokenWithPassword:(NSString *)password {
 	NSParameterAssert(password != nil);
 
 	if (self.user == nil) return [RACSignal error:self.class.userRequiredError];
 
 	NSMutableURLRequest *request = [self requestWithMethod:@"POST" path:@"authorizations" parameters:nil];
-	[request setValue:password forHTTPHeaderField:OCTClientOneTimePasswordHeaderField];
+    [request setValue:[self basicAuthorizationStringWithPassword:password] forHTTPHeaderField:@"Authorization"];
+	return [[self enqueueRequest:request resultClass:nil] oct_parsedResults];
+}
+
+- (RACSignal *)requestAuthorizationTokenWithPassword:(NSString *)password oneTimePassword:(NSString *)oneTimePassword {
+	NSParameterAssert(password != nil);
+	NSParameterAssert(oneTimePassword != nil);
+
+	if (self.user == nil) return [RACSignal error:self.class.userRequiredError];
+
+	NSMutableURLRequest *request = [self requestWithMethod:@"POST" path:@"authorizations" parameters:nil];
+	[request setValue:[self basicAuthorizationStringWithPassword:password] forHTTPHeaderField:@"Authorization"];
+	[request setValue:oneTimePassword forHTTPHeaderField:OCTClientOneTimePasswordHeaderField];
 	return [[self enqueueRequest:request resultClass:nil] oct_parsedResults];
 }
 
