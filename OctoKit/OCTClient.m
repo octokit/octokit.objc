@@ -27,11 +27,14 @@ const NSInteger OCTClientErrorServiceRequestFailed = 667;
 const NSInteger OCTClientErrorConnectionFailed = 668;
 const NSInteger OCTClientErrorJSONParsingFailed = 669;
 const NSInteger OCTClientErrorBadRequest = 670;
+const NSInteger OCTClientErrorTwoFactorAuthenticationOneTimePasswordRequired = 671;
 
 NSString * const OCTClientErrorRequestURLKey = @"OCTClientErrorRequestURLKey";
 NSString * const OCTClientErrorHTTPStatusCodeKey = @"OCTClientErrorHTTPStatusCodeKey";
 
 static const NSInteger OCTClientNotModifiedStatusCode = 304;
+
+static NSString * const OCTClientOneTimePasswordHeaderField = @"X-GitHub-OTP";
 
 @interface OCTClient ()
 
@@ -371,6 +374,11 @@ static const NSInteger OCTClientNotModifiedStatusCode = 304;
 		NSError *errorTemplate = self.class.authenticationRequiredError;
 
 		errorCode = errorTemplate.code;
+		NSString *OTPHeader = operation.response.allHeaderFields[OCTClientOneTimePasswordHeaderField];
+		if ([OTPHeader.lowercaseString isEqual:@"required"]) {
+			errorCode = OCTClientErrorTwoFactorAuthenticationOneTimePasswordRequired;
+		}
+
 		[userInfo addEntriesFromDictionary:errorTemplate.userInfo];
 	} else if (HTTPCode == 400) {
 		errorCode = OCTClientErrorBadRequest;
@@ -427,6 +435,27 @@ static const NSInteger OCTClientNotModifiedStatusCode = 304;
 	};
 
 	return [NSError errorWithDomain:OCTClientErrorDomain code:OCTClientErrorAuthenticationFailed userInfo:userInfo];
+}
+
+@end
+
+@implementation OCTClient (Authorization)
+
+- (RACSignal *)requestAuthorizationToken {
+	if (self.user == nil) return [RACSignal error:self.class.userRequiredError];
+
+	NSURLRequest *request = [self requestWithMethod:@"POST" path:@"authorizations" parameters:nil];
+	return [[self enqueueRequest:request resultClass:nil] oct_parsedResults];
+}
+
+- (RACSignal *)requestAuthorizationTokenWithOneTimePassword:(NSString *)password {
+	NSParameterAssert(password != nil);
+
+	if (self.user == nil) return [RACSignal error:self.class.userRequiredError];
+
+	NSMutableURLRequest *request = [self requestWithMethod:@"POST" path:@"authorizations" parameters:nil];
+	[request setValue:password forHTTPHeaderField:OCTClientOneTimePasswordHeaderField];
+	return [[self enqueueRequest:request resultClass:nil] oct_parsedResults];
 }
 
 @end

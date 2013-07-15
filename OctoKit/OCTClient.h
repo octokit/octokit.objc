@@ -22,6 +22,10 @@ extern NSString * const OCTClientErrorDomain;
 // is not logged in.
 extern const NSInteger OCTClientErrorAuthenticationFailed;
 
+// The authorization request requires a two-factor authentication one-time
+// password.
+extern const NSInteger OCTClientErrorTwoFactorAuthenticationOneTimePasswordRequired;
+
 // The request was invalid (HTTP error 400).
 extern const NSInteger OCTClientErrorBadRequest;
 
@@ -143,6 +147,33 @@ extern NSString * const OCTClientErrorHTTPStatusCodeKey;
 // JSON object, then complete. If an error occurs at any point, the returned
 // signal will send it immediately, then terminate.
 - (RACSignal *)enqueueRequest:(NSURLRequest *)request resultClass:(Class)resultClass;
+
+@end
+
+@interface OCTClient (Authorization)
+
+// Requests an authorization token with the current `user`.
+//
+// If `user` has two-factor authentication turned on, the authorization will be
+// rejected with an error with the code
+// `OCTClientErrorTwoFactorAuthenticationOneTimePasswordRequired`. The user will
+// be sent a one-time password to enter to approve the authorization. You can
+// then use `-requestAuthorizationTokenWithOneTimePassword:` to again request
+// authorization with the one-time password.
+//
+// Returns a signal which will send an NSString token. If no `user` is set, the
+// signal will error immediately.
+- (RACSignal *)requestAuthorizationToken;
+
+// Requests an authorization token with the current `user` and the given one-
+// time password.
+//
+// password - The one-time password to use for this authorization request.
+//            Cannot be nil.
+//
+// Returns a signal which will send an NSString token. If no `user` is set, the
+// signal will error immediately.
+- (RACSignal *)requestAuthorizationTokenWithOneTimePassword:(NSString *)password;
 
 @end
 
