@@ -33,7 +33,7 @@
   },
   {
     "type": "submodule",
-    "submodule_git_url": "git://github.com/jquery/qunit.git",
+    "submodule_git_url": "git@github.com:octokit/octokit.objc.git",
     "size": 0,
     "name": "qunit",
     "path": "test/qunit",
