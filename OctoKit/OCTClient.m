@@ -442,6 +442,10 @@ static const NSInteger OCTClientNotModifiedStatusCode = 304;
 	return [[self enqueueUserRequestWithMethod:@"GET" relativePath:@"/repos" parameters:nil resultClass:OCTRepository.class] oct_parsedResults];
 }
 
+- (RACSignal *)fetchUserStarredRepositories {
+	return [[self enqueueUserRequestWithMethod:@"GET" relativePath:@"/starred" parameters:nil resultClass:OCTRepository.class] oct_parsedResults];
+}
+
 - (RACSignal *)createRepositoryWithName:(NSString *)name description:(NSString *)description private:(BOOL)isPrivate {
 	if (!self.authenticated) return [RACSignal error:self.class.authenticationRequiredError];
 
