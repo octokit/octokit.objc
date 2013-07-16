@@ -18,8 +18,4 @@
 	}];
 }
 
-+ (NSValueTransformer *)submoduleGitURLJSONTransformer {
-	return [NSValueTransformer valueTransformerForName:MTLURLValueTransformerName];
-}
-
 @end
