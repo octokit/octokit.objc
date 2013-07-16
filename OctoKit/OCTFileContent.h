@@ -16,7 +16,7 @@
 
 // The raw, encoded, content of the file.
 //
-// See encoding for the encoding used.
+// See `encoding` for the encoding used.
 @property (nonatomic, copy, readonly) NSString *content;
 
 @end
