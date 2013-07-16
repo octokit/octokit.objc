@@ -247,6 +247,37 @@ describe(@"authenticated", ^{
 		expect(success).to.beTruthy();
 		expect(error).to.beNil();
 	});
+	
+	it(@"should fetch user starred repositories", ^{
+		stubResponse(@"/user/starred", @"user_starred.json");
+		
+		RACSignal *request = [client fetchUserStarredRepositories];
+		OCTRepository *repository = [request asynchronousFirstOrDefault:nil success:&success error:&error];
+		expect(success).to.beTruthy();
+		expect(error).to.beNil();
+		
+		expect(repository).to.beKindOf(OCTRepository.class);
+		expect(repository.objectID).to.equal(@"3654804");
+		expect(repository.name).to.equal(@"ThisIsATest");
+		expect(repository.ownerLogin).to.equal(@"octocat");
+		expect(repository.repoDescription).to.beNil();
+		expect(repository.defaultBranch).to.equal(@"master");
+		expect(repository.isPrivate).to.equal(@NO);
+		expect(repository.datePushed).to.equal([[[ISO8601DateFormatter alloc] init] dateFromString:@"2013-03-26T08:31:42Z"]);
+		expect(repository.SSHURL).to.equal(@"git@github.com:octocat/ThisIsATest.git");
+		expect(repository.HTTPSURL).to.equal([NSURL URLWithString:@"https://github.com/octocat/ThisIsATest.git"]);
+		expect(repository.gitURL).to.equal([NSURL URLWithString:@"git://github.com/octocat/ThisIsATest.git"]);
+		expect(repository.HTMLURL).to.equal([NSURL URLWithString:@"https://github.com/octocat/ThisIsATest"]);
+	});
+	
+	it(@"should return nothing if user starred repositories are unmodified", ^{
+		stubResponseWithStatusCode(@"/user/starred", 304);
+		
+		RACSignal *request = [client fetchUserStarredRepositories];
+		expect([request asynchronousFirstOrDefault:nil success:&success error:&error]).to.beNil();
+		expect(success).to.beTruthy();
+		expect(error).to.beNil();
+	});
 });
 
 SpecEnd
