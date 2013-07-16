@@ -11,6 +11,8 @@
 		8848E19E16AF630B005449AB /* OCTNotification.h in Headers */ = {isa = PBXBuildFile; fileRef = 8848E19B16AF630B005449AB /* OCTNotification.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8848E19F16AF630B005449AB /* OCTNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = 8848E19C16AF630B005449AB /* OCTNotification.m */; };
 		8848E1A016AF630B005449AB /* OCTNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = 8848E19C16AF630B005449AB /* OCTNotification.m */; };
+		9CF7FB9617957A6A00CA34FF /* repository.json in Resources */ = {isa = PBXBuildFile; fileRef = 9CF7FB9517957A6A00CA34FF /* repository.json */; };
+		9CF7FB9717957A6A00CA34FF /* repository.json in Resources */ = {isa = PBXBuildFile; fileRef = 9CF7FB9517957A6A00CA34FF /* repository.json */; };
 		D02E48FE16CBAB7A00257645 /* Mantle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0872069169E328B00016ACA /* Mantle.framework */; };
 		D0476E43177919380071F3CB /* AFNetworking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0476E3C177919200071F3CB /* AFNetworking.framework */; };
 		D0476E44177919450071F3CB /* AFNetworking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0476E3C177919200071F3CB /* AFNetworking.framework */; };
@@ -479,6 +481,7 @@
 /* Begin PBXFileReference section */
 		8848E19B16AF630B005449AB /* OCTNotification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCTNotification.h; sourceTree = "<group>"; };
 		8848E19C16AF630B005449AB /* OCTNotification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCTNotification.m; sourceTree = "<group>"; };
+		9CF7FB9517957A6A00CA34FF /* repository.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = repository.json; sourceTree = "<group>"; };
 		D0476E36177919200071F3CB /* OctoKitDependencies.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = OctoKitDependencies.xcodeproj; path = External/OctoKitDependencies/OctoKitDependencies.xcodeproj; sourceTree = "<group>"; };
 		D058675516F2649800941A32 /* OCTResponseSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCTResponseSpec.m; sourceTree = "<group>"; };
 		D05E74D416D354FD001AA17B /* OHHTTPStubs.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = OHHTTPStubs.xcodeproj; path = External/OHHTTPStubs/OHHTTPStubs/OHHTTPStubs.xcodeproj; sourceTree = "<group>"; };
@@ -1045,6 +1048,7 @@
 				D0D8C09216DFF1540070399E /* page2.json */,
 				D0D8C09316DFF1540070399E /* page3.json */,
 				D0D8C09416DFF1540070399E /* rate_limit.json */,
+				9CF7FB9517957A6A00CA34FF /* repository.json */,
 			);
 			path = Stubs;
 			sourceTree = "<group>";
@@ -1453,6 +1457,7 @@
 				D0D8C09B16DFF1540070399E /* page3.json in Resources */,
 				D0D8C09D16DFF1540070399E /* rate_limit.json in Resources */,
 				D0E41B8716DFF37E00E321CF /* notifications.json in Resources */,
+				9CF7FB9617957A6A00CA34FF /* repository.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1463,6 +1468,7 @@
 				D0D8C09616DFF1540070399E /* events.json in Resources */,
 				D0D8C09816DFF1540070399E /* page1.json in Resources */,
 				D0D8C09A16DFF1540070399E /* page2.json in Resources */,
+				9CF7FB9717957A6A00CA34FF /* repository.json in Resources */,
 				D0D8C09C16DFF1540070399E /* page3.json in Resources */,
 				D0D8C09E16DFF1540070399E /* rate_limit.json in Resources */,
 				D0E41B8816DFF37E00E321CF /* notifications.json in Resources */,

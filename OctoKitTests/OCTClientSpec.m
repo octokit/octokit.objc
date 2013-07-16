@@ -160,6 +160,29 @@ describe(@"without a user", ^{
 		NSArray *expected = @[ @1, @2, @3, @4, @5, @6, @7, @8, @9 ];
 		expect(items).to.equal(expected);
 	});
+	
+	it(@"should GET a repository", ^{
+		stubResponse(@"/repos/octokit/octokit.objc", @"repository.json");
+		
+		RACSignal *request = [client fetchRepositoryWithName:@"octokit.objc" owner:@"octokit"];
+		OCTRepository *repository = [request asynchronousFirstOrDefault:nil success:&success error:&error];
+		expect(success).to.beTruthy();
+		expect(error).to.beNil();
+		
+		expect(repository).to.beKindOf(OCTRepository.class);
+		expect(repository.objectID).to.equal(@"7530454");
+		expect(repository.name).to.equal(@"octokit.objc");
+		expect(repository.ownerLogin).to.equal(@"octokit");
+		expect(repository.repoDescription).to.equal(@"GitHub API client for Objective-C");
+		expect(repository.defaultBranch).to.equal(@"master");
+		expect(repository.isPrivate).to.equal(@NO);
+		expect(repository.isFork).to.equal(@NO);
+		expect(repository.datePushed).to.equal([[[ISO8601DateFormatter alloc] init] dateFromString:@"2013-07-08T22:08:31Z"]);
+		expect(repository.SSHURL).to.equal(@"git@github.com:octokit/octokit.objc.git");
+		expect(repository.HTTPSURL).to.equal([NSURL URLWithString:@"https://github.com/octokit/octokit.objc.git"]);
+		expect(repository.gitURL).to.equal([NSURL URLWithString:@"git://github.com/octokit/octokit.objc.git"]);
+		expect(repository.HTMLURL).to.equal([NSURL URLWithString:@"https://github.com/octokit/octokit.objc"]);
+	});
 });
 
 describe(@"authenticated", ^{
