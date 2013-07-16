@@ -183,6 +183,16 @@ describe(@"without a user", ^{
 		expect(repository.gitURL).to.equal([NSURL URLWithString:@"git://github.com/octokit/octokit.objc.git"]);
 		expect(repository.HTMLURL).to.equal([NSURL URLWithString:@"https://github.com/octokit/octokit.objc"]);
 	});
+	
+	it(@"should not GET a non existing repository", ^{
+		stubResponse(@"/repos/octokit/octokit.objc", @"repository.json");
+		
+		RACSignal *request = [client fetchRepositoryWithName:@"repo-does-not-exist" owner:@"octokit"];
+		OCTRepository *repository = [request asynchronousFirstOrDefault:nil success:&success error:&error];
+		expect(success).to.beFalsy();
+		expect(error).notTo.beNil();
+		expect(repository).to.beNil();
+	});
 });
 
 describe(@"authenticated", ^{
