@@ -441,6 +441,10 @@ static const NSInteger OCTClientNotModifiedStatusCode = 304;
 	return [[self enqueueUserRequestWithMethod:@"GET" relativePath:@"/repos" parameters:nil resultClass:OCTRepository.class] oct_parsedResults];
 }
 
+- (RACSignal *)fetchUserStarredRepositories {
+	return [[self enqueueUserRequestWithMethod:@"GET" relativePath:@"/starred" parameters:nil resultClass:OCTRepository.class] oct_parsedResults];
+}
+
 - (RACSignal *)createRepositoryWithName:(NSString *)name description:(NSString *)description private:(BOOL)isPrivate {
 	if (!self.authenticated) return [RACSignal error:self.class.authenticationRequiredError];
 
@@ -553,7 +557,7 @@ static const NSInteger OCTClientNotModifiedStatusCode = 304;
 
 	NSMutableURLRequest *request = [self requestWithMethod:@"PATCH" path:@"" parameters:@{ @"read": @(read) }];
 	request.URL = threadURL;
-	return [[self enqueueRequest:request resultClass:nil] ignoreElements];
+	return [[self enqueueRequest:request resultClass:nil] ignoreValues];
 }
 
 - (RACSignal *)muteNotificationThreadAtURL:(NSURL *)threadURL {
@@ -563,7 +567,7 @@ static const NSInteger OCTClientNotModifiedStatusCode = 304;
 
 	NSMutableURLRequest *request = [self requestWithMethod:@"PUT" path:@"" parameters:@{ @"ignored": @YES }];
 	request.URL = [threadURL URLByAppendingPathComponent:@"subscription"];
-	return [[self enqueueRequest:request resultClass:nil] ignoreElements];
+	return [[self enqueueRequest:request resultClass:nil] ignoreValues];
 }
 
 @end
