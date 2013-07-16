@@ -570,8 +570,7 @@ static const NSInteger OCTClientNotModifiedStatusCode = 304;
 
 @implementation OCTClient (Repository)
 
-- (RACSignal *)fetchRepositoryWithName:(NSString *)name owner:(NSString *)owner
-{
+- (RACSignal *)fetchRepositoryWithName:(NSString *)name owner:(NSString *)owner {
 	NSParameterAssert(name.length > 0);
 	NSParameterAssert(owner.length > 0);
 	
