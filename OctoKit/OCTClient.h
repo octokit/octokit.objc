@@ -278,3 +278,15 @@ extern NSString * const OCTClientErrorHTTPStatusCodeKey;
 - (RACSignal *)muteNotificationThreadAtURL:(NSURL *)threadURL;
 
 @end
+
+@interface OCTClient (Repository)
+
+// Fetches a specific repository owned by the given `owner` and named `name`.
+//
+// name  - The name of the repository, must be a non-empty string.
+// owner - The owner of the repository, must be a non-empty string.
+//
+// Returns a signal of zero or one OCTRepository.
+- (RACSignal *)fetchRepositoryWithName:(NSString *)name owner:(NSString *)owner;
+
+@end
