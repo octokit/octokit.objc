@@ -477,24 +477,62 @@ static NSString * OCTBase64EncodedStringFromString(NSString *string) {
 	return [NSString stringWithFormat:@"Basic %@", OCTBase64EncodedStringFromString(credentials)];
 }
 
-- (RACSignal *)requestAuthorizationTokenWithPassword:(NSString *)password {
+- (NSArray *)scopesArrayFromScopes:(OCTClientAuthorizationScopes)scopes {
+	NSMutableArray *array = [NSMutableArray array];
+	NSDictionary *scopeToScopeString = @{
+		@(OCTClientAuthorizationScopesPublicReadOnly): @"",
+		@(OCTClientAuthorizationScopesUserEmail): @"user:email",
+		@(OCTClientAuthorizationScopesUserFollow): @"user:follow",
+		@(OCTClientAuthorizationScopesUser): @"user",
+		@(OCTClientAuthorizationScopesRepositoryStatus): @"repo:status",
+		@(OCTClientAuthorizationScopesPublicRepository): @"public_repo",
+		@(OCTClientAuthorizationScopesRepository): @"repo",
+		@(OCTClientAuthorizationScopesDelete): @"delete_repo",
+		@(OCTClientAuthorizationScopesNotifications): @"notifications",
+		@(OCTClientAuthorizationScopesGist): @"gist",
+	};
+
+	for (NSNumber *scopeValue in scopeToScopeString.allKeys) {
+		OCTClientAuthorizationScopes scope = scopeValue.integerValue;
+		if ((scopes & scope) != 0) {
+			[array addObject:scopeToScopeString[scopeValue]];
+		}
+	}
+
+	return array;
+}
+
+- (NSMutableURLRequest *)authorizationRequestWithPassword:(NSString *)password scopes:(OCTClientAuthorizationScopes)scopes note:(NSString *)note {
 	NSParameterAssert(password != nil);
+	NSParameterAssert(note != nil);
+
+	NSDictionary *params = @{
+		@"scopes": [self scopesArrayFromScopes:scopes],
+		@"note": note,
+	};
+	NSMutableURLRequest *request = [self requestWithMethod:@"POST" path:@"authorizations" parameters:params];
+    [request setValue:[self basicAuthorizationStringWithPassword:password] forHTTPHeaderField:@"Authorization"];
+	return request;
+}
+
+- (RACSignal *)requestAuthorizationTokenWithPassword:(NSString *)password scopes:(OCTClientAuthorizationScopes)scopes note:(NSString *)note {
+	NSParameterAssert(password != nil);
+	NSParameterAssert(note != nil);
 
 	if (self.user == nil) return [RACSignal error:self.class.userRequiredError];
 
-	NSMutableURLRequest *request = [self requestWithMethod:@"POST" path:@"authorizations" parameters:nil];
-    [request setValue:[self basicAuthorizationStringWithPassword:password] forHTTPHeaderField:@"Authorization"];
+	NSURLRequest *request = [self authorizationRequestWithPassword:password scopes:scopes note:note];
 	return [[self enqueueRequest:request resultClass:nil] oct_parsedResults];
 }
 
-- (RACSignal *)requestAuthorizationTokenWithPassword:(NSString *)password oneTimePassword:(NSString *)oneTimePassword {
+- (RACSignal *)requestAuthorizationTokenWithPassword:(NSString *)password oneTimePassword:(NSString *)oneTimePassword scopes:(OCTClientAuthorizationScopes)scopes note:(NSString *)note {
 	NSParameterAssert(password != nil);
 	NSParameterAssert(oneTimePassword != nil);
+	NSParameterAssert(note != nil);
 
 	if (self.user == nil) return [RACSignal error:self.class.userRequiredError];
 
-	NSMutableURLRequest *request = [self requestWithMethod:@"POST" path:@"authorizations" parameters:nil];
-	[request setValue:[self basicAuthorizationStringWithPassword:password] forHTTPHeaderField:@"Authorization"];
+	NSMutableURLRequest *request = [self authorizationRequestWithPassword:password scopes:scopes note:note];
 	[request setValue:oneTimePassword forHTTPHeaderField:OCTClientOneTimePasswordHeaderField];
 	return [[self enqueueRequest:request resultClass:nil] oct_parsedResults];
 }

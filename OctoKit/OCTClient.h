@@ -150,6 +150,50 @@ extern NSString * const OCTClientErrorHTTPStatusCodeKey;
 
 @end
 
+// The scopes for authorization.
+//
+//   OCTClientAuthorizationScopesPublicReadOnly   - Public, read-only access.
+//   OCTClientAuthorizationScopesUserEmail        - Read-only access to the
+//                                                  user's email.
+//   OCTClientAuthorizationScopesUserFollow       - Follow/unfollow access.
+//   OCTClientAuthorizationScopesUser             - Read/write access to profile
+//                                                  info. This includes OCTClientAuthorizationScopesUserEmail and
+//                                                  OCTClientAuthorizationScopesUserFollow
+//   OCTClientAuthorizationScopesRepositoryStatus - Read/write access to public
+//                                                  and private repository
+//                                                  commit statuses. This allows
+//                                                  access to commit statuses
+//                                                  without access to the
+//                                                  repository's code.
+//   OCTClientAuthorizationScopesPublicRepository - Read/write access to public
+//                                                  repositories and orgs. This
+//                                                  includes OCTClientAuthorizationScopesRepositoryStatus.
+//   OCTClientAuthorizationScopesRepository       - Read/write access to public
+//                                                  and private repositories and
+//                                                  orgs. This includes OCTClientAuthorizationScopesRepositoryStatus.
+//   OCTClientAuthorizationScopesDelete           - Delete access to adminable
+//                                                  repositories.
+//   OCTClientAuthorizationScopesNotifications    - Read access to the user's
+//                                                  notifications.
+//   OCTClientAuthorizationScopesGist             - Write access to the user's
+//                                                  gists.
+typedef enum : NSInteger {
+	OCTClientAuthorizationScopesPublicReadOnly = 1 << 0,
+	OCTClientAuthorizationScopesUserEmail = 1 << 1,
+	OCTClientAuthorizationScopesUserFollow = 1 << 2,
+	OCTClientAuthorizationScopesUser = 1 << 3,
+
+	OCTClientAuthorizationScopesRepositoryStatus = 1 << 4,
+	OCTClientAuthorizationScopesPublicRepository = 1 << 5,
+	OCTClientAuthorizationScopesRepository = 1 << 6,
+
+	OCTClientAuthorizationScopesDelete = 1 << 7,
+
+	OCTClientAuthorizationScopesNotifications = 1 << 8,
+
+	OCTClientAuthorizationScopesGist = 1 << 9,
+} OCTClientAuthorizationScopes;
+
 @interface OCTClient (Authorization)
 
 // Requests an authorization token with the current `user` and given password.
@@ -162,10 +206,14 @@ extern NSString * const OCTClientErrorHTTPStatusCodeKey;
 // request authorization with the one-time password.
 //
 // password - The user's password. Cannot be nil.
+// scopes   - The scopes to request access to. These values can be bitwise OR'd
+//            together to request multiple scopes.
+// note     - The user-facing note to be associated with the requested token.
+//            Cannot be nil.
 //
 // Returns a signal which will send an NSString token. If no `user` is set, the
 // signal will error immediately.
-- (RACSignal *)requestAuthorizationTokenWithPassword:(NSString *)password;
+- (RACSignal *)requestAuthorizationTokenWithPassword:(NSString *)password scopes:(OCTClientAuthorizationScopes)scopes note:(NSString *)note;
 
 // Requests an authorization token with the current `user`, password, and one-
 // time password.
@@ -173,10 +221,14 @@ extern NSString * const OCTClientErrorHTTPStatusCodeKey;
 // password        - The user's password. Cannot be nil.
 // oneTimePassword - The one-time password to approve the authorization request.
 //                   Cannot be nil.
+// scopes          - The scopes to request access to. These values can be
+//                   bitwise OR'd together to request multiple scopes.
+// note            - The user-facing note to be associated with the requested
+//                   token. Cannot be nil.
 //
 // Returns a signal which will send an NSString token. If no `user` is set, the
 // signal will error immediately.
-- (RACSignal *)requestAuthorizationTokenWithPassword:(NSString *)password oneTimePassword:(NSString *)oneTimePassword;
+- (RACSignal *)requestAuthorizationTokenWithPassword:(NSString *)password oneTimePassword:(NSString *)oneTimePassword scopes:(OCTClientAuthorizationScopes)scopes note:(NSString *)note;
 
 @end
 
