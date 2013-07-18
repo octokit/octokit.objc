@@ -514,7 +514,7 @@ static NSString * OCTBase64EncodedStringFromString(NSString *string) {
 		@"note": note,
 	};
 	NSMutableURLRequest *request = [self requestWithMethod:@"POST" path:@"authorizations" parameters:params];
-    [request setValue:[self basicAuthorizationStringWithPassword:password] forHTTPHeaderField:@"Authorization"];
+	[request setValue:[self basicAuthorizationStringWithPassword:password] forHTTPHeaderField:@"Authorization"];
 	return request;
 }
 
