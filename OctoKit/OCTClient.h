@@ -199,11 +199,11 @@ typedef enum : NSInteger {
 // Requests an authorization token with the current `user` and given password.
 //
 // If `user` has two-factor authentication turned on, the authorization will be
-// rejected with an error whose code is
+// rejected with an error whose `code` is
 // `OCTClientErrorTwoFactorAuthenticationOneTimePasswordRequired`. The user will
 // be sent a one-time password to enter to approve the authorization. You can
-// then use `-requestAuthorizationTokenWithPassword:oneTimePassword:` to again
-// request authorization with the one-time password.
+// then use `-requestAuthorizationTokenWithPassword:oneTimePassword:scopes:note:`
+// to again request authorization with the one-time password.
 //
 // password - The user's password. Cannot be nil.
 // scopes   - The scopes to request access to. These values can be bitwise OR'd

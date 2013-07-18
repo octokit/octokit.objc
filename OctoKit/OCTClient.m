@@ -478,7 +478,6 @@ static NSString * OCTBase64EncodedStringFromString(NSString *string) {
 }
 
 - (NSArray *)scopesArrayFromScopes:(OCTClientAuthorizationScopes)scopes {
-	NSMutableArray *array = [NSMutableArray array];
 	NSDictionary *scopeToScopeString = @{
 		@(OCTClientAuthorizationScopesPublicReadOnly): @"",
 		@(OCTClientAuthorizationScopesUserEmail): @"user:email",
@@ -492,14 +491,18 @@ static NSString * OCTBase64EncodedStringFromString(NSString *string) {
 		@(OCTClientAuthorizationScopesGist): @"gist",
 	};
 
-	for (NSNumber *scopeValue in scopeToScopeString.allKeys) {
-		OCTClientAuthorizationScopes scope = scopeValue.integerValue;
-		if ((scopes & scope) != 0) {
-			[array addObject:scopeToScopeString[scopeValue]];
-		}
-	}
-
-	return array;
+	return [[[scopeToScopeString.rac_keySequence
+		filter:^ BOOL (NSNumber *scopeValue) {
+			OCTClientAuthorizationScopes scope = scopeValue.integerValue;
+			return (scopes & scope) != 0;
+		}]
+		map:^(NSNumber *scopeValue) {
+			return scopeToScopeString[scopeValue];
+		}]
+		filter:^ BOOL (NSString *scopeString) {
+			return scopeString.length > 0;
+		}]
+		.array;
 }
 
 - (NSMutableURLRequest *)authorizationRequestWithPassword:(NSString *)password scopes:(OCTClientAuthorizationScopes)scopes note:(NSString *)note {
