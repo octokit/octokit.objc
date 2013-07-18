@@ -150,7 +150,8 @@ extern NSString * const OCTClientErrorHTTPStatusCodeKey;
 
 @end
 
-// The scopes for authorization.
+// The scopes for authorization. These can be bitwise OR'd together to request
+// multiple scopes.
 //
 //   OCTClientAuthorizationScopesPublicReadOnly   - Public, read-only access.
 //   OCTClientAuthorizationScopesUserEmail        - Read-only access to the
@@ -211,8 +212,8 @@ typedef enum : NSInteger {
 // note     - The user-facing note to be associated with the requested token.
 //            Cannot be nil.
 //
-// Returns a signal which will send an NSString token. If no `user` is set, the
-// signal will error immediately.
+// Returns a signal which will send an NSString token and complete. If no `user`
+// is set, the signal will error immediately.
 - (RACSignal *)requestAuthorizationTokenWithPassword:(NSString *)password scopes:(OCTClientAuthorizationScopes)scopes note:(NSString *)note;
 
 // Requests an authorization token with the current `user`, password, and one-
@@ -226,8 +227,8 @@ typedef enum : NSInteger {
 // note            - The user-facing note to be associated with the requested
 //                   token. Cannot be nil.
 //
-// Returns a signal which will send an NSString token. If no `user` is set, the
-// signal will error immediately.
+// Returns a signal which will send an NSString token and complete. If no `user`
+// is set, the signal will error immediately.
 - (RACSignal *)requestAuthorizationTokenWithPassword:(NSString *)password oneTimePassword:(NSString *)oneTimePassword scopes:(OCTClientAuthorizationScopes)scopes note:(NSString *)note;
 
 @end
