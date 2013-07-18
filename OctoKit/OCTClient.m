@@ -505,27 +505,32 @@ static NSString * OCTBase64EncodedStringFromString(NSString *string) {
 		.array;
 }
 
-- (NSMutableURLRequest *)authorizationRequestWithPassword:(NSString *)password scopes:(OCTClientAuthorizationScopes)scopes note:(NSString *)note {
-	NSParameterAssert(password != nil);
-	NSParameterAssert(note != nil);
+- (RACSignal *)internalRequestAuthorizationTokenWithPassword:(NSString *)password oneTimePassword:(NSString *)oneTimePassword scopes:(OCTClientAuthorizationScopes)scopes note:(NSString *)note {
+	if (self.user == nil) return [RACSignal error:self.class.userRequiredError];
 
 	NSDictionary *params = @{
 		@"scopes": [self scopesArrayFromScopes:scopes],
 		@"note": note,
 	};
+
 	NSMutableURLRequest *request = [self requestWithMethod:@"POST" path:@"authorizations" parameters:params];
-	[request setValue:[self basicAuthorizationStringWithPassword:password] forHTTPHeaderField:@"Authorization"];
-	return request;
+	NSString *authorization = [self basicAuthorizationStringWithPassword:password];
+	[request setValue:authorization forHTTPHeaderField:@"Authorization"];
+	if (oneTimePassword != nil) [request setValue:oneTimePassword forHTTPHeaderField:OCTClientOneTimePasswordHeaderField];
+
+	return [[[self
+		enqueueRequest:request resultClass:nil]
+		oct_parsedResults]
+		map:^(NSDictionary *result) {
+			return result[@"token"];
+		}];
 }
 
 - (RACSignal *)requestAuthorizationTokenWithPassword:(NSString *)password scopes:(OCTClientAuthorizationScopes)scopes note:(NSString *)note {
 	NSParameterAssert(password != nil);
 	NSParameterAssert(note != nil);
 
-	if (self.user == nil) return [RACSignal error:self.class.userRequiredError];
-
-	NSURLRequest *request = [self authorizationRequestWithPassword:password scopes:scopes note:note];
-	return [[self enqueueRequest:request resultClass:nil] oct_parsedResults];
+	return [self internalRequestAuthorizationTokenWithPassword:password oneTimePassword:nil scopes:scopes note:note];
 }
 
 - (RACSignal *)requestAuthorizationTokenWithPassword:(NSString *)password oneTimePassword:(NSString *)oneTimePassword scopes:(OCTClientAuthorizationScopes)scopes note:(NSString *)note {
@@ -533,11 +538,7 @@ static NSString * OCTBase64EncodedStringFromString(NSString *string) {
 	NSParameterAssert(oneTimePassword != nil);
 	NSParameterAssert(note != nil);
 
-	if (self.user == nil) return [RACSignal error:self.class.userRequiredError];
-
-	NSMutableURLRequest *request = [self authorizationRequestWithPassword:password scopes:scopes note:note];
-	[request setValue:oneTimePassword forHTTPHeaderField:OCTClientOneTimePasswordHeaderField];
-	return [[self enqueueRequest:request resultClass:nil] oct_parsedResults];
+	return [self internalRequestAuthorizationTokenWithPassword:password oneTimePassword:oneTimePassword scopes:scopes note:note];
 }
 
 @end
