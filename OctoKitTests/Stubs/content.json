@@ -1,0 +1,66 @@
+[
+  {
+    "name": "README.md",
+    "path": "README.md",
+    "sha": "2eee5e61e61bec2346fd40d56719c2f28f5e0fc3",
+    "size": 2706,
+    "url": "https://api.github.com/repos/octokit/octokit.objc/contents/README.md?ref=master",
+    "html_url": "https://github.com/octokit/octokit.objc/blob/master/README.md",
+    "git_url": "https://api.github.com/repos/octokit/octokit.objc/git/blobs/2eee5e61e61bec2346fd40d56719c2f28f5e0fc3",
+    "type": "file",
+    "content": "dGhlIGJhc2U2NCBlbmNvZGVkIGRhdGHigKY=",
+    "encoding": "base64",
+    "_links": {
+        "self": "https://api.github.com/repos/octokit/octokit.objc/contents/README.md?ref=master",
+        "git": "https://api.github.com/repos/octokit/octokit.objc/git/blobs/2eee5e61e61bec2346fd40d56719c2f28f5e0fc3",
+        "html": "https://github.com/octokit/octokit.objc/blob/master/README.md"
+    }
+  },
+  {
+    "type": "dir",
+    "size": 0,
+    "name": "octokit",
+    "path": "lib/octokit",
+    "sha": "a84d88e7554fc1fa21bcbc4efae3c782a70d2b9d",
+    "url": "https://api.github.com/repos/pengwynn/octokit/contents/lib/octokit",
+    "git_url": "https://api.github.com/repos/pengwynn/octokit/git/trees/a84d88e7554fc1fa21bcbc4efae3c782a70d2b9d",
+    "html_url": "https://github.com/pengwynn/octokit/tree/master/lib/octokit",
+    "_links": {
+      "self": "https://api.github.com/repos/pengwynn/octokit/contents/lib/octokit",
+      "git": "https://api.github.com/repos/pengwynn/octokit/git/trees/a84d88e7554fc1fa21bcbc4efae3c782a70d2b9d",
+      "html": "https://github.com/pengwynn/octokit/tree/master/lib/octokit"
+    }
+  },
+  {
+    "type": "submodule",
+    "submodule_git_url": "git@github.com:octokit/octokit.objc.git",
+    "size": 0,
+    "name": "qunit",
+    "path": "test/qunit",
+    "sha": "6ca3721222109997540bd6d9ccd396902e0ad2f9",
+    "url": "https://api.github.com/repos/jquery/jquery/contents/test/qunit?ref=master",
+    "git_url": "https://api.github.com/repos/jquery/qunit/git/trees/6ca3721222109997540bd6d9ccd396902e0ad2f9",
+    "html_url": "https://github.com/jquery/qunit/tree/6ca3721222109997540bd6d9ccd396902e0ad2f9",
+    "_links": {
+      "git": "https://api.github.com/repos/jquery/qunit/git/trees/6ca3721222109997540bd6d9ccd396902e0ad2f9",
+      "self": "https://api.github.com/repos/jquery/jquery/contents/test/qunit?ref=master",
+      "html": "https://github.com/jquery/qunit/tree/6ca3721222109997540bd6d9ccd396902e0ad2f9"
+    }
+  },
+  {
+    "type": "symlink",
+    "target": "/path/to/symlink/target",
+    "size": 23,
+    "name": "some-symlink",
+    "path": "bin/some-symlink",
+    "sha": "452a98979c88e093d682cab404a3ec82babebb48",
+    "url": "https://api.github.com/repos/pengwynn/octokit/contents/bin/some-symlink",
+    "git_url": "https://api.github.com/repos/pengwynn/octokit/git/blobs/452a98979c88e093d682cab404a3ec82babebb48",
+    "html_url": "https://github.com/pengwynn/octokit/blob/master/bin/some-symlink",
+    "_links": {
+      "git": "https://api.github.com/repos/pengwynn/octokit/git/blobs/452a98979c88e093d682cab404a3ec82babebb48",
+      "self": "https://api.github.com/repos/pengwynn/octokit/contents/bin/some-symlink",
+      "html": "https://github.com/pengwynn/octokit/blob/master/bin/some-symlink"
+    }
+  }
+]
