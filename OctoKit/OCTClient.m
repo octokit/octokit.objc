@@ -7,6 +7,7 @@
 //
 
 #import "OCTClient.h"
+#import "OCTContent.h"
 #import "NSDateFormatter+OCTFormattingAdditions.h"
 #import "OCTEvent.h"
 #import "OCTObject+Private.h"
@@ -573,6 +574,35 @@ static const NSInteger OCTClientNotModifiedStatusCode = 304;
 @end
 
 @implementation OCTClient (Repository)
+
+- (RACSignal *)fetchRelativePath:(NSString *)relativePath inRepository:(OCTRepository *)repository reference:(NSString *)reference {
+	NSParameterAssert(repository != nil);
+	NSParameterAssert(repository.name.length > 0);
+	NSParameterAssert(repository.ownerLogin.length > 0);
+	
+	relativePath = relativePath ?: @"";
+	NSString *path = [NSString stringWithFormat:@"repos/%@/%@/contents/%@", repository.ownerLogin, repository.name, relativePath];
+	
+	NSDictionary *parameters = nil;
+	if (reference.length > 0) {
+		parameters = @{ @"ref": reference };
+	}
+	
+	NSMutableURLRequest *request = [self requestWithMethod:@"GET" path:path parameters:parameters notMatchingEtag:nil];
+	
+	return [[self enqueueRequest:request resultClass:OCTContent.class] oct_parsedResults];
+}
+
+- (RACSignal *)fetchRepositoryReadme:(OCTRepository *)repository {
+	NSParameterAssert(repository != nil);
+	NSParameterAssert(repository.name.length > 0);
+	NSParameterAssert(repository.ownerLogin.length > 0);
+	
+	NSString *path = [NSString stringWithFormat:@"repos/%@/%@/readme", repository.ownerLogin, repository.name];
+	NSMutableURLRequest *request = [self requestWithMethod:@"GET" path:path parameters:nil notMatchingEtag:nil];
+	
+	return [[self enqueueRequest:request resultClass:OCTContent.class] oct_parsedResults];
+}
 
 - (RACSignal *)fetchRepositoryWithName:(NSString *)name owner:(NSString *)owner {
 	NSParameterAssert(name.length > 0);
