@@ -51,4 +51,10 @@
 // The default branch's name. For empty repositories, this will be nil.
 @property (nonatomic, copy, readonly) NSString *defaultBranch;
 
+// The URL for the issues page in a repository.
+//
+// An issue number may be appended to this path to create an individual issue's
+// HTML URL.
+@property (nonatomic, copy, readonly) NSURL *issuesHTMLURL;
+
 @end
