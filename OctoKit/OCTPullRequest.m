@@ -15,12 +15,42 @@
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
 	return [super.JSONKeyPathsByPropertyKey mtl_dictionaryByAddingEntriesFromDictionary:@{
 		@"HTMLURL": @"html_url",
+		@"diffURL": @"diff_url",
+		@"patchURL": @"patch_url",
+		@"issueURL": @"issue_url",
 		@"objectID": @"number",
 	}];
 }
 
 + (NSValueTransformer *)HTMLURLJSONTransformer {
 	return [NSValueTransformer valueTransformerForName:MTLURLValueTransformerName];
+}
+
++ (NSValueTransformer *)diffURLJSONTransformer {
+	return [NSValueTransformer valueTransformerForName:MTLURLValueTransformerName];
+}
+
++ (NSValueTransformer *)patchURLJSONTransformer {
+	return [NSValueTransformer valueTransformerForName:MTLURLValueTransformerName];
+}
+
++ (NSValueTransformer *)issueURLJSONTransformer {
+	return [NSValueTransformer valueTransformerForName:MTLURLValueTransformerName];
+}
+
++ (NSValueTransformer *)stateJSONTransformer {
+	NSDictionary *statesByName = @{
+		@"open": @(OCTPullRequestStateOpen),
+		@"closed": @(OCTPullRequestStateClosed),
+	};
+
+	return [MTLValueTransformer
+		reversibleTransformerWithForwardBlock:^(NSString *stateName) {
+			return statesByName[stateName];
+		}
+		reverseBlock:^(NSNumber *state) {
+			return [statesByName allKeysForObject:state].lastObject;
+		}];
 }
 
 @end

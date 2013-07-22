@@ -14,6 +14,7 @@
 @class OCTTeam;
 @class OCTUser;
 @class RACSignal;
+@class OCTRepository;
 
 // The domain for all errors originating in OCTClient.
 extern NSString * const OCTClientErrorDomain;
@@ -249,6 +250,13 @@ typedef enum : NSInteger {
 // `user` is set, the signal will error immediately.
 - (RACSignal *)fetchUserRepositories;
 
+// Fetches the starred repositories of the current `user`.
+//
+// Returns a signal which sends zero or more OCTRepository objects. Private
+// repositories will only be included if the client is `authenticated`. If no
+// `user` is set, the signal will error immediately.
+- (RACSignal *)fetchUserStarredRepositories;
+
 // Creates a repository under the user's account.
 //
 // Returns a signal which sends the new OCTRepository. If the client is not
@@ -356,5 +364,40 @@ typedef enum : NSInteger {
 // Returns a signal which will send completed on success. If the client is not
 // `authenticated`, the signal will error immediately.
 - (RACSignal *)muteNotificationThreadAtURL:(NSURL *)threadURL;
+
+@end
+
+@interface OCTClient (Repository)
+
+// Fetches the content at `relativePath` at the given `reference` from the
+// `repository`.
+//
+// In case `relativePath` is `nil` the contents of the repository root will be
+// sent.
+//
+// repository   - The repository from which the file should be fetched.
+// relativePath - The relative path (from the repository root) of the file that
+//                should be fetched, may be `nil`.
+// reference    - The name of the commit, branch or tag, may be `nil` in which
+//                case it defaults to the default repo branch.
+//
+// Returns a signal which will send zero or more OCTContents depending on if the
+// relative path resolves at all or, resolves to a file or directory.
+- (RACSignal *)fetchRelativePath:(NSString *)relativePath inRepository:(OCTRepository *)repository reference:(NSString *)reference;
+
+// Fetches the readme of a `repository`.
+//
+// repository - The repository for which the readme should be fetched.
+//
+// Returns a signal which will send zero or one OCTContent.
+- (RACSignal *)fetchRepositoryReadme:(OCTRepository *)repository;
+
+// Fetches a specific repository owned by the given `owner` and named `name`.
+//
+// name  - The name of the repository, must be a non-empty string.
+// owner - The owner of the repository, must be a non-empty string.
+//
+// Returns a signal of zero or one OCTRepository.
+- (RACSignal *)fetchRepositoryWithName:(NSString *)name owner:(NSString *)owner;
 
 @end

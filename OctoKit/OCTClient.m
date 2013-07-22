@@ -7,6 +7,7 @@
 //
 
 #import "OCTClient.h"
+#import "OCTContent.h"
 #import "NSDateFormatter+OCTFormattingAdditions.h"
 #import "OCTEvent.h"
 #import "OCTObject+Private.h"
@@ -553,6 +554,10 @@ static NSString * OCTBase64EncodedStringFromString(NSString *string) {
 	return [[self enqueueUserRequestWithMethod:@"GET" relativePath:@"/repos" parameters:nil resultClass:OCTRepository.class] oct_parsedResults];
 }
 
+- (RACSignal *)fetchUserStarredRepositories {
+	return [[self enqueueUserRequestWithMethod:@"GET" relativePath:@"/starred" parameters:nil resultClass:OCTRepository.class] oct_parsedResults];
+}
+
 - (RACSignal *)createRepositoryWithName:(NSString *)name description:(NSString *)description private:(BOOL)isPrivate {
 	if (!self.authenticated) return [RACSignal error:self.class.authenticationRequiredError];
 
@@ -665,7 +670,7 @@ static NSString * OCTBase64EncodedStringFromString(NSString *string) {
 
 	NSMutableURLRequest *request = [self requestWithMethod:@"PATCH" path:@"" parameters:@{ @"read": @(read) }];
 	request.URL = threadURL;
-	return [[self enqueueRequest:request resultClass:nil] ignoreElements];
+	return [[self enqueueRequest:request resultClass:nil] ignoreValues];
 }
 
 - (RACSignal *)muteNotificationThreadAtURL:(NSURL *)threadURL {
@@ -675,7 +680,50 @@ static NSString * OCTBase64EncodedStringFromString(NSString *string) {
 
 	NSMutableURLRequest *request = [self requestWithMethod:@"PUT" path:@"" parameters:@{ @"ignored": @YES }];
 	request.URL = [threadURL URLByAppendingPathComponent:@"subscription"];
-	return [[self enqueueRequest:request resultClass:nil] ignoreElements];
+	return [[self enqueueRequest:request resultClass:nil] ignoreValues];
+}
+
+@end
+
+@implementation OCTClient (Repository)
+
+- (RACSignal *)fetchRelativePath:(NSString *)relativePath inRepository:(OCTRepository *)repository reference:(NSString *)reference {
+	NSParameterAssert(repository != nil);
+	NSParameterAssert(repository.name.length > 0);
+	NSParameterAssert(repository.ownerLogin.length > 0);
+	
+	relativePath = relativePath ?: @"";
+	NSString *path = [NSString stringWithFormat:@"repos/%@/%@/contents/%@", repository.ownerLogin, repository.name, relativePath];
+	
+	NSDictionary *parameters = nil;
+	if (reference.length > 0) {
+		parameters = @{ @"ref": reference };
+	}
+	
+	NSMutableURLRequest *request = [self requestWithMethod:@"GET" path:path parameters:parameters notMatchingEtag:nil];
+	
+	return [[self enqueueRequest:request resultClass:OCTContent.class] oct_parsedResults];
+}
+
+- (RACSignal *)fetchRepositoryReadme:(OCTRepository *)repository {
+	NSParameterAssert(repository != nil);
+	NSParameterAssert(repository.name.length > 0);
+	NSParameterAssert(repository.ownerLogin.length > 0);
+	
+	NSString *path = [NSString stringWithFormat:@"repos/%@/%@/readme", repository.ownerLogin, repository.name];
+	NSMutableURLRequest *request = [self requestWithMethod:@"GET" path:path parameters:nil notMatchingEtag:nil];
+	
+	return [[self enqueueRequest:request resultClass:OCTContent.class] oct_parsedResults];
+}
+
+- (RACSignal *)fetchRepositoryWithName:(NSString *)name owner:(NSString *)owner {
+	NSParameterAssert(name.length > 0);
+	NSParameterAssert(owner.length > 0);
+	
+	NSString *path = [NSString stringWithFormat:@"repos/%@/%@", owner, name];
+	NSMutableURLRequest *request = [self requestWithMethod:@"GET" path:path parameters:nil notMatchingEtag:nil];
+	
+	return [[self enqueueRequest:request resultClass:OCTRepository.class] oct_parsedResults];
 }
 
 @end
