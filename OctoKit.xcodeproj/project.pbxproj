@@ -224,8 +224,8 @@
 		DA10CDC8176A1D5800920683 /* milestones.json in Resources */ = {isa = PBXBuildFile; fileRef = DA10CDC6176A1D5800920683 /* milestones.json */; };
 		DACD39A91769017F004FAF1B /* OCTMilestoneSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = DACD39A71769017F004FAF1B /* OCTMilestoneSpec.m */; };
 		DACD39AB1769017F004FAF1B /* OCTMilestoneSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = DACD39A71769017F004FAF1B /* OCTMilestoneSpec.m */; };
-		DAED4BCE1768C049001C9E52 /* OCTMilestone.h in Headers */ = {isa = PBXBuildFile; fileRef = DAED4BCC1768C049001C9E52 /* OCTMilestone.h */; };
-		DAED4BCF1768C049001C9E52 /* OCTMilestone.h in Headers */ = {isa = PBXBuildFile; fileRef = DAED4BCC1768C049001C9E52 /* OCTMilestone.h */; };
+		DAED4BCE1768C049001C9E52 /* OCTMilestone.h in Headers */ = {isa = PBXBuildFile; fileRef = DAED4BCC1768C049001C9E52 /* OCTMilestone.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		DAED4BCF1768C049001C9E52 /* OCTMilestone.h in Headers */ = {isa = PBXBuildFile; fileRef = DAED4BCC1768C049001C9E52 /* OCTMilestone.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DAED4BD01768C049001C9E52 /* OCTMilestone.m in Sources */ = {isa = PBXBuildFile; fileRef = DAED4BCD1768C049001C9E52 /* OCTMilestone.m */; };
 		DAED4BD11768C049001C9E52 /* OCTMilestone.m in Sources */ = {isa = PBXBuildFile; fileRef = DAED4BCD1768C049001C9E52 /* OCTMilestone.m */; };
 		F6CF78D416E993A500A75F63 /* RACSignal+OCTClientAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = F6CF78D216E993A500A75F63 /* RACSignal+OCTClientAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -488,13 +488,6 @@
 			proxyType = 2;
 			remoteGlobalIDString = 88CDF7DC15000FCF00163A9F;
 			remoteInfo = ReactiveCocoaTests;
-		};
-		D0C6366D1777AB9300F486A9 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D0C636591777AB9300F486A9 /* ReactiveCocoa.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 5FAF5223174D4C2000CAC810;
-			remoteInfo = "ReactiveCocoaTests-iOS";
 		};
 		D0C636711777ABCF00F486A9 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -1098,7 +1091,6 @@
 				D0C636681777AB9300F486A9 /* ReactiveCocoa.framework */,
 				D0C6366A1777AB9300F486A9 /* libReactiveCocoa-iOS.a */,
 				D0C6366C1777AB9300F486A9 /* ReactiveCocoaTests.octest */,
-				D0C6366E1777AB9300F486A9 /* ReactiveCocoaTests-iOS.octest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1136,6 +1128,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DAED4BCE1768C049001C9E52 /* OCTMilestone.h in Headers */,
 				D0872159169E395F00016ACA /* OCTClient.h in Headers */,
 				9CB0588517933F26002CF498 /* OCTSubmoduleContent.h in Headers */,
 				D087215D169E395F00016ACA /* OCTCommitComment.h in Headers */,
@@ -1170,7 +1163,6 @@
 				9CB0588917933F26002CF498 /* OCTSymlinkContent.h in Headers */,
 				9CB0587D17933F26002CF498 /* OCTDirectoryContent.h in Headers */,
 				F6CF78D416E993A500A75F63 /* RACSignal+OCTClientAdditions.h in Headers */,
-				DAED4BCE1768C049001C9E52 /* OCTMilestone.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1514,13 +1506,6 @@
 			fileType = wrapper.cfbundle;
 			path = ReactiveCocoaTests.octest;
 			remoteRef = D0C6366B1777AB9300F486A9 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		D0C6366E1777AB9300F486A9 /* ReactiveCocoaTests-iOS.octest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = "ReactiveCocoaTests-iOS.octest";
-			remoteRef = D0C6366D1777AB9300F486A9 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
