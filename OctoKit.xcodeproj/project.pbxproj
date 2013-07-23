@@ -220,6 +220,14 @@
 		D0D8C09E16DFF1540070399E /* rate_limit.json in Resources */ = {isa = PBXBuildFile; fileRef = D0D8C09416DFF1540070399E /* rate_limit.json */; };
 		D0E41B8716DFF37E00E321CF /* notifications.json in Resources */ = {isa = PBXBuildFile; fileRef = D0E41B8616DFF37E00E321CF /* notifications.json */; };
 		D0E41B8816DFF37E00E321CF /* notifications.json in Resources */ = {isa = PBXBuildFile; fileRef = D0E41B8616DFF37E00E321CF /* notifications.json */; };
+		DA10CDC7176A1D5800920683 /* milestones.json in Resources */ = {isa = PBXBuildFile; fileRef = DA10CDC6176A1D5800920683 /* milestones.json */; };
+		DA10CDC8176A1D5800920683 /* milestones.json in Resources */ = {isa = PBXBuildFile; fileRef = DA10CDC6176A1D5800920683 /* milestones.json */; };
+		DACD39A91769017F004FAF1B /* OCTMilestoneSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = DACD39A71769017F004FAF1B /* OCTMilestoneSpec.m */; };
+		DACD39AB1769017F004FAF1B /* OCTMilestoneSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = DACD39A71769017F004FAF1B /* OCTMilestoneSpec.m */; };
+		DAED4BCE1768C049001C9E52 /* OCTMilestone.h in Headers */ = {isa = PBXBuildFile; fileRef = DAED4BCC1768C049001C9E52 /* OCTMilestone.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		DAED4BCF1768C049001C9E52 /* OCTMilestone.h in Headers */ = {isa = PBXBuildFile; fileRef = DAED4BCC1768C049001C9E52 /* OCTMilestone.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		DAED4BD01768C049001C9E52 /* OCTMilestone.m in Sources */ = {isa = PBXBuildFile; fileRef = DAED4BCD1768C049001C9E52 /* OCTMilestone.m */; };
+		DAED4BD11768C049001C9E52 /* OCTMilestone.m in Sources */ = {isa = PBXBuildFile; fileRef = DAED4BCD1768C049001C9E52 /* OCTMilestone.m */; };
 		F6CF78D416E993A500A75F63 /* RACSignal+OCTClientAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = F6CF78D216E993A500A75F63 /* RACSignal+OCTClientAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F6CF78D516E993A500A75F63 /* RACSignal+OCTClientAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = F6CF78D216E993A500A75F63 /* RACSignal+OCTClientAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F6CF78D616E993A500A75F63 /* RACSignal+OCTClientAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = F6CF78D316E993A500A75F63 /* RACSignal+OCTClientAdditions.m */; };
@@ -481,13 +489,6 @@
 			remoteGlobalIDString = 88CDF7DC15000FCF00163A9F;
 			remoteInfo = ReactiveCocoaTests;
 		};
-		D0C6366D1777AB9300F486A9 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D0C636591777AB9300F486A9 /* ReactiveCocoa.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 5FAF5223174D4C2000CAC810;
-			remoteInfo = "ReactiveCocoaTests-iOS";
-		};
 		D0C636711777ABCF00F486A9 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D0C636591777AB9300F486A9 /* ReactiveCocoa.xcodeproj */;
@@ -636,6 +637,10 @@
 		D0D8C09316DFF1540070399E /* page3.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = page3.json; sourceTree = "<group>"; };
 		D0D8C09416DFF1540070399E /* rate_limit.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = rate_limit.json; sourceTree = "<group>"; };
 		D0E41B8616DFF37E00E321CF /* notifications.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = notifications.json; sourceTree = "<group>"; };
+		DA10CDC6176A1D5800920683 /* milestones.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = milestones.json; sourceTree = "<group>"; };
+		DACD39A71769017F004FAF1B /* OCTMilestoneSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCTMilestoneSpec.m; sourceTree = "<group>"; };
+		DAED4BCC1768C049001C9E52 /* OCTMilestone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCTMilestone.h; sourceTree = "<group>"; };
+		DAED4BCD1768C049001C9E52 /* OCTMilestone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCTMilestone.m; sourceTree = "<group>"; };
 		F6CF78D216E993A500A75F63 /* RACSignal+OCTClientAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RACSignal+OCTClientAdditions.h"; sourceTree = "<group>"; };
 		F6CF78D316E993A500A75F63 /* RACSignal+OCTClientAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "RACSignal+OCTClientAdditions.m"; sourceTree = "<group>"; };
 		F6E2EC3F16EB04C50096C268 /* RACSignalAdditionsSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RACSignalAdditionsSpec.m; sourceTree = "<group>"; };
@@ -930,6 +935,7 @@
 		D0872126169E395300016ACA /* Specs */ = {
 			isa = PBXGroup;
 			children = (
+				DACD39A71769017F004FAF1B /* OCTMilestoneSpec.m */,
 				D0B9C8FC16BC7A260029C5B4 /* NSDateFormatterAdditionsSpec.m */,
 				D0772E7B16BD2AD5009DFF72 /* NSValueTransformerAdditionsSpec.m */,
 				F6E2EC3F16EB04C50096C268 /* RACSignalAdditionsSpec.m */,
@@ -979,6 +985,7 @@
 				D08722A2169E3D7C00016ACA /* Issues */,
 				8848E19916AF62F1005449AB /* Notifications */,
 				D08B5998169E3E69006003B8 /* Pull Requests */,
+				DAED4BC41768C03C001C9E52 /* Milestones */,
 				D08B599A169E3E8D006003B8 /* Repositories */,
 			);
 			name = Models;
@@ -1084,7 +1091,6 @@
 				D0C636681777AB9300F486A9 /* ReactiveCocoa.framework */,
 				D0C6366A1777AB9300F486A9 /* libReactiveCocoa-iOS.a */,
 				D0C6366C1777AB9300F486A9 /* ReactiveCocoaTests.octest */,
-				D0C6366E1777AB9300F486A9 /* ReactiveCocoaTests-iOS.octest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1094,6 +1100,7 @@
 			children = (
 				9CB0589C17933F43002CF498 /* content.json */,
 				D0D8C09016DFF1540070399E /* events.json */,
+				DA10CDC6176A1D5800920683 /* milestones.json */,
 				D0E41B8616DFF37E00E321CF /* notifications.json */,
 				D0D8C09116DFF1540070399E /* page1.json */,
 				D0D8C09216DFF1540070399E /* page2.json */,
@@ -1105,6 +1112,15 @@
 			path = Stubs;
 			sourceTree = "<group>";
 		};
+		DAED4BC41768C03C001C9E52 /* Milestones */ = {
+			isa = PBXGroup;
+			children = (
+				DAED4BCC1768C049001C9E52 /* OCTMilestone.h */,
+				DAED4BCD1768C049001C9E52 /* OCTMilestone.m */,
+			);
+			name = Milestones;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -1112,6 +1128,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DAED4BCE1768C049001C9E52 /* OCTMilestone.h in Headers */,
 				D0872159169E395F00016ACA /* OCTClient.h in Headers */,
 				9CB0588517933F26002CF498 /* OCTSubmoduleContent.h in Headers */,
 				D087215D169E395F00016ACA /* OCTCommitComment.h in Headers */,
@@ -1187,6 +1204,7 @@
 				9CB0588A17933F26002CF498 /* OCTSymlinkContent.h in Headers */,
 				9CB0587E17933F26002CF498 /* OCTDirectoryContent.h in Headers */,
 				F6CF78D516E993A500A75F63 /* RACSignal+OCTClientAdditions.h in Headers */,
+				DAED4BCF1768C049001C9E52 /* OCTMilestone.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1490,13 +1508,6 @@
 			remoteRef = D0C6366B1777AB9300F486A9 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		D0C6366E1777AB9300F486A9 /* ReactiveCocoaTests-iOS.octest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = "ReactiveCocoaTests-iOS.octest";
-			remoteRef = D0C6366D1777AB9300F486A9 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
 /* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
@@ -1519,6 +1530,7 @@
 				D0D8C09B16DFF1540070399E /* page3.json in Resources */,
 				D0D8C09D16DFF1540070399E /* rate_limit.json in Resources */,
 				D0E41B8716DFF37E00E321CF /* notifications.json in Resources */,
+				DA10CDC7176A1D5800920683 /* milestones.json in Resources */,
 				9CB0589D17933F45002CF498 /* content.json in Resources */,
 				9CF7FB9617957A6A00CA34FF /* repository.json in Resources */,
 				9CF7FBBC179581EC00CA34FF /* user_starred.json in Resources */,
@@ -1538,6 +1550,7 @@
 				D0D8C09C16DFF1540070399E /* page3.json in Resources */,
 				D0D8C09E16DFF1540070399E /* rate_limit.json in Resources */,
 				D0E41B8816DFF37E00E321CF /* notifications.json in Resources */,
+				DA10CDC8176A1D5800920683 /* milestones.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1610,6 +1623,7 @@
 				D0B9C8F416BC78970029C5B4 /* NSDateFormatter+OCTFormattingAdditions.m in Sources */,
 				D0772E7916BD2A06009DFF72 /* NSValueTransformer+OCTPredefinedTransformerAdditions.m in Sources */,
 				F6CF78D616E993A500A75F63 /* RACSignal+OCTClientAdditions.m in Sources */,
+				DAED4BD01768C049001C9E52 /* OCTMilestone.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1633,6 +1647,7 @@
 				D05E752016D35886001AA17B /* OCTClientSpec.m in Sources */,
 				F6E2EC4016EB04C60096C268 /* RACSignalAdditionsSpec.m in Sources */,
 				D058675616F2649800941A32 /* OCTResponseSpec.m in Sources */,
+				DACD39A91769017F004FAF1B /* OCTMilestoneSpec.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1673,6 +1688,7 @@
 				D0B9C8F516BC78970029C5B4 /* NSDateFormatter+OCTFormattingAdditions.m in Sources */,
 				D0772E7A16BD2A06009DFF72 /* NSValueTransformer+OCTPredefinedTransformerAdditions.m in Sources */,
 				F6CF78D816E993A500A75F63 /* RACSignal+OCTClientAdditions.m in Sources */,
+				DAED4BD11768C049001C9E52 /* OCTMilestone.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1696,6 +1712,7 @@
 				D05E752116D35886001AA17B /* OCTClientSpec.m in Sources */,
 				F6E2EC4116EB04C60096C268 /* RACSignalAdditionsSpec.m in Sources */,
 				D058675716F2649800941A32 /* OCTResponseSpec.m in Sources */,
+				DACD39AB1769017F004FAF1B /* OCTMilestoneSpec.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

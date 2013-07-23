@@ -20,6 +20,7 @@
 #import "OCTUser.h"
 #import "OCTNotification.h"
 #import "RACSignal+OCTClientAdditions.h"
+#import "OCTMilestone.h"
 #import <ReactiveCocoa/ReactiveCocoa.h>
 
 NSString * const OCTClientErrorDomain = @"OCTClientErrorDomain";
@@ -572,6 +573,55 @@ static const NSInteger OCTClientNotModifiedStatusCode = 304;
 }
 
 @end
+
+
+
+@implementation OCTClient (Milestones)
+
+// Fetches the specified milestone's full information.
+//
+// GET /repos/:owner/:repo/milestones/:number
+// Returns a signal which sends a new OCTMilestone.
+- (RACSignal *)fetchMilestoneInfo:(OCTMilestone *)milestone forRepository:(OCTRepository *)repository inOrganization:(OCTOrganization *)organization {
+	NSURLRequest *request = [self requestWithMethod:@"GET" path:[NSString stringWithFormat:@"repos/%@/%@/milestones/%d", organization.login, repository.name, milestone.number] parameters:nil notMatchingEtag:nil];
+	return [[self enqueueRequest:request resultClass:OCTMilestone.class] oct_parsedResults];
+}
+
+// Fetches the specified organization's repositories.
+//
+// Returns a signal which sends zero or more OCTMilestone objects. Private
+// repository milestones will only be included if the client is `authenticated` and the
+// `user` has permission to see them.
+- (RACSignal *)fetchMilestonesForRepository:(OCTRepository *)repository inOrganization:(OCTOrganization *)organization {
+	NSURLRequest *request = [self requestWithMethod:@"GET" path:[NSString stringWithFormat:@"repos/%@/%@/milestones", organization.login, repository.name] parameters:nil notMatchingEtag:nil];
+	return [[self enqueueRequest:request resultClass:OCTMilestone.class] oct_parsedResults];
+
+}
+
+//// Creates a milestone under the specified repository
+//// Returns a signal which sends the new OCTMilestone. If the client is not
+//// `authenticated`, the signal will error immediately.
+- (RACSignal *)createMilestoneWithRepository:(OCTRepository *)repository organization:(OCTOrganization *)organization title:(NSString *)title description:(NSString *)description dueOnDate:(NSDate *)dueOnDate state:(NSString *)state {
+
+	if (!self.authenticated) return [RACSignal error:self.class.authenticationRequiredError];
+	
+	NSMutableDictionary *options = [NSMutableDictionary dictionary];
+	options[@"title"] = title;
+
+	if (state != nil) options[@"state"] = state;
+	if (description != nil) options[@"description"] = description;
+	if (dueOnDate != nil) options[@"due_on"] = dueOnDate;
+
+	
+	NSString *path = [NSString stringWithFormat:@"repos/%@/%@/milestones", organization.login, repository.name];
+	NSURLRequest *request = [self requestWithMethod:@"POST" path:path parameters:options notMatchingEtag:nil];
+	
+	return [[self enqueueRequest:request resultClass:OCTMilestone.class] oct_parsedResults];
+}
+
+@end
+
+
 
 @implementation OCTClient (Repository)
 
