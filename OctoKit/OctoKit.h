@@ -12,8 +12,11 @@
 #import <OctoKit/OCTClient.h>
 #import <OctoKit/OCTCommitComment.h>
 #import <OctoKit/OCTCommitCommentEvent.h>
+#import <OctoKit/OCTContent.h>
+#import <OctoKit/OCTDirectoryContent.h>
 #import <OctoKit/OCTEntity.h>
 #import <OctoKit/OCTEvent.h>
+#import <OctoKit/OCTFileContent.h>
 #import <OctoKit/OCTIssue.h>
 #import <OctoKit/OCTIssueComment.h>
 #import <OctoKit/OCTIssueCommentEvent.h>
@@ -32,6 +35,8 @@
 #import <OctoKit/OCTRepository.h>
 #import <OctoKit/OCTResponse.h>
 #import <OctoKit/OCTServer.h>
+#import <OctoKit/OCTSubmoduleContent.h>
+#import <OctoKit/OCTSymlinkContent.h>
 #import <OctoKit/OCTTeam.h>
 #import <OctoKit/OCTUser.h>
 //#import <OctoKit/OCTMilestone.h>
