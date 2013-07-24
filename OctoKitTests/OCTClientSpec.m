@@ -211,7 +211,7 @@ describe(@"authenticated", ^{
 		user = [OCTUser userWithLogin:@"mac-testing-user" server:OCTServer.dotComServer];
 		expect(user).notTo.beNil();
 
-		client = [OCTClient authenticatedClientWithUser:user password:@""];
+		client = [OCTClient authenticatedClientWithUser:user token:@""];
 		expect(client).notTo.beNil();
 		expect(client.user).to.equal(user);
 		expect(client.authenticated).to.beTruthy();
