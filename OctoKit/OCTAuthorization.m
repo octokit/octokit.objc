@@ -14,11 +14,11 @@
 
 + (NSValueTransformer *)tokenJSONTransformer {
 	// We want to prevent the token from being serialized out, so the reverse
-	// transform will simply yield an empty string instead of the token itself.
+	// transform will simply yield nil instead of the token itself.
 	return [MTLValueTransformer reversibleTransformerWithForwardBlock:^(NSString *token) {
 		return token;
-	} reverseBlock:^(NSString *token) {
-		return @"";
+	} reverseBlock:^ id (NSString *token) {
+		return nil;
 	}];
 }
 
