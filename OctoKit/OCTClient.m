@@ -21,6 +21,7 @@
 #import "OCTNotification.h"
 #import "RACSignal+OCTClientAdditions.h"
 #import <ReactiveCocoa/ReactiveCocoa.h>
+#import "OCTAuthorization.h"
 
 NSString * const OCTClientErrorDomain = @"OCTClientErrorDomain";
 const NSInteger OCTClientErrorAuthenticationFailed = 666;
@@ -28,11 +29,16 @@ const NSInteger OCTClientErrorServiceRequestFailed = 667;
 const NSInteger OCTClientErrorConnectionFailed = 668;
 const NSInteger OCTClientErrorJSONParsingFailed = 669;
 const NSInteger OCTClientErrorBadRequest = 670;
+const NSInteger OCTClientErrorTwoFactorAuthenticationOneTimePasswordRequired = 671;
 
 NSString * const OCTClientErrorRequestURLKey = @"OCTClientErrorRequestURLKey";
 NSString * const OCTClientErrorHTTPStatusCodeKey = @"OCTClientErrorHTTPStatusCodeKey";
 
+NSString * const OCTClientErrorOneTimePasswordMediumKey = @"OCTClientErrorOneTimePasswordMediumKey";
+
 static const NSInteger OCTClientNotModifiedStatusCode = 304;
+
+static NSString * const OCTClientOneTimePasswordHeaderField = @"X-GitHub-OTP";
 
 @interface OCTClient ()
 
@@ -44,7 +50,7 @@ static const NSInteger OCTClientNotModifiedStatusCode = 304;
 + (NSError *)userRequiredError;
 
 // An error indicating that a request required authentication, but the client
-// was not created with a password.
+// was not created with a token.
 + (NSError *)authenticationRequiredError;
 
 // Enqueues a request to fetch information about the current user by accessing
@@ -80,15 +86,15 @@ static const NSInteger OCTClientNotModifiedStatusCode = 304;
 
 #pragma mark Lifecycle
 
-+ (instancetype)authenticatedClientWithUser:(OCTUser *)user password:(NSString *)password {
++ (instancetype)authenticatedClientWithUser:(OCTUser *)user token:(NSString *)token {
 	NSParameterAssert(user != nil);
-	NSParameterAssert(password != nil);
+	NSParameterAssert(token != nil);
 
 	OCTClient *client = [[self alloc] initWithServer:user.server];
 	client.authenticated = YES;
 	client.user = user;
 
-	[client setAuthorizationHeaderWithUsername:user.login password:password];
+	[client setAuthorizationHeaderWithUsername:user.login password:token];
 	return client;
 }
 
@@ -372,6 +378,23 @@ static const NSInteger OCTClientNotModifiedStatusCode = 304;
 		NSError *errorTemplate = self.class.authenticationRequiredError;
 
 		errorCode = errorTemplate.code;
+		NSString *OTPHeader = operation.response.allHeaderFields[OCTClientOneTimePasswordHeaderField];
+		// E.g., "required; sms"
+		NSArray *segments = [OTPHeader componentsSeparatedByString:@";"];
+		if (segments.count == 2) {
+			NSString *status = [segments[0] stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet];
+			NSString *medium = [segments[1] stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet];
+			if ([status.lowercaseString isEqual:@"required"]) {
+				errorCode = OCTClientErrorTwoFactorAuthenticationOneTimePasswordRequired;
+				NSDictionary *mediumStringToWrappedMedium = @{
+					@"sms": @(OCTClientOneTimePasswordMediumSMS),
+					@"app": @(OCTClientOneTimePasswordMediumApp),
+				};
+				NSNumber *wrappedMedium = mediumStringToWrappedMedium[medium.lowercaseString];
+				if (wrappedMedium != nil) userInfo[OCTClientErrorOneTimePasswordMediumKey] = wrappedMedium;
+			}
+		}
+
 		[userInfo addEntriesFromDictionary:errorTemplate.userInfo];
 	} else if (HTTPCode == 400) {
 		errorCode = OCTClientErrorBadRequest;
@@ -428,6 +451,92 @@ static const NSInteger OCTClientNotModifiedStatusCode = 304;
 	};
 
 	return [NSError errorWithDomain:OCTClientErrorDomain code:OCTClientErrorAuthenticationFailed userInfo:userInfo];
+}
+
+@end
+
+@implementation OCTClient (Authorization)
+
+- (NSArray *)scopesArrayFromScopes:(OCTClientAuthorizationScopes)scopes {
+	NSDictionary *scopeToScopeString = @{
+		@(OCTClientAuthorizationScopesPublicReadOnly): @"",
+		@(OCTClientAuthorizationScopesUserEmail): @"user:email",
+		@(OCTClientAuthorizationScopesUserFollow): @"user:follow",
+		@(OCTClientAuthorizationScopesUser): @"user",
+		@(OCTClientAuthorizationScopesRepositoryStatus): @"repo:status",
+		@(OCTClientAuthorizationScopesPublicRepository): @"public_repo",
+		@(OCTClientAuthorizationScopesRepository): @"repo",
+		@(OCTClientAuthorizationScopesRepositoryDelete): @"delete_repo",
+		@(OCTClientAuthorizationScopesNotifications): @"notifications",
+		@(OCTClientAuthorizationScopesGist): @"gist",
+	};
+
+	return [[[[scopeToScopeString.rac_keySequence
+		filter:^ BOOL (NSNumber *scopeValue) {
+			OCTClientAuthorizationScopes scope = scopeValue.unsignedIntegerValue;
+			return (scopes & scope) != 0;
+		}]
+		map:^(NSNumber *scopeValue) {
+			return scopeToScopeString[scopeValue];
+		}]
+		filter:^ BOOL (NSString *scopeString) {
+			return scopeString.length > 0;
+		}]
+		array];
+}
+
+- (RACSignal *)enqueueAuthorizationRequestWithMethod:(NSString *)method path:(NSString *)path parameters:(NSDictionary *)parameters password:(NSString *)password oneTimePassword:(NSString *)oneTimePassword {
+	NSParameterAssert(method != nil);
+	NSParameterAssert(path != nil);
+	NSParameterAssert(password != nil);
+
+	if (self.user == nil) return [RACSignal error:self.class.userRequiredError];
+
+	// We create a dummy authenticated client with `password` so that our
+	// authorization header is set for us. We don't want to set the
+	// authorization header for `self` because we don't want other requests to
+	// accidentally use it.
+	//
+	// Note that we're using `password` as the token, which works because
+	// they're both sent to the server the same way: as the Basic Auth password.
+	OCTClient *authedClient = [OCTClient authenticatedClientWithUser:self.user token:password];
+	NSMutableURLRequest *request = [authedClient requestWithMethod:method path:path parameters:parameters];
+	if (oneTimePassword != nil) [request setValue:oneTimePassword forHTTPHeaderField:OCTClientOneTimePasswordHeaderField];
+
+	return [self enqueueRequest:request resultClass:OCTAuthorization.class];
+}
+
+- (RACSignal *)requestAuthorizationWithPassword:(NSString *)password oneTimePassword:(NSString *)oneTimePassword scopes:(OCTClientAuthorizationScopes)scopes note:(NSString *)note {
+	NSParameterAssert(password != nil);
+	NSParameterAssert(note != nil);
+
+	NSDictionary *params = @{
+		@"scopes": [self scopesArrayFromScopes:scopes],
+		@"note": note,
+	};
+
+	return [[self enqueueAuthorizationRequestWithMethod:@"POST" path:@"authorizations" parameters:params password:password oneTimePassword:oneTimePassword] oct_parsedResults];
+}
+
+- (RACSignal *)requestAuthorizationWithPassword:(NSString *)password scopes:(OCTClientAuthorizationScopes)scopes note:(NSString *)note {
+	NSParameterAssert(password != nil);
+	NSParameterAssert(note != nil);
+
+	return [self requestAuthorizationWithPassword:password oneTimePassword:nil scopes:scopes note:note];
+}
+
+- (RACSignal *)fetchAuthorizationWithID:(NSString *)ID password:(NSString *)password {
+	NSParameterAssert(ID != nil);
+	NSParameterAssert(password != nil);
+
+	return [self fetchAuthorizationWithID:ID password:password oneTimePassword:nil];
+}
+
+- (RACSignal *)fetchAuthorizationWithID:(NSString *)ID password:(NSString *)password oneTimePassword:(NSString *)oneTimePassword {
+	NSParameterAssert(ID != nil);
+	NSParameterAssert(password != nil);
+
+	return [[self enqueueAuthorizationRequestWithMethod:@"GET" path:[NSString stringWithFormat:@"authorizations/%@", ID] parameters:nil password:password oneTimePassword:oneTimePassword] oct_parsedResults];
 }
 
 @end

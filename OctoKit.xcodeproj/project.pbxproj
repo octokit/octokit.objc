@@ -7,6 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8813686617A1A77000F74214 /* OCTAuthorizationSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 8813686517A1A77000F74214 /* OCTAuthorizationSpec.m */; };
+		8813686717A1A77000F74214 /* OCTAuthorizationSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 8813686517A1A77000F74214 /* OCTAuthorizationSpec.m */; };
+		8813687417A1AF3000F74214 /* authorizations.json in Resources */ = {isa = PBXBuildFile; fileRef = 8813687317A1AD1E00F74214 /* authorizations.json */; };
+		8813687517A1AF3100F74214 /* authorizations.json in Resources */ = {isa = PBXBuildFile; fileRef = 8813687317A1AD1E00F74214 /* authorizations.json */; };
+		8829F2BF17A0DF5300F06991 /* OCTAuthorization.h in Headers */ = {isa = PBXBuildFile; fileRef = 8829F2BD17A0DF5300F06991 /* OCTAuthorization.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8829F2C017A0DF5300F06991 /* OCTAuthorization.h in Headers */ = {isa = PBXBuildFile; fileRef = 8829F2BD17A0DF5300F06991 /* OCTAuthorization.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8829F2C117A0DF5300F06991 /* OCTAuthorization.m in Sources */ = {isa = PBXBuildFile; fileRef = 8829F2BE17A0DF5300F06991 /* OCTAuthorization.m */; };
+		8829F2C217A0DF5300F06991 /* OCTAuthorization.m in Sources */ = {isa = PBXBuildFile; fileRef = 8829F2BE17A0DF5300F06991 /* OCTAuthorization.m */; };
 		8848E19D16AF630B005449AB /* OCTNotification.h in Headers */ = {isa = PBXBuildFile; fileRef = 8848E19B16AF630B005449AB /* OCTNotification.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8848E19E16AF630B005449AB /* OCTNotification.h in Headers */ = {isa = PBXBuildFile; fileRef = 8848E19B16AF630B005449AB /* OCTNotification.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8848E19F16AF630B005449AB /* OCTNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = 8848E19C16AF630B005449AB /* OCTNotification.m */; };
@@ -229,6 +237,20 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		8829F2CC17A0DF5400F06991 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D0C636591777AB9300F486A9 /* ReactiveCocoa.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 1860F412177C91B500C7B3C9;
+			remoteInfo = "ReactiveCocoa-iOS-UIKitTestHost";
+		};
+		8829F2CE17A0DF5400F06991 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D0C636591777AB9300F486A9 /* ReactiveCocoa.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 1860F430177C91B500C7B3C9;
+			remoteInfo = "ReactiveCocoa-iOS-UIKitTestHostTests";
+		};
 		8839BBFC1729D477004DDE42 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D05E74D416D354FD001AA17B /* OHHTTPStubs.xcodeproj */;
@@ -505,6 +527,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		8813686517A1A77000F74214 /* OCTAuthorizationSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCTAuthorizationSpec.m; sourceTree = "<group>"; };
+		8813687317A1AD1E00F74214 /* authorizations.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = authorizations.json; sourceTree = "<group>"; };
+		8829F2BD17A0DF5300F06991 /* OCTAuthorization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCTAuthorization.h; sourceTree = "<group>"; };
+		8829F2BE17A0DF5300F06991 /* OCTAuthorization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCTAuthorization.m; sourceTree = "<group>"; };
 		8848E19B16AF630B005449AB /* OCTNotification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCTNotification.h; sourceTree = "<group>"; };
 		8848E19C16AF630B005449AB /* OCTNotification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCTNotification.m; sourceTree = "<group>"; };
 		9CB0586F17933F26002CF498 /* OCTContent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCTContent.h; sourceTree = "<group>"; };
@@ -706,6 +732,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8829F2D217A0DFA700F06991 /* Authorization */ = {
+			isa = PBXGroup;
+			children = (
+				8829F2BD17A0DF5300F06991 /* OCTAuthorization.h */,
+				8829F2BE17A0DF5300F06991 /* OCTAuthorization.m */,
+			);
+			name = Authorization;
+			sourceTree = "<group>";
+		};
 		8848E19916AF62F1005449AB /* Notifications */ = {
 			isa = PBXGroup;
 			children = (
@@ -933,6 +968,7 @@
 				D0B9C8FC16BC7A260029C5B4 /* NSDateFormatterAdditionsSpec.m */,
 				D0772E7B16BD2AD5009DFF72 /* NSValueTransformerAdditionsSpec.m */,
 				F6E2EC3F16EB04C50096C268 /* RACSignalAdditionsSpec.m */,
+				8813686517A1A77000F74214 /* OCTAuthorizationSpec.m */,
 				D05E751F16D35886001AA17B /* OCTClientSpec.m */,
 				D08721BD169E396F00016ACA /* OCTCommitCommentSpec.m */,
 				9CB0589F17933F51002CF498 /* OCTContentSpec.m */,
@@ -973,6 +1009,7 @@
 				D0872152169E395F00016ACA /* OCTServer.h */,
 				D0872153169E395F00016ACA /* OCTServer.m */,
 				D0872154169E395F00016ACA /* OCTServer+Private.h */,
+				8829F2D217A0DFA700F06991 /* Authorization */,
 				D08B5999169E3E74006003B8 /* Commits */,
 				D08B5997169E3E0C006003B8 /* Entities */,
 				D08B5996169E3DE6006003B8 /* Events */,
@@ -1085,6 +1122,8 @@
 				D0C6366A1777AB9300F486A9 /* libReactiveCocoa-iOS.a */,
 				D0C6366C1777AB9300F486A9 /* ReactiveCocoaTests.octest */,
 				D0C6366E1777AB9300F486A9 /* ReactiveCocoaTests-iOS.octest */,
+				8829F2CD17A0DF5400F06991 /* ReactiveCocoa-iOS-UIKitTestHost.app */,
+				8829F2CF17A0DF5400F06991 /* ReactiveCocoa-iOS-UIKitTestHostTests.octest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1092,6 +1131,7 @@
 		D0D8C08F16DFF1540070399E /* Stubs */ = {
 			isa = PBXGroup;
 			children = (
+				8813687317A1AD1E00F74214 /* authorizations.json */,
 				9CB0589C17933F43002CF498 /* content.json */,
 				D0D8C09016DFF1540070399E /* events.json */,
 				D0E41B8616DFF37E00E321CF /* notifications.json */,
@@ -1140,6 +1180,7 @@
 				D08721B5169E395F00016ACA /* OCTTeam.h in Headers */,
 				D08721B9169E395F00016ACA /* OCTUser.h in Headers */,
 				D087229F169E3D6000016ACA /* OctoKit.h in Headers */,
+				8829F2BF17A0DF5300F06991 /* OCTAuthorization.h in Headers */,
 				8848E19D16AF630B005449AB /* OCTNotification.h in Headers */,
 				D0772E7316BD27B5009DFF72 /* NSDateFormatter+OCTFormattingAdditions.h in Headers */,
 				D0772E7716BD2A06009DFF72 /* NSValueTransformer+OCTPredefinedTransformerAdditions.h in Headers */,
@@ -1181,6 +1222,7 @@
 				D08721B6169E395F00016ACA /* OCTTeam.h in Headers */,
 				D08721BA169E395F00016ACA /* OCTUser.h in Headers */,
 				D08722A0169E3D6000016ACA /* OctoKit.h in Headers */,
+				8829F2C017A0DF5300F06991 /* OCTAuthorization.h in Headers */,
 				8848E19E16AF630B005449AB /* OCTNotification.h in Headers */,
 				D0772E7416BD27B6009DFF72 /* NSDateFormatter+OCTFormattingAdditions.h in Headers */,
 				D0772E7816BD2A06009DFF72 /* NSValueTransformer+OCTPredefinedTransformerAdditions.h in Headers */,
@@ -1336,6 +1378,20 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
+		8829F2CD17A0DF5400F06991 /* ReactiveCocoa-iOS-UIKitTestHost.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = "ReactiveCocoa-iOS-UIKitTestHost.app";
+			remoteRef = 8829F2CC17A0DF5400F06991 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		8829F2CF17A0DF5400F06991 /* ReactiveCocoa-iOS-UIKitTestHostTests.octest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "ReactiveCocoa-iOS-UIKitTestHostTests.octest";
+			remoteRef = 8829F2CE17A0DF5400F06991 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		8839BBFD1729D477004DDE42 /* UnitTests.octest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
@@ -1514,6 +1570,7 @@
 			files = (
 				D0871ECC169E2EFC00016ACA /* InfoPlist.strings in Resources */,
 				D0D8C09516DFF1540070399E /* events.json in Resources */,
+				8813687417A1AF3000F74214 /* authorizations.json in Resources */,
 				D0D8C09716DFF1540070399E /* page1.json in Resources */,
 				D0D8C09916DFF1540070399E /* page2.json in Resources */,
 				D0D8C09B16DFF1540070399E /* page3.json in Resources */,
@@ -1534,6 +1591,7 @@
 				D0D8C09616DFF1540070399E /* events.json in Resources */,
 				D0D8C09816DFF1540070399E /* page1.json in Resources */,
 				D0D8C09A16DFF1540070399E /* page2.json in Resources */,
+				8813687517A1AF3100F74214 /* authorizations.json in Resources */,
 				9CF7FB9717957A6A00CA34FF /* repository.json in Resources */,
 				D0D8C09C16DFF1540070399E /* page3.json in Resources */,
 				D0D8C09E16DFF1540070399E /* rate_limit.json in Resources */,
@@ -1583,6 +1641,7 @@
 				9CB0588B17933F26002CF498 /* OCTSymlinkContent.m in Sources */,
 				D0872163169E395F00016ACA /* OCTCommitCommentEvent.m in Sources */,
 				D0872167169E395F00016ACA /* OCTEntity.m in Sources */,
+				8829F2C117A0DF5300F06991 /* OCTAuthorization.m in Sources */,
 				D087216B169E395F00016ACA /* OCTEvent.m in Sources */,
 				D087216F169E395F00016ACA /* OCTIssue.m in Sources */,
 				D0872173169E395F00016ACA /* OCTIssueComment.m in Sources */,
@@ -1625,6 +1684,7 @@
 				D08721D2169E398C00016ACA /* OCTPullRequestCommentSpec.m in Sources */,
 				D08721D4169E398C00016ACA /* OCTPullRequestSpec.m in Sources */,
 				9CB058A017933F51002CF498 /* OCTContentSpec.m in Sources */,
+				8813686617A1A77000F74214 /* OCTAuthorizationSpec.m in Sources */,
 				D08721D6169E398C00016ACA /* OCTRepositorySpec.m in Sources */,
 				D08721D8169E398C00016ACA /* OCTServerSpec.m in Sources */,
 				D08721DA169E398C00016ACA /* OCTUserSpec.m in Sources */,
@@ -1646,6 +1706,7 @@
 				9CB0588C17933F26002CF498 /* OCTSymlinkContent.m in Sources */,
 				D0872164169E395F00016ACA /* OCTCommitCommentEvent.m in Sources */,
 				D0872168169E395F00016ACA /* OCTEntity.m in Sources */,
+				8829F2C217A0DF5300F06991 /* OCTAuthorization.m in Sources */,
 				D087216C169E395F00016ACA /* OCTEvent.m in Sources */,
 				D0872170169E395F00016ACA /* OCTIssue.m in Sources */,
 				D0872174169E395F00016ACA /* OCTIssueComment.m in Sources */,
@@ -1688,6 +1749,7 @@
 				D08721D3169E398C00016ACA /* OCTPullRequestCommentSpec.m in Sources */,
 				D08721D5169E398C00016ACA /* OCTPullRequestSpec.m in Sources */,
 				9CB058A117933F51002CF498 /* OCTContentSpec.m in Sources */,
+				8813686717A1A77000F74214 /* OCTAuthorizationSpec.m in Sources */,
 				D08721D7169E398C00016ACA /* OCTRepositorySpec.m in Sources */,
 				D08721D9169E398C00016ACA /* OCTServerSpec.m in Sources */,
 				D08721DB169E398C00016ACA /* OCTUserSpec.m in Sources */,
