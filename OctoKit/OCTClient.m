@@ -486,6 +486,7 @@ static NSString * const OCTClientOneTimePasswordHeaderField = @"X-GitHub-OTP";
 
 - (RACSignal *)enqueueAuthorizationRequestWithMethod:(NSString *)method path:(NSString *)path parameters:(NSDictionary *)parameters password:(NSString *)password oneTimePassword:(NSString *)oneTimePassword {
 	NSParameterAssert(method != nil);
+	NSParameterAssert(path != nil);
 	NSParameterAssert(password != nil);
 
 	if (self.user == nil) return [RACSignal error:self.class.userRequiredError];
