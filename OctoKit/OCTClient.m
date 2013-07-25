@@ -470,7 +470,7 @@ static NSString * const OCTClientOneTimePasswordHeaderField = @"X-GitHub-OTP";
 		@(OCTClientAuthorizationScopesGist): @"gist",
 	};
 
-	return [[[scopeToScopeString.rac_keySequence
+	return [[[[scopeToScopeString.rac_keySequence
 		filter:^ BOOL (NSNumber *scopeValue) {
 			OCTClientAuthorizationScopes scope = scopeValue.unsignedIntegerValue;
 			return (scopes & scope) != 0;
@@ -481,7 +481,7 @@ static NSString * const OCTClientOneTimePasswordHeaderField = @"X-GitHub-OTP";
 		filter:^ BOOL (NSString *scopeString) {
 			return scopeString.length > 0;
 		}]
-		.array;
+		array];
 }
 
 - (RACSignal *)enqueueAuthorizationRequestWithMethod:(NSString *)method path:(NSString *)path parameters:(NSDictionary *)parameters password:(NSString *)password oneTimePassword:(NSString *)oneTimePassword {
