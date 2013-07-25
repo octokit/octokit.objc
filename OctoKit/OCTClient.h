@@ -47,6 +47,12 @@ extern NSString * const OCTClientErrorRequestURLKey;
 // that was returned with the error.
 extern NSString * const OCTClientErrorHTTPStatusCodeKey;
 
+// A user info key associated with an NSNumber-wrapped
+// OCTClientOneTimePasswordMedium which indicates the medium of delivery for the
+// one-time password required by the API. Only valid when the error's code is
+// OCTClientErrorTwoFactorAuthenticationOneTimePasswordRequired.
+extern NSString * const OCTClientErrorOneTimePasswordMediumKey;
+
 // Represents a single GitHub session.
 //
 // Most of the methods on this class return a RACSignal representing a request
@@ -154,31 +160,31 @@ extern NSString * const OCTClientErrorHTTPStatusCodeKey;
 // The scopes for authorization. These can be bitwise OR'd together to request
 // multiple scopes.
 //
-//   OCTClientAuthorizationScopesPublicReadOnly   - Public, read-only access.
-//   OCTClientAuthorizationScopesUserEmail        - Read-only access to the
-//                                                  user's email.
-//   OCTClientAuthorizationScopesUserFollow       - Follow/unfollow access.
-//   OCTClientAuthorizationScopesUser             - Read/write access to profile
-//                                                  info. This includes OCTClientAuthorizationScopesUserEmail and
-//                                                  OCTClientAuthorizationScopesUserFollow
-//   OCTClientAuthorizationScopesRepositoryStatus - Read/write access to public
-//                                                  and private repository
-//                                                  commit statuses. This allows
-//                                                  access to commit statuses
-//                                                  without access to the
-//                                                  repository's code.
-//   OCTClientAuthorizationScopesPublicRepository - Read/write access to public
-//                                                  repositories and orgs. This
-//                                                  includes OCTClientAuthorizationScopesRepositoryStatus.
-//   OCTClientAuthorizationScopesRepository       - Read/write access to public
-//                                                  and private repositories and
-//                                                  orgs. This includes OCTClientAuthorizationScopesRepositoryStatus.
-//   OCTClientAuthorizationScopesDelete           - Delete access to adminable
-//                                                  repositories.
-//   OCTClientAuthorizationScopesNotifications    - Read access to the user's
-//                                                  notifications.
-//   OCTClientAuthorizationScopesGist             - Write access to the user's
-//                                                  gists.
+// OCTClientAuthorizationScopesPublicReadOnly   - Public, read-only access.
+// OCTClientAuthorizationScopesUserEmail        - Read-only access to the user's
+//                                                email.
+// OCTClientAuthorizationScopesUserFollow       - Follow/unfollow access.
+// OCTClientAuthorizationScopesUser             - Read/write access to profile
+//                                                info. This includes OCTClientAuthorizationScopesUserEmail and
+//                                                OCTClientAuthorizationScopesUserFollow
+// OCTClientAuthorizationScopesRepositoryStatus - Read/write access to public
+//                                                and private repository
+//                                                commit statuses. This allows
+//                                                access to commit statuses
+//                                                without access to the
+//                                                repository's code.
+// OCTClientAuthorizationScopesPublicRepository - Read/write access to public
+//                                                repositories and orgs. This
+//                                                includes OCTClientAuthorizationScopesRepositoryStatus.
+// OCTClientAuthorizationScopesRepository       - Read/write access to public
+//                                                and private repositories and
+//                                                orgs. This includes OCTClientAuthorizationScopesRepositoryStatus.
+// OCTClientAuthorizationScopesDelete           - Delete access to adminable
+//                                                repositories.
+// OCTClientAuthorizationScopesNotifications    - Read access to the user's
+//                                                notifications.
+// OCTClientAuthorizationScopesGist             - Write access to the user's
+//                                                gists.
 typedef enum : NSInteger {
 	OCTClientAuthorizationScopesPublicReadOnly = 1 << 0,
 	OCTClientAuthorizationScopesUserEmail = 1 << 1,
@@ -195,6 +201,15 @@ typedef enum : NSInteger {
 
 	OCTClientAuthorizationScopesGist = 1 << 9,
 } OCTClientAuthorizationScopes;
+
+// The medium used to deliver the one-time password.
+//
+// OCTClientOneTimePasswordMediumSMS - Delivered via SMS.
+// OCTClientOneTimePasswordMediumApp - Delivered via an app.
+typedef enum : NSInteger {
+	OCTClientOneTimePasswordMediumSMS,
+	OCTClientOneTimePasswordMediumApp,
+} OCTClientOneTimePasswordMedium;
 
 @interface OCTClient (Authorization)
 
@@ -213,24 +228,45 @@ typedef enum : NSInteger {
 // note     - The user-facing note to be associated with the requested token.
 //            Cannot be nil.
 //
-// Returns a signal which will send an NSString token and complete. If no `user`
-// is set, the signal will error immediately.
-- (RACSignal *)requestAuthorizationTokenWithPassword:(NSString *)password scopes:(OCTClientAuthorizationScopes)scopes note:(NSString *)note;
+// Returns a signal which will send an OCTAuthorization and complete. If no
+// `user` is set, the signal will error immediately.
+- (RACSignal *)requestAuthorizationWithPassword:(NSString *)password scopes:(OCTClientAuthorizationScopes)scopes note:(NSString *)note;
 
 // Requests an authorization token with the current `user`, password, and one-
 // time password.
 //
 // password        - The user's password. Cannot be nil.
 // oneTimePassword - The one-time password to approve the authorization request.
-//                   Cannot be nil.
+//                   May be nil.
 // scopes          - The scopes to request access to. These values can be
 //                   bitwise OR'd together to request multiple scopes.
 // note            - The user-facing note to be associated with the requested
 //                   token. Cannot be nil.
 //
-// Returns a signal which will send an NSString token and complete. If no `user`
-// is set, the signal will error immediately.
-- (RACSignal *)requestAuthorizationTokenWithPassword:(NSString *)password oneTimePassword:(NSString *)oneTimePassword scopes:(OCTClientAuthorizationScopes)scopes note:(NSString *)note;
+// Returns a signal which will send an OCTAuthorization and complete. If no
+// `user` is set, the signal will error immediately.
+- (RACSignal *)requestAuthorizationWithPassword:(NSString *)password oneTimePassword:(NSString *)oneTimePassword scopes:(OCTClientAuthorizationScopes)scopes note:(NSString *)note;
+
+// Fetches the authorization with the given ID.
+//
+// ID       - The ID of the authorization to fetch. Cannot be nil.
+// password - The password for `user`. Cannot be nil.
+//
+// Returns a signal which will send the OCTAuthorization and complete, or error
+// if the authorization cannot be found. If no `user` is set, the signal will
+// error immediately.
+- (RACSignal *)fetchAuthorizationWithID:(NSString *)ID password:(NSString *)password;
+
+// Fetches the authorization with the given ID.
+//
+// ID              - The ID of the authorization to fetch. Cannot be nil.
+// password        - The password for `user`. Cannot be nil.
+// oneTimePassword - The one-time password for `user`. May be nil.
+//
+// Returns a signal which will send the OCTAuthorization and complete, or error
+// if the authorization cannot be found. If no `user` is set, the signal will
+// error immediately.
+- (RACSignal *)fetchAuthorizationWithID:(NSString *)ID password:(NSString *)password oneTimePassword:(NSString *)oneTimePassword;
 
 @end
 

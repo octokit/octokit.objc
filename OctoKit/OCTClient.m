@@ -21,6 +21,7 @@
 #import "OCTNotification.h"
 #import "RACSignal+OCTClientAdditions.h"
 #import <ReactiveCocoa/ReactiveCocoa.h>
+#import "OCTAuthorization.h"
 
 NSString * const OCTClientErrorDomain = @"OCTClientErrorDomain";
 const NSInteger OCTClientErrorAuthenticationFailed = 666;
@@ -32,6 +33,8 @@ const NSInteger OCTClientErrorTwoFactorAuthenticationOneTimePasswordRequired = 6
 
 NSString * const OCTClientErrorRequestURLKey = @"OCTClientErrorRequestURLKey";
 NSString * const OCTClientErrorHTTPStatusCodeKey = @"OCTClientErrorHTTPStatusCodeKey";
+
+NSString * const OCTClientErrorOneTimePasswordMediumKey = @"OCTClientErrorOneTimePasswordMediumKey";
 
 static const NSInteger OCTClientNotModifiedStatusCode = 304;
 
@@ -376,8 +379,19 @@ static NSString * const OCTClientOneTimePasswordHeaderField = @"X-GitHub-OTP";
 
 		errorCode = errorTemplate.code;
 		NSString *OTPHeader = operation.response.allHeaderFields[OCTClientOneTimePasswordHeaderField];
-		if ([OTPHeader.lowercaseString isEqual:@"required"]) {
-			errorCode = OCTClientErrorTwoFactorAuthenticationOneTimePasswordRequired;
+		NSArray *segments = [OTPHeader componentsSeparatedByString:@";"];
+		if (segments.count == 2) {
+			NSString *status = [segments[0] stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet];
+			NSString *medium = [segments[1] stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet];
+			if ([status.lowercaseString isEqual:@"required"]) {
+				errorCode = OCTClientErrorTwoFactorAuthenticationOneTimePasswordRequired;
+				NSDictionary *mediumStringToWrappedMedium = @{
+					@"sms": @(OCTClientOneTimePasswordMediumSMS),
+					@"app": @(OCTClientOneTimePasswordMediumApp),
+				};
+				NSNumber *wrappedMedium = mediumStringToWrappedMedium[medium.lowercaseString];
+				if (wrappedMedium != nil) userInfo[OCTClientErrorOneTimePasswordMediumKey] = wrappedMedium;
+			}
 		}
 
 		[userInfo addEntriesFromDictionary:errorTemplate.userInfo];
@@ -442,42 +456,6 @@ static NSString * const OCTClientOneTimePasswordHeaderField = @"X-GitHub-OTP";
 
 @implementation OCTClient (Authorization)
 
-// This is just a shameless c&p of AFBase64EncodedStringFromString since it's
-// not exported :(
-static NSString * OCTBase64EncodedStringFromString(NSString *string) {
-    NSData *data = [NSData dataWithBytes:[string UTF8String] length:[string lengthOfBytesUsingEncoding:NSUTF8StringEncoding]];
-    NSUInteger length = [data length];
-    NSMutableData *mutableData = [NSMutableData dataWithLength:((length + 2) / 3) * 4];
-
-    uint8_t *input = (uint8_t *)[data bytes];
-    uint8_t *output = (uint8_t *)[mutableData mutableBytes];
-
-    for (NSUInteger i = 0; i < length; i += 3) {
-        NSUInteger value = 0;
-        for (NSUInteger j = i; j < (i + 3); j++) {
-            value <<= 8;
-            if (j < length) {
-                value |= (0xFF & input[j]);
-            }
-        }
-
-        static uint8_t const kAFBase64EncodingTable[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
-
-        NSUInteger idx = (i / 3) * 4;
-        output[idx + 0] = kAFBase64EncodingTable[(value >> 18) & 0x3F];
-        output[idx + 1] = kAFBase64EncodingTable[(value >> 12) & 0x3F];
-        output[idx + 2] = (i + 1) < length ? kAFBase64EncodingTable[(value >> 6)  & 0x3F] : '=';
-        output[idx + 3] = (i + 2) < length ? kAFBase64EncodingTable[(value >> 0)  & 0x3F] : '=';
-    }
-
-    return [[NSString alloc] initWithData:mutableData encoding:NSASCIIStringEncoding];
-}
-
-- (NSString *)basicAuthorizationStringWithPassword:(NSString *)password {
-	NSString *credentials = [NSString stringWithFormat:@"%@:%@", self.user.login, password];
-	return [NSString stringWithFormat:@"Basic %@", OCTBase64EncodedStringFromString(credentials)];
-}
-
 - (NSArray *)scopesArrayFromScopes:(OCTClientAuthorizationScopes)scopes {
 	NSDictionary *scopeToScopeString = @{
 		@(OCTClientAuthorizationScopesPublicReadOnly): @"",
@@ -506,40 +484,57 @@ static NSString * OCTBase64EncodedStringFromString(NSString *string) {
 		.array;
 }
 
-- (RACSignal *)internalRequestAuthorizationTokenWithPassword:(NSString *)password oneTimePassword:(NSString *)oneTimePassword scopes:(OCTClientAuthorizationScopes)scopes note:(NSString *)note {
+- (RACSignal *)enqueueAuthorizationRequestWithMethod:(NSString *)method path:(NSString *)path parameters:(NSDictionary *)parameters password:(NSString *)password oneTimePassword:(NSString *)oneTimePassword {
+	NSParameterAssert(method != nil);
+	NSParameterAssert(password != nil);
+
 	if (self.user == nil) return [RACSignal error:self.class.userRequiredError];
+
+	// We create a dummy authenticated client with `password` so that our
+	// authorization header is set for us. We don't want to set the
+	// authorization header for `self` because we don't want other requests to
+	// accidentally use it.
+	//
+	// Note that we're using `password` as the token, which works because
+	// they're both sent to the server the same way: as the Basic Auth password.
+	OCTClient *authedClient = [OCTClient authenticatedClientWithUser:self.user token:password];
+	NSMutableURLRequest *request = [authedClient requestWithMethod:method path:path parameters:parameters];
+	if (oneTimePassword != nil) [request setValue:oneTimePassword forHTTPHeaderField:OCTClientOneTimePasswordHeaderField];
+
+	return [self enqueueRequest:request resultClass:OCTAuthorization.class];
+}
+
+- (RACSignal *)requestAuthorizationWithPassword:(NSString *)password oneTimePassword:(NSString *)oneTimePassword scopes:(OCTClientAuthorizationScopes)scopes note:(NSString *)note {
+	NSParameterAssert(password != nil);
+	NSParameterAssert(note != nil);
 
 	NSDictionary *params = @{
 		@"scopes": [self scopesArrayFromScopes:scopes],
 		@"note": note,
 	};
 
-	NSMutableURLRequest *request = [self requestWithMethod:@"POST" path:@"authorizations" parameters:params];
-	NSString *authorization = [self basicAuthorizationStringWithPassword:password];
-	[request setValue:authorization forHTTPHeaderField:@"Authorization"];
-	if (oneTimePassword != nil) [request setValue:oneTimePassword forHTTPHeaderField:OCTClientOneTimePasswordHeaderField];
-
-	return [[[self
-		enqueueRequest:request resultClass:nil]
-		oct_parsedResults]
-		map:^(NSDictionary *result) {
-			return result[@"token"];
-		}];
+	return [[self enqueueAuthorizationRequestWithMethod:@"POST" path:@"authorizations" parameters:params password:password oneTimePassword:oneTimePassword] oct_parsedResults];
 }
 
-- (RACSignal *)requestAuthorizationTokenWithPassword:(NSString *)password scopes:(OCTClientAuthorizationScopes)scopes note:(NSString *)note {
+- (RACSignal *)requestAuthorizationWithPassword:(NSString *)password scopes:(OCTClientAuthorizationScopes)scopes note:(NSString *)note {
 	NSParameterAssert(password != nil);
 	NSParameterAssert(note != nil);
 
-	return [self internalRequestAuthorizationTokenWithPassword:password oneTimePassword:nil scopes:scopes note:note];
+	return [self requestAuthorizationWithPassword:password oneTimePassword:nil scopes:scopes note:note];
 }
 
-- (RACSignal *)requestAuthorizationTokenWithPassword:(NSString *)password oneTimePassword:(NSString *)oneTimePassword scopes:(OCTClientAuthorizationScopes)scopes note:(NSString *)note {
+- (RACSignal *)fetchAuthorizationWithID:(NSString *)ID password:(NSString *)password {
+	NSParameterAssert(ID != nil);
 	NSParameterAssert(password != nil);
-	NSParameterAssert(oneTimePassword != nil);
-	NSParameterAssert(note != nil);
 
-	return [self internalRequestAuthorizationTokenWithPassword:password oneTimePassword:oneTimePassword scopes:scopes note:note];
+	return [self fetchAuthorizationWithID:ID password:password oneTimePassword:nil];
+}
+
+- (RACSignal *)fetchAuthorizationWithID:(NSString *)ID password:(NSString *)password oneTimePassword:(NSString *)oneTimePassword {
+	NSParameterAssert(ID != nil);
+	NSParameterAssert(password != nil);
+
+	return [[self enqueueAuthorizationRequestWithMethod:@"GET" path:[NSString stringWithFormat:@"authorizations/%@", ID] parameters:nil password:password oneTimePassword:oneTimePassword] oct_parsedResults];
 }
 
 @end
