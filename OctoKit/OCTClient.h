@@ -187,6 +187,7 @@ extern NSString * const OCTClientErrorOneTimePasswordMediumKey;
 //                                                gists.
 typedef enum : NSInteger {
 	OCTClientAuthorizationScopesPublicReadOnly = 1 << 0,
+
 	OCTClientAuthorizationScopesUserEmail = 1 << 1,
 	OCTClientAuthorizationScopesUserFollow = 1 << 2,
 	OCTClientAuthorizationScopesUser = 1 << 3,
