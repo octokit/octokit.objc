@@ -237,7 +237,11 @@ typedef enum : NSUInteger {
 //
 // password        - The user's password. Cannot be nil.
 // oneTimePassword - The one-time password to approve the authorization request.
-//                   May be nil.
+//                   May be nil if you have no one-time password to provide.
+//                   This will usually be the case unless you've already
+//                   requested authorization, `user` has two-factor
+//                   authentication on, and the user has entered their one-time
+//                   password.
 // scopes          - The scopes to request access to. These values can be
 //                   bitwise OR'd together to request multiple scopes.
 // note            - The user-facing note to be associated with the requested
