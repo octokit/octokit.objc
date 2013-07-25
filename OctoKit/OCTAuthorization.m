@@ -12,7 +12,7 @@
 
 #pragma mark MTLJSONSerializing
 
-- (NSValueTransformer *)JSONTransformerForToken {
++ (NSValueTransformer *)tokenJSONTransformer {
 	// We want to prevent the token from being serialized out, so the reverse
 	// transform will simply yield an empty string instead of the token itself.
 	return [MTLValueTransformer reversibleTransformerWithForwardBlock:^(NSString *token) {
