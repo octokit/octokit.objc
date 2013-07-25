@@ -185,7 +185,7 @@ extern NSString * const OCTClientErrorOneTimePasswordMediumKey;
 //                                                notifications.
 // OCTClientAuthorizationScopesGist             - Write access to the user's
 //                                                gists.
-typedef enum : NSInteger {
+typedef enum : NSUInteger {
 	OCTClientAuthorizationScopesPublicReadOnly = 1 << 0,
 
 	OCTClientAuthorizationScopesUserEmail = 1 << 1,
@@ -206,7 +206,7 @@ typedef enum : NSInteger {
 //
 // OCTClientOneTimePasswordMediumSMS - Delivered via SMS.
 // OCTClientOneTimePasswordMediumApp - Delivered via an app.
-typedef enum : NSInteger {
+typedef enum : NSUInteger {
 	OCTClientOneTimePasswordMediumSMS,
 	OCTClientOneTimePasswordMediumApp,
 } OCTClientOneTimePasswordMedium;

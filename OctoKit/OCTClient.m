@@ -472,7 +472,7 @@ static NSString * const OCTClientOneTimePasswordHeaderField = @"X-GitHub-OTP";
 
 	return [[[scopeToScopeString.rac_keySequence
 		filter:^ BOOL (NSNumber *scopeValue) {
-			OCTClientAuthorizationScopes scope = scopeValue.integerValue;
+			OCTClientAuthorizationScopes scope = scopeValue.unsignedIntegerValue;
 			return (scopes & scope) != 0;
 		}]
 		map:^(NSNumber *scopeValue) {
