@@ -465,7 +465,7 @@ static NSString * const OCTClientOneTimePasswordHeaderField = @"X-GitHub-OTP";
 		@(OCTClientAuthorizationScopesRepositoryStatus): @"repo:status",
 		@(OCTClientAuthorizationScopesPublicRepository): @"public_repo",
 		@(OCTClientAuthorizationScopesRepository): @"repo",
-		@(OCTClientAuthorizationScopesDelete): @"delete_repo",
+		@(OCTClientAuthorizationScopesRepositoryDelete): @"delete_repo",
 		@(OCTClientAuthorizationScopesNotifications): @"notifications",
 		@(OCTClientAuthorizationScopesGist): @"gist",
 	};

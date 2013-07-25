@@ -179,7 +179,7 @@ extern NSString * const OCTClientErrorOneTimePasswordMediumKey;
 // OCTClientAuthorizationScopesRepository       - Read/write access to public
 //                                                and private repositories and
 //                                                orgs. This includes OCTClientAuthorizationScopesRepositoryStatus.
-// OCTClientAuthorizationScopesDelete           - Delete access to adminable
+// OCTClientAuthorizationScopesRepositoryDelete - Delete access to adminable
 //                                                repositories.
 // OCTClientAuthorizationScopesNotifications    - Read access to the user's
 //                                                notifications.
@@ -194,8 +194,7 @@ typedef enum : NSInteger {
 	OCTClientAuthorizationScopesRepositoryStatus = 1 << 4,
 	OCTClientAuthorizationScopesPublicRepository = 1 << 5,
 	OCTClientAuthorizationScopesRepository = 1 << 6,
-
-	OCTClientAuthorizationScopesDelete = 1 << 7,
+	OCTClientAuthorizationScopesRepositoryDelete = 1 << 7,
 
 	OCTClientAuthorizationScopesNotifications = 1 << 8,
 
