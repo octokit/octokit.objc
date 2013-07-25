@@ -379,6 +379,7 @@ static NSString * const OCTClientOneTimePasswordHeaderField = @"X-GitHub-OTP";
 
 		errorCode = errorTemplate.code;
 		NSString *OTPHeader = operation.response.allHeaderFields[OCTClientOneTimePasswordHeaderField];
+		// E.g., "required; sms"
 		NSArray *segments = [OTPHeader componentsSeparatedByString:@";"];
 		if (segments.count == 2) {
 			NSString *status = [segments[0] stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet];
