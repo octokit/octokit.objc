@@ -441,3 +441,13 @@ typedef enum : NSUInteger {
 - (RACSignal *)fetchRepositoryWithName:(NSString *)name owner:(NSString *)owner;
 
 @end
+
+@interface OCTClient (Gist)
+
+// Fetches all the public gists for the current user.
+//
+// Returns a signal which will send zero or more OCTGists and complete. If no
+// `user` is set, the signal will error immediately.
+- (RACSignal *)fetchPublicGists;
+
+@end

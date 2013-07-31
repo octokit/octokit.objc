@@ -10,6 +10,7 @@
 #import "OCTContent.h"
 #import "NSDateFormatter+OCTFormattingAdditions.h"
 #import "OCTEvent.h"
+#import "OCTGist.h"
 #import "OCTObject+Private.h"
 #import "OCTOrganization.h"
 #import "OCTPublicKey.h"
@@ -721,6 +722,17 @@ static NSString * const OCTClientOneTimePasswordHeaderField = @"X-GitHub-OTP";
 	NSMutableURLRequest *request = [self requestWithMethod:@"GET" path:path parameters:nil notMatchingEtag:nil];
 	
 	return [[self enqueueRequest:request resultClass:OCTRepository.class] oct_parsedResults];
+}
+
+@end
+
+@implementation OCTClient (Gist)
+
+- (RACSignal *)fetchPublicGists {
+	if (self.user == nil) return [RACSignal error:self.class.userRequiredError];
+
+	NSURLRequest *request = [self requestWithMethod:@"GET" path:@"gists/public" parameters:nil notMatchingEtag:nil];
+	return [[self enqueueRequest:request resultClass:OCTGist.class] oct_parsedResults];
 }
 
 @end
