@@ -749,4 +749,16 @@ static NSString * const OCTClientOneTimePasswordHeaderField = @"X-GitHub-OTP";
 	return [[self enqueueRequest:request resultClass:OCTGist.class] oct_parsedResults];
 }
 
+- (RACSignal *)createGistWithEdit:(OCTGistEdit *)edit {
+	NSParameterAssert(edit != nil);
+
+	if (!self.authenticated) return [RACSignal error:self.class.authenticationRequiredError];
+
+	NSValueTransformer *transformer = [NSValueTransformer mtl_JSONDictionaryTransformerWithModelClass:edit.class];
+	NSDictionary *parameters = [transformer reverseTransformedValue:edit];
+
+	NSURLRequest *request = [self requestWithMethod:@"POST" path:@"gists" parameters:parameters notMatchingEtag:nil];
+	return [[self enqueueRequest:request resultClass:OCTGist.class] oct_parsedResults];
+}
+
 @end
