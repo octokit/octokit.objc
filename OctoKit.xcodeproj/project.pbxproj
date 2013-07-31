@@ -76,6 +76,14 @@
 		D0772E9416BD3072009DFF72 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0772E8F16BD3064009DFF72 /* SystemConfiguration.framework */; };
 		D0772E9516BD3072009DFF72 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0772E8D16BD305F009DFF72 /* MobileCoreServices.framework */; };
 		D0772E9616BD3072009DFF72 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0772E8B16BD305B009DFF72 /* Foundation.framework */; };
+		D07DD38F17A993AA005EBFE0 /* OCTGist.h in Headers */ = {isa = PBXBuildFile; fileRef = D07DD38D17A993AA005EBFE0 /* OCTGist.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D07DD39017A993AA005EBFE0 /* OCTGist.h in Headers */ = {isa = PBXBuildFile; fileRef = D07DD38D17A993AA005EBFE0 /* OCTGist.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D07DD39117A993AA005EBFE0 /* OCTGist.m in Sources */ = {isa = PBXBuildFile; fileRef = D07DD38E17A993AA005EBFE0 /* OCTGist.m */; };
+		D07DD39217A993AA005EBFE0 /* OCTGist.m in Sources */ = {isa = PBXBuildFile; fileRef = D07DD38E17A993AA005EBFE0 /* OCTGist.m */; };
+		D07DD39517A9940D005EBFE0 /* OCTGistFile.h in Headers */ = {isa = PBXBuildFile; fileRef = D07DD39317A9940D005EBFE0 /* OCTGistFile.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D07DD39617A9940D005EBFE0 /* OCTGistFile.h in Headers */ = {isa = PBXBuildFile; fileRef = D07DD39317A9940D005EBFE0 /* OCTGistFile.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D07DD39717A9940D005EBFE0 /* OCTGistFile.m in Sources */ = {isa = PBXBuildFile; fileRef = D07DD39417A9940D005EBFE0 /* OCTGistFile.m */; };
+		D07DD39817A9940D005EBFE0 /* OCTGistFile.m in Sources */ = {isa = PBXBuildFile; fileRef = D07DD39417A9940D005EBFE0 /* OCTGistFile.m */; };
 		D0871EB6169E2EFC00016ACA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D0871EB4169E2EFC00016ACA /* InfoPlist.strings */; };
 		D0871EC2169E2EFC00016ACA /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0871EC1169E2EFC00016ACA /* SenTestingKit.framework */; };
 		D0871EC6169E2EFC00016ACA /* OctoKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0871EA8169E2EFC00016ACA /* OctoKit.framework */; };
@@ -558,6 +566,10 @@
 		D0772E8D16BD305F009DFF72 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.1.sdk/System/Library/Frameworks/MobileCoreServices.framework; sourceTree = DEVELOPER_DIR; };
 		D0772E8F16BD3064009DFF72 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.1.sdk/System/Library/Frameworks/SystemConfiguration.framework; sourceTree = DEVELOPER_DIR; };
 		D0772E9116BD3067009DFF72 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.1.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
+		D07DD38D17A993AA005EBFE0 /* OCTGist.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCTGist.h; sourceTree = "<group>"; };
+		D07DD38E17A993AA005EBFE0 /* OCTGist.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCTGist.m; sourceTree = "<group>"; };
+		D07DD39317A9940D005EBFE0 /* OCTGistFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCTGistFile.h; sourceTree = "<group>"; };
+		D07DD39417A9940D005EBFE0 /* OCTGistFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCTGistFile.m; sourceTree = "<group>"; };
 		D0871EA8169E2EFC00016ACA /* OctoKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = OctoKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0871EB3169E2EFC00016ACA /* OctoKit-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "OctoKit-Info.plist"; sourceTree = "<group>"; };
 		D0871EB5169E2EFC00016ACA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -769,6 +781,17 @@
 				D05E74E016D354FD001AA17B /* OHHTTPStubs.framework */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		D07DD37E17A99349005EBFE0 /* Gists */ = {
+			isa = PBXGroup;
+			children = (
+				D07DD38D17A993AA005EBFE0 /* OCTGist.h */,
+				D07DD38E17A993AA005EBFE0 /* OCTGist.m */,
+				D07DD39317A9940D005EBFE0 /* OCTGistFile.h */,
+				D07DD39417A9940D005EBFE0 /* OCTGistFile.m */,
+			);
+			name = Gists;
 			sourceTree = "<group>";
 		};
 		D0871E9C169E2EFC00016ACA = {
@@ -1013,6 +1036,7 @@
 				D08B5999169E3E74006003B8 /* Commits */,
 				D08B5997169E3E0C006003B8 /* Entities */,
 				D08B5996169E3DE6006003B8 /* Events */,
+				D07DD37E17A99349005EBFE0 /* Gists */,
 				D08722A2169E3D7C00016ACA /* Issues */,
 				8848E19916AF62F1005449AB /* Notifications */,
 				D08B5998169E3E69006003B8 /* Pull Requests */,
@@ -1164,8 +1188,10 @@
 				9CB0587917933F26002CF498 /* OCTContent.h in Headers */,
 				D0872175169E395F00016ACA /* OCTIssueCommentEvent.h in Headers */,
 				D0872179169E395F00016ACA /* OCTIssueEvent.h in Headers */,
+				D07DD38F17A993AA005EBFE0 /* OCTGist.h in Headers */,
 				D087217D169E395F00016ACA /* OCTObject.h in Headers */,
 				D0872183169E395F00016ACA /* OCTOrganization.h in Headers */,
+				D07DD39517A9940D005EBFE0 /* OCTGistFile.h in Headers */,
 				D0872187169E395F00016ACA /* OCTPlan.h in Headers */,
 				D087218B169E395F00016ACA /* OCTPublicKey.h in Headers */,
 				D087218F169E395F00016ACA /* OCTPullRequest.h in Headers */,
@@ -1206,8 +1232,10 @@
 				9CB0587A17933F26002CF498 /* OCTContent.h in Headers */,
 				D0872176169E395F00016ACA /* OCTIssueCommentEvent.h in Headers */,
 				D087217A169E395F00016ACA /* OCTIssueEvent.h in Headers */,
+				D07DD39017A993AA005EBFE0 /* OCTGist.h in Headers */,
 				D087217E169E395F00016ACA /* OCTObject.h in Headers */,
 				D0872184169E395F00016ACA /* OCTOrganization.h in Headers */,
+				D07DD39617A9940D005EBFE0 /* OCTGistFile.h in Headers */,
 				D0872188169E395F00016ACA /* OCTPlan.h in Headers */,
 				D087218C169E395F00016ACA /* OCTPublicKey.h in Headers */,
 				D0872190169E395F00016ACA /* OCTPullRequest.h in Headers */,
@@ -1660,9 +1688,11 @@
 				D08721A5169E395F00016ACA /* OCTRefEvent.m in Sources */,
 				D08721A9169E395F00016ACA /* OCTRepository.m in Sources */,
 				D08721AD169E395F00016ACA /* OCTResponse.m in Sources */,
+				D07DD39717A9940D005EBFE0 /* OCTGistFile.m in Sources */,
 				D08721B1169E395F00016ACA /* OCTServer.m in Sources */,
 				D08721B7169E395F00016ACA /* OCTTeam.m in Sources */,
 				D08721BB169E395F00016ACA /* OCTUser.m in Sources */,
+				D07DD39117A993AA005EBFE0 /* OCTGist.m in Sources */,
 				9CB0587B17933F26002CF498 /* OCTContent.m in Sources */,
 				8848E19F16AF630B005449AB /* OCTNotification.m in Sources */,
 				9CB0588317933F26002CF498 /* OCTFileContent.m in Sources */,
@@ -1725,9 +1755,11 @@
 				D08721A6169E395F00016ACA /* OCTRefEvent.m in Sources */,
 				D08721AA169E395F00016ACA /* OCTRepository.m in Sources */,
 				D08721AE169E395F00016ACA /* OCTResponse.m in Sources */,
+				D07DD39817A9940D005EBFE0 /* OCTGistFile.m in Sources */,
 				D08721B2169E395F00016ACA /* OCTServer.m in Sources */,
 				D08721B8169E395F00016ACA /* OCTTeam.m in Sources */,
 				D08721BC169E395F00016ACA /* OCTUser.m in Sources */,
+				D07DD39217A993AA005EBFE0 /* OCTGist.m in Sources */,
 				9CB0587C17933F26002CF498 /* OCTContent.m in Sources */,
 				8848E1A016AF630B005449AB /* OCTNotification.m in Sources */,
 				9CB0588417933F26002CF498 /* OCTFileContent.m in Sources */,
