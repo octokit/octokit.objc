@@ -18,6 +18,8 @@
 #import <OctoKit/OCTEntity.h>
 #import <OctoKit/OCTEvent.h>
 #import <OctoKit/OCTFileContent.h>
+#import <OctoKit/OCTGist.h>
+#import <OctoKit/OCTGistFile.h>
 #import <OctoKit/OCTIssue.h>
 #import <OctoKit/OCTIssueComment.h>
 #import <OctoKit/OCTIssueCommentEvent.h>
