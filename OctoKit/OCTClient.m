@@ -11,6 +11,7 @@
 #import "NSDateFormatter+OCTFormattingAdditions.h"
 #import "OCTEvent.h"
 #import "OCTGist.h"
+#import "OCTGistFile.h"
 #import "OCTObject+Private.h"
 #import "OCTOrganization.h"
 #import "OCTPublicKey.h"
@@ -732,6 +733,35 @@ static NSString * const OCTClientOneTimePasswordHeaderField = @"X-GitHub-OTP";
 	if (self.user == nil) return [RACSignal error:self.class.userRequiredError];
 
 	NSURLRequest *request = [self requestWithMethod:@"GET" path:@"gists/public" parameters:nil notMatchingEtag:nil];
+	return [[self enqueueRequest:request resultClass:OCTGist.class] oct_parsedResults];
+}
+
+- (RACSignal *)editFiles:(NSDictionary *)fileChanges inGist:(OCTGist *)gist {
+	NSParameterAssert(fileChanges != nil);
+	NSParameterAssert(gist != nil);
+
+	if (!self.authenticated) return [RACSignal error:self.class.authenticationRequiredError];
+
+	NSMutableDictionary *files = [NSMutableDictionary dictionaryWithCapacity:fileChanges.count];
+	NSValueTransformer *transformer = [NSValueTransformer mtl_JSONDictionaryTransformerWithModelClass:OCTGistFileEdit.class];
+
+	[fileChanges enumerateKeysAndObjectsUsingBlock:^(NSString *filename, OCTGistFileEdit *edit, BOOL *stop) {
+		if ([edit isEqual:NSNull.null]) {
+			files[filename] = NSNull.null;
+			return;
+		}
+
+		NSDictionary *changes = [transformer reverseTransformedValue:edit];
+		
+		// FIXME
+		if (changes == nil) return;
+
+		files[filename] = changes;
+	}];
+
+	NSDictionary *parameters = @{ @"parameters": files };
+
+	NSURLRequest *request = [self requestWithMethod:@"PATCH" path:[NSString stringWithFormat:@"gists/%@", gist.objectID] parameters:parameters notMatchingEtag:nil];
 	return [[self enqueueRequest:request resultClass:OCTGist.class] oct_parsedResults];
 }
 

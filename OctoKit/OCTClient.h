@@ -8,13 +8,14 @@
 
 #import <AFNetworking/AFNetworking.h>
 
+@class OCTGist;
 @class OCTNotification;
 @class OCTOrganization;
+@class OCTRepository;
 @class OCTServer;
 @class OCTTeam;
 @class OCTUser;
 @class RACSignal;
-@class OCTRepository;
 
 // The domain for all errors originating in OCTClient.
 extern NSString * const OCTClientErrorDomain;
@@ -449,5 +450,16 @@ typedef enum : NSUInteger {
 // Returns a signal which will send zero or more OCTGists and complete. If no
 // `user` is set, the signal will error immediately.
 - (RACSignal *)fetchPublicGists;
+
+// Edits one or more files within a gist.
+//
+// fileChanges - A dictionary of OCTGistFileEdits, keyed by filename. To delete
+//               a file, associate its name with NSNull. This dictionary must
+//               not be nil.
+// gist        - The gist to modify. This must not be nil.
+//
+// Returns a signal which will the updated OCTGist and complete. If the client
+// is not `authenticated`, the signal will error immediately.
+- (RACSignal *)editFiles:(NSDictionary *)fileChanges inGist:(OCTGist *)gist;
 
 @end

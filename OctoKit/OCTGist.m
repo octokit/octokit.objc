@@ -28,6 +28,8 @@
 		NSMutableDictionary *files = [[NSMutableDictionary alloc] initWithCapacity:fileDictionaries.count];
 		[fileDictionaries enumerateKeysAndObjectsUsingBlock:^(NSString *filename, NSDictionary *fileDictionary, BOOL *stop) {
 			OCTGistFile *file = [dictionaryTransformer transformedValue:fileDictionary];
+
+			// FIXME
 			if (file != nil) files[filename] = file;
 		}];
 
@@ -36,6 +38,8 @@
 		NSMutableDictionary *fileDictionaries = [[NSMutableDictionary alloc] initWithCapacity:files.count];
 		[files enumerateKeysAndObjectsUsingBlock:^(NSString *filename, OCTGistFile *file, BOOL *stop) {
 			NSDictionary *fileDictionary = [dictionaryTransformer reverseTransformedValue:file];
+
+			// FIXME
 			if (fileDictionary != nil) fileDictionaries[filename] = fileDictionary;
 		}];
 
