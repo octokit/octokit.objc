@@ -20,7 +20,7 @@
 @end
 
 // Changes to a gist, or a new gist.
-@interface OCTGistEdit : MTLModel
+@interface OCTGistEdit : MTLModel <MTLJSONSerializing>
 
 // If not nil, the new description to set for the gist.
 @property (atomic, copy) NSString *description;

@@ -64,10 +64,10 @@
 #pragma mark MTLJSONSerializing
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
-	return [super.JSONKeyPathsByPropertyKey mtl_dictionaryByAddingEntriesFromDictionary:@{
+	return @{
 		@"fileChanges": @"files",
 		@"publicGist": @"public",
-	}];
+	};
 }
 
 + (NSValueTransformer *)fileChangesJSONTransformer {

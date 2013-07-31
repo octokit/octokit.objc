@@ -23,7 +23,7 @@
 @end
 
 // Changes to a single file, or a new file, within a gist.
-@interface OCTGistFileEdit : MTLModel
+@interface OCTGistFileEdit : MTLModel <MTLJSONSerializing>
 
 // If not nil, the new filename to set for the file.
 @property (atomic, copy) NSString *filename;

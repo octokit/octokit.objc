@@ -25,4 +25,11 @@
 @end
 
 @implementation OCTGistFileEdit
+
+#pragma mark MTLJSONSerializing
+
++ (NSDictionary *)JSONKeyPathsByPropertyKey {
+	return @{};
+}
+
 @end
