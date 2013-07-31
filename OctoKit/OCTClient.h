@@ -445,11 +445,11 @@ typedef enum : NSUInteger {
 
 @interface OCTClient (Gist)
 
-// Fetches all the public gists for the current user.
+// Fetches all the gists for the current user.
 //
-// Returns a signal which will send zero or more OCTGists and complete. If no
-// `user` is set, the signal will error immediately.
-- (RACSignal *)fetchPublicGists;
+// Returns a signal which will zero or more OCTGists and complete. If the client
+// is not `authenticated`, the signal will error immediately.
+- (RACSignal *)fetchGists;
 
 // Edits one or more files within a gist.
 //
