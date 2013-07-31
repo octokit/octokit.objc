@@ -9,6 +9,7 @@
 #import <AFNetworking/AFNetworking.h>
 
 @class OCTGist;
+@class OCTGistEdit;
 @class OCTNotification;
 @class OCTOrganization;
 @class OCTRepository;
@@ -453,13 +454,11 @@ typedef enum : NSUInteger {
 
 // Edits one or more files within a gist.
 //
-// fileChanges - A dictionary of OCTGistFileEdits, keyed by filename. To delete
-//               a file, associate its name with NSNull. This dictionary must
-//               not be nil.
-// gist        - The gist to modify. This must not be nil.
+// edit - The changes to make to the gist.
+// gist - The gist to modify. This must not be nil.
 //
 // Returns a signal which will the updated OCTGist and complete. If the client
 // is not `authenticated`, the signal will error immediately.
-- (RACSignal *)editFiles:(NSDictionary *)fileChanges inGist:(OCTGist *)gist;
+- (RACSignal *)applyEdit:(OCTGistEdit *)edit toGist:(OCTGist *)gist;
 
 @end

@@ -25,13 +25,4 @@
 @end
 
 @implementation OCTGistFileEdit
-
-#pragma mark MTLJSONSerializing
-
-+ (NSDictionary *)JSONKeyPathsByPropertyKey {
-	return [super.JSONKeyPathsByPropertyKey mtl_dictionaryByAddingEntriesFromDictionary:@{
-		@"changedFilename": @"filename",
-	}];
-}
-
 @end

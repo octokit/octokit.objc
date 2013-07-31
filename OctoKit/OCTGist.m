@@ -58,3 +58,55 @@
 }
 
 @end
+
+@implementation OCTGistEdit
+
+#pragma mark MTLJSONSerializing
+
++ (NSDictionary *)JSONKeyPathsByPropertyKey {
+	return [super.JSONKeyPathsByPropertyKey mtl_dictionaryByAddingEntriesFromDictionary:@{
+		@"fileChanges": @"files",
+	}];
+}
+
++ (NSValueTransformer *)fileChangesJSONTransformer {
+	NSValueTransformer *transformer = [NSValueTransformer mtl_JSONDictionaryTransformerWithModelClass:OCTGistFileEdit.class];
+
+	return [MTLValueTransformer reversibleTransformerWithForwardBlock:^(NSDictionary *files) {
+		NSMutableDictionary *fileChanges = [NSMutableDictionary dictionaryWithCapacity:files.count];
+		[files enumerateKeysAndObjectsUsingBlock:^(NSString *filename, NSDictionary *change, BOOL *stop) {
+			if ([change isEqual:NSNull.null]) {
+				fileChanges[filename] = NSNull.null;
+				return;
+			}
+
+			OCTGistFileEdit *edit = [transformer transformedValue:change];
+			
+			// FIXME
+			if (edit == nil) return;
+
+			fileChanges[filename] = edit;
+		}];
+
+		return fileChanges;
+	} reverseBlock:^(NSDictionary *fileChanges) {
+		NSMutableDictionary *files = [NSMutableDictionary dictionaryWithCapacity:fileChanges.count];
+		[fileChanges enumerateKeysAndObjectsUsingBlock:^(NSString *filename, OCTGistFileEdit *edit, BOOL *stop) {
+			if ([edit isEqual:NSNull.null]) {
+				files[filename] = NSNull.null;
+				return;
+			}
+
+			NSDictionary *changes = [transformer reverseTransformedValue:edit];
+			
+			// FIXME
+			if (changes == nil) return;
+
+			files[filename] = changes;
+		}];
+
+		return files;
+	}];
+}
+
+@end

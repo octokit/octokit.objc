@@ -22,11 +22,11 @@
 
 @end
 
-// Changes to a single file within a gist.
-@interface OCTGistFileEdit : OCTObject
+// Changes to a single file, or a new file, within a gist.
+@interface OCTGistFileEdit : MTLModel
 
 // If not nil, the new filename to set for the file.
-@property (atomic, copy) NSString *changedFilename;
+@property (atomic, copy) NSString *filename;
 
 // If not nil, the new content to set for the file.
 @property (atomic, copy) NSString *content;

@@ -18,3 +18,17 @@
 @property (nonatomic, copy, readonly) NSDate *creationDate;
 
 @end
+
+// Changes to a gist, or a new gist.
+@interface OCTGistEdit : MTLModel
+
+// If not nil, the new description to set for the gist.
+@property (nonatomic, copy) NSString *description;
+
+// If not nil, the files to add, modify, or delete.
+//
+// Represented as a dictionary of OCTGistFileEdits, keyed by filename. To delete
+// a file, associate its name with NSNull.
+@property (nonatomic, copy) NSDictionary *fileChanges;
+
+@end
