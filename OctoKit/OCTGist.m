@@ -8,6 +8,7 @@
 
 #import "OCTGist.h"
 #import "OCTGistFile.h"
+#import "NSValueTransformer+OCTPredefinedTransformerAdditions.h"
 
 @implementation OCTGist
 
@@ -40,6 +41,10 @@
 
 		return fileDictionaries;
 	}];
+}
+
++ (NSValueTransformer *)creationDateJSONTransformer {
+	return [NSValueTransformer valueTransformerForName:OCTDateValueTransformerName];
 }
 
 @end

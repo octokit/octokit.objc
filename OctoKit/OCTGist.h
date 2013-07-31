@@ -14,4 +14,7 @@
 // The OCTGistFiles in the gist, keyed by filename.
 @property (nonatomic, copy, readonly) NSDictionary *files;
 
+// The date at which the gist was originally created.
+@property (nonatomic, copy, readonly) NSDate *creationDate;
+
 @end
