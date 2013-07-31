@@ -66,6 +66,7 @@
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
 	return [super.JSONKeyPathsByPropertyKey mtl_dictionaryByAddingEntriesFromDictionary:@{
 		@"fileChanges": @"files",
+		@"publicGist": @"public",
 	}];
 }
 

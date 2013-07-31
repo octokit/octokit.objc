@@ -23,12 +23,15 @@
 @interface OCTGistEdit : MTLModel
 
 // If not nil, the new description to set for the gist.
-@property (nonatomic, copy) NSString *description;
+@property (atomic, copy) NSString *description;
 
 // If not nil, the files to add, modify, or delete.
 //
 // Represented as a dictionary of OCTGistFileEdits, keyed by filename. To delete
 // a file, associate its name with NSNull.
-@property (nonatomic, copy) NSDictionary *fileChanges;
+@property (atomic, copy) NSDictionary *fileChanges;
+
+// Whether this gist should be public.
+@property (atomic, getter = isPublicGist, assign) BOOL publicGist;
 
 @end
