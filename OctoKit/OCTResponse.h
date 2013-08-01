@@ -6,11 +6,11 @@
 //  Copyright (c) 2012 GitHub. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import <Mantle/Mantle.h>
 
 // Represents a parsed response from the GitHub API, along with any useful
 // headers.
-@interface OCTResponse : NSObject <NSCopying>
+@interface OCTResponse : MTLModel
 
 // The parsed MTLModel object corresponding to the API response.
 @property (nonatomic, strong, readonly) id parsedResult;
