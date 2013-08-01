@@ -7,27 +7,22 @@
 //
 
 #import "OCTResponse.h"
+#import "EXTKeyPathCoding.h"
 
 @implementation OCTResponse
 
 #pragma mark Lifecycle
 
 - (id)initWithHTTPURLResponse:(NSHTTPURLResponse *)response parsedResult:(id)parsedResult {
-	self = [super init];
-	if (self == nil) return nil;
-
-	_parsedResult = parsedResult;
-	_etag = [response.allHeaderFields[@"ETag"] copy];
-
-	_maximumRequestsPerHour = [response.allHeaderFields[@"X-RateLimit-Limit"] integerValue];
-	_remainingRequests = [response.allHeaderFields[@"X-RateLimit-Remaining"] integerValue];
-
 	NSString *intervalString = response.allHeaderFields[@"X-Poll-Interval"];
-	if (intervalString.length > 0) {
-		_pollInterval = @(intervalString.doubleValue);
-	}
 
-	return self;
+	return [super initWithDictionary:@{
+		@keypath(self.parsedResult): parsedResult ?: NSNull.null,
+		@keypath(self.etag): [response.allHeaderFields[@"ETag"] copy] ?: NSNull.null,
+		@keypath(self.maximumRequestsPerHour): @([response.allHeaderFields[@"X-RateLimit-Limit"] integerValue]),
+		@keypath(self.remainingRequests): @([response.allHeaderFields[@"X-RateLimit-Remaining"] integerValue]),
+		@keypath(self.pollInterval): (intervalString.length > 0 ? @(intervalString.doubleValue) : NSNull.null),
+	} error:NULL];
 }
 
 #pragma mark NSCopying
@@ -40,13 +35,6 @@
 
 - (NSUInteger)hash {
 	return self.etag.hash;
-}
-
-- (BOOL)isEqual:(OCTResponse *)response {
-	if (self == response) return YES;
-	if (![response isKindOfClass:OCTResponse.class]) return NO;
-
-	return [self.etag isEqual:response.etag] && [self.parsedResult isEqual:response.parsedResult];
 }
 
 @end
