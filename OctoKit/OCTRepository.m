@@ -9,7 +9,7 @@
 #import "OCTRepository.h"
 #import "NSValueTransformer+OCTPredefinedTransformerAdditions.h"
 
-static NSString *const OCTRepositoryIssuesStub = @"issues";
+static NSString *const OCTRepositoryHTMLIssuesPath = @"issues";
 
 @implementation OCTRepository
 
@@ -47,7 +47,7 @@ static NSString *const OCTRepositoryIssuesStub = @"issues";
 #pragma mark Derived Properties
 
 - (NSURL *)issuesHTMLURL {
-	return [self.HTMLURL URLByAppendingPathComponent:OCTRepositoryIssuesStub];
+	return [self.HTMLURL URLByAppendingPathComponent:OCTRepositoryHTMLIssuesPath];
 }
 
 #pragma mark Migration
