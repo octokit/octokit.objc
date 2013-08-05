@@ -9,6 +9,8 @@
 #import "OCTRepository.h"
 #import "NSValueTransformer+OCTPredefinedTransformerAdditions.h"
 
+static NSString *const OCTRepositoryHTMLIssuesPath = @"issues";
+
 @implementation OCTRepository
 
 #pragma mark MTLJSONSerializing
@@ -40,6 +42,12 @@
 
 + (NSValueTransformer *)datePushedJSONTransformer {
 	return [NSValueTransformer valueTransformerForName:OCTDateValueTransformerName];
+}
+
+#pragma mark Derived Properties
+
+- (NSURL *)issuesHTMLURL {
+	return [self.HTMLURL URLByAppendingPathComponent:OCTRepositoryHTMLIssuesPath];
 }
 
 #pragma mark Migration
