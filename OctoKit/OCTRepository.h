@@ -53,8 +53,8 @@
 
 // The URL for the issues page in a repository.
 //
-// An issue number may be appended to this path to create an individual issue's
-// HTML URL.
+// An issue number may be appended (as a path component) to this path to create
+// an individual issue's HTML URL.
 @property (nonatomic, copy, readonly) NSURL *issuesHTMLURL;
 
 @end
