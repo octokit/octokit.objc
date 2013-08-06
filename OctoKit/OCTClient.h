@@ -225,12 +225,11 @@ typedef enum : NSUInteger {
 // password - The user's password. Cannot be nil.
 // scopes   - The scopes to request access to. These values can be bitwise OR'd
 //            together to request multiple scopes.
-// note     - The user-facing note to be associated with the requested token.
-//            Cannot be nil.
+// clientID - The OAuth client ID for the application. Cannot be nil.
 //
 // Returns a signal which will send an OCTAuthorization and complete. If no
 // `user` is set, the signal will error immediately.
-- (RACSignal *)requestAuthorizationWithPassword:(NSString *)password scopes:(OCTClientAuthorizationScopes)scopes note:(NSString *)note;
+- (RACSignal *)requestAuthorizationWithPassword:(NSString *)password scopes:(OCTClientAuthorizationScopes)scopes clientID:(NSString *)clientID;
 
 // Requests an authorization token with the current `user`, password, and one-
 // time password.
@@ -244,33 +243,11 @@ typedef enum : NSUInteger {
 //                   password.
 // scopes          - The scopes to request access to. These values can be
 //                   bitwise OR'd together to request multiple scopes.
-// note            - The user-facing note to be associated with the requested
-//                   token. Cannot be nil.
+// clientID        - The OAuth client ID for the application. Cannot be nil.
 //
 // Returns a signal which will send an OCTAuthorization and complete. If no
 // `user` is set, the signal will error immediately.
-- (RACSignal *)requestAuthorizationWithPassword:(NSString *)password oneTimePassword:(NSString *)oneTimePassword scopes:(OCTClientAuthorizationScopes)scopes note:(NSString *)note;
-
-// Fetches the authorization with the given ID.
-//
-// ID       - The ID of the authorization to fetch. Cannot be nil.
-// password - The password for `user`. Cannot be nil.
-//
-// Returns a signal which will send the OCTAuthorization and complete, or error
-// if the authorization cannot be found. If no `user` is set, the signal will
-// error immediately.
-- (RACSignal *)fetchAuthorizationWithID:(NSString *)ID password:(NSString *)password;
-
-// Fetches the authorization with the given ID.
-//
-// ID              - The ID of the authorization to fetch. Cannot be nil.
-// password        - The password for `user`. Cannot be nil.
-// oneTimePassword - The one-time password for `user`. May be nil.
-//
-// Returns a signal which will send the OCTAuthorization and complete, or error
-// if the authorization cannot be found. If no `user` is set, the signal will
-// error immediately.
-- (RACSignal *)fetchAuthorizationWithID:(NSString *)ID password:(NSString *)password oneTimePassword:(NSString *)oneTimePassword;
+- (RACSignal *)requestAuthorizationWithPassword:(NSString *)password oneTimePassword:(NSString *)oneTimePassword scopes:(OCTClientAuthorizationScopes)scopes clientID:(NSString *)clientID;
 
 @end
 
