@@ -278,19 +278,11 @@ describe(@"authenticated", ^{
 		expect(success).to.beTruthy();
 		expect(error).to.beNil();
 	});
-
-	it(@"should fetch an authorization", ^{
-		stubResponse(@"/authorizations/1", @"authorizations.json");
-
-		RACSignal *request = [client fetchAuthorizationWithID:@"1" password:@""];
-		OCTAuthorization *authorization = [request asynchronousFirstOrDefault:nil success:NULL error:NULL];
-		expect(authorization).notTo.beNil();
-		expect(authorization.objectID).to.equal(@"1");
-		expect(authorization.token).to.equal(@"abc123");
-	});
 });
 
 describe(@"unauthenticated", ^{
+	static NSString * const OCTClientSpecClientID = @"deadbeef";
+
 	__block OCTUser *user;
 	__block OCTClient *client;
 
@@ -306,14 +298,14 @@ describe(@"unauthenticated", ^{
 
 	it(@"should send the appropriate error when requesting authorization with 2FA on", ^{
 		[OHHTTPStubs addRequestHandler:^ id (NSURLRequest *request, BOOL onlyCheck) {
-			if (![request.URL.path isEqual:@"/authorizations"] || ![request.HTTPMethod isEqual:@"POST"]) return nil;
+			if (![request.URL.path isEqual:[NSString stringWithFormat:@"/authorizations/clients/%@", OCTClientSpecClientID]] || ![request.HTTPMethod isEqual:@"PUT"]) return nil;
 
 			NSURL *fileURL = [[NSBundle bundleForClass:self.class] URLForResource:@"authorizations" withExtension:@"json"];
 			NSDictionary *headers = @{ @"X-GitHub-OTP": @"required; sms" };
 			return [OHHTTPStubsResponse responseWithFileURL:fileURL statusCode:401 responseTime:0 headers:headers];
 		}];
 
-		RACSignal *request = [client requestAuthorizationWithPassword:@"" scopes:OCTClientAuthorizationScopesRepository note:@"test"];
+		RACSignal *request = [client requestAuthorizationWithPassword:@"" scopes:OCTClientAuthorizationScopesRepository clientID:OCTClientSpecClientID];
 		NSError *error;
 		BOOL success = [request asynchronouslyWaitUntilCompleted:&error];
 		expect(success).to.beFalsy();
@@ -323,9 +315,9 @@ describe(@"unauthenticated", ^{
 	});
 
 	it(@"should request authorization", ^{
-		stubResponse(@"/authorizations", @"authorizations.json");
+		stubResponse([NSString stringWithFormat:@"/authorizations/clients/%@", OCTClientSpecClientID], @"authorizations.json");
 
-		RACSignal *request = [client requestAuthorizationWithPassword:@"" scopes:OCTClientAuthorizationScopesRepository note:@"test"];
+		RACSignal *request = [client requestAuthorizationWithPassword:@"" scopes:OCTClientAuthorizationScopesRepository clientID:OCTClientSpecClientID];
 		OCTAuthorization *authorization = [request asynchronousFirstOrDefault:nil success:NULL error:NULL];
 		expect(authorization).notTo.beNil();
 		expect(authorization.objectID).to.equal(@"1");
