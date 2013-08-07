@@ -37,10 +37,15 @@
 + (NSString *)oct_stringFromDate:(NSDate *)date {
 	NSParameterAssert(date != nil);
 
-	NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-	formatter.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"];
-	formatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:ss'Z'";
-	formatter.timeZone = [NSTimeZone timeZoneWithAbbreviation:@"UTC"];
+	static NSDateFormatter *formatter = nil;
+	static dispatch_once_t pred;
+	dispatch_once(&pred, ^{
+		formatter = [[NSDateFormatter alloc] init];
+		formatter.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"];
+		formatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:ss'Z'";
+		formatter.timeZone = [NSTimeZone timeZoneWithAbbreviation:@"UTC"];
+	});
+
 	return [formatter stringFromDate:date];
 }
 
