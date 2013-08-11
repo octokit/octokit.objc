@@ -508,37 +508,26 @@ static NSString * const OCTClientOneTimePasswordHeaderField = @"X-GitHub-OTP";
 	return [self enqueueRequest:request resultClass:OCTAuthorization.class];
 }
 
-- (RACSignal *)requestAuthorizationWithPassword:(NSString *)password oneTimePassword:(NSString *)oneTimePassword scopes:(OCTClientAuthorizationScopes)scopes note:(NSString *)note {
+- (RACSignal *)requestAuthorizationWithPassword:(NSString *)password oneTimePassword:(NSString *)oneTimePassword scopes:(OCTClientAuthorizationScopes)scopes clientID:(NSString *)clientID clientSecret:(NSString *)clientSecret {
 	NSParameterAssert(password != nil);
-	NSParameterAssert(note != nil);
+	NSParameterAssert(clientID != nil);
+	NSParameterAssert(clientSecret != nil);
 
 	NSDictionary *params = @{
 		@"scopes": [self scopesArrayFromScopes:scopes],
-		@"note": note,
+		@"client_secret": clientSecret,
 	};
 
-	return [[self enqueueAuthorizationRequestWithMethod:@"POST" path:@"authorizations" parameters:params password:password oneTimePassword:oneTimePassword] oct_parsedResults];
+	NSString *path = [NSString stringWithFormat:@"authorizations/clients/%@", clientID];
+	return [[self enqueueAuthorizationRequestWithMethod:@"PUT" path:path parameters:params password:password oneTimePassword:oneTimePassword] oct_parsedResults];
 }
 
-- (RACSignal *)requestAuthorizationWithPassword:(NSString *)password scopes:(OCTClientAuthorizationScopes)scopes note:(NSString *)note {
+- (RACSignal *)requestAuthorizationWithPassword:(NSString *)password scopes:(OCTClientAuthorizationScopes)scopes clientID:(NSString *)clientID clientSecret:(NSString *)clientSecret {
 	NSParameterAssert(password != nil);
-	NSParameterAssert(note != nil);
+	NSParameterAssert(clientID != nil);
+	NSParameterAssert(clientSecret != nil);
 
-	return [self requestAuthorizationWithPassword:password oneTimePassword:nil scopes:scopes note:note];
-}
-
-- (RACSignal *)fetchAuthorizationWithID:(NSString *)ID password:(NSString *)password {
-	NSParameterAssert(ID != nil);
-	NSParameterAssert(password != nil);
-
-	return [self fetchAuthorizationWithID:ID password:password oneTimePassword:nil];
-}
-
-- (RACSignal *)fetchAuthorizationWithID:(NSString *)ID password:(NSString *)password oneTimePassword:(NSString *)oneTimePassword {
-	NSParameterAssert(ID != nil);
-	NSParameterAssert(password != nil);
-
-	return [[self enqueueAuthorizationRequestWithMethod:@"GET" path:[NSString stringWithFormat:@"authorizations/%@", ID] parameters:nil password:password oneTimePassword:oneTimePassword] oct_parsedResults];
+	return [self requestAuthorizationWithPassword:password oneTimePassword:nil scopes:scopes clientID:clientID clientSecret:clientSecret];
 }
 
 @end
