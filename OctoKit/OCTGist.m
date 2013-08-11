@@ -24,24 +24,27 @@
 + (NSValueTransformer *)filesJSONTransformer {
 	NSValueTransformer *dictionaryTransformer = [NSValueTransformer mtl_JSONDictionaryTransformerWithModelClass:OCTGistFile.class];
 
-	return [MTLValueTransformer reversibleTransformerWithForwardBlock:^(NSDictionary *fileDictionaries) {
+	return [MTLValueTransformer reversibleTransformerWithForwardBlock:^ id (NSDictionary *fileDictionaries) {
+		if (![fileDictionaries isKindOfClass:NSDictionary.class]) return nil;
+
 		NSMutableDictionary *files = [[NSMutableDictionary alloc] initWithCapacity:fileDictionaries.count];
 		[fileDictionaries enumerateKeysAndObjectsUsingBlock:^(NSString *filename, NSDictionary *fileDictionary, BOOL *stop) {
 			OCTGistFile *file = [dictionaryTransformer transformedValue:fileDictionary];
-
-			// FIXME
 			if (file != nil) files[filename] = file;
 		}];
 
 		return files;
-	} reverseBlock:^(NSDictionary *files) {
-		NSMutableDictionary *fileDictionaries = [[NSMutableDictionary alloc] initWithCapacity:files.count];
-		[files enumerateKeysAndObjectsUsingBlock:^(NSString *filename, OCTGistFile *file, BOOL *stop) {
-			NSDictionary *fileDictionary = [dictionaryTransformer reverseTransformedValue:file];
+	} reverseBlock:^ id (NSDictionary *files) {
+		if (![files isKindOfClass:NSDictionary.class]) return nil;
 
-			// FIXME
-			if (fileDictionary != nil) fileDictionaries[filename] = fileDictionary;
-		}];
+		NSMutableDictionary *fileDictionaries = [[NSMutableDictionary alloc] initWithCapacity:files.count];
+		for (NSString *filename in fileDictionaries) {
+			OCTGistFile *file = fileDictionaries[filename];
+			NSDictionary *fileDictionary = [dictionaryTransformer reverseTransformedValue:file];
+			if (fileDictionary == nil) return nil;
+			
+			fileDictionaries[filename] = fileDictionary;
+		}
 
 		return fileDictionaries;
 	}];
@@ -73,24 +76,27 @@
 + (NSValueTransformer *)fileChangesJSONTransformer {
 	NSValueTransformer *transformer = [NSValueTransformer mtl_JSONDictionaryTransformerWithModelClass:OCTGistFileEdit.class];
 
-	return [MTLValueTransformer reversibleTransformerWithForwardBlock:^(NSDictionary *files) {
+	return [MTLValueTransformer reversibleTransformerWithForwardBlock:^ id (NSDictionary *files) {
+		if (![files isKindOfClass:NSDictionary.class]) return nil;
+
 		NSMutableDictionary *fileChanges = [NSMutableDictionary dictionaryWithCapacity:files.count];
-		[files enumerateKeysAndObjectsUsingBlock:^(NSString *filename, NSDictionary *change, BOOL *stop) {
+		for (NSString *filename in files) {
+			NSDictionary *change in files[filename];
 			if ([change isEqual:NSNull.null]) {
 				fileChanges[filename] = NSNull.null;
-				return;
+				continue;
 			}
 
 			OCTGistFileEdit *edit = [transformer transformedValue:change];
-			
-			// FIXME
-			if (edit == nil) return;
+			if (edit == nil) return nil;
 
 			fileChanges[filename] = edit;
-		}];
+		}
 
 		return fileChanges;
-	} reverseBlock:^(NSDictionary *fileChanges) {
+	} reverseBlock:^ id (NSDictionary *fileChanges) {
+		if (![fileChanges isKindOfClass:NSDictionary.class]) return nil;
+
 		NSMutableDictionary *files = [NSMutableDictionary dictionaryWithCapacity:fileChanges.count];
 		[fileChanges enumerateKeysAndObjectsUsingBlock:^(NSString *filename, OCTGistFileEdit *edit, BOOL *stop) {
 			if ([edit isEqual:NSNull.null]) {
@@ -99,8 +105,6 @@
 			}
 
 			NSDictionary *changes = [transformer reverseTransformedValue:edit];
-			
-			// FIXME
 			if (changes == nil) return;
 
 			files[filename] = changes;
