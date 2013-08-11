@@ -506,23 +506,26 @@ static NSString * const OCTClientOneTimePasswordHeaderField = @"X-GitHub-OTP";
 	return [self enqueueRequest:request resultClass:OCTAuthorization.class];
 }
 
-- (RACSignal *)requestAuthorizationWithPassword:(NSString *)password oneTimePassword:(NSString *)oneTimePassword scopes:(OCTClientAuthorizationScopes)scopes clientID:(NSString *)clientID {
+- (RACSignal *)requestAuthorizationWithPassword:(NSString *)password oneTimePassword:(NSString *)oneTimePassword scopes:(OCTClientAuthorizationScopes)scopes clientID:(NSString *)clientID clientSecret:(NSString *)clientSecret {
 	NSParameterAssert(password != nil);
 	NSParameterAssert(clientID != nil);
+	NSParameterAssert(clientSecret != nil);
 
 	NSDictionary *params = @{
 		@"scopes": [self scopesArrayFromScopes:scopes],
+		@"client_secret": clientSecret,
 	};
 
 	NSString *path = [NSString stringWithFormat:@"authorizations/clients/%@", clientID];
 	return [[self enqueueAuthorizationRequestWithMethod:@"PUT" path:path parameters:params password:password oneTimePassword:oneTimePassword] oct_parsedResults];
 }
 
-- (RACSignal *)requestAuthorizationWithPassword:(NSString *)password scopes:(OCTClientAuthorizationScopes)scopes clientID:(NSString *)clientID {
+- (RACSignal *)requestAuthorizationWithPassword:(NSString *)password scopes:(OCTClientAuthorizationScopes)scopes clientID:(NSString *)clientID clientSecret:(NSString *)clientSecret {
 	NSParameterAssert(password != nil);
 	NSParameterAssert(clientID != nil);
+	NSParameterAssert(clientSecret != nil);
 
-	return [self requestAuthorizationWithPassword:password oneTimePassword:nil scopes:scopes clientID:clientID];
+	return [self requestAuthorizationWithPassword:password oneTimePassword:nil scopes:scopes clientID:clientID clientSecret:clientSecret];
 }
 
 @end

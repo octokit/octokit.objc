@@ -211,6 +211,22 @@ typedef enum : NSUInteger {
 	OCTClientOneTimePasswordMediumApp,
 } OCTClientOneTimePasswordMedium;
 
+// Authorization is done using a client-side OAuth flow. This allows native apps
+// to implement a native authentication flow, while minimizing the amount of
+// time the client app needs the user's password. The flow is:
+//   * Create an OAuth app on GitHub.com.
+//   * Use the APIs below to request authorization for the user, with the client
+//     ID and secret for your OAuth app.
+//   * Use the OCTAuthorization's token and
+//     +[OCTClient authenticatedClientWithUser:token:] to perform requests with
+//     your authorization.
+//
+// Note that because the client secret will be embedded in your app and sent
+// over the user's internet connection, the secret isn't terribly secret. To
+// help mitigate the risk of a web app stealing and using your client ID and
+// secret, set your the Callback URL for your OAuth app to a URL you control.
+// Even though this URL won't be used by your app, this will prevent other apps
+// from using your client ID and secret in a web flow.
 @interface OCTClient (Authorization)
 
 // Requests an authorization token with the current `user` and given password.
@@ -222,14 +238,15 @@ typedef enum : NSUInteger {
 // then use `-requestAuthorizationTokenWithPassword:oneTimePassword:scopes:note:`
 // to again request authorization with the one-time password.
 //
-// password - The user's password. Cannot be nil.
-// scopes   - The scopes to request access to. These values can be bitwise OR'd
-//            together to request multiple scopes.
-// clientID - The OAuth client ID for the application. Cannot be nil.
+// password     - The user's password. Cannot be nil.
+// scopes       - The scopes to request access to. These values can be bitwise
+//                OR'd together to request multiple scopes.
+// clientID     - The OAuth client ID for the application. Cannot be nil.
+// clientSecret - The OAuth client secret for the application. Cannot be nil.
 //
 // Returns a signal which will send an OCTAuthorization and complete. If no
 // `user` is set, the signal will error immediately.
-- (RACSignal *)requestAuthorizationWithPassword:(NSString *)password scopes:(OCTClientAuthorizationScopes)scopes clientID:(NSString *)clientID;
+- (RACSignal *)requestAuthorizationWithPassword:(NSString *)password scopes:(OCTClientAuthorizationScopes)scopes clientID:(NSString *)clientID clientSecret:(NSString *)clientSecret;
 
 // Requests an authorization token with the current `user`, password, and one-
 // time password.
@@ -244,10 +261,11 @@ typedef enum : NSUInteger {
 // scopes          - The scopes to request access to. These values can be
 //                   bitwise OR'd together to request multiple scopes.
 // clientID        - The OAuth client ID for the application. Cannot be nil.
+// clientSecret    - The OAuth client secret for the application. Cannot be nil.
 //
 // Returns a signal which will send an OCTAuthorization and complete. If no
 // `user` is set, the signal will error immediately.
-- (RACSignal *)requestAuthorizationWithPassword:(NSString *)password oneTimePassword:(NSString *)oneTimePassword scopes:(OCTClientAuthorizationScopes)scopes clientID:(NSString *)clientID;
+- (RACSignal *)requestAuthorizationWithPassword:(NSString *)password oneTimePassword:(NSString *)oneTimePassword scopes:(OCTClientAuthorizationScopes)scopes clientID:(NSString *)clientID clientSecret:(NSString *)clientSecret;
 
 @end
 
