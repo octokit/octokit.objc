@@ -10,15 +10,17 @@
 
 // Represents the type of a git reference.
 //
-// OCTRefTypeUnknown - An unknown type of reference. Ref events will never
-//                     be initialized with this value -- they will simply
-//                     fail to be created.
-// OCTRefTypeBranch  - A branch in a repository.
-// OCTRefTypeTag     - A tag in a repository.
+// OCTRefTypeUnknown    - An unknown type of reference. Ref events will never
+//                        be initialized with this value -- they will simply
+//                        fail to be created.
+// OCTRefTypeBranch     - A branch in a repository.
+// OCTRefTypeTag        - A tag in a repository.
+// OCTRefTypeRepository - A repository.
 typedef enum : NSUInteger {
     OCTRefTypeUnknown = 0,
     OCTRefTypeBranch,
-    OCTRefTypeTag
+    OCTRefTypeTag,
+    OCTRefTypeRepository
 } OCTRefType;
 
 // The type of event that occurred around a reference.
