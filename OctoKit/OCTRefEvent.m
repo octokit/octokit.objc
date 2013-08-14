@@ -24,6 +24,7 @@
 	NSDictionary *typesByName = @{
 		@"branch": @(OCTRefTypeBranch),
 		@"tag": @(OCTRefTypeTag),
+		@"repository": @(OCTRefTypeRepository),
 	};
 
 	return [MTLValueTransformer
