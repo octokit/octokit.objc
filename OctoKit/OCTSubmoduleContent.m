@@ -15,6 +15,7 @@
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
 	return [super.JSONKeyPathsByPropertyKey mtl_dictionaryByAddingEntriesFromDictionary:@{
 		@"submoduleGitURL": @"submodule_git_url",
+		@"size": NSNull.null
 	}];
 }
 

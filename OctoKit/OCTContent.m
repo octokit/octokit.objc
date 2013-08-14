@@ -42,6 +42,9 @@
 
 + (Class)classForParsingJSONDictionary:(NSDictionary *)JSONDictionary {
 	NSString *type = JSONDictionary[@"type"];
+	if(![JSONDictionary[@"size"] isKindOfClass:[NSNumber class]] && [type isEqualToString:@"file"]) {
+		type = @"submodule";
+	}
 	NSAssert(type != nil, @"OCTContent JSON dictionary must contain a type string.");
 	Class class = self.contentClassesByType[type];
 	NSAssert(class != Nil, @"No known OCTContent class for the type '%@'.", type);
