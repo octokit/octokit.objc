@@ -15,10 +15,12 @@
 //                     fail to be created.
 // OCTRefTypeBranch  - A branch in a repository.
 // OCTRefTypeTag     - A tag in a repository.
+// OCTRefTypeRepository - A repository.
 typedef enum : NSUInteger {
     OCTRefTypeUnknown = 0,
     OCTRefTypeBranch,
-    OCTRefTypeTag
+    OCTRefTypeTag,
+    OCTRefTypeRepository
 } OCTRefType;
 
 // The type of event that occurred around a reference.
