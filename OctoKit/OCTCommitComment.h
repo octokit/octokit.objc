@@ -20,4 +20,13 @@
 // The login of the user who created this comment.
 @property (nonatomic, copy, readonly) NSString *commenterLogin;
 
+// The path of the file being commented on.
+@property (nonatomic, copy, readonly) NSString *path;
+
+// The body of the commit comment.
+@property (nonatomic, copy, readonly) NSString *body;
+
+// The line index commit's diff.
+@property (nonatomic, assign, readonly) NSNumber *position;
+
 @end
