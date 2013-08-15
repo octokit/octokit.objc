@@ -8,13 +8,15 @@
 
 #import <AFNetworking/AFNetworking.h>
 
+@class OCTGist;
+@class OCTGistEdit;
 @class OCTNotification;
 @class OCTOrganization;
+@class OCTRepository;
 @class OCTServer;
 @class OCTTeam;
 @class OCTUser;
 @class RACSignal;
-@class OCTRepository;
 
 // The domain for all errors originating in OCTClient.
 extern NSString * const OCTClientErrorDomain;
@@ -434,5 +436,32 @@ typedef enum : NSUInteger {
 //
 // Returns a signal of zero or one OCTRepository.
 - (RACSignal *)fetchRepositoryWithName:(NSString *)name owner:(NSString *)owner;
+
+@end
+
+@interface OCTClient (Gist)
+
+// Fetches all the gists for the current user.
+//
+// Returns a signal which will send zero or more OCTGists and complete. If the client
+// is not `authenticated`, the signal will error immediately.
+- (RACSignal *)fetchGists;
+
+// Edits one or more files within a gist.
+//
+// edit - The changes to make to the gist. This must not be nil.
+// gist - The gist to modify. This must not be nil.
+//
+// Returns a signal which will send the updated OCTGist and complete. If the client
+// is not `authenticated`, the signal will error immediately.
+- (RACSignal *)applyEdit:(OCTGistEdit *)edit toGist:(OCTGist *)gist;
+
+// Creates a gist using the given changes.
+//
+// edit - The changes to use for creating the gist. This must not be nil.
+//
+// Returns a signal which will send the created OCTGist and complete. If the client
+// is not `authenticated`, the signal will error immediately.
+- (RACSignal *)createGistWithEdit:(OCTGistEdit *)edit;
 
 @end
