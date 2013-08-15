@@ -62,12 +62,42 @@
 
 @end
 
+@interface OCTGistEdit ()
+
+// A combination of the information in `filesToModify`, `filesToAdd`, and
+// `filenamesToDelete`, used for easy JSON serialization.
+//
+// This dictionary contains OCTGistFileEdits keyed by filename. Deleted
+// filenames will have an NSNull value.
+@property (atomic, copy, readonly) NSDictionary *fileChanges;
+
+@end
+
 @implementation OCTGistEdit
+
+#pragma mark Properties
+
+- (NSDictionary *)fileChanges {
+	NSMutableDictionary *edits = [self.filesToModify mutableCopy] ?: [NSMutableDictionary dictionary];
+
+	for (OCTGistFileEdit *edit in self.filesToAdd) {
+		edits[edit.filename] = edit;
+	}
+
+	for (NSString *filename in self.filenamesToDelete) {
+		edits[filename] = NSNull.null;
+	}
+
+	return edits;
+}
 
 #pragma mark MTLJSONSerializing
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
 	return @{
+		@"filesToModify": NSNull.null,
+		@"filesToAdd": NSNull.null,
+		@"filenamesToDelete": NSNull.null,
 		@"fileChanges": @"files",
 		@"publicGist": @"public",
 	};
@@ -81,7 +111,7 @@
 
 		NSMutableDictionary *fileChanges = [NSMutableDictionary dictionaryWithCapacity:files.count];
 		for (NSString *filename in files) {
-			NSDictionary *change in files[filename];
+			NSDictionary *change = files[filename];
 			if ([change isEqual:NSNull.null]) {
 				fileChanges[filename] = NSNull.null;
 				continue;

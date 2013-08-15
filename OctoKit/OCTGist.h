@@ -20,16 +20,24 @@
 @end
 
 // Changes to a gist, or a new gist.
+//
+// This model only supports being transformed _to_ JSON. It cannot be
+// deserialized from JSON.
 @interface OCTGistEdit : MTLModel <MTLJSONSerializing>
 
 // If not nil, the new description to set for the gist.
 @property (atomic, copy) NSString *description;
 
-// If not nil, the files to add, modify, or delete.
+// Files to modify, represented as OCTGistFileEdits keyed by filename.
+@property (atomic, copy) NSDictionary *filesToModify;
+
+// Files to add, represented as OCTGistFileEdits.
 //
-// Represented as a dictionary of OCTGistFileEdits, keyed by filename. To delete
-// a file, associate its name with NSNull.
-@property (atomic, copy) NSDictionary *fileChanges;
+// Each edit must have a `filename` and `content`.
+@property (atomic, copy) NSArray *filesToAdd;
+
+// The names of files to delete.
+@property (atomic, copy) NSArray *filenamesToDelete;
 
 // Whether this gist should be public.
 @property (atomic, getter = isPublicGist, assign) BOOL publicGist;
