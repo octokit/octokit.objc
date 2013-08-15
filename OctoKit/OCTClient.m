@@ -731,9 +731,7 @@ static NSString * const OCTClientOneTimePasswordHeaderField = @"X-GitHub-OTP";
 
 	if (!self.authenticated) return [RACSignal error:self.class.authenticationRequiredError];
 
-	NSValueTransformer *transformer = [NSValueTransformer mtl_JSONDictionaryTransformerWithModelClass:edit.class];
-	NSDictionary *parameters = [transformer reverseTransformedValue:edit];
-
+	NSDictionary *parameters = [MTLJSONAdapter JSONDictionaryFromModel:edit];
 	NSURLRequest *request = [self requestWithMethod:@"PATCH" path:[NSString stringWithFormat:@"gists/%@", gist.objectID] parameters:parameters notMatchingEtag:nil];
 	return [[self enqueueRequest:request resultClass:OCTGist.class] oct_parsedResults];
 }
@@ -743,9 +741,7 @@ static NSString * const OCTClientOneTimePasswordHeaderField = @"X-GitHub-OTP";
 
 	if (!self.authenticated) return [RACSignal error:self.class.authenticationRequiredError];
 
-	NSValueTransformer *transformer = [NSValueTransformer mtl_JSONDictionaryTransformerWithModelClass:edit.class];
-	NSDictionary *parameters = [transformer reverseTransformedValue:edit];
-
+	NSDictionary *parameters = [MTLJSONAdapter JSONDictionaryFromModel:edit];
 	NSURLRequest *request = [self requestWithMethod:@"POST" path:@"gists" parameters:parameters notMatchingEtag:nil];
 	return [[self enqueueRequest:request resultClass:OCTGist.class] oct_parsedResults];
 }
