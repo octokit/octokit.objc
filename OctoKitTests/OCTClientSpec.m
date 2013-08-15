@@ -282,6 +282,7 @@ describe(@"authenticated", ^{
 
 describe(@"unauthenticated", ^{
 	static NSString * const OCTClientSpecClientID = @"deadbeef";
+	static NSString * const OCTClientSpecClientSecret = @"itsasekret";
 
 	__block OCTUser *user;
 	__block OCTClient *client;
@@ -305,7 +306,7 @@ describe(@"unauthenticated", ^{
 			return [OHHTTPStubsResponse responseWithFileURL:fileURL statusCode:401 responseTime:0 headers:headers];
 		}];
 
-		RACSignal *request = [client requestAuthorizationWithPassword:@"" scopes:OCTClientAuthorizationScopesRepository clientID:OCTClientSpecClientID];
+		RACSignal *request = [client requestAuthorizationWithPassword:@"" scopes:OCTClientAuthorizationScopesRepository clientID:OCTClientSpecClientID clientSecret:OCTClientSpecClientSecret];
 		NSError *error;
 		BOOL success = [request asynchronouslyWaitUntilCompleted:&error];
 		expect(success).to.beFalsy();
@@ -317,7 +318,7 @@ describe(@"unauthenticated", ^{
 	it(@"should request authorization", ^{
 		stubResponse([NSString stringWithFormat:@"/authorizations/clients/%@", OCTClientSpecClientID], @"authorizations.json");
 
-		RACSignal *request = [client requestAuthorizationWithPassword:@"" scopes:OCTClientAuthorizationScopesRepository clientID:OCTClientSpecClientID];
+		RACSignal *request = [client requestAuthorizationWithPassword:@"" scopes:OCTClientAuthorizationScopesRepository clientID:OCTClientSpecClientID clientSecret:OCTClientSpecClientSecret];
 		OCTAuthorization *authorization = [request asynchronousFirstOrDefault:nil success:NULL error:NULL];
 		expect(authorization).notTo.beNil();
 		expect(authorization.objectID).to.equal(@"1");
