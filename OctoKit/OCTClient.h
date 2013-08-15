@@ -443,7 +443,7 @@ typedef enum : NSUInteger {
 
 // Fetches all the gists for the current user.
 //
-// Returns a signal which will zero or more OCTGists and complete. If the client
+// Returns a signal which will send zero or more OCTGists and complete. If the client
 // is not `authenticated`, the signal will error immediately.
 - (RACSignal *)fetchGists;
 
@@ -452,7 +452,7 @@ typedef enum : NSUInteger {
 // edit - The changes to make to the gist. This must not be nil.
 // gist - The gist to modify. This must not be nil.
 //
-// Returns a signal which will the updated OCTGist and complete. If the client
+// Returns a signal which will send the updated OCTGist and complete. If the client
 // is not `authenticated`, the signal will error immediately.
 - (RACSignal *)applyEdit:(OCTGistEdit *)edit toGist:(OCTGist *)gist;
 
@@ -460,7 +460,7 @@ typedef enum : NSUInteger {
 //
 // edit - The changes to use for creating the gist. This must not be nil.
 //
-// Returns a signal which will the created OCTGist and complete. If the client
+// Returns a signal which will send the created OCTGist and complete. If the client
 // is not `authenticated`, the signal will error immediately.
 - (RACSignal *)createGistWithEdit:(OCTGistEdit *)edit;
 
