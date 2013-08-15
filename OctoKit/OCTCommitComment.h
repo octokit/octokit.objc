@@ -27,6 +27,6 @@
 @property (nonatomic, copy, readonly) NSString *body;
 
 // The line index commit's diff.
-@property (nonatomic, assign, readonly) NSNumber *position;
+@property (nonatomic, copy, readonly) NSNumber *position;
 
 @end
