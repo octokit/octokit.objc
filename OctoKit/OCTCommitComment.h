@@ -26,7 +26,7 @@
 // The body of the commit comment.
 @property (nonatomic, copy, readonly) NSString *body;
 
-// The line index commit's diff.
+// The line index in the commit's diff.
 @property (nonatomic, copy, readonly) NSNumber *position;
 
 @end
