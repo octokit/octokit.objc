@@ -54,6 +54,9 @@ it(@"should initialize", ^{
 	expect(comment.objectID).to.equal(@"1");
 	expect(comment.HTMLURL).to.equal([NSURL URLWithString:@"https://github.com/octocat/Hello-World/commit/6dcb09b5b57875f334f61aebed695e2e4193db5e#commitcomment-1"]);
 	expect(comment.commitSHA).to.equal(@"6dcb09b5b57875f334f61aebed695e2e4193db5e");
+	expect(comment.body).to.equal(@"Great stuff");
+	expect(comment.path).to.equal(@"file1.txt");
+	expect(comment.position).to.equal(@(4));
 });
 
 SpecEnd
