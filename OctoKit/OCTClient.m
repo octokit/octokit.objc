@@ -112,8 +112,9 @@ static const NSInteger OCTClientNotModifiedStatusCode = 304;
 	if (self == nil) return nil;
 	
 	self.parameterEncoding = AFJSONParameterEncoding;
+	[AFJSONRequestOperation addAcceptableContentTypes:[NSSet setWithObject:@"application/vnd.github.beta+json"]];
 	[self registerHTTPOperationClass:AFJSONRequestOperation.class];
-	[self setDefaultHeader:@"Accept" value:@"application/json"];
+	[self setDefaultHeader:@"Accept" value:@"application/vnd.github.beta+json"];
 	[AFHTTPRequestOperation addAcceptableStatusCodes:[NSIndexSet indexSetWithIndex:OCTClientNotModifiedStatusCode]];
 
 	return self;
