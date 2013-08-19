@@ -55,6 +55,7 @@
 		D0476E9A17791B630071F3CB /* ISO8601DateFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = D0476E9717791B630071F3CB /* ISO8601DateFormatter.m */; };
 		D0476EA017791B8D0071F3CB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0476DC5177916920071F3CB /* Foundation.framework */; };
 		D0476EA117791B940071F3CB /* ISO8601DateFormatter.h in Headers */ = {isa = PBXBuildFile; fileRef = D0476E9617791B630071F3CB /* ISO8601DateFormatter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F688018817C1CA7600ECC7EC /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F688018717C1CA7600ECC7EC /* Security.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -114,6 +115,7 @@
 		D0476E9C17791B6D0071F3CB /* LICENSE.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = LICENSE.txt; path = ../../ISO8601DateFormatter/LICENSE.txt; sourceTree = "<group>"; };
 		D0476E9D17791B770071F3CB /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; name = LICENSE; path = ../../AFNetworking/LICENSE; sourceTree = "<group>"; };
 		D0476E9E17791B770071F3CB /* README.md */ = {isa = PBXFileReference; lastKnownFileType = text; name = README.md; path = ../../AFNetworking/README.md; sourceTree = "<group>"; };
+		F688018717C1CA7600ECC7EC /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -121,6 +123,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F688018817C1CA7600ECC7EC /* Security.framework in Frameworks */,
 				D0476E291779181C0071F3CB /* AppKit.framework in Frameworks */,
 				D0476E23177918020071F3CB /* SystemConfiguration.framework in Frameworks */,
 				D0476DFA177916DC0071F3CB /* Foundation.framework in Frameworks */,
@@ -245,6 +248,7 @@
 		D0476DBF177916920071F3CB /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				F688018717C1CA7600ECC7EC /* Security.framework */,
 				D0476E281779181C0071F3CB /* AppKit.framework */,
 				D0476DC5177916920071F3CB /* Foundation.framework */,
 				D0476E261779180B0071F3CB /* MobileCoreServices.framework */,
