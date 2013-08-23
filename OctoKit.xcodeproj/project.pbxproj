@@ -238,6 +238,8 @@
 		D0DD8EF917BC5C0300657FDA /* OCTGistSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = D0DD8EF717BC5C0300657FDA /* OCTGistSpec.m */; };
 		D0E41B8716DFF37E00E321CF /* notifications.json in Resources */ = {isa = PBXBuildFile; fileRef = D0E41B8616DFF37E00E321CF /* notifications.json */; };
 		D0E41B8816DFF37E00E321CF /* notifications.json in Resources */ = {isa = PBXBuildFile; fileRef = D0E41B8616DFF37E00E321CF /* notifications.json */; };
+		F688018C17C1CE0F00ECC7EC /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F688018B17C1CE0F00ECC7EC /* Security.framework */; };
+		F688019D17C1CE3200ECC7EC /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F688019C17C1CE3200ECC7EC /* CoreGraphics.framework */; };
 		F6CF78D416E993A500A75F63 /* RACSignal+OCTClientAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = F6CF78D216E993A500A75F63 /* RACSignal+OCTClientAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F6CF78D516E993A500A75F63 /* RACSignal+OCTClientAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = F6CF78D216E993A500A75F63 /* RACSignal+OCTClientAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F6CF78D616E993A500A75F63 /* RACSignal+OCTClientAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = F6CF78D316E993A500A75F63 /* RACSignal+OCTClientAdditions.m */; };
@@ -534,6 +536,20 @@
 			remoteGlobalIDString = 88F440AA153DAC820097B4C3;
 			remoteInfo = "ReactiveCocoa-iOS";
 		};
+		F688019617C1CE0F00ECC7EC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D0C636591777AB9300F486A9 /* ReactiveCocoa.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 1860F412177C91B500C7B3C9;
+			remoteInfo = "ReactiveCocoa-iOS-UIKitTestHost";
+		};
+		F688019817C1CE0F00ECC7EC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D0C636591777AB9300F486A9 /* ReactiveCocoa.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 1860F430177C91B500C7B3C9;
+			remoteInfo = "ReactiveCocoa-iOS-UIKitTestHostTests";
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -677,6 +693,8 @@
 		D0D8C09416DFF1540070399E /* rate_limit.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = rate_limit.json; sourceTree = "<group>"; };
 		D0DD8EF717BC5C0300657FDA /* OCTGistSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCTGistSpec.m; sourceTree = "<group>"; };
 		D0E41B8616DFF37E00E321CF /* notifications.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = notifications.json; sourceTree = "<group>"; };
+		F688018B17C1CE0F00ECC7EC /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.0.sdk/System/Library/Frameworks/Security.framework; sourceTree = DEVELOPER_DIR; };
+		F688019C17C1CE3200ECC7EC /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.0.sdk/System/Library/Frameworks/CoreGraphics.framework; sourceTree = DEVELOPER_DIR; };
 		F6CF78D216E993A500A75F63 /* RACSignal+OCTClientAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RACSignal+OCTClientAdditions.h"; sourceTree = "<group>"; };
 		F6CF78D316E993A500A75F63 /* RACSignal+OCTClientAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "RACSignal+OCTClientAdditions.m"; sourceTree = "<group>"; };
 		F6E2EC3F16EB04C50096C268 /* RACSignalAdditionsSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RACSignalAdditionsSpec.m; sourceTree = "<group>"; };
@@ -728,6 +746,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F688019D17C1CE3200ECC7EC /* CoreGraphics.framework in Frameworks */,
+				F688018C17C1CE0F00ECC7EC /* Security.framework in Frameworks */,
 				D0476EC117791C470071F3CB /* libISO8601DateFormatter.a in Frameworks */,
 				D0476E4F177919F70071F3CB /* libAFNetworking.a in Frameworks */,
 				D0C636931777B00900F486A9 /* libMantle.a in Frameworks */,
@@ -823,6 +843,8 @@
 		D0871EAA169E2EFC00016ACA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				F688019C17C1CE3200ECC7EC /* CoreGraphics.framework */,
+				F688018B17C1CE0F00ECC7EC /* Security.framework */,
 				D08720FA169E35D800016ACA /* Expecta.xcodeproj */,
 				D0872056169E328A00016ACA /* Mantle.xcodeproj */,
 				D0872109169E35DE00016ACA /* Specta.xcodeproj */,
@@ -1150,8 +1172,8 @@
 				D0C6366A1777AB9300F486A9 /* libReactiveCocoa-iOS.a */,
 				D0C6366C1777AB9300F486A9 /* ReactiveCocoaTests.octest */,
 				D0C6366E1777AB9300F486A9 /* ReactiveCocoaTests-iOS.octest */,
-				8829F2CD17A0DF5400F06991 /* ReactiveCocoa-iOS-UIKitTestHost.app */,
-				8829F2CF17A0DF5400F06991 /* ReactiveCocoa-iOS-UIKitTestHostTests.octest */,
+				F688019717C1CE0F00ECC7EC /* ReactiveCocoa-iOS-UIKitTestHost.app */,
+				F688019917C1CE0F00ECC7EC /* ReactiveCocoa-iOS-UIKitTestHostTests.octest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1583,6 +1605,20 @@
 			fileType = wrapper.cfbundle;
 			path = "ReactiveCocoaTests-iOS.octest";
 			remoteRef = D0C6366D1777AB9300F486A9 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		F688019717C1CE0F00ECC7EC /* ReactiveCocoa-iOS-UIKitTestHost.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = "ReactiveCocoa-iOS-UIKitTestHost.app";
+			remoteRef = F688019617C1CE0F00ECC7EC /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		F688019917C1CE0F00ECC7EC /* ReactiveCocoa-iOS-UIKitTestHostTests.octest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "ReactiveCocoa-iOS-UIKitTestHostTests.octest";
+			remoteRef = F688019817C1CE0F00ECC7EC /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
