@@ -175,7 +175,7 @@ static const NSInteger OCTClientNotModifiedStatusCode = 304;
 				thisPageSignal = [thisPageSignal doNext:^(OCTResponse *response) {
 					if (loggedRemaining) return;
 
-					NSLog(@"Remaining API calls: %li/%li", (long)response.remainingRequests, (long)response.maximumRequestsPerHour);
+					NSLog(@"%@ %@ => %li remaining calls: %li/%li", request.HTTPMethod, request.URL, (long)operation.response.statusCode, (long)response.remainingRequests, (long)response.maximumRequestsPerHour);
 					loggedRemaining = YES;
 				}];
 			}
@@ -192,6 +192,10 @@ static const NSInteger OCTClientNotModifiedStatusCode = 304;
 
 			[[thisPageSignal concat:nextPageSignal] subscribe:subscriber];
 		} failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+			if (getenv("LOG_API_RESPONSES") != NULL) {
+				NSLog(@"%@ %@ %@ => FAILED WITH %li", request.HTTPMethod, request.URL, request.allHTTPHeaderFields, (long)operation.response.statusCode);
+			}
+
 			[subscriber sendError:[self.class errorFromRequestOperation:(AFJSONRequestOperation *)operation]];
 		}];
 
