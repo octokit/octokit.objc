@@ -32,6 +32,14 @@ const NSInteger OCTClientErrorBadRequest = 670;
 NSString * const OCTClientErrorRequestURLKey = @"OCTClientErrorRequestURLKey";
 NSString * const OCTClientErrorHTTPStatusCodeKey = @"OCTClientErrorHTTPStatusCodeKey";
 
+// An environment variable that, when present, will enable logging of all
+// responses.
+static NSString * const OCTClientResponseLoggingEnvironmentKey = @"LOG_API_RESPONSES";
+
+// An environment variable that, when present, will log the remaining API calls
+// allowed before the rate limit is enforced.
+static NSString * const OCTClientRateLimitLoggingEnvironmentKey = @"LOG_REMAINING_API_CALLS";
+
 static const NSInteger OCTClientNotModifiedStatusCode = 304;
 
 @interface OCTClient ()
@@ -152,7 +160,7 @@ static const NSInteger OCTClientNotModifiedStatusCode = 304;
 - (RACSignal *)enqueueRequest:(NSURLRequest *)request resultClass:(Class)resultClass fetchAllPages:(BOOL)fetchAllPages {
 	RACSignal *signal = [RACSignal createSignal:^(id<RACSubscriber> subscriber) {
 		AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request success:^(AFHTTPRequestOperation *operation, id responseObject) {
-			if (getenv("LOG_API_RESPONSES") != NULL) {
+			if (NSProcessInfo.processInfo.environment[OCTClientResponseLoggingEnvironmentKey] != nil) {
 				NSLog(@"%@ %@ %@ => %li %@:\n%@", request.HTTPMethod, request.URL, request.allHTTPHeaderFields, (long)operation.response.statusCode, operation.response.allHeaderFields, responseObject);
 			}
 
@@ -170,7 +178,7 @@ static const NSInteger OCTClientNotModifiedStatusCode = 304;
 					return response;
 				}];
 
-			if (getenv("LOG_REMAINING_API_CALLS") != NULL) {
+			if (NSProcessInfo.processInfo.environment[OCTClientRateLimitLoggingEnvironmentKey] != nil) {
 				__block BOOL loggedRemaining = NO;
 				thisPageSignal = [thisPageSignal doNext:^(OCTResponse *response) {
 					if (loggedRemaining) return;
@@ -192,7 +200,7 @@ static const NSInteger OCTClientNotModifiedStatusCode = 304;
 
 			[[thisPageSignal concat:nextPageSignal] subscribe:subscriber];
 		} failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-			if (getenv("LOG_API_RESPONSES") != NULL) {
+			if (NSProcessInfo.processInfo.environment[OCTClientResponseLoggingEnvironmentKey] != nil) {
 				NSLog(@"%@ %@ %@ => FAILED WITH %li", request.HTTPMethod, request.URL, request.allHTTPHeaderFields, (long)operation.response.statusCode);
 			}
 
