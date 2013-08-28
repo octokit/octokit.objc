@@ -42,6 +42,9 @@ extern const NSInteger OCTClientErrorConnectionFailed;
 // JSON.
 extern const NSInteger OCTClientErrorJSONParsingFailed;
 
+// The server is too old or new to understand our request.
+extern const NSInteger OCTClientErrorUnsupportedServer;
+
 // A user info key associated with the NSURL of the request that failed.
 extern NSString * const OCTClientErrorRequestURLKey;
 

@@ -32,6 +32,7 @@ const NSInteger OCTClientErrorConnectionFailed = 668;
 const NSInteger OCTClientErrorJSONParsingFailed = 669;
 const NSInteger OCTClientErrorBadRequest = 670;
 const NSInteger OCTClientErrorTwoFactorAuthenticationOneTimePasswordRequired = 671;
+const NSInteger OCTClientErrorUnsupportedServer = 672;
 
 NSString * const OCTClientErrorRequestURLKey = @"OCTClientErrorRequestURLKey";
 NSString * const OCTClientErrorHTTPStatusCodeKey = @"OCTClientErrorHTTPStatusCodeKey";
@@ -517,7 +518,22 @@ static NSString * const OCTClientOneTimePasswordHeaderField = @"X-GitHub-OTP";
 	NSMutableURLRequest *request = [authedClient requestWithMethod:method path:path parameters:parameters];
 	if (oneTimePassword != nil) [request setValue:oneTimePassword forHTTPHeaderField:OCTClientOneTimePasswordHeaderField];
 
-	return [self enqueueRequest:request resultClass:OCTAuthorization.class];
+	return [[self
+		enqueueRequest:request resultClass:OCTAuthorization.class]
+		catch:^(NSError *error) {
+			NSNumber *statusCode = error.userInfo[OCTClientErrorHTTPStatusCodeKey];
+
+			// 404s mean we tried to authorize in an unsupported way.
+			if (statusCode.integerValue == 404) {
+				NSMutableDictionary *userInfo = [error.userInfo mutableCopy];
+				userInfo[NSLocalizedDescriptionKey] = NSLocalizedString(@"The server's version is unsupported.", @"");
+				userInfo[NSUnderlyingErrorKey] = error;
+
+				error = [NSError errorWithDomain:OCTClientErrorDomain code:OCTClientErrorUnsupportedServer userInfo:userInfo];
+			}
+
+			return [RACSignal error:error];
+		}];
 }
 
 - (RACSignal *)requestAuthorizationWithPassword:(NSString *)password oneTimePassword:(NSString *)oneTimePassword scopes:(OCTClientAuthorizationScopes)scopes clientID:(NSString *)clientID clientSecret:(NSString *)clientSecret {
