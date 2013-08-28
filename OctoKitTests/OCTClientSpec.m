@@ -324,6 +324,17 @@ describe(@"unauthenticated", ^{
 		expect(authorization.objectID).to.equal(@"1");
 		expect(authorization.token).to.equal(@"abc123");
 	});
+
+	it(@"should detect old server versions", ^{
+		stubResponseWithStatusCode([NSString stringWithFormat:@"/authorizations/clients/%@", OCTClientSpecClientID], 404);
+
+		RACSignal *request = [client requestAuthorizationWithPassword:@"" scopes:OCTClientAuthorizationScopesRepository clientID:OCTClientSpecClientID clientSecret:OCTClientSpecClientSecret];
+		NSError *error;
+		BOOL success = [request asynchronouslyWaitUntilCompleted:&error];
+		expect(success).to.beFalsy();
+		expect(error.domain).to.equal(OCTClientErrorDomain);
+		expect(error.code).to.equal(OCTClientErrorUnsupportedServer);
+	});
 });
 
 SpecEnd
