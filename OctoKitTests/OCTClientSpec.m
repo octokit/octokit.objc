@@ -201,6 +201,18 @@ describe(@"without a user", ^{
 		expect(success).to.beFalsy();
 		expect(error).notTo.beNil();
 	});
+
+	it(@"should not treat all 404s like old server versions", ^{
+		stubResponseWithStatusCode(@"/repos/octokit/octokit.objc", 404);
+
+		RACSignal *request = [client fetchRepositoryWithName:@"octokit.objc" owner:@"octokit"];
+		NSError *error;
+		BOOL success = [request asynchronouslyWaitUntilCompleted:&error];
+		expect(success).to.beFalsy();
+		expect(error).notTo.beNil();
+		expect(error.domain).to.equal(OCTClientErrorDomain);
+		expect(error.code).to.equal(OCTClientErrorConnectionFailed);
+	});
 });
 
 describe(@"authenticated", ^{
