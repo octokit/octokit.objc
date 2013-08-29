@@ -33,6 +33,10 @@ extern const NSInteger OCTClientErrorTwoFactorAuthenticationOneTimePasswordRequi
 extern const NSInteger OCTClientErrorBadRequest;
 
 // The server refused to process the request (HTTP error 422).
+//
+// Among other reasons, this might be sent if one of the
+// -requestAuthorizationWithPassword: methods is given an invalid client ID or
+// secret.
 extern const NSInteger OCTClientErrorServiceRequestFailed;
 
 // There was a problem connecting to the server.
