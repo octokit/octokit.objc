@@ -42,6 +42,8 @@ static NSString * const OCTClientRateLimitLoggingEnvironmentKey = @"LOG_REMAININ
 
 static const NSInteger OCTClientNotModifiedStatusCode = 304;
 
+static const NSInteger OCTClientResetContentStatusCode = 205;
+
 @interface OCTClient ()
 
 @property (nonatomic, strong, readwrite) OCTUser *user;
@@ -164,7 +166,9 @@ static const NSInteger OCTClientNotModifiedStatusCode = 304;
 				NSLog(@"%@ %@ %@ => %li %@:\n%@", request.HTTPMethod, request.URL, request.allHTTPHeaderFields, (long)operation.response.statusCode, operation.response.allHeaderFields, responseObject);
 			}
 
-			if (operation.response.statusCode == OCTClientNotModifiedStatusCode) {
+			NSInteger statusCode = operation.response.statusCode;
+			if (statusCode == OCTClientNotModifiedStatusCode ||
+				statusCode == OCTClientResetContentStatusCode) {
 				// No change in the data.
 				[subscriber sendCompleted];
 				return;
@@ -560,6 +564,16 @@ static const NSInteger OCTClientNotModifiedStatusCode = 304;
 	return [self enqueueRequest:request resultClass:OCTNotification.class];
 }
 
+- (RACSignal *)markNotificationThreadsAsReadForRepositoryURL:(NSURL *)repositoryURL {
+	NSParameterAssert(repositoryURL != nil);
+
+	if (!self.authenticated) return [RACSignal error:self.class.authenticationRequiredError];
+
+	NSURL *URL = [repositoryURL URLByAppendingPathComponent:@"notifications"];
+	NSMutableURLRequest *request = [self requestWithMethod:@"PUT" path:URL.path parameters:@{}];
+	return [[self enqueueRequest:request resultClass:nil] ignoreValues];
+}
+
 - (RACSignal *)markNotificationThreadAsReadAtURL:(NSURL *)threadURL {
 	return [self patchThreadURL:threadURL withReadStatus:YES];
 }
@@ -569,8 +583,7 @@ static const NSInteger OCTClientNotModifiedStatusCode = 304;
 
 	if (!self.authenticated) return [RACSignal error:self.class.authenticationRequiredError];
 
-	NSMutableURLRequest *request = [self requestWithMethod:@"PATCH" path:@"" parameters:@{ @"read": @(read) }];
-	request.URL = threadURL;
+	NSMutableURLRequest *request = [self requestWithMethod:@"PATCH" path:threadURL.path parameters:@{ @"read": @(read) }];
 	return [[self enqueueRequest:request resultClass:nil] ignoreValues];
 }
 
@@ -578,9 +591,8 @@ static const NSInteger OCTClientNotModifiedStatusCode = 304;
 	NSParameterAssert(threadURL != nil);
 
 	if (!self.authenticated) return [RACSignal error:self.class.authenticationRequiredError];
-
-	NSMutableURLRequest *request = [self requestWithMethod:@"PUT" path:@"" parameters:@{ @"ignored": @YES }];
-	request.URL = [threadURL URLByAppendingPathComponent:@"subscription"];
+	NSString *path = [threadURL.path stringByAppendingPathComponent:@"subscription"];
+	NSMutableURLRequest *request = [self requestWithMethod:@"PUT" path:path parameters:@{ @"ignored": @YES }];
 	return [[self enqueueRequest:request resultClass:nil] ignoreValues];
 }
 

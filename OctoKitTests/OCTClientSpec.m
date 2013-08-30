@@ -247,6 +247,42 @@ describe(@"authenticated", ^{
 		expect(success).to.beTruthy();
 		expect(error).to.beNil();
 	});
+
+	it(@"should return nothing when marking a notification thread as read", ^{
+		NSString *path = @"/notifications/threads/1";
+		NSURL *URL = [[NSURL URLWithString:@"https://github.com"] URLByAppendingPathComponent:path];
+		stubResponseWithStatusCode(path, 205);
+
+		RACSignal *request = [client markNotificationThreadAsReadAtURL:URL];
+	
+		expect([request asynchronousFirstOrDefault:nil success:&success error:&error]).to.beNil();
+		expect(success).to.beTruthy();
+		expect(error).to.beNil();
+	});
+
+	it(@"should return nothing when muting a notification thread", ^{
+		NSString *path = @"/notifications/threads/1";
+		NSURL *URL = [[NSURL URLWithString:@"https://github.com"] URLByAppendingPathComponent:path];
+		stubResponseWithStatusCode([path stringByAppendingPathComponent:@"subscription"], 205);
+
+		RACSignal *request = [client muteNotificationThreadAtURL:URL];
+
+		expect([request asynchronousFirstOrDefault:nil success:&success error:&error]).to.beNil();
+		expect(success).to.beTruthy();
+		expect(error).to.beNil();
+	});
+
+	it(@"should return nothing when marking a repository's notification threads as read", ^{
+		NSString *path = @"/repos/github/github";
+		NSURL *URL = [[NSURL URLWithString:@"https://github.com"] URLByAppendingPathComponent:path];
+		stubResponseWithStatusCode([path stringByAppendingPathComponent:@"notifications"], 205);
+
+		RACSignal *request = [client markNotificationThreadsAsReadForRepositoryURL:URL];
+
+		expect([request asynchronousFirstOrDefault:nil success:&success error:&error]).to.beNil();
+		expect(success).to.beTruthy();
+		expect(error).to.beNil();
+	});
 	
 	it(@"should fetch user starred repositories", ^{
 		stubResponse(@"/user/starred", @"user_starred.json");
