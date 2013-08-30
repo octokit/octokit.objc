@@ -583,7 +583,9 @@ static const NSInteger OCTClientResetContentStatusCode = 205;
 
 	if (!self.authenticated) return [RACSignal error:self.class.authenticationRequiredError];
 
-	NSMutableURLRequest *request = [self requestWithMethod:@"PATCH" path:threadURL.path parameters:@{ @"read": @(read) }];
+	NSMutableURLRequest *request = [self requestWithMethod:@"PATCH" path:@"" parameters:@{ @"read": @(read) }];
+	request.URL = threadURL;
+
 	return [[self enqueueRequest:request resultClass:nil] ignoreValues];
 }
 
@@ -591,8 +593,10 @@ static const NSInteger OCTClientResetContentStatusCode = 205;
 	NSParameterAssert(threadURL != nil);
 
 	if (!self.authenticated) return [RACSignal error:self.class.authenticationRequiredError];
-	NSString *path = [threadURL.path stringByAppendingPathComponent:@"subscription"];
-	NSMutableURLRequest *request = [self requestWithMethod:@"PUT" path:path parameters:@{ @"ignored": @YES }];
+
+	NSMutableURLRequest *request = [self requestWithMethod:@"PUT" path:@"" parameters:@{ @"ignored": @YES }];
+	request.URL = [threadURL URLByAppendingPathComponent:@"subscription"];
+
 	return [[self enqueueRequest:request resultClass:nil] ignoreValues];
 }
 
