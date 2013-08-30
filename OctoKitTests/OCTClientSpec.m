@@ -272,11 +272,15 @@ describe(@"authenticated", ^{
 	});
 
 	it(@"should return nothing when marking a repository's notification threads as read", ^{
-		NSString *path = @"/repos/github/github";
-		NSURL *URL = [[NSURL URLWithString:@"https://github.com"] URLByAppendingPathComponent:path];
-		stubResponseWithStatusCode([path stringByAppendingPathComponent:@"notifications"], 205);
+		OCTRepository *repository = [[OCTRepository alloc] initWithDictionary:@{
+			@"name": @"github",
+			@"ownerLogin": @"github"
+		} error:NULL];
 
-		RACSignal *request = [client markRepositoryNotificationThreadsAsReadAtURL:URL];
+		NSString *path = [NSString stringWithFormat:@"/repos/%@/%@/notifications", repository.ownerLogin, repository.name];
+		stubResponseWithStatusCode(path, 205);
+
+		RACSignal *request = [client markNotificationThreadsAsReadForRepository:repository];
 
 		expect([request asynchronousFirstOrDefault:nil success:&success error:&error]).to.beNil();
 		expect(success).to.beTruthy();

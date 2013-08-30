@@ -564,13 +564,14 @@ static const NSInteger OCTClientResetContentStatusCode = 205;
 	return [self enqueueRequest:request resultClass:OCTNotification.class];
 }
 
-- (RACSignal *)markRepositoryNotificationThreadsAsReadAtURL:(NSURL *)repositoryURL {
-	NSParameterAssert(repositoryURL != nil);
+- (RACSignal *)markNotificationThreadsAsReadForRepository:(OCTRepository *)repository {
+	NSParameterAssert(repository != nil);
 
 	if (!self.authenticated) return [RACSignal error:self.class.authenticationRequiredError];
 
-	NSURL *URL = [repositoryURL URLByAppendingPathComponent:@"notifications"];
-	NSMutableURLRequest *request = [self requestWithMethod:@"PUT" path:URL.path parameters:nil];
+	NSString *path = [NSString stringWithFormat:@"repos/%@/%@/notifications", repository.ownerLogin, repository.name];
+	NSMutableURLRequest *request = [self requestWithMethod:@"PUT" path:path parameters:nil];
+
 	return [[self enqueueRequest:request resultClass:nil] ignoreValues];
 }
 
