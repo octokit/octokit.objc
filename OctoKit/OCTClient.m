@@ -570,7 +570,7 @@ static const NSInteger OCTClientResetContentStatusCode = 205;
 	if (!self.authenticated) return [RACSignal error:self.class.authenticationRequiredError];
 
 	NSURL *URL = [repositoryURL URLByAppendingPathComponent:@"notifications"];
-	NSMutableURLRequest *request = [self requestWithMethod:@"PUT" path:URL.path parameters:@{}];
+	NSMutableURLRequest *request = [self requestWithMethod:@"PUT" path:URL.path parameters:nil];
 	return [[self enqueueRequest:request resultClass:nil] ignoreValues];
 }
 
