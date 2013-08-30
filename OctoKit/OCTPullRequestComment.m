@@ -14,14 +14,8 @@
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
 	return [super.JSONKeyPathsByPropertyKey mtl_dictionaryByAddingEntriesFromDictionary:@{
-		@"HTMLURL": @"_links.html.href",
-		@"pullRequestAPIURL": @"_links.pull_request.href",
-		@"commenterLogin": @"user.login",
+		@"pullRequestAPIURL": @"pull_request_url",
 	}];
-}
-
-+ (NSValueTransformer *)HTMLURLJSONTransformer {
-	return [NSValueTransformer valueTransformerForName:MTLURLValueTransformerName];
 }
 
 + (NSValueTransformer *)pullRequestAPIURLJSONTransformer {

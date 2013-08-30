@@ -31,17 +31,9 @@ NSDictionary *representation = @{
 	},
 	@"created_at": @"2011-04-14T16:00:49Z",
 	@"updated_at": @"2011-04-14T16:00:49Z",
-	@"_links": @{
-		@"self": @{
-			@"href": @"https://api.github.com/octocat/Hello-World/pulls/comments/1"
-		},
-		@"html": @{
-			@"href": @"https://github.com/octocat/Hello-World/pull/1#discussion-diff-1"
-		},
-		@"pull_request": @{
-			@"href": @"https://api.github.com/octocat/Hello-World/pulls/1"
-		}
-	}
+	@"url": @"https://api.github.com/octocat/Hello-World/pulls/comments/1",
+	@"html_url": @"https://github.com/octocat/Hello-World/pull/1#discussion-diff-1",
+	@"pull_request_url": @"https://api.github.com/octocat/Hello-World/pulls/1"
 };
 
 __block OCTPullRequestComment *comment;
