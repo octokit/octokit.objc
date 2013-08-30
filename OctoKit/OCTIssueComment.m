@@ -13,13 +13,13 @@
 #pragma mark MTLJSONSerializing
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
-	return [super.JSONKeyPathsByPropertyKey mtl_dictionaryByAddingEntriesFromDictionary:@{
-		@"HTMLURL": @"html_url",
-		@"commenterLogin": @"user.login",
-	}];
+	return [super.JSONKeyPathsByPropertyKey
+		mtl_dictionaryByAddingEntriesFromDictionary:@{
+			@"issueURL": @"issue_url"
+		}];
 }
 
-+ (NSValueTransformer *)HTMLURLJSONTransformer {
++ (NSValueTransformer *)issueURLJSONTransformer {
 	return [NSValueTransformer valueTransformerForName:MTLURLValueTransformerName];
 }
 
