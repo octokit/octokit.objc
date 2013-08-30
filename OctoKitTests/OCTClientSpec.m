@@ -249,9 +249,8 @@ describe(@"authenticated", ^{
 	});
 
 	it(@"should return nothing when marking a notification thread as read", ^{
-		NSString *path = @"/notifications/threads/1";
-		NSURL *URL = [[NSURL URLWithString:@"https://github.com"] URLByAppendingPathComponent:path];
-		stubResponseWithStatusCode(path, 205);
+		NSURL *URL = [NSURL URLWithString:@"https://github.com/notifications/threads/1"];
+		stubResponseWithStatusCode(URL.path, 205);
 
 		RACSignal *request = [client markNotificationThreadAsReadAtURL:URL];
 	
@@ -261,9 +260,9 @@ describe(@"authenticated", ^{
 	});
 
 	it(@"should return nothing when muting a notification thread", ^{
-		NSString *path = @"/notifications/threads/1";
-		NSURL *URL = [[NSURL URLWithString:@"https://github.com"] URLByAppendingPathComponent:path];
-		stubResponseWithStatusCode([path stringByAppendingPathComponent:@"subscription"], 205);
+		NSURL *URL = [NSURL URLWithString:@"https://github.com/notifications/threads/1"];
+		NSString *path = [URL.path stringByAppendingPathComponent:@"subscription"];
+		stubResponseWithStatusCode(path, 205);
 
 		RACSignal *request = [client muteNotificationThreadAtURL:URL];
 
