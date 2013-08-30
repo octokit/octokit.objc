@@ -40,10 +40,6 @@ static NSString * const OCTClientResponseLoggingEnvironmentKey = @"LOG_API_RESPO
 // allowed before the rate limit is enforced.
 static NSString * const OCTClientRateLimitLoggingEnvironmentKey = @"LOG_REMAINING_API_CALLS";
 
-static const NSInteger OCTClientNotModifiedStatusCode = 304;
-
-static const NSInteger OCTClientResetContentStatusCode = 205;
-
 @interface OCTClient ()
 
 @property (nonatomic, strong, readwrite) OCTUser *user;
@@ -164,14 +160,6 @@ static const NSInteger OCTClientResetContentStatusCode = 205;
 		AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request success:^(AFHTTPRequestOperation *operation, id responseObject) {
 			if (NSProcessInfo.processInfo.environment[OCTClientResponseLoggingEnvironmentKey] != nil) {
 				NSLog(@"%@ %@ %@ => %li %@:\n%@", request.HTTPMethod, request.URL, request.allHTTPHeaderFields, (long)operation.response.statusCode, operation.response.allHeaderFields, responseObject);
-			}
-
-			NSInteger statusCode = operation.response.statusCode;
-			if (statusCode == OCTClientNotModifiedStatusCode ||
-				statusCode == OCTClientResetContentStatusCode) {
-				// No change in the data.
-				[subscriber sendCompleted];
-				return;
 			}
 
 			RACSignal *thisPageSignal = [[self parsedResponseOfClass:resultClass fromJSON:responseObject]
@@ -333,6 +321,8 @@ static const NSInteger OCTClientResetContentStatusCode = 205;
 		} else if (responseObject != nil) {
 			NSString *failureReason = [NSString stringWithFormat:NSLocalizedString(@"Response wasn't an array or dictionary (%@): %@", @""), [responseObject class], responseObject];
 			[subscriber sendError:[self parsingErrorWithFailureReason:failureReason]];
+		} else {
+			[subscriber sendCompleted];
 		}
 
 		return nil;
