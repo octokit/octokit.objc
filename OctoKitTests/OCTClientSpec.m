@@ -201,6 +201,18 @@ describe(@"without a user", ^{
 		expect(success).to.beFalsy();
 		expect(error).notTo.beNil();
 	});
+
+	it(@"should not treat all 404s like old server versions", ^{
+		stubResponseWithStatusCode(@"/repos/octokit/octokit.objc", 404);
+
+		RACSignal *request = [client fetchRepositoryWithName:@"octokit.objc" owner:@"octokit"];
+		NSError *error;
+		BOOL success = [request asynchronouslyWaitUntilCompleted:&error];
+		expect(success).to.beFalsy();
+		expect(error).notTo.beNil();
+		expect(error.domain).to.equal(OCTClientErrorDomain);
+		expect(error.code).to.equal(OCTClientErrorConnectionFailed);
+	});
 });
 
 describe(@"authenticated", ^{
@@ -323,6 +335,17 @@ describe(@"unauthenticated", ^{
 		expect(authorization).notTo.beNil();
 		expect(authorization.objectID).to.equal(@"1");
 		expect(authorization.token).to.equal(@"abc123");
+	});
+
+	it(@"should detect old server versions", ^{
+		stubResponseWithStatusCode([NSString stringWithFormat:@"/authorizations/clients/%@", OCTClientSpecClientID], 404);
+
+		RACSignal *request = [client requestAuthorizationWithPassword:@"" scopes:OCTClientAuthorizationScopesRepository clientID:OCTClientSpecClientID clientSecret:OCTClientSpecClientSecret];
+		NSError *error;
+		BOOL success = [request asynchronouslyWaitUntilCompleted:&error];
+		expect(success).to.beFalsy();
+		expect(error.domain).to.equal(OCTClientErrorDomain);
+		expect(error.code).to.equal(OCTClientErrorUnsupportedServer);
 	});
 });
 

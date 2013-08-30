@@ -33,6 +33,10 @@ extern const NSInteger OCTClientErrorTwoFactorAuthenticationOneTimePasswordRequi
 extern const NSInteger OCTClientErrorBadRequest;
 
 // The server refused to process the request (HTTP error 422).
+//
+// Among other reasons, this might be sent if one of the
+// -requestAuthorizationWithPassword: methods is given an invalid client ID or
+// secret.
 extern const NSInteger OCTClientErrorServiceRequestFailed;
 
 // There was a problem connecting to the server.
@@ -41,6 +45,9 @@ extern const NSInteger OCTClientErrorConnectionFailed;
 // JSON parsing failed, or a model object could not be created from the parsed
 // JSON.
 extern const NSInteger OCTClientErrorJSONParsingFailed;
+
+// The server is too old or new to understand our request.
+extern const NSInteger OCTClientErrorUnsupportedServer;
 
 // A user info key associated with the NSURL of the request that failed.
 extern NSString * const OCTClientErrorRequestURLKey;
