@@ -277,7 +277,7 @@ describe(@"authenticated", ^{
 		NSURL *URL = [[NSURL URLWithString:@"https://github.com"] URLByAppendingPathComponent:path];
 		stubResponseWithStatusCode([path stringByAppendingPathComponent:@"notifications"], 205);
 
-		RACSignal *request = [client markNotificationThreadsAsReadForRepositoryURL:URL];
+		RACSignal *request = [client markRepositoryNotificationThreadsAsReadAtURL:URL];
 
 		expect([request asynchronousFirstOrDefault:nil success:&success error:&error]).to.beNil();
 		expect(success).to.beTruthy();

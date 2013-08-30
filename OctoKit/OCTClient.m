@@ -564,7 +564,7 @@ static const NSInteger OCTClientResetContentStatusCode = 205;
 	return [self enqueueRequest:request resultClass:OCTNotification.class];
 }
 
-- (RACSignal *)markNotificationThreadsAsReadForRepositoryURL:(NSURL *)repositoryURL {
+- (RACSignal *)markRepositoryNotificationThreadsAsReadAtURL:(NSURL *)repositoryURL {
 	NSParameterAssert(repositoryURL != nil);
 
 	if (!self.authenticated) return [RACSignal error:self.class.authenticationRequiredError];

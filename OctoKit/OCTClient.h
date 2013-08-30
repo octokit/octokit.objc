@@ -280,11 +280,11 @@ extern NSString * const OCTClientErrorHTTPStatusCodeKey;
 
 // Mark all notification threads as read for a given repository.
 //
-// threadURL - The API URL of the repository to mark as read. Cannot be nil.
+// repositoryURL - The API URL of the repository to mark as read. Cannot be nil.
 //
 // Returns a signal which will send completed on success. If the client is not
 // `authenticated`, the signal will error immediately.
-- (RACSignal *)markNotificationThreadsAsReadForRepositoryURL:(NSURL *)repositoryURL;
+- (RACSignal *)markRepositoryNotificationThreadsAsReadAtURL:(NSURL *)repositoryURL;
 
 @end
 
