@@ -6,15 +6,12 @@
 //  Copyright (c) 2012 GitHub. All rights reserved.
 //
 
-#import "OCTObject.h"
+#import "OCTComment.h"
 
 // A single comment on an issue.
-@interface OCTIssueComment : OCTObject
+@interface OCTIssueComment : OCTComment
 
-// The webpage URL for this comment.
-@property (nonatomic, copy, readonly) NSURL *HTMLURL;
-
-// The login of the user who created this comment.
-@property (nonatomic, copy, readonly) NSString *commenterLogin;
+// The comment's issue URL.
+@property (nonatomic, copy, readonly) NSURL *issueURL;
 
 @end

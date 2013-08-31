@@ -14,14 +14,8 @@
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
 	return [super.JSONKeyPathsByPropertyKey mtl_dictionaryByAddingEntriesFromDictionary:@{
-		@"HTMLURL": @"html_url",
-		@"commitSHA": @"commit_id",
-		@"commenterLogin": @"user.login",
+		@"commitSHA": @"commit_id"
 	}];
-}
-
-+ (NSValueTransformer *)HTMLURLJSONTransformer {
-	return [NSValueTransformer valueTransformerForName:MTLURLValueTransformerName];
 }
 
 @end
