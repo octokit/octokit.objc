@@ -201,6 +201,18 @@ describe(@"without a user", ^{
 		expect(success).to.beFalsy();
 		expect(error).notTo.beNil();
 	});
+
+	it(@"should not treat all 404s like old server versions", ^{
+		stubResponseWithStatusCode(@"/repos/octokit/octokit.objc", 404);
+
+		RACSignal *request = [client fetchRepositoryWithName:@"octokit.objc" owner:@"octokit"];
+		NSError *error;
+		BOOL success = [request asynchronouslyWaitUntilCompleted:&error];
+		expect(success).to.beFalsy();
+		expect(error).notTo.beNil();
+		expect(error.domain).to.equal(OCTClientErrorDomain);
+		expect(error.code).to.equal(OCTClientErrorConnectionFailed);
+	});
 });
 
 describe(@"authenticated", ^{
@@ -211,7 +223,7 @@ describe(@"authenticated", ^{
 		user = [OCTUser userWithLogin:@"mac-testing-user" server:OCTServer.dotComServer];
 		expect(user).notTo.beNil();
 
-		client = [OCTClient authenticatedClientWithUser:user password:@""];
+		client = [OCTClient authenticatedClientWithUser:user token:@""];
 		expect(client).notTo.beNil();
 		expect(client.user).to.equal(user);
 		expect(client.authenticated).to.beTruthy();
@@ -277,6 +289,63 @@ describe(@"authenticated", ^{
 		expect([request asynchronousFirstOrDefault:nil success:&success error:&error]).to.beNil();
 		expect(success).to.beTruthy();
 		expect(error).to.beNil();
+	});
+});
+
+describe(@"unauthenticated", ^{
+	static NSString * const OCTClientSpecClientID = @"deadbeef";
+	static NSString * const OCTClientSpecClientSecret = @"itsasekret";
+
+	__block OCTUser *user;
+	__block OCTClient *client;
+
+	beforeEach(^{
+		user = [OCTUser userWithLogin:@"mac-testing-user" server:OCTServer.dotComServer];
+		expect(user).notTo.beNil();
+
+		client = [OCTClient unauthenticatedClientWithUser:user];
+		expect(client).notTo.beNil();
+		expect(client.user).to.equal(user);
+		expect(client.authenticated).to.beFalsy();
+	});
+
+	it(@"should send the appropriate error when requesting authorization with 2FA on", ^{
+		[OHHTTPStubs addRequestHandler:^ id (NSURLRequest *request, BOOL onlyCheck) {
+			if (![request.URL.path isEqual:[NSString stringWithFormat:@"/authorizations/clients/%@", OCTClientSpecClientID]] || ![request.HTTPMethod isEqual:@"PUT"]) return nil;
+
+			NSURL *fileURL = [[NSBundle bundleForClass:self.class] URLForResource:@"authorizations" withExtension:@"json"];
+			NSDictionary *headers = @{ @"X-GitHub-OTP": @"required; sms" };
+			return [OHHTTPStubsResponse responseWithFileURL:fileURL statusCode:401 responseTime:0 headers:headers];
+		}];
+
+		RACSignal *request = [client requestAuthorizationWithPassword:@"" scopes:OCTClientAuthorizationScopesRepository clientID:OCTClientSpecClientID clientSecret:OCTClientSpecClientSecret];
+		NSError *error;
+		BOOL success = [request asynchronouslyWaitUntilCompleted:&error];
+		expect(success).to.beFalsy();
+		expect(error.domain).to.equal(OCTClientErrorDomain);
+		expect(error.code).to.equal(OCTClientErrorTwoFactorAuthenticationOneTimePasswordRequired);
+		expect([error.userInfo[OCTClientErrorOneTimePasswordMediumKey] integerValue]).to.equal(OCTClientOneTimePasswordMediumSMS);
+	});
+
+	it(@"should request authorization", ^{
+		stubResponse([NSString stringWithFormat:@"/authorizations/clients/%@", OCTClientSpecClientID], @"authorizations.json");
+
+		RACSignal *request = [client requestAuthorizationWithPassword:@"" scopes:OCTClientAuthorizationScopesRepository clientID:OCTClientSpecClientID clientSecret:OCTClientSpecClientSecret];
+		OCTAuthorization *authorization = [request asynchronousFirstOrDefault:nil success:NULL error:NULL];
+		expect(authorization).notTo.beNil();
+		expect(authorization.objectID).to.equal(@"1");
+		expect(authorization.token).to.equal(@"abc123");
+	});
+
+	it(@"should detect old server versions", ^{
+		stubResponseWithStatusCode([NSString stringWithFormat:@"/authorizations/clients/%@", OCTClientSpecClientID], 404);
+
+		RACSignal *request = [client requestAuthorizationWithPassword:@"" scopes:OCTClientAuthorizationScopesRepository clientID:OCTClientSpecClientID clientSecret:OCTClientSpecClientSecret];
+		NSError *error;
+		BOOL success = [request asynchronouslyWaitUntilCompleted:&error];
+		expect(success).to.beFalsy();
+		expect(error.domain).to.equal(OCTClientErrorDomain);
+		expect(error.code).to.equal(OCTClientErrorUnsupportedServer);
 	});
 });
 
