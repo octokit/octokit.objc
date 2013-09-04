@@ -284,8 +284,7 @@ extern NSString * const OCTClientErrorHTTPStatusCodeKey;
 //
 // Returns a signal which will send completed on success. If the client is not
 // `authenticated`, the signal will error immediately.
-- (RACSignal *)markNotificationThreadsAsReadForRepository:(OCTRepository
-  *)repository;
+- (RACSignal *)markNotificationThreadsAsReadForRepository:(OCTRepository *)repository;
 
 @end
 
