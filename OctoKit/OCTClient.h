@@ -444,6 +444,17 @@ typedef enum : NSUInteger {
 // Returns a signal of zero or one OCTRepository.
 - (RACSignal *)fetchRepositoryWithName:(NSString *)name owner:(NSString *)owner;
 
+// Fetches the tree for the given reference.
+//
+// reference -  The SHA, branch, reference, or tag to fetch. May be nil, in
+//              which case HEAD is fetched.
+// repository - The repository from which the tree should be fetched. Cannot be
+//              nil.
+// recursive  - Should the tree be fetched recursively?
+//
+// Returns a signal of zero or one OCTTrees.
+- (RACSignal *)fetchTreeForReference:(NSString *)reference inRepository:(OCTRepository *)repository recursive:(BOOL)recursive;
+
 @end
 
 @interface OCTClient (Gist)

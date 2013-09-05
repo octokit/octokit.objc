@@ -41,4 +41,6 @@
 #import <OctoKit/OCTSubmoduleContent.h>
 #import <OctoKit/OCTSymlinkContent.h>
 #import <OctoKit/OCTTeam.h>
+#import <OctoKit/OCTTree.h>
+#import <OctoKit/OCTTreeEntry.h>
 #import <OctoKit/OCTUser.h>

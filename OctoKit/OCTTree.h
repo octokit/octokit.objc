@@ -1,0 +1,23 @@
+//
+//  OCTTree.h
+//  OctoKit
+//
+//  Created by Josh Abernathy on 9/5/13.
+//  Copyright (c) 2013 GitHub. All rights reserved.
+//
+
+#import <OctoKit/OctoKit.h>
+
+// A git tree.
+@interface OCTTree : OCTObject
+
+// The SHA of the tree.
+@property (nonatomic, readonly, copy) NSString *SHA;
+
+// The URL for the tree.
+@property (nonatomic, readonly, strong) NSURL *URL;
+
+// The OCTTreeEntries.
+@property (nonatomic, readonly, copy) NSArray *entries;
+
+@end
