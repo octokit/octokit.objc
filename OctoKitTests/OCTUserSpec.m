@@ -144,4 +144,11 @@ describe(@"enterprise user", ^{
 	});
 });
 
+it(@"should treat users with the same server and login as equals", ^{
+	OCTUser *user1 = [OCTUser userWithLogin:@"joshaber" server:OCTServer.dotComServer];
+	OCTUser *user2 = [OCTUser userWithLogin:@"joshaber" server:OCTServer.dotComServer];
+	expect([user1 isEqual:user2]).to.beTruthy();
+	expect(user1.hash).to.equal(user2.hash);
+});
+
 SpecEnd
