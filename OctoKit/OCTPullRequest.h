@@ -20,6 +20,9 @@ typedef enum : NSUInteger {
 // A pull request on a repository.
 @interface OCTPullRequest : OCTObject
 
+// The api URL for this pull request.
+@property (nonatomic, copy, readonly) NSURL *URL;
+
 // The webpage URL for this pull request.
 @property (nonatomic, copy, readonly) NSURL *HTMLURL;
 

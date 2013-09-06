@@ -153,6 +153,7 @@ itShouldBehaveLike(OCTObjectArchivingSharedExamplesName, ^{
 
 it(@"should initialize", ^{
 	expect(pullRequest.objectID).to.equal(@"1");
+	expect(pullRequest.URL).to.equal([NSURL URLWithString:@"https://api.github.com/octocat/Hello-World/pulls/1"]);
 	expect(pullRequest.HTMLURL).to.equal([NSURL URLWithString:@"https://github.com/octocat/Hello-World/pulls/1"]);
 	expect(pullRequest.diffURL).to.equal([NSURL URLWithString:@"https://github.com/octocat/Hello-World/pulls/1.diff"]);
 	expect(pullRequest.patchURL).to.equal([NSURL URLWithString:@"https://github.com/octocat/Hello-World/pulls/1.patch"]);

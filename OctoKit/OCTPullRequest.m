@@ -14,12 +14,17 @@
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
 	return [super.JSONKeyPathsByPropertyKey mtl_dictionaryByAddingEntriesFromDictionary:@{
+		@"URL" : @"url",
 		@"HTMLURL": @"html_url",
 		@"diffURL": @"diff_url",
 		@"patchURL": @"patch_url",
 		@"issueURL": @"issue_url",
 		@"objectID": @"number",
 	}];
+}
+
++ (NSValueTransformer *)URLJSONTransformer {
+	return [NSValueTransformer valueTransformerForName:MTLURLValueTransformerName];
 }
 
 + (NSValueTransformer *)HTMLURLJSONTransformer {
