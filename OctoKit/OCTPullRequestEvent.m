@@ -26,9 +26,10 @@
 
 + (NSValueTransformer *)actionJSONTransformer {
 	NSDictionary *actionsByName = @{
-		@"opened": @(OCTIssueActionOpened),
-		@"closed": @(OCTIssueActionClosed),
-		@"reopened": @(OCTIssueActionReopened),
+		@"opened": @(OCTPullRequestActionOpened),
+		@"closed": @(OCTPullRequestActionClosed),
+		@"reopened": @(OCTPullRequestActionReopened),
+		@"synchronize": @(OCTPullRequestActionSynchronize),
 	};
 
 	return [MTLValueTransformer

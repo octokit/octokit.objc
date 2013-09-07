@@ -15,9 +15,9 @@
 // OCTIssueActionUnknown  - An unknown action occurred. Issue events will
 //                          never be initialized with this value -- they
 //                          will simply fail to be created.
-// OCTIssueActionOpened   - The issue or pull request was opened.
-// OCTIssueActionClosed   - The issue or pull request was closed.
-// OCTIssueActionReopened - The issue or pull request was reopened.
+// OCTIssueActionOpened   - The issue was opened.
+// OCTIssueActionClosed   - The issue was closed.
+// OCTIssueActionReopened - The issue was reopened.
 typedef enum : NSUInteger {
     OCTIssueActionUnknown = 0,
     OCTIssueActionOpened,
