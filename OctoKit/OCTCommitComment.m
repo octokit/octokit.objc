@@ -7,6 +7,7 @@
 //
 
 #import "OCTCommitComment.h"
+#import "NSValueTransformer+OCTPredefinedTransformerAdditions.h"
 
 @implementation OCTCommitComment
 
@@ -17,11 +18,21 @@
 		@"HTMLURL": @"html_url",
 		@"commitSHA": @"commit_id",
 		@"commenterLogin": @"user.login",
+		@"creationDate": @"created_at",
+		@"updatedDate": @"updated_at",
 	}];
 }
 
 + (NSValueTransformer *)HTMLURLJSONTransformer {
 	return [NSValueTransformer valueTransformerForName:MTLURLValueTransformerName];
+}
+
++ (NSValueTransformer *)creationDateJSONTransformer {
+	return [NSValueTransformer valueTransformerForName:OCTDateValueTransformerName];
+}
+
++ (NSValueTransformer *)updatedDateJSONTransformer {
+	return [NSValueTransformer valueTransformerForName:OCTDateValueTransformerName];
 }
 
 @end
