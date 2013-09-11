@@ -7,6 +7,7 @@
 //
 
 #import "OCTPullRequestComment.h"
+#import "NSValueTransformer+OCTPredefinedTransformerAdditions.h"
 
 @implementation OCTPullRequestComment
 
@@ -17,6 +18,8 @@
 		@"HTMLURL": @"_links.html.href",
 		@"pullRequestAPIURL": @"_links.pull_request.href",
 		@"commenterLogin": @"user.login",
+		@"creationDate": @"created_at",
+		@"updatedDate": @"updated_at",
 	}];
 }
 
@@ -26,6 +29,14 @@
 
 + (NSValueTransformer *)pullRequestAPIURLJSONTransformer {
 	return [NSValueTransformer valueTransformerForName:MTLURLValueTransformerName];
+}
+
++ (NSValueTransformer *)creationDateJSONTransformer {
+	return [NSValueTransformer valueTransformerForName:OCTDateValueTransformerName];
+}
+
++ (NSValueTransformer *)updatedDateJSONTransformer {
+	return [NSValueTransformer valueTransformerForName:OCTDateValueTransformerName];
 }
 
 @end
