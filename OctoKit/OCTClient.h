@@ -8,13 +8,15 @@
 
 #import <AFNetworking/AFNetworking.h>
 
+@class OCTGist;
+@class OCTGistEdit;
 @class OCTNotification;
 @class OCTOrganization;
+@class OCTRepository;
 @class OCTServer;
 @class OCTTeam;
 @class OCTUser;
 @class RACSignal;
-@class OCTRepository;
 
 // The domain for all errors originating in OCTClient.
 extern NSString * const OCTClientErrorDomain;
@@ -23,10 +25,18 @@ extern NSString * const OCTClientErrorDomain;
 // is not logged in.
 extern const NSInteger OCTClientErrorAuthenticationFailed;
 
+// The authorization request requires a two-factor authentication one-time
+// password.
+extern const NSInteger OCTClientErrorTwoFactorAuthenticationOneTimePasswordRequired;
+
 // The request was invalid (HTTP error 400).
 extern const NSInteger OCTClientErrorBadRequest;
 
 // The server refused to process the request (HTTP error 422).
+//
+// Among other reasons, this might be sent if one of the
+// -requestAuthorizationWithPassword: methods is given an invalid client ID or
+// secret.
 extern const NSInteger OCTClientErrorServiceRequestFailed;
 
 // There was a problem connecting to the server.
@@ -36,12 +46,21 @@ extern const NSInteger OCTClientErrorConnectionFailed;
 // JSON.
 extern const NSInteger OCTClientErrorJSONParsingFailed;
 
+// The server is too old or new to understand our request.
+extern const NSInteger OCTClientErrorUnsupportedServer;
+
 // A user info key associated with the NSURL of the request that failed.
 extern NSString * const OCTClientErrorRequestURLKey;
 
 // A user info key associated with an NSNumber, indicating the HTTP status code
 // that was returned with the error.
 extern NSString * const OCTClientErrorHTTPStatusCodeKey;
+
+// A user info key associated with an NSNumber-wrapped
+// OCTClientOneTimePasswordMedium which indicates the medium of delivery for the
+// one-time password required by the API. Only valid when the error's code is
+// OCTClientErrorTwoFactorAuthenticationOneTimePasswordRequired.
+extern NSString * const OCTClientErrorOneTimePasswordMediumKey;
 
 // Represents a single GitHub session.
 //
@@ -73,13 +92,13 @@ extern NSString * const OCTClientErrorHTTPStatusCodeKey;
 // authenticated with the server – only whether it will attempt to.
 //
 // This will only be YES when created with
-// +authenticatedClientWithUser:password:.
+// +authenticatedClientWithUser:token:.
 @property (nonatomic, getter = isAuthenticated, readonly) BOOL authenticated;
 
 // Initializes the receiver to make requests to the given GitHub server.
 // 
 // When using this initializer, the `user` property will not be set.
-// +authenticatedClientWithUser:password: or +unauthenticatedClientWithUser:
+// +authenticatedClientWithUser:token: or +unauthenticatedClientWithUser:
 // should typically be used instead.
 //
 // server - The GitHub server to connect to. This argument must not be nil.
@@ -88,17 +107,17 @@ extern NSString * const OCTClientErrorHTTPStatusCodeKey;
 - (id)initWithServer:(OCTServer *)server;
 
 // Creates a client which will attempt to authenticate as the given user, using
-// the given password.
+// the given authorization token.
 //
 // Note that this method does not actually perform a login or make a request to
 // the server – it only sets an authorization header for future requests.
 //
-// user     - The user to authenticate as. The `user` property of the returned
-//            client will be set to this object. This argument must not be nil.
-// password - The password for the given user.
+// user  - The user to authenticate as. The `user` property of the returned
+//         client will be set to this object. This argument must not be nil.
+// token - The authorization token for the given user.
 //
 // Returns a new client.
-+ (instancetype)authenticatedClientWithUser:(OCTUser *)user password:(NSString *)password;
++ (instancetype)authenticatedClientWithUser:(OCTUser *)user token:(NSString *)token;
 
 // Creates a client which can access any endpoints that don't require
 // authentication.
@@ -144,6 +163,118 @@ extern NSString * const OCTClientErrorHTTPStatusCodeKey;
 // JSON object, then complete. If an error occurs at any point, the returned
 // signal will send it immediately, then terminate.
 - (RACSignal *)enqueueRequest:(NSURLRequest *)request resultClass:(Class)resultClass;
+
+@end
+
+// The scopes for authorization. These can be bitwise OR'd together to request
+// multiple scopes.
+//
+// OCTClientAuthorizationScopesPublicReadOnly   - Public, read-only access.
+// OCTClientAuthorizationScopesUserEmail        - Read-only access to the user's
+//                                                email.
+// OCTClientAuthorizationScopesUserFollow       - Follow/unfollow access.
+// OCTClientAuthorizationScopesUser             - Read/write access to profile
+//                                                info. This includes OCTClientAuthorizationScopesUserEmail and
+//                                                OCTClientAuthorizationScopesUserFollow
+// OCTClientAuthorizationScopesRepositoryStatus - Read/write access to public
+//                                                and private repository
+//                                                commit statuses. This allows
+//                                                access to commit statuses
+//                                                without access to the
+//                                                repository's code.
+// OCTClientAuthorizationScopesPublicRepository - Read/write access to public
+//                                                repositories and orgs. This
+//                                                includes OCTClientAuthorizationScopesRepositoryStatus.
+// OCTClientAuthorizationScopesRepository       - Read/write access to public
+//                                                and private repositories and
+//                                                orgs. This includes OCTClientAuthorizationScopesRepositoryStatus.
+// OCTClientAuthorizationScopesRepositoryDelete - Delete access to adminable
+//                                                repositories.
+// OCTClientAuthorizationScopesNotifications    - Read access to the user's
+//                                                notifications.
+// OCTClientAuthorizationScopesGist             - Write access to the user's
+//                                                gists.
+typedef enum : NSUInteger {
+	OCTClientAuthorizationScopesPublicReadOnly = 1 << 0,
+
+	OCTClientAuthorizationScopesUserEmail = 1 << 1,
+	OCTClientAuthorizationScopesUserFollow = 1 << 2,
+	OCTClientAuthorizationScopesUser = 1 << 3,
+
+	OCTClientAuthorizationScopesRepositoryStatus = 1 << 4,
+	OCTClientAuthorizationScopesPublicRepository = 1 << 5,
+	OCTClientAuthorizationScopesRepository = 1 << 6,
+	OCTClientAuthorizationScopesRepositoryDelete = 1 << 7,
+
+	OCTClientAuthorizationScopesNotifications = 1 << 8,
+
+	OCTClientAuthorizationScopesGist = 1 << 9,
+} OCTClientAuthorizationScopes;
+
+// The medium used to deliver the one-time password.
+//
+// OCTClientOneTimePasswordMediumSMS - Delivered via SMS.
+// OCTClientOneTimePasswordMediumApp - Delivered via an app.
+typedef enum : NSUInteger {
+	OCTClientOneTimePasswordMediumSMS,
+	OCTClientOneTimePasswordMediumApp,
+} OCTClientOneTimePasswordMedium;
+
+// Authorization is done using a client-side OAuth flow. This allows native apps
+// to implement a native authentication flow, while minimizing the amount of
+// time the client app needs the user's password. The flow is:
+//   * Create an OAuth app on GitHub.com.
+//   * Use the APIs below to request authorization for the user, with the client
+//     ID and secret for your OAuth app.
+//   * Use the OCTAuthorization's token and
+//     +[OCTClient authenticatedClientWithUser:token:] to perform requests with
+//     your authorization.
+//
+// Note that because the client secret will be embedded in your app and sent
+// over the user's internet connection, the secret isn't terribly secret. To
+// help mitigate the risk of a web app stealing and using your client ID and
+// secret, set your the Callback URL for your OAuth app to a URL you control.
+// Even though this URL won't be used by your app, this will prevent other apps
+// from using your client ID and secret in a web flow.
+@interface OCTClient (Authorization)
+
+// Requests an authorization token with the current `user` and given password.
+//
+// If `user` has two-factor authentication turned on, the authorization will be
+// rejected with an error whose `code` is
+// `OCTClientErrorTwoFactorAuthenticationOneTimePasswordRequired`. The user will
+// be sent a one-time password to enter to approve the authorization. You can
+// then use `-requestAuthorizationTokenWithPassword:oneTimePassword:scopes:note:`
+// to again request authorization with the one-time password.
+//
+// password     - The user's password. Cannot be nil.
+// scopes       - The scopes to request access to. These values can be bitwise
+//                OR'd together to request multiple scopes.
+// clientID     - The OAuth client ID for the application. Cannot be nil.
+// clientSecret - The OAuth client secret for the application. Cannot be nil.
+//
+// Returns a signal which will send an OCTAuthorization and complete. If no
+// `user` is set, the signal will error immediately.
+- (RACSignal *)requestAuthorizationWithPassword:(NSString *)password scopes:(OCTClientAuthorizationScopes)scopes clientID:(NSString *)clientID clientSecret:(NSString *)clientSecret;
+
+// Requests an authorization token with the current `user`, password, and one-
+// time password.
+//
+// password        - The user's password. Cannot be nil.
+// oneTimePassword - The one-time password to approve the authorization request.
+//                   May be nil if you have no one-time password to provide.
+//                   This will usually be the case unless you've already
+//                   requested authorization, `user` has two-factor
+//                   authentication on, and the user has entered their one-time
+//                   password.
+// scopes          - The scopes to request access to. These values can be
+//                   bitwise OR'd together to request multiple scopes.
+// clientID        - The OAuth client ID for the application. Cannot be nil.
+// clientSecret    - The OAuth client secret for the application. Cannot be nil.
+//
+// Returns a signal which will send an OCTAuthorization and complete. If no
+// `user` is set, the signal will error immediately.
+- (RACSignal *)requestAuthorizationWithPassword:(NSString *)password oneTimePassword:(NSString *)oneTimePassword scopes:(OCTClientAuthorizationScopes)scopes clientID:(NSString *)clientID clientSecret:(NSString *)clientSecret;
 
 @end
 
@@ -320,5 +451,32 @@ extern NSString * const OCTClientErrorHTTPStatusCodeKey;
 //
 // Returns a signal of zero or one OCTRepository.
 - (RACSignal *)fetchRepositoryWithName:(NSString *)name owner:(NSString *)owner;
+
+@end
+
+@interface OCTClient (Gist)
+
+// Fetches all the gists for the current user.
+//
+// Returns a signal which will send zero or more OCTGists and complete. If the client
+// is not `authenticated`, the signal will error immediately.
+- (RACSignal *)fetchGists;
+
+// Edits one or more files within a gist.
+//
+// edit - The changes to make to the gist. This must not be nil.
+// gist - The gist to modify. This must not be nil.
+//
+// Returns a signal which will send the updated OCTGist and complete. If the client
+// is not `authenticated`, the signal will error immediately.
+- (RACSignal *)applyEdit:(OCTGistEdit *)edit toGist:(OCTGist *)gist;
+
+// Creates a gist using the given changes.
+//
+// edit - The changes to use for creating the gist. This must not be nil.
+//
+// Returns a signal which will send the created OCTGist and complete. If the client
+// is not `authenticated`, the signal will error immediately.
+- (RACSignal *)createGistWithEdit:(OCTGistEdit *)edit;
 
 @end

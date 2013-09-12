@@ -26,6 +26,13 @@
 // The body of the commit comment.
 @property (nonatomic, copy, readonly) NSString *body;
 
+// The date at which the comment was originally created.
+@property (nonatomic, copy, readonly) NSDate *creationDate;
+
+// The date the comment was last updated. This will be equal to
+// creationDate if the comment has not been updated.
+@property (nonatomic, copy, readonly) NSDate *updatedDate;
+
 // The line index in the commit's diff. This will be nil if the comment refers
 // to the entire commit.
 @property (nonatomic, copy, readonly) NSNumber *position;
