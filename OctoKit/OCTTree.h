@@ -17,7 +17,7 @@
 // The URL for the tree.
 @property (nonatomic, readonly, strong) NSURL *URL;
 
-// The OCTTreeEntries.
+// The `OCTTreeEntry` objects.
 @property (nonatomic, readonly, copy) NSArray *entries;
 
 @end
