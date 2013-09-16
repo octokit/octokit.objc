@@ -452,7 +452,7 @@ typedef enum : NSUInteger {
 //              nil.
 // recursive  - Should the tree be fetched recursively?
 //
-// Returns a signal of zero or one OCTTrees.
+// Returns a signal which will send an OCTTree and complete or error.
 - (RACSignal *)fetchTreeForReference:(NSString *)reference inRepository:(OCTRepository *)repository recursive:(BOOL)recursive;
 
 @end
