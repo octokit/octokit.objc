@@ -158,10 +158,10 @@ describe(@"equality", ^{
 		expect([user1 isEqual:user2]).to.beFalsy();
 
 		OCTUser *user3 = [OCTUser userWithLogin:@"joshaber" server:[OCTServer serverWithBaseURL:[NSURL URLWithString:@"https://google.com"]]];
-		expect([user1 isEqual:user3]).to.beFalsy();
+		expect([user2 isEqual:user3]).to.beFalsy();
 	});
 
-	it(@"should prefer objectID equivalence over login", ^{
+	it(@"should prefer objectID equivalence", ^{
 		OCTUser *user1 = [[OCTUser alloc] initWithDictionary:@{
 			@"login": @"joshaber",
 			@"objectID": @43,
