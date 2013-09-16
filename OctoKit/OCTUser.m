@@ -43,7 +43,7 @@
 #pragma mark NSObject
 
 - (NSUInteger)hash {
-	if (self.objectID != nil) return self.objectID.hash;
+	if (self.objectID != nil) return self.objectID.hash ^ self.server.hash;
 
 	return self.server.hash ^ self.login.hash;
 }
@@ -52,9 +52,12 @@
 	if (self == user) return YES;
 	if (![user isKindOfClass:self.class]) return NO;
 
+	BOOL equalServers = [user.server isEqual:self.server];
+	if (!equalServers) return NO;
+
 	if (self.objectID != nil) return [user.objectID isEqual:self.objectID];
 
-	return [user.server isEqual:self.server] && [user.login isEqual:self.login];
+	return [user.login isEqual:self.login];
 }
 
 @end
