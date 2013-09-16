@@ -9,6 +9,10 @@
 #import "OCTEntity.h"
 
 // A GitHub user.
+//
+// Users are equal if they come from the same server and have matching object
+// IDs, *or* if they were both created with +userWithLogin:server: and their
+// logins and servers are equal.
 @interface OCTUser : OCTEntity
 
 // Returns a user that has the given name and email address.
