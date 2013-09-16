@@ -749,9 +749,10 @@ static NSString * const OCTClientOneTimePasswordHeaderField = @"X-GitHub-OTP";
 	if (reference == nil) reference = @"HEAD";
 
 	NSString *path = [NSString stringWithFormat:@"repos/%@/%@/git/trees/%@", repository.ownerLogin, repository.name, reference];
-	if (recursive) path = [path stringByAppendingString:@"?recursive=1"];
+	NSDictionary *parameters;
+	if (recursive) parameters = @{ @"recursive": @1 };
 
-	NSURLRequest *request = [self requestWithMethod:@"GET" path:path parameters:nil];
+	NSURLRequest *request = [self requestWithMethod:@"GET" path:path parameters:parameters];
 	return [[self enqueueRequest:request resultClass:OCTTree.class] oct_parsedResults];
 }
 
