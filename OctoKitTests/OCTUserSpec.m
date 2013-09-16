@@ -144,11 +144,38 @@ describe(@"enterprise user", ^{
 	});
 });
 
-it(@"should treat users with the same server and login as equals", ^{
-	OCTUser *user1 = [OCTUser userWithLogin:@"joshaber" server:OCTServer.dotComServer];
-	OCTUser *user2 = [OCTUser userWithLogin:@"joshaber" server:OCTServer.dotComServer];
-	expect([user1 isEqual:user2]).to.beTruthy();
-	expect(user1.hash).to.equal(user2.hash);
+describe(@"equality", ^{
+	it(@"should treat users with the same server and login as equals", ^{
+		OCTUser *user1 = [OCTUser userWithLogin:@"joshaber" server:OCTServer.dotComServer];
+		OCTUser *user2 = [OCTUser userWithLogin:@"joshaber" server:OCTServer.dotComServer];
+		expect([user1 isEqual:user2]).to.beTruthy();
+		expect(user1.hash).to.equal(user2.hash);
+	});
+
+	it(@"shouldn't treat users with different servers or logins as equals", ^{
+		OCTUser *user1 = [OCTUser userWithLogin:@"joshaber1" server:OCTServer.dotComServer];
+		OCTUser *user2 = [OCTUser userWithLogin:@"joshaber" server:OCTServer.dotComServer];
+		expect([user1 isEqual:user2]).to.beFalsy();
+
+		OCTUser *user3 = [OCTUser userWithLogin:@"joshaber" server:[OCTServer serverWithBaseURL:[NSURL URLWithString:@"https://google.com"]]];
+		expect([user1 isEqual:user3]).to.beFalsy();
+	});
+
+	it(@"should prefer objectID equivalence over login", ^{
+		OCTUser *user1 = [[OCTUser alloc] initWithDictionary:@{
+			@"login": @"joshaber",
+			@"objectID": @43,
+			@"server": OCTServer.dotComServer,
+		} error:NULL];
+		OCTUser *user2 = [[OCTUser alloc] initWithDictionary:@{
+			@"login": @"joshaber1",
+			@"objectID": @43,
+			@"server": OCTServer.dotComServer,
+		} error:NULL];
+		expect(user1).notTo.beNil();
+		expect(user2).notTo.beNil();
+		expect(user1).to.equal(user2);
+	});
 });
 
 SpecEnd
