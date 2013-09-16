@@ -40,4 +40,24 @@
 	// Enterprise 'login').
 }
 
+#pragma mark NSObject
+
+- (NSUInteger)hash {
+	if (self.objectID != nil) return self.objectID.hash ^ self.server.hash;
+
+	return self.server.hash ^ self.login.hash;
+}
+
+- (BOOL)isEqual:(OCTUser *)user {
+	if (self == user) return YES;
+	if (![user isKindOfClass:self.class]) return NO;
+
+	BOOL equalServers = [user.server isEqual:self.server];
+	if (!equalServers) return NO;
+
+	if (self.objectID != nil || user.objectID != nil) return [user.objectID isEqual:self.objectID];
+
+	return [user.login isEqual:self.login];
+}
+
 @end
