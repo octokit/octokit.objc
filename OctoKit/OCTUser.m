@@ -55,7 +55,7 @@
 	BOOL equalServers = [user.server isEqual:self.server];
 	if (!equalServers) return NO;
 
-	if (self.objectID != nil) return [user.objectID isEqual:self.objectID];
+	if (self.objectID != nil || user.objectID != nil) return [user.objectID isEqual:self.objectID];
 
 	return [user.login isEqual:self.login];
 }

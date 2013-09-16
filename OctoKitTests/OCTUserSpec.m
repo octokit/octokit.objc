@@ -163,18 +163,28 @@ describe(@"equality", ^{
 
 	it(@"should prefer objectID equivalence", ^{
 		OCTUser *user1 = [[OCTUser alloc] initWithDictionary:@{
-			@"login": @"joshaber",
-			@"objectID": @43,
-			@"server": OCTServer.dotComServer,
+			@keypath(OCTUser.new, login): @"joshaber",
+			@keypath(OCTUser.new, objectID): @43,
+			@keypath(OCTUser.new, server): OCTServer.dotComServer,
 		} error:NULL];
 		OCTUser *user2 = [[OCTUser alloc] initWithDictionary:@{
-			@"login": @"joshaber1",
-			@"objectID": @43,
-			@"server": OCTServer.dotComServer,
+			@keypath(OCTUser.new, login): @"joshaber1",
+			@keypath(OCTUser.new, objectID): @43,
+			@keypath(OCTUser.new, server): OCTServer.dotComServer,
 		} error:NULL];
 		expect(user1).notTo.beNil();
 		expect(user2).notTo.beNil();
 		expect(user1).to.equal(user2);
+	});
+
+	it(@"should never treat a user with an ID as equivalent to a user without", ^{
+		OCTUser *user1 = [OCTUser userWithLogin:@"joshaber" server:OCTServer.dotComServer];
+		OCTUser *user2 = [OCTUser modelWithDictionary:@{
+			@keypath(OCTUser.new, login): @"joshaber",
+			@keypath(OCTUser.new, objectID): @42,
+			@keypath(OCTUser.new, server): OCTServer.dotComServer,
+		} error:NULL];
+		expect(user1).notTo.equal(user2);
 	});
 });
 
