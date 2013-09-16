@@ -8,9 +8,10 @@
 
 #import <OctoKit/OctoKit.h>
 
-typedef enum {
+typedef enum : NSUInteger {
 	OCTTreeEntryTypeBlob,
 	OCTTreeEntryTypeTree,
+	OCTTreeEntryTypeCommit,
 } OCTTreeEntryType;
 
 // An entry from a git tree.

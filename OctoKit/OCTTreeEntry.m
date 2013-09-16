@@ -27,6 +27,7 @@
 	NSDictionary *typeByName = @{
 		@"blob": @(OCTTreeEntryTypeBlob),
 		@"tree": @(OCTTreeEntryTypeTree),
+		@"commit": @(OCTTreeEntryTypeCommit),
 	};
 
 	return [MTLValueTransformer
