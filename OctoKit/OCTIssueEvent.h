@@ -12,17 +12,23 @@
 
 // The type of action performed on an issue or pull request.
 //
-// OCTIssueActionUnknown  - An unknown action occurred. Issue events will
-//                          never be initialized with this value -- they
-//                          will simply fail to be created.
-// OCTIssueActionOpened   - The issue or pull request was opened.
-// OCTIssueActionClosed   - The issue or pull request was closed.
-// OCTIssueActionReopened - The issue or pull request was reopened.
+// OCTIssueActionUnknown      - An unknown action occurred. Issue events will
+//                              never be initialized with this value -- they
+//                              will simply fail to be created.
+// OCTIssueActionOpened       - The issue or pull request was opened.
+// OCTIssueActionClosed       - The issue or pull request was closed.
+// OCTIssueActionReopened     - The issue or pull request was reopened.
+// OCTIssueActionSynchronized - Only available on pull request events. This
+//                              action occurs when a pull request is forcibly
+//                              sync'd with the underlying git state after a
+//                              failed hook or a force push.
+
 typedef enum : NSUInteger {
     OCTIssueActionUnknown = 0,
     OCTIssueActionOpened,
     OCTIssueActionClosed,
-    OCTIssueActionReopened
+    OCTIssueActionReopened,
+    OCTIssueActionSynchronized
 } OCTIssueAction;
 
 // An issue was opened or closed or somethin'.
