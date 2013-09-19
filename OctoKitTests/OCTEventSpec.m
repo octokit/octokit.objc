@@ -144,6 +144,16 @@ describe(@"OCTPullRequestEvent", ^{
 	});
 });
 
+describe(@"OCTPullRequestEventWAssignee", ^{
+	it(@"should have an assignee", ^{
+		OCTPullRequestEvent *event = eventsByID[@"1605825804"];
+		expect(event).to.beKindOf(OCTPullRequestEvent.class);
+
+		expect(event.pullRequest.assignee.objectID).to.equal(@"432536");
+		expect(event.pullRequest.assignee.login).to.equal(@"jspahrsummers");
+	});
+});
+
 describe(@"OCTIssueEvent", ^{
 	it(@"should have deserialized", ^{
 		OCTIssueEvent *event = eventsByID[@"1605857918"];
