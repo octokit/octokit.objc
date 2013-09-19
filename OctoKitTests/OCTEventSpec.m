@@ -144,7 +144,7 @@ describe(@"OCTPullRequestEvent", ^{
 	});
 });
 
-describe(@"OCTPullRequestEventWAssignee", ^{
+describe(@"OCTPullRequestEventAssignee", ^{
 	it(@"should have an assignee", ^{
 		OCTPullRequestEvent *event = eventsByID[@"1605825804"];
 		expect(event).to.beKindOf(OCTPullRequestEvent.class);
