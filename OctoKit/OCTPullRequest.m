@@ -7,6 +7,7 @@
 //
 
 #import "OCTPullRequest.h"
+#import "OCTUser.h"
 
 @implementation OCTPullRequest
 
@@ -20,6 +21,7 @@
 		@"patchURL": @"patch_url",
 		@"issueURL": @"issue_url",
 		@"objectID": @"number",
+		@"assignee": @"assignee",
 	}];
 }
 
@@ -41,6 +43,10 @@
 
 + (NSValueTransformer *)issueURLJSONTransformer {
 	return [NSValueTransformer valueTransformerForName:MTLURLValueTransformerName];
+}
+
++ (NSValueTransformer *)assigneeJSONTransformer {
+	return [NSValueTransformer mtl_JSONDictionaryTransformerWithModelClass:OCTUser.class];
 }
 
 + (NSValueTransformer *)stateJSONTransformer {
