@@ -21,7 +21,6 @@
 		@"patchURL": @"patch_url",
 		@"issueURL": @"issue_url",
 		@"objectID": @"number",
-		@"assignee": @"assignee",
 	}];
 }
 
