@@ -7,6 +7,7 @@
 //
 
 #import "OCTPullRequest.h"
+#import "OCTUser.h"
 
 @implementation OCTPullRequest
 
@@ -41,6 +42,10 @@
 
 + (NSValueTransformer *)issueURLJSONTransformer {
 	return [NSValueTransformer valueTransformerForName:MTLURLValueTransformerName];
+}
+
++ (NSValueTransformer *)assigneeJSONTransformer {
+	return [NSValueTransformer mtl_JSONDictionaryTransformerWithModelClass:OCTUser.class];
 }
 
 + (NSValueTransformer *)stateJSONTransformer {
