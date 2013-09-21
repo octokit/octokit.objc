@@ -20,6 +20,7 @@
 		@"commenterLogin": @"user.login",
 		@"creationDate": @"created_at",
 		@"updatedDate": @"updated_at",
+		@"originalPosition": @"original_position"
 	}];
 }
 

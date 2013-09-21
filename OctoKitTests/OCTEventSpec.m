@@ -95,6 +95,8 @@ describe(@"OCTPullRequestCommentEvent", ^{
 		expect(event.organizationLogin).to.equal(@"github");
 
 		expect(event.comment).to.beKindOf(OCTPullRequestComment.class);
+		expect(event.comment.position).to.equal(14);
+		expect(event.comment.originalPosition).to.equal(14);
 		expect(event.pullRequest).to.beNil();
 	});
 });

@@ -30,10 +30,16 @@
 // The relative path of the file being commented on.
 @property (nonatomic, copy, readonly) NSString *path;
 
-// The body of the commit comment.
+// The body of the pull request comment.
 @property (nonatomic, copy, readonly) NSString *body;
 
-// The line index in the pull request's diff.
-@property (nonatomic, readonly) NSInteger position;
+// The line index in the pull request's current diff. The value will
+// change if a subsequent commmit moves this line in the diff. If
+// the line is removed the value will be nil.
+@property (nonatomic, copy, readonly) NSNumber *position;
+
+// This is the line index into the pull request's diff at the
+// time of the comment.
+@property (nonatomic, readonly) NSInteger originalPosition;
 
 @end
