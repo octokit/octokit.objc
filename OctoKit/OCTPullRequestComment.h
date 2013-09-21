@@ -27,4 +27,13 @@
 // creationDate if the comment has not been updated.
 @property (nonatomic, copy, readonly) NSDate *updatedDate;
 
+// The relative path of the file being commented on.
+@property (nonatomic, copy, readonly) NSString *path;
+
+// The body of the commit comment.
+@property (nonatomic, copy, readonly) NSString *body;
+
+// The line index in the pull request's diff.
+@property (nonatomic, readonly) NSInteger position;
+
 @end
