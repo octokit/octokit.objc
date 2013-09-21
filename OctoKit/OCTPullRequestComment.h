@@ -20,6 +20,9 @@
 // The login of the user who created this comment.
 @property (nonatomic, copy, readonly) NSString *commenterLogin;
 
+// The SHA of the commit being commented upon.
+@property (nonatomic, copy, readonly) NSString *commitSHA;
+
 // The date at which the comment was originally created.
 @property (nonatomic, copy, readonly) NSDate *creationDate;
 
