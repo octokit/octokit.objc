@@ -18,8 +18,11 @@
 		@"HTMLURL": @"_links.html.href",
 		@"pullRequestAPIURL": @"_links.pull_request.href",
 		@"commenterLogin": @"user.login",
+		@"commitSHA": @"commit_id",
+		@"originalCommitSHA": @"original_commit_id",
 		@"creationDate": @"created_at",
 		@"updatedDate": @"updated_at",
+		@"originalPosition": @"original_position"
 	}];
 }
 
