@@ -20,9 +20,6 @@
 // The login of the user who created this comment.
 @property (nonatomic, copy, readonly) NSString *commenterLogin;
 
-// The SHA of the commit being commented upon.
-@property (nonatomic, copy, readonly) NSString *commitSHA;
-
 // The date at which the comment was originally created.
 @property (nonatomic, copy, readonly) NSDate *creationDate;
 
@@ -36,13 +33,19 @@
 // The body of the pull request comment.
 @property (nonatomic, copy, readonly) NSString *body;
 
+// The current HEAD SHA of the pull request.
+@property (nonatomic, copy, readonly) NSString *commitSHA;
+
+// The HEAD SHA of the pull request when the comment was originally made.
+@property (nonatomic, copy, readonly) NSString *originalCommitSHA;
+
 // The line index in the pull request's current diff. The value will
 // change if a subsequent commmit moves this line in the diff. If
 // the line is removed the value will be nil.
 @property (nonatomic, copy, readonly) NSNumber *position;
 
-// This is the line index into the pull request's diff at the
-// time of the comment.
-@property (nonatomic, readonly) NSInteger originalPosition;
+// This is the line index into the pull request's diff when the
+// comment was originally made.
+@property (nonatomic, copy, readonly) NSNumber *originalPosition;
 
 @end

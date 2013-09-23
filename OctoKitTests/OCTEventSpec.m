@@ -97,6 +97,8 @@ describe(@"OCTPullRequestCommentEvent", ^{
 		expect(event.comment).to.beKindOf(OCTPullRequestComment.class);
 		expect(event.comment.position).to.equal(14);
 		expect(event.comment.originalPosition).to.equal(14);
+		expect(event.comment.commitSHA).to.equal(@"7e731834f7fa981166cbb509a353dbe02eb5d1ea");
+		expect(event.comment.originalCommitSHA).to.equal(@"7e731834f7fa981166cbb509a353dbe02eb5d1ea");
 		expect(event.pullRequest).to.beNil();
 	});
 });
