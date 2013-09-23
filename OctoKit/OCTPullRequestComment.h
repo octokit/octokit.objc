@@ -27,4 +27,25 @@
 // creationDate if the comment has not been updated.
 @property (nonatomic, copy, readonly) NSDate *updatedDate;
 
+// The relative path of the file being commented on.
+@property (nonatomic, copy, readonly) NSString *path;
+
+// The body of the pull request comment.
+@property (nonatomic, copy, readonly) NSString *body;
+
+// The current HEAD SHA of the pull request.
+@property (nonatomic, copy, readonly) NSString *commitSHA;
+
+// The HEAD SHA of the pull request when the comment was originally made.
+@property (nonatomic, copy, readonly) NSString *originalCommitSHA;
+
+// The line index in the pull request's current diff. The value will
+// change if a subsequent commmit moves this line in the diff. If
+// the line is removed the value will be nil.
+@property (nonatomic, copy, readonly) NSNumber *position;
+
+// This is the line index into the pull request's diff when the
+// comment was originally made.
+@property (nonatomic, copy, readonly) NSNumber *originalPosition;
+
 @end
