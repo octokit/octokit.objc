@@ -29,6 +29,7 @@
 		@"opened": @(OCTIssueActionOpened),
 		@"closed": @(OCTIssueActionClosed),
 		@"reopened": @(OCTIssueActionReopened),
+		@"synchronized": @(OCTIssueActionSynchronized),
 	};
 
 	return [MTLValueTransformer
