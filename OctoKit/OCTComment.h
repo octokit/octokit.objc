@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
+// A comment can be added to an issue, pull request, or commit.
 @protocol OCTComment <NSObject>
 
 // The login of the user who created this comment.

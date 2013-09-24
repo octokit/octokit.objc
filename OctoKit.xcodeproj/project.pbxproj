@@ -9,10 +9,10 @@
 /* Begin PBXBuildFile section */
 		7A1F642B17F11EFB008155CF /* OCTIssueCommentSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A1F642A17F11EFB008155CF /* OCTIssueCommentSpec.m */; };
 		7A1F642C17F11EFB008155CF /* OCTIssueCommentSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A1F642A17F11EFB008155CF /* OCTIssueCommentSpec.m */; };
-		7A1F643917F120FF008155CF /* OCTComment.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A1F643817F120FF008155CF /* OCTComment.h */; };
-		7A1F643A17F120FF008155CF /* OCTComment.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A1F643817F120FF008155CF /* OCTComment.h */; };
-		7A1F647117F12851008155CF /* OCTReviewComment.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A1F647017F12851008155CF /* OCTReviewComment.h */; };
-		7A1F647217F12851008155CF /* OCTReviewComment.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A1F647017F12851008155CF /* OCTReviewComment.h */; };
+		7A1F647117F12851008155CF /* OCTReviewComment.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A1F647017F12851008155CF /* OCTReviewComment.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7A1F647217F12851008155CF /* OCTReviewComment.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A1F647017F12851008155CF /* OCTReviewComment.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7A8F64EC17F2208500083761 /* OCTComment.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A1F643817F120FF008155CF /* OCTComment.h */; };
+		7ACC999D17F220D7001613E7 /* OCTComment.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A1F643817F120FF008155CF /* OCTComment.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8813686617A1A77000F74214 /* OCTAuthorizationSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 8813686517A1A77000F74214 /* OCTAuthorizationSpec.m */; };
 		8813686717A1A77000F74214 /* OCTAuthorizationSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 8813686517A1A77000F74214 /* OCTAuthorizationSpec.m */; };
 		8813687417A1AF3000F74214 /* authorizations.json in Resources */ = {isa = PBXBuildFile; fileRef = 8813687317A1AD1E00F74214 /* authorizations.json */; };
@@ -1215,7 +1215,6 @@
 				D07DD38F17A993AA005EBFE0 /* OCTGist.h in Headers */,
 				D087217D169E395F00016ACA /* OCTObject.h in Headers */,
 				D0872183169E395F00016ACA /* OCTOrganization.h in Headers */,
-				7A1F643917F120FF008155CF /* OCTComment.h in Headers */,
 				D07DD39517A9940D005EBFE0 /* OCTGistFile.h in Headers */,
 				D0872187169E395F00016ACA /* OCTPlan.h in Headers */,
 				D087218B169E395F00016ACA /* OCTPublicKey.h in Headers */,
@@ -1232,13 +1231,14 @@
 				D08721B9169E395F00016ACA /* OCTUser.h in Headers */,
 				D087229F169E3D6000016ACA /* OctoKit.h in Headers */,
 				8829F2BF17A0DF5300F06991 /* OCTAuthorization.h in Headers */,
+				7A1F647117F12851008155CF /* OCTReviewComment.h in Headers */,
 				8848E19D16AF630B005449AB /* OCTNotification.h in Headers */,
 				D0772E7316BD27B5009DFF72 /* NSDateFormatter+OCTFormattingAdditions.h in Headers */,
 				D0772E7716BD2A06009DFF72 /* NSValueTransformer+OCTPredefinedTransformerAdditions.h in Headers */,
 				9CB0588917933F26002CF498 /* OCTSymlinkContent.h in Headers */,
-				7A1F647117F12851008155CF /* OCTReviewComment.h in Headers */,
 				9CB0587D17933F26002CF498 /* OCTDirectoryContent.h in Headers */,
 				F6CF78D416E993A500A75F63 /* RACSignal+OCTClientAdditions.h in Headers */,
+				7A8F64EC17F2208500083761 /* OCTComment.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1261,7 +1261,6 @@
 				D07DD39017A993AA005EBFE0 /* OCTGist.h in Headers */,
 				D087217E169E395F00016ACA /* OCTObject.h in Headers */,
 				D0872184169E395F00016ACA /* OCTOrganization.h in Headers */,
-				7A1F643A17F120FF008155CF /* OCTComment.h in Headers */,
 				D07DD39617A9940D005EBFE0 /* OCTGistFile.h in Headers */,
 				D0872188169E395F00016ACA /* OCTPlan.h in Headers */,
 				D087218C169E395F00016ACA /* OCTPublicKey.h in Headers */,
@@ -1275,14 +1274,15 @@
 				D08721AC169E395F00016ACA /* OCTResponse.h in Headers */,
 				D08721B0169E395F00016ACA /* OCTServer.h in Headers */,
 				D08721B6169E395F00016ACA /* OCTTeam.h in Headers */,
+				7ACC999D17F220D7001613E7 /* OCTComment.h in Headers */,
 				D08721BA169E395F00016ACA /* OCTUser.h in Headers */,
+				7A1F647217F12851008155CF /* OCTReviewComment.h in Headers */,
 				D08722A0169E3D6000016ACA /* OctoKit.h in Headers */,
 				8829F2C017A0DF5300F06991 /* OCTAuthorization.h in Headers */,
 				8848E19E16AF630B005449AB /* OCTNotification.h in Headers */,
 				D0772E7416BD27B6009DFF72 /* NSDateFormatter+OCTFormattingAdditions.h in Headers */,
 				D0772E7816BD2A06009DFF72 /* NSValueTransformer+OCTPredefinedTransformerAdditions.h in Headers */,
 				9CB0588A17933F26002CF498 /* OCTSymlinkContent.h in Headers */,
-				7A1F647217F12851008155CF /* OCTReviewComment.h in Headers */,
 				9CB0587E17933F26002CF498 /* OCTDirectoryContent.h in Headers */,
 				F6CF78D516E993A500A75F63 /* RACSignal+OCTClientAdditions.h in Headers */,
 			);

@@ -11,6 +11,14 @@
 
 @implementation OCTCommitComment
 
+@synthesize body;
+@synthesize path;
+@synthesize position;
+@synthesize commitSHA;
+@synthesize commenterLogin;
+@synthesize creationDate;
+@synthesize updatedDate;
+
 #pragma mark MTLJSONSerializing
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey {

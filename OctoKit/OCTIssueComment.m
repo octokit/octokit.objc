@@ -11,6 +11,11 @@
 
 @implementation OCTIssueComment
 
+@synthesize body;
+@synthesize commenterLogin;
+@synthesize creationDate;
+@synthesize updatedDate;
+
 #pragma mark MTLJSONSerializing
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
