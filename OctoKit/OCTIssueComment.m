@@ -7,6 +7,7 @@
 //
 
 #import "OCTIssueComment.h"
+#import "NSValueTransformer+OCTPredefinedTransformerAdditions.h"
 
 @implementation OCTIssueComment
 
@@ -16,6 +17,8 @@
 	return [super.JSONKeyPathsByPropertyKey mtl_dictionaryByAddingEntriesFromDictionary:@{
 		@"HTMLURL": @"html_url",
 		@"commenterLogin": @"user.login",
+		@"creationDate": @"created_at",
+		@"updatedDate": @"updated_at",
 	}];
 }
 
@@ -23,4 +26,11 @@
 	return [NSValueTransformer valueTransformerForName:MTLURLValueTransformerName];
 }
 
++ (NSValueTransformer *)creationDateJSONTransformer {
+	return [NSValueTransformer valueTransformerForName:OCTDateValueTransformerName];
+}
+
++ (NSValueTransformer *)updatedDateJSONTransformer {
+	return [NSValueTransformer valueTransformerForName:OCTDateValueTransformerName];
+}
 @end
