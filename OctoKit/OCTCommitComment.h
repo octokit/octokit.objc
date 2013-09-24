@@ -7,10 +7,10 @@
 //
 
 #import "OCTObject.h"
-#import "OCTComment.h"
+#import "OCTReviewComment.h"
 
 // A single comment on a commit.
-@interface OCTCommitComment : OCTObject<OCTComment>
+@interface OCTCommitComment : OCTObject<OCTReviewComment>
 
 // The webpage URL for this comment.
 @property (nonatomic, copy, readonly) NSURL *HTMLURL;
