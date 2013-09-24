@@ -1,19 +1,14 @@
 //
-//  OCTIssueComment.h
+//  OCTComment.h
 //  OctoKit
 //
-//  Created by Justin Spahr-Summers on 2012-10-02.
-//  Copyright (c) 2012 GitHub. All rights reserved.
+//  Created by Jackson Harper on 9/23/13.
+//  Copyright (c) 2013 GitHub. All rights reserved.
 //
 
-#import "OCTObject.h"
-#import "OCTComment.h"
+#import <Foundation/Foundation.h>
 
-// A single comment on an issue.
-@interface OCTIssueComment : OCTObject<OCTComment>
-
-// The webpage URL for this comment.
-@property (nonatomic, copy, readonly) NSURL *HTMLURL;
+@protocol OCTComment <NSObject>
 
 // The login of the user who created this comment.
 @property (nonatomic, copy, readonly) NSString *commenterLogin;
@@ -25,7 +20,7 @@
 // creationDate if the comment has not been updated.
 @property (nonatomic, copy, readonly) NSDate *updatedDate;
 
-// The body of the issue comment.
+// The body of the comment.
 @property (nonatomic, copy, readonly) NSString *body;
 
 @end

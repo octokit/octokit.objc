@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		7A1F642B17F11EFB008155CF /* OCTIssueCommentSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A1F642A17F11EFB008155CF /* OCTIssueCommentSpec.m */; };
 		7A1F642C17F11EFB008155CF /* OCTIssueCommentSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A1F642A17F11EFB008155CF /* OCTIssueCommentSpec.m */; };
+		7A1F643917F120FF008155CF /* OCTComment.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A1F643817F120FF008155CF /* OCTComment.h */; };
+		7A1F643A17F120FF008155CF /* OCTComment.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A1F643817F120FF008155CF /* OCTComment.h */; };
 		8813686617A1A77000F74214 /* OCTAuthorizationSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 8813686517A1A77000F74214 /* OCTAuthorizationSpec.m */; };
 		8813686717A1A77000F74214 /* OCTAuthorizationSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 8813686517A1A77000F74214 /* OCTAuthorizationSpec.m */; };
 		8813687417A1AF3000F74214 /* authorizations.json in Resources */ = {isa = PBXBuildFile; fileRef = 8813687317A1AD1E00F74214 /* authorizations.json */; };
@@ -542,6 +544,7 @@
 
 /* Begin PBXFileReference section */
 		7A1F642A17F11EFB008155CF /* OCTIssueCommentSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCTIssueCommentSpec.m; sourceTree = "<group>"; };
+		7A1F643817F120FF008155CF /* OCTComment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCTComment.h; sourceTree = "<group>"; };
 		8813686517A1A77000F74214 /* OCTAuthorizationSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCTAuthorizationSpec.m; sourceTree = "<group>"; };
 		8813687317A1AD1E00F74214 /* authorizations.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = authorizations.json; sourceTree = "<group>"; };
 		8829F2BD17A0DF5300F06991 /* OCTAuthorization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCTAuthorization.h; sourceTree = "<group>"; };
@@ -1048,6 +1051,7 @@
 				D0872152169E395F00016ACA /* OCTServer.h */,
 				D0872153169E395F00016ACA /* OCTServer.m */,
 				D0872154169E395F00016ACA /* OCTServer+Private.h */,
+				7A1F643817F120FF008155CF /* OCTComment.h */,
 				8829F2D217A0DFA700F06991 /* Authorization */,
 				D08B5999169E3E74006003B8 /* Commits */,
 				D08B5997169E3E0C006003B8 /* Entities */,
@@ -1207,6 +1211,7 @@
 				D07DD38F17A993AA005EBFE0 /* OCTGist.h in Headers */,
 				D087217D169E395F00016ACA /* OCTObject.h in Headers */,
 				D0872183169E395F00016ACA /* OCTOrganization.h in Headers */,
+				7A1F643917F120FF008155CF /* OCTComment.h in Headers */,
 				D07DD39517A9940D005EBFE0 /* OCTGistFile.h in Headers */,
 				D0872187169E395F00016ACA /* OCTPlan.h in Headers */,
 				D087218B169E395F00016ACA /* OCTPublicKey.h in Headers */,
@@ -1251,6 +1256,7 @@
 				D07DD39017A993AA005EBFE0 /* OCTGist.h in Headers */,
 				D087217E169E395F00016ACA /* OCTObject.h in Headers */,
 				D0872184169E395F00016ACA /* OCTOrganization.h in Headers */,
+				7A1F643A17F120FF008155CF /* OCTComment.h in Headers */,
 				D07DD39617A9940D005EBFE0 /* OCTGistFile.h in Headers */,
 				D0872188169E395F00016ACA /* OCTPlan.h in Headers */,
 				D087218C169E395F00016ACA /* OCTPublicKey.h in Headers */,
