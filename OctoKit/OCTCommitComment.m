@@ -11,13 +11,13 @@
 
 @implementation OCTCommitComment
 
-@synthesize body;
-@synthesize path;
-@synthesize position;
-@synthesize commitSHA;
-@synthesize commenterLogin;
-@synthesize creationDate;
-@synthesize updatedDate;
+@synthesize body = _body;
+@synthesize path = _path;
+@synthesize position = _position;
+@synthesize commitSHA = _commitSHA;
+@synthesize commenterLogin = _commenterLogin;
+@synthesize creationDate = _creationDate;
+@synthesize updatedDate = _updatedDate;
 
 #pragma mark MTLJSONSerializing
 

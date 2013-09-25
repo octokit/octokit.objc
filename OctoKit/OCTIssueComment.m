@@ -11,10 +11,10 @@
 
 @implementation OCTIssueComment
 
-@synthesize body;
-@synthesize commenterLogin;
-@synthesize creationDate;
-@synthesize updatedDate;
+@synthesize body = _body;
+@synthesize commenterLogin = _commenterLogin;
+@synthesize creationDate = _creationDate;
+@synthesize updatedDate = _updatedDate;
 
 #pragma mark MTLJSONSerializing
 
