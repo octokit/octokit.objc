@@ -12,11 +12,11 @@
 // A review comment is a comment that occurs on a portion of a
 // unified diff, such as a commit or a pull request. If the comment
 // refers to the entire entity, the path and position properties
-// will be nill.
+// will be nil.
 @protocol OCTReviewComment <OCTComment>
 
 // The relative path of the file being commented on. This
-// will be nill if the comment refers to the entire entity,
+// will be nil if the comment refers to the entire entity,
 // not a specific path in the diff.
 @property (nonatomic, copy, readonly) NSString *path;
 
@@ -24,7 +24,7 @@
 @property (nonatomic, copy, readonly) NSString *commitSHA;
 
 // The line index of the code being commented on. This
-// will be null if the comment refers to the entire review
+// will be nil if the comment refers to the entire review
 // entity (commit/pull request).
 @property (nonatomic, copy, readonly) NSNumber *position;
 
