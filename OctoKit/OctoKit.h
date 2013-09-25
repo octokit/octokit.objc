@@ -42,3 +42,5 @@
 #import <OctoKit/OCTSymlinkContent.h>
 #import <OctoKit/OCTTeam.h>
 #import <OctoKit/OCTUser.h>
+#import <OctoKit/OCTComment.h>
+#import <OctoKit/OCTReviewComment.h>

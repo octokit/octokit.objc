@@ -57,6 +57,7 @@ itShouldBehaveLike(OCTObjectArchivingSharedExamplesName, ^{
 
 it(@"should initialize", ^{
 	expect(comment.objectID).to.equal(@"1");
+	expect(comment.body).to.equal(@"Great stuff");
 	expect(comment.creationDate).to.equal([[[ISO8601DateFormatter alloc] init] dateFromString:@"2011-04-14T16:00:49Z"]);
 	expect(comment.updatedDate).to.equal([[[ISO8601DateFormatter alloc] init] dateFromString:@"2011-04-14T16:15:00Z"]);
 	expect(comment.HTMLURL).to.equal([NSURL URLWithString:@"https://github.com/octocat/Hello-World/pull/1#discussion-diff-1"]);
