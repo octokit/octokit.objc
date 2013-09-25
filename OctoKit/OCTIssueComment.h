@@ -7,14 +7,12 @@
 //
 
 #import "OCTObject.h"
+#import "OCTComment.h"
 
 // A single comment on an issue.
-@interface OCTIssueComment : OCTObject
+@interface OCTIssueComment : OCTObject<OCTComment>
 
 // The webpage URL for this comment.
 @property (nonatomic, copy, readonly) NSURL *HTMLURL;
-
-// The login of the user who created this comment.
-@property (nonatomic, copy, readonly) NSString *commenterLogin;
 
 @end

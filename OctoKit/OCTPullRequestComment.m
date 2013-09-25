@@ -11,6 +11,14 @@
 
 @implementation OCTPullRequestComment
 
+@synthesize body = _body;
+@synthesize path = _path;
+@synthesize position = _position;
+@synthesize commitSHA = _commitSHA;
+@synthesize commenterLogin = _commenterLogin;
+@synthesize creationDate = _creationDate;
+@synthesize updatedDate = _updatedDate;
+
 #pragma mark MTLJSONSerializing
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
