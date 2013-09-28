@@ -9,19 +9,39 @@
 #import "OCTResponse.h"
 #import "EXTKeyPathCoding.h"
 
+@interface OCTResponse ()
+
+@property (nonatomic, copy, readonly) NSHTTPURLResponse *HTTPURLResponse;
+
+@end
+
 @implementation OCTResponse
+
+#pragma mark Properties
+
+- (NSString *)etag {
+	return self.HTTPURLResponse.allHeaderFields[@"ETag"];
+}
+
+- (NSInteger)maximumRequestsPerHour {
+	return [self.HTTPURLResponse.allHeaderFields[@"X-RateLimit-Limit"] integerValue];
+}
+
+- (NSInteger)remainingRequests {
+	return [self.HTTPURLResponse.allHeaderFields[@"X-RateLimit-Remaining"] integerValue];
+}
+
+- (NSNumber *)pollInterval {
+	NSString *intervalString = self.HTTPURLResponse.allHeaderFields[@"X-Poll-Interval"];
+	return (intervalString.length > 0 ? @(intervalString.doubleValue) : nil);
+}
 
 #pragma mark Lifecycle
 
 - (id)initWithHTTPURLResponse:(NSHTTPURLResponse *)response parsedResult:(id)parsedResult {
-	NSString *intervalString = response.allHeaderFields[@"X-Poll-Interval"];
-
 	return [super initWithDictionary:@{
 		@keypath(self.parsedResult): parsedResult ?: NSNull.null,
-		@keypath(self.etag): [response.allHeaderFields[@"ETag"] copy] ?: NSNull.null,
-		@keypath(self.maximumRequestsPerHour): @([response.allHeaderFields[@"X-RateLimit-Limit"] integerValue]),
-		@keypath(self.remainingRequests): @([response.allHeaderFields[@"X-RateLimit-Remaining"] integerValue]),
-		@keypath(self.pollInterval): (intervalString.length > 0 ? @(intervalString.doubleValue) : NSNull.null),
+		@keypath(self.HTTPURLResponse): [response copy] ?: NSNull.null,
 	} error:NULL];
 }
 
@@ -34,7 +54,7 @@
 #pragma mark NSObject
 
 - (NSUInteger)hash {
-	return self.etag.hash;
+	return self.HTTPURLResponse.hash;
 }
 
 @end
