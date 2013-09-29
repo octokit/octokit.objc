@@ -23,4 +23,7 @@
 // comment was originally made.
 @property (nonatomic, copy, readonly) NSNumber *originalPosition;
 
+// The hunk in the diff that this comment originally refered to.
+@property (nonatomic, copy, readonly) NSString *diffHunk;
+
 @end
