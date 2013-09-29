@@ -23,7 +23,8 @@
 		@"commenterLogin": @"user.login",
 		@"commitSHA": @"commit_id",
 		@"originalCommitSHA": @"original_commit_id",
-		@"originalPosition": @"original_position"
+		@"originalPosition": @"original_position",
+		@"diffHunk": @"diff_hunk"
 	}];
 }
 

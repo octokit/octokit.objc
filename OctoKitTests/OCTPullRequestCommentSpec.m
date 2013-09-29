@@ -15,6 +15,7 @@ NSDictionary *representation = @{
 	@"url": @"https://api.github.com/repos/octocat/Hello-World/pulls/comments/1",
 	@"id": @1,
 	@"body": @"Great stuff",
+	@"diff_hunk": @"@@ -0,0 +1,26 @@\n+//\n+//  OCTComment.h\n+//  OctoKit\n+//\n+//...",
 	@"path": @"file1.txt",
 	@"position": @4,
 	@"commit_id": @"6dcb09b5b57875f334f61aebed695e2e4193db5e",
@@ -59,6 +60,7 @@ itShouldBehaveLike(OCTObjectArchivingSharedExamplesName, ^{
 it(@"should initialize", ^{
 	expect(comment.objectID).to.equal(@"1");
 	expect(comment.body).to.equal(@"Great stuff");
+	expect(comment.diffHunk).to.equal(@"@@ -0,0 +1,26 @@\n+//\n+//  OCTComment.h\n+//  OctoKit\n+//\n+//...");
 	expect(comment.creationDate).to.equal([[[ISO8601DateFormatter alloc] init] dateFromString:@"2011-04-14T16:00:49Z"]);
 	expect(comment.updatedDate).to.equal([[[ISO8601DateFormatter alloc] init] dateFromString:@"2011-04-14T16:15:00Z"]);
 	expect(comment.HTMLURL).to.equal([NSURL URLWithString:@"https://github.com/octocat/Hello-World/pull/1#discussion-diff-1"]);
