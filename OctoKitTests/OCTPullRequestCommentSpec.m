@@ -31,6 +31,7 @@ NSDictionary *representation = @{
 	},
 	@"created_at": @"2011-04-14T16:00:49Z",
 	@"updated_at": @"2011-04-14T16:15:00Z",
+	@"html_url": @"https://github.com/octocat/Hello-World/pull/1#discussion-diff-1",
 	@"_links": @{
 		@"self": @{
 			@"href": @"https://api.github.com/octocat/Hello-World/pulls/comments/1"
