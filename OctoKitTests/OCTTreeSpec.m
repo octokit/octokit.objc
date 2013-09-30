@@ -46,12 +46,14 @@ it(@"should initialize", ^{
 	expect(entry1.SHA).to.equal(@"bfcbe8a9b4efeee4ead492e9567f2d4c57acaeb7");
 	expect(entry1.URL.absoluteString).to.equal(@"https://api.github.com/repos/ReactiveCocoa/ReactiveCocoa/git/blobs/bfcbe8a9b4efeee4ead492e9567f2d4c57acaeb7");
 	expect(entry1.type).to.equal(OCTTreeEntryTypeBlob);
+	expect(entry1.mode).to.equal(OCTTreeEntryModeFile);
 
 	OCTTreeEntry *entry2 = tree.entries[1];
 	expect(entry2.path).to.equal(@"Documentation");
 	expect(entry2.SHA).to.equal(@"5e40845071aa4b59612ef57d2602662de008725d");
 	expect(entry2.URL.absoluteString).to.equal(@"https://api.github.com/repos/ReactiveCocoa/ReactiveCocoa/git/trees/5e40845071aa4b59612ef57d2602662de008725d");
 	expect(entry2.type).to.equal(OCTTreeEntryTypeTree);
+	expect(entry2.mode).to.equal(OCTTreeEntryModeSubdirectory);
 });
 
 SpecEnd

@@ -8,11 +8,29 @@
 
 #import <OctoKit/OctoKit.h>
 
+// The types of tree entries.
+//   OCTTreeEntryTypeBlob   - A blob of data.
+//   OCTTreeEntryTypeTree   - A tree of entries.
+//   OCTTreeEntryTypeCommit - A commit.
 typedef enum : NSUInteger {
 	OCTTreeEntryTypeBlob,
 	OCTTreeEntryTypeTree,
 	OCTTreeEntryTypeCommit,
 } OCTTreeEntryType;
+
+// The file mode of the entry.
+//   OCTTreeEntryModeFile         - File (blob) mode.
+//   OCTTreeEntryModeExecutable   - Executable (blob) mode.
+//   OCTTreeEntryModeSubdirectory - Subdirectory (tree) mode.
+//   OCTTreeEntryModeSubmodule    - Submodule (commit) mode.
+//   OCTTreeEntryModeSymlink      - Blob which specifies the path of a symlink.
+typedef enum : NSUInteger {
+	OCTTreeEntryModeFile,
+	OCTTreeEntryModeExecutable,
+	OCTTreeEntryModeSubdirectory,
+	OCTTreeEntryModeSubmodule,
+	OCTTreeEntryModeSymlink,
+} OCTTreeEntryMode;
 
 // An entry from a git tree.
 @interface OCTTreeEntry : OCTObject
@@ -28,5 +46,8 @@ typedef enum : NSUInteger {
 
 // The type of the entry.
 @property (nonatomic, readonly, assign) OCTTreeEntryType type;
+
+// The mode of the entry.
+@property (nonatomic, readonly, assign) OCTTreeEntryMode mode;
 
 @end

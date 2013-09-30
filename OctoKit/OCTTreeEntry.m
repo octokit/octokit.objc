@@ -39,6 +39,24 @@
 		}];
 }
 
++ (NSValueTransformer *)modeJSONTransformer {
+	NSDictionary *typeByName = @{
+		@"100644": @(OCTTreeEntryModeFile),
+		@"100755": @(OCTTreeEntryModeExecutable),
+		@"040000": @(OCTTreeEntryModeSubdirectory),
+		@"160000": @(OCTTreeEntryModeSubmodule),
+		@"120000": @(OCTTreeEntryModeSymlink),
+	};
+
+	return [MTLValueTransformer
+		reversibleTransformerWithForwardBlock:^(NSString *typeName) {
+			return typeByName[typeName];
+		}
+		reverseBlock:^(NSNumber *type) {
+			return [typeByName allKeysForObject:type].lastObject;
+		}];
+}
+
 #pragma mark NSObject
 
 - (NSUInteger)hash {
