@@ -7,20 +7,36 @@
 //
 
 #import "OCTTreeEntry.h"
+#import "OCTCommitTreeEntry.h"
+#import "OCTContentTreeEntry.h"
+#import "OCTBlobTreeEntry.h"
 
 @implementation OCTTreeEntry
 
+#pragma mark Class Cluster
+
++ (NSDictionary *)contentClassesByType {
+	return @{
+		@"blob": OCTBlobTreeEntry.class,
+		@"tree": OCTContentTreeEntry.class,
+		@"commit": OCTCommitTreeEntry.class,
+	};
+}
+
 #pragma mark MTLJSONSerializing
+
++ (Class)classForParsingJSONDictionary:(NSDictionary *)JSONDictionary {
+	NSString *type = JSONDictionary[@"type"];
+	NSAssert(type != nil, @"OCTTreeEntry JSON dictionary must contain a type string.");
+	Class class = self.contentClassesByType[type];
+	NSAssert(class != Nil, @"No known OCTTreeEntry class for the type '%@'.", type);
+	return class;
+}
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
 	return [super.JSONKeyPathsByPropertyKey mtl_dictionaryByAddingEntriesFromDictionary:@{
 		@"SHA": @"sha",
-		@"URL": @"url",
 	}];
-}
-
-+ (NSValueTransformer *)URLJSONTransformer {
-	return [NSValueTransformer valueTransformerForName:MTLURLValueTransformerName];
 }
 
 + (NSValueTransformer *)typeJSONTransformer {
@@ -60,14 +76,14 @@
 #pragma mark NSObject
 
 - (NSUInteger)hash {
-	return self.URL.hash;
+	return self.SHA.hash;
 }
 
 - (BOOL)isEqual:(OCTTreeEntry *)entry {
 	if (self == entry) return YES;
 	if (![entry isKindOfClass:self.class]) return NO;
 
-	return [entry.URL isEqual:self.URL];
+	return [entry.SHA isEqual:self.SHA];
 }
 
 @end

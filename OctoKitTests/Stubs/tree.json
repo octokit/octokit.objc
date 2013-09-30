@@ -16,6 +16,12 @@
       "sha": "5e40845071aa4b59612ef57d2602662de008725d",
       "path": "Documentation",
       "url": "https://api.github.com/repos/ReactiveCocoa/ReactiveCocoa/git/trees/5e40845071aa4b59612ef57d2602662de008725d"
+    },
+    {
+      "mode": "160000",
+      "type": "commit",
+      "sha": "1617ae09f662dc252805d818ae8a82626700523a",
+      "path": "TransformerKit"
     }
   ]
 }

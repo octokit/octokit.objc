@@ -9,6 +9,9 @@
 #import "OCTTree.h"
 #import "OCTObjectSpec.h"
 #import "OCTTreeEntry.h"
+#import "OCTBlobTreeEntry.h"
+#import "OCTContentTreeEntry.h"
+#import "OCTCommitTreeEntry.h"
 
 SpecBegin(OCTTree)
 
@@ -39,21 +42,31 @@ itShouldBehaveLike(OCTObjectArchivingSharedExamplesName, ^{
 it(@"should initialize", ^{
 	expect(tree.SHA).to.equal(@"HEAD");
 	expect(tree.URL.absoluteString).to.equal(@"https://api.github.com/repos/ReactiveCocoa/ReactiveCocoa/git/trees/HEAD");
-	expect(tree.entries.count).to.equal(2);
+	expect(tree.entries.count).to.equal(3);
 
-	OCTTreeEntry *entry1 = tree.entries[0];
+	OCTBlobTreeEntry *entry1 = tree.entries[0];
+	expect(entry1).to.beKindOf(OCTBlobTreeEntry.class);
 	expect(entry1.path).to.equal(@"CHANGELOG.md");
 	expect(entry1.SHA).to.equal(@"bfcbe8a9b4efeee4ead492e9567f2d4c57acaeb7");
 	expect(entry1.URL.absoluteString).to.equal(@"https://api.github.com/repos/ReactiveCocoa/ReactiveCocoa/git/blobs/bfcbe8a9b4efeee4ead492e9567f2d4c57acaeb7");
 	expect(entry1.type).to.equal(OCTTreeEntryTypeBlob);
 	expect(entry1.mode).to.equal(OCTTreeEntryModeFile);
+	expect(entry1.size).to.equal(17609);
 
-	OCTTreeEntry *entry2 = tree.entries[1];
+	OCTContentTreeEntry *entry2 = tree.entries[1];
+	expect(entry2).to.beKindOf(OCTContentTreeEntry.class);
 	expect(entry2.path).to.equal(@"Documentation");
 	expect(entry2.SHA).to.equal(@"5e40845071aa4b59612ef57d2602662de008725d");
 	expect(entry2.URL.absoluteString).to.equal(@"https://api.github.com/repos/ReactiveCocoa/ReactiveCocoa/git/trees/5e40845071aa4b59612ef57d2602662de008725d");
 	expect(entry2.type).to.equal(OCTTreeEntryTypeTree);
 	expect(entry2.mode).to.equal(OCTTreeEntryModeSubdirectory);
+
+	OCTCommitTreeEntry *entry3 = tree.entries[2];
+	expect(entry3).to.beKindOf(OCTCommitTreeEntry.class);
+	expect(entry3.path).to.equal(@"TransformerKit");
+	expect(entry3.SHA).to.equal(@"1617ae09f662dc252805d818ae8a82626700523a");
+	expect(entry3.type).to.equal(OCTTreeEntryTypeCommit);
+	expect(entry3.mode).to.equal(OCTTreeEntryModeSubmodule);
 });
 
 SpecEnd

@@ -32,7 +32,7 @@ typedef enum : NSUInteger {
 	OCTTreeEntryModeSymlink,
 } OCTTreeEntryMode;
 
-// An entry from a git tree.
+// A class cluster for git tree entries.
 @interface OCTTreeEntry : OCTObject
 
 // The SHA of the entry.
@@ -40,9 +40,6 @@ typedef enum : NSUInteger {
 
 // The repository-relative path.
 @property (nonatomic, readonly, copy) NSString *path;
-
-// The URL for the content of the entry.
-@property (nonatomic, readonly, strong) NSURL *URL;
 
 // The type of the entry.
 @property (nonatomic, readonly, assign) OCTTreeEntryType type;
