@@ -95,6 +95,10 @@ describe(@"OCTPullRequestCommentEvent", ^{
 		expect(event.organizationLogin).to.equal(@"github");
 
 		expect(event.comment).to.beKindOf(OCTPullRequestComment.class);
+		expect(event.comment.position).to.equal(14);
+		expect(event.comment.originalPosition).to.equal(14);
+		expect(event.comment.commitSHA).to.equal(@"7e731834f7fa981166cbb509a353dbe02eb5d1ea");
+		expect(event.comment.originalCommitSHA).to.equal(@"7e731834f7fa981166cbb509a353dbe02eb5d1ea");
 		expect(event.pullRequest).to.beNil();
 	});
 });
@@ -141,6 +145,16 @@ describe(@"OCTPullRequestEvent", ^{
 
 		expect(event.action).to.equal(OCTIssueActionOpened);
 		expect(event.pullRequest).to.beKindOf(OCTPullRequest.class);
+	});
+});
+
+describe(@"OCTPullRequestEventAssignee", ^{
+	it(@"should have an assignee", ^{
+		OCTPullRequestEvent *event = eventsByID[@"1605825804"];
+		expect(event).to.beKindOf(OCTPullRequestEvent.class);
+
+		expect(event.pullRequest.assignee.objectID).to.equal(@"432536");
+		expect(event.pullRequest.assignee.login).to.equal(@"jspahrsummers");
 	});
 });
 

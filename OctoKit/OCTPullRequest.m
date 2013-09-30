@@ -7,6 +7,7 @@
 //
 
 #import "OCTPullRequest.h"
+#import "OCTUser.h"
 
 @implementation OCTPullRequest
 
@@ -14,12 +15,17 @@
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
 	return [super.JSONKeyPathsByPropertyKey mtl_dictionaryByAddingEntriesFromDictionary:@{
+		@"URL" : @"url",
 		@"HTMLURL": @"html_url",
 		@"diffURL": @"diff_url",
 		@"patchURL": @"patch_url",
 		@"issueURL": @"issue_url",
 		@"objectID": @"number",
 	}];
+}
+
++ (NSValueTransformer *)URLJSONTransformer {
+	return [NSValueTransformer valueTransformerForName:MTLURLValueTransformerName];
 }
 
 + (NSValueTransformer *)HTMLURLJSONTransformer {
@@ -36,6 +42,10 @@
 
 + (NSValueTransformer *)issueURLJSONTransformer {
 	return [NSValueTransformer valueTransformerForName:MTLURLValueTransformerName];
+}
+
++ (NSValueTransformer *)assigneeJSONTransformer {
+	return [NSValueTransformer mtl_JSONDictionaryTransformerWithModelClass:OCTUser.class];
 }
 
 + (NSValueTransformer *)stateJSONTransformer {

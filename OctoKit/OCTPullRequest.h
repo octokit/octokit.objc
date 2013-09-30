@@ -8,6 +8,8 @@
 
 #import "OCTObject.h"
 
+@class OCTUser;
+
 // The state of the pull request. open or closed.
 //
 // OCTPullRequestStateOpen   - The pull request is open.
@@ -19,6 +21,9 @@ typedef enum : NSUInteger {
 
 // A pull request on a repository.
 @interface OCTPullRequest : OCTObject
+
+// The api URL for this pull request.
+@property (nonatomic, copy, readonly) NSURL *URL;
 
 // The webpage URL for this pull request.
 @property (nonatomic, copy, readonly) NSURL *HTMLURL;
@@ -37,6 +42,9 @@ typedef enum : NSUInteger {
 
 // The body text for this pull request.
 @property (nonatomic, copy, readonly) NSString *body;
+
+// The user this pull request is assigned to.
+@property (nonatomic, copy, readonly) OCTUser *assignee;
 
 // The state of this pull request.
 @property (nonatomic, readonly) OCTPullRequestState state;

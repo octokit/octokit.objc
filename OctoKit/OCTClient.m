@@ -517,6 +517,7 @@ static NSString * const OCTClientOneTimePasswordHeaderField = @"X-GitHub-OTP";
 	// they're both sent to the server the same way: as the Basic Auth password.
 	OCTClient *authedClient = [OCTClient authenticatedClientWithUser:self.user token:password];
 	NSMutableURLRequest *request = [authedClient requestWithMethod:method path:path parameters:parameters];
+	request.cachePolicy = NSURLRequestReloadIgnoringLocalCacheData;
 	if (oneTimePassword != nil) [request setValue:oneTimePassword forHTTPHeaderField:OCTClientOneTimePasswordHeaderField];
 
 	return [[self

@@ -7,8 +7,17 @@
 //
 
 #import "OCTPullRequestComment.h"
+#import "NSValueTransformer+OCTPredefinedTransformerAdditions.h"
 
 @implementation OCTPullRequestComment
+
+@synthesize body = _body;
+@synthesize path = _path;
+@synthesize position = _position;
+@synthesize commitSHA = _commitSHA;
+@synthesize commenterLogin = _commenterLogin;
+@synthesize creationDate = _creationDate;
+@synthesize updatedDate = _updatedDate;
 
 #pragma mark MTLJSONSerializing
 
@@ -17,6 +26,11 @@
 		@"HTMLURL": @"_links.html.href",
 		@"pullRequestAPIURL": @"_links.pull_request.href",
 		@"commenterLogin": @"user.login",
+		@"commitSHA": @"commit_id",
+		@"originalCommitSHA": @"original_commit_id",
+		@"creationDate": @"created_at",
+		@"updatedDate": @"updated_at",
+		@"originalPosition": @"original_position"
 	}];
 }
 
@@ -26,6 +40,14 @@
 
 + (NSValueTransformer *)pullRequestAPIURLJSONTransformer {
 	return [NSValueTransformer valueTransformerForName:MTLURLValueTransformerName];
+}
+
++ (NSValueTransformer *)creationDateJSONTransformer {
+	return [NSValueTransformer valueTransformerForName:OCTDateValueTransformerName];
+}
+
++ (NSValueTransformer *)updatedDateJSONTransformer {
+	return [NSValueTransformer valueTransformerForName:OCTDateValueTransformerName];
 }
 
 @end

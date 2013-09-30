@@ -44,3 +44,5 @@
 #import <OctoKit/OCTTree.h>
 #import <OctoKit/OCTTreeEntry.h>
 #import <OctoKit/OCTUser.h>
+#import <OctoKit/OCTComment.h>
+#import <OctoKit/OCTReviewComment.h>

@@ -30,7 +30,7 @@ NSDictionary *representation = @{
 		*/
 	},
 	@"created_at": @"2011-04-14T16:00:49Z",
-	@"updated_at": @"2011-04-14T16:00:49Z",
+	@"updated_at": @"2011-04-14T16:15:00Z",
 	@"_links": @{
 		@"self": @{
 			@"href": @"https://api.github.com/octocat/Hello-World/pulls/comments/1"
@@ -57,8 +57,15 @@ itShouldBehaveLike(OCTObjectArchivingSharedExamplesName, ^{
 
 it(@"should initialize", ^{
 	expect(comment.objectID).to.equal(@"1");
+	expect(comment.body).to.equal(@"Great stuff");
+	expect(comment.creationDate).to.equal([[[ISO8601DateFormatter alloc] init] dateFromString:@"2011-04-14T16:00:49Z"]);
+	expect(comment.updatedDate).to.equal([[[ISO8601DateFormatter alloc] init] dateFromString:@"2011-04-14T16:15:00Z"]);
 	expect(comment.HTMLURL).to.equal([NSURL URLWithString:@"https://github.com/octocat/Hello-World/pull/1#discussion-diff-1"]);
 	expect(comment.pullRequestAPIURL).to.equal([NSURL URLWithString:@"https://api.github.com/octocat/Hello-World/pulls/1"]);
+	expect(comment.position).to.equal(@4);
+	expect(comment.path).to.equal(@"file1.txt");
+	expect(comment.body).to.equal(@"Great stuff");
+	expect(comment.commitSHA).to.equal(@"6dcb09b5b57875f334f61aebed695e2e4193db5e");
 });
 
 SpecEnd
