@@ -8,6 +8,7 @@
 
 #import "OCTTreeEntry.h"
 
+// A commit tree entry.
 @interface OCTCommitTreeEntry : OCTTreeEntry
 
 @end

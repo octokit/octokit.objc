@@ -8,7 +8,7 @@
 
 #import <OctoKit/OctoKit.h>
 
-// A content entry which has a URL.
+// A tree entry which has URL-addressable content.
 @interface OCTContentTreeEntry : OCTTreeEntry
 
 // The URL for the content of the entry.
