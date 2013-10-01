@@ -1,0 +1,35 @@
+{
+  "sha": "HEAD",
+  "url": "https://api.github.com/repos/ReactiveCocoa/ReactiveCocoa/git/trees/HEAD",
+  "tree": [
+    {
+      "mode": "100644",
+      "type": "blob",
+      "sha": "bfcbe8a9b4efeee4ead492e9567f2d4c57acaeb7",
+      "path": "CHANGELOG.md",
+      "size": 17609,
+      "url": "https://api.github.com/repos/ReactiveCocoa/ReactiveCocoa/git/blobs/bfcbe8a9b4efeee4ead492e9567f2d4c57acaeb7"
+    },
+    {
+      "mode": "040000",
+      "type": "tree",
+      "sha": "5e40845071aa4b59612ef57d2602662de008725d",
+      "path": "Documentation",
+      "url": "https://api.github.com/repos/ReactiveCocoa/ReactiveCocoa/git/trees/5e40845071aa4b59612ef57d2602662de008725d"
+    },
+    {
+      "mode": "160000",
+      "type": "commit",
+      "sha": "1617ae09f662dc252805d818ae8a82626700523a",
+      "path": "TransformerKit"
+    },
+    {
+      "mode": "100644",
+      "type": "blob",
+      "sha": "dfda2ac07356f34e422df17673fc8148fae7d3b9",
+      "path": "ReactiveCocoaFramework/ReactiveCocoa/RACBehaviorSubject.m",
+      "size": 1209,
+      "url": "https://api.github.com/repos/ReactiveCocoa/ReactiveCocoa/git/blobs/dfda2ac07356f34e422df17673fc8148fae7d3b9"
+    }
+  ]
+}

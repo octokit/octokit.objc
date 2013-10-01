@@ -24,6 +24,7 @@
 #import "RACSignal+OCTClientAdditions.h"
 #import <ReactiveCocoa/ReactiveCocoa.h>
 #import "OCTAuthorization.h"
+#import "OCTTree.h"
 
 NSString * const OCTClientErrorDomain = @"OCTClientErrorDomain";
 const NSInteger OCTClientErrorAuthenticationFailed = 666;
@@ -741,6 +742,19 @@ static NSString * const OCTClientOneTimePasswordHeaderField = @"X-GitHub-OTP";
 	NSMutableURLRequest *request = [self requestWithMethod:@"GET" path:path parameters:nil notMatchingEtag:nil];
 	
 	return [[self enqueueRequest:request resultClass:OCTRepository.class] oct_parsedResults];
+}
+
+- (RACSignal *)fetchTreeForReference:(NSString *)reference inRepository:(OCTRepository *)repository recursive:(BOOL)recursive {
+	NSParameterAssert(repository != nil);
+
+	if (reference == nil) reference = @"HEAD";
+
+	NSString *path = [NSString stringWithFormat:@"repos/%@/%@/git/trees/%@", repository.ownerLogin, repository.name, reference];
+	NSDictionary *parameters;
+	if (recursive) parameters = @{ @"recursive": @1 };
+
+	NSURLRequest *request = [self requestWithMethod:@"GET" path:path parameters:parameters];
+	return [[self enqueueRequest:request resultClass:OCTTree.class] oct_parsedResults];
 }
 
 @end
