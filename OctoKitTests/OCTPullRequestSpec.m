@@ -22,9 +22,9 @@ NSDictionary *representation = @{
 	@"title": @"new-feature",
 	@"body": @"Please pull these awesome changes",
 	@"created_at": @"2011-01-26T19:01:12Z",
-	@"updated_at": @"2011-01-26T19:01:12Z",
-	@"closed_at": @"2011-01-26T19:01:12Z",
-	@"merged_at": @"2011-01-26T19:01:12Z",
+	@"updated_at": @"2011-01-26T19:02:12Z",
+	@"closed_at": @"2011-01-26T19:03:12Z",
+	@"merged_at": @"2011-01-26T19:04:12Z",
 	@"head": @{
 		@"label": @"new-topic",
 		@"ref": @"new-topic",
@@ -161,6 +161,10 @@ it(@"should initialize", ^{
 	expect(pullRequest.state).to.equal(OCTPullRequestStateOpen);
 	expect(pullRequest.title).to.equal(@"new-feature");
 	expect(pullRequest.body).to.equal(@"Please pull these awesome changes");
+	expect(pullRequest.creationDate).to.equal([[[ISO8601DateFormatter alloc] init] dateFromString:@"2011-01-26T19:01:12Z"]);
+	expect(pullRequest.updatedDate).to.equal([[[ISO8601DateFormatter alloc] init] dateFromString:@"2011-01-26T19:02:12Z"]);
+	expect(pullRequest.closedDate).to.equal([[[ISO8601DateFormatter alloc] init] dateFromString:@"2011-01-26T19:03:12Z"]);
+	expect(pullRequest.mergedDate).to.equal([[[ISO8601DateFormatter alloc] init] dateFromString:@"2011-01-26T19:04:12Z"]);
 });
 
 SpecEnd

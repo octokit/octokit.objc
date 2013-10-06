@@ -8,6 +8,7 @@
 
 #import "OCTPullRequest.h"
 #import "OCTUser.h"
+#import "NSValueTransformer+OCTPredefinedTransformerAdditions.h"
 
 @implementation OCTPullRequest
 
@@ -21,6 +22,10 @@
 		@"patchURL": @"patch_url",
 		@"issueURL": @"issue_url",
 		@"objectID": @"number",
+		@"creationDate": @"created_at",
+		@"updatedDate": @"updated_at",
+		@"closedDate": @"closed_at",
+		@"mergedDate": @"merged_at",
 	}];
 }
 
@@ -61,6 +66,22 @@
 		reverseBlock:^(NSNumber *state) {
 			return [statesByName allKeysForObject:state].lastObject;
 		}];
+}
+
++ (NSValueTransformer *)creationDateJSONTransformer {
+	return [NSValueTransformer valueTransformerForName:OCTDateValueTransformerName];
+}
+
++ (NSValueTransformer *)updatedDateJSONTransformer {
+	return [NSValueTransformer valueTransformerForName:OCTDateValueTransformerName];
+}
+
++ (NSValueTransformer *)closedDateJSONTransformer {
+	return [NSValueTransformer valueTransformerForName:OCTDateValueTransformerName];
+}
+
++ (NSValueTransformer *)mergedDateJSONTransformer {
+	return [NSValueTransformer valueTransformerForName:OCTDateValueTransformerName];
 }
 
 @end
