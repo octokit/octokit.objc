@@ -37,6 +37,9 @@ typedef enum : NSUInteger {
 // The issue URL for this pull request.
 @property (nonatomic, copy, readonly) NSURL *issueURL;
 
+// The user that opened this pull request.
+@property (nonatomic, copy, readonly) OCTUser *user;
+
 // The title of this pull request.
 @property (nonatomic, copy, readonly) NSString *title;
 

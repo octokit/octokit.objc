@@ -159,6 +159,8 @@ it(@"should initialize", ^{
 	expect(pullRequest.patchURL).to.equal([NSURL URLWithString:@"https://github.com/octocat/Hello-World/pulls/1.patch"]);
 	expect(pullRequest.issueURL).to.equal([NSURL URLWithString:@"https://github.com/octocat/Hello-World/issue/1"]);
 	expect(pullRequest.state).to.equal(OCTPullRequestStateOpen);
+	expect(pullRequest.user.objectID).to.equal(@"1");
+	expect(pullRequest.user.login).to.equal(@"octocat");
 	expect(pullRequest.title).to.equal(@"new-feature");
 	expect(pullRequest.body).to.equal(@"Please pull these awesome changes");
 	expect(pullRequest.creationDate).to.equal([[[ISO8601DateFormatter alloc] init] dateFromString:@"2011-01-26T19:01:12Z"]);
