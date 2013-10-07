@@ -46,6 +46,20 @@ typedef enum : NSUInteger {
 // The user this pull request is assigned to.
 @property (nonatomic, copy, readonly) OCTUser *assignee;
 
+// The date/time this pull request was created.
+@property (nonatomic, copy, readonly) NSDate *creationDate;
+
+// The date/time this pull request was last updated.
+@property (nonatomic, copy, readonly) NSDate *updatedDate;
+
+// The date/time this pull request was closed. nil if the
+// pull request has not been closed.
+@property (nonatomic, copy, readonly) NSDate *closedDate;
+
+// The date/time this pull request was merged. nil if the
+// pull request has not been merged.
+@property (nonatomic, copy, readonly) NSDate *mergedDate;
+
 // The state of this pull request.
 @property (nonatomic, readonly) OCTPullRequestState state;
 
