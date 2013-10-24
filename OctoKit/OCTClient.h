@@ -236,7 +236,8 @@ typedef enum : NSUInteger {
 // else error.
 + (RACSignal *)logInWithUser:(OCTUser *)user password:(NSString *)password oneTimePassword:(NSString *)oneTimePassword scopes:(OCTClientAuthorizationScopes)scopes;
 
-// Opens the default web browser and prompts the user to log in.
+// Opens the default web browser to the given GitHub server, and prompts the
+// user to log in.
 //
 // When `callbackURL` is opened using your app, you must invoke
 // +handleCallbackURL: in order for this authentication method to complete
@@ -245,6 +246,8 @@ typedef enum : NSUInteger {
 // **NOTE:** You must invoke +setUserAgent:clientID:clientSecret: before this
 // method.
 //
+// server          - The server that the user should log in to. This must not be
+//                   nil.
 // callbackURL     - The URL to redirect to after the user has logged in. Your
 //                   app must be the preferred application for handling this URL
 //                   scheme, or else the returned signal will error. This must
@@ -255,12 +258,12 @@ typedef enum : NSUInteger {
 // Returns a signal which will send an OCTClient then complete on success, or
 // else error. If +handleCallbackURL: is never invoked, the returned signal will
 // never complete.
-+ (RACSignal *)logInUsingWebBrowserWithCallbackURL:(NSURL *)callbackURL scopes:(OCTClientAuthorizationScopes)scopes;
++ (RACSignal *)logInToServerUsingWebBrowser:(OCTServer *)server callbackURL:(NSURL *)callbackURL scopes:(OCTClientAuthorizationScopes)scopes;
 
 // Notifies any waiting login processes that authentication has completed.
 //
 // This only affects authentication started with
-// +logInUsingWebBrowserWithCallbackURL:scopes:. Invoking this method will allow
+// +logInToServerUsingWebBrowser:callbackURL:scopes:. Invoking this method will allow
 // the originating login process to continue. If `callbackURL` does not
 // correspond to any in-progress logins, nothing will happen.
 //
