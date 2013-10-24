@@ -189,8 +189,7 @@ typedef enum : NSUInteger {
 // Creates a client which can access any endpoints that don't require
 // authentication.
 //
-// **NOTE:** You must invoke +setUserAgent: before making any requests with the
-// returned client.
+// **NOTE:** You must invoke +setUserAgent: before using this method.
 //
 // user - The active user. The `user` property of the returned client will be
 //        set to this object. This may be nil if you don't need to make requests
@@ -205,8 +204,7 @@ typedef enum : NSUInteger {
 // This method does not actually perform a login or make a request to the
 // server. It only saves authentication information for future requests.
 //
-// **NOTE:** You must invoke +setUserAgent: before making any requests with the
-// returned client.
+// **NOTE:** You must invoke +setUserAgent: before using this method.
 //
 // user  - The user to authenticate as. The `user` property of the returned
 //         client will be set to this object. This must not be nil.
