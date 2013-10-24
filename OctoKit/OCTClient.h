@@ -146,11 +146,19 @@ typedef enum : NSUInteger {
 // Whether this client supports authenticated endpoints.
 //
 // Note that this property does not specify whether the client has successfully
-// authenticated with the server – only whether it will attempt to.
+// authenticated with the server — only whether it will attempt to.
 //
-// This will only be YES when created with
-// +authenticatedClientWithUser:token:.
+// This will be NO when `token` is `nil`.
 @property (nonatomic, getter = isAuthenticated, readonly) BOOL authenticated;
+
+// The OAuth access token that the client was initialized with.
+//
+// You should protect this token like a password. **Never** save it to disk in
+// plaintext — use the keychain instead.
+//
+// This will be `nil` when the client is created using
+// +unauthenticatedClientWihtUser:.
+@property (nonatomic, copy, readonly) NSString *token;
 
 // Sets the HTTP User-Agent for the current app.
 //
