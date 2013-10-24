@@ -127,7 +127,7 @@ static NSString * const OCTClientRateLimitLoggingEnvironmentKey = @"LOG_REMAININ
 	if (token == nil) {
 		[self clearAuthorizationHeader];
 	} else {
-		[self setAuthorizationHeaderWithToken:token];
+		[self setAuthorizationHeaderWithUsername:token password:@"x-oauth-basic"];
 	}
 }
 
