@@ -39,6 +39,9 @@ NSString * const OCTClientErrorRequestURLKey = @"OCTClientErrorRequestURLKey";
 NSString * const OCTClientErrorHTTPStatusCodeKey = @"OCTClientErrorHTTPStatusCodeKey";
 NSString * const OCTClientErrorOneTimePasswordMediumKey = @"OCTClientErrorOneTimePasswordMediumKey";
 
+static const NSInteger OCTClientNotModifiedStatusCode = 304;
+static NSString * const OCTClientOneTimePasswordHeaderField = @"X-GitHub-OTP";
+
 // An environment variable that, when present, will enable logging of all
 // responses.
 static NSString * const OCTClientResponseLoggingEnvironmentKey = @"LOG_API_RESPONSES";
@@ -47,14 +50,20 @@ static NSString * const OCTClientResponseLoggingEnvironmentKey = @"LOG_API_RESPO
 // allowed before the rate limit is enforced.
 static NSString * const OCTClientRateLimitLoggingEnvironmentKey = @"LOG_REMAINING_API_CALLS";
 
-static const NSInteger OCTClientNotModifiedStatusCode = 304;
-
-static NSString * const OCTClientOneTimePasswordHeaderField = @"X-GitHub-OTP";
-
 @interface OCTClient ()
 
 @property (nonatomic, strong, readwrite) OCTUser *user;
 @property (nonatomic, getter = isAuthenticated, readwrite) BOOL authenticated;
+
+// Returns any user agent previously given to +setUserAgent:.
++ (NSString *)userAgent;
+
+// Returns any OAuth client ID previously given to +setClientID:clientSecret:.
++ (NSString *)clientID;
+
+// Returns any OAuth client secret previously given to
+// +setClientID:clientSecret:.
++ (NSString *)clientSecret;
 
 // An error indicating that a request required a valid user, but no `user`
 // property was set.
@@ -94,6 +103,76 @@ static NSString * const OCTClientOneTimePasswordHeaderField = @"X-GitHub-OTP";
 @end
 
 @implementation OCTClient
+
+#pragma mark Global Settings
+
+static NSString *OCTClientUserAgent = nil;
+static NSString *OCTClientOAuthClientID = nil;
+static NSString *OCTClientOAuthClientSecret = nil;
+
++ (dispatch_queue_t)globalSettingsQueue {
+	static dispatch_queue_t settingsQueue;
+	static dispatch_once_t pred;
+
+	dispatch_once(&pred, ^{
+		settingsQueue = dispatch_queue_create("com.github.OctoKit.globalSettingsQueue", DISPATCH_QUEUE_CONCURRENT);
+	});
+
+	return settingsQueue;
+}
+
++ (void)setUserAgent:(NSString *)userAgent {
+	NSParameterAssert(userAgent != nil);
+
+	NSString *copiedAgent = [userAgent copy];
+
+	dispatch_barrier_async(self.globalSettingsQueue, ^{
+		OCTClientUserAgent = copiedAgent;
+	});
+}
+
++ (NSString *)userAgent {
+	__block NSString *value = nil;
+
+	dispatch_sync(self.globalSettingsQueue, ^{
+		value = OCTClientUserAgent;
+	});
+
+	return value;
+}
+
++ (void)setClientID:(NSString *)clientID clientSecret:(NSString *)clientSecret {
+	NSParameterAssert(clientID != nil);
+	NSParameterAssert(clientSecret != nil);
+
+	NSString *copiedID = [clientID copy];
+	NSString *copiedSecret = [clientSecret copy];
+
+	dispatch_barrier_async(self.globalSettingsQueue, ^{
+		OCTClientOAuthClientID = copiedID;
+		OCTClientOAuthClientSecret = copiedSecret;
+	});
+}
+
++ (NSString *)clientID {
+	__block NSString *value = nil;
+
+	dispatch_sync(self.globalSettingsQueue, ^{
+		value = OCTClientOAuthClientID;
+	});
+
+	return value;
+}
+
++ (NSString *)clientSecret {
+	__block NSString *value = nil;
+
+	dispatch_sync(self.globalSettingsQueue, ^{
+		value = OCTClientOAuthClientSecret;
+	});
+
+	return value;
+}
 
 #pragma mark Lifecycle
 

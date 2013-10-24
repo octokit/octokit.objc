@@ -161,6 +161,10 @@ typedef enum : NSUInteger {
 
 // Sets OAuth client information for the current app.
 //
+// If you only ever use +unauthenticatedClient, you do not need to use this
+// method. Otherwise, you must invoke this method before making any
+// authentication requests.
+//
 // The information you provide here must match a registered OAuth application on
 // the server. You can create a new OAuth application via
 // https://github.com/settings/applications/new.
@@ -175,12 +179,10 @@ typedef enum : NSUInteger {
 // This method is thread-safe, and must be invoked before making any
 // authentication requests.
 //
-// clientID     - The OAuth client ID for your application. If you only ever use
-//                +unauthenticatedClient, this may be nil. Otherwise, you must
-//                provide a valid client ID.
-// clientSecret - The OAuth client secret for your application. If you only ever use
-//                +unauthenticatedClient, this may be nil. Otherwise, you must
-//                provide a valid client secret.
+// clientID     - The OAuth client ID for your application. This must not be
+//                nil.
+// clientSecret - The OAuth client secret for your application. This must not be
+//                nil.
 + (void)setClientID:(NSString *)clientID clientSecret:(NSString *)clientSecret;
 
 // Invokes -unauthenticatedClientWithUser: with a `nil` user.
