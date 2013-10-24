@@ -161,7 +161,7 @@ typedef enum : NSUInteger {
 
 // Sets OAuth client information for the current app.
 //
-// If you only ever use +unauthenticatedClient, you do not need to use this
+// If you only ever use +unauthenticatedClientWithUser:, you do not need to use this
 // method. Otherwise, you must invoke this method before making any
 // authentication requests.
 //
@@ -251,7 +251,7 @@ typedef enum : NSUInteger {
 //
 // Returns a signal which will send an OCTClient then complete on success, or
 // else error.
-+ (RACSignal *)logInWithUser:(OCTUser *)user password:(NSString *)password oneTimePassword:(NSString *)oneTimePassword scopes:(OCTClientAuthorizationScopes)scopes;
++ (RACSignal *)signInAsUser:(OCTUser *)user password:(NSString *)password oneTimePassword:(NSString *)oneTimePassword scopes:(OCTClientAuthorizationScopes)scopes;
 
 // Opens the default web browser to the given GitHub server, and prompts the
 // user to log in.
@@ -275,7 +275,7 @@ typedef enum : NSUInteger {
 // Returns a signal which will send an OCTClient then complete on success, or
 // else error. If +handleCallbackURL: is never invoked, the returned signal will
 // never complete.
-+ (RACSignal *)logInToServerUsingWebBrowser:(OCTServer *)server callbackURL:(NSURL *)callbackURL scopes:(OCTClientAuthorizationScopes)scopes;
++ (RACSignal *)signInToServerUsingWebBrowser:(OCTServer *)server callbackURL:(NSURL *)callbackURL scopes:(OCTClientAuthorizationScopes)scopes;
 
 // Notifies any waiting login processes that authentication has completed.
 //
