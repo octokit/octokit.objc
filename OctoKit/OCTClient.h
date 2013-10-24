@@ -221,10 +221,16 @@ typedef enum : NSUInteger {
 //
 // If `user` has two-factor authentication turned on and `oneTimePassword` is
 // not provided, the authorization will be rejected with an error whose `code` is
-// `OCTClientErrorTwoFactorAuthenticationOneTimePasswordRequired`. The user will
-// be sent a one-time password to enter to approve the authorization. You can
-// then invoke this method again to request authorization with the one-time
-// password.
+// `OCTClientErrorTwoFactorAuthenticationOneTimePasswordRequired`. The behavior
+// then depends on the `OCTClientOneTimePasswordMedium` that the user has set:
+//
+//  * If the user has chosen SMS as their authentication method, they will be
+//    sent a one-time password _each time_ this method is invoked.
+//  * If the user has chosen to use an app for authentication, they must open
+//    their chosen app and use the one-time password it presents.
+//
+// You can then invoke this method again to request authorization using the
+// one-time password entered by the user.
 //
 // **NOTE:** You must invoke +setUserAgent: and +setClientID:clientSecret:
 // before using this method.
