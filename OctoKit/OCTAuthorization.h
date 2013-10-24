@@ -8,7 +8,7 @@
 
 #import "OCTObject.h"
 
-// An token-based access authorization.
+// An OAuth token returned from the /authorizations API.
 @interface OCTAuthorization : OCTObject
 
 // The authorization token. You should treat this as you would the user's
