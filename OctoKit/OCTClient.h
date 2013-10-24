@@ -49,6 +49,11 @@ extern const NSInteger OCTClientErrorJSONParsingFailed;
 // The server is too old or new to understand our request.
 extern const NSInteger OCTClientErrorUnsupportedServer;
 
+// The GitHub login page could not be opened in a web browser.
+//
+// This error only affects +signInToServerUsingWebBrowser:callbackURL:scopes:.
+extern const NSInteger OCTClientErrorOpeningBrowser;
+
 // A user info key associated with the NSURL of the request that failed.
 extern NSString * const OCTClientErrorRequestURLKey;
 
@@ -163,6 +168,7 @@ typedef enum : NSUInteger {
 // Sets the HTTP User-Agent for the current app.
 //
 // This method is thread-safe, and _must_ be invoked before making any requests.
+// This will have no effect on any clients that have already been created.
 //
 // userAgent    - The user agent to set. This must not be nil.
 + (void)setUserAgent:(NSString *)userAgent;
@@ -185,7 +191,8 @@ typedef enum : NSUInteger {
 // from using your client ID and secret in a web flow.
 //
 // This method is thread-safe, and must be invoked before making any
-// authentication requests.
+// authentication requests. This will have no effect on any clients that have
+// already been created.
 //
 // clientID     - The OAuth client ID for your application. This must not be
 //                nil.
@@ -193,8 +200,18 @@ typedef enum : NSUInteger {
 //                nil.
 + (void)setClientID:(NSString *)clientID clientSecret:(NSString *)clientSecret;
 
-// Invokes -unauthenticatedClientWithUser: with a `nil` user.
-+ (instancetype)unauthenticatedClient;
+// Initializes the receiver to make requests to the given GitHub server.
+// 
+// When using this initializer, the `user` property will not be set.
+// +authenticatedClientWithUser:token: or +unauthenticatedClientWithUser:
+// should typically be used instead.
+//
+// **NOTE:** You must invoke +setUserAgent: before using this method.
+//
+// server - The GitHub server to connect to. This argument must not be nil.
+//
+// This is the designated initializer for this class.
+- (id)initWithServer:(OCTServer *)server;
 
 // Creates a client which can access any endpoints that don't require
 // authentication.
@@ -202,8 +219,7 @@ typedef enum : NSUInteger {
 // **NOTE:** You must invoke +setUserAgent: before using this method.
 //
 // user - The active user. The `user` property of the returned client will be
-//        set to this object. This may be nil if you don't need to make requests
-//        for user information.
+//        set to this object. This must not be nil.
 //
 // Returns a new client.
 + (instancetype)unauthenticatedClientWithUser:(OCTUser *)user;
@@ -275,8 +291,7 @@ typedef enum : NSUInteger {
 //                   nil.
 // callbackURL     - The URL to redirect to after the user has logged in. Your
 //                   app must be the preferred application for handling this URL
-//                   scheme, or else the returned signal will error. This must
-//                   not be nil.
+//                   scheme. This must not be nil.
 // scopes          - The scopes to request access to. These values can be
 //                   bitwise OR'd together to request multiple scopes.
 //
