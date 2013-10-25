@@ -570,10 +570,16 @@ static NSString *OCTClientOAuthClientSecret = nil;
 - (RACSignal *)enqueueUserRequestWithMethod:(NSString *)method relativePath:(NSString *)relativePath parameters:(NSDictionary *)parameters resultClass:(Class)resultClass {
 	NSParameterAssert(method != nil);
 	NSAssert([relativePath isEqualToString:@""] || [relativePath hasPrefix:@"/"], @"%@ is not a valid relativePath, it must start with @\"/\", or equal @\"\"", relativePath);
-	
-	if (self.user == nil) return [RACSignal error:self.class.userRequiredError];
+
+	NSString *path;
+	if (self.authenticated) {
+		path = [NSString stringWithFormat:@"user%@", relativePath];
+	} else if (self.user != nil) {
+		path = [NSString stringWithFormat:@"users/%@%@", self.user.login, relativePath];
+	} else {
+		return [RACSignal error:self.class.userRequiredError];
+	}
 		
-	NSString *path = (self.authenticated ? [NSString stringWithFormat:@"user%@", relativePath] : [NSString stringWithFormat:@"users/%@%@", self.user.login, relativePath]);
 	NSMutableURLRequest *request = [self requestWithMethod:method path:path parameters:parameters notMatchingEtag:nil];
 	if (self.authenticated) request.cachePolicy = NSURLRequestReloadIgnoringLocalCacheData;
 	
