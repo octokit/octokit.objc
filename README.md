@@ -15,15 +15,15 @@ Before any requests can be made, you must set the user agent for your app, as
 OCTClient.userAgent = @"OctoKit-README-Examples/1.0";
 ```
 
-After that's done, you must instantiate an `OCTClient` to begin interacting with
-the API. There are two ways to create a client that doesn't require
-[authentication](#authentication):
+After that's done, you must instantiate an [OCTClient](OctoKit/OCTClient.h) to
+begin interacting with the API. There are two ways to create a client that
+doesn't require [authentication](#authentication):
 
  1. `-initWithServer:` is the most basic way to initialize a client. It accepts
-    an `OCTServer`, which determines whether to connect to GitHub.com or
-    a [GitHub Enterprise](https://enterprise.github.com) instance.
+    an [OCTServer](OctoKit/OCTServer.h), which determines whether to connect to
+    GitHub.com or a [GitHub Enterprise](https://enterprise.github.com) instance.
  1. `+unauthenticatedClientWithUser:` is similar, but lets you set an _active
-    user_, used by some requests (e.g., `-fetchUserRepositories`).
+    user_, which is required for certain requests.
 
 We'll focus on the second method, since we can do more with it. Let's create
 a client that connects to GitHub.com:
@@ -52,7 +52,7 @@ RACSignal *request = [client fetchUserRepositories];
 However, you don't need a deep understanding of RAC to use OctoKit. There are
 just a few basic operations to be aware of.
 
-**To receive results one-by-one:**
+### Receiving results one-by-one
 
 It often makes sense to handle each result object independently, so you can
 spread any processing out instead of doing it all at once:
@@ -75,7 +75,7 @@ spread any processing out instead of doing it all at once:
 }];
 ```
 
-**To receive all results at once:**
+### Receiving all results at once
 
 If you can't do anything until you have _all_ of the results, you can "collect"
 them into a single array:
@@ -90,7 +90,7 @@ them into a single array:
 }];
 ```
 
-**To receive results on the main thread:**
+## Receiving results on the main thread
 
 The blocks in the above examples will be invoked in the background, to avoid
 slowing down the main thread.
@@ -102,18 +102,23 @@ background, so you can "deliver" results to the main thread instead:
 [[request deliverOn:RACScheduler.mainThreadScheduler] subscribeNext:^(OCTRepository *repository) {
     // ...
 } error:^(NSError *error) {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Whoops!" message:@"Something went wrong." delegate:nil cancelButtonTitle:nil otherButtonTitles:nil];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Whoops!"
+                                                    message:@"Something went wrong."
+                                                   delegate:nil
+                                          cancelButtonTitle:nil
+                                          otherButtonTitles:nil];
     [alert show];
 } completed:^{
     [self.tableView reloadData];
 }];
 ```
 
-**To cancel a request:**
+## Cancelling a request
 
-All of the `-subscribe…` methods actually return a `RACDisposable` object. Most
-of the time, you don't need it, but you can hold onto it if you want to cancel
-requests:
+All of the `-subscribe…` methods actually return
+a [RACDisposable](https://github.com/ReactiveCocoa/ReactiveCocoa/blob/master/ReactiveCocoaFramework/ReactiveCocoa/RACDisposable.h)
+object. Most of the time, you don't need it, but you can hold onto it if you
+want to cancel requests:
 
 ```objc
 - (void)viewWillAppear:(BOOL)animated {
@@ -126,7 +131,11 @@ requests:
         subscribeNext:^(NSArray *repositories) {
             [self addTableViewRowsForRepositories:repositories];
         } error:^(NSError *error) {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Whoops!" message:@"Something went wrong." delegate:nil cancelButtonTitle:nil otherButtonTitles:nil];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Whoops!"
+                                                            message:@"Something went wrong."
+                                                           delegate:nil
+                                                  cancelButtonTitle:nil
+                                                  otherButtonTitles:nil];
             [alert show];
         }];
 
