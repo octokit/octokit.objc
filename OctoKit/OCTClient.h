@@ -280,30 +280,28 @@ typedef enum : NSUInteger {
 // Opens the default web browser to the given GitHub server, and prompts the
 // user to log in.
 //
-// When `callbackURL` is opened using your app, you must invoke
-// +handleCallbackURL: in order for this authentication method to complete
-// successfully.
+// Your app must be the preferred application for handling its URL callback, as set
+// in your OAuth Application Settings). When the callback URL is opened using
+// your app, you must invoke +handleCallbackURL: in order for this
+// authentication method to complete successfully.
 //
 // **NOTE:** You must invoke +setUserAgent: and +setClientID:clientSecret:
 // before using this method.
 //
 // server          - The server that the user should log in to. This must not be
 //                   nil.
-// callbackURL     - The URL to redirect to after the user has logged in. Your
-//                   app must be the preferred application for handling this URL
-//                   scheme. This must not be nil.
 // scopes          - The scopes to request access to. These values can be
 //                   bitwise OR'd together to request multiple scopes.
 //
 // Returns a signal which will send an OCTClient then complete on success, or
 // else error. If +handleCallbackURL: is never invoked, the returned signal will
 // never complete.
-+ (RACSignal *)signInToServerUsingWebBrowser:(OCTServer *)server callbackURL:(NSURL *)callbackURL scopes:(OCTClientAuthorizationScopes)scopes;
++ (RACSignal *)signInToServerUsingWebBrowser:(OCTServer *)server scopes:(OCTClientAuthorizationScopes)scopes;
 
 // Notifies any waiting login processes that authentication has completed.
 //
 // This only affects authentication started with
-// +logInToServerUsingWebBrowser:callbackURL:scopes:. Invoking this method will allow
+// +signInToServerUsingWebBrowser:scopes:. Invoking this method will allow
 // the originating login process to continue. If `callbackURL` does not
 // correspond to any in-progress logins, nothing will happen.
 //

@@ -109,7 +109,7 @@ static NSString * const OCTClientRateLimitLoggingEnvironmentKey = @"LOG_REMAININ
 // Returns a signal that sends a temporary OAuth code when +handleCallbackURL:
 // is invoked with a matching callback URL, then completes. If any error occurs
 // opening the web browser, it will be sent on the returned signal.
-+ (RACSignal *)authorizeWithServerUsingWebBrowser:(OCTServer *)server callbackURL:(NSURL *)callbackURL scopes:(OCTClientAuthorizationScopes)scopes clientID:(NSString *)clientID clientSecret:(NSString *)clientSecret;
++ (RACSignal *)authorizeWithServerUsingWebBrowser:(OCTServer *)server scopes:(OCTClientAuthorizationScopes)scopes clientID:(NSString *)clientID clientSecret:(NSString *)clientSecret;
 
 @end
 
@@ -357,9 +357,8 @@ static NSString *OCTClientOAuthClientSecret = nil;
 		setNameWithFormat:@"+signInAsUser: %@ password:oneTimePassword:scopes:", user];
 }
 
-+ (RACSignal *)signInToServerUsingWebBrowser:(OCTServer *)server callbackURL:(NSURL *)callbackURL scopes:(OCTClientAuthorizationScopes)scopes {
++ (RACSignal *)signInToServerUsingWebBrowser:(OCTServer *)server scopes:(OCTClientAuthorizationScopes)scopes {
 	NSParameterAssert(server != nil);
-	NSParameterAssert(callbackURL != nil);
 
 	NSString *clientID = self.class.clientID;
 	NSString *clientSecret = self.class.clientSecret;
@@ -368,7 +367,7 @@ static NSString *OCTClientOAuthClientSecret = nil;
 	OCTClient *client = [[self alloc] initWithServer:server];
 
 	return [[[[[[[[[[self
-		authorizeWithServerUsingWebBrowser:server callbackURL:callbackURL scopes:scopes clientID:clientID clientSecret:clientSecret]
+		authorizeWithServerUsingWebBrowser:server scopes:scopes clientID:clientID clientSecret:clientSecret]
 		flattenMap:^(NSString *temporaryCode) {
 			NSDictionary *params = @{
 				@"client_id": clientID,
@@ -396,12 +395,11 @@ static NSString *OCTClientOAuthClientSecret = nil;
 		}]
 		mapReplace:client]
 		replayLazily]
-		setNameWithFormat:@"+signInToServerUsingWebBrowser: %@ callbackURL: %@ scopes:", server, callbackURL];
+		setNameWithFormat:@"+signInToServerUsingWebBrowser: %@ scopes:", server];
 }
 
-+ (RACSignal *)authorizeWithServerUsingWebBrowser:(OCTServer *)server callbackURL:(NSURL *)callbackURL scopes:(OCTClientAuthorizationScopes)scopes clientID:(NSString *)clientID clientSecret:(NSString *)clientSecret {
++ (RACSignal *)authorizeWithServerUsingWebBrowser:(OCTServer *)server scopes:(OCTClientAuthorizationScopes)scopes clientID:(NSString *)clientID clientSecret:(NSString *)clientSecret {
 	NSParameterAssert(server != nil);
-	NSParameterAssert(callbackURL != nil);
 
 	return [[RACSignal createSignal:^(id<RACSubscriber> subscriber) {
 		CFUUIDRef uuid = CFUUIDCreate(NULL);
@@ -415,15 +413,7 @@ static NSString *OCTClientOAuthClientSecret = nil;
 		// miss values on self.callbackURLs.
 		RACDisposable *callbackDisposable = [[[[self.callbackURLs
 			map:^(NSURL *URL) {
-				return callbackURL.URLByStandardizingPath;
-			}]
-			filter:^(NSURL *URL) {
-				NSURL *standardizedCallbackURL = callbackURL.URLByStandardizingPath;
-				if (![URL.scheme isEqual:standardizedCallbackURL.scheme]) return NO;
-				if (![URL.host isEqual:standardizedCallbackURL.host]) return NO;
-				if (![URL.path isEqual:standardizedCallbackURL.path]) return NO;
-
-				return YES;
+				return URL.URLByStandardizingPath;
 			}]
 			flattenMap:^(NSURL *URL) {
 				NSArray *queryComponents = [URL.query componentsSeparatedByString:@"&"];
@@ -442,12 +432,12 @@ static NSString *OCTClientOAuthClientSecret = nil;
 					return [RACSignal empty];
 				}
 			}]
+			logAll]
 			subscribe:subscriber];
 
 		NSString *scope = [[self scopesArrayFromScopes:scopes] componentsJoinedByString:@","];
-		CFStringRef redirectURLString = CFURLCreateStringByAddingPercentEscapes(NULL, (__bridge CFStringRef)callbackURL.absoluteString, NULL, CFSTR(":/?&=@"), kCFStringEncodingUTF8);
 
-		NSString *relativeString = [NSString stringWithFormat:@"login/oauth/authorize?client_id=%@&redirect_uri=%@&scope=%@&state=%@", clientID, CFBridgingRelease(redirectURLString), scope, uuidString];
+		NSString *relativeString = [[NSString alloc] initWithFormat:@"login/oauth/authorize?client_id=%@&scope=%@&state=%@", clientID, scope, uuidString];
 		NSURL *webURL = [NSURL URLWithString:[relativeString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] relativeToURL:server.baseWebURL];
 
 		BOOL success;
@@ -467,7 +457,7 @@ static NSString *OCTClientOAuthClientSecret = nil;
 		}
 
 		return callbackDisposable;
-	}] setNameWithFormat:@"+authorizeWithServerUsingWebBrowser: %@ callbackURL: %@ scopes:", server, callbackURL];
+	}] setNameWithFormat:@"+authorizeWithServerUsingWebBrowser: %@ scopes:", server];
 }
 
 + (void)handleCallbackURL:(NSURL *)callbackURL {
