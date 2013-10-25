@@ -375,9 +375,18 @@ static NSString *OCTClientOAuthClientSecret = nil;
 				@"code": temporaryCode
 			};
 
+			// We're using -requestWithMethod: for its parameter encoding and
+			// User-Agent behavior, but we'll replace the key properties so we
+			// can POST to another host.
 			NSMutableURLRequest *request = [client requestWithMethod:@"POST" path:@"" parameters:params];
-			request.URL = [NSURL URLWithString:@"login/oauth/access_token" relativeToURL:server.baseWebURL];
 			request.cachePolicy = NSURLRequestReloadIgnoringLocalCacheData;
+			request.URL = [NSURL URLWithString:@"login/oauth/access_token" relativeToURL:server.baseWebURL];
+
+			// The `Accept` string we normally use (where we specify the beta
+			// version of the API) doesn't work for this endpoint. Just plain
+			// JSON.
+			[request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+
 			return [client enqueueRequest:request resultClass:OCTAccessToken.class];
 		}]
 		oct_parsedResults]
