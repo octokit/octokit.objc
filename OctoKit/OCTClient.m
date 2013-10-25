@@ -405,8 +405,7 @@ static NSString *OCTClientOAuthClientSecret = nil;
 	NSParameterAssert(server != nil);
 
 	NSString *clientID = self.class.clientID;
-	NSString *clientSecret = self.class.clientSecret;
-	NSAssert(clientID != nil && clientSecret != nil, @"+setClientID:clientSecret: must be invoked before calling %@", NSStringFromSelector(_cmd));
+	NSAssert(clientID != nil, @"+setClientID:clientSecret: must be invoked before calling %@", NSStringFromSelector(_cmd));
 
 	return [[RACSignal createSignal:^(id<RACSubscriber> subscriber) {
 		CFUUIDRef uuid = CFUUIDCreate(NULL);
