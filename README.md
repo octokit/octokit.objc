@@ -16,8 +16,8 @@ OCTClient.userAgent = @"OctoKit-README-Examples/1.0";
 ```
 
 After that's done, you must instantiate an [OCTClient](OctoKit/OCTClient.h) to
-begin interacting with the API. There are two ways to create a client that
-doesn't require [authentication](#authentication):
+begin interacting with the API. There are two ways to create a client without
+[authenticating](#authentication):
 
  1. `-initWithServer:` is the most basic way to initialize a client. It accepts
     an [OCTServer](OctoKit/OCTServer.h), which determines whether to connect to
@@ -33,9 +33,8 @@ OCTUser *user = [OCTUser userWithLogin:username server:OCTServer.dotComServer];
 OCTClient *client = [OCTClient unauthenticatedClientWithUser:user];
 ```
 
-After we've got a client, we can start fetching data.
-
-Each request method on `OCTClient` returns
+After we've got a client, we can start fetching data. Each request method on
+`OCTClient` returns
 a [ReactiveCocoa](https://github.com/ReactiveCocoa/ReactiveCocoa) signal, which
 is kinda like a [future or
 promise](http://en.wikipedia.org/wiki/Futures_and_promises):
@@ -90,13 +89,12 @@ them into a single array:
 }];
 ```
 
-## Receiving results on the main thread
+### Receiving results on the main thread
 
 The blocks in the above examples will be invoked in the background, to avoid
-slowing down the main thread.
-
-However, if you want to run UI code in those blocks, you shouldn't do it in the
-background, so you can "deliver" results to the main thread instead:
+slowing down the main thread. However, if you want to run UI code, you shouldn't
+do it in the background, so you must "deliver" results to the main thread
+instead:
 
 ```objc
 [[request deliverOn:RACScheduler.mainThreadScheduler] subscribeNext:^(OCTRepository *repository) {
@@ -113,7 +111,7 @@ background, so you can "deliver" results to the main thread instead:
 }];
 ```
 
-## Cancelling a request
+### Cancelling a request
 
 All of the `-subscribe…` methods actually return
 a [RACDisposable](https://github.com/ReactiveCocoa/ReactiveCocoa/blob/master/ReactiveCocoaFramework/ReactiveCocoa/RACDisposable.h)
