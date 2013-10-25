@@ -201,7 +201,7 @@ receive an `OCTClient` instance as a reply:
 
 ```objc
 [[OCTClient
-    signInToServerUsingWebBrowser:OCTServer.dotComServer scopes:OCTClientAuthorizationScopesNotifications]
+    signInToServerUsingWebBrowser:OCTServer.dotComServer scopes:OCTClientAuthorizationScopesUser]
     subscribeNext:^(OCTClient *authenticatedClient) {
         // Authentication was successful. Do something with the created client.
     } error:^(NSError *error) {
@@ -220,7 +220,7 @@ authentication](https://help.github.com/articles/about-two-factor-authentication
 makes this process somewhat complex.
 
 Whenever the user wants to sign in, present your custom UI. After the form has
-been filled in with a username and password (and perhaps server, for [GitHub
+been filled in with a username and password (and perhaps a server URL, for [GitHub
 Enterprise](https://enterprise.github.com) users), you can attempt to
 authenticate. The pattern is very similar to [making
 a request](#making-requests), except that you receive an `OCTClient` instance as
@@ -229,7 +229,7 @@ a reply:
 ```objc
 OCTUser *user = [OCTUser userWithLogin:username server:OCTServer.dotComServer];
 [[OCTClient
-    signInAsUser:user password:password oneTimePassword:nil scopes:OCTClientAuthorizationScopesNotifications]
+    signInAsUser:user password:password oneTimePassword:nil scopes:OCTClientAuthorizationScopesUser]
     subscribeNext:^(OCTClient *authenticatedClient) {
         // Authentication was successful. Do something with the created client.
     } error:^(NSError *error) {
@@ -237,19 +237,19 @@ OCTUser *user = [OCTUser userWithLogin:username server:OCTServer.dotComServer];
     }];
 ```
 
-_You can also choose [receive the client on the main
+_(You can also choose [receive the client on the main
 thread](#receiving-results-on-the-main-thread), just like with any other
-request._
+request.)_
 
 `oneTimePassword` must be `nil` on your first attempt, since it's impossible to
 know ahead of time if a user has two-factor authentication enabled. If they do,
 you'll receive an error of code
 `OCTClientErrorTwoFactorAuthenticationOneTimePasswordRequired`, and should
-present a UI for the user to enter their 2FA code, as delivered by SMS or read
-from an authenticator app. Once you have the 2FA code, you can attempt to sign
-in again.
+present a UI for the user to enter the 2FA code they received via SMS or read
+from an authenticator app.
 
-The resulting code might look something like this:
+Once you have the 2FA code, you can attempt to sign in again. The resulting code
+might look something like this:
 
 ```objc
 - (IBAction)signIn:(id)sender {
@@ -260,8 +260,11 @@ The resulting code might look something like this:
         oneTimePassword = nil;
     }
 
+    NSString *username = self.usernameField.text;
+    NSString *password = self.passwordField.text;
+
     [[[OCTClient
-        signInAsUser:self.usernameField.text password:self.passwordField.text oneTimePassword:oneTimePassword scopes:OCTClientAuthorizationScopesNotifications]
+        signInAsUser:username password:password oneTimePassword:oneTimePassword scopes:OCTClientAuthorizationScopesUser]
         deliverOn:RACScheduler.mainThreadScheduler]
         subscribeNext:^(OCTClient *client) {
             [self successfullyAuthenticatedWithClient:client];
