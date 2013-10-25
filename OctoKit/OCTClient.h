@@ -162,7 +162,7 @@ typedef enum : NSUInteger {
 // plaintext — use the keychain instead.
 //
 // This will be `nil` when the client is created using
-// +unauthenticatedClientWihtUser:.
+// +unauthenticatedClientWithUser:.
 @property (nonatomic, copy, readonly) NSString *token;
 
 // Sets the HTTP User-Agent for the current app.
