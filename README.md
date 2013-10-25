@@ -152,6 +152,155 @@ want to cancel requests:
 
 ## Authentication
 
+OctoKit supports two variants of [OAuth2](http://developer.github.com/v3/oauth/)
+for signing in. We recommend the [browser-based
+approach](#signing-in-through-a-browser), but you can also implement a [native
+sign-in flow](#signing-in-through-the-app) if desired.
+
+In both cases, you will need to [register your OAuth
+application](https://github.com/settings/applications/new), and provide OctoKit
+with your client ID and client secret before trying to authenticate:
+
+```objc
+[OCTClient setClientID:@"abc123" clientSecret:@"654321abcdef"];
+```
+
+### Signing in through a browser
+
+With this API, the user will be redirected to their default browser (on OS X) or
+Safari (on iOS) to sign in, and then redirected back to your app. This is the
+easiest approach to implement, and means the user never has to enter their
+password directly into your app — plus, they may even be signed in through the
+browser already!
+
+To get started, you must [implement a custom URL
+scheme](https://developer.apple.com/library/ios/documentation/iPhone/Conceptual/iPhoneOSProgrammingGuide/AdvancedAppTricks/AdvancedAppTricks.html#//apple_ref/doc/uid/TP40007072-CH7-SW50)
+for your app, then use something matching that scheme for your [OAuth
+application's](https://github.com/settings/applications) callback URL. The
+actual URL doesn't matter to OctoKit, so you can use whatever you'd like, just
+as long as the URL scheme is correct.
+
+Whenever your app is opened from your URL, or asked to open it, you must pass it
+directly into `OCTClient`:
+
+```objc
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)URL sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
+    // For handling a callback URL like my-app://oauth
+    if ([URL.host isEqual:@"oauth"]) {
+        [OCTClient completeSignInWithCallbackURL:URL];
+        return YES;
+    } else {
+        return NO;
+    }
+}
+```
+
+After that's set up properly, you can present the sign in page at any point. The
+pattern is very similar to [making a request](#making-requests), except that you
+receive an `OCTClient` instance as a reply:
+
+```objc
+[[OCTClient
+    signInToServerUsingWebBrowser:OCTServer.dotComServer scopes:OCTClientAuthorizationScopesNotifications]
+    subscribeNext:^(OCTClient *authenticatedClient) {
+        // Authentication was successful. Do something with the created client.
+    } error:^(NSError *error) {
+        // Authentication failed.
+    }];
+```
+
+You can also choose [receive the client on the main
+thread](#receiving-results-on-the-main-thread), just like with any other request.
+
+### Signing in through the app
+
+If you don't want to open a web page, you can use the native authentication flow
+and implement your own sign-in UI. However, [two-factor
+authentication](https://help.github.com/articles/about-two-factor-authentication)
+makes this process somewhat complex.
+
+Whenever the user wants to sign in, present your custom UI. After the form has
+been filled in with a username and password (and perhaps server, for [GitHub
+Enterprise](https://enterprise.github.com) users), you can attempt to
+authenticate. The pattern is very similar to [making
+a request](#making-requests), except that you receive an `OCTClient` instance as
+a reply:
+
+```objc
+OCTUser *user = [OCTUser userWithLogin:username server:OCTServer.dotComServer];
+[[OCTClient
+    signInAsUser:user password:password oneTimePassword:nil scopes:OCTClientAuthorizationScopesNotifications]
+    subscribeNext:^(OCTClient *authenticatedClient) {
+        // Authentication was successful. Do something with the created client.
+    } error:^(NSError *error) {
+        // Authentication failed.
+    }];
+```
+
+_You can also choose [receive the client on the main
+thread](#receiving-results-on-the-main-thread), just like with any other
+request._
+
+`oneTimePassword` must be `nil` on your first attempt, since it's impossible to
+know ahead of time if a user has two-factor authentication enabled. If they do,
+you'll receive an error of code
+`OCTClientErrorTwoFactorAuthenticationOneTimePasswordRequired`, and should
+present a UI for the user to enter their 2FA code, as delivered by SMS or read
+from an authenticator app. Once you have the 2FA code, you can attempt to sign
+in again.
+
+The resulting code might look something like this:
+
+```objc
+- (IBAction)signIn:(id)sender {
+    NSString *oneTimePassword;
+    if (self.oneTimePasswordVisible) {
+        oneTimePassword = self.oneTimePasswordField.text;
+    } else {
+        oneTimePassword = nil;
+    }
+
+    [[[OCTClient
+        signInAsUser:self.usernameField.text password:self.passwordField.text oneTimePassword:oneTimePassword scopes:OCTClientAuthorizationScopesNotifications]
+        deliverOn:RACScheduler.mainThreadScheduler]
+        subscribeNext:^(OCTClient *client) {
+            [self successfullyAuthenticatedWithClient:client];
+        } error:^(NSError *error) {
+            if ([error.domain isEqual:OCTClientErrorDomain] && error.code == OCTClientErrorTwoFactorAuthenticationOneTimePasswordRequired) {
+                // Show OTP field and have the user try again.
+                [self showOneTimePasswordField];
+            } else {
+                // The error isn't a 2FA prompt, so present it to the user.
+                [self presentError:error];
+            }
+        }];
+}
+```
+
+### Saving credentials
+
+Generally, you'll want to save an authenticated OctoKit session, so the user
+doesn't have to repeat the sign in process when they open your app again.
+
+Regardless of the authentication method you use, you'll end up with an
+`OCTClient` instance after the user signs in successfully. An authenticated
+client has `user` and `token` properties. To remember the user, you need to save
+`user.login` and the OAuth access token into the
+[keychain](https://developer.apple.com/library/ios/documentation/Security/Conceptual/keychainServConcepts/01introduction/introduction.html).
+
+When your app is relaunched, and you want to use the saved credentials, skip the
+normal sign-in methods and create an authenticated client directly:
+
+```objc
+OCTUser *user = [OCTUser userWithLogin:savedLogin server:OCTServer.dotComServer];
+OCTClient *client = [OCTClient authenticatedClientWithUser:user token:savedToken];
+```
+
+If the credentials are still valid, you can make authenticated requests
+immediately. If not valid (perhaps because the OAuth token was revoked by the
+user), you'll receive an error after sending your first request, and can ask the
+user to sign in again.
+
 ## Importing OctoKit
 
 OctoKit is still new and moving fast, so we may make breaking changes from
@@ -180,7 +329,7 @@ To add OctoKit to your application:
 If you would prefer to use [CocoaPods](http://cocoapods.org), there are some [OctoKit podspecs](https://github.com/CocoaPods/Specs/tree/master/OctoKit)
 that have been generously contributed by third parties.
 
-### Copying the Frameworks
+### Copying the frameworks
 
 _This is only needed **on OS X**._
 
