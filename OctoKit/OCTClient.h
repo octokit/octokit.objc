@@ -282,7 +282,7 @@ typedef enum : NSUInteger {
 //
 // Your app must be the preferred application for handling its URL callback, as set
 // in your OAuth Application Settings). When the callback URL is opened using
-// your app, you must invoke +handleCallbackURL: in order for this
+// your app, you must invoke +completeSignInWithCallbackURL: in order for this
 // authentication method to complete successfully.
 //
 // **NOTE:** You must invoke +setUserAgent: and +setClientID:clientSecret:
@@ -294,8 +294,8 @@ typedef enum : NSUInteger {
 //                   bitwise OR'd together to request multiple scopes.
 //
 // Returns a signal which will send an OCTClient then complete on success, or
-// else error. If +handleCallbackURL: is never invoked, the returned signal will
-// never complete.
+// else error. If +completeSignInWithCallbackURL: is never invoked, the returned
+// signal will never complete.
 + (RACSignal *)signInToServerUsingWebBrowser:(OCTServer *)server scopes:(OCTClientAuthorizationScopes)scopes;
 
 // Notifies any waiting login processes that authentication has completed.
@@ -306,7 +306,7 @@ typedef enum : NSUInteger {
 // correspond to any in-progress logins, nothing will happen.
 //
 // callbackURL - The URL that the app was opened with. This must not be nil.
-+ (void)handleCallbackURL:(NSURL *)callbackURL;
++ (void)completeSignInWithCallbackURL:(NSURL *)callbackURL;
 
 @end
 

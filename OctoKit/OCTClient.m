@@ -106,9 +106,10 @@ static NSString * const OCTClientRateLimitLoggingEnvironmentKey = @"LOG_REMAININ
 
 // Launches the default web browser to the sign in page for the given server.
 //
-// Returns a signal that sends a temporary OAuth code when +handleCallbackURL:
-// is invoked with a matching callback URL, then completes. If any error occurs
-// opening the web browser, it will be sent on the returned signal.
+// Returns a signal that sends a temporary OAuth code when
+// +completeSignInWithCallbackURL: is invoked with a matching callback URL, then
+// completes. If any error occurs opening the web browser, it will be sent on
+// the returned signal.
 + (RACSignal *)authorizeWithServerUsingWebBrowser:(OCTServer *)server scopes:(OCTClientAuthorizationScopes)scopes clientID:(NSString *)clientID clientSecret:(NSString *)clientSecret;
 
 @end
@@ -469,7 +470,7 @@ static NSString *OCTClientOAuthClientSecret = nil;
 	}] setNameWithFormat:@"+authorizeWithServerUsingWebBrowser: %@ scopes:", server];
 }
 
-+ (void)handleCallbackURL:(NSURL *)callbackURL {
++ (void)completeSignInWithCallbackURL:(NSURL *)callbackURL {
 	NSParameterAssert(callbackURL != nil);
 	[self.callbackURLs sendNext:callbackURL];
 }
