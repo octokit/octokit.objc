@@ -256,6 +256,8 @@
 		D087B942181A47EB00821DCD /* user.json in Resources */ = {isa = PBXBuildFile; fileRef = D087B940181A47EB00821DCD /* user.json */; };
 		D087B944181A485200821DCD /* access_token.json in Resources */ = {isa = PBXBuildFile; fileRef = D087B943181A485200821DCD /* access_token.json */; };
 		D087B945181A485200821DCD /* access_token.json in Resources */ = {isa = PBXBuildFile; fileRef = D087B943181A485200821DCD /* access_token.json */; };
+		D087B947181A4F9200821DCD /* NSURLAdditionsSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = D087B946181A4F9200821DCD /* NSURLAdditionsSpec.m */; };
+		D087B948181A4F9200821DCD /* NSURLAdditionsSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = D087B946181A4F9200821DCD /* NSURLAdditionsSpec.m */; };
 		D0B9C8F416BC78970029C5B4 /* NSDateFormatter+OCTFormattingAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D0B9C8F116BC78970029C5B4 /* NSDateFormatter+OCTFormattingAdditions.m */; };
 		D0B9C8F516BC78970029C5B4 /* NSDateFormatter+OCTFormattingAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D0B9C8F116BC78970029C5B4 /* NSDateFormatter+OCTFormattingAdditions.m */; };
 		D0B9C8FD16BC7A260029C5B4 /* NSDateFormatterAdditionsSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = D0B9C8FC16BC7A260029C5B4 /* NSDateFormatterAdditionsSpec.m */; };
@@ -746,6 +748,7 @@
 		D087B93B181A430900821DCD /* NSURL+OCTQueryAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURL+OCTQueryAdditions.m"; sourceTree = "<group>"; };
 		D087B940181A47EB00821DCD /* user.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = user.json; sourceTree = "<group>"; };
 		D087B943181A485200821DCD /* access_token.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = access_token.json; sourceTree = "<group>"; };
+		D087B946181A4F9200821DCD /* NSURLAdditionsSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSURLAdditionsSpec.m; sourceTree = "<group>"; };
 		D0B9C8F016BC78970029C5B4 /* NSDateFormatter+OCTFormattingAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDateFormatter+OCTFormattingAdditions.h"; sourceTree = "<group>"; };
 		D0B9C8F116BC78970029C5B4 /* NSDateFormatter+OCTFormattingAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDateFormatter+OCTFormattingAdditions.m"; sourceTree = "<group>"; };
 		D0B9C8FC16BC7A260029C5B4 /* NSDateFormatterAdditionsSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSDateFormatterAdditionsSpec.m; sourceTree = "<group>"; };
@@ -1084,6 +1087,7 @@
 			isa = PBXGroup;
 			children = (
 				D0B9C8FC16BC7A260029C5B4 /* NSDateFormatterAdditionsSpec.m */,
+				D087B946181A4F9200821DCD /* NSURLAdditionsSpec.m */,
 				D0772E7B16BD2AD5009DFF72 /* NSValueTransformerAdditionsSpec.m */,
 				F6E2EC3F16EB04C50096C268 /* RACSignalAdditionsSpec.m */,
 				8813686517A1A77000F74214 /* OCTAuthorizationSpec.m */,
@@ -1876,6 +1880,7 @@
 				8813686617A1A77000F74214 /* OCTAuthorizationSpec.m in Sources */,
 				D08721D6169E398C00016ACA /* OCTRepositorySpec.m in Sources */,
 				D08721D8169E398C00016ACA /* OCTServerSpec.m in Sources */,
+				D087B947181A4F9200821DCD /* NSURLAdditionsSpec.m in Sources */,
 				D08721DA169E398C00016ACA /* OCTUserSpec.m in Sources */,
 				D0B9C8FD16BC7A260029C5B4 /* NSDateFormatterAdditionsSpec.m in Sources */,
 				D0772E7C16BD2AD5009DFF72 /* NSValueTransformerAdditionsSpec.m in Sources */,
@@ -1954,6 +1959,7 @@
 				8813686717A1A77000F74214 /* OCTAuthorizationSpec.m in Sources */,
 				D08721D7169E398C00016ACA /* OCTRepositorySpec.m in Sources */,
 				D08721D9169E398C00016ACA /* OCTServerSpec.m in Sources */,
+				D087B948181A4F9200821DCD /* NSURLAdditionsSpec.m in Sources */,
 				D08721DB169E398C00016ACA /* OCTUserSpec.m in Sources */,
 				D0B9C8FE16BC7A260029C5B4 /* NSDateFormatterAdditionsSpec.m in Sources */,
 				D0772E7D16BD2AD5009DFF72 /* NSValueTransformerAdditionsSpec.m in Sources */,

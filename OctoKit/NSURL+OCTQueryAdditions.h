@@ -12,9 +12,10 @@
 
 // Parses the URL's query string into a set of key-value pairs.
 //
-// Returns a dictionary of the URL's query arguments. Keys without a value will
-// be associated with `NSNull` in the dictionary. If there are multiple keys
-// with the same name, it's unspecified which one's value will be used.
+// Returns a (possibly empty) dictionary of the URL's query arguments. Keys
+// without a value will be associated with `NSNull` in the dictionary. If there
+// are multiple keys with the same name, it's unspecified which one's value will
+// be used.
 - (NSDictionary *)oct_queryArguments;
 
 @end

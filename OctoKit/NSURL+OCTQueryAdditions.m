@@ -16,10 +16,16 @@
 
 	NSMutableDictionary *queryArguments = [[NSMutableDictionary alloc] initWithCapacity:queryComponents.count];
 	for (NSString *component in queryComponents) {
-		NSArray *parts = [component componentsSeparatedByString:@"="];
+		if (component.length == 0) continue;
 
+		NSArray *parts = [component componentsSeparatedByString:@"="];
 		NSString *key = [parts.mtl_firstObject stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-		id value = [parts.lastObject stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding] ?: NSNull.null;
+
+		id value = NSNull.null;
+		if (parts.count > 1) {
+			value = [parts.lastObject stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+		}
+
 		queryArguments[key] = value;
 	}
 
