@@ -418,10 +418,7 @@ static NSString *OCTClientOAuthClientSecret = nil;
 		//
 		// This should be set up before opening the URL below, or we may
 		// miss values on self.callbackURLs.
-		RACDisposable *callbackDisposable = [[[[self.callbackURLs
-			map:^(NSURL *URL) {
-				return URL.URLByStandardizingPath;
-			}]
+		RACDisposable *callbackDisposable = [[[self.callbackURLs
 			flattenMap:^(NSURL *URL) {
 				NSDictionary *queryArguments = URL.oct_queryArguments;
 				if ([queryArguments[@"state"] isEqual:uuidString]) {
