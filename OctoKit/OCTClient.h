@@ -170,7 +170,7 @@ typedef enum : NSUInteger {
 // This method is thread-safe, and _must_ be invoked before making any requests.
 // This will have no effect on any clients that have already been created.
 //
-// userAgent    - The user agent to set. This must not be nil.
+// userAgent - The user agent to set. This must not be nil.
 + (void)setUserAgent:(NSString *)userAgent;
 
 // Sets OAuth client information for the current app.
