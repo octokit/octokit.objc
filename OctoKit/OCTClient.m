@@ -7,6 +7,7 @@
 //
 
 #import "OCTClient.h"
+#import "OCTClient+Private.h"
 #import "NSDateFormatter+OCTFormattingAdditions.h"
 #import "OCTAccessToken.h"
 #import "OCTAuthorization.h"
@@ -103,14 +104,6 @@ static NSString * const OCTClientRateLimitLoggingEnvironmentKey = @"LOG_REMAININ
 //
 // Returns a request which can be modified further before being enqueued.
 - (NSMutableURLRequest *)requestWithMethod:(NSString *)method path:(NSString *)path parameters:(NSDictionary *)parameters notMatchingEtag:(NSString *)etag;
-
-// Launches the default web browser to the sign in page for the given server.
-//
-// Returns a signal that sends a temporary OAuth code when
-// +completeSignInWithCallbackURL: is invoked with a matching callback URL, then
-// completes. If any error occurs opening the web browser, it will be sent on
-// the returned signal.
-+ (RACSignal *)authorizeWithServerUsingWebBrowser:(OCTServer *)server scopes:(OCTClientAuthorizationScopes)scopes clientID:(NSString *)clientID clientSecret:(NSString *)clientSecret;
 
 @end
 
@@ -368,7 +361,7 @@ static NSString *OCTClientOAuthClientSecret = nil;
 	OCTClient *client = [[self alloc] initWithServer:server];
 
 	return [[[[[[[[[[self
-		authorizeWithServerUsingWebBrowser:server scopes:scopes clientID:clientID clientSecret:clientSecret]
+		authorizeWithServerUsingWebBrowser:server scopes:scopes]
 		flattenMap:^(NSString *temporaryCode) {
 			NSDictionary *params = @{
 				@"client_id": clientID,
@@ -408,8 +401,12 @@ static NSString *OCTClientOAuthClientSecret = nil;
 		setNameWithFormat:@"+signInToServerUsingWebBrowser: %@ scopes:", server];
 }
 
-+ (RACSignal *)authorizeWithServerUsingWebBrowser:(OCTServer *)server scopes:(OCTClientAuthorizationScopes)scopes clientID:(NSString *)clientID clientSecret:(NSString *)clientSecret {
++ (RACSignal *)authorizeWithServerUsingWebBrowser:(OCTServer *)server scopes:(OCTClientAuthorizationScopes)scopes {
 	NSParameterAssert(server != nil);
+
+	NSString *clientID = self.class.clientID;
+	NSString *clientSecret = self.class.clientSecret;
+	NSAssert(clientID != nil && clientSecret != nil, @"+setClientID:clientSecret: must be invoked before calling %@", NSStringFromSelector(_cmd));
 
 	return [[RACSignal createSignal:^(id<RACSubscriber> subscriber) {
 		CFUUIDRef uuid = CFUUIDCreate(NULL);
@@ -450,15 +447,7 @@ static NSString *OCTClientOAuthClientSecret = nil;
 		NSString *relativeString = [[NSString alloc] initWithFormat:@"login/oauth/authorize?client_id=%@&scope=%@&state=%@", clientID, scope, uuidString];
 		NSURL *webURL = [NSURL URLWithString:[relativeString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] relativeToURL:server.baseWebURL];
 
-		BOOL success;
-
-		#ifdef __IPHONE_OS_VERSION_MIN_REQUIRED
-		success = [UIApplication.sharedApplication openURL:webURL];
-		#else
-		success = [NSWorkspace.sharedWorkspace openURL:webURL];
-		#endif
-
-		if (!success) {
+		if (![self openURL:webURL]) {
 			[subscriber sendError:[NSError errorWithDomain:OCTClientErrorDomain code:OCTClientErrorOpeningBrowser userInfo:@{
 				NSLocalizedDescriptionKey: NSLocalizedString(@"Could not open web browser", nil),
 				NSLocalizedRecoverySuggestionErrorKey: NSLocalizedString(@"Please make sure you have a default web browser set.", nil),
@@ -468,6 +457,16 @@ static NSString *OCTClientOAuthClientSecret = nil;
 
 		return callbackDisposable;
 	}] setNameWithFormat:@"+authorizeWithServerUsingWebBrowser: %@ scopes:", server];
+}
+
++ (BOOL)openURL:(NSURL *)URL {
+	NSParameterAssert(URL != nil);
+
+	#ifdef __IPHONE_OS_VERSION_MIN_REQUIRED
+	return [UIApplication.sharedApplication openURL:URL];
+	#else
+	return [NSWorkspace.sharedWorkspace openURL:URL];
+	#endif
 }
 
 + (void)completeSignInWithCallbackURL:(NSURL *)callbackURL {
