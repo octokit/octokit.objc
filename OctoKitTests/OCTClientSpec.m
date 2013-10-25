@@ -331,6 +331,8 @@ describe(@"unauthenticated", ^{
 });
 
 describe(@"sign in", ^{
+	NSURL *dotComLoginURL = [NSURL URLWithString:@"https://github.com/login/oauth/authorize"];
+
 	NSString *clientID = @"deadbeef";
 	NSString *clientSecret = @"itsasekret";
 
@@ -379,8 +381,6 @@ describe(@"sign in", ^{
 	});
 
 	describe(@"+authorizeWithServerUsingWebBrowser:scopes:", ^{
-		NSURL *dotComLoginURL = [NSURL URLWithString:@"https://github.com/login/oauth/authorize"];
-
 		__block NSURL *openedURL;
 		__block RACDisposable *openedURLDisposable;
 
@@ -446,6 +446,65 @@ describe(@"sign in", ^{
 
 			expect(error.domain).to.equal(OCTClientErrorDomain);
 			expect(error.code).to.equal(OCTClientErrorOpeningBrowserFailed);
+		});
+	});
+
+	describe(@"+signInToServerUsingWebBrowser:scopes:", ^{
+		NSString *token = @"e72e16c7e42f292c6912e7710c838347ae178b4a";
+
+		RACSignal * (^signInAndCallBack)(void) = ^{
+			__block NSURL *openedURL;
+			[[OCTTestClient.openedURLs take:1] subscribeNext:^(NSURL *URL) {
+				openedURL = URL;
+			}];
+
+			RACSignal *signal = [[OCTTestClient signInToServerUsingWebBrowser:OCTServer.dotComServer scopes:OCTClientAuthorizationScopesRepository] replay];
+			expect(openedURL).willNot.beNil();
+
+			NSString *state = openedURL.oct_queryArguments[@"state"];
+			NSURL *matchingURL = [NSURL URLWithString:[NSString stringWithFormat:@"?state=%@&code=12345", state] relativeToURL:dotComLoginURL];
+			[OCTTestClient completeSignInWithCallbackURL:matchingURL];
+
+			return signal;
+		};
+
+		beforeEach(^{
+			OCTTestClient.shouldSucceedOpeningURL = YES;
+
+			stubResponse(@"/user", @"user.json");
+
+			// Stub the access_token response (which is from a different host
+			// than the API).
+			[OHHTTPStubs addRequestHandler:^ id (NSURLRequest *request, BOOL onlyCheck) {
+				if (![request.HTTPMethod isEqual:@"POST"]) return nil;
+				if (![request.URL.host isEqual:@"github.com"]) return nil;
+				if (![request.URL.path isEqual:@"/login/oauth/access_token"]) return nil;
+
+				NSDictionary *params = [NSJSONSerialization JSONObjectWithData:request.HTTPBody options:0 error:NULL];
+				expect(params).notTo.beNil();
+				expect(params[@"client_id"]).to.equal(clientID);
+				expect(params[@"client_secret"]).to.equal(clientSecret);
+				expect(params[@"code"]).to.equal(@"12345");
+
+				NSURL *fileURL = [[NSBundle bundleForClass:self.class] URLForResource:@"access_token" withExtension:@"json"];
+				return [OHHTTPStubsResponse responseWithFileURL:fileURL statusCode:200 responseTime:0 headers:@{
+					@"Content-Type": @"application/json"
+				}];
+			}];
+		});
+
+		it(@"should create an authenticated OCTClient with the received access token", ^{
+			BOOL success = NO;
+			NSError *error = nil;
+			OCTClient *client = [signInAndCallBack() asynchronousFirstOrDefault:nil success:&success error:&error];
+			expect(success).to.beTruthy();
+			expect(error).to.beNil();
+			expect(client).notTo.beNil();
+
+			expect(client.user).notTo.beNil();
+			expect(client.user.login).to.equal(user.login);
+			expect(client.token).to.equal(token);
+			expect(client.authenticated).to.beTruthy();
 		});
 	});
 });

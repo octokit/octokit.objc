@@ -252,6 +252,10 @@
 		D087B93D181A430900821DCD /* NSURL+OCTQueryAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = D087B93A181A430900821DCD /* NSURL+OCTQueryAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D087B93E181A430900821DCD /* NSURL+OCTQueryAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D087B93B181A430900821DCD /* NSURL+OCTQueryAdditions.m */; };
 		D087B93F181A430900821DCD /* NSURL+OCTQueryAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D087B93B181A430900821DCD /* NSURL+OCTQueryAdditions.m */; };
+		D087B941181A47EB00821DCD /* user.json in Resources */ = {isa = PBXBuildFile; fileRef = D087B940181A47EB00821DCD /* user.json */; };
+		D087B942181A47EB00821DCD /* user.json in Resources */ = {isa = PBXBuildFile; fileRef = D087B940181A47EB00821DCD /* user.json */; };
+		D087B944181A485200821DCD /* access_token.json in Resources */ = {isa = PBXBuildFile; fileRef = D087B943181A485200821DCD /* access_token.json */; };
+		D087B945181A485200821DCD /* access_token.json in Resources */ = {isa = PBXBuildFile; fileRef = D087B943181A485200821DCD /* access_token.json */; };
 		D0B9C8F416BC78970029C5B4 /* NSDateFormatter+OCTFormattingAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D0B9C8F116BC78970029C5B4 /* NSDateFormatter+OCTFormattingAdditions.m */; };
 		D0B9C8F516BC78970029C5B4 /* NSDateFormatter+OCTFormattingAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D0B9C8F116BC78970029C5B4 /* NSDateFormatter+OCTFormattingAdditions.m */; };
 		D0B9C8FD16BC7A260029C5B4 /* NSDateFormatterAdditionsSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = D0B9C8FC16BC7A260029C5B4 /* NSDateFormatterAdditionsSpec.m */; };
@@ -740,6 +744,8 @@
 		D087B937181A401400821DCD /* OCTTestClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCTTestClient.m; sourceTree = "<group>"; };
 		D087B93A181A430900821DCD /* NSURL+OCTQueryAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURL+OCTQueryAdditions.h"; sourceTree = "<group>"; };
 		D087B93B181A430900821DCD /* NSURL+OCTQueryAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURL+OCTQueryAdditions.m"; sourceTree = "<group>"; };
+		D087B940181A47EB00821DCD /* user.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = user.json; sourceTree = "<group>"; };
+		D087B943181A485200821DCD /* access_token.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = access_token.json; sourceTree = "<group>"; };
 		D0B9C8F016BC78970029C5B4 /* NSDateFormatter+OCTFormattingAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDateFormatter+OCTFormattingAdditions.h"; sourceTree = "<group>"; };
 		D0B9C8F116BC78970029C5B4 /* NSDateFormatter+OCTFormattingAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDateFormatter+OCTFormattingAdditions.m"; sourceTree = "<group>"; };
 		D0B9C8FC16BC7A260029C5B4 /* NSDateFormatterAdditionsSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSDateFormatterAdditionsSpec.m; sourceTree = "<group>"; };
@@ -1262,6 +1268,7 @@
 		D0D8C08F16DFF1540070399E /* Stubs */ = {
 			isa = PBXGroup;
 			children = (
+				D087B943181A485200821DCD /* access_token.json */,
 				8813687317A1AD1E00F74214 /* authorizations.json */,
 				9CB0589C17933F43002CF498 /* content.json */,
 				D0D8C09016DFF1540070399E /* events.json */,
@@ -1272,6 +1279,7 @@
 				D0D8C09416DFF1540070399E /* rate_limit.json */,
 				9CF7FB9517957A6A00CA34FF /* repository.json */,
 				88CD632817D8D77F00E2CD47 /* tree.json */,
+				D087B940181A47EB00821DCD /* user.json */,
 				9CF7FBBB179581EC00CA34FF /* user_starred.json */,
 			);
 			path = Stubs;
@@ -1741,8 +1749,10 @@
 				D0D8C09B16DFF1540070399E /* page3.json in Resources */,
 				D0D8C09D16DFF1540070399E /* rate_limit.json in Resources */,
 				D0E41B8716DFF37E00E321CF /* notifications.json in Resources */,
+				D087B944181A485200821DCD /* access_token.json in Resources */,
 				9CB0589D17933F45002CF498 /* content.json in Resources */,
 				9CF7FB9617957A6A00CA34FF /* repository.json in Resources */,
+				D087B941181A47EB00821DCD /* user.json in Resources */,
 				9CF7FBBC179581EC00CA34FF /* user_starred.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1751,6 +1761,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D087B942181A47EB00821DCD /* user.json in Resources */,
 				9CB0589E17933F46002CF498 /* content.json in Resources */,
 				88CD632A17D8D7C100E2CD47 /* tree.json in Resources */,
 				9CF7FBBD179581EC00CA34FF /* user_starred.json in Resources */,
@@ -1759,6 +1770,7 @@
 				D0D8C09A16DFF1540070399E /* page2.json in Resources */,
 				8813687517A1AF3100F74214 /* authorizations.json in Resources */,
 				9CF7FB9717957A6A00CA34FF /* repository.json in Resources */,
+				D087B945181A485200821DCD /* access_token.json in Resources */,
 				D0D8C09C16DFF1540070399E /* page3.json in Resources */,
 				D0D8C09E16DFF1540070399E /* rate_limit.json in Resources */,
 				D0E41B8816DFF37E00E321CF /* notifications.json in Resources */,

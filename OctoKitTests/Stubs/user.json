@@ -1,0 +1,18 @@
+{
+  "login": "octokit-testing-user",
+  "id": 1,
+  "url": "https://api.github.com/users/octokit-testing-user",
+  "html_url": "https://github.com/octokit-testing-user",
+  "followers_url": "https://api.github.com/users/octokit-testing-user/followers",
+  "following_url": "https://api.github.com/users/octokit-testing-user/following{/other_user}",
+  "gists_url": "https://api.github.com/users/octokit-testing-user/gists{/gist_id}",
+  "starred_url": "https://api.github.com/users/octokit-testing-user/starred{/owner}{/repo}",
+  "subscriptions_url": "https://api.github.com/users/octokit-testing-user/subscriptions",
+  "organizations_url": "https://api.github.com/users/octokit-testing-user/orgs",
+  "repos_url": "https://api.github.com/users/octokit-testing-user/repos",
+  "events_url": "https://api.github.com/users/octokit-testing-user/events{/privacy}",
+  "received_events_url": "https://api.github.com/users/octokit-testing-user/received_events",
+  "type": "User",
+  "name": "OctoKit Tester",
+  "bio": ""
+}
