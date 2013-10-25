@@ -246,6 +246,8 @@
 		D08721DB169E398C00016ACA /* OCTUserSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = D08721CF169E398C00016ACA /* OCTUserSpec.m */; };
 		D087229F169E3D6000016ACA /* OctoKit.h in Headers */ = {isa = PBXBuildFile; fileRef = D087229E169E3D6000016ACA /* OctoKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D08722A0169E3D6000016ACA /* OctoKit.h in Headers */ = {isa = PBXBuildFile; fileRef = D087229E169E3D6000016ACA /* OctoKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D087B938181A401400821DCD /* OCTTestClient.m in Sources */ = {isa = PBXBuildFile; fileRef = D087B937181A401400821DCD /* OCTTestClient.m */; };
+		D087B939181A401400821DCD /* OCTTestClient.m in Sources */ = {isa = PBXBuildFile; fileRef = D087B937181A401400821DCD /* OCTTestClient.m */; };
 		D0B9C8F416BC78970029C5B4 /* NSDateFormatter+OCTFormattingAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D0B9C8F116BC78970029C5B4 /* NSDateFormatter+OCTFormattingAdditions.m */; };
 		D0B9C8F516BC78970029C5B4 /* NSDateFormatter+OCTFormattingAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D0B9C8F116BC78970029C5B4 /* NSDateFormatter+OCTFormattingAdditions.m */; };
 		D0B9C8FD16BC7A260029C5B4 /* NSDateFormatterAdditionsSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = D0B9C8FC16BC7A260029C5B4 /* NSDateFormatterAdditionsSpec.m */; };
@@ -730,6 +732,8 @@
 		D08721CF169E398C00016ACA /* OCTUserSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCTUserSpec.m; sourceTree = "<group>"; };
 		D087229E169E3D6000016ACA /* OctoKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OctoKit.h; sourceTree = "<group>"; };
 		D087B928181A3F0000821DCD /* OCTClient+Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "OCTClient+Private.h"; sourceTree = "<group>"; };
+		D087B936181A401400821DCD /* OCTTestClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCTTestClient.h; sourceTree = "<group>"; };
+		D087B937181A401400821DCD /* OCTTestClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCTTestClient.m; sourceTree = "<group>"; };
 		D0B9C8F016BC78970029C5B4 /* NSDateFormatter+OCTFormattingAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDateFormatter+OCTFormattingAdditions.h"; sourceTree = "<group>"; };
 		D0B9C8F116BC78970029C5B4 /* NSDateFormatter+OCTFormattingAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDateFormatter+OCTFormattingAdditions.m"; sourceTree = "<group>"; };
 		D0B9C8FC16BC7A260029C5B4 /* NSDateFormatterAdditionsSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSDateFormatterAdditionsSpec.m; sourceTree = "<group>"; };
@@ -950,6 +954,8 @@
 				D0871EC9169E2EFC00016ACA /* OctoKitTests-Info.plist */,
 				D0872124169E365A00016ACA /* OctoKitTests-Prefix.pch */,
 				D0871ECA169E2EFC00016ACA /* InfoPlist.strings */,
+				D087B936181A401400821DCD /* OCTTestClient.h */,
+				D087B937181A401400821DCD /* OCTTestClient.m */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -1839,6 +1845,7 @@
 				D08721C6169E396F00016ACA /* OCTIssueSpec.m in Sources */,
 				D08721C8169E396F00016ACA /* OCTObjectSpec.m in Sources */,
 				D08721D0169E398C00016ACA /* OCTOrganizationSpec.m in Sources */,
+				D087B938181A401400821DCD /* OCTTestClient.m in Sources */,
 				D08721D2169E398C00016ACA /* OCTPullRequestCommentSpec.m in Sources */,
 				D08721D4169E398C00016ACA /* OCTPullRequestSpec.m in Sources */,
 				88CD633317D8DA5A00E2CD47 /* OCTTreeSpec.m in Sources */,
@@ -1915,6 +1922,7 @@
 				D08721C7169E396F00016ACA /* OCTIssueSpec.m in Sources */,
 				D08721C9169E396F00016ACA /* OCTObjectSpec.m in Sources */,
 				D08721D1169E398C00016ACA /* OCTOrganizationSpec.m in Sources */,
+				D087B939181A401400821DCD /* OCTTestClient.m in Sources */,
 				D08721D3169E398C00016ACA /* OCTPullRequestCommentSpec.m in Sources */,
 				D08721D5169E398C00016ACA /* OCTPullRequestSpec.m in Sources */,
 				88CD633417D8DA5A00E2CD47 /* OCTTreeSpec.m in Sources */,
