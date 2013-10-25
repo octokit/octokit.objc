@@ -37,7 +37,7 @@ const NSInteger OCTClientErrorJSONParsingFailed = 669;
 const NSInteger OCTClientErrorBadRequest = 670;
 const NSInteger OCTClientErrorTwoFactorAuthenticationOneTimePasswordRequired = 671;
 const NSInteger OCTClientErrorUnsupportedServer = 672;
-const NSInteger OCTClientErrorOpeningBrowser = 673;
+const NSInteger OCTClientErrorOpeningBrowserFailed = 673;
 
 NSString * const OCTClientErrorRequestURLKey = @"OCTClientErrorRequestURLKey";
 NSString * const OCTClientErrorHTTPStatusCodeKey = @"OCTClientErrorHTTPStatusCodeKey";
@@ -439,7 +439,7 @@ static NSString *OCTClientOAuthClientSecret = nil;
 		NSURL *webURL = [NSURL URLWithString:[relativeString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] relativeToURL:server.baseWebURL];
 
 		if (![self openURL:webURL]) {
-			[subscriber sendError:[NSError errorWithDomain:OCTClientErrorDomain code:OCTClientErrorOpeningBrowser userInfo:@{
+			[subscriber sendError:[NSError errorWithDomain:OCTClientErrorDomain code:OCTClientErrorOpeningBrowserFailed userInfo:@{
 				NSLocalizedDescriptionKey: NSLocalizedString(@"Could not open web browser", nil),
 				NSLocalizedRecoverySuggestionErrorKey: NSLocalizedString(@"Please make sure you have a default web browser set.", nil),
 				NSURLErrorKey: webURL

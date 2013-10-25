@@ -6,6 +6,8 @@
 //  Copyright (c) 2013 GitHub. All rights reserved.
 //
 
+#import "OCTTestClient.h"
+
 SpecBegin(OCTClient)
 
 void (^stubResponseWithHeaders)(NSString *, NSString *, NSDictionary *) = ^(NSString *path, NSString *responseFilename, NSDictionary *headers) {
@@ -374,6 +376,77 @@ describe(@"sign in", ^{
 		expect(success).to.beFalsy();
 		expect(error.domain).to.equal(OCTClientErrorDomain);
 		expect(error.code).to.equal(OCTClientErrorUnsupportedServer);
+	});
+
+	describe(@"+authorizeWithServerUsingWebBrowser:scopes:", ^{
+		NSURL *dotComLoginURL = [NSURL URLWithString:@"https://github.com/login/oauth/authorize"];
+
+		__block NSURL *openedURL;
+		__block RACDisposable *openedURLDisposable;
+
+		beforeEach(^{
+			OCTTestClient.shouldSucceedOpeningURL = YES;
+
+			openedURLDisposable = [OCTTestClient.openedURLs subscribeNext:^(NSURL *URL) {
+				openedURL = URL;
+			}];
+		});
+
+		afterEach(^{
+			[openedURLDisposable dispose];
+		});
+		
+		it(@"should open the login URL", ^{
+			[[[OCTTestClient authorizeWithServerUsingWebBrowser:OCTServer.dotComServer scopes:OCTClientAuthorizationScopesRepository] publish] connect];
+
+			expect(openedURL).willNot.beNil();
+			expect(openedURL.scheme).to.equal(dotComLoginURL.scheme);
+			expect(openedURL.host).to.equal(dotComLoginURL.host);
+			expect(openedURL.path).to.equal(dotComLoginURL.path);
+		});
+
+		it(@"should only complete after a matching URL is passed to +completeSignInWithCallbackURL:", ^{
+			__block NSString *code = nil;
+			__block BOOL completed = NO;
+			[[OCTTestClient authorizeWithServerUsingWebBrowser:OCTServer.dotComServer scopes:OCTClientAuthorizationScopesRepository] subscribeNext:^(id x) {
+				code = x;
+			} completed:^{
+				completed = YES;
+			}];
+
+			expect(openedURL).willNot.beNil();
+
+			NSDictionary *queryArguments = openedURL.oct_queryArguments;
+			expect(queryArguments[@"client_id"]).to.equal(clientID);
+			expect(queryArguments[@"scope"]).notTo.beNil();
+
+			NSString *state = queryArguments[@"state"];
+			expect(state).notTo.beNil();
+
+			NSURL *differentURL = [NSURL URLWithString:@"?state=foobar&code=12345" relativeToURL:dotComLoginURL];
+			[OCTTestClient completeSignInWithCallbackURL:differentURL];
+
+			expect(code).to.beNil();
+			expect(completed).to.beFalsy();
+
+			NSURL *matchingURL = [NSURL URLWithString:[NSString stringWithFormat:@"?state=%@&code=12345", state] relativeToURL:dotComLoginURL];
+			[OCTTestClient completeSignInWithCallbackURL:matchingURL];
+
+			expect(code).to.equal(@"12345");
+			expect(completed).to.beTruthy();
+		});
+
+		it(@"should error when the browser cannot be opened", ^{
+			OCTTestClient.shouldSucceedOpeningURL = NO;
+
+			NSError *error = nil;
+			BOOL success = [[OCTTestClient authorizeWithServerUsingWebBrowser:OCTServer.dotComServer scopes:OCTClientAuthorizationScopesRepository] waitUntilCompleted:&error];
+			expect(success).to.beFalsy();
+			expect(error).notTo.beNil();
+
+			expect(error.domain).to.equal(OCTClientErrorDomain);
+			expect(error.code).to.equal(OCTClientErrorOpeningBrowserFailed);
+		});
 	});
 });
 

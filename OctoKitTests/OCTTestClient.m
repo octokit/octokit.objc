@@ -9,7 +9,7 @@
 #import "OCTTestClient.h"
 
 static BOOL OCTTestClientShouldSucceedOpeningURL = YES;
-static RACSubject *OCTTestClientOpenedURLs;
+static RACReplaySubject *OCTTestClientOpenedURLs;
 
 @implementation OCTTestClient
 
@@ -18,7 +18,7 @@ static RACSubject *OCTTestClientOpenedURLs;
 + (void)initialize {
 	if (self != OCTTestClient.class) return;
 
-	OCTTestClientOpenedURLs = [[RACSubject subject] setNameWithFormat:@"+openedURLs"];
+	OCTTestClientOpenedURLs = [[RACReplaySubject replaySubjectWithCapacity:1] setNameWithFormat:@"+openedURLs"];
 }
 
 #pragma mark URL opening

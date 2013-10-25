@@ -52,7 +52,7 @@ extern const NSInteger OCTClientErrorUnsupportedServer;
 // The GitHub login page could not be opened in a web browser.
 //
 // This error only affects +signInToServerUsingWebBrowser:callbackURL:scopes:.
-extern const NSInteger OCTClientErrorOpeningBrowser;
+extern const NSInteger OCTClientErrorOpeningBrowserFailed;
 
 // A user info key associated with the NSURL of the request that failed.
 extern NSString * const OCTClientErrorRequestURLKey;
