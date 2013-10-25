@@ -9,6 +9,7 @@
 #import "OCTClient.h"
 #import "OCTClient+Private.h"
 #import "NSDateFormatter+OCTFormattingAdditions.h"
+#import "NSURL+OCTQueryAdditions.h"
 #import "OCTAccessToken.h"
 #import "OCTAuthorization.h"
 #import "OCTContent.h"
@@ -422,16 +423,7 @@ static NSString *OCTClientOAuthClientSecret = nil;
 				return URL.URLByStandardizingPath;
 			}]
 			flattenMap:^(NSURL *URL) {
-				NSArray *queryComponents = [URL.query componentsSeparatedByString:@"&"];
-				NSMutableDictionary *queryArguments = [[NSMutableDictionary alloc] initWithCapacity:queryComponents.count];
-				for (NSString *component in queryComponents) {
-					NSArray *parts = [component componentsSeparatedByString:@"="];
-
-					NSString *key = [parts.mtl_firstObject stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-					id value = [parts.lastObject stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding] ?: NSNull.null;
-					queryArguments[key] = value;
-				}
-
+				NSDictionary *queryArguments = URL.oct_queryArguments;
 				if ([queryArguments[@"state"] isEqual:uuidString]) {
 					return [RACSignal return:queryArguments[@"code"]];
 				} else {

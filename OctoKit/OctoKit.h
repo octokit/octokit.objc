@@ -7,6 +7,7 @@
 //
 
 #import <OctoKit/NSDateFormatter+OCTFormattingAdditions.h>
+#import <OctoKit/NSURL+OCTQueryAdditions.h>
 #import <OctoKit/NSValueTransformer+OCTPredefinedTransformerAdditions.h>
 #import <OctoKit/RACSignal+OCTClientAdditions.h>
 #import <OctoKit/OCTClient.h>

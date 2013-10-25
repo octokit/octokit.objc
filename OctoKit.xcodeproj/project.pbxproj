@@ -248,6 +248,10 @@
 		D08722A0169E3D6000016ACA /* OctoKit.h in Headers */ = {isa = PBXBuildFile; fileRef = D087229E169E3D6000016ACA /* OctoKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D087B938181A401400821DCD /* OCTTestClient.m in Sources */ = {isa = PBXBuildFile; fileRef = D087B937181A401400821DCD /* OCTTestClient.m */; };
 		D087B939181A401400821DCD /* OCTTestClient.m in Sources */ = {isa = PBXBuildFile; fileRef = D087B937181A401400821DCD /* OCTTestClient.m */; };
+		D087B93C181A430900821DCD /* NSURL+OCTQueryAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = D087B93A181A430900821DCD /* NSURL+OCTQueryAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D087B93D181A430900821DCD /* NSURL+OCTQueryAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = D087B93A181A430900821DCD /* NSURL+OCTQueryAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D087B93E181A430900821DCD /* NSURL+OCTQueryAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D087B93B181A430900821DCD /* NSURL+OCTQueryAdditions.m */; };
+		D087B93F181A430900821DCD /* NSURL+OCTQueryAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D087B93B181A430900821DCD /* NSURL+OCTQueryAdditions.m */; };
 		D0B9C8F416BC78970029C5B4 /* NSDateFormatter+OCTFormattingAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D0B9C8F116BC78970029C5B4 /* NSDateFormatter+OCTFormattingAdditions.m */; };
 		D0B9C8F516BC78970029C5B4 /* NSDateFormatter+OCTFormattingAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D0B9C8F116BC78970029C5B4 /* NSDateFormatter+OCTFormattingAdditions.m */; };
 		D0B9C8FD16BC7A260029C5B4 /* NSDateFormatterAdditionsSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = D0B9C8FC16BC7A260029C5B4 /* NSDateFormatterAdditionsSpec.m */; };
@@ -734,6 +738,8 @@
 		D087B928181A3F0000821DCD /* OCTClient+Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "OCTClient+Private.h"; sourceTree = "<group>"; };
 		D087B936181A401400821DCD /* OCTTestClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCTTestClient.h; sourceTree = "<group>"; };
 		D087B937181A401400821DCD /* OCTTestClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCTTestClient.m; sourceTree = "<group>"; };
+		D087B93A181A430900821DCD /* NSURL+OCTQueryAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURL+OCTQueryAdditions.h"; sourceTree = "<group>"; };
+		D087B93B181A430900821DCD /* NSURL+OCTQueryAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURL+OCTQueryAdditions.m"; sourceTree = "<group>"; };
 		D0B9C8F016BC78970029C5B4 /* NSDateFormatter+OCTFormattingAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDateFormatter+OCTFormattingAdditions.h"; sourceTree = "<group>"; };
 		D0B9C8F116BC78970029C5B4 /* NSDateFormatter+OCTFormattingAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDateFormatter+OCTFormattingAdditions.m"; sourceTree = "<group>"; };
 		D0B9C8FC16BC7A260029C5B4 /* NSDateFormatterAdditionsSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSDateFormatterAdditionsSpec.m; sourceTree = "<group>"; };
@@ -1229,6 +1235,8 @@
 			children = (
 				D0B9C8F016BC78970029C5B4 /* NSDateFormatter+OCTFormattingAdditions.h */,
 				D0B9C8F116BC78970029C5B4 /* NSDateFormatter+OCTFormattingAdditions.m */,
+				D087B93A181A430900821DCD /* NSURL+OCTQueryAdditions.h */,
+				D087B93B181A430900821DCD /* NSURL+OCTQueryAdditions.m */,
 				D0772E7516BD2A05009DFF72 /* NSValueTransformer+OCTPredefinedTransformerAdditions.h */,
 				D0772E7616BD2A06009DFF72 /* NSValueTransformer+OCTPredefinedTransformerAdditions.m */,
 				F6CF78D216E993A500A75F63 /* RACSignal+OCTClientAdditions.h */,
@@ -1313,6 +1321,7 @@
 				D08721B9169E395F00016ACA /* OCTUser.h in Headers */,
 				D087229F169E3D6000016ACA /* OctoKit.h in Headers */,
 				7A1F647117F12851008155CF /* OCTReviewComment.h in Headers */,
+				D087B93C181A430900821DCD /* NSURL+OCTQueryAdditions.h in Headers */,
 				8848E19D16AF630B005449AB /* OCTNotification.h in Headers */,
 				D0772E7316BD27B5009DFF72 /* NSDateFormatter+OCTFormattingAdditions.h in Headers */,
 				D0772E7716BD2A06009DFF72 /* NSValueTransformer+OCTPredefinedTransformerAdditions.h in Headers */,
@@ -1363,6 +1372,7 @@
 				D08721BA169E395F00016ACA /* OCTUser.h in Headers */,
 				7A1F647217F12851008155CF /* OCTReviewComment.h in Headers */,
 				D08722A0169E3D6000016ACA /* OctoKit.h in Headers */,
+				D087B93D181A430900821DCD /* NSURL+OCTQueryAdditions.h in Headers */,
 				8848E19E16AF630B005449AB /* OCTNotification.h in Headers */,
 				D0772E7416BD27B6009DFF72 /* NSDateFormatter+OCTFormattingAdditions.h in Headers */,
 				D0772E7816BD2A06009DFF72 /* NSValueTransformer+OCTPredefinedTransformerAdditions.h in Headers */,
@@ -1829,6 +1839,7 @@
 				8848E19F16AF630B005449AB /* OCTNotification.m in Sources */,
 				9CB0588317933F26002CF498 /* OCTFileContent.m in Sources */,
 				D0B9C8F416BC78970029C5B4 /* NSDateFormatter+OCTFormattingAdditions.m in Sources */,
+				D087B93E181A430900821DCD /* NSURL+OCTQueryAdditions.m in Sources */,
 				88746BE317FA0A360005888A /* OCTBlobTreeEntry.m in Sources */,
 				D0772E7916BD2A06009DFF72 /* NSValueTransformer+OCTPredefinedTransformerAdditions.m in Sources */,
 				F6CF78D616E993A500A75F63 /* RACSignal+OCTClientAdditions.m in Sources */,
@@ -1906,6 +1917,7 @@
 				8848E1A016AF630B005449AB /* OCTNotification.m in Sources */,
 				9CB0588417933F26002CF498 /* OCTFileContent.m in Sources */,
 				D0B9C8F516BC78970029C5B4 /* NSDateFormatter+OCTFormattingAdditions.m in Sources */,
+				D087B93F181A430900821DCD /* NSURL+OCTQueryAdditions.m in Sources */,
 				88746BE417FA0A360005888A /* OCTBlobTreeEntry.m in Sources */,
 				D0772E7A16BD2A06009DFF72 /* NSValueTransformer+OCTPredefinedTransformerAdditions.m in Sources */,
 				F6CF78D816E993A500A75F63 /* RACSignal+OCTClientAdditions.m in Sources */,
