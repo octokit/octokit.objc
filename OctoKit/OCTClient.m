@@ -441,7 +441,7 @@ static NSString *OCTClientOAuthClientSecret = nil;
 					return [RACSignal empty];
 				}
 			}]
-			logAll]
+			take:1]
 			subscribe:subscriber];
 
 		NSString *scope = [[self scopesArrayFromScopes:scopes] componentsJoinedByString:@","];
