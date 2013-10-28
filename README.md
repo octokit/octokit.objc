@@ -210,14 +210,15 @@ thread](#receiving-results-on-the-main-thread), just like with any other request
 If you don't want to open a web page, you can use the native authentication flow
 and implement your own sign-in UI. However, [two-factor
 authentication](https://help.github.com/articles/about-two-factor-authentication)
-makes this process somewhat complex.
+makes this process somewhat complex, and the native authentication flow may not work
+with [GitHub Enterprise](https://enterprise.github.com) instances that use [single
+sign-on](http://en.wikipedia.org/wiki/Single_sign-on).
 
 Whenever the user wants to sign in, present your custom UI. After the form has
-been filled in with a username and password (and perhaps a server URL, for [GitHub
-Enterprise](https://enterprise.github.com) users), you can attempt to
-authenticate. The pattern is very similar to [making
-a request](#making-requests), except that you receive an `OCTClient` instance as
-a reply:
+been filled in with a username and password (and perhaps a server URL, for GitHub
+Enterprise users), you can attempt to authenticate. The pattern is very similar to
+[making a request](#making-requests), except that you receive an `OCTClient` instance
+as a reply:
 
 ```objc
 OCTUser *user = [OCTUser userWithLogin:username server:OCTServer.dotComServer];
