@@ -17,10 +17,10 @@
 
 // Launches the default web browser to the sign in page for the given server.
 //
-// server          - The server that the user should log in to. This must not be
-//                   nil.
-// scopes          - The scopes to request access to. These values can be
-//                   bitwise OR'd together to request multiple scopes.
+// server - The server that the user should sign in to. This must not be
+//          nil.
+// scopes - The scopes to request access to. These values can be
+//          bitwise OR'd together to request multiple scopes.
 //
 // Returns a signal that sends a temporary OAuth code when
 // +completeSignInWithCallbackURL: is invoked with a matching callback URL, then

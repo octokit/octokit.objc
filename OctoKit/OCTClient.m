@@ -218,8 +218,8 @@ static NSString *OCTClientOAuthClientSecret = nil;
 
 + (NSError *)authenticationRequiredError {
 	NSDictionary *userInfo = @{
-		NSLocalizedDescriptionKey: NSLocalizedString(@"Login Required", @""),
-		NSLocalizedFailureReasonErrorKey: NSLocalizedString(@"You must log in to access user information.", @""),
+		NSLocalizedDescriptionKey: NSLocalizedString(@"Sign In Required", @""),
+		NSLocalizedFailureReasonErrorKey: NSLocalizedString(@"You must sign in to access user information.", @""),
 	};
 
 	return [NSError errorWithDomain:OCTClientErrorDomain code:OCTClientErrorAuthenticationFailed userInfo:userInfo];
