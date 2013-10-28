@@ -44,8 +44,6 @@ __block NSError *error;
 __block OCTUser *user;
 
 beforeEach(^{
-	OCTClient.userAgent = @"Octokit/OCTClientSpec";
-
 	success = NO;
 	error = nil;
 

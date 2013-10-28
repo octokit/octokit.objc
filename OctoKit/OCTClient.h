@@ -123,9 +123,6 @@ typedef enum : NSUInteger {
 
 // Represents a single GitHub session.
 //
-// **NOTE:** You must invoke +setUserAgent: before making any requests using
-// OCTClient, and +setClientID:clientSecret: before attempting to authenticate.
-//
 // Most of the methods on this class return a RACSignal representing a request
 // made to the API. The returned signal will deliver its results on a background
 // RACScheduler.
@@ -165,10 +162,10 @@ typedef enum : NSUInteger {
 // +unauthenticatedClientWithUser:.
 @property (nonatomic, copy, readonly) NSString *token;
 
-// Sets the HTTP User-Agent for the current app.
+// Sets the HTTP User-Agent for the current app. This will have no effect on any
+// clients that have already been created.
 //
-// This method is thread-safe, and _must_ be invoked before making any requests.
-// This will have no effect on any clients that have already been created.
+// This method is thread-safe.
 //
 // userAgent - The user agent to set. This must not be nil.
 + (void)setUserAgent:(NSString *)userAgent;
@@ -206,8 +203,6 @@ typedef enum : NSUInteger {
 // +authenticatedClientWithUser:token: or +unauthenticatedClientWithUser:
 // should typically be used instead.
 //
-// **NOTE:** You must invoke +setUserAgent: before using this method.
-//
 // server - The GitHub server to connect to. This argument must not be nil.
 //
 // This is the designated initializer for this class.
@@ -215,8 +210,6 @@ typedef enum : NSUInteger {
 
 // Creates a client which can access any endpoints that don't require
 // authentication.
-//
-// **NOTE:** You must invoke +setUserAgent: before using this method.
 //
 // user - The active user. The `user` property of the returned client will be
 //        set to this object. This must not be nil.
@@ -229,8 +222,6 @@ typedef enum : NSUInteger {
 //
 // This method does not actually perform a login or make a request to the
 // server. It only saves authentication information for future requests.
-//
-// **NOTE:** You must invoke +setUserAgent: before using this method.
 //
 // user  - The user to authenticate as. The `user` property of the returned
 //         client will be set to this object. This must not be nil.
@@ -258,8 +249,8 @@ typedef enum : NSUInteger {
 // You can then invoke this method again to request authorization using the
 // one-time password entered by the user.
 //
-// **NOTE:** You must invoke +setUserAgent: and +setClientID:clientSecret:
-// before using this method.
+// **NOTE:** You must invoke +setClientID:clientSecret: before using this
+// method.
 //
 // user            - The user to authenticate as. The `user` property of the
 //                   returned client will be set to this object. This must not be nil.
@@ -285,8 +276,8 @@ typedef enum : NSUInteger {
 // your app, you must invoke +completeSignInWithCallbackURL: in order for this
 // authentication method to complete successfully.
 //
-// **NOTE:** You must invoke +setUserAgent: and +setClientID:clientSecret:
-// before using this method.
+// **NOTE:** You must invoke +setClientID:clientSecret: before using this
+// method.
 //
 // server - The server that the user should sign in to. This must not be
 //          nil.

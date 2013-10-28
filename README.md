@@ -8,15 +8,8 @@ API](http://developer.github.com), built using
 
 ## Making Requests
 
-Before any requests can be made, you must set the user agent for your app, as
-[required by the API](http://developer.github.com/v3/#user-agent-required):
-
-```objc
-OCTClient.userAgent = @"OctoKit-README-Examples/1.0";
-```
-
-After that's done, you must instantiate an [OCTClient](OctoKit/OCTClient.h) to
-begin interacting with the API. There are two ways to create a client without
+In order to begin interacting with the API, you must instantiate an
+[OCTClient](OctoKit/OCTClient.h). There are two ways to create a client without
 [authenticating](#authentication):
 
  1. `-initWithServer:` is the most basic way to initialize a client. It accepts

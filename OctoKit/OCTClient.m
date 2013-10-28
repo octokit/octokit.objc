@@ -239,10 +239,9 @@ static NSString *OCTClientOAuthClientSecret = nil;
 	if (self == nil) return nil;
 
 	NSString *userAgent = self.class.userAgent;
-	NSAssert(userAgent != nil, @"+setUserAgent: must be invoked before initializing OCTClient");
+	if (userAgent != nil) [self setDefaultHeader:@"User-Agent" value:userAgent];
 
 	self.parameterEncoding = AFJSONParameterEncoding;
-	[self setDefaultHeader:@"User-Agent" value:userAgent];
 	[self setDefaultHeader:@"Accept" value:@"application/vnd.github.beta+json"];
 
 	[AFHTTPRequestOperation addAcceptableStatusCodes:[NSIndexSet indexSetWithIndex:OCTClientNotModifiedStatusCode]];
