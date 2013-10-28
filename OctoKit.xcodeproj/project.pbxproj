@@ -17,8 +17,6 @@
 		8813686717A1A77000F74214 /* OCTAuthorizationSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 8813686517A1A77000F74214 /* OCTAuthorizationSpec.m */; };
 		8813687417A1AF3000F74214 /* authorizations.json in Resources */ = {isa = PBXBuildFile; fileRef = 8813687317A1AD1E00F74214 /* authorizations.json */; };
 		8813687517A1AF3100F74214 /* authorizations.json in Resources */ = {isa = PBXBuildFile; fileRef = 8813687317A1AD1E00F74214 /* authorizations.json */; };
-		8829F2BF17A0DF5300F06991 /* OCTAuthorization.h in Headers */ = {isa = PBXBuildFile; fileRef = 8829F2BD17A0DF5300F06991 /* OCTAuthorization.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		8829F2C017A0DF5300F06991 /* OCTAuthorization.h in Headers */ = {isa = PBXBuildFile; fileRef = 8829F2BD17A0DF5300F06991 /* OCTAuthorization.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8829F2C117A0DF5300F06991 /* OCTAuthorization.m in Sources */ = {isa = PBXBuildFile; fileRef = 8829F2BE17A0DF5300F06991 /* OCTAuthorization.m */; };
 		8829F2C217A0DF5300F06991 /* OCTAuthorization.m in Sources */ = {isa = PBXBuildFile; fileRef = 8829F2BE17A0DF5300F06991 /* OCTAuthorization.m */; };
 		8848E19D16AF630B005449AB /* OCTNotification.h in Headers */ = {isa = PBXBuildFile; fileRef = 8848E19B16AF630B005449AB /* OCTNotification.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -78,6 +76,8 @@
 		9CF7FBBC179581EC00CA34FF /* user_starred.json in Resources */ = {isa = PBXBuildFile; fileRef = 9CF7FBBB179581EC00CA34FF /* user_starred.json */; };
 		9CF7FBBD179581EC00CA34FF /* user_starred.json in Resources */ = {isa = PBXBuildFile; fileRef = 9CF7FBBB179581EC00CA34FF /* user_starred.json */; };
 		D02E48FE16CBAB7A00257645 /* Mantle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0872069169E328B00016ACA /* Mantle.framework */; };
+		D042C4A11819E12F00143E07 /* OCTAccessToken.m in Sources */ = {isa = PBXBuildFile; fileRef = D042C49E1819E12F00143E07 /* OCTAccessToken.m */; };
+		D042C4A21819E12F00143E07 /* OCTAccessToken.m in Sources */ = {isa = PBXBuildFile; fileRef = D042C49E1819E12F00143E07 /* OCTAccessToken.m */; };
 		D0476E43177919380071F3CB /* AFNetworking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0476E3C177919200071F3CB /* AFNetworking.framework */; };
 		D0476E44177919450071F3CB /* AFNetworking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0476E3C177919200071F3CB /* AFNetworking.framework */; };
 		D0476E4F177919F70071F3CB /* libAFNetworking.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D0476E3E177919200071F3CB /* libAFNetworking.a */; };
@@ -246,13 +246,25 @@
 		D08721DB169E398C00016ACA /* OCTUserSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = D08721CF169E398C00016ACA /* OCTUserSpec.m */; };
 		D087229F169E3D6000016ACA /* OctoKit.h in Headers */ = {isa = PBXBuildFile; fileRef = D087229E169E3D6000016ACA /* OctoKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D08722A0169E3D6000016ACA /* OctoKit.h in Headers */ = {isa = PBXBuildFile; fileRef = D087229E169E3D6000016ACA /* OctoKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D087B938181A401400821DCD /* OCTTestClient.m in Sources */ = {isa = PBXBuildFile; fileRef = D087B937181A401400821DCD /* OCTTestClient.m */; };
+		D087B939181A401400821DCD /* OCTTestClient.m in Sources */ = {isa = PBXBuildFile; fileRef = D087B937181A401400821DCD /* OCTTestClient.m */; };
+		D087B93C181A430900821DCD /* NSURL+OCTQueryAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = D087B93A181A430900821DCD /* NSURL+OCTQueryAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D087B93D181A430900821DCD /* NSURL+OCTQueryAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = D087B93A181A430900821DCD /* NSURL+OCTQueryAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D087B93E181A430900821DCD /* NSURL+OCTQueryAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D087B93B181A430900821DCD /* NSURL+OCTQueryAdditions.m */; };
+		D087B93F181A430900821DCD /* NSURL+OCTQueryAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D087B93B181A430900821DCD /* NSURL+OCTQueryAdditions.m */; };
+		D087B941181A47EB00821DCD /* user.json in Resources */ = {isa = PBXBuildFile; fileRef = D087B940181A47EB00821DCD /* user.json */; };
+		D087B942181A47EB00821DCD /* user.json in Resources */ = {isa = PBXBuildFile; fileRef = D087B940181A47EB00821DCD /* user.json */; };
+		D087B944181A485200821DCD /* access_token.json in Resources */ = {isa = PBXBuildFile; fileRef = D087B943181A485200821DCD /* access_token.json */; };
+		D087B945181A485200821DCD /* access_token.json in Resources */ = {isa = PBXBuildFile; fileRef = D087B943181A485200821DCD /* access_token.json */; };
+		D087B947181A4F9200821DCD /* NSURLAdditionsSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = D087B946181A4F9200821DCD /* NSURLAdditionsSpec.m */; };
+		D087B948181A4F9200821DCD /* NSURLAdditionsSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = D087B946181A4F9200821DCD /* NSURLAdditionsSpec.m */; };
 		D0B9C8F416BC78970029C5B4 /* NSDateFormatter+OCTFormattingAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D0B9C8F116BC78970029C5B4 /* NSDateFormatter+OCTFormattingAdditions.m */; };
 		D0B9C8F516BC78970029C5B4 /* NSDateFormatter+OCTFormattingAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D0B9C8F116BC78970029C5B4 /* NSDateFormatter+OCTFormattingAdditions.m */; };
 		D0B9C8FD16BC7A260029C5B4 /* NSDateFormatterAdditionsSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = D0B9C8FC16BC7A260029C5B4 /* NSDateFormatterAdditionsSpec.m */; };
 		D0B9C8FE16BC7A260029C5B4 /* NSDateFormatterAdditionsSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = D0B9C8FC16BC7A260029C5B4 /* NSDateFormatterAdditionsSpec.m */; };
 		D0C636731777ABD300F486A9 /* ReactiveCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0C636681777AB9300F486A9 /* ReactiveCocoa.framework */; };
 		D0C636771777ABE000F486A9 /* ReactiveCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0C636681777AB9300F486A9 /* ReactiveCocoa.framework */; };
-		D0C636931777B00900F486A9 /* libMantle.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D087206D169E328B00016ACA /* libMantle.a */; };
+		D0C636931777B00900F486A9 /* libMantle-iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D087206D169E328B00016ACA /* libMantle-iOS.a */; };
 		D0C636941777B00900F486A9 /* libReactiveCocoa-iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D0C6366A1777AB9300F486A9 /* libReactiveCocoa-iOS.a */; };
 		D0D8C09516DFF1540070399E /* events.json in Resources */ = {isa = PBXBuildFile; fileRef = D0D8C09016DFF1540070399E /* events.json */; };
 		D0D8C09616DFF1540070399E /* events.json in Resources */ = {isa = PBXBuildFile; fileRef = D0D8C09016DFF1540070399E /* events.json */; };
@@ -285,6 +297,20 @@
 			proxyType = 2;
 			remoteGlobalIDString = 098368CE168FC7920082B1A4;
 			remoteInfo = UnitTests;
+		};
+		D042C47A1819CE5900143E07 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D0872056169E328A00016ACA /* Mantle.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D0A56B461804B04900A84EDC;
+			remoteInfo = "Mantle-Mac";
+		};
+		D042C4821819CE5900143E07 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D0C636591777AB9300F486A9 /* ReactiveCocoa.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D05AD39417F2D56F0080895B;
+			remoteInfo = "ReactiveCocoa-Mac";
 		};
 		D0476E3B177919200071F3CB /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -604,6 +630,8 @@
 		9CB0589F17933F51002CF498 /* OCTContentSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCTContentSpec.m; sourceTree = "<group>"; };
 		9CF7FB9517957A6A00CA34FF /* repository.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = repository.json; sourceTree = "<group>"; };
 		9CF7FBBB179581EC00CA34FF /* user_starred.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = user_starred.json; sourceTree = "<group>"; };
+		D042C49D1819E12F00143E07 /* OCTAccessToken.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCTAccessToken.h; sourceTree = "<group>"; };
+		D042C49E1819E12F00143E07 /* OCTAccessToken.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCTAccessToken.m; sourceTree = "<group>"; };
 		D0476E36177919200071F3CB /* OctoKitDependencies.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = OctoKitDependencies.xcodeproj; path = External/OctoKitDependencies/OctoKitDependencies.xcodeproj; sourceTree = "<group>"; };
 		D058675516F2649800941A32 /* OCTResponseSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCTResponseSpec.m; sourceTree = "<group>"; };
 		D05E74D416D354FD001AA17B /* OHHTTPStubs.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = OHHTTPStubs.xcodeproj; path = External/OHHTTPStubs/OHHTTPStubs/OHHTTPStubs.xcodeproj; sourceTree = "<group>"; };
@@ -713,6 +741,14 @@
 		D08721CE169E398C00016ACA /* OCTServerSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCTServerSpec.m; sourceTree = "<group>"; };
 		D08721CF169E398C00016ACA /* OCTUserSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCTUserSpec.m; sourceTree = "<group>"; };
 		D087229E169E3D6000016ACA /* OctoKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OctoKit.h; sourceTree = "<group>"; };
+		D087B928181A3F0000821DCD /* OCTClient+Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "OCTClient+Private.h"; sourceTree = "<group>"; };
+		D087B936181A401400821DCD /* OCTTestClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCTTestClient.h; sourceTree = "<group>"; };
+		D087B937181A401400821DCD /* OCTTestClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCTTestClient.m; sourceTree = "<group>"; };
+		D087B93A181A430900821DCD /* NSURL+OCTQueryAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURL+OCTQueryAdditions.h"; sourceTree = "<group>"; };
+		D087B93B181A430900821DCD /* NSURL+OCTQueryAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURL+OCTQueryAdditions.m"; sourceTree = "<group>"; };
+		D087B940181A47EB00821DCD /* user.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = user.json; sourceTree = "<group>"; };
+		D087B943181A485200821DCD /* access_token.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = access_token.json; sourceTree = "<group>"; };
+		D087B946181A4F9200821DCD /* NSURLAdditionsSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSURLAdditionsSpec.m; sourceTree = "<group>"; };
 		D0B9C8F016BC78970029C5B4 /* NSDateFormatter+OCTFormattingAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDateFormatter+OCTFormattingAdditions.h"; sourceTree = "<group>"; };
 		D0B9C8F116BC78970029C5B4 /* NSDateFormatter+OCTFormattingAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDateFormatter+OCTFormattingAdditions.m"; sourceTree = "<group>"; };
 		D0B9C8FC16BC7A260029C5B4 /* NSDateFormatterAdditionsSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSDateFormatterAdditionsSpec.m; sourceTree = "<group>"; };
@@ -781,7 +817,7 @@
 				F688018C17C1CE0F00ECC7EC /* Security.framework in Frameworks */,
 				D0476EC117791C470071F3CB /* libISO8601DateFormatter.a in Frameworks */,
 				D0476E4F177919F70071F3CB /* libAFNetworking.a in Frameworks */,
-				D0C636931777B00900F486A9 /* libMantle.a in Frameworks */,
+				D0C636931777B00900F486A9 /* libMantle-iOS.a in Frameworks */,
 				D0C636941777B00900F486A9 /* libReactiveCocoa-iOS.a in Frameworks */,
 				D05E74E816D35513001AA17B /* libOHHTTPStubs-iOS.a in Frameworks */,
 				D0871FF4169E309A00016ACA /* SenTestingKit.framework in Frameworks */,
@@ -798,13 +834,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		8829F2D217A0DFA700F06991 /* Authorization */ = {
+		8829F2D217A0DFA700F06991 /* Authentication */ = {
 			isa = PBXGroup;
 			children = (
+				D042C49D1819E12F00143E07 /* OCTAccessToken.h */,
+				D042C49E1819E12F00143E07 /* OCTAccessToken.m */,
 				8829F2BD17A0DF5300F06991 /* OCTAuthorization.h */,
 				8829F2BE17A0DF5300F06991 /* OCTAuthorization.m */,
 			);
-			name = Authorization;
+			name = Authentication;
 			sourceTree = "<group>";
 		};
 		8848E19916AF62F1005449AB /* Notifications */ = {
@@ -931,6 +969,8 @@
 				D0871EC9169E2EFC00016ACA /* OctoKitTests-Info.plist */,
 				D0872124169E365A00016ACA /* OctoKitTests-Prefix.pch */,
 				D0871ECA169E2EFC00016ACA /* InfoPlist.strings */,
+				D087B936181A401400821DCD /* OCTTestClient.h */,
+				D087B937181A401400821DCD /* OCTTestClient.m */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -1002,9 +1042,10 @@
 			isa = PBXGroup;
 			children = (
 				D0872069169E328B00016ACA /* Mantle.framework */,
-				D087206B169E328B00016ACA /* Mantle Mac Tests.octest */,
-				D087206D169E328B00016ACA /* libMantle.a */,
-				D087206F169E328B00016ACA /* Mantle iOS Tests.octest */,
+				D087206B169E328B00016ACA /* Mantle Tests.octest */,
+				D087206D169E328B00016ACA /* libMantle-iOS.a */,
+				D087206F169E328B00016ACA /* Mantle-iOS Tests.octest */,
+				D042C47B1819CE5900143E07 /* libMantle-Mac.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1035,6 +1076,7 @@
 			isa = PBXGroup;
 			children = (
 				D0872127169E395F00016ACA /* OCTClient.h */,
+				D087B928181A3F0000821DCD /* OCTClient+Private.h */,
 				D0872128169E395F00016ACA /* OCTClient.m */,
 				D08722A3169E3D8600016ACA /* Models */,
 			);
@@ -1045,6 +1087,7 @@
 			isa = PBXGroup;
 			children = (
 				D0B9C8FC16BC7A260029C5B4 /* NSDateFormatterAdditionsSpec.m */,
+				D087B946181A4F9200821DCD /* NSURLAdditionsSpec.m */,
 				D0772E7B16BD2AD5009DFF72 /* NSValueTransformerAdditionsSpec.m */,
 				F6E2EC3F16EB04C50096C268 /* RACSignalAdditionsSpec.m */,
 				8813686517A1A77000F74214 /* OCTAuthorizationSpec.m */,
@@ -1093,7 +1136,7 @@
 				D0872154169E395F00016ACA /* OCTServer+Private.h */,
 				7A1F643817F120FF008155CF /* OCTComment.h */,
 				7A1F647017F12851008155CF /* OCTReviewComment.h */,
-				8829F2D217A0DFA700F06991 /* Authorization */,
+				8829F2D217A0DFA700F06991 /* Authentication */,
 				D08B5999169E3E74006003B8 /* Commits */,
 				D08B5997169E3E0C006003B8 /* Entities */,
 				D08B5996169E3DE6006003B8 /* Events */,
@@ -1202,6 +1245,8 @@
 			children = (
 				D0B9C8F016BC78970029C5B4 /* NSDateFormatter+OCTFormattingAdditions.h */,
 				D0B9C8F116BC78970029C5B4 /* NSDateFormatter+OCTFormattingAdditions.m */,
+				D087B93A181A430900821DCD /* NSURL+OCTQueryAdditions.h */,
+				D087B93B181A430900821DCD /* NSURL+OCTQueryAdditions.m */,
 				D0772E7516BD2A05009DFF72 /* NSValueTransformer+OCTPredefinedTransformerAdditions.h */,
 				D0772E7616BD2A06009DFF72 /* NSValueTransformer+OCTPredefinedTransformerAdditions.m */,
 				F6CF78D216E993A500A75F63 /* RACSignal+OCTClientAdditions.h */,
@@ -1219,6 +1264,7 @@
 				D0C6366E1777AB9300F486A9 /* ReactiveCocoaTests-iOS.octest */,
 				F688019717C1CE0F00ECC7EC /* ReactiveCocoa-iOS-UIKitTestHost.app */,
 				F688019917C1CE0F00ECC7EC /* ReactiveCocoa-iOS-UIKitTestHostTests.octest */,
+				D042C4831819CE5900143E07 /* libReactiveCocoa-Mac.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1226,6 +1272,7 @@
 		D0D8C08F16DFF1540070399E /* Stubs */ = {
 			isa = PBXGroup;
 			children = (
+				D087B943181A485200821DCD /* access_token.json */,
 				8813687317A1AD1E00F74214 /* authorizations.json */,
 				9CB0589C17933F43002CF498 /* content.json */,
 				D0D8C09016DFF1540070399E /* events.json */,
@@ -1236,6 +1283,7 @@
 				D0D8C09416DFF1540070399E /* rate_limit.json */,
 				9CF7FB9517957A6A00CA34FF /* repository.json */,
 				88CD632817D8D77F00E2CD47 /* tree.json */,
+				D087B940181A47EB00821DCD /* user.json */,
 				9CF7FBBB179581EC00CA34FF /* user_starred.json */,
 			);
 			path = Stubs;
@@ -1284,8 +1332,8 @@
 				D08721B5169E395F00016ACA /* OCTTeam.h in Headers */,
 				D08721B9169E395F00016ACA /* OCTUser.h in Headers */,
 				D087229F169E3D6000016ACA /* OctoKit.h in Headers */,
-				8829F2BF17A0DF5300F06991 /* OCTAuthorization.h in Headers */,
 				7A1F647117F12851008155CF /* OCTReviewComment.h in Headers */,
+				D087B93C181A430900821DCD /* NSURL+OCTQueryAdditions.h in Headers */,
 				8848E19D16AF630B005449AB /* OCTNotification.h in Headers */,
 				D0772E7316BD27B5009DFF72 /* NSDateFormatter+OCTFormattingAdditions.h in Headers */,
 				D0772E7716BD2A06009DFF72 /* NSValueTransformer+OCTPredefinedTransformerAdditions.h in Headers */,
@@ -1336,7 +1384,7 @@
 				D08721BA169E395F00016ACA /* OCTUser.h in Headers */,
 				7A1F647217F12851008155CF /* OCTReviewComment.h in Headers */,
 				D08722A0169E3D6000016ACA /* OctoKit.h in Headers */,
-				8829F2C017A0DF5300F06991 /* OCTAuthorization.h in Headers */,
+				D087B93D181A430900821DCD /* NSURL+OCTQueryAdditions.h in Headers */,
 				8848E19E16AF630B005449AB /* OCTNotification.h in Headers */,
 				D0772E7416BD27B6009DFF72 /* NSDateFormatter+OCTFormattingAdditions.h in Headers */,
 				D0772E7816BD2A06009DFF72 /* NSValueTransformer+OCTPredefinedTransformerAdditions.h in Headers */,
@@ -1499,6 +1547,20 @@
 			remoteRef = 8839BBFC1729D477004DDE42 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		D042C47B1819CE5900143E07 /* libMantle-Mac.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libMantle-Mac.a";
+			remoteRef = D042C47A1819CE5900143E07 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		D042C4831819CE5900143E07 /* libReactiveCocoa-Mac.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libReactiveCocoa-Mac.a";
+			remoteRef = D042C4821819CE5900143E07 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		D0476E3C177919200071F3CB /* AFNetworking.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
@@ -1548,24 +1610,24 @@
 			remoteRef = D0872068169E328B00016ACA /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		D087206B169E328B00016ACA /* Mantle Mac Tests.octest */ = {
+		D087206B169E328B00016ACA /* Mantle Tests.octest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
-			path = "Mantle Mac Tests.octest";
+			path = "Mantle Tests.octest";
 			remoteRef = D087206A169E328B00016ACA /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		D087206D169E328B00016ACA /* libMantle.a */ = {
+		D087206D169E328B00016ACA /* libMantle-iOS.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
-			path = libMantle.a;
+			path = "libMantle-iOS.a";
 			remoteRef = D087206C169E328B00016ACA /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		D087206F169E328B00016ACA /* Mantle iOS Tests.octest */ = {
+		D087206F169E328B00016ACA /* Mantle-iOS Tests.octest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
-			path = "Mantle iOS Tests.octest";
+			path = "Mantle-iOS Tests.octest";
 			remoteRef = D087206E169E328B00016ACA /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
@@ -1691,8 +1753,10 @@
 				D0D8C09B16DFF1540070399E /* page3.json in Resources */,
 				D0D8C09D16DFF1540070399E /* rate_limit.json in Resources */,
 				D0E41B8716DFF37E00E321CF /* notifications.json in Resources */,
+				D087B944181A485200821DCD /* access_token.json in Resources */,
 				9CB0589D17933F45002CF498 /* content.json in Resources */,
 				9CF7FB9617957A6A00CA34FF /* repository.json in Resources */,
+				D087B941181A47EB00821DCD /* user.json in Resources */,
 				9CF7FBBC179581EC00CA34FF /* user_starred.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1701,6 +1765,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D087B942181A47EB00821DCD /* user.json in Resources */,
 				9CB0589E17933F46002CF498 /* content.json in Resources */,
 				88CD632A17D8D7C100E2CD47 /* tree.json in Resources */,
 				9CF7FBBD179581EC00CA34FF /* user_starred.json in Resources */,
@@ -1709,6 +1774,7 @@
 				D0D8C09A16DFF1540070399E /* page2.json in Resources */,
 				8813687517A1AF3100F74214 /* authorizations.json in Resources */,
 				9CF7FB9717957A6A00CA34FF /* repository.json in Resources */,
+				D087B945181A485200821DCD /* access_token.json in Resources */,
 				D0D8C09C16DFF1540070399E /* page3.json in Resources */,
 				D0D8C09E16DFF1540070399E /* rate_limit.json in Resources */,
 				D0E41B8816DFF37E00E321CF /* notifications.json in Resources */,
@@ -1757,6 +1823,7 @@
 				D087215F169E395F00016ACA /* OCTCommitComment.m in Sources */,
 				9CB0588B17933F26002CF498 /* OCTSymlinkContent.m in Sources */,
 				D0872163169E395F00016ACA /* OCTCommitCommentEvent.m in Sources */,
+				D042C4A11819E12F00143E07 /* OCTAccessToken.m in Sources */,
 				D0872167169E395F00016ACA /* OCTEntity.m in Sources */,
 				8829F2C117A0DF5300F06991 /* OCTAuthorization.m in Sources */,
 				D087216B169E395F00016ACA /* OCTEvent.m in Sources */,
@@ -1788,6 +1855,7 @@
 				8848E19F16AF630B005449AB /* OCTNotification.m in Sources */,
 				9CB0588317933F26002CF498 /* OCTFileContent.m in Sources */,
 				D0B9C8F416BC78970029C5B4 /* NSDateFormatter+OCTFormattingAdditions.m in Sources */,
+				D087B93E181A430900821DCD /* NSURL+OCTQueryAdditions.m in Sources */,
 				88746BE317FA0A360005888A /* OCTBlobTreeEntry.m in Sources */,
 				D0772E7916BD2A06009DFF72 /* NSValueTransformer+OCTPredefinedTransformerAdditions.m in Sources */,
 				F6CF78D616E993A500A75F63 /* RACSignal+OCTClientAdditions.m in Sources */,
@@ -1804,6 +1872,7 @@
 				D08721C6169E396F00016ACA /* OCTIssueSpec.m in Sources */,
 				D08721C8169E396F00016ACA /* OCTObjectSpec.m in Sources */,
 				D08721D0169E398C00016ACA /* OCTOrganizationSpec.m in Sources */,
+				D087B938181A401400821DCD /* OCTTestClient.m in Sources */,
 				D08721D2169E398C00016ACA /* OCTPullRequestCommentSpec.m in Sources */,
 				D08721D4169E398C00016ACA /* OCTPullRequestSpec.m in Sources */,
 				88CD633317D8DA5A00E2CD47 /* OCTTreeSpec.m in Sources */,
@@ -1811,6 +1880,7 @@
 				8813686617A1A77000F74214 /* OCTAuthorizationSpec.m in Sources */,
 				D08721D6169E398C00016ACA /* OCTRepositorySpec.m in Sources */,
 				D08721D8169E398C00016ACA /* OCTServerSpec.m in Sources */,
+				D087B947181A4F9200821DCD /* NSURLAdditionsSpec.m in Sources */,
 				D08721DA169E398C00016ACA /* OCTUserSpec.m in Sources */,
 				D0B9C8FD16BC7A260029C5B4 /* NSDateFormatterAdditionsSpec.m in Sources */,
 				D0772E7C16BD2AD5009DFF72 /* NSValueTransformerAdditionsSpec.m in Sources */,
@@ -1832,6 +1902,7 @@
 				D0872160169E395F00016ACA /* OCTCommitComment.m in Sources */,
 				9CB0588C17933F26002CF498 /* OCTSymlinkContent.m in Sources */,
 				D0872164169E395F00016ACA /* OCTCommitCommentEvent.m in Sources */,
+				D042C4A21819E12F00143E07 /* OCTAccessToken.m in Sources */,
 				D0872168169E395F00016ACA /* OCTEntity.m in Sources */,
 				8829F2C217A0DF5300F06991 /* OCTAuthorization.m in Sources */,
 				D087216C169E395F00016ACA /* OCTEvent.m in Sources */,
@@ -1863,6 +1934,7 @@
 				8848E1A016AF630B005449AB /* OCTNotification.m in Sources */,
 				9CB0588417933F26002CF498 /* OCTFileContent.m in Sources */,
 				D0B9C8F516BC78970029C5B4 /* NSDateFormatter+OCTFormattingAdditions.m in Sources */,
+				D087B93F181A430900821DCD /* NSURL+OCTQueryAdditions.m in Sources */,
 				88746BE417FA0A360005888A /* OCTBlobTreeEntry.m in Sources */,
 				D0772E7A16BD2A06009DFF72 /* NSValueTransformer+OCTPredefinedTransformerAdditions.m in Sources */,
 				F6CF78D816E993A500A75F63 /* RACSignal+OCTClientAdditions.m in Sources */,
@@ -1879,6 +1951,7 @@
 				D08721C7169E396F00016ACA /* OCTIssueSpec.m in Sources */,
 				D08721C9169E396F00016ACA /* OCTObjectSpec.m in Sources */,
 				D08721D1169E398C00016ACA /* OCTOrganizationSpec.m in Sources */,
+				D087B939181A401400821DCD /* OCTTestClient.m in Sources */,
 				D08721D3169E398C00016ACA /* OCTPullRequestCommentSpec.m in Sources */,
 				D08721D5169E398C00016ACA /* OCTPullRequestSpec.m in Sources */,
 				88CD633417D8DA5A00E2CD47 /* OCTTreeSpec.m in Sources */,
@@ -1886,6 +1959,7 @@
 				8813686717A1A77000F74214 /* OCTAuthorizationSpec.m in Sources */,
 				D08721D7169E398C00016ACA /* OCTRepositorySpec.m in Sources */,
 				D08721D9169E398C00016ACA /* OCTServerSpec.m in Sources */,
+				D087B948181A4F9200821DCD /* NSURLAdditionsSpec.m in Sources */,
 				D08721DB169E398C00016ACA /* OCTUserSpec.m in Sources */,
 				D0B9C8FE16BC7A260029C5B4 /* NSDateFormatterAdditionsSpec.m in Sources */,
 				D0772E7D16BD2AD5009DFF72 /* NSValueTransformerAdditionsSpec.m in Sources */,
