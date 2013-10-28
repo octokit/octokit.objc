@@ -124,7 +124,7 @@ typedef enum : NSUInteger {
 // Represents a single GitHub session.
 //
 // **NOTE:** You must invoke +setUserAgent: before making any requests using
-// OCTClient.
+// OCTClient, and +setClientID:clientSecret: before attempting to authenticate.
 //
 // Most of the methods on this class return a RACSignal representing a request
 // made to the API. The returned signal will deliver its results on a background
@@ -187,7 +187,7 @@ typedef enum : NSUInteger {
 // over the user's internet connection, the secret isn't terribly secret. To
 // help mitigate the risk of a web app stealing and using your `clientID` and
 // `clientSecret`, set the Callback URL for your OAuth app to a URL you control.
-// // Even if this URL is never used by your app, this will prevent other apps
+// Even if this URL is never used by your app, this will prevent other apps
 // from using your client ID and secret in a web flow.
 //
 // This method is thread-safe, and must be invoked before making any

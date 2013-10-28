@@ -209,7 +209,7 @@ receive an `OCTClient` instance as a reply:
     }];
 ```
 
-You can also choose [receive the client on the main
+You can also choose to [receive the client on the main
 thread](#receiving-results-on-the-main-thread), just like with any other request.
 
 ### Signing in through the app
@@ -237,7 +237,7 @@ OCTUser *user = [OCTUser userWithLogin:username server:OCTServer.dotComServer];
     }];
 ```
 
-_(You can also choose [receive the client on the main
+_(You can also choose to [receive the client on the main
 thread](#receiving-results-on-the-main-thread), just like with any other
 request.)_
 
