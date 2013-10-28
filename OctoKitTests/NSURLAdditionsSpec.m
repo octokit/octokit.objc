@@ -30,6 +30,17 @@ describe(@"-oct_queryArguments", ^{
 		expect(URL.oct_queryArguments).to.equal(expected);
 	});
 
+	it(@"should return key value pairs when separated by semicolons", ^{
+		NSURL *URL = [NSURL URLWithString:@"http://google.com?foo=bar;baz=buzz;fuzz"];
+		NSDictionary *expected = @{
+			@"foo": @"bar",
+			@"baz": @"buzz",
+			@"fuzz": NSNull.null
+		};
+
+		expect(URL.oct_queryArguments).to.equal(expected);
+	});
+
 	it(@"should pick one value when the same key is specified multiple times", ^{
 		NSURL *URL = [NSURL URLWithString:@"http://google.com?a=1&a=2&a=3"];
 		expect(URL.oct_queryArguments.allKeys).to.equal((@[ @"a" ]));

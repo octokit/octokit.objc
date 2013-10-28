@@ -12,7 +12,8 @@
 @implementation NSURL (OCTQueryAdditions)
 
 - (NSDictionary *)oct_queryArguments {
-	NSArray *queryComponents = [self.query componentsSeparatedByString:@"&"];
+	NSCharacterSet *separatorSet = [NSCharacterSet characterSetWithCharactersInString:@"&;"];
+	NSArray *queryComponents = [self.query componentsSeparatedByCharactersInSet:separatorSet];
 
 	NSMutableDictionary *queryArguments = [[NSMutableDictionary alloc] initWithCapacity:queryComponents.count];
 	for (NSString *component in queryComponents) {
