@@ -262,6 +262,45 @@ describe(@"authenticated", ^{
 		expect(success).to.beTruthy();
 		expect(error).to.beNil();
 	});
+
+	it(@"should return nothing when marking a notification thread as read", ^{
+		NSURL *URL = [NSURL URLWithString:@"https://github.com/notifications/threads/1"];
+		stubResponseWithStatusCode(URL.path, 205);
+
+		RACSignal *request = [client markNotificationThreadAsReadAtURL:URL];
+	
+		expect([request asynchronousFirstOrDefault:nil success:&success error:&error]).to.beNil();
+		expect(success).to.beTruthy();
+		expect(error).to.beNil();
+	});
+
+	it(@"should return nothing when muting a notification thread", ^{
+		NSURL *URL = [NSURL URLWithString:@"https://github.com/notifications/threads/1"];
+		NSString *path = [URL.path stringByAppendingPathComponent:@"subscription"];
+		stubResponseWithStatusCode(path, 205);
+
+		RACSignal *request = [client muteNotificationThreadAtURL:URL];
+
+		expect([request asynchronousFirstOrDefault:nil success:&success error:&error]).to.beNil();
+		expect(success).to.beTruthy();
+		expect(error).to.beNil();
+	});
+
+	it(@"should return nothing when marking a repository's notification threads as read", ^{
+		OCTRepository *repository = [[OCTRepository alloc] initWithDictionary:@{
+			@"name": @"github",
+			@"ownerLogin": @"github"
+		} error:NULL];
+
+		NSString *path = [NSString stringWithFormat:@"/repos/%@/%@/notifications", repository.ownerLogin, repository.name];
+		stubResponseWithStatusCode(path, 205);
+
+		RACSignal *request = [client markNotificationThreadsAsReadForRepository:repository];
+
+		expect([request asynchronousFirstOrDefault:nil success:&success error:&error]).to.beNil();
+		expect(success).to.beTruthy();
+		expect(error).to.beNil();
+	});
 	
 	it(@"should fetch user starred repositories", ^{
 		stubResponse(@"/user/starred", @"user_starred.json");

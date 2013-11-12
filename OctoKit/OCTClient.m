@@ -497,12 +497,6 @@ static NSString *OCTClientOAuthClientSecret = nil;
 				NSLog(@"%@ %@ %@ => %li %@:\n%@", request.HTTPMethod, request.URL, request.allHTTPHeaderFields, (long)operation.response.statusCode, operation.response.allHeaderFields, responseObject);
 			}
 
-			if (operation.response.statusCode == OCTClientNotModifiedStatusCode) {
-				// No change in the data.
-				[subscriber sendCompleted];
-				return;
-			}
-
 			RACSignal *thisPageSignal = [[self parsedResponseOfClass:resultClass fromJSON:responseObject]
 				map:^(id parsedResult) {
 					OCTResponse *response = [[OCTResponse alloc] initWithHTTPURLResponse:operation.response parsedResult:parsedResult];
@@ -668,6 +662,8 @@ static NSString *OCTClientOAuthClientSecret = nil;
 		} else if (responseObject != nil) {
 			NSString *failureReason = [NSString stringWithFormat:NSLocalizedString(@"Response wasn't an array or dictionary (%@): %@", @""), [responseObject class], responseObject];
 			[subscriber sendError:[self parsingErrorWithFailureReason:failureReason]];
+		} else {
+			[subscriber sendCompleted];
 		}
 
 		return nil;
@@ -898,6 +894,17 @@ static NSString *OCTClientOAuthClientSecret = nil;
 	return [self enqueueRequest:request resultClass:OCTNotification.class];
 }
 
+- (RACSignal *)markNotificationThreadsAsReadForRepository:(OCTRepository *)repository {
+	NSParameterAssert(repository != nil);
+
+	if (!self.authenticated) return [RACSignal error:self.class.authenticationRequiredError];
+
+	NSString *path = [NSString stringWithFormat:@"repos/%@/%@/notifications", repository.ownerLogin, repository.name];
+	NSMutableURLRequest *request = [self requestWithMethod:@"PUT" path:path parameters:nil];
+
+	return [[self enqueueRequest:request resultClass:nil] ignoreValues];
+}
+
 - (RACSignal *)markNotificationThreadAsReadAtURL:(NSURL *)threadURL {
 	return [self patchThreadURL:threadURL withReadStatus:YES];
 }
@@ -909,6 +916,7 @@ static NSString *OCTClientOAuthClientSecret = nil;
 
 	NSMutableURLRequest *request = [self requestWithMethod:@"PATCH" path:@"" parameters:@{ @"read": @(read) }];
 	request.URL = threadURL;
+
 	return [[self enqueueRequest:request resultClass:nil] ignoreValues];
 }
 
@@ -919,6 +927,7 @@ static NSString *OCTClientOAuthClientSecret = nil;
 
 	NSMutableURLRequest *request = [self requestWithMethod:@"PUT" path:@"" parameters:@{ @"ignored": @YES }];
 	request.URL = [threadURL URLByAppendingPathComponent:@"subscription"];
+
 	return [[self enqueueRequest:request resultClass:nil] ignoreValues];
 }
 
