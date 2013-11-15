@@ -274,6 +274,33 @@ might look something like this:
 }
 ```
 
+### Choosing an authentication method dynamically
+
+If you really want a [native login flow](#signing-in-through-the-app) without
+sacrificing the compatibility of [browser-based
+login](#signing-in-through-a-browser), you can inspect a server's capabilities
+to determine how to authenticate.
+
+However, because not all GitHub Enterprise servers support this API, you should
+handle any errors returned:
+
+```objc
+[[OCTClient
+    fetchCapabilitiesForServer:someServer]
+    subscribeNext:^(OCTCapabilities *capabilities) {
+        if (capabilities.supportsPasswordAuthentication) {
+            // Authenticate with +signInAsUser:password:oneTimePassword:scopes:
+        } else {
+            // Authenticate with +signInToServerUsingWebBrowser:scopes:
+        }
+    } error:^(NSError *error) {
+        if ([error.domain isEqual:OCTClientErrorDomain] && error.code == OCTClientErrorUnsupportedServer) {
+            // The server doesn't support capability checks, so fall back to one
+            // method or the other.
+        }
+    }];
+```
+
 ### Saving credentials
 
 Generally, you'll want to save an authenticated OctoKit session, so the user
