@@ -446,6 +446,18 @@ static NSString *OCTClientOAuthClientSecret = nil;
 	}] setNameWithFormat:@"+authorizeWithServerUsingWebBrowser: %@ scopes:", server];
 }
 
++ (RACSignal *)fetchCapabilitiesForServer:(OCTServer *)server {
+	NSParameterAssert(server != nil);
+
+	OCTClient *client = [[self alloc] initWithServer:server];
+	NSURLRequest *request = [client requestWithMethod:@"GET" path:@"capabilities" parameters:nil notMatchingEtag:nil];
+
+	return [[[client
+		enqueueRequest:request resultClass:OCTCapabilities.class]
+		oct_parsedResults]
+		setNameWithFormat:@"+fetchCapabilitiesForServer: %@", server];
+}
+
 + (BOOL)openURL:(NSURL *)URL {
 	NSParameterAssert(URL != nil);
 
