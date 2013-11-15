@@ -265,7 +265,8 @@ typedef enum : NSUInteger {
 //                   bitwise OR'd together to request multiple scopes.
 //
 // Returns a signal which will send an OCTClient then complete on success, or
-// else error.
+// else error. If the server is too old to support this request, an error will
+// be sent with code `OCTClientErrorUnsupportedServer`.
 + (RACSignal *)signInAsUser:(OCTUser *)user password:(NSString *)password oneTimePassword:(NSString *)oneTimePassword scopes:(OCTClientAuthorizationScopes)scopes;
 
 // Opens the default web browser to the given GitHub server, and prompts the
@@ -294,7 +295,8 @@ typedef enum : NSUInteger {
 // server - The server to determine the capabilities of. This must not be nil.
 //
 // Returns a signal which will send an `OCTCapabilities` object then complete on
-// success, or else error.
+// success, or else error. If the server is too old to support this request,
+// an error will be sent with code `OCTClientErrorUnsupportedServer`.
 + (RACSignal *)fetchCapabilitiesForServer:(OCTServer *)server;
 
 // Notifies any waiting login processes that authentication has completed.
