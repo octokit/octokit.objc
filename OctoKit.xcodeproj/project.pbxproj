@@ -282,6 +282,8 @@
 		D0E3E8B318359BD000EF530F /* OCTCapabilities.h in Headers */ = {isa = PBXBuildFile; fileRef = D0E3E8B018359BD000EF530F /* OCTCapabilities.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D0E3E8B418359BD000EF530F /* OCTCapabilities.m in Sources */ = {isa = PBXBuildFile; fileRef = D0E3E8B118359BD000EF530F /* OCTCapabilities.m */; };
 		D0E3E8B518359BD000EF530F /* OCTCapabilities.m in Sources */ = {isa = PBXBuildFile; fileRef = D0E3E8B118359BD000EF530F /* OCTCapabilities.m */; };
+		D0E3E8C41835A32100EF530F /* capabilities.json in Resources */ = {isa = PBXBuildFile; fileRef = D0E3E8C31835A32100EF530F /* capabilities.json */; };
+		D0E3E8C51835A32100EF530F /* capabilities.json in Resources */ = {isa = PBXBuildFile; fileRef = D0E3E8C31835A32100EF530F /* capabilities.json */; };
 		D0E41B8716DFF37E00E321CF /* notifications.json in Resources */ = {isa = PBXBuildFile; fileRef = D0E41B8616DFF37E00E321CF /* notifications.json */; };
 		D0E41B8816DFF37E00E321CF /* notifications.json in Resources */ = {isa = PBXBuildFile; fileRef = D0E41B8616DFF37E00E321CF /* notifications.json */; };
 		F688018C17C1CE0F00ECC7EC /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F688018B17C1CE0F00ECC7EC /* Security.framework */; };
@@ -765,6 +767,7 @@
 		D0DD8EF717BC5C0300657FDA /* OCTGistSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCTGistSpec.m; sourceTree = "<group>"; };
 		D0E3E8B018359BD000EF530F /* OCTCapabilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCTCapabilities.h; sourceTree = "<group>"; };
 		D0E3E8B118359BD000EF530F /* OCTCapabilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCTCapabilities.m; sourceTree = "<group>"; };
+		D0E3E8C31835A32100EF530F /* capabilities.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = capabilities.json; sourceTree = "<group>"; };
 		D0E41B8616DFF37E00E321CF /* notifications.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = notifications.json; sourceTree = "<group>"; };
 		F688018B17C1CE0F00ECC7EC /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.0.sdk/System/Library/Frameworks/Security.framework; sourceTree = DEVELOPER_DIR; };
 		F688019C17C1CE3200ECC7EC /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.0.sdk/System/Library/Frameworks/CoreGraphics.framework; sourceTree = DEVELOPER_DIR; };
@@ -1282,6 +1285,7 @@
 			children = (
 				D087B943181A485200821DCD /* access_token.json */,
 				8813687317A1AD1E00F74214 /* authorizations.json */,
+				D0E3E8C31835A32100EF530F /* capabilities.json */,
 				9CB0589C17933F43002CF498 /* content.json */,
 				D0D8C09016DFF1540070399E /* events.json */,
 				D0E41B8616DFF37E00E321CF /* notifications.json */,
@@ -1761,6 +1765,7 @@
 				D0D8C09B16DFF1540070399E /* page3.json in Resources */,
 				D0D8C09D16DFF1540070399E /* rate_limit.json in Resources */,
 				D0E41B8716DFF37E00E321CF /* notifications.json in Resources */,
+				D0E3E8C41835A32100EF530F /* capabilities.json in Resources */,
 				D087B944181A485200821DCD /* access_token.json in Resources */,
 				9CB0589D17933F45002CF498 /* content.json in Resources */,
 				9CF7FB9617957A6A00CA34FF /* repository.json in Resources */,
@@ -1784,6 +1789,7 @@
 				9CF7FB9717957A6A00CA34FF /* repository.json in Resources */,
 				D087B945181A485200821DCD /* access_token.json in Resources */,
 				D0D8C09C16DFF1540070399E /* page3.json in Resources */,
+				D0E3E8C51835A32100EF530F /* capabilities.json in Resources */,
 				D0D8C09E16DFF1540070399E /* rate_limit.json in Resources */,
 				D0E41B8816DFF37E00E321CF /* notifications.json in Resources */,
 			);

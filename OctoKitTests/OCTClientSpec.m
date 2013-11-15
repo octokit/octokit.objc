@@ -507,4 +507,26 @@ describe(@"sign in", ^{
 	});
 });
 
+fdescribe(@"+fetchCapabilitiesForServer:", ^{
+	it(@"should successfully fetch capabilities", ^{
+		stubResponse(@"/capabilities", @"capabilities.json");
+
+		RACSignal *request = [OCTClient fetchCapabilitiesForServer:OCTServer.dotComServer];
+		OCTCapabilities *capabilities = [request asynchronousFirstOrDefault:nil success:NULL error:NULL];
+		expect(capabilities).notTo.beNil();
+		expect(capabilities.supportsPasswordAuthentication).to.beTruthy();
+	});
+
+	it(@"should fail if /capabilities doesn't exist", ^{
+		stubResponseWithStatusCode(@"/capabilities", 404);
+
+		RACSignal *request = [OCTClient fetchCapabilitiesForServer:OCTServer.dotComServer];
+		NSError *error;
+		BOOL success = [request asynchronouslyWaitUntilCompleted:&error];
+		expect(success).to.beFalsy();
+		expect(error.domain).to.equal(OCTClientErrorDomain);
+		expect(error.code).to.equal(OCTClientErrorUnsupportedServer);
+	});
+});
+
 SpecEnd
