@@ -431,8 +431,8 @@ static NSString *OCTClientOAuthClientSecret = nil;
 
 		NSString *scope = [[self scopesArrayFromScopes:scopes] componentsJoinedByString:@","];
 
-		NSString *relativeString = [[NSString alloc] initWithFormat:@"login/oauth/authorize?client_id=%@&scope=%@&state=%@", clientID, scope, uuidString];
-		NSURL *webURL = [NSURL URLWithString:[relativeString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] relativeToURL:server.baseWebURL];
+		NSString *URLString = [[NSString alloc] initWithFormat:@"%@/login/oauth/authorize?client_id=%@&scope=%@&state=%@", server.baseWebURL, clientID, scope, uuidString];
+		NSURL *webURL = [NSURL URLWithString:URLString];
 
 		if (![self openURL:webURL]) {
 			[subscriber sendError:[NSError errorWithDomain:OCTClientErrorDomain code:OCTClientErrorOpeningBrowserFailed userInfo:@{
