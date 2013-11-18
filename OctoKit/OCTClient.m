@@ -514,16 +514,6 @@ static NSString *OCTClientOAuthClientSecret = nil;
 				[subscriber sendCompleted];
 				return;
 			}
-
-			if (NSProcessInfo.processInfo.environment[OCTClientRateLimitLoggingEnvironmentKey] != nil) {
-				__block BOOL loggedRemaining = NO;
-				thisPageSignal = [thisPageSignal doNext:^(OCTResponse *response) {
-					if (loggedRemaining) return;
-
-					NSLog(@"%@ %@ => %li remaining calls: %li/%li", request.HTTPMethod, request.URL, (long)operation.response.statusCode, (long)response.remainingRequests, (long)response.maximumRequestsPerHour);
-					loggedRemaining = YES;
-				}];
-			}
 			
 			RACSignal *nextPageSignal = [RACSignal empty];
 			NSURL *nextPageURL = (fetchAllPages ? [self nextPageURLFromOperation:operation] : nil);
@@ -558,7 +548,7 @@ static NSString *OCTClientOAuthClientSecret = nil;
 	
 	return [[signal
 		replayLazily]
-		setNameWithFormat:@"-enqueueRequest: %@ fetchAllPages: %i", request, resultClass, (int)fetchAllPages];
+		setNameWithFormat:@"-enqueueRequest: %@ fetchAllPages: %i", request, (int)fetchAllPages];
 }
 
 - (RACSignal *)enqueueRequest:(NSURLRequest *)request resultClass:(Class)resultClass {
@@ -569,13 +559,22 @@ static NSString *OCTClientOAuthClientSecret = nil;
 	return [[[self
 		enqueueRequest:request fetchAllPages:fetchAllPages]
 		reduceEach:^(NSHTTPURLResponse *response, id responseObject) {
-			return [[self
+			__block BOOL loggedRemaining = NO;
+
+			return [[[self
 				parsedResponseOfClass:resultClass fromJSON:responseObject]
 				map:^(id parsedResult) {
-					OCTResponse *response = [[OCTResponse alloc] initWithHTTPURLResponse:operation.response parsedResult:parsedResult];
-					NSAssert(response != nil, @"Could not create OCTResponse with response %@ and parsedResult %@", operation.response, parsedResult);
+					OCTResponse *parsedResponse = [[OCTResponse alloc] initWithHTTPURLResponse:response parsedResult:parsedResult];
+					NSAssert(parsedResponse != nil, @"Could not create OCTResponse with response %@ and parsedResult %@", response, parsedResult);
 
-					return response;
+					return parsedResponse;
+				}]
+				doNext:^(OCTResponse *parsedResponse) {
+					if (NSProcessInfo.processInfo.environment[OCTClientRateLimitLoggingEnvironmentKey] == nil) return;
+					if (loggedRemaining) return;
+
+					NSLog(@"%@ => %li remaining calls: %li/%li", response.URL, (long)response.statusCode, (long)parsedResponse.remainingRequests, (long)parsedResponse.maximumRequestsPerHour);
+					loggedRemaining = YES;
 				}];
 		}]
 		concat];
@@ -740,10 +739,11 @@ static NSString *OCTClientOAuthClientSecret = nil;
 
 	NSDictionary *responseDictionary = nil;
 	if ([operation isKindOfClass:AFJSONRequestOperation.class]) {
-		if ([operation.responseJSON isKindOfClass:NSDictionary.class]) {
-			responseDictionary = operation.responseJSON;
+		id JSON = [(AFJSONRequestOperation *)operation responseJSON];
+		if ([JSON isKindOfClass:NSDictionary.class]) {
+			responseDictionary = JSON;
 		} else {
-			NSLog(@"Unexpected JSON for error response: %@", operation.responseJSON);
+			NSLog(@"Unexpected JSON for error response: %@", JSON);
 		}
 	}
 
