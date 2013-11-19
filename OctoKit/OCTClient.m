@@ -87,7 +87,7 @@ static NSString * const OCTClientRateLimitLoggingEnvironmentKey = @"LOG_REMAININ
 // request       - The previously constructed URL request for the endpoint.
 // fetchAllPages - Whether to fetch all pages of the given endpoint.
 //
-// Returns a signal which will send 2-tuples for each page, containing the
+// Returns a signal which will send tuples for each page, containing the
 // `NSHTTPURLResponse` and response object (the type of which will be determined
 // by AFNetworking), then complete. If an error occurs at any point, the
 // returned signal will send it immediately, then terminate.
