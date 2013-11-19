@@ -46,6 +46,9 @@ NSString * const OCTClientErrorOneTimePasswordMediumKey = @"OCTClientErrorOneTim
 static const NSInteger OCTClientNotModifiedStatusCode = 304;
 static NSString * const OCTClientOneTimePasswordHeaderField = @"X-GitHub-OTP";
 
+// The version of the GitHub API to use.
+static NSString * const OCTClientAPIVersion = @"beta";
+
 // An environment variable that, when present, will enable logging of all
 // responses.
 static NSString * const OCTClientResponseLoggingEnvironmentKey = @"LOG_API_RESPONSES";
@@ -78,6 +81,17 @@ static NSString * const OCTClientRateLimitLoggingEnvironmentKey = @"LOG_REMAININ
 // An error indicating that a request required authentication, but the client
 // was not created with a token.
 + (NSError *)authenticationRequiredError;
+
+// Enqueues a request that will not automatically parse results.
+//
+// request       - The previously constructed URL request for the endpoint.
+// fetchAllPages - Whether to fetch all pages of the given endpoint.
+//
+// Returns a signal which will send tuples for each page, containing the
+// `NSHTTPURLResponse` and response object (the type of which will be determined
+// by AFNetworking), then complete. If an error occurs at any point, the
+// returned signal will send it immediately, then terminate.
+- (RACSignal *)enqueueRequest:(NSURLRequest *)request fetchAllPages:(BOOL)fetchAllPages;
 
 // Enqueues a request to fetch information about the current user by accessing
 // a path relative to the user object.
@@ -241,11 +255,13 @@ static NSString *OCTClientOAuthClientSecret = nil;
 	NSString *userAgent = self.class.userAgent;
 	if (userAgent != nil) [self setDefaultHeader:@"User-Agent" value:userAgent];
 
-	self.parameterEncoding = AFJSONParameterEncoding;
-	[self setDefaultHeader:@"Accept" value:@"application/vnd.github.beta+json"];
-
 	[AFHTTPRequestOperation addAcceptableStatusCodes:[NSIndexSet indexSetWithIndex:OCTClientNotModifiedStatusCode]];
-	[AFJSONRequestOperation addAcceptableContentTypes:[NSSet setWithObject:@"application/vnd.github.beta+json"]];
+
+	NSString *contentType = [NSString stringWithFormat:@"application/vnd.github.%@+json", OCTClientAPIVersion];
+	[self setDefaultHeader:@"Accept" value:contentType];
+	[AFJSONRequestOperation addAcceptableContentTypes:[NSSet setWithObject:contentType]];
+
+	self.parameterEncoding = AFJSONParameterEncoding;
 	[self registerHTTPOperationClass:AFJSONRequestOperation.class];
 
 	return self;
@@ -486,11 +502,7 @@ static NSString *OCTClientOAuthClientSecret = nil;
 
 #pragma mark Request Enqueuing
 
-- (RACSignal *)enqueueRequest:(NSURLRequest *)request resultClass:(Class)resultClass {
-	return [self enqueueRequest:request resultClass:resultClass fetchAllPages:YES];
-}
-
-- (RACSignal *)enqueueRequest:(NSURLRequest *)request resultClass:(Class)resultClass fetchAllPages:(BOOL)fetchAllPages {
+- (RACSignal *)enqueueRequest:(NSURLRequest *)request fetchAllPages:(BOOL)fetchAllPages {
 	RACSignal *signal = [RACSignal createSignal:^(id<RACSubscriber> subscriber) {
 		AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request success:^(AFHTTPRequestOperation *operation, id responseObject) {
 			if (NSProcessInfo.processInfo.environment[OCTClientResponseLoggingEnvironmentKey] != nil) {
@@ -502,24 +514,6 @@ static NSString *OCTClientOAuthClientSecret = nil;
 				[subscriber sendCompleted];
 				return;
 			}
-
-			RACSignal *thisPageSignal = [[self parsedResponseOfClass:resultClass fromJSON:responseObject]
-				map:^(id parsedResult) {
-					OCTResponse *response = [[OCTResponse alloc] initWithHTTPURLResponse:operation.response parsedResult:parsedResult];
-					NSAssert(response != nil, @"Could not create OCTResponse with response %@ and parsedResult %@", operation.response, parsedResult);
-
-					return response;
-				}];
-
-			if (NSProcessInfo.processInfo.environment[OCTClientRateLimitLoggingEnvironmentKey] != nil) {
-				__block BOOL loggedRemaining = NO;
-				thisPageSignal = [thisPageSignal doNext:^(OCTResponse *response) {
-					if (loggedRemaining) return;
-
-					NSLog(@"%@ %@ => %li remaining calls: %li/%li", request.HTTPMethod, request.URL, (long)operation.response.statusCode, (long)response.remainingRequests, (long)response.maximumRequestsPerHour);
-					loggedRemaining = YES;
-				}];
-			}
 			
 			RACSignal *nextPageSignal = [RACSignal empty];
 			NSURL *nextPageURL = (fetchAllPages ? [self nextPageURLFromOperation:operation] : nil);
@@ -528,16 +522,19 @@ static NSString *OCTClientOAuthClientSecret = nil;
 				NSMutableURLRequest *nextRequest = [request mutableCopy];
 				nextRequest.URL = nextPageURL;
 
-				nextPageSignal = [self enqueueRequest:nextRequest resultClass:resultClass fetchAllPages:YES];
+				nextPageSignal = [self enqueueRequest:nextRequest fetchAllPages:YES];
 			}
 
-			[[thisPageSignal concat:nextPageSignal] subscribe:subscriber];
+			[[[RACSignal
+				return:RACTuplePack(operation.response, responseObject)]
+				concat:nextPageSignal]
+				subscribe:subscriber];
 		} failure:^(AFHTTPRequestOperation *operation, NSError *error) {
 			if (NSProcessInfo.processInfo.environment[OCTClientResponseLoggingEnvironmentKey] != nil) {
 				NSLog(@"%@ %@ %@ => FAILED WITH %li", request.HTTPMethod, request.URL, request.allHTTPHeaderFields, (long)operation.response.statusCode);
 			}
 
-			[subscriber sendError:[self.class errorFromRequestOperation:(AFJSONRequestOperation *)operation]];
+			[subscriber sendError:[self.class errorFromRequestOperation:operation]];
 		}];
 
 		operation.successCallbackQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
@@ -551,7 +548,36 @@ static NSString *OCTClientOAuthClientSecret = nil;
 	
 	return [[signal
 		replayLazily]
-		setNameWithFormat:@"-enqueueRequest: %@ resultClass: %@ fetchAllPages: %i", request, resultClass, (int)fetchAllPages];
+		setNameWithFormat:@"-enqueueRequest: %@ fetchAllPages: %i", request, (int)fetchAllPages];
+}
+
+- (RACSignal *)enqueueRequest:(NSURLRequest *)request resultClass:(Class)resultClass {
+	return [self enqueueRequest:request resultClass:resultClass fetchAllPages:YES];
+}
+
+- (RACSignal *)enqueueRequest:(NSURLRequest *)request resultClass:(Class)resultClass fetchAllPages:(BOOL)fetchAllPages {
+	return [[[self
+		enqueueRequest:request fetchAllPages:fetchAllPages]
+		reduceEach:^(NSHTTPURLResponse *response, id responseObject) {
+			__block BOOL loggedRemaining = NO;
+
+			return [[[self
+				parsedResponseOfClass:resultClass fromJSON:responseObject]
+				map:^(id parsedResult) {
+					OCTResponse *parsedResponse = [[OCTResponse alloc] initWithHTTPURLResponse:response parsedResult:parsedResult];
+					NSAssert(parsedResponse != nil, @"Could not create OCTResponse with response %@ and parsedResult %@", response, parsedResult);
+
+					return parsedResponse;
+				}]
+				doNext:^(OCTResponse *parsedResponse) {
+					if (NSProcessInfo.processInfo.environment[OCTClientRateLimitLoggingEnvironmentKey] == nil) return;
+					if (loggedRemaining) return;
+
+					NSLog(@"%@ => %li remaining calls: %li/%li", response.URL, (long)response.statusCode, (long)parsedResponse.remainingRequests, (long)parsedResponse.maximumRequestsPerHour);
+					loggedRemaining = YES;
+				}];
+		}]
+		concat];
 }
 
 - (RACSignal *)enqueueUserRequestWithMethod:(NSString *)method relativePath:(NSString *)relativePath parameters:(NSDictionary *)parameters resultClass:(Class)resultClass {
@@ -704,7 +730,7 @@ static NSString *OCTClientOAuthClientSecret = nil;
 	}
 }
 
-+ (NSError *)errorFromRequestOperation:(AFJSONRequestOperation *)operation {
++ (NSError *)errorFromRequestOperation:(AFHTTPRequestOperation *)operation {
 	NSParameterAssert(operation != nil);
 	
 	NSInteger HTTPCode = operation.response.statusCode;
@@ -712,10 +738,13 @@ static NSString *OCTClientOAuthClientSecret = nil;
 	NSInteger errorCode = OCTClientErrorServiceRequestFailed;
 
 	NSDictionary *responseDictionary = nil;
-	if ([operation.responseJSON isKindOfClass:NSDictionary.class]) {
-		responseDictionary = operation.responseJSON;
-	} else {
-		NSLog(@"Unexpected JSON for error response: %@", operation.responseJSON);
+	if ([operation isKindOfClass:AFJSONRequestOperation.class]) {
+		id JSON = [(AFJSONRequestOperation *)operation responseJSON];
+		if ([JSON isKindOfClass:NSDictionary.class]) {
+			responseDictionary = JSON;
+		} else {
+			NSLog(@"Unexpected JSON for error response: %@", JSON);
+		}
 	}
 
 	NSString *message = responseDictionary[@"message"];
@@ -976,6 +1005,23 @@ static NSString *OCTClientOAuthClientSecret = nil;
 
 	NSURLRequest *request = [self requestWithMethod:@"GET" path:path parameters:parameters];
 	return [[self enqueueRequest:request resultClass:OCTTree.class] oct_parsedResults];
+}
+
+- (RACSignal *)fetchBlob:(NSString *)blobSHA inRepository:(OCTRepository *)repository {
+	NSParameterAssert(blobSHA != nil);
+	NSParameterAssert(repository != nil);
+
+	NSString *path = [NSString stringWithFormat:@"repos/%@/%@/git/blobs/%@", repository.ownerLogin, repository.name, blobSHA];
+	NSMutableURLRequest *request = [self requestWithMethod:@"GET" path:path parameters:nil];
+
+	NSString *contentType = [NSString stringWithFormat:@"application/vnd.github.%@.raw", OCTClientAPIVersion];
+	[request setValue:contentType forHTTPHeaderField:@"Accept"];
+
+	return [[self
+		enqueueRequest:request fetchAllPages:NO]
+		reduceEach:^(NSHTTPURLResponse *response, NSData *data) {
+			return data;
+		}];
 }
 
 @end
