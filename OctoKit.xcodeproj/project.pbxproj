@@ -278,6 +278,12 @@
 		D0D8C09E16DFF1540070399E /* rate_limit.json in Resources */ = {isa = PBXBuildFile; fileRef = D0D8C09416DFF1540070399E /* rate_limit.json */; };
 		D0DD8EF817BC5C0300657FDA /* OCTGistSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = D0DD8EF717BC5C0300657FDA /* OCTGistSpec.m */; };
 		D0DD8EF917BC5C0300657FDA /* OCTGistSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = D0DD8EF717BC5C0300657FDA /* OCTGistSpec.m */; };
+		D0E3E8B218359BD000EF530F /* OCTServerMetadata.h in Headers */ = {isa = PBXBuildFile; fileRef = D0E3E8B018359BD000EF530F /* OCTServerMetadata.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D0E3E8B318359BD000EF530F /* OCTServerMetadata.h in Headers */ = {isa = PBXBuildFile; fileRef = D0E3E8B018359BD000EF530F /* OCTServerMetadata.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D0E3E8B418359BD000EF530F /* OCTServerMetadata.m in Sources */ = {isa = PBXBuildFile; fileRef = D0E3E8B118359BD000EF530F /* OCTServerMetadata.m */; };
+		D0E3E8B518359BD000EF530F /* OCTServerMetadata.m in Sources */ = {isa = PBXBuildFile; fileRef = D0E3E8B118359BD000EF530F /* OCTServerMetadata.m */; };
+		D0E3E8C41835A32100EF530F /* meta.json in Resources */ = {isa = PBXBuildFile; fileRef = D0E3E8C31835A32100EF530F /* meta.json */; };
+		D0E3E8C51835A32100EF530F /* meta.json in Resources */ = {isa = PBXBuildFile; fileRef = D0E3E8C31835A32100EF530F /* meta.json */; };
 		D0E41B8716DFF37E00E321CF /* notifications.json in Resources */ = {isa = PBXBuildFile; fileRef = D0E41B8616DFF37E00E321CF /* notifications.json */; };
 		D0E41B8816DFF37E00E321CF /* notifications.json in Resources */ = {isa = PBXBuildFile; fileRef = D0E41B8616DFF37E00E321CF /* notifications.json */; };
 		F688018C17C1CE0F00ECC7EC /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F688018B17C1CE0F00ECC7EC /* Security.framework */; };
@@ -759,6 +765,9 @@
 		D0D8C09316DFF1540070399E /* page3.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = page3.json; sourceTree = "<group>"; };
 		D0D8C09416DFF1540070399E /* rate_limit.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = rate_limit.json; sourceTree = "<group>"; };
 		D0DD8EF717BC5C0300657FDA /* OCTGistSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCTGistSpec.m; sourceTree = "<group>"; };
+		D0E3E8B018359BD000EF530F /* OCTServerMetadata.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCTServerMetadata.h; sourceTree = "<group>"; };
+		D0E3E8B118359BD000EF530F /* OCTServerMetadata.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCTServerMetadata.m; sourceTree = "<group>"; };
+		D0E3E8C31835A32100EF530F /* meta.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = meta.json; sourceTree = "<group>"; };
 		D0E41B8616DFF37E00E321CF /* notifications.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = notifications.json; sourceTree = "<group>"; };
 		F688018B17C1CE0F00ECC7EC /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.0.sdk/System/Library/Frameworks/Security.framework; sourceTree = DEVELOPER_DIR; };
 		F688019C17C1CE3200ECC7EC /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.0.sdk/System/Library/Frameworks/CoreGraphics.framework; sourceTree = DEVELOPER_DIR; };
@@ -1131,9 +1140,6 @@
 				D087213B169E395F00016ACA /* OCTObject+Private.h */,
 				D0872150169E395F00016ACA /* OCTResponse.h */,
 				D0872151169E395F00016ACA /* OCTResponse.m */,
-				D0872152169E395F00016ACA /* OCTServer.h */,
-				D0872153169E395F00016ACA /* OCTServer.m */,
-				D0872154169E395F00016ACA /* OCTServer+Private.h */,
 				7A1F643817F120FF008155CF /* OCTComment.h */,
 				7A1F647017F12851008155CF /* OCTReviewComment.h */,
 				8829F2D217A0DFA700F06991 /* Authentication */,
@@ -1145,6 +1151,7 @@
 				8848E19916AF62F1005449AB /* Notifications */,
 				D08B5998169E3E69006003B8 /* Pull Requests */,
 				D08B599A169E3E8D006003B8 /* Repositories */,
+				D0ED380A183D2D5000252CEC /* Server */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -1276,6 +1283,7 @@
 				8813687317A1AD1E00F74214 /* authorizations.json */,
 				9CB0589C17933F43002CF498 /* content.json */,
 				D0D8C09016DFF1540070399E /* events.json */,
+				D0E3E8C31835A32100EF530F /* meta.json */,
 				D0E41B8616DFF37E00E321CF /* notifications.json */,
 				D0D8C09116DFF1540070399E /* page1.json */,
 				D0D8C09216DFF1540070399E /* page2.json */,
@@ -1287,6 +1295,18 @@
 				9CF7FBBB179581EC00CA34FF /* user_starred.json */,
 			);
 			path = Stubs;
+			sourceTree = "<group>";
+		};
+		D0ED380A183D2D5000252CEC /* Server */ = {
+			isa = PBXGroup;
+			children = (
+				D0872152169E395F00016ACA /* OCTServer.h */,
+				D0872154169E395F00016ACA /* OCTServer+Private.h */,
+				D0872153169E395F00016ACA /* OCTServer.m */,
+				D0E3E8B018359BD000EF530F /* OCTServerMetadata.h */,
+				D0E3E8B118359BD000EF530F /* OCTServerMetadata.m */,
+			);
+			name = Server;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1339,6 +1359,7 @@
 				D0772E7716BD2A06009DFF72 /* NSValueTransformer+OCTPredefinedTransformerAdditions.h in Headers */,
 				9CB0588917933F26002CF498 /* OCTSymlinkContent.h in Headers */,
 				9CB0587D17933F26002CF498 /* OCTDirectoryContent.h in Headers */,
+				D0E3E8B218359BD000EF530F /* OCTServerMetadata.h in Headers */,
 				F6CF78D416E993A500A75F63 /* RACSignal+OCTClientAdditions.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1390,6 +1411,7 @@
 				D0772E7816BD2A06009DFF72 /* NSValueTransformer+OCTPredefinedTransformerAdditions.h in Headers */,
 				9CB0588A17933F26002CF498 /* OCTSymlinkContent.h in Headers */,
 				9CB0587E17933F26002CF498 /* OCTDirectoryContent.h in Headers */,
+				D0E3E8B318359BD000EF530F /* OCTServerMetadata.h in Headers */,
 				F6CF78D516E993A500A75F63 /* RACSignal+OCTClientAdditions.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1751,6 +1773,7 @@
 				D0D8C09B16DFF1540070399E /* page3.json in Resources */,
 				D0D8C09D16DFF1540070399E /* rate_limit.json in Resources */,
 				D0E41B8716DFF37E00E321CF /* notifications.json in Resources */,
+				D0E3E8C41835A32100EF530F /* meta.json in Resources */,
 				D087B944181A485200821DCD /* access_token.json in Resources */,
 				9CB0589D17933F45002CF498 /* content.json in Resources */,
 				9CF7FB9617957A6A00CA34FF /* repository.json in Resources */,
@@ -1774,6 +1797,7 @@
 				9CF7FB9717957A6A00CA34FF /* repository.json in Resources */,
 				D087B945181A485200821DCD /* access_token.json in Resources */,
 				D0D8C09C16DFF1540070399E /* page3.json in Resources */,
+				D0E3E8C51835A32100EF530F /* meta.json in Resources */,
 				D0D8C09E16DFF1540070399E /* rate_limit.json in Resources */,
 				D0E41B8816DFF37E00E321CF /* notifications.json in Resources */,
 			);
@@ -1802,6 +1826,7 @@
 				D087217B169E395F00016ACA /* OCTIssueEvent.m in Sources */,
 				D087217F169E395F00016ACA /* OCTObject.m in Sources */,
 				D0872185169E395F00016ACA /* OCTOrganization.m in Sources */,
+				D0E3E8B418359BD000EF530F /* OCTServerMetadata.m in Sources */,
 				D0872189169E395F00016ACA /* OCTPlan.m in Sources */,
 				D087218D169E395F00016ACA /* OCTPublicKey.m in Sources */,
 				D0872191169E395F00016ACA /* OCTPullRequest.m in Sources */,
@@ -1881,6 +1906,7 @@
 				D087217C169E395F00016ACA /* OCTIssueEvent.m in Sources */,
 				D0872180169E395F00016ACA /* OCTObject.m in Sources */,
 				D0872186169E395F00016ACA /* OCTOrganization.m in Sources */,
+				D0E3E8B518359BD000EF530F /* OCTServerMetadata.m in Sources */,
 				D087218A169E395F00016ACA /* OCTPlan.m in Sources */,
 				D087218E169E395F00016ACA /* OCTPublicKey.m in Sources */,
 				D0872192169E395F00016ACA /* OCTPullRequest.m in Sources */,

@@ -507,4 +507,26 @@ describe(@"sign in", ^{
 	});
 });
 
+fdescribe(@"+fetchMetadataForServer:", ^{
+	it(@"should successfully fetch metadata", ^{
+		stubResponse(@"/meta", @"meta.json");
+
+		RACSignal *request = [OCTClient fetchMetadataForServer:OCTServer.dotComServer];
+		OCTServerMetadata *meta = [request asynchronousFirstOrDefault:nil success:NULL error:NULL];
+		expect(meta).notTo.beNil();
+		expect(meta.supportsPasswordAuthentication).to.beTruthy();
+	});
+
+	it(@"should fail if /meta doesn't exist", ^{
+		stubResponseWithStatusCode(@"/meta", 404);
+
+		RACSignal *request = [OCTClient fetchMetadataForServer:OCTServer.dotComServer];
+		NSError *error;
+		BOOL success = [request asynchronouslyWaitUntilCompleted:&error];
+		expect(success).to.beFalsy();
+		expect(error.domain).to.equal(OCTClientErrorDomain);
+		expect(error.code).to.equal(OCTClientErrorUnsupportedServer);
+	});
+});
+
 SpecEnd

@@ -38,6 +38,7 @@
 #import <OctoKit/OCTRepository.h>
 #import <OctoKit/OCTResponse.h>
 #import <OctoKit/OCTServer.h>
+#import <OctoKit/OCTServerMetadata.h>
 #import <OctoKit/OCTSubmoduleContent.h>
 #import <OctoKit/OCTSymlinkContent.h>
 #import <OctoKit/OCTTeam.h>

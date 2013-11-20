@@ -23,6 +23,7 @@
 #import "OCTRepository.h"
 #import "OCTResponse.h"
 #import "OCTServer.h"
+#import "OCTServerMetadata.h"
 #import "OCTTeam.h"
 #import "OCTTree.h"
 #import "OCTUser.h"
@@ -78,6 +79,10 @@ static NSString * const OCTClientRateLimitLoggingEnvironmentKey = @"LOG_REMAININ
 // An error indicating that a request required authentication, but the client
 // was not created with a token.
 + (NSError *)authenticationRequiredError;
+
+// An error indicating that the current server version does not support our
+// request.
++ (NSError *)unsupportedVersionError;
 
 // Enqueues a request to fetch information about the current user by accessing
 // a path relative to the user object.
@@ -225,6 +230,15 @@ static NSString *OCTClientOAuthClientSecret = nil;
 	return [NSError errorWithDomain:OCTClientErrorDomain code:OCTClientErrorAuthenticationFailed userInfo:userInfo];
 }
 
++ (NSError *)unsupportedVersionError {
+	NSDictionary *userInfo = @{
+		NSLocalizedDescriptionKey: NSLocalizedString(@"Unsupported Server", @""),
+		NSLocalizedFailureReasonErrorKey: NSLocalizedString(@"The request failed because the server is out of date.", @""),
+	};
+
+	return [NSError errorWithDomain:OCTClientErrorDomain code:OCTClientErrorUnsupportedServer userInfo:userInfo];
+}
+
 #pragma mark Lifecycle
 
 - (id)initWithBaseURL:(NSURL *)url {
@@ -327,15 +341,7 @@ static NSString *OCTClientOAuthClientSecret = nil;
 		}]
 		catch:^(NSError *error) {
 			NSNumber *statusCode = error.userInfo[OCTClientErrorHTTPStatusCodeKey];
-
-			// 404s mean we tried to authorize in an unsupported way.
-			if (statusCode.integerValue == 404) {
-				NSMutableDictionary *userInfo = [error.userInfo mutableCopy];
-				userInfo[NSLocalizedDescriptionKey] = NSLocalizedString(@"The server's version is unsupported.", @"");
-				userInfo[NSUnderlyingErrorKey] = error;
-
-				error = [NSError errorWithDomain:OCTClientErrorDomain code:OCTClientErrorUnsupportedServer userInfo:userInfo];
-			}
+			if (statusCode.integerValue == 404) error = self.class.unsupportedVersionError;
 
 			return [RACSignal error:error];
 		}]
@@ -444,6 +450,24 @@ static NSString *OCTClientOAuthClientSecret = nil;
 
 		return callbackDisposable;
 	}] setNameWithFormat:@"+authorizeWithServerUsingWebBrowser: %@ scopes:", server];
+}
+
++ (RACSignal *)fetchMetadataForServer:(OCTServer *)server {
+	NSParameterAssert(server != nil);
+
+	OCTClient *client = [[self alloc] initWithServer:server];
+	NSURLRequest *request = [client requestWithMethod:@"GET" path:@"meta" parameters:nil notMatchingEtag:nil];
+
+	return [[[[client
+		enqueueRequest:request resultClass:OCTServerMetadata.class]
+		catch:^(NSError *error) {
+			NSNumber *statusCode = error.userInfo[OCTClientErrorHTTPStatusCodeKey];
+			if (statusCode.integerValue == 404) error = self.class.unsupportedVersionError;
+
+			return [RACSignal error:error];
+		}]
+		oct_parsedResults]
+		setNameWithFormat:@"+fetchMetadataForServer: %@", server];
 }
 
 + (BOOL)openURL:(NSURL *)URL {

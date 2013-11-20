@@ -265,7 +265,8 @@ typedef enum : NSUInteger {
 //                   bitwise OR'd together to request multiple scopes.
 //
 // Returns a signal which will send an OCTClient then complete on success, or
-// else error.
+// else error. If the server is too old to support this request, an error will
+// be sent with code `OCTClientErrorUnsupportedServer`.
 + (RACSignal *)signInAsUser:(OCTUser *)user password:(NSString *)password oneTimePassword:(NSString *)oneTimePassword scopes:(OCTClientAuthorizationScopes)scopes;
 
 // Opens the default web browser to the given GitHub server, and prompts the
@@ -288,6 +289,15 @@ typedef enum : NSUInteger {
 // else error. If +completeSignInWithCallbackURL: is never invoked, the returned
 // signal will never complete.
 + (RACSignal *)signInToServerUsingWebBrowser:(OCTServer *)server scopes:(OCTClientAuthorizationScopes)scopes;
+
+// Makes a request to the given GitHub server to determine its metadata.
+//
+// server - The server to retrieve metadata for. This must not be nil.
+//
+// Returns a signal which will send an `OCTServerMetadata` object then complete on
+// success, or else error. If the server is too old to support this request,
+// an error will be sent with code `OCTClientErrorUnsupportedServer`.
++ (RACSignal *)fetchMetadataForServer:(OCTServer *)server;
 
 // Notifies any waiting login processes that authentication has completed.
 //
