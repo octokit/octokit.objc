@@ -290,14 +290,14 @@ typedef enum : NSUInteger {
 // signal will never complete.
 + (RACSignal *)signInToServerUsingWebBrowser:(OCTServer *)server scopes:(OCTClientAuthorizationScopes)scopes;
 
-// Makes a request to the given GitHub server to determine its capabilities.
+// Makes a request to the given GitHub server to determine its metadata.
 //
-// server - The server to determine the capabilities of. This must not be nil.
+// server - The server to retrieve metadata for. This must not be nil.
 //
-// Returns a signal which will send an `OCTCapabilities` object then complete on
+// Returns a signal which will send an `OCTServerMetadata` object then complete on
 // success, or else error. If the server is too old to support this request,
 // an error will be sent with code `OCTClientErrorUnsupportedServer`.
-+ (RACSignal *)fetchCapabilitiesForServer:(OCTServer *)server;
++ (RACSignal *)fetchMetadataForServer:(OCTServer *)server;
 
 // Notifies any waiting login processes that authentication has completed.
 //

@@ -1,5 +1,5 @@
 //
-//  OCTCapabilities.h
+//  OCTServerMetadata.h
 //  OctoKit
 //
 //  Created by Justin Spahr-Summers on 2013-11-14.
@@ -8,8 +8,8 @@
 
 #import "OCTObject.h"
 
-// Describes the capabilities of a GitHub server (Enterprise or .com).
-@interface OCTCapabilities : OCTObject
+// Contains information about a GitHub server (Enterprise or .com).
+@interface OCTServerMetadata : OCTObject
 
 // Whether this server supports password authentication.
 //

@@ -23,6 +23,7 @@
 #import "OCTRepository.h"
 #import "OCTResponse.h"
 #import "OCTServer.h"
+#import "OCTServerMetadata.h"
 #import "OCTTeam.h"
 #import "OCTTree.h"
 #import "OCTUser.h"
@@ -451,14 +452,14 @@ static NSString *OCTClientOAuthClientSecret = nil;
 	}] setNameWithFormat:@"+authorizeWithServerUsingWebBrowser: %@ scopes:", server];
 }
 
-+ (RACSignal *)fetchCapabilitiesForServer:(OCTServer *)server {
++ (RACSignal *)fetchMetadataForServer:(OCTServer *)server {
 	NSParameterAssert(server != nil);
 
 	OCTClient *client = [[self alloc] initWithServer:server];
-	NSURLRequest *request = [client requestWithMethod:@"GET" path:@"capabilities" parameters:nil notMatchingEtag:nil];
+	NSURLRequest *request = [client requestWithMethod:@"GET" path:@"meta" parameters:nil notMatchingEtag:nil];
 
 	return [[[[client
-		enqueueRequest:request resultClass:OCTCapabilities.class]
+		enqueueRequest:request resultClass:OCTServerMetadata.class]
 		catch:^(NSError *error) {
 			NSNumber *statusCode = error.userInfo[OCTClientErrorHTTPStatusCodeKey];
 			if (statusCode.integerValue == 404) error = self.class.unsupportedVersionError;
@@ -466,7 +467,7 @@ static NSString *OCTClientOAuthClientSecret = nil;
 			return [RACSignal error:error];
 		}]
 		oct_parsedResults]
-		setNameWithFormat:@"+fetchCapabilitiesForServer: %@", server];
+		setNameWithFormat:@"+fetchMetadataForServer: %@", server];
 }
 
 + (BOOL)openURL:(NSURL *)URL {

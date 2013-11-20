@@ -507,20 +507,20 @@ describe(@"sign in", ^{
 	});
 });
 
-fdescribe(@"+fetchCapabilitiesForServer:", ^{
-	it(@"should successfully fetch capabilities", ^{
-		stubResponse(@"/capabilities", @"capabilities.json");
+fdescribe(@"+fetchMetadataForServer:", ^{
+	it(@"should successfully fetch metadata", ^{
+		stubResponse(@"/meta", @"meta.json");
 
-		RACSignal *request = [OCTClient fetchCapabilitiesForServer:OCTServer.dotComServer];
-		OCTCapabilities *capabilities = [request asynchronousFirstOrDefault:nil success:NULL error:NULL];
-		expect(capabilities).notTo.beNil();
-		expect(capabilities.supportsPasswordAuthentication).to.beTruthy();
+		RACSignal *request = [OCTClient fetchMetadataForServer:OCTServer.dotComServer];
+		OCTServerMetadata *meta = [request asynchronousFirstOrDefault:nil success:NULL error:NULL];
+		expect(meta).notTo.beNil();
+		expect(meta.supportsPasswordAuthentication).to.beTruthy();
 	});
 
-	it(@"should fail if /capabilities doesn't exist", ^{
-		stubResponseWithStatusCode(@"/capabilities", 404);
+	it(@"should fail if /meta doesn't exist", ^{
+		stubResponseWithStatusCode(@"/meta", 404);
 
-		RACSignal *request = [OCTClient fetchCapabilitiesForServer:OCTServer.dotComServer];
+		RACSignal *request = [OCTClient fetchMetadataForServer:OCTServer.dotComServer];
 		NSError *error;
 		BOOL success = [request asynchronouslyWaitUntilCompleted:&error];
 		expect(success).to.beFalsy();

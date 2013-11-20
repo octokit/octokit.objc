@@ -10,7 +10,6 @@
 #import <OctoKit/NSURL+OCTQueryAdditions.h>
 #import <OctoKit/NSValueTransformer+OCTPredefinedTransformerAdditions.h>
 #import <OctoKit/RACSignal+OCTClientAdditions.h>
-#import <OctoKit/OCTCapabilities.h>
 #import <OctoKit/OCTClient.h>
 #import <OctoKit/OCTCommitComment.h>
 #import <OctoKit/OCTCommitCommentEvent.h>
@@ -39,6 +38,7 @@
 #import <OctoKit/OCTRepository.h>
 #import <OctoKit/OCTResponse.h>
 #import <OctoKit/OCTServer.h>
+#import <OctoKit/OCTServerMetadata.h>
 #import <OctoKit/OCTSubmoduleContent.h>
 #import <OctoKit/OCTSymlinkContent.h>
 #import <OctoKit/OCTTeam.h>

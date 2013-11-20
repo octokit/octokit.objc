@@ -1,14 +1,14 @@
 //
-//  OCTCapabilities.m
+//  OCTServerMetadata.m
 //  OctoKit
 //
 //  Created by Justin Spahr-Summers on 2013-11-14.
 //  Copyright (c) 2013 GitHub. All rights reserved.
 //
 
-#import "OCTCapabilities.h"
+#import "OCTServerMetadata.h"
 
-@implementation OCTCapabilities
+@implementation OCTServerMetadata
 
 #pragma mark MTLJSONSerializing
 
