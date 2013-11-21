@@ -14,7 +14,7 @@
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
 	return [super.JSONKeyPathsByPropertyKey mtl_dictionaryByAddingEntriesFromDictionary:@{
-		@"supportsPasswordAuthentication": @"verifiable_password_auth"
+		@"supportsPasswordAuthentication": @"verifiable_password_authentication"
 	}];
 }
 
