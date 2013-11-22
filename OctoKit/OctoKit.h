@@ -34,6 +34,7 @@
 #import <OctoKit/OCTPullRequestCommentEvent.h>
 #import <OctoKit/OCTPullRequestEvent.h>
 #import <OctoKit/OCTPushEvent.h>
+#import <OctoKit/OCTRef.h>
 #import <OctoKit/OCTRefEvent.h>
 #import <OctoKit/OCTRepository.h>
 #import <OctoKit/OCTResponse.h>
