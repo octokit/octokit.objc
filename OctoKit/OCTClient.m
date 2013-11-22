@@ -20,6 +20,7 @@
 #import "OCTObject+Private.h"
 #import "OCTOrganization.h"
 #import "OCTPublicKey.h"
+#import "OCTRef.h"
 #import "OCTRepository.h"
 #import "OCTResponse.h"
 #import "OCTServer.h"
@@ -1071,6 +1072,29 @@ static NSString *OCTClientOAuthClientSecret = nil;
 		reduceEach:^(NSHTTPURLResponse *response, NSData *data) {
 			return data;
 		}];
+}
+
+- (RACSignal *)fetchReference:(NSString *)refName inRepository:(OCTRepository *)repository {
+	NSParameterAssert(refName != nil);
+	NSParameterAssert(repository != nil);
+
+	NSString *path = [NSString stringWithFormat:@"repos/%@/%@/git/refs/%@", repository.ownerLogin, repository.name, refName];
+	NSURLRequest *request = [self requestWithMethod:@"GET" path:path parameters:nil];
+	return [[self enqueueRequest:request resultClass:OCTRef.class] oct_parsedResults];
+}
+
+- (RACSignal *)updateReference:(NSString *)refName inRepository:(OCTRepository *)repository toSHA:(NSString *)newSHA force:(BOOL)force {
+	NSParameterAssert(refName != nil);
+	NSParameterAssert(repository != nil);
+	NSParameterAssert(newSHA != nil);
+
+	NSString *path = [NSString stringWithFormat:@"repos/%@/%@/git/refs/%@", repository.ownerLogin, repository.name, refName];
+	NSURLRequest *request = [self requestWithMethod:@"PATCH" path:path parameters:@{
+		@"sha": newSHA,
+		@"force": @(force)
+	}];
+
+	return [[self enqueueRequest:request resultClass:OCTRef.class] oct_parsedResults];
 }
 
 @end

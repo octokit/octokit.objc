@@ -548,6 +548,27 @@ typedef enum : NSUInteger {
 // Returns a signal which will send an NSData then complete, or error.
 - (RACSignal *)fetchBlob:(NSString *)blobSHA inRepository:(OCTRepository *)repository;
 
+// Fetches a git reference given its fully-qualified name.
+//
+// refName    - The fully-qualified name of the ref to fetch (e.g.,
+//              `heads/master`). This must not be nil.
+// repository - The repository in which to fetch the ref. This must not be nil.
+//
+// Returns a signal which will send an OCTRef then complete, or error.
+- (RACSignal *)fetchReference:(NSString *)refName inRepository:(OCTRepository *)repository;
+
+// Attempts to update a reference to point at a new SHA.
+//
+// refName    - The fully-qualified name of the ref to update (e.g.,
+//              `heads/master`). This must not be nil.
+// repository - The repository in which to update the ref. This must not be nil.
+// newSHA     - The new SHA for the ref. This must not be nil.
+// force      - Whether to force the ref to update, even if it cannot be
+//              fast-forwarded.
+//
+// Returns a signal which will send the updated OCTRef then complete, or error.
+- (RACSignal *)updateReference:(NSString *)refName inRepository:(OCTRepository *)repository toSHA:(NSString *)newSHA force:(BOOL)force;
+
 @end
 
 @interface OCTClient (Gist)
