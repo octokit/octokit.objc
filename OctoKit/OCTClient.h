@@ -528,6 +528,17 @@ typedef enum : NSUInteger {
 // Returns a signal which will send an OCTTree and complete or error.
 - (RACSignal *)fetchTreeForReference:(NSString *)reference inRepository:(OCTRepository *)repository recursive:(BOOL)recursive;
 
+// Creates a new tree.
+//
+// treeEntries - The `OCTTreeEntry` objects that should comprise the new tree.
+//               This array must not be nil.
+// repository  - The repository in which to create the tree. Cannot be nil.
+// baseTreeSHA - The SHA of the tree upon which to base this new tree. This may
+//               be nil to create an orphaned tree.
+//
+// Returns a signal which will send the created OCTTree and complete, or error.
+- (RACSignal *)createTreeWithEntries:(NSArray *)treeEntries inRepository:(OCTRepository *)repository basedOnTreeWithSHA:(NSString *)baseTreeSHA;
+
 // Fetches the blob identified by the given SHA.
 //
 // blobSHA    - The SHA of the blob to fetch. This must not be nil.

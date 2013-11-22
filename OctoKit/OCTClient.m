@@ -26,6 +26,7 @@
 #import "OCTServerMetadata.h"
 #import "OCTTeam.h"
 #import "OCTTree.h"
+#import "OCTTreeEntry.h"
 #import "OCTUser.h"
 #import "RACSignal+OCTClientAdditions.h"
 #import <ReactiveCocoa/ReactiveCocoa.h>
@@ -1028,6 +1029,30 @@ static NSString *OCTClientOAuthClientSecret = nil;
 	if (recursive) parameters = @{ @"recursive": @1 };
 
 	NSURLRequest *request = [self requestWithMethod:@"GET" path:path parameters:parameters];
+	return [[self enqueueRequest:request resultClass:OCTTree.class] oct_parsedResults];
+}
+
+- (RACSignal *)createTreeWithEntries:(NSArray *)treeEntries inRepository:(OCTRepository *)repository basedOnTreeWithSHA:(NSString *)baseTreeSHA {
+	NSParameterAssert(treeEntries != nil);
+	NSParameterAssert(repository != nil);
+
+	NSString *path = [NSString stringWithFormat:@"repos/%@/%@/git/trees", repository.ownerLogin, repository.name];
+
+	NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+	parameters[@"tree"] = [[treeEntries.rac_sequence
+		flattenMap:^(OCTTreeEntry *entry) {
+			NSDictionary *entryJSON = [MTLJSONAdapter JSONDictionaryFromModel:entry];
+
+			// TODO: Real error handling
+			if (entryJSON == nil) return [RACSequence empty];
+
+			return [RACSequence return:entryJSON];
+		}]
+		array];
+
+	if (baseTreeSHA != nil) parameters[@"base_tree"] = baseTreeSHA;
+
+	NSURLRequest *request = [self requestWithMethod:@"POST" path:path parameters:parameters];
 	return [[self enqueueRequest:request resultClass:OCTTree.class] oct_parsedResults];
 }
 
