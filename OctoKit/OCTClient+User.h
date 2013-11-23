@@ -17,24 +17,4 @@
 // not. If no `user` is set, the signal will error immediately.
 - (RACSignal *)fetchUserInfo;
 
-// Fetches the repositories of the current `user`.
-//
-// Returns a signal which sends zero or more OCTRepository objects. Private
-// repositories will only be included if the client is `authenticated`. If no
-// `user` is set, the signal will error immediately.
-- (RACSignal *)fetchUserRepositories;
-
-// Fetches the starred repositories of the current `user`.
-//
-// Returns a signal which sends zero or more OCTRepository objects. Private
-// repositories will only be included if the client is `authenticated`. If no
-// `user` is set, the signal will error immediately.
-- (RACSignal *)fetchUserStarredRepositories;
-
-// Creates a repository under the user's account.
-//
-// Returns a signal which sends the new OCTRepository. If the client is not
-// `authenticated`, the signal will error immediately.
-- (RACSignal *)createRepositoryWithName:(NSString *)name description:(NSString *)description private:(BOOL)isPrivate;
-
 @end

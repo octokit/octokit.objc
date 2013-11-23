@@ -9,11 +9,48 @@
 #import "OCTClient+Repositories.h"
 #import "OCTClient+Private.h"
 #import "OCTContent.h"
+#import "OCTOrganization.h"
 #import "OCTRepository.h"
+#import "OCTTeam.h"
 #import "RACSignal+OCTClientAdditions.h"
 #import <ReactiveCocoa/ReactiveCocoa.h>
 
 @implementation OCTClient (Repositories)
+
+- (RACSignal *)fetchUserRepositories {
+	return [[self enqueueUserRequestWithMethod:@"GET" relativePath:@"/repos" parameters:nil resultClass:OCTRepository.class] oct_parsedResults];
+}
+
+- (RACSignal *)fetchUserStarredRepositories {
+	return [[self enqueueUserRequestWithMethod:@"GET" relativePath:@"/starred" parameters:nil resultClass:OCTRepository.class] oct_parsedResults];
+}
+
+- (RACSignal *)fetchRepositoriesForOrganization:(OCTOrganization *)organization {
+	NSURLRequest *request = [self requestWithMethod:@"GET" path:[NSString stringWithFormat:@"orgs/%@/repos", organization.login] parameters:nil notMatchingEtag:nil];
+	return [[self enqueueRequest:request resultClass:OCTRepository.class] oct_parsedResults];
+}
+
+- (RACSignal *)createRepositoryWithName:(NSString *)name description:(NSString *)description private:(BOOL)isPrivate {
+	if (!self.authenticated) return [RACSignal error:self.class.authenticationRequiredError];
+
+	return [self createRepositoryWithName:name organization:nil team:nil description:description private:isPrivate];
+}
+
+- (RACSignal *)createRepositoryWithName:(NSString *)name organization:(OCTOrganization *)organization team:(OCTTeam *)team description:(NSString *)description private:(BOOL)isPrivate {
+	if (!self.authenticated) return [RACSignal error:self.class.authenticationRequiredError];
+
+	NSMutableDictionary *options = [NSMutableDictionary dictionary];
+	options[@"name"] = name;
+	options[@"private"] = @(isPrivate);
+
+	if (description != nil) options[@"description"] = description;
+	if (team != nil) options[@"team_id"] = team.objectID;
+	
+	NSString *path = (organization == nil ? @"user/repos" : [NSString stringWithFormat:@"orgs/%@/repos", organization.login]);
+	NSURLRequest *request = [self requestWithMethod:@"POST" path:path parameters:options notMatchingEtag:nil];
+	
+	return [[self enqueueRequest:request resultClass:OCTRepository.class] oct_parsedResults];
+}
 
 - (RACSignal *)fetchRelativePath:(NSString *)relativePath inRepository:(OCTRepository *)repository reference:(NSString *)reference {
 	NSParameterAssert(repository != nil);
