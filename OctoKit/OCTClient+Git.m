@@ -27,7 +27,9 @@
 	NSDictionary *parameters;
 	if (recursive) parameters = @{ @"recursive": @1 };
 
-	NSURLRequest *request = [self requestWithMethod:@"GET" path:path parameters:parameters];
+	NSMutableURLRequest *request = [self requestWithMethod:@"GET" path:path parameters:parameters];
+	request.cachePolicy = NSURLRequestReloadIgnoringLocalCacheData;
+
 	return [[self enqueueRequest:request resultClass:OCTTree.class] oct_parsedResults];
 }
 
@@ -119,7 +121,10 @@
 	NSParameterAssert(repository != nil);
 
 	NSString *path = [NSString stringWithFormat:@"repos/%@/%@/git/refs/%@", repository.ownerLogin, repository.name, refName];
-	NSURLRequest *request = [self requestWithMethod:@"GET" path:path parameters:nil];
+
+	NSMutableURLRequest *request = [self requestWithMethod:@"GET" path:path parameters:nil];
+	request.cachePolicy = NSURLRequestReloadIgnoringLocalCacheData;
+
 	return [[self enqueueRequest:request resultClass:OCTRef.class] oct_parsedResults];
 }
 
