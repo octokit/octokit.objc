@@ -12,6 +12,7 @@
 #import <OctoKit/RACSignal+OCTClientAdditions.h>
 #import <OctoKit/OCTClient.h>
 #import <OctoKit/OCTClient+Events.h>
+#import <OctoKit/OCTClient+Gists.h>
 #import <OctoKit/OCTClient+Keys.h>
 #import <OctoKit/OCTClient+Notifications.h>
 #import <OctoKit/OCTClient+Organizations.h>

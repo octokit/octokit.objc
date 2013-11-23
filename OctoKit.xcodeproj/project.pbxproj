@@ -286,6 +286,10 @@
 		D0BC04F118403BE400EDD926 /* OCTClient+Repositories.h in Headers */ = {isa = PBXBuildFile; fileRef = D0BC04EE18403BE400EDD926 /* OCTClient+Repositories.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D0BC04F218403BE400EDD926 /* OCTClient+Repositories.m in Sources */ = {isa = PBXBuildFile; fileRef = D0BC04EF18403BE400EDD926 /* OCTClient+Repositories.m */; };
 		D0BC04F318403BE400EDD926 /* OCTClient+Repositories.m in Sources */ = {isa = PBXBuildFile; fileRef = D0BC04EF18403BE400EDD926 /* OCTClient+Repositories.m */; };
+		D0BC04F618403C5A00EDD926 /* OCTClient+Gists.h in Headers */ = {isa = PBXBuildFile; fileRef = D0BC04F418403C5A00EDD926 /* OCTClient+Gists.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D0BC04F718403C5A00EDD926 /* OCTClient+Gists.h in Headers */ = {isa = PBXBuildFile; fileRef = D0BC04F418403C5A00EDD926 /* OCTClient+Gists.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D0BC04F818403C5A00EDD926 /* OCTClient+Gists.m in Sources */ = {isa = PBXBuildFile; fileRef = D0BC04F518403C5A00EDD926 /* OCTClient+Gists.m */; };
+		D0BC04F918403C5A00EDD926 /* OCTClient+Gists.m in Sources */ = {isa = PBXBuildFile; fileRef = D0BC04F518403C5A00EDD926 /* OCTClient+Gists.m */; };
 		D0C636731777ABD300F486A9 /* ReactiveCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0C636681777AB9300F486A9 /* ReactiveCocoa.framework */; };
 		D0C636771777ABE000F486A9 /* ReactiveCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0C636681777AB9300F486A9 /* ReactiveCocoa.framework */; };
 		D0C636931777B00900F486A9 /* libMantle-iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D087206D169E328B00016ACA /* libMantle-iOS.a */; };
@@ -794,6 +798,8 @@
 		D0BC04D618403B5100EDD926 /* OCTClient+Notifications.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "OCTClient+Notifications.m"; sourceTree = "<group>"; };
 		D0BC04EE18403BE400EDD926 /* OCTClient+Repositories.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "OCTClient+Repositories.h"; sourceTree = "<group>"; };
 		D0BC04EF18403BE400EDD926 /* OCTClient+Repositories.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "OCTClient+Repositories.m"; sourceTree = "<group>"; };
+		D0BC04F418403C5A00EDD926 /* OCTClient+Gists.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "OCTClient+Gists.h"; sourceTree = "<group>"; };
+		D0BC04F518403C5A00EDD926 /* OCTClient+Gists.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "OCTClient+Gists.m"; sourceTree = "<group>"; };
 		D0C636591777AB9300F486A9 /* ReactiveCocoa.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ReactiveCocoa.xcodeproj; path = External/ReactiveCocoa/ReactiveCocoaFramework/ReactiveCocoa.xcodeproj; sourceTree = "<group>"; };
 		D0D8C09016DFF1540070399E /* events.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = events.json; sourceTree = "<group>"; };
 		D0D8C09116DFF1540070399E /* page1.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = page1.json; sourceTree = "<group>"; };
@@ -1127,6 +1133,8 @@
 				D0BC04BC18403A8800EDD926 /* OCTClient+Events.m */,
 				D0BC04B518403A3200EDD926 /* OCTClient+Keys.h */,
 				D0BC04B618403A3200EDD926 /* OCTClient+Keys.m */,
+				D0BC04F418403C5A00EDD926 /* OCTClient+Gists.h */,
+				D0BC04F518403C5A00EDD926 /* OCTClient+Gists.m */,
 				D0BC04D518403B5100EDD926 /* OCTClient+Notifications.h */,
 				D0BC04D618403B5100EDD926 /* OCTClient+Notifications.m */,
 				D0BC04AF184039B400EDD926 /* OCTClient+Organizations.h */,
@@ -1401,6 +1409,7 @@
 				D0BC04F018403BE400EDD926 /* OCTClient+Repositories.h in Headers */,
 				D08721AB169E395F00016ACA /* OCTResponse.h in Headers */,
 				88746BD017FA0A2C0005888A /* OCTCommitTreeEntry.h in Headers */,
+				D0BC04F618403C5A00EDD926 /* OCTClient+Gists.h in Headers */,
 				D08721AF169E395F00016ACA /* OCTServer.h in Headers */,
 				D08721B5169E395F00016ACA /* OCTTeam.h in Headers */,
 				D08721B9169E395F00016ACA /* OCTUser.h in Headers */,
@@ -1459,6 +1468,7 @@
 				D0BC04F118403BE400EDD926 /* OCTClient+Repositories.h in Headers */,
 				D08721B0169E395F00016ACA /* OCTServer.h in Headers */,
 				88746BD117FA0A2C0005888A /* OCTCommitTreeEntry.h in Headers */,
+				D0BC04F718403C5A00EDD926 /* OCTClient+Gists.h in Headers */,
 				D08721B6169E395F00016ACA /* OCTTeam.h in Headers */,
 				7ACC999D17F220D7001613E7 /* OCTComment.h in Headers */,
 				D08721BA169E395F00016ACA /* OCTUser.h in Headers */,
@@ -1898,6 +1908,7 @@
 				D087219D169E395F00016ACA /* OCTPullRequestEvent.m in Sources */,
 				D08721A1169E395F00016ACA /* OCTPushEvent.m in Sources */,
 				88CD632F17D8D7EF00E2CD47 /* OCTTree.m in Sources */,
+				D0BC04F818403C5A00EDD926 /* OCTClient+Gists.m in Sources */,
 				D08721A5169E395F00016ACA /* OCTRefEvent.m in Sources */,
 				D0BC04B3184039B400EDD926 /* OCTClient+Organizations.m in Sources */,
 				D08721A9169E395F00016ACA /* OCTRepository.m in Sources */,
@@ -1984,6 +1995,7 @@
 				D087219E169E395F00016ACA /* OCTPullRequestEvent.m in Sources */,
 				D08721A2169E395F00016ACA /* OCTPushEvent.m in Sources */,
 				88CD633017D8D7EF00E2CD47 /* OCTTree.m in Sources */,
+				D0BC04F918403C5A00EDD926 /* OCTClient+Gists.m in Sources */,
 				D08721A6169E395F00016ACA /* OCTRefEvent.m in Sources */,
 				D0BC04B4184039B400EDD926 /* OCTClient+Organizations.m in Sources */,
 				D08721AA169E395F00016ACA /* OCTRepository.m in Sources */,
