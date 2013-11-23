@@ -797,47 +797,6 @@ static NSString *OCTClientOAuthClientSecret = nil;
 
 @end
 
-@implementation OCTClient (Notifications)
-
-- (RACSignal *)fetchNotificationsNotMatchingEtag:(NSString *)etag includeReadNotifications:(BOOL)includeRead updatedSince:(NSDate *)since {
-	if (!self.authenticated) return [RACSignal error:self.class.authenticationRequiredError];
-
-	NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
-	parameters[@"all"] = @(includeRead);
-
-	if (since != nil) {
-		parameters[@"since"] = [NSDateFormatter oct_stringFromDate:since];
-	}
-	NSURLRequest *request = [self requestWithMethod:@"GET" path:@"notifications" parameters:parameters notMatchingEtag:etag];
-	return [self enqueueRequest:request resultClass:OCTNotification.class];
-}
-
-- (RACSignal *)markNotificationThreadAsReadAtURL:(NSURL *)threadURL {
-	return [self patchThreadURL:threadURL withReadStatus:YES];
-}
-
-- (RACSignal *)patchThreadURL:(NSURL *)threadURL withReadStatus:(BOOL)read {
-	NSParameterAssert(threadURL != nil);
-
-	if (!self.authenticated) return [RACSignal error:self.class.authenticationRequiredError];
-
-	NSMutableURLRequest *request = [self requestWithMethod:@"PATCH" path:@"" parameters:@{ @"read": @(read) }];
-	request.URL = threadURL;
-	return [[self enqueueRequest:request resultClass:nil] ignoreValues];
-}
-
-- (RACSignal *)muteNotificationThreadAtURL:(NSURL *)threadURL {
-	NSParameterAssert(threadURL != nil);
-
-	if (!self.authenticated) return [RACSignal error:self.class.authenticationRequiredError];
-
-	NSMutableURLRequest *request = [self requestWithMethod:@"PUT" path:@"" parameters:@{ @"ignored": @YES }];
-	request.URL = [threadURL URLByAppendingPathComponent:@"subscription"];
-	return [[self enqueueRequest:request resultClass:nil] ignoreValues];
-}
-
-@end
-
 @implementation OCTClient (Repository)
 
 - (RACSignal *)fetchRelativePath:(NSString *)relativePath inRepository:(OCTRepository *)repository reference:(NSString *)reference {
