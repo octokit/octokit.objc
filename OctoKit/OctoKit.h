@@ -11,6 +11,7 @@
 #import <OctoKit/NSValueTransformer+OCTPredefinedTransformerAdditions.h>
 #import <OctoKit/RACSignal+OCTClientAdditions.h>
 #import <OctoKit/OCTClient.h>
+#import <OctoKit/OCTClient+Organizations.h>
 #import <OctoKit/OCTClient+User.h>
 #import <OctoKit/OCTCommitComment.h>
 #import <OctoKit/OCTCommitCommentEvent.h>

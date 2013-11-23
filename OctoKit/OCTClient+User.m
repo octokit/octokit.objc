@@ -13,6 +13,9 @@
 #import "RACSignal+OCTClientAdditions.h"
 #import <ReactiveCocoa/ReactiveCocoa.h>
 
+// FIXME
+#import "OCTClient+Organizations.h"
+
 @implementation OCTClient (User)
 
 - (RACSignal *)fetchUserInfo {
