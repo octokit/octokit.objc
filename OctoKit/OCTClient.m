@@ -75,18 +75,6 @@ static NSString * const OCTClientRateLimitLoggingEnvironmentKey = @"LOG_REMAININ
 // A subject to send callback URLs to after they're received by the app.
 + (RACSubject *)callbackURLs;
 
-// An error indicating that a request required a valid user, but no `user`
-// property was set.
-+ (NSError *)userRequiredError;
-
-// An error indicating that a request required authentication, but the client
-// was not created with a token.
-+ (NSError *)authenticationRequiredError;
-
-// An error indicating that the current server version does not support our
-// request.
-+ (NSError *)unsupportedVersionError;
-
 // Enqueues a request that will not automatically parse results.
 //
 // request       - The previously constructed URL request for the endpoint.
@@ -97,22 +85,6 @@ static NSString * const OCTClientRateLimitLoggingEnvironmentKey = @"LOG_REMAININ
 // by AFNetworking), then complete. If an error occurs at any point, the
 // returned signal will send it immediately, then terminate.
 - (RACSignal *)enqueueRequest:(NSURLRequest *)request fetchAllPages:(BOOL)fetchAllPages;
-
-// Enqueues a request to fetch information about the current user by accessing
-// a path relative to the user object.
-//
-// method       - The HTTP method to use.
-// relativePath - The path to fetch, relative to the user object. For example,
-//                to request `user/orgs` or `users/:user/orgs`, simply pass in
-//                `/orgs`. This may not be nil, and must either start with a '/'
-//                or be an empty string.
-// parameters   - HTTP parameters to encode and send with the request.
-// resultClass  - The class that response data should be returned as.
-//
-// Returns a signal which will send an instance of `resultClass` for each parsed
-// JSON object, then complete. If no `user` is set on the receiver, the signal
-// will error immediately.
-- (RACSignal *)enqueueUserRequestWithMethod:(NSString *)method relativePath:(NSString *)relativePath parameters:(NSDictionary *)parameters resultClass:(Class)resultClass;
 
 // Creates a request.
 //
@@ -832,28 +804,6 @@ static NSString *OCTClientOAuthClientSecret = nil;
 	if (operation.error != nil) userInfo[NSUnderlyingErrorKey] = operation.error;
 	
 	return [NSError errorWithDomain:OCTClientErrorDomain code:errorCode userInfo:userInfo];
-}
-
-@end
-
-@implementation OCTClient (User)
-
-- (RACSignal *)fetchUserInfo {
-	return [[self enqueueUserRequestWithMethod:@"GET" relativePath:@"" parameters:nil resultClass:OCTUser.class] oct_parsedResults];
-}
-
-- (RACSignal *)fetchUserRepositories {
-	return [[self enqueueUserRequestWithMethod:@"GET" relativePath:@"/repos" parameters:nil resultClass:OCTRepository.class] oct_parsedResults];
-}
-
-- (RACSignal *)fetchUserStarredRepositories {
-	return [[self enqueueUserRequestWithMethod:@"GET" relativePath:@"/starred" parameters:nil resultClass:OCTRepository.class] oct_parsedResults];
-}
-
-- (RACSignal *)createRepositoryWithName:(NSString *)name description:(NSString *)description private:(BOOL)isPrivate {
-	if (!self.authenticated) return [RACSignal error:self.class.authenticationRequiredError];
-
-	return [self createRepositoryWithName:name organization:nil team:nil description:description private:isPrivate];
 }
 
 @end
