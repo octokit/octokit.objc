@@ -98,7 +98,7 @@
 	return [[self enqueueRequest:request resultClass:OCTCommit.class] oct_parsedResults];
 }
 
-- (RACSignal *)createCommitWithMessage:(NSString *)message inRepository:(OCTRepository *)repository pointingToTreeWithSHA:(OCTTree *)treeSHA parentCommitSHAs:(NSArray *)parentSHAs {
+- (RACSignal *)createCommitWithMessage:(NSString *)message inRepository:(OCTRepository *)repository pointingToTreeWithSHA:(NSString *)treeSHA parentCommitSHAs:(NSArray *)parentSHAs {
 	NSParameterAssert(message != nil);
 	NSParameterAssert(repository != nil);
 	NSParameterAssert(treeSHA != nil);

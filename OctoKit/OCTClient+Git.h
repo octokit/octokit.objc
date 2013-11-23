@@ -9,7 +9,6 @@
 #import "OCTClient.h"
 
 @class OCTRepository;
-@class OCTTree;
 
 @interface OCTClient (Git)
 
@@ -76,7 +75,7 @@
 //
 // Returns a signal which will send the created `OCTCommit` then complete, or
 // error.
-- (RACSignal *)createCommitWithMessage:(NSString *)message inRepository:(OCTRepository *)repository pointingToTreeWithSHA:(OCTTree *)treeSHA parentCommitSHAs:(NSArray *)parentSHAs;
+- (RACSignal *)createCommitWithMessage:(NSString *)message inRepository:(OCTRepository *)repository pointingToTreeWithSHA:(NSString *)treeSHA parentCommitSHAs:(NSArray *)parentSHAs;
 
 // Fetches a git reference given its fully-qualified name.
 //
