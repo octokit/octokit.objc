@@ -38,6 +38,30 @@
 // will error immediately.
 - (RACSignal *)enqueueUserRequestWithMethod:(NSString *)method relativePath:(NSString *)relativePath parameters:(NSDictionary *)parameters resultClass:(Class)resultClass;
 
+// Enqueues a request that will not automatically parse results.
+//
+// request       - The previously constructed URL request for the endpoint.
+// fetchAllPages - Whether to fetch all pages of the given endpoint.
+//
+// Returns a signal which will send tuples for each page, containing the
+// `NSHTTPURLResponse` and response object (the type of which will be determined
+// by AFNetworking), then complete. If an error occurs at any point, the
+// returned signal will send it immediately, then terminate.
+- (RACSignal *)enqueueRequest:(NSURLRequest *)request fetchAllPages:(BOOL)fetchAllPages;
+
+// Enqueues a request to be sent to the server.
+//
+// request       - The previously constructed URL request for the endpoint.
+// resultClass   - A subclass of OCTObject that the response data should be
+//                 returned as. If this is nil, NSDictionary will be used for
+//                 each object in the JSON received.
+// fetchAllPages - Whether to fetch all pages of the given endpoint.
+//
+// Returns a signal which will send an instance of `OCTResponse` for each parsed
+// JSON object, then complete. If an error occurs at any point, the returned
+// signal will send it immediately, then terminate.
+- (RACSignal *)enqueueRequest:(NSURLRequest *)request resultClass:(Class)resultClass fetchAllPages:(BOOL)fetchAllPages;
+
 // Opens the specified URL in its preferred application.
 //
 // Returns whether the URL was opened successfully.

@@ -351,20 +351,6 @@ typedef enum : NSUInteger {
 
 @end
 
-@interface OCTClient (Events)
-
-// Conditionally fetches events from the current user's activity stream. If
-// the latest data matches `etag`, the call does not count toward the API rate
-// limit.
-//
-// Returns a signal which will send zero or more OCTResponses (of OCTEvents) if
-// new data was downloaded. Unrecognized events will be omitted from the result.
-// On success, the signal will send completed regardless of whether there was
-// new data. If no `user` is set, the signal will error immediately.
-- (RACSignal *)fetchUserEventsNotMatchingEtag:(NSString *)etag;
-
-@end
-
 @interface OCTClient (Notifications)
 
 // Conditionally fetch unread notifications for the user. If the latest data

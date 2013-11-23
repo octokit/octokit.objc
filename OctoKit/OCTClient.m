@@ -75,17 +75,6 @@ static NSString * const OCTClientRateLimitLoggingEnvironmentKey = @"LOG_REMAININ
 // A subject to send callback URLs to after they're received by the app.
 + (RACSubject *)callbackURLs;
 
-// Enqueues a request that will not automatically parse results.
-//
-// request       - The previously constructed URL request for the endpoint.
-// fetchAllPages - Whether to fetch all pages of the given endpoint.
-//
-// Returns a signal which will send tuples for each page, containing the
-// `NSHTTPURLResponse` and response object (the type of which will be determined
-// by AFNetworking), then complete. If an error occurs at any point, the
-// returned signal will send it immediately, then terminate.
-- (RACSignal *)enqueueRequest:(NSURLRequest *)request fetchAllPages:(BOOL)fetchAllPages;
-
 // Creates a request.
 //
 // method - The HTTP method to use in the request (e.g., "GET" or "POST").
@@ -804,18 +793,6 @@ static NSString *OCTClientOAuthClientSecret = nil;
 	if (operation.error != nil) userInfo[NSUnderlyingErrorKey] = operation.error;
 	
 	return [NSError errorWithDomain:OCTClientErrorDomain code:errorCode userInfo:userInfo];
-}
-
-@end
-
-@implementation OCTClient (Events)
-
-- (RACSignal *)fetchUserEventsNotMatchingEtag:(NSString *)etag {
-	if (self.user == nil) return [RACSignal error:self.class.userRequiredError];
-
-	NSURLRequest *request = [self requestWithMethod:@"GET" path:[NSString stringWithFormat:@"users/%@/received_events", self.user.login] parameters:nil notMatchingEtag:etag];
-	
-	return [self enqueueRequest:request resultClass:OCTEvent.class fetchAllPages:NO];
 }
 
 @end
