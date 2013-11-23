@@ -15,6 +15,7 @@
 #import <OctoKit/OCTClient+Keys.h>
 #import <OctoKit/OCTClient+Notifications.h>
 #import <OctoKit/OCTClient+Organizations.h>
+#import <OctoKit/OCTClient+Repositories.h>
 #import <OctoKit/OCTClient+User.h>
 #import <OctoKit/OCTCommitComment.h>
 #import <OctoKit/OCTCommitCommentEvent.h>

@@ -8,6 +8,9 @@
 
 #import "OCTClient.h"
 
+// The version of the GitHub API to use.
+extern NSString * const OCTClientAPIVersion;
+
 @interface OCTClient ()
 
 // An error indicating that a request required a valid user, but no `user`
