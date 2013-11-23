@@ -899,6 +899,8 @@
 		8848E19916AF62F1005449AB /* Notifications */ = {
 			isa = PBXGroup;
 			children = (
+				D0BC04D518403B5100EDD926 /* OCTClient+Notifications.h */,
+				D0BC04D618403B5100EDD926 /* OCTClient+Notifications.m */,
 				8848E19B16AF630B005449AB /* OCTNotification.h */,
 				8848E19C16AF630B005449AB /* OCTNotification.m */,
 			);
@@ -929,6 +931,8 @@
 		D07DD37E17A99349005EBFE0 /* Gists */ = {
 			isa = PBXGroup;
 			children = (
+				D0BC04F418403C5A00EDD926 /* OCTClient+Gists.h */,
+				D0BC04F518403C5A00EDD926 /* OCTClient+Gists.m */,
 				D07DD38D17A993AA005EBFE0 /* OCTGist.h */,
 				D07DD38E17A993AA005EBFE0 /* OCTGist.m */,
 				D07DD39317A9940D005EBFE0 /* OCTGistFile.h */,
@@ -1129,21 +1133,18 @@
 				D0872127169E395F00016ACA /* OCTClient.h */,
 				D087B928181A3F0000821DCD /* OCTClient+Private.h */,
 				D0872128169E395F00016ACA /* OCTClient.m */,
-				D0BC04BB18403A8800EDD926 /* OCTClient+Events.h */,
-				D0BC04BC18403A8800EDD926 /* OCTClient+Events.m */,
-				D0BC04B518403A3200EDD926 /* OCTClient+Keys.h */,
-				D0BC04B618403A3200EDD926 /* OCTClient+Keys.m */,
-				D0BC04F418403C5A00EDD926 /* OCTClient+Gists.h */,
-				D0BC04F518403C5A00EDD926 /* OCTClient+Gists.m */,
-				D0BC04D518403B5100EDD926 /* OCTClient+Notifications.h */,
-				D0BC04D618403B5100EDD926 /* OCTClient+Notifications.m */,
-				D0BC04AF184039B400EDD926 /* OCTClient+Organizations.h */,
-				D0BC04B0184039B400EDD926 /* OCTClient+Organizations.m */,
-				D0BC04EE18403BE400EDD926 /* OCTClient+Repositories.h */,
-				D0BC04EF18403BE400EDD926 /* OCTClient+Repositories.m */,
-				D0BC049C1840391600EDD926 /* OCTClient+User.h */,
-				D0BC049D1840391600EDD926 /* OCTClient+User.m */,
-				D08722A3169E3D8600016ACA /* Models */,
+				D0BC04FA18403D7400EDD926 /* Base Models */,
+				8829F2D217A0DFA700F06991 /* Authentication */,
+				D0BC04FE18403E3500EDD926 /* Commits */,
+				D08B5997169E3E0C006003B8 /* Entities */,
+				D08B5996169E3DE6006003B8 /* Events */,
+				D07DD37E17A99349005EBFE0 /* Gists */,
+				D08722A2169E3D7C00016ACA /* Issues */,
+				8848E19916AF62F1005449AB /* Notifications */,
+				D0BC04FC18403DA800EDD926 /* Public Keys */,
+				D08B5998169E3E69006003B8 /* Pull Requests */,
+				D08B599A169E3E8D006003B8 /* Repositories */,
+				D0ED380A183D2D5000252CEC /* Server */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -1188,33 +1189,11 @@
 			name = Issues;
 			sourceTree = "<group>";
 		};
-		D08722A3169E3D8600016ACA /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				D0872139169E395F00016ACA /* OCTObject.h */,
-				D087213A169E395F00016ACA /* OCTObject.m */,
-				D087213B169E395F00016ACA /* OCTObject+Private.h */,
-				D0872150169E395F00016ACA /* OCTResponse.h */,
-				D0872151169E395F00016ACA /* OCTResponse.m */,
-				7A1F643817F120FF008155CF /* OCTComment.h */,
-				7A1F647017F12851008155CF /* OCTReviewComment.h */,
-				8829F2D217A0DFA700F06991 /* Authentication */,
-				D08B5999169E3E74006003B8 /* Commits */,
-				D08B5997169E3E0C006003B8 /* Entities */,
-				D08B5996169E3DE6006003B8 /* Events */,
-				D07DD37E17A99349005EBFE0 /* Gists */,
-				D08722A2169E3D7C00016ACA /* Issues */,
-				8848E19916AF62F1005449AB /* Notifications */,
-				D08B5998169E3E69006003B8 /* Pull Requests */,
-				D08B599A169E3E8D006003B8 /* Repositories */,
-				D0ED380A183D2D5000252CEC /* Server */,
-			);
-			name = Models;
-			sourceTree = "<group>";
-		};
 		D08B5996169E3DE6006003B8 /* Events */ = {
 			isa = PBXGroup;
 			children = (
+				D0BC04BB18403A8800EDD926 /* OCTClient+Events.h */,
+				D0BC04BC18403A8800EDD926 /* OCTClient+Events.m */,
 				D087212B169E395F00016ACA /* OCTCommitCommentEvent.h */,
 				D087212C169E395F00016ACA /* OCTCommitCommentEvent.m */,
 				D087212F169E395F00016ACA /* OCTEvent.h */,
@@ -1240,16 +1219,10 @@
 			children = (
 				D087212D169E395F00016ACA /* OCTEntity.h */,
 				D087212E169E395F00016ACA /* OCTEntity.m */,
-				D087213C169E395F00016ACA /* OCTOrganization.h */,
-				D087213D169E395F00016ACA /* OCTOrganization.m */,
 				D087213E169E395F00016ACA /* OCTPlan.h */,
 				D087213F169E395F00016ACA /* OCTPlan.m */,
-				D0872140169E395F00016ACA /* OCTPublicKey.h */,
-				D0872141169E395F00016ACA /* OCTPublicKey.m */,
-				D0872155169E395F00016ACA /* OCTTeam.h */,
-				D0872156169E395F00016ACA /* OCTTeam.m */,
-				D0872157169E395F00016ACA /* OCTUser.h */,
-				D0872158169E395F00016ACA /* OCTUser.m */,
+				D0BC04FD18403DC900EDD926 /* Organizations */,
+				D0BC04FB18403D9F00EDD926 /* Users */,
 			);
 			name = Entities;
 			sourceTree = "<group>";
@@ -1265,18 +1238,11 @@
 			name = "Pull Requests";
 			sourceTree = "<group>";
 		};
-		D08B5999169E3E74006003B8 /* Commits */ = {
-			isa = PBXGroup;
-			children = (
-				D0872129169E395F00016ACA /* OCTCommitComment.h */,
-				D087212A169E395F00016ACA /* OCTCommitComment.m */,
-			);
-			name = Commits;
-			sourceTree = "<group>";
-		};
 		D08B599A169E3E8D006003B8 /* Repositories */ = {
 			isa = PBXGroup;
 			children = (
+				D0BC04EE18403BE400EDD926 /* OCTClient+Repositories.h */,
+				D0BC04EF18403BE400EDD926 /* OCTClient+Repositories.m */,
 				D087214E169E395F00016ACA /* OCTRepository.h */,
 				D087214F169E395F00016ACA /* OCTRepository.m */,
 				9CB0586F17933F26002CF498 /* OCTContent.h */,
@@ -1316,6 +1282,64 @@
 				F6CF78D316E993A500A75F63 /* RACSignal+OCTClientAdditions.m */,
 			);
 			name = Extensions;
+			sourceTree = "<group>";
+		};
+		D0BC04FA18403D7400EDD926 /* Base Models */ = {
+			isa = PBXGroup;
+			children = (
+				D0872139169E395F00016ACA /* OCTObject.h */,
+				D087213A169E395F00016ACA /* OCTObject.m */,
+				D087213B169E395F00016ACA /* OCTObject+Private.h */,
+				D0872150169E395F00016ACA /* OCTResponse.h */,
+				D0872151169E395F00016ACA /* OCTResponse.m */,
+				7A1F643817F120FF008155CF /* OCTComment.h */,
+				7A1F647017F12851008155CF /* OCTReviewComment.h */,
+			);
+			name = "Base Models";
+			sourceTree = "<group>";
+		};
+		D0BC04FB18403D9F00EDD926 /* Users */ = {
+			isa = PBXGroup;
+			children = (
+				D0BC049C1840391600EDD926 /* OCTClient+User.h */,
+				D0BC049D1840391600EDD926 /* OCTClient+User.m */,
+				D0872157169E395F00016ACA /* OCTUser.h */,
+				D0872158169E395F00016ACA /* OCTUser.m */,
+			);
+			name = Users;
+			sourceTree = "<group>";
+		};
+		D0BC04FC18403DA800EDD926 /* Public Keys */ = {
+			isa = PBXGroup;
+			children = (
+				D0BC04B518403A3200EDD926 /* OCTClient+Keys.h */,
+				D0BC04B618403A3200EDD926 /* OCTClient+Keys.m */,
+				D0872140169E395F00016ACA /* OCTPublicKey.h */,
+				D0872141169E395F00016ACA /* OCTPublicKey.m */,
+			);
+			name = "Public Keys";
+			sourceTree = "<group>";
+		};
+		D0BC04FD18403DC900EDD926 /* Organizations */ = {
+			isa = PBXGroup;
+			children = (
+				D0BC04AF184039B400EDD926 /* OCTClient+Organizations.h */,
+				D0BC04B0184039B400EDD926 /* OCTClient+Organizations.m */,
+				D087213C169E395F00016ACA /* OCTOrganization.h */,
+				D087213D169E395F00016ACA /* OCTOrganization.m */,
+				D0872155169E395F00016ACA /* OCTTeam.h */,
+				D0872156169E395F00016ACA /* OCTTeam.m */,
+			);
+			name = Organizations;
+			sourceTree = "<group>";
+		};
+		D0BC04FE18403E3500EDD926 /* Commits */ = {
+			isa = PBXGroup;
+			children = (
+				D0872129169E395F00016ACA /* OCTCommitComment.h */,
+				D087212A169E395F00016ACA /* OCTCommitComment.m */,
+			);
+			name = Commits;
 			sourceTree = "<group>";
 		};
 		D0C6365A1777AB9300F486A9 /* Products */ = {
