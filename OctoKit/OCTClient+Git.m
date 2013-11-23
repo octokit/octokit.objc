@@ -71,6 +71,23 @@
 		}];
 }
 
+- (RACSignal *)createBlobWithString:(NSString *)string inRepository:(OCTRepository *)repository {
+	NSParameterAssert(string != nil);
+	NSParameterAssert(repository != nil);
+
+	NSString *path = [NSString stringWithFormat:@"repos/%@/%@/git/blobs", repository.ownerLogin, repository.name];
+	NSMutableURLRequest *request = [self requestWithMethod:@"POST" path:path parameters:@{
+		@"content": string,
+		@"encoding": @"utf-8"
+	} notMatchingEtag:nil];
+
+	return [[self
+		enqueueRequest:request resultClass:nil]
+		map:^(OCTResponse *response) {
+			return response.parsedResult[@"sha"];
+		}];
+}
+
 - (RACSignal *)fetchReference:(NSString *)refName inRepository:(OCTRepository *)repository {
 	NSParameterAssert(refName != nil);
 	NSParameterAssert(repository != nil);

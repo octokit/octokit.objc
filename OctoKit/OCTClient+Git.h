@@ -43,6 +43,16 @@
 // Returns a signal which will send an NSData then complete, or error.
 - (RACSignal *)fetchBlob:(NSString *)blobSHA inRepository:(OCTRepository *)repository;
 
+// Creates a blob using the given text content.
+//
+// string     - The text for the new blob. This must not be nil.
+// repository - The repository in which to create the blob. This must not be
+//              nil.
+// 
+// Returns a signal which will send an NSString of the new blob's SHA then
+// complete, or error.
+- (RACSignal *)createBlobWithString:(NSString *)string inRepository:(OCTRepository *)repository;
+
 // Fetches a git reference given its fully-qualified name.
 //
 // refName    - The fully-qualified name of the ref to fetch (e.g.,
