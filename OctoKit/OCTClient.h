@@ -351,23 +351,6 @@ typedef enum : NSUInteger {
 
 @end
 
-@interface OCTClient (Keys)
-
-// Fetches the public keys for the current `user`.
-//
-// Returns a signal which sends zero or more OCTPublicKey objects. Unverified
-// keys will only be included if the client is `authenticated`. If no `user` is
-// set, the signal will error immediately.
-- (RACSignal *)fetchPublicKeys;
-
-// Adds a new public key to the current user's profile.
-//
-// Returns a signal which sends the new OCTPublicKey. If the client is not
-// `authenticated`, the signal will error immediately.
-- (RACSignal *)postPublicKey:(NSString *)key title:(NSString *)title;
-
-@end
-
 @interface OCTClient (Events)
 
 // Conditionally fetches events from the current user's activity stream. If
