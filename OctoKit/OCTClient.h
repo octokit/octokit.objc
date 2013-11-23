@@ -8,13 +8,7 @@
 
 #import <AFNetworking/AFNetworking.h>
 
-@class OCTGist;
-@class OCTGistEdit;
-@class OCTNotification;
-@class OCTOrganization;
-@class OCTRepository;
 @class OCTServer;
-@class OCTTeam;
 @class OCTUser;
 @class RACSignal;
 

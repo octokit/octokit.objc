@@ -8,6 +8,9 @@
 
 #import "OCTClient.h"
 
+@class OCTGist;
+@class OCTGistEdit;
+
 @interface OCTClient (Gists)
 
 // Fetches all the gists for the current user.

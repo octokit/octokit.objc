@@ -8,6 +8,8 @@
 
 #import "OCTClient.h"
 
+@class OCTRepository;
+
 @interface OCTClient (Repositories)
 
 // Fetches the content at `relativePath` at the given `reference` from the

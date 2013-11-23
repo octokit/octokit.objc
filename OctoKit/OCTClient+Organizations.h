@@ -8,6 +8,9 @@
 
 #import "OCTClient.h"
 
+@class OCTOrganization;
+@class OCTTeam;
+
 @interface OCTClient (Organizations)
 
 // Fetches the organizations that the current user is a member of.
