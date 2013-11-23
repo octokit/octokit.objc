@@ -98,6 +98,22 @@
 	return [[self enqueueRequest:request resultClass:OCTCommit.class] oct_parsedResults];
 }
 
+- (RACSignal *)createCommitWithMessage:(NSString *)message inRepository:(OCTRepository *)repository pointingToTreeWithSHA:(OCTTree *)treeSHA parentCommitSHAs:(NSArray *)parentSHAs {
+	NSParameterAssert(message != nil);
+	NSParameterAssert(repository != nil);
+	NSParameterAssert(treeSHA != nil);
+	NSParameterAssert(parentSHAs != nil);
+
+	NSString *path = [NSString stringWithFormat:@"repos/%@/%@/git/commits", repository.ownerLogin, repository.name];
+	NSMutableURLRequest *request = [self requestWithMethod:@"POST" path:path parameters:@{
+		@"message": message,
+		@"tree": treeSHA,
+		@"parents": parentSHAs,
+	} notMatchingEtag:nil];
+
+	return [[self enqueueRequest:request resultClass:OCTCommit.class] oct_parsedResults];
+}
+
 - (RACSignal *)fetchReference:(NSString *)refName inRepository:(OCTRepository *)repository {
 	NSParameterAssert(refName != nil);
 	NSParameterAssert(repository != nil);

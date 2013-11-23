@@ -9,6 +9,7 @@
 #import "OCTClient.h"
 
 @class OCTRepository;
+@class OCTTree;
 
 @interface OCTClient (Git)
 
@@ -61,6 +62,21 @@
 //
 // Returns a signal which will send an `OCTCommit` then complete, or error.
 - (RACSignal *)fetchCommit:(NSString *)commitSHA inRepository:(OCTRepository *)repository;
+
+// Creates a commit.
+//
+// message    - The message of the new commit. This must not be nil.
+// repository - The repository in which to create the commit. This must not be
+//              nil.
+// treeSHA    - The SHA of the tree for the new commit. This must not be nil.
+// parentSHAs - An array of `NSString`s representing the SHAs of parent commits
+//              for the new commit. This can be empty to create a root commit,
+//              or have more than one object to create a merge commit. This
+//              array must not be nil.
+//
+// Returns a signal which will send the created `OCTCommit` then complete, or
+// error.
+- (RACSignal *)createCommitWithMessage:(NSString *)message inRepository:(OCTRepository *)repository pointingToTreeWithSHA:(OCTTree *)treeSHA parentCommitSHAs:(NSArray *)parentSHAs;
 
 // Fetches a git reference given its fully-qualified name.
 //
