@@ -53,6 +53,15 @@
 // complete, or error.
 - (RACSignal *)createBlobWithString:(NSString *)string inRepository:(OCTRepository *)repository;
 
+// Fetches the commit identified by the given SHA.
+//
+// commitSHA  - The SHA of the commit to fetch. This must not be nil.
+// repository - The repository from which the commit should be fetched. Cannot be
+//              nil.
+//
+// Returns a signal which will send an `OCTCommit` then complete, or error.
+- (RACSignal *)fetchCommit:(NSString *)commitSHA inRepository:(OCTRepository *)repository;
+
 // Fetches a git reference given its fully-qualified name.
 //
 // refName    - The fully-qualified name of the ref to fetch (e.g.,

@@ -8,6 +8,7 @@
 
 #import "OCTClient+Git.h"
 #import "OCTClient+Private.h"
+#import "OCTCommit.h"
 #import "OCTRef.h"
 #import "OCTRepository.h"
 #import "OCTTree.h"
@@ -86,6 +87,15 @@
 		map:^(OCTResponse *response) {
 			return response.parsedResult[@"sha"];
 		}];
+}
+
+- (RACSignal *)fetchCommit:(NSString *)commitSHA inRepository:(OCTRepository *)repository {
+	NSParameterAssert(commitSHA != nil);
+	NSParameterAssert(repository != nil);
+
+	NSString *path = [NSString stringWithFormat:@"repos/%@/%@/git/commits/%@", repository.ownerLogin, repository.name, commitSHA];
+	NSURLRequest *request = [self requestWithMethod:@"GET" path:path parameters:nil];
+	return [[self enqueueRequest:request resultClass:OCTCommit.class] oct_parsedResults];
 }
 
 - (RACSignal *)fetchReference:(NSString *)refName inRepository:(OCTRepository *)repository {
