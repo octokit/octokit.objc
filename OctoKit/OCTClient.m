@@ -1059,6 +1059,21 @@ static NSString *OCTClientOAuthClientSecret = nil;
 	return [[self enqueueRequest:request resultClass:OCTGist.class] oct_parsedResults];
 }
 
+- (RACSignal *)fetchGistsUpdatedSince:(NSDate *)since {
+	if (!self.authenticated) return [RACSignal error:self.class.authenticationRequiredError];
+
+	NSDictionary *parameters = nil;
+	if (since) {
+		NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+		formatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:ssZ";
+		NSString *sinceString = [formatter stringFromDate:since];
+		parameters = @{ @"since" : sinceString };
+	}
+
+	NSURLRequest *request = [self requestWithMethod:@"GET" path:@"gists" parameters:parameters notMatchingEtag:nil];
+	return [[self enqueueRequest:request resultClass:OCTGist.class] oct_parsedResults];
+}
+
 - (RACSignal *)applyEdit:(OCTGistEdit *)edit toGist:(OCTGist *)gist {
 	NSParameterAssert(edit != nil);
 	NSParameterAssert(gist != nil);
