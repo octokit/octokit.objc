@@ -41,13 +41,8 @@
 
 	NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
 	parameters[@"tree"] = [[treeEntries.rac_sequence
-		flattenMap:^(OCTTreeEntry *entry) {
-			NSDictionary *entryJSON = [MTLJSONAdapter JSONDictionaryFromModel:entry];
-
-			// TODO: Real error handling
-			if (entryJSON == nil) return [RACSequence empty];
-
-			return [RACSequence return:entryJSON];
+		map:^(OCTTreeEntry *entry) {
+			return [MTLJSONAdapter JSONDictionaryFromModel:entry];
 		}]
 		array];
 
