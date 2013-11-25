@@ -8,24 +8,14 @@
 
 #import "OCTClient.h"
 #import "OCTClient+Private.h"
-#import "NSDateFormatter+OCTFormattingAdditions.h"
+#import "OCTClient+User.h"
 #import "NSURL+OCTQueryAdditions.h"
 #import "OCTAccessToken.h"
 #import "OCTAuthorization.h"
-#import "OCTContent.h"
-#import "OCTEvent.h"
-#import "OCTGist.h"
-#import "OCTGistFile.h"
-#import "OCTNotification.h"
 #import "OCTObject+Private.h"
-#import "OCTOrganization.h"
-#import "OCTPublicKey.h"
-#import "OCTRepository.h"
 #import "OCTResponse.h"
 #import "OCTServer.h"
 #import "OCTServerMetadata.h"
-#import "OCTTeam.h"
-#import "OCTTree.h"
 #import "OCTUser.h"
 #import "RACSignal+OCTClientAdditions.h"
 #import <ReactiveCocoa/ReactiveCocoa.h>
@@ -44,11 +34,10 @@ NSString * const OCTClientErrorRequestURLKey = @"OCTClientErrorRequestURLKey";
 NSString * const OCTClientErrorHTTPStatusCodeKey = @"OCTClientErrorHTTPStatusCodeKey";
 NSString * const OCTClientErrorOneTimePasswordMediumKey = @"OCTClientErrorOneTimePasswordMediumKey";
 
+NSString * const OCTClientAPIVersion = @"beta";
+
 static const NSInteger OCTClientNotModifiedStatusCode = 304;
 static NSString * const OCTClientOneTimePasswordHeaderField = @"X-GitHub-OTP";
-
-// The version of the GitHub API to use.
-static NSString * const OCTClientAPIVersion = @"beta";
 
 // An environment variable that, when present, will enable logging of all
 // responses.
@@ -74,45 +63,6 @@ static NSString * const OCTClientRateLimitLoggingEnvironmentKey = @"LOG_REMAININ
 
 // A subject to send callback URLs to after they're received by the app.
 + (RACSubject *)callbackURLs;
-
-// An error indicating that a request required a valid user, but no `user`
-// property was set.
-+ (NSError *)userRequiredError;
-
-// An error indicating that a request required authentication, but the client
-// was not created with a token.
-+ (NSError *)authenticationRequiredError;
-
-// An error indicating that the current server version does not support our
-// request.
-+ (NSError *)unsupportedVersionError;
-
-// Enqueues a request that will not automatically parse results.
-//
-// request       - The previously constructed URL request for the endpoint.
-// fetchAllPages - Whether to fetch all pages of the given endpoint.
-//
-// Returns a signal which will send tuples for each page, containing the
-// `NSHTTPURLResponse` and response object (the type of which will be determined
-// by AFNetworking), then complete. If an error occurs at any point, the
-// returned signal will send it immediately, then terminate.
-- (RACSignal *)enqueueRequest:(NSURLRequest *)request fetchAllPages:(BOOL)fetchAllPages;
-
-// Enqueues a request to fetch information about the current user by accessing
-// a path relative to the user object.
-//
-// method       - The HTTP method to use.
-// relativePath - The path to fetch, relative to the user object. For example,
-//                to request `user/orgs` or `users/:user/orgs`, simply pass in
-//                `/orgs`. This may not be nil, and must either start with a '/'
-//                or be an empty string.
-// parameters   - HTTP parameters to encode and send with the request.
-// resultClass  - The class that response data should be returned as.
-//
-// Returns a signal which will send an instance of `resultClass` for each parsed
-// JSON object, then complete. If no `user` is set on the receiver, the signal
-// will error immediately.
-- (RACSignal *)enqueueUserRequestWithMethod:(NSString *)method relativePath:(NSString *)relativePath parameters:(NSDictionary *)parameters resultClass:(Class)resultClass;
 
 // Creates a request.
 //
@@ -832,252 +782,6 @@ static NSString *OCTClientOAuthClientSecret = nil;
 	if (operation.error != nil) userInfo[NSUnderlyingErrorKey] = operation.error;
 	
 	return [NSError errorWithDomain:OCTClientErrorDomain code:errorCode userInfo:userInfo];
-}
-
-@end
-
-@implementation OCTClient (User)
-
-- (RACSignal *)fetchUserInfo {
-	return [[self enqueueUserRequestWithMethod:@"GET" relativePath:@"" parameters:nil resultClass:OCTUser.class] oct_parsedResults];
-}
-
-- (RACSignal *)fetchUserRepositories {
-	return [[self enqueueUserRequestWithMethod:@"GET" relativePath:@"/repos" parameters:nil resultClass:OCTRepository.class] oct_parsedResults];
-}
-
-- (RACSignal *)fetchUserStarredRepositories {
-	return [[self enqueueUserRequestWithMethod:@"GET" relativePath:@"/starred" parameters:nil resultClass:OCTRepository.class] oct_parsedResults];
-}
-
-- (RACSignal *)createRepositoryWithName:(NSString *)name description:(NSString *)description private:(BOOL)isPrivate {
-	if (!self.authenticated) return [RACSignal error:self.class.authenticationRequiredError];
-
-	return [self createRepositoryWithName:name organization:nil team:nil description:description private:isPrivate];
-}
-
-@end
-
-@implementation OCTClient (Organizations)
-
-- (RACSignal *)fetchUserOrganizations {
-	return [[self enqueueUserRequestWithMethod:@"GET" relativePath:@"/orgs" parameters:nil resultClass:OCTOrganization.class] oct_parsedResults];
-}
-
-- (RACSignal *)fetchOrganizationInfo:(OCTOrganization *)organization {
-	NSURLRequest *request = [self requestWithMethod:@"GET" path:[NSString stringWithFormat:@"orgs/%@", organization.login] parameters:nil notMatchingEtag:nil];
-	return [[self enqueueRequest:request resultClass:OCTOrganization.class] oct_parsedResults];
-}
-
-- (RACSignal *)fetchRepositoriesForOrganization:(OCTOrganization *)organization {
-	NSURLRequest *request = [self requestWithMethod:@"GET" path:[NSString stringWithFormat:@"orgs/%@/repos", organization.login] parameters:nil notMatchingEtag:nil];
-	return [[self enqueueRequest:request resultClass:OCTRepository.class] oct_parsedResults];
-}
-
-- (RACSignal *)createRepositoryWithName:(NSString *)name organization:(OCTOrganization *)organization team:(OCTTeam *)team description:(NSString *)description private:(BOOL)isPrivate {
-	if (!self.authenticated) return [RACSignal error:self.class.authenticationRequiredError];
-
-	NSMutableDictionary *options = [NSMutableDictionary dictionary];
-	options[@"name"] = name;
-	options[@"private"] = @(isPrivate);
-
-	if (description != nil) options[@"description"] = description;
-	if (team != nil) options[@"team_id"] = team.objectID;
-	
-	NSString *path = (organization == nil ? @"user/repos" : [NSString stringWithFormat:@"orgs/%@/repos", organization.login]);
-	NSURLRequest *request = [self requestWithMethod:@"POST" path:path parameters:options notMatchingEtag:nil];
-	
-	return [[self enqueueRequest:request resultClass:OCTRepository.class] oct_parsedResults];
-}
-
-- (RACSignal *)fetchTeamsForOrganization:(OCTOrganization *)organization {
-	if (!self.authenticated) return [RACSignal error:self.class.authenticationRequiredError];
-
-	NSURLRequest *request = [self requestWithMethod:@"GET" path:[NSString stringWithFormat:@"orgs/%@/teams", organization.login] parameters:nil notMatchingEtag:nil];
-	
-	return [[self enqueueRequest:request resultClass:OCTTeam.class] oct_parsedResults];
-}
-
-@end
-
-@implementation OCTClient (Keys)
-
-- (RACSignal *)fetchPublicKeys {
-	return [[self enqueueUserRequestWithMethod:@"GET" relativePath:@"/keys" parameters:nil resultClass:OCTPublicKey.class] oct_parsedResults];
-}
-
-- (RACSignal *)postPublicKey:(NSString *)key title:(NSString *)title {
-	NSParameterAssert(key != nil);
-	NSParameterAssert(title != nil);
-
-	if (!self.authenticated) return [RACSignal error:self.class.authenticationRequiredError];
-
-	OCTPublicKey *publicKey = [OCTPublicKey modelWithDictionary:@{
-		@keypath(OCTPublicKey.new, publicKey): key,
-		@keypath(OCTPublicKey.new, title): title,
-	} error:NULL];
-	
-	NSURLRequest *request = [self requestWithMethod:@"POST" path:@"user/keys" parameters:[MTLJSONAdapter JSONDictionaryFromModel:publicKey] notMatchingEtag:nil];
-
-	return [[self enqueueRequest:request resultClass:OCTPublicKey.class] oct_parsedResults];
-}
-
-@end
-
-@implementation OCTClient (Events)
-
-- (RACSignal *)fetchUserEventsNotMatchingEtag:(NSString *)etag {
-	if (self.user == nil) return [RACSignal error:self.class.userRequiredError];
-
-	NSURLRequest *request = [self requestWithMethod:@"GET" path:[NSString stringWithFormat:@"users/%@/received_events", self.user.login] parameters:nil notMatchingEtag:etag];
-	
-	return [self enqueueRequest:request resultClass:OCTEvent.class fetchAllPages:NO];
-}
-
-@end
-
-@implementation OCTClient (Notifications)
-
-- (RACSignal *)fetchNotificationsNotMatchingEtag:(NSString *)etag includeReadNotifications:(BOOL)includeRead updatedSince:(NSDate *)since {
-	if (!self.authenticated) return [RACSignal error:self.class.authenticationRequiredError];
-
-	NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
-	parameters[@"all"] = @(includeRead);
-
-	if (since != nil) {
-		parameters[@"since"] = [NSDateFormatter oct_stringFromDate:since];
-	}
-	NSURLRequest *request = [self requestWithMethod:@"GET" path:@"notifications" parameters:parameters notMatchingEtag:etag];
-	return [self enqueueRequest:request resultClass:OCTNotification.class];
-}
-
-- (RACSignal *)markNotificationThreadAsReadAtURL:(NSURL *)threadURL {
-	return [self patchThreadURL:threadURL withReadStatus:YES];
-}
-
-- (RACSignal *)patchThreadURL:(NSURL *)threadURL withReadStatus:(BOOL)read {
-	NSParameterAssert(threadURL != nil);
-
-	if (!self.authenticated) return [RACSignal error:self.class.authenticationRequiredError];
-
-	NSMutableURLRequest *request = [self requestWithMethod:@"PATCH" path:@"" parameters:@{ @"read": @(read) }];
-	request.URL = threadURL;
-	return [[self enqueueRequest:request resultClass:nil] ignoreValues];
-}
-
-- (RACSignal *)muteNotificationThreadAtURL:(NSURL *)threadURL {
-	NSParameterAssert(threadURL != nil);
-
-	if (!self.authenticated) return [RACSignal error:self.class.authenticationRequiredError];
-
-	NSMutableURLRequest *request = [self requestWithMethod:@"PUT" path:@"" parameters:@{ @"ignored": @YES }];
-	request.URL = [threadURL URLByAppendingPathComponent:@"subscription"];
-	return [[self enqueueRequest:request resultClass:nil] ignoreValues];
-}
-
-@end
-
-@implementation OCTClient (Repository)
-
-- (RACSignal *)fetchRelativePath:(NSString *)relativePath inRepository:(OCTRepository *)repository reference:(NSString *)reference {
-	NSParameterAssert(repository != nil);
-	NSParameterAssert(repository.name.length > 0);
-	NSParameterAssert(repository.ownerLogin.length > 0);
-	
-	relativePath = relativePath ?: @"";
-	NSString *path = [NSString stringWithFormat:@"repos/%@/%@/contents/%@", repository.ownerLogin, repository.name, relativePath];
-	
-	NSDictionary *parameters = nil;
-	if (reference.length > 0) {
-		parameters = @{ @"ref": reference };
-	}
-	
-	NSMutableURLRequest *request = [self requestWithMethod:@"GET" path:path parameters:parameters notMatchingEtag:nil];
-	
-	return [[self enqueueRequest:request resultClass:OCTContent.class] oct_parsedResults];
-}
-
-- (RACSignal *)fetchRepositoryReadme:(OCTRepository *)repository {
-	NSParameterAssert(repository != nil);
-	NSParameterAssert(repository.name.length > 0);
-	NSParameterAssert(repository.ownerLogin.length > 0);
-	
-	NSString *path = [NSString stringWithFormat:@"repos/%@/%@/readme", repository.ownerLogin, repository.name];
-	NSMutableURLRequest *request = [self requestWithMethod:@"GET" path:path parameters:nil notMatchingEtag:nil];
-	
-	return [[self enqueueRequest:request resultClass:OCTContent.class] oct_parsedResults];
-}
-
-- (RACSignal *)fetchRepositoryWithName:(NSString *)name owner:(NSString *)owner {
-	NSParameterAssert(name.length > 0);
-	NSParameterAssert(owner.length > 0);
-	
-	NSString *path = [NSString stringWithFormat:@"repos/%@/%@", owner, name];
-	NSMutableURLRequest *request = [self requestWithMethod:@"GET" path:path parameters:nil notMatchingEtag:nil];
-	
-	return [[self enqueueRequest:request resultClass:OCTRepository.class] oct_parsedResults];
-}
-
-- (RACSignal *)fetchTreeForReference:(NSString *)reference inRepository:(OCTRepository *)repository recursive:(BOOL)recursive {
-	NSParameterAssert(repository != nil);
-
-	if (reference == nil) reference = @"HEAD";
-
-	NSString *path = [NSString stringWithFormat:@"repos/%@/%@/git/trees/%@", repository.ownerLogin, repository.name, reference];
-	NSDictionary *parameters;
-	if (recursive) parameters = @{ @"recursive": @1 };
-
-	NSURLRequest *request = [self requestWithMethod:@"GET" path:path parameters:parameters];
-	return [[self enqueueRequest:request resultClass:OCTTree.class] oct_parsedResults];
-}
-
-- (RACSignal *)fetchBlob:(NSString *)blobSHA inRepository:(OCTRepository *)repository {
-	NSParameterAssert(blobSHA != nil);
-	NSParameterAssert(repository != nil);
-
-	NSString *path = [NSString stringWithFormat:@"repos/%@/%@/git/blobs/%@", repository.ownerLogin, repository.name, blobSHA];
-	NSMutableURLRequest *request = [self requestWithMethod:@"GET" path:path parameters:nil];
-
-	NSString *contentType = [NSString stringWithFormat:@"application/vnd.github.%@.raw", OCTClientAPIVersion];
-	[request setValue:contentType forHTTPHeaderField:@"Accept"];
-
-	return [[self
-		enqueueRequest:request fetchAllPages:NO]
-		reduceEach:^(NSHTTPURLResponse *response, NSData *data) {
-			return data;
-		}];
-}
-
-@end
-
-@implementation OCTClient (Gist)
-
-- (RACSignal *)fetchGists {
-	if (!self.authenticated) return [RACSignal error:self.class.authenticationRequiredError];
-
-	NSURLRequest *request = [self requestWithMethod:@"GET" path:@"gists" parameters:nil notMatchingEtag:nil];
-	return [[self enqueueRequest:request resultClass:OCTGist.class] oct_parsedResults];
-}
-
-- (RACSignal *)applyEdit:(OCTGistEdit *)edit toGist:(OCTGist *)gist {
-	NSParameterAssert(edit != nil);
-	NSParameterAssert(gist != nil);
-
-	if (!self.authenticated) return [RACSignal error:self.class.authenticationRequiredError];
-
-	NSDictionary *parameters = [MTLJSONAdapter JSONDictionaryFromModel:edit];
-	NSURLRequest *request = [self requestWithMethod:@"PATCH" path:[NSString stringWithFormat:@"gists/%@", gist.objectID] parameters:parameters notMatchingEtag:nil];
-	return [[self enqueueRequest:request resultClass:OCTGist.class] oct_parsedResults];
-}
-
-- (RACSignal *)createGistWithEdit:(OCTGistEdit *)edit {
-	NSParameterAssert(edit != nil);
-
-	if (!self.authenticated) return [RACSignal error:self.class.authenticationRequiredError];
-
-	NSDictionary *parameters = [MTLJSONAdapter JSONDictionaryFromModel:edit];
-	NSURLRequest *request = [self requestWithMethod:@"POST" path:@"gists" parameters:parameters notMatchingEtag:nil];
-	return [[self enqueueRequest:request resultClass:OCTGist.class] oct_parsedResults];
 }
 
 @end
