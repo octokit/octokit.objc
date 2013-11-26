@@ -265,7 +265,7 @@ static NSString *OCTClientOAuthClientSecret = nil;
 		@(OCTClientAuthorizationScopesGist): @"gist",
 	};
 
-	return [[[[scopeToScopeString.rac_keySequence
+	return [[[[scopeToScopeString.rac_keySignal
 		filter:^ BOOL (NSNumber *scopeValue) {
 			OCTClientAuthorizationScopes scope = scopeValue.unsignedIntegerValue;
 			return (scopes & scope) != 0;
@@ -289,7 +289,7 @@ static NSString *OCTClientOAuthClientSecret = nil;
 
 	OCTClient *client = [self unauthenticatedClientWithUser:user];
 
-	return [[[[[[[[RACSignal
+	return [[[[[[[RACSignal
 		defer:^{
 			[client setAuthorizationHeaderWithUsername:user.login password:password];
 
@@ -319,7 +319,6 @@ static NSString *OCTClientOAuthClientSecret = nil;
 			client.token = token;
 		}]
 		mapReplace:client]
-		replayLazily]
 		setNameWithFormat:@"+signInAsUser: %@ password:oneTimePassword:scopes:", user];
 }
 
@@ -332,7 +331,7 @@ static NSString *OCTClientOAuthClientSecret = nil;
 
 	OCTClient *client = [[self alloc] initWithServer:server];
 
-	return [[[[[[[[[[self
+	return [[[[[[[[[self
 		authorizeWithServerUsingWebBrowser:server scopes:scopes]
 		flattenMap:^(NSString *temporaryCode) {
 			NSDictionary *params = @{
@@ -369,7 +368,6 @@ static NSString *OCTClientOAuthClientSecret = nil;
 			client.user = user;
 		}]
 		mapReplace:client]
-		replayLazily]
 		setNameWithFormat:@"+signInToServerUsingWebBrowser: %@ scopes:", server];
 }
 
@@ -379,43 +377,45 @@ static NSString *OCTClientOAuthClientSecret = nil;
 	NSString *clientID = self.class.clientID;
 	NSAssert(clientID != nil, @"+setClientID:clientSecret: must be invoked before calling %@", NSStringFromSelector(_cmd));
 
-	return [[RACSignal createSignal:^(id<RACSubscriber> subscriber) {
-		CFUUIDRef uuid = CFUUIDCreate(NULL);
-		NSString *uuidString = CFBridgingRelease(CFUUIDCreateString(NULL, uuid));
-		CFRelease(uuid);
+	return [[[RACSignal
+		create:^(id<RACSubscriber> subscriber) {
+			CFUUIDRef uuid = CFUUIDCreate(NULL);
+			NSString *uuidString = CFBridgingRelease(CFUUIDCreateString(NULL, uuid));
+			CFRelease(uuid);
 
-		// For any matching callback URL, send the temporary code to our
-		// subscriber.
-		//
-		// This should be set up before opening the URL below, or we may
-		// miss values on self.callbackURLs.
-		RACDisposable *callbackDisposable = [[[self.callbackURLs
-			flattenMap:^(NSURL *URL) {
-				NSDictionary *queryArguments = URL.oct_queryArguments;
-				if ([queryArguments[@"state"] isEqual:uuidString]) {
-					return [RACSignal return:queryArguments[@"code"]];
-				} else {
-					return [RACSignal empty];
-				}
-			}]
-			take:1]
-			subscribe:subscriber];
+			// For any matching callback URL, send the temporary code to our
+			// subscriber.
+			//
+			// This should be set up before opening the URL below, or we may
+			// miss values on self.callbackURLs.
+			[[[self.callbackURLs
+				flattenMap:^(NSURL *URL) {
+					NSDictionary *queryArguments = URL.oct_queryArguments;
+					if ([queryArguments[@"state"] isEqual:uuidString]) {
+						return [RACSignal return:queryArguments[@"code"]];
+					} else {
+						return [RACSignal empty];
+					}
+				}]
+				take:1]
+				subscribe:subscriber];
 
-		NSString *scope = [[self scopesArrayFromScopes:scopes] componentsJoinedByString:@","];
+			NSString *scope = [[self scopesArrayFromScopes:scopes] componentsJoinedByString:@","];
+			NSString *URLString = [[NSString alloc] initWithFormat:@"%@/login/oauth/authorize?client_id=%@&scope=%@&state=%@", server.baseWebURL, clientID, scope, uuidString];
+			NSURL *webURL = [NSURL URLWithString:URLString];
 
-		NSString *URLString = [[NSString alloc] initWithFormat:@"%@/login/oauth/authorize?client_id=%@&scope=%@&state=%@", server.baseWebURL, clientID, scope, uuidString];
-		NSURL *webURL = [NSURL URLWithString:URLString];
+			if (subscriber.disposable.disposed) return;
 
-		if (![self openURL:webURL]) {
-			[subscriber sendError:[NSError errorWithDomain:OCTClientErrorDomain code:OCTClientErrorOpeningBrowserFailed userInfo:@{
-				NSLocalizedDescriptionKey: NSLocalizedString(@"Could not open web browser", nil),
-				NSLocalizedRecoverySuggestionErrorKey: NSLocalizedString(@"Please make sure you have a default web browser set.", nil),
-				NSURLErrorKey: webURL
-			}]];
-		}
-
-		return callbackDisposable;
-	}] setNameWithFormat:@"+authorizeWithServerUsingWebBrowser: %@ scopes:", server];
+			if (![self openURL:webURL]) {
+				[subscriber sendError:[NSError errorWithDomain:OCTClientErrorDomain code:OCTClientErrorOpeningBrowserFailed userInfo:@{
+					NSLocalizedDescriptionKey: NSLocalizedString(@"Could not open web browser", nil),
+					NSLocalizedRecoverySuggestionErrorKey: NSLocalizedString(@"Please make sure you have a default web browser set.", nil),
+					NSURLErrorKey: webURL
+				}]];
+			}
+		}]
+		subscribeOn:RACScheduler.mainThreadScheduler]
+		setNameWithFormat:@"+authorizeWithServerUsingWebBrowser: %@ scopes:", server];
 }
 
 + (RACSignal *)fetchMetadataForServer:(OCTServer *)server {
@@ -477,7 +477,7 @@ static NSString *OCTClientOAuthClientSecret = nil;
 #pragma mark Request Enqueuing
 
 - (RACSignal *)enqueueRequest:(NSURLRequest *)request fetchAllPages:(BOOL)fetchAllPages {
-	RACSignal *signal = [RACSignal createSignal:^(id<RACSubscriber> subscriber) {
+	RACSignal *signal = [RACSignal create:^(id<RACSubscriber> subscriber) {
 		AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request success:^(AFHTTPRequestOperation *operation, id responseObject) {
 			if (NSProcessInfo.processInfo.environment[OCTClientResponseLoggingEnvironmentKey] != nil) {
 				NSLog(@"%@ %@ %@ => %li %@:\n%@", request.HTTPMethod, request.URL, request.allHTTPHeaderFields, (long)operation.response.statusCode, operation.response.allHeaderFields, responseObject);
@@ -488,6 +488,8 @@ static NSString *OCTClientOAuthClientSecret = nil;
 				[subscriber sendCompleted];
 				return;
 			}
+
+			if (subscriber.disposable.disposed) return;
 			
 			RACSignal *nextPageSignal = [RACSignal empty];
 			NSURL *nextPageURL = (fetchAllPages ? [self nextPageURLFromOperation:operation] : nil);
@@ -513,16 +515,15 @@ static NSString *OCTClientOAuthClientSecret = nil;
 
 		operation.successCallbackQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
 		operation.failureCallbackQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-		[self enqueueHTTPRequestOperation:operation];
 
-		return [RACDisposable disposableWithBlock:^{
+		[subscriber.disposable addDisposable:[RACDisposable disposableWithBlock:^{
 			[operation cancel];
-		}];
+		}]];
+
+		[self enqueueHTTPRequestOperation:operation];
 	}];
 	
-	return [[signal
-		replayLazily]
-		setNameWithFormat:@"-enqueueRequest: %@ fetchAllPages: %i", request, (int)fetchAllPages];
+	return [signal setNameWithFormat:@"-enqueueRequest: %@ fetchAllPages: %i", request, (int)fetchAllPages];
 }
 
 - (RACSignal *)enqueueRequest:(NSURLRequest *)request resultClass:(Class)resultClass {
@@ -623,7 +624,7 @@ static NSString *OCTClientOAuthClientSecret = nil;
 - (RACSignal *)parsedResponseOfClass:(Class)resultClass fromJSON:(id)responseObject {
 	NSParameterAssert(resultClass == nil || [resultClass isSubclassOfClass:MTLModel.class]);
 
-	return [RACSignal createSignal:^ id (id<RACSubscriber> subscriber) {
+	return [RACSignal create:^(id<RACSubscriber> subscriber) {
 		void (^parseJSONDictionary)(NSDictionary *) = ^(NSDictionary *JSONDictionary) {
 			if (resultClass == nil) {
 				[subscriber sendNext:JSONDictionary];
@@ -652,10 +653,12 @@ static NSString *OCTClientOAuthClientSecret = nil;
 
 		if ([responseObject isKindOfClass:NSArray.class]) {
 			for (NSDictionary *JSONDictionary in responseObject) {
+				if (subscriber.disposable.disposed) return;
+
 				if (![JSONDictionary isKindOfClass:NSDictionary.class]) {
 					NSString *failureReason = [NSString stringWithFormat:NSLocalizedString(@"Invalid JSON array element: %@", @""), JSONDictionary];
 					[subscriber sendError:[self parsingErrorWithFailureReason:failureReason]];
-					return nil;
+					return;
 				}
 
 				parseJSONDictionary(JSONDictionary);
@@ -669,8 +672,6 @@ static NSString *OCTClientOAuthClientSecret = nil;
 			NSString *failureReason = [NSString stringWithFormat:NSLocalizedString(@"Response wasn't an array or dictionary (%@): %@", @""), [responseObject class], responseObject];
 			[subscriber sendError:[self parsingErrorWithFailureReason:failureReason]];
 		}
-
-		return nil;
 	}];
 }
 
