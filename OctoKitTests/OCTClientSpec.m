@@ -395,7 +395,7 @@ describe(@"sign in", ^{
 		});
 		
 		it(@"should open the login URL", ^{
-			[[[OCTTestClient authorizeWithServerUsingWebBrowser:OCTServer.dotComServer scopes:OCTClientAuthorizationScopesRepository] publish] connect];
+			[[OCTTestClient authorizeWithServerUsingWebBrowser:OCTServer.dotComServer scopes:OCTClientAuthorizationScopesRepository] subscribe:nil];
 
 			expect(openedURL).willNot.beNil();
 			expect(openedURL.scheme).to.equal(dotComLoginURL.scheme);
@@ -456,7 +456,7 @@ describe(@"sign in", ^{
 				openedURL = URL;
 			}];
 
-			RACSignal *signal = [[OCTTestClient signInToServerUsingWebBrowser:OCTServer.dotComServer scopes:OCTClientAuthorizationScopesRepository] replay];
+			RACSignal *signal = [OCTTestClient signInToServerUsingWebBrowser:OCTServer.dotComServer scopes:OCTClientAuthorizationScopesRepository];
 			expect(openedURL).willNot.beNil();
 
 			NSString *state = openedURL.oct_queryArguments[@"state"];
