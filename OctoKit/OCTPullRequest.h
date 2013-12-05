@@ -9,6 +9,7 @@
 #import "OCTObject.h"
 
 @class OCTUser;
+@class OCTRepository;
 
 // The state of the pull request. open or closed.
 //
@@ -66,5 +67,9 @@ typedef enum : NSUInteger {
 // The state of this pull request.
 @property (nonatomic, readonly) OCTPullRequestState state;
 
+// The repository that contains the pull request's changes.
+@property (nonatomic, readonly) OCTRepository *headRepository;
 
+// The repository that the pull request's changes should be pulled into.
+@property (nonatomic, readonly) OCTRepository *baseRepository;
 @end
