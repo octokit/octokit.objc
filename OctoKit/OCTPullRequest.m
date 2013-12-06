@@ -8,6 +8,7 @@
 
 #import "OCTPullRequest.h"
 #import "OCTUser.h"
+#import "OCTRepository.h"
 #import "NSValueTransformer+OCTPredefinedTransformerAdditions.h"
 
 @implementation OCTPullRequest
@@ -26,6 +27,8 @@
 		@"updatedDate": @"updated_at",
 		@"closedDate": @"closed_at",
 		@"mergedDate": @"merged_at",
+		@"headRepository": @"head.repo",
+		@"baseRepository": @"base.repo",
 	}];
 }
 
@@ -86,6 +89,14 @@
 
 + (NSValueTransformer *)mergedDateJSONTransformer {
 	return [NSValueTransformer valueTransformerForName:OCTDateValueTransformerName];
+}
+
++ (NSValueTransformer *)headRepositoryJSONTransformer {
+	return [MTLValueTransformer mtl_JSONDictionaryTransformerWithModelClass:OCTRepository.class];
+}
+
++ (NSValueTransformer *)baseRepositoryJSONTransformer {
+	return [MTLValueTransformer mtl_JSONDictionaryTransformerWithModelClass:OCTRepository.class];
 }
 
 @end

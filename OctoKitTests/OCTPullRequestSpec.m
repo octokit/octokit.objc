@@ -90,7 +90,7 @@ NSDictionary *representation = @{
 			@"ssh_url": @"git@github.com:octocat/Hello-World.git",
 			@"svn_url": @"https://svn.github.com/octocat/Hello-World",
 			@"mirror_url": @"git://git.example.com/octocat/Hello-World",
-			@"id": @1296269,
+			@"id": @1296271,
 			@"owner": @{
 				@"login": @"octocat",
 				@"id": @1,
@@ -163,6 +163,8 @@ it(@"should initialize", ^{
 	expect(pullRequest.user.login).to.equal(@"octocat");
 	expect(pullRequest.title).to.equal(@"new-feature");
 	expect(pullRequest.body).to.equal(@"Please pull these awesome changes");
+	expect(pullRequest.headRepository.objectID).to.equal(@"1296269");
+	expect(pullRequest.baseRepository.objectID).to.equal(@"1296271");
 	expect(pullRequest.creationDate).to.equal([[[ISO8601DateFormatter alloc] init] dateFromString:@"2011-01-26T19:01:12Z"]);
 	expect(pullRequest.updatedDate).to.equal([[[ISO8601DateFormatter alloc] init] dateFromString:@"2011-01-26T19:02:12Z"]);
 	expect(pullRequest.closedDate).to.equal([[[ISO8601DateFormatter alloc] init] dateFromString:@"2011-01-26T19:03:12Z"]);
