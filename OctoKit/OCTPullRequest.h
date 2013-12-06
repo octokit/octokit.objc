@@ -68,8 +68,9 @@ typedef enum : NSUInteger {
 @property (nonatomic, readonly) OCTPullRequestState state;
 
 // The repository that contains the pull request's changes.
-@property (nonatomic, readonly) OCTRepository *headRepository;
+@property (nonatomic, copy, readonly) OCTRepository *headRepository;
 
 // The repository that the pull request's changes should be pulled into.
-@property (nonatomic, readonly) OCTRepository *baseRepository;
+@property (nonatomic, copy, readonly) OCTRepository *baseRepository;
+
 @end
