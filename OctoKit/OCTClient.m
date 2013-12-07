@@ -331,7 +331,7 @@ static NSString *OCTClientOAuthClientSecret = nil;
 
 	OCTClient *client = [[self alloc] initWithServer:server];
 
-	return [[[[[[[[[self
+	return [[[[[[[[[[self
 		authorizeWithServerUsingWebBrowser:server scopes:scopes]
 		flattenMap:^(NSString *temporaryCode) {
 			NSDictionary *params = @{
@@ -361,9 +361,10 @@ static NSString *OCTClientOAuthClientSecret = nil;
 		doNext:^(NSString *token) {
 			client.token = token;
 		}]
-		then:^{
+		ignoreValues]
+		concat:[RACSignal defer:^{
 			return [client fetchUserInfo];
-		}]
+		}]]
 		doNext:^(OCTUser *user) {
 			client.user = user;
 		}]
