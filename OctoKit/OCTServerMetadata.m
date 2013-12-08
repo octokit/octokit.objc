@@ -18,4 +18,15 @@
 	}];
 }
 
+- (instancetype)init {
+	self = [super init];
+	if (self == nil) return nil;
+
+	// Assume any servers that don't have the verifiable_password_authentication
+	// key support password authentication
+	_supportsPasswordAuthentication = YES;
+
+	return self;
+}
+
 @end

@@ -17,13 +17,14 @@ it(@"should map OCTResponses to parsedResults", ^{
 		[[OCTResponse alloc] initWithHTTPURLResponse:nil parsedResult:@{ @"key": @"value2" }],
 	];
 	
-	RACSignal *signal = testValues.rac_sequence.signal;
+	RACSignal *signal = testValues.rac_signal;
 	
 	__block NSUInteger count = 0;
 	[signal subscribeNext:^(id x) {
 		expect(x).to.beKindOf(OCTResponse.class);
 		count++;
 	}];
+
 	expect(count).will.equal(2);
 	
 	count = 0;
@@ -31,6 +32,7 @@ it(@"should map OCTResponses to parsedResults", ^{
 		expect(x).to.beKindOf(NSDictionary.class);
 		count++;
 	}];
+
 	expect(count).will.equal(2);
 });
 
