@@ -81,6 +81,8 @@
 		D000EC8E18564BDD00468E84 /* ref.json in Resources */ = {isa = PBXBuildFile; fileRef = D000EC8C18564BDD00468E84 /* ref.json */; };
 		D000EC9018564C0800468E84 /* OCTCommitSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = D000EC8F18564C0800468E84 /* OCTCommitSpec.m */; };
 		D000EC9118564C0800468E84 /* OCTCommitSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = D000EC8F18564C0800468E84 /* OCTCommitSpec.m */; };
+		D000EC9318564D2A00468E84 /* OCTRefSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = D000EC9218564D2A00468E84 /* OCTRefSpec.m */; };
+		D000EC9418564D2A00468E84 /* OCTRefSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = D000EC9218564D2A00468E84 /* OCTRefSpec.m */; };
 		D02E48FE16CBAB7A00257645 /* Mantle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0872069169E328B00016ACA /* Mantle.framework */; };
 		D042C4A11819E12F00143E07 /* OCTAccessToken.m in Sources */ = {isa = PBXBuildFile; fileRef = D042C49E1819E12F00143E07 /* OCTAccessToken.m */; };
 		D042C4A21819E12F00143E07 /* OCTAccessToken.m in Sources */ = {isa = PBXBuildFile; fileRef = D042C49E1819E12F00143E07 /* OCTAccessToken.m */; };
@@ -685,6 +687,7 @@
 		D000EC7C18564B6B00468E84 /* commit.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = commit.json; sourceTree = "<group>"; };
 		D000EC8C18564BDD00468E84 /* ref.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ref.json; sourceTree = "<group>"; };
 		D000EC8F18564C0800468E84 /* OCTCommitSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCTCommitSpec.m; sourceTree = "<group>"; };
+		D000EC9218564D2A00468E84 /* OCTRefSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCTRefSpec.m; sourceTree = "<group>"; };
 		D042C49D1819E12F00143E07 /* OCTAccessToken.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCTAccessToken.h; sourceTree = "<group>"; };
 		D042C49E1819E12F00143E07 /* OCTAccessToken.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCTAccessToken.m; sourceTree = "<group>"; };
 		D0476E36177919200071F3CB /* OctoKitDependencies.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = OctoKitDependencies.xcodeproj; path = External/OctoKitDependencies/OctoKitDependencies.xcodeproj; sourceTree = "<group>"; };
@@ -1198,6 +1201,7 @@
 				D08721CA169E398C00016ACA /* OCTOrganizationSpec.m */,
 				D08721CB169E398C00016ACA /* OCTPullRequestCommentSpec.m */,
 				D08721CC169E398C00016ACA /* OCTPullRequestSpec.m */,
+				D000EC9218564D2A00468E84 /* OCTRefSpec.m */,
 				D08721CD169E398C00016ACA /* OCTRepositorySpec.m */,
 				D058675516F2649800941A32 /* OCTResponseSpec.m */,
 				D08721CE169E398C00016ACA /* OCTServerSpec.m */,
@@ -2056,6 +2060,7 @@
 				D05E752016D35886001AA17B /* OCTClientSpec.m in Sources */,
 				7A1F642B17F11EFB008155CF /* OCTIssueCommentSpec.m in Sources */,
 				F6E2EC4016EB04C60096C268 /* RACSignalAdditionsSpec.m in Sources */,
+				D000EC9318564D2A00468E84 /* OCTRefSpec.m in Sources */,
 				D0DD8EF817BC5C0300657FDA /* OCTGistSpec.m in Sources */,
 				D058675616F2649800941A32 /* OCTResponseSpec.m in Sources */,
 			);
@@ -2147,6 +2152,7 @@
 				D05E752116D35886001AA17B /* OCTClientSpec.m in Sources */,
 				7A1F642C17F11EFB008155CF /* OCTIssueCommentSpec.m in Sources */,
 				F6E2EC4116EB04C60096C268 /* RACSignalAdditionsSpec.m in Sources */,
+				D000EC9418564D2A00468E84 /* OCTRefSpec.m in Sources */,
 				D0DD8EF917BC5C0300657FDA /* OCTGistSpec.m in Sources */,
 				D058675716F2649800941A32 /* OCTResponseSpec.m in Sources */,
 			);
