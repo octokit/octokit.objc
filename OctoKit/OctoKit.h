@@ -19,6 +19,7 @@
 #import <OctoKit/OCTClient+Organizations.h>
 #import <OctoKit/OCTClient+Repositories.h>
 #import <OctoKit/OCTClient+User.h>
+#import <OctoKit/OCTCommit.h>
 #import <OctoKit/OCTCommitComment.h>
 #import <OctoKit/OCTCommitCommentEvent.h>
 #import <OctoKit/OCTContent.h>
@@ -42,6 +43,7 @@
 #import <OctoKit/OCTPullRequestCommentEvent.h>
 #import <OctoKit/OCTPullRequestEvent.h>
 #import <OctoKit/OCTPushEvent.h>
+#import <OctoKit/OCTRef.h>
 #import <OctoKit/OCTRefEvent.h>
 #import <OctoKit/OCTRepository.h>
 #import <OctoKit/OCTResponse.h>

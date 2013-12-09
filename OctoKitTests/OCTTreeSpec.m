@@ -6,8 +6,9 @@
 //  Copyright (c) 2013 GitHub. All rights reserved.
 //
 
-#import "OCTTree.h"
 #import "OCTObjectSpec.h"
+
+#import "OCTTree.h"
 #import "OCTTreeEntry.h"
 #import "OCTBlobTreeEntry.h"
 #import "OCTContentTreeEntry.h"
