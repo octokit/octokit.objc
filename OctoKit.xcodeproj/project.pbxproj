@@ -75,6 +75,10 @@
 		9CF7FB9717957A6A00CA34FF /* repository.json in Resources */ = {isa = PBXBuildFile; fileRef = 9CF7FB9517957A6A00CA34FF /* repository.json */; };
 		9CF7FBBC179581EC00CA34FF /* user_starred.json in Resources */ = {isa = PBXBuildFile; fileRef = 9CF7FBBB179581EC00CA34FF /* user_starred.json */; };
 		9CF7FBBD179581EC00CA34FF /* user_starred.json in Resources */ = {isa = PBXBuildFile; fileRef = 9CF7FBBB179581EC00CA34FF /* user_starred.json */; };
+		D000EC7D18564B6B00468E84 /* commit.json in Resources */ = {isa = PBXBuildFile; fileRef = D000EC7C18564B6B00468E84 /* commit.json */; };
+		D000EC7E18564B6B00468E84 /* commit.json in Resources */ = {isa = PBXBuildFile; fileRef = D000EC7C18564B6B00468E84 /* commit.json */; };
+		D000EC8D18564BDD00468E84 /* ref.json in Resources */ = {isa = PBXBuildFile; fileRef = D000EC8C18564BDD00468E84 /* ref.json */; };
+		D000EC8E18564BDD00468E84 /* ref.json in Resources */ = {isa = PBXBuildFile; fileRef = D000EC8C18564BDD00468E84 /* ref.json */; };
 		D02E48FE16CBAB7A00257645 /* Mantle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0872069169E328B00016ACA /* Mantle.framework */; };
 		D042C4A11819E12F00143E07 /* OCTAccessToken.m in Sources */ = {isa = PBXBuildFile; fileRef = D042C49E1819E12F00143E07 /* OCTAccessToken.m */; };
 		D042C4A21819E12F00143E07 /* OCTAccessToken.m in Sources */ = {isa = PBXBuildFile; fileRef = D042C49E1819E12F00143E07 /* OCTAccessToken.m */; };
@@ -676,6 +680,8 @@
 		9CB0589F17933F51002CF498 /* OCTContentSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCTContentSpec.m; sourceTree = "<group>"; };
 		9CF7FB9517957A6A00CA34FF /* repository.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = repository.json; sourceTree = "<group>"; };
 		9CF7FBBB179581EC00CA34FF /* user_starred.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = user_starred.json; sourceTree = "<group>"; };
+		D000EC7C18564B6B00468E84 /* commit.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = commit.json; sourceTree = "<group>"; };
+		D000EC8C18564BDD00468E84 /* ref.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ref.json; sourceTree = "<group>"; };
 		D042C49D1819E12F00143E07 /* OCTAccessToken.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCTAccessToken.h; sourceTree = "<group>"; };
 		D042C49E1819E12F00143E07 /* OCTAccessToken.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCTAccessToken.m; sourceTree = "<group>"; };
 		D0476E36177919200071F3CB /* OctoKitDependencies.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = OctoKitDependencies.xcodeproj; path = External/OctoKitDependencies/OctoKitDependencies.xcodeproj; sourceTree = "<group>"; };
@@ -1409,6 +1415,7 @@
 			children = (
 				D087B943181A485200821DCD /* access_token.json */,
 				8813687317A1AD1E00F74214 /* authorizations.json */,
+				D000EC7C18564B6B00468E84 /* commit.json */,
 				9CB0589C17933F43002CF498 /* content.json */,
 				D0D8C09016DFF1540070399E /* events.json */,
 				D0E3E8C31835A32100EF530F /* meta.json */,
@@ -1417,6 +1424,7 @@
 				D0D8C09216DFF1540070399E /* page2.json */,
 				D0D8C09316DFF1540070399E /* page3.json */,
 				D0D8C09416DFF1540070399E /* rate_limit.json */,
+				D000EC8C18564BDD00468E84 /* ref.json */,
 				9CF7FB9517957A6A00CA34FF /* repository.json */,
 				88CD632817D8D77F00E2CD47 /* tree.json */,
 				D087B940181A47EB00821DCD /* user.json */,
@@ -1914,6 +1922,7 @@
 			files = (
 				D0871ECC169E2EFC00016ACA /* InfoPlist.strings in Resources */,
 				D0D8C09516DFF1540070399E /* events.json in Resources */,
+				D000EC8D18564BDD00468E84 /* ref.json in Resources */,
 				8813687417A1AF3000F74214 /* authorizations.json in Resources */,
 				D0D8C09716DFF1540070399E /* page1.json in Resources */,
 				D0D8C09916DFF1540070399E /* page2.json in Resources */,
@@ -1924,6 +1933,7 @@
 				D0E3E8C41835A32100EF530F /* meta.json in Resources */,
 				D087B944181A485200821DCD /* access_token.json in Resources */,
 				9CB0589D17933F45002CF498 /* content.json in Resources */,
+				D000EC7D18564B6B00468E84 /* commit.json in Resources */,
 				9CF7FB9617957A6A00CA34FF /* repository.json in Resources */,
 				D087B941181A47EB00821DCD /* user.json in Resources */,
 				9CF7FBBC179581EC00CA34FF /* user_starred.json in Resources */,
@@ -1947,6 +1957,8 @@
 				D0D8C09C16DFF1540070399E /* page3.json in Resources */,
 				D0E3E8C51835A32100EF530F /* meta.json in Resources */,
 				D0D8C09E16DFF1540070399E /* rate_limit.json in Resources */,
+				D000EC8E18564BDD00468E84 /* ref.json in Resources */,
+				D000EC7E18564B6B00468E84 /* commit.json in Resources */,
 				D0E41B8816DFF37E00E321CF /* notifications.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
