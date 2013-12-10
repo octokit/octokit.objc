@@ -7,6 +7,7 @@
 //
 
 #import "OCTCommitComment.h"
+#import "OCTUser.h"
 #import "NSValueTransformer+OCTPredefinedTransformerAdditions.h"
 
 @implementation OCTCommitComment
@@ -15,7 +16,7 @@
 @synthesize path = _path;
 @synthesize position = _position;
 @synthesize commitSHA = _commitSHA;
-@synthesize commenterLogin = _commenterLogin;
+@synthesize commenter = _commenter;
 @synthesize creationDate = _creationDate;
 @synthesize updatedDate = _updatedDate;
 
@@ -25,7 +26,7 @@
 	return [super.JSONKeyPathsByPropertyKey mtl_dictionaryByAddingEntriesFromDictionary:@{
 		@"HTMLURL": @"html_url",
 		@"commitSHA": @"commit_id",
-		@"commenterLogin": @"user.login",
+		@"commenter": @"user",
 		@"creationDate": @"created_at",
 		@"updatedDate": @"updated_at",
 	}];
@@ -41,6 +42,10 @@
 
 + (NSValueTransformer *)updatedDateJSONTransformer {
 	return [NSValueTransformer valueTransformerForName:OCTDateValueTransformerName];
+}
+
++ (NSValueTransformer *)commenterJSONTransformer {
+	return [NSValueTransformer mtl_JSONDictionaryTransformerWithModelClass:OCTUser.class];
 }
 
 @end

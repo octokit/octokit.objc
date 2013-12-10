@@ -8,11 +8,13 @@
 
 #import <Foundation/Foundation.h>
 
+@class OCTUser;
+
 // A comment can be added to an issue, pull request, or commit.
 @protocol OCTComment <NSObject>
 
 // The login of the user who created this comment.
-@property (nonatomic, copy, readonly) NSString *commenterLogin;
+@property (nonatomic, copy, readonly) OCTUser *commenter;
 
 // The date at which the comment was originally created.
 @property (nonatomic, copy, readonly) NSDate *creationDate;
