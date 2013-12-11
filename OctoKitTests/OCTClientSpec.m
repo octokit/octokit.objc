@@ -385,6 +385,7 @@ describe(@"sign in", ^{
 		beforeEach(^{
 			OCTTestClient.shouldSucceedOpeningURL = YES;
 
+			openedURL = nil;
 			openedURLDisposable = [OCTTestClient.openedURLs subscribeNext:^(NSURL *URL) {
 				openedURL = URL;
 			}];
@@ -438,7 +439,7 @@ describe(@"sign in", ^{
 			OCTTestClient.shouldSucceedOpeningURL = NO;
 
 			NSError *error = nil;
-			BOOL success = [[OCTTestClient authorizeWithServerUsingWebBrowser:OCTServer.dotComServer scopes:OCTClientAuthorizationScopesRepository] waitUntilCompleted:&error];
+			BOOL success = [[OCTTestClient authorizeWithServerUsingWebBrowser:OCTServer.dotComServer scopes:OCTClientAuthorizationScopesRepository] asynchronouslyWaitUntilCompleted:&error];
 			expect(success).to.beFalsy();
 			expect(error).notTo.beNil();
 
@@ -451,19 +452,15 @@ describe(@"sign in", ^{
 		NSString *token = @"e72e16c7e42f292c6912e7710c838347ae178b4a";
 
 		RACSignal * (^signInAndCallBack)(void) = ^{
-			__block NSURL *openedURL;
 			[[OCTTestClient.openedURLs take:1] subscribeNext:^(NSURL *URL) {
-				openedURL = URL;
+				expect(URL).notTo.beNil();
+
+				NSString *state = URL.oct_queryArguments[@"state"];
+				NSURL *matchingURL = [NSURL URLWithString:[NSString stringWithFormat:@"?state=%@&code=12345", state] relativeToURL:dotComLoginURL];
+				[OCTTestClient completeSignInWithCallbackURL:matchingURL];
 			}];
 
-			RACSignal *signal = [OCTTestClient signInToServerUsingWebBrowser:OCTServer.dotComServer scopes:OCTClientAuthorizationScopesRepository];
-			expect(openedURL).willNot.beNil();
-
-			NSString *state = openedURL.oct_queryArguments[@"state"];
-			NSURL *matchingURL = [NSURL URLWithString:[NSString stringWithFormat:@"?state=%@&code=12345", state] relativeToURL:dotComLoginURL];
-			[OCTTestClient completeSignInWithCallbackURL:matchingURL];
-
-			return signal;
+			return [OCTTestClient signInToServerUsingWebBrowser:OCTServer.dotComServer scopes:OCTClientAuthorizationScopesRepository];
 		};
 
 		beforeEach(^{
