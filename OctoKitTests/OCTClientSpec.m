@@ -507,7 +507,7 @@ describe(@"sign in", ^{
 	});
 });
 
-fdescribe(@"+fetchMetadataForServer:", ^{
+describe(@"+fetchMetadataForServer:", ^{
 	it(@"should successfully fetch metadata", ^{
 		stubResponse(@"/meta", @"meta.json");
 

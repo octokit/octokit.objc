@@ -6,7 +6,7 @@
 //  Copyright (c) 2013 GitHub. All rights reserved.
 //
 
-#import <OctoKit/OctoKit.h>
+#import "OCTObject.h"
 
 // A git tree.
 @interface OCTTree : OCTObject
