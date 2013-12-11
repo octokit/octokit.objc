@@ -378,7 +378,7 @@ static NSString *OCTClientOAuthClientSecret = nil;
 	NSString *clientID = self.class.clientID;
 	NSAssert(clientID != nil, @"+setClientID:clientSecret: must be invoked before calling %@", NSStringFromSelector(_cmd));
 
-	return [[[RACSignal
+	return [[RACSignal
 		create:^(id<RACSubscriber> subscriber) {
 			CFUUIDRef uuid = CFUUIDCreate(NULL);
 			NSString *uuidString = CFBridgingRelease(CFUUIDCreateString(NULL, uuid));
@@ -405,17 +405,16 @@ static NSString *OCTClientOAuthClientSecret = nil;
 			NSString *URLString = [[NSString alloc] initWithFormat:@"%@/login/oauth/authorize?client_id=%@&scope=%@&state=%@", server.baseWebURL, clientID, scope, uuidString];
 			NSURL *webURL = [NSURL URLWithString:URLString];
 
-			if (subscriber.disposable.disposed) return;
-
-			if (![self openURL:webURL]) {
-				[subscriber sendError:[NSError errorWithDomain:OCTClientErrorDomain code:OCTClientErrorOpeningBrowserFailed userInfo:@{
-					NSLocalizedDescriptionKey: NSLocalizedString(@"Could not open web browser", nil),
-					NSLocalizedRecoverySuggestionErrorKey: NSLocalizedString(@"Please make sure you have a default web browser set.", nil),
-					NSURLErrorKey: webURL
-				}]];
-			}
+			[subscriber.disposable addDisposable:[RACScheduler.mainThreadScheduler schedule:^{
+				if (![self openURL:webURL]) {
+					[subscriber sendError:[NSError errorWithDomain:OCTClientErrorDomain code:OCTClientErrorOpeningBrowserFailed userInfo:@{
+						NSLocalizedDescriptionKey: NSLocalizedString(@"Could not open web browser", nil),
+						NSLocalizedRecoverySuggestionErrorKey: NSLocalizedString(@"Please make sure you have a default web browser set.", nil),
+						NSURLErrorKey: webURL
+					}]];
+				}
+			}]];
 		}]
-		subscribeOn:RACScheduler.mainThreadScheduler]
 		setNameWithFormat:@"+authorizeWithServerUsingWebBrowser: %@ scopes:", server];
 }
 
