@@ -3,7 +3,7 @@
 OctoKit is a Cocoa and Cocoa Touch framework for interacting with the [GitHub
 API](http://developer.github.com), built using
 [AFNetworking](https://github.com/AFNetworking/AFNetworking),
-[Mantle](https://github.com/github/Mantle), and
+[Mantle](https://github.com/MantleFramework/Mantle), and
 [ReactiveCocoa](https://github.com/ReactiveCocoa/ReactiveCocoa).
 
 ## Making Requests
