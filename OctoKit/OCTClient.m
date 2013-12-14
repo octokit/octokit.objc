@@ -402,7 +402,13 @@ static NSString *OCTClientOAuthClientSecret = nil;
 				subscribe:subscriber];
 
 			NSString *scope = [[self scopesArrayFromScopes:scopes] componentsJoinedByString:@","];
-			NSString *URLString = [[NSString alloc] initWithFormat:@"%@/login/oauth/authorize?client_id=%@&scope=%@&state=%@", server.baseWebURL, clientID, scope, uuidString];
+
+			// Trim trailing slashes from URL entered by the user, so we don't open
+			// their web browser to a URL that contains empty path components.
+			NSCharacterSet *slashSet = [NSCharacterSet characterSetWithCharactersInString:@"/"];
+			NSString *baseURLString = [server.baseWebURL.absoluteString stringByTrimmingCharactersInSet:slashSet];
+
+			NSString *URLString = [[NSString alloc] initWithFormat:@"%@/login/oauth/authorize?client_id=%@&scope=%@&state=%@", baseURLString, clientID, scope, uuidString];
 			NSURL *webURL = [NSURL URLWithString:URLString];
 
 			[subscriber.disposable addDisposable:[RACScheduler.mainThreadScheduler schedule:^{
