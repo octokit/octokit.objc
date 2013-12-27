@@ -715,7 +715,7 @@ static NSString *OCTClientOAuthClientSecret = nil;
 	
 	NSInteger HTTPCode = operation.response.statusCode;
 	NSMutableDictionary *userInfo = [NSMutableDictionary dictionary];
-	NSInteger errorCode = OCTClientErrorServiceRequestFailed;
+	NSInteger errorCode = OCTClientErrorConnectionFailed;
 
 	NSDictionary *responseDictionary = nil;
 	if ([operation isKindOfClass:AFJSONRequestOperation.class]) {
