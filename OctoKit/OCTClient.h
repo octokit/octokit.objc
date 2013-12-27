@@ -23,6 +23,10 @@ extern const NSInteger OCTClientErrorAuthenticationFailed;
 // password.
 extern const NSInteger OCTClientErrorTwoFactorAuthenticationOneTimePasswordRequired;
 
+// The user attempted to authenticate with an OAuth token (like a Personal
+// Access Token), when the endpoint actually requires a password.
+extern const NSInteger OCTClientErrorTokenAuthenticationUnsupported;
+
 // The server is refusing to process the request because of an
 // authentication-related issue (HTTP error 403).
 //

@@ -30,6 +30,7 @@ const NSInteger OCTClientErrorTwoFactorAuthenticationOneTimePasswordRequired = 6
 const NSInteger OCTClientErrorUnsupportedServer = 672;
 const NSInteger OCTClientErrorOpeningBrowserFailed = 673;
 const NSInteger OCTClientErrorRequestForbidden = 674;
+const NSInteger OCTClientErrorTokenAuthenticationUnsupported = 675;
 
 NSString * const OCTClientErrorRequestURLKey = @"OCTClientErrorRequestURLKey";
 NSString * const OCTClientErrorHTTPStatusCodeKey = @"OCTClientErrorHTTPStatusCodeKey";
@@ -204,6 +205,15 @@ static NSString *OCTClientOAuthClientSecret = nil;
 	return [NSError errorWithDomain:OCTClientErrorDomain code:OCTClientErrorUnsupportedServer userInfo:userInfo];
 }
 
++ (NSError *)tokenUnsupportedError {
+	NSDictionary *userInfo = @{
+		NSLocalizedDescriptionKey: NSLocalizedString(@"Password Required", @""),
+		NSLocalizedFailureReasonErrorKey: NSLocalizedString(@"You must sign in with a password. Token authentication is not supported.", @""),
+	};
+
+	return [NSError errorWithDomain:OCTClientErrorDomain code:OCTClientErrorTokenAuthenticationUnsupported userInfo:userInfo];
+}
+
 #pragma mark Lifecycle
 
 - (id)initWithBaseURL:(NSURL *)url {
@@ -280,6 +290,16 @@ static NSString *OCTClientOAuthClientSecret = nil;
 		array];
 }
 
++ (BOOL)looksLikeAToken:(NSString *)password {
+	NSParameterAssert(password != nil);
+
+	NSError *error = nil;
+	NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\A[0-9a-z]{40}\\z" options:0 error:&error];
+	NSAssert(regex != nil, @"Error creating token-checking regex: %@", error);
+
+	return [regex numberOfMatchesInString:password options:NSMatchingAnchored range:NSMakeRange(0, password.length)] > 0;
+}
+
 + (RACSignal *)signInAsUser:(OCTUser *)user password:(NSString *)password oneTimePassword:(NSString *)oneTimePassword scopes:(OCTClientAuthorizationScopes)scopes {
 	NSParameterAssert(user != nil);
 	NSParameterAssert(password != nil);
@@ -308,7 +328,16 @@ static NSString *OCTClientOAuthClientSecret = nil;
 		}]
 		catch:^(NSError *error) {
 			NSNumber *statusCode = error.userInfo[OCTClientErrorHTTPStatusCodeKey];
-			if (statusCode.integerValue == 404) error = self.class.unsupportedVersionError;
+			if (statusCode.integerValue == 404) {
+				// This is a total hack, but there doesn't appear to be a better
+				// way to distinguish 404s due to missing APIs and 404s due to
+				// the use of an OAuth token.
+				if ([self looksLikeAToken:password]) {
+					error = self.class.tokenUnsupportedError;
+				} else {
+					error = self.class.unsupportedVersionError;
+				}
+			}
 
 			return [RACSignal error:error];
 		}]
