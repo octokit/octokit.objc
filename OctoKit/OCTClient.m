@@ -727,40 +727,9 @@ static NSString *OCTClientOAuthClientSecret = nil;
 		}
 	}
 
+	// Prepare a default error message from the information available in the
+	// response, or the operation's error.
 	NSString *errorDescription = responseDictionary[@"message"] ?: operation.error.localizedDescription;
-	
-	if (HTTPCode == 401) {
-		NSError *errorTemplate = self.class.authenticationRequiredError;
-
-		errorCode = errorTemplate.code;
-		NSString *OTPHeader = operation.response.allHeaderFields[OCTClientOneTimePasswordHeaderField];
-		// E.g., "required; sms"
-		NSArray *segments = [OTPHeader componentsSeparatedByString:@";"];
-		if (segments.count == 2) {
-			NSString *status = [segments[0] stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet];
-			NSString *medium = [segments[1] stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet];
-			if ([status.lowercaseString isEqual:@"required"]) {
-				errorCode = OCTClientErrorTwoFactorAuthenticationOneTimePasswordRequired;
-				NSDictionary *mediumStringToWrappedMedium = @{
-					@"sms": @(OCTClientOneTimePasswordMediumSMS),
-					@"app": @(OCTClientOneTimePasswordMediumApp),
-				};
-				NSNumber *wrappedMedium = mediumStringToWrappedMedium[medium.lowercaseString];
-				if (wrappedMedium != nil) userInfo[OCTClientErrorOneTimePasswordMediumKey] = wrappedMedium;
-			}
-		}
-
-		[userInfo addEntriesFromDictionary:errorTemplate.userInfo];
-	} else if (HTTPCode == 400) {
-		errorCode = OCTClientErrorBadRequest;
-	} else if (HTTPCode == 403) {
-		errorCode = OCTClientErrorRequestForbidden;
-	} else if (HTTPCode == 422) {
-		errorCode = OCTClientErrorServiceRequestFailed;
-	} else if (operation.error != nil) {
-		errorCode = OCTClientErrorConnectionFailed;
-	}
-
 	if (errorDescription == nil) {
 		if ([operation.error.domain isEqual:NSURLErrorDomain]) {
 			errorDescription = NSLocalizedString(@"There was a problem connecting to the server.", @"");
@@ -787,6 +756,47 @@ static NSString *OCTClientOAuthClientSecret = nil;
 	}
 
 	userInfo[NSLocalizedDescriptionKey] = errorDescription;
+	
+	switch (HTTPCode) {
+		case 401: {
+			NSError *errorTemplate = self.class.authenticationRequiredError;
+
+			errorCode = errorTemplate.code;
+			NSString *OTPHeader = operation.response.allHeaderFields[OCTClientOneTimePasswordHeaderField];
+
+			// E.g., "required; sms"
+			NSArray *segments = [OTPHeader componentsSeparatedByString:@";"];
+			if (segments.count == 2) {
+				NSString *status = [segments[0] stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet];
+				NSString *medium = [segments[1] stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet];
+				if ([status.lowercaseString isEqual:@"required"]) {
+					errorCode = OCTClientErrorTwoFactorAuthenticationOneTimePasswordRequired;
+					NSDictionary *mediumStringToWrappedMedium = @{
+						@"sms": @(OCTClientOneTimePasswordMediumSMS),
+						@"app": @(OCTClientOneTimePasswordMediumApp),
+					};
+					NSNumber *wrappedMedium = mediumStringToWrappedMedium[medium.lowercaseString];
+					if (wrappedMedium != nil) userInfo[OCTClientErrorOneTimePasswordMediumKey] = wrappedMedium;
+				}
+			}
+
+			[userInfo addEntriesFromDictionary:errorTemplate.userInfo];
+			break;
+		}
+
+		case 400:
+			errorCode = OCTClientErrorBadRequest;
+			break;
+
+		case 403:
+			errorCode = OCTClientErrorRequestForbidden;
+			break;
+
+		case 422:
+			errorCode = OCTClientErrorServiceRequestFailed;
+			break;
+	}
+
 	userInfo[OCTClientErrorHTTPStatusCodeKey] = @(HTTPCode);
 	if (operation.request.URL != nil) userInfo[OCTClientErrorRequestURLKey] = operation.request.URL;
 	if (operation.error != nil) userInfo[NSUnderlyingErrorKey] = operation.error;
