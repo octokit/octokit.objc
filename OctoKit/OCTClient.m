@@ -726,7 +726,7 @@ static NSString *OCTClientOAuthClientSecret = nil;
 		}
 	}
 
-	NSString *message = responseDictionary[@"message"];
+	NSString *errorDescription = responseDictionary[@"message"] ?: operation.error.localizedDescription;
 	
 	if (HTTPCode == 401) {
 		NSError *errorTemplate = self.class.authenticationRequiredError;
@@ -752,36 +752,38 @@ static NSString *OCTClientOAuthClientSecret = nil;
 		[userInfo addEntriesFromDictionary:errorTemplate.userInfo];
 	} else if (HTTPCode == 400) {
 		errorCode = OCTClientErrorBadRequest;
-		if (message != nil) userInfo[NSLocalizedDescriptionKey] = message;
 	} else if (HTTPCode == 422) {
 		errorCode = OCTClientErrorServiceRequestFailed;
-		
-		NSArray *errorDictionaries = responseDictionary[@"errors"];
-		if ([errorDictionaries isKindOfClass:NSArray.class]) {
-			NSMutableArray *errors = [NSMutableArray arrayWithCapacity:errorDictionaries.count];
-			for (NSDictionary *errorDictionary in errorDictionaries) {
-				NSString *message = [self errorMessageFromErrorDictionary:errorDictionary];
-				if (message == nil) continue;
-				
-				[errors addObject:message];
-			}
-
-			userInfo[NSLocalizedDescriptionKey] = [NSString stringWithFormat:NSLocalizedString(@"%@:\n\n%@", @""), message, [errors componentsJoinedByString:@"\n"]];
-		}
 	} else if (operation.error != nil) {
 		errorCode = OCTClientErrorConnectionFailed;
+	}
+
+	if (errorDescription == nil) {
 		if ([operation.error.domain isEqual:NSURLErrorDomain]) {
-			userInfo[NSLocalizedDescriptionKey] = NSLocalizedString(@"There was a problem connecting to the server.", @"");
+			errorDescription = NSLocalizedString(@"There was a problem connecting to the server.", @"");
 		} else {
-			NSString *errorDescription = operation.error.userInfo[NSLocalizedDescriptionKey];
-			if (errorDescription != nil) userInfo[NSLocalizedDescriptionKey] = errorDescription;
+			errorDescription = NSLocalizedString(@"The universe has collapsed.", @"");
 		}
 	}
+	
+	NSArray *errorDictionaries = responseDictionary[@"errors"];
+	if ([errorDictionaries isKindOfClass:NSArray.class]) {
+		NSString *errors = [[[errorDictionaries.rac_sequence
+			flattenMap:^(NSDictionary *errorDictionary) {
+				NSString *message = [self errorMessageFromErrorDictionary:errorDictionary];
+				if (message == nil) {
+					return [RACSequence empty];
+				} else {
+					return [RACSequence return:message];
+				}
+			}]
+			array]
+			componentsJoinedByString:@"\n"];
 
-	if (userInfo[NSLocalizedDescriptionKey] == nil) {
-		userInfo[NSLocalizedDescriptionKey] = NSLocalizedString(@"The universe has collapsed.", @"");
+		errorDescription = [NSString stringWithFormat:NSLocalizedString(@"%@:\n\n%@", @""), errorDescription, errors];
 	}
 
+	userInfo[NSLocalizedDescriptionKey] = errorDescription;
 	userInfo[OCTClientErrorHTTPStatusCodeKey] = @(HTTPCode);
 	if (operation.request.URL != nil) userInfo[OCTClientErrorRequestURLKey] = operation.request.URL;
 	if (operation.error != nil) userInfo[NSUnderlyingErrorKey] = operation.error;
