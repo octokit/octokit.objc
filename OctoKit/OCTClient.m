@@ -29,6 +29,7 @@ const NSInteger OCTClientErrorBadRequest = 670;
 const NSInteger OCTClientErrorTwoFactorAuthenticationOneTimePasswordRequired = 671;
 const NSInteger OCTClientErrorUnsupportedServer = 672;
 const NSInteger OCTClientErrorOpeningBrowserFailed = 673;
+const NSInteger OCTClientErrorRequestForbidden = 674;
 
 NSString * const OCTClientErrorRequestURLKey = @"OCTClientErrorRequestURLKey";
 NSString * const OCTClientErrorHTTPStatusCodeKey = @"OCTClientErrorHTTPStatusCodeKey";
@@ -752,6 +753,8 @@ static NSString *OCTClientOAuthClientSecret = nil;
 		[userInfo addEntriesFromDictionary:errorTemplate.userInfo];
 	} else if (HTTPCode == 400) {
 		errorCode = OCTClientErrorBadRequest;
+	} else if (HTTPCode == 403) {
+		errorCode = OCTClientErrorRequestForbidden;
 	} else if (HTTPCode == 422) {
 		errorCode = OCTClientErrorServiceRequestFailed;
 	} else if (operation.error != nil) {

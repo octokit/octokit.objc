@@ -23,6 +23,15 @@ extern const NSInteger OCTClientErrorAuthenticationFailed;
 // password.
 extern const NSInteger OCTClientErrorTwoFactorAuthenticationOneTimePasswordRequired;
 
+// The server is refusing to process the request because of an
+// authentication-related issue (HTTP error 403).
+//
+// Often, this means that there have been too many failed attempts to
+// authenticate. Even a successful authentication will not work while this error
+// code is being returned. The only recourse is to stop trying and wait for
+// a bit.
+extern const NSInteger OCTClientErrorRequestForbidden;
+
 // The request was invalid (HTTP error 400).
 extern const NSInteger OCTClientErrorBadRequest;
 
