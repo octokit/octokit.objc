@@ -35,11 +35,13 @@ const NSInteger OCTClientErrorTokenAuthenticationUnsupported = 675;
 NSString * const OCTClientErrorRequestURLKey = @"OCTClientErrorRequestURLKey";
 NSString * const OCTClientErrorHTTPStatusCodeKey = @"OCTClientErrorHTTPStatusCodeKey";
 NSString * const OCTClientErrorOneTimePasswordMediumKey = @"OCTClientErrorOneTimePasswordMediumKey";
+NSString * const OCTClientErrorOAuthScopesStringKey = @"OCTClientErrorOAuthScopesStringKey";
 
 NSString * const OCTClientAPIVersion = @"beta";
 
 static const NSInteger OCTClientNotModifiedStatusCode = 304;
 static NSString * const OCTClientOneTimePasswordHeaderField = @"X-GitHub-OTP";
+static NSString * const OCTClientOAuthScopesHeaderField = @"X-OAuth-Scopes";
 
 // An environment variable that, when present, will enable logging of all
 // responses.
@@ -290,16 +292,6 @@ static NSString *OCTClientOAuthClientSecret = nil;
 		array];
 }
 
-+ (BOOL)looksLikeAToken:(NSString *)password {
-	NSParameterAssert(password != nil);
-
-	NSError *error = nil;
-	NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\A[0-9a-z]{40}\\z" options:0 error:&error];
-	NSAssert(regex != nil, @"Error creating token-checking regex: %@", error);
-
-	return [regex numberOfMatchesInString:password options:NSMatchingAnchored range:NSMakeRange(0, password.length)] > 0;
-}
-
 + (RACSignal *)signInAsUser:(OCTUser *)user password:(NSString *)password oneTimePassword:(NSString *)oneTimePassword scopes:(OCTClientAuthorizationScopes)scopes {
 	NSParameterAssert(user != nil);
 	NSParameterAssert(password != nil);
@@ -329,10 +321,7 @@ static NSString *OCTClientOAuthClientSecret = nil;
 		catch:^(NSError *error) {
 			NSNumber *statusCode = error.userInfo[OCTClientErrorHTTPStatusCodeKey];
 			if (statusCode.integerValue == 404) {
-				// This is a total hack, but there doesn't appear to be a better
-				// way to distinguish 404s due to missing APIs and 404s due to
-				// the use of an OAuth token.
-				if ([self looksLikeAToken:password]) {
+				if (error.userInfo[OCTClientErrorOAuthScopesStringKey] != nil) {
 					error = self.class.tokenUnsupportedError;
 				} else {
 					error = self.class.unsupportedVersionError;
@@ -829,6 +818,9 @@ static NSString *OCTClientOAuthClientSecret = nil;
 	userInfo[OCTClientErrorHTTPStatusCodeKey] = @(HTTPCode);
 	if (operation.request.URL != nil) userInfo[OCTClientErrorRequestURLKey] = operation.request.URL;
 	if (operation.error != nil) userInfo[NSUnderlyingErrorKey] = operation.error;
+
+	NSString *scopes = operation.response.allHeaderFields[OCTClientOAuthScopesHeaderField];
+	if (scopes != nil) userInfo[OCTClientErrorOAuthScopesStringKey] = scopes;
 	
 	return [NSError errorWithDomain:OCTClientErrorDomain code:errorCode userInfo:userInfo];
 }

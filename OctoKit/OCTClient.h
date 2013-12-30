@@ -68,6 +68,12 @@ extern NSString * const OCTClientErrorRequestURLKey;
 // that was returned with the error.
 extern NSString * const OCTClientErrorHTTPStatusCodeKey;
 
+// A user info key associated with an NSString describing the OAuth scopes that
+// were authorized for the failed request.
+//
+// This key won't be present if the request did not use OAuth.
+extern NSString * const OCTClientErrorOAuthScopesStringKey;
+
 // A user info key associated with an NSNumber-wrapped
 // OCTClientOneTimePasswordMedium which indicates the medium of delivery for the
 // one-time password required by the API. Only valid when the error's code is
