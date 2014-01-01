@@ -760,6 +760,23 @@ static NSString *OCTClientOAuthClientSecret = nil;
 	return errorDescription;
 }
 
++ (NSNumber *)oneTimePasswordMediumFromHeader:(NSString *)OTPHeader {
+	// E.g., "required; sms"
+	NSArray *segments = [OTPHeader componentsSeparatedByString:@";"];
+	if (segments.count != 2) return nil;
+
+	NSString *status = [segments[0] stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet];
+	NSString *medium = [segments[1] stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet];
+	if ([status caseInsensitiveCompare:@"required"] != NSOrderedSame) return nil;
+
+	NSDictionary *mediumStringToWrappedMedium = @{
+		@"sms": @(OCTClientOneTimePasswordMediumSMS),
+		@"app": @(OCTClientOneTimePasswordMediumApp),
+	};
+
+	return mediumStringToWrappedMedium[medium.lowercaseString];
+}
+
 + (NSError *)errorFromRequestOperation:(AFHTTPRequestOperation *)operation {
 	NSParameterAssert(operation != nil);
 	
@@ -784,25 +801,14 @@ static NSString *OCTClientOAuthClientSecret = nil;
 			NSError *errorTemplate = self.class.authenticationRequiredError;
 
 			errorCode = errorTemplate.code;
-			NSString *OTPHeader = operation.response.allHeaderFields[OCTClientOneTimePasswordHeaderField];
+			[userInfo addEntriesFromDictionary:errorTemplate.userInfo];
 
-			// E.g., "required; sms"
-			NSArray *segments = [OTPHeader componentsSeparatedByString:@";"];
-			if (segments.count == 2) {
-				NSString *status = [segments[0] stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet];
-				NSString *medium = [segments[1] stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet];
-				if ([status.lowercaseString isEqual:@"required"]) {
-					errorCode = OCTClientErrorTwoFactorAuthenticationOneTimePasswordRequired;
-					NSDictionary *mediumStringToWrappedMedium = @{
-						@"sms": @(OCTClientOneTimePasswordMediumSMS),
-						@"app": @(OCTClientOneTimePasswordMediumApp),
-					};
-					NSNumber *wrappedMedium = mediumStringToWrappedMedium[medium.lowercaseString];
-					if (wrappedMedium != nil) userInfo[OCTClientErrorOneTimePasswordMediumKey] = wrappedMedium;
-				}
+			NSNumber *wrappedMedium = [self oneTimePasswordMediumFromHeader:operation.response.allHeaderFields[OCTClientOneTimePasswordHeaderField]];
+			if (wrappedMedium != nil) {
+				errorCode = OCTClientErrorTwoFactorAuthenticationOneTimePasswordRequired;
+				userInfo[OCTClientErrorOneTimePasswordMediumKey] = wrappedMedium;
 			}
 
-			[userInfo addEntriesFromDictionary:errorTemplate.userInfo];
 			break;
 		}
 
