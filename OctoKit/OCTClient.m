@@ -728,25 +728,9 @@ static NSString *OCTClientOAuthClientSecret = nil;
 	}
 }
 
-+ (NSError *)errorFromRequestOperation:(AFHTTPRequestOperation *)operation {
++ (NSString *)defaultErrorMessageFromResponseDictionary:(NSDictionary *)responseDictionary requestOperation:(AFHTTPRequestOperation *)operation {
 	NSParameterAssert(operation != nil);
-	
-	NSInteger HTTPCode = operation.response.statusCode;
-	NSMutableDictionary *userInfo = [NSMutableDictionary dictionary];
-	NSInteger errorCode = OCTClientErrorConnectionFailed;
 
-	NSDictionary *responseDictionary = nil;
-	if ([operation isKindOfClass:AFJSONRequestOperation.class]) {
-		id JSON = [(AFJSONRequestOperation *)operation responseJSON];
-		if ([JSON isKindOfClass:NSDictionary.class]) {
-			responseDictionary = JSON;
-		} else {
-			NSLog(@"Unexpected JSON for error response: %@", JSON);
-		}
-	}
-
-	// Prepare a default error message from the information available in the
-	// response, or the operation's error.
 	NSString *errorDescription = responseDictionary[@"message"] ?: operation.error.localizedDescription;
 	if (errorDescription == nil) {
 		if ([operation.error.domain isEqual:NSURLErrorDomain]) {
@@ -772,8 +756,28 @@ static NSString *OCTClientOAuthClientSecret = nil;
 
 		errorDescription = [NSString stringWithFormat:NSLocalizedString(@"%@:\n\n%@", @""), errorDescription, errors];
 	}
+	
+	return errorDescription;
+}
 
-	userInfo[NSLocalizedDescriptionKey] = errorDescription;
++ (NSError *)errorFromRequestOperation:(AFHTTPRequestOperation *)operation {
+	NSParameterAssert(operation != nil);
+	
+	NSInteger HTTPCode = operation.response.statusCode;
+	NSMutableDictionary *userInfo = [NSMutableDictionary dictionary];
+	NSInteger errorCode = OCTClientErrorConnectionFailed;
+
+	NSDictionary *responseDictionary = nil;
+	if ([operation isKindOfClass:AFJSONRequestOperation.class]) {
+		id JSON = [(AFJSONRequestOperation *)operation responseJSON];
+		if ([JSON isKindOfClass:NSDictionary.class]) {
+			responseDictionary = JSON;
+		} else {
+			NSLog(@"Unexpected JSON for error response: %@", JSON);
+		}
+	}
+
+	userInfo[NSLocalizedDescriptionKey] = [self defaultErrorMessageFromResponseDictionary:responseDictionary requestOperation:operation];
 	
 	switch (HTTPCode) {
 		case 401: {
