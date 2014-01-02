@@ -23,6 +23,19 @@ extern const NSInteger OCTClientErrorAuthenticationFailed;
 // password.
 extern const NSInteger OCTClientErrorTwoFactorAuthenticationOneTimePasswordRequired;
 
+// The user attempted to authenticate with an OAuth token (like a Personal
+// Access Token), when the endpoint actually requires a password.
+extern const NSInteger OCTClientErrorTokenAuthenticationUnsupported;
+
+// The server is refusing to process the request because of an
+// authentication-related issue (HTTP error 403).
+//
+// Often, this means that there have been too many failed attempts to
+// authenticate. Even a successful authentication will not work while this error
+// code is being returned. The only recourse is to stop trying and wait for
+// a bit.
+extern const NSInteger OCTClientErrorRequestForbidden;
+
 // The request was invalid (HTTP error 400).
 extern const NSInteger OCTClientErrorBadRequest;
 
@@ -54,6 +67,12 @@ extern NSString * const OCTClientErrorRequestURLKey;
 // A user info key associated with an NSNumber, indicating the HTTP status code
 // that was returned with the error.
 extern NSString * const OCTClientErrorHTTPStatusCodeKey;
+
+// A user info key associated with an NSString describing the scopes that were
+// authorized for the OAuth token used in the failed request.
+//
+// This key won't be present if the request did not use OAuth.
+extern NSString * const OCTClientErrorOAuthScopesStringKey;
 
 // A user info key associated with an NSNumber-wrapped
 // OCTClientOneTimePasswordMedium which indicates the medium of delivery for the
