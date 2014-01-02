@@ -728,8 +728,18 @@ static NSString *OCTClientOAuthClientSecret = nil;
 	}
 }
 
-+ (NSString *)defaultErrorMessageFromResponseDictionary:(NSDictionary *)responseDictionary requestOperation:(AFHTTPRequestOperation *)operation {
++ (NSString *)defaultErrorMessageFromRequestOperation:(AFHTTPRequestOperation *)operation {
 	NSParameterAssert(operation != nil);
+
+	NSDictionary *responseDictionary = nil;
+	if ([operation isKindOfClass:AFJSONRequestOperation.class]) {
+		id JSON = [(AFJSONRequestOperation *)operation responseJSON];
+		if ([JSON isKindOfClass:NSDictionary.class]) {
+			responseDictionary = JSON;
+		} else {
+			NSLog(@"Unexpected JSON for error response: %@", JSON);
+		}
+	}
 
 	NSString *errorDescription = responseDictionary[@"message"] ?: operation.error.localizedDescription;
 	if (errorDescription == nil) {
@@ -784,17 +794,7 @@ static NSString *OCTClientOAuthClientSecret = nil;
 	NSMutableDictionary *userInfo = [NSMutableDictionary dictionary];
 	NSInteger errorCode = OCTClientErrorConnectionFailed;
 
-	NSDictionary *responseDictionary = nil;
-	if ([operation isKindOfClass:AFJSONRequestOperation.class]) {
-		id JSON = [(AFJSONRequestOperation *)operation responseJSON];
-		if ([JSON isKindOfClass:NSDictionary.class]) {
-			responseDictionary = JSON;
-		} else {
-			NSLog(@"Unexpected JSON for error response: %@", JSON);
-		}
-	}
-
-	userInfo[NSLocalizedDescriptionKey] = [self defaultErrorMessageFromResponseDictionary:responseDictionary requestOperation:operation];
+	userInfo[NSLocalizedDescriptionKey] = [self defaultErrorMessageFromRequestOperation:operation];
 	
 	switch (HTTPCode) {
 		case 401: {
