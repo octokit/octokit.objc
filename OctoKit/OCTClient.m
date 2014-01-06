@@ -29,15 +29,19 @@ const NSInteger OCTClientErrorBadRequest = 670;
 const NSInteger OCTClientErrorTwoFactorAuthenticationOneTimePasswordRequired = 671;
 const NSInteger OCTClientErrorUnsupportedServer = 672;
 const NSInteger OCTClientErrorOpeningBrowserFailed = 673;
+const NSInteger OCTClientErrorRequestForbidden = 674;
+const NSInteger OCTClientErrorTokenAuthenticationUnsupported = 675;
 
 NSString * const OCTClientErrorRequestURLKey = @"OCTClientErrorRequestURLKey";
 NSString * const OCTClientErrorHTTPStatusCodeKey = @"OCTClientErrorHTTPStatusCodeKey";
 NSString * const OCTClientErrorOneTimePasswordMediumKey = @"OCTClientErrorOneTimePasswordMediumKey";
+NSString * const OCTClientErrorOAuthScopesStringKey = @"OCTClientErrorOAuthScopesStringKey";
 
 NSString * const OCTClientAPIVersion = @"beta";
 
 static const NSInteger OCTClientNotModifiedStatusCode = 304;
 static NSString * const OCTClientOneTimePasswordHeaderField = @"X-GitHub-OTP";
+static NSString * const OCTClientOAuthScopesHeaderField = @"X-OAuth-Scopes";
 
 // An environment variable that, when present, will enable logging of all
 // responses.
@@ -203,6 +207,15 @@ static NSString *OCTClientOAuthClientSecret = nil;
 	return [NSError errorWithDomain:OCTClientErrorDomain code:OCTClientErrorUnsupportedServer userInfo:userInfo];
 }
 
++ (NSError *)tokenUnsupportedError {
+	NSDictionary *userInfo = @{
+		NSLocalizedDescriptionKey: NSLocalizedString(@"Password Required", @""),
+		NSLocalizedFailureReasonErrorKey: NSLocalizedString(@"You must sign in with a password. Token authentication is not supported.", @""),
+	};
+
+	return [NSError errorWithDomain:OCTClientErrorDomain code:OCTClientErrorTokenAuthenticationUnsupported userInfo:userInfo];
+}
+
 #pragma mark Lifecycle
 
 - (id)initWithBaseURL:(NSURL *)url {
@@ -307,7 +320,13 @@ static NSString *OCTClientOAuthClientSecret = nil;
 		}]
 		catch:^(NSError *error) {
 			NSNumber *statusCode = error.userInfo[OCTClientErrorHTTPStatusCodeKey];
-			if (statusCode.integerValue == 404) error = self.class.unsupportedVersionError;
+			if (statusCode.integerValue == 404) {
+				if (error.userInfo[OCTClientErrorOAuthScopesStringKey] != nil) {
+					error = self.class.tokenUnsupportedError;
+				} else {
+					error = self.class.unsupportedVersionError;
+				}
+			}
 
 			return [RACSignal error:error];
 		}]
@@ -711,12 +730,8 @@ static NSString *OCTClientOAuthClientSecret = nil;
 	}
 }
 
-+ (NSError *)errorFromRequestOperation:(AFHTTPRequestOperation *)operation {
++ (NSString *)defaultErrorMessageFromRequestOperation:(AFHTTPRequestOperation *)operation {
 	NSParameterAssert(operation != nil);
-	
-	NSInteger HTTPCode = operation.response.statusCode;
-	NSMutableDictionary *userInfo = [NSMutableDictionary dictionary];
-	NSInteger errorCode = OCTClientErrorServiceRequestFailed;
 
 	NSDictionary *responseDictionary = nil;
 	if ([operation isKindOfClass:AFJSONRequestOperation.class]) {
@@ -728,65 +743,96 @@ static NSString *OCTClientOAuthClientSecret = nil;
 		}
 	}
 
-	NSString *message = responseDictionary[@"message"];
-	
-	if (HTTPCode == 401) {
-		NSError *errorTemplate = self.class.authenticationRequiredError;
-
-		errorCode = errorTemplate.code;
-		NSString *OTPHeader = operation.response.allHeaderFields[OCTClientOneTimePasswordHeaderField];
-		// E.g., "required; sms"
-		NSArray *segments = [OTPHeader componentsSeparatedByString:@";"];
-		if (segments.count == 2) {
-			NSString *status = [segments[0] stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet];
-			NSString *medium = [segments[1] stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet];
-			if ([status.lowercaseString isEqual:@"required"]) {
-				errorCode = OCTClientErrorTwoFactorAuthenticationOneTimePasswordRequired;
-				NSDictionary *mediumStringToWrappedMedium = @{
-					@"sms": @(OCTClientOneTimePasswordMediumSMS),
-					@"app": @(OCTClientOneTimePasswordMediumApp),
-				};
-				NSNumber *wrappedMedium = mediumStringToWrappedMedium[medium.lowercaseString];
-				if (wrappedMedium != nil) userInfo[OCTClientErrorOneTimePasswordMediumKey] = wrappedMedium;
-			}
-		}
-
-		[userInfo addEntriesFromDictionary:errorTemplate.userInfo];
-	} else if (HTTPCode == 400) {
-		errorCode = OCTClientErrorBadRequest;
-		if (message != nil) userInfo[NSLocalizedDescriptionKey] = message;
-	} else if (HTTPCode == 422) {
-		errorCode = OCTClientErrorServiceRequestFailed;
-		
-		NSArray *errorDictionaries = responseDictionary[@"errors"];
-		if ([errorDictionaries isKindOfClass:NSArray.class]) {
-			NSMutableArray *errors = [NSMutableArray arrayWithCapacity:errorDictionaries.count];
-			for (NSDictionary *errorDictionary in errorDictionaries) {
-				NSString *message = [self errorMessageFromErrorDictionary:errorDictionary];
-				if (message == nil) continue;
-				
-				[errors addObject:message];
-			}
-
-			userInfo[NSLocalizedDescriptionKey] = [NSString stringWithFormat:NSLocalizedString(@"%@:\n\n%@", @""), message, [errors componentsJoinedByString:@"\n"]];
-		}
-	} else if (operation.error != nil) {
-		errorCode = OCTClientErrorConnectionFailed;
+	NSString *errorDescription = responseDictionary[@"message"] ?: operation.error.localizedDescription;
+	if (errorDescription == nil) {
 		if ([operation.error.domain isEqual:NSURLErrorDomain]) {
-			userInfo[NSLocalizedDescriptionKey] = NSLocalizedString(@"There was a problem connecting to the server.", @"");
+			errorDescription = NSLocalizedString(@"There was a problem connecting to the server.", @"");
 		} else {
-			NSString *errorDescription = operation.error.userInfo[NSLocalizedDescriptionKey];
-			if (errorDescription != nil) userInfo[NSLocalizedDescriptionKey] = errorDescription;
+			errorDescription = NSLocalizedString(@"The universe has collapsed.", @"");
 		}
 	}
+	
+	NSArray *errorDictionaries = responseDictionary[@"errors"];
+	if ([errorDictionaries isKindOfClass:NSArray.class]) {
+		NSString *errors = [[[errorDictionaries.rac_sequence
+			flattenMap:^(NSDictionary *errorDictionary) {
+				NSString *message = [self errorMessageFromErrorDictionary:errorDictionary];
+				if (message == nil) {
+					return [RACSequence empty];
+				} else {
+					return [RACSequence return:message];
+				}
+			}]
+			array]
+			componentsJoinedByString:@"\n"];
 
-	if (userInfo[NSLocalizedDescriptionKey] == nil) {
-		userInfo[NSLocalizedDescriptionKey] = NSLocalizedString(@"The universe has collapsed.", @"");
+		errorDescription = [NSString stringWithFormat:NSLocalizedString(@"%@:\n\n%@", @""), errorDescription, errors];
+	}
+	
+	return errorDescription;
+}
+
++ (NSNumber *)oneTimePasswordMediumFromHeader:(NSString *)OTPHeader {
+	// E.g., "required; sms"
+	NSArray *segments = [OTPHeader componentsSeparatedByString:@";"];
+	if (segments.count != 2) return nil;
+
+	NSString *status = [segments[0] stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet];
+	NSString *medium = [segments[1] stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet];
+	if ([status caseInsensitiveCompare:@"required"] != NSOrderedSame) return nil;
+
+	NSDictionary *mediumStringToWrappedMedium = @{
+		@"sms": @(OCTClientOneTimePasswordMediumSMS),
+		@"app": @(OCTClientOneTimePasswordMediumApp),
+	};
+
+	return mediumStringToWrappedMedium[medium.lowercaseString];
+}
+
++ (NSError *)errorFromRequestOperation:(AFHTTPRequestOperation *)operation {
+	NSParameterAssert(operation != nil);
+	
+	NSInteger HTTPCode = operation.response.statusCode;
+	NSMutableDictionary *userInfo = [NSMutableDictionary dictionary];
+	NSInteger errorCode = OCTClientErrorConnectionFailed;
+
+	userInfo[NSLocalizedDescriptionKey] = [self defaultErrorMessageFromRequestOperation:operation];
+	
+	switch (HTTPCode) {
+		case 401: {
+			NSError *errorTemplate = self.class.authenticationRequiredError;
+
+			errorCode = errorTemplate.code;
+			[userInfo addEntriesFromDictionary:errorTemplate.userInfo];
+
+			NSNumber *wrappedMedium = [self oneTimePasswordMediumFromHeader:operation.response.allHeaderFields[OCTClientOneTimePasswordHeaderField]];
+			if (wrappedMedium != nil) {
+				errorCode = OCTClientErrorTwoFactorAuthenticationOneTimePasswordRequired;
+				userInfo[OCTClientErrorOneTimePasswordMediumKey] = wrappedMedium;
+			}
+
+			break;
+		}
+
+		case 400:
+			errorCode = OCTClientErrorBadRequest;
+			break;
+
+		case 403:
+			errorCode = OCTClientErrorRequestForbidden;
+			break;
+
+		case 422:
+			errorCode = OCTClientErrorServiceRequestFailed;
+			break;
 	}
 
 	userInfo[OCTClientErrorHTTPStatusCodeKey] = @(HTTPCode);
 	if (operation.request.URL != nil) userInfo[OCTClientErrorRequestURLKey] = operation.request.URL;
 	if (operation.error != nil) userInfo[NSUnderlyingErrorKey] = operation.error;
+
+	NSString *scopes = operation.response.allHeaderFields[OCTClientOAuthScopesHeaderField];
+	if (scopes != nil) userInfo[OCTClientErrorOAuthScopesStringKey] = scopes;
 	
 	return [NSError errorWithDomain:OCTClientErrorDomain code:errorCode userInfo:userInfo];
 }
