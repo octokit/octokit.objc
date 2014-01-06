@@ -754,13 +754,13 @@ static NSString *OCTClientOAuthClientSecret = nil;
 	
 	NSArray *errorDictionaries = responseDictionary[@"errors"];
 	if ([errorDictionaries isKindOfClass:NSArray.class]) {
-		NSString *errors = [[[errorDictionaries.rac_sequence
+		NSString *errors = [[[errorDictionaries.rac_signal
 			flattenMap:^(NSDictionary *errorDictionary) {
 				NSString *message = [self errorMessageFromErrorDictionary:errorDictionary];
 				if (message == nil) {
-					return [RACSequence empty];
+					return [RACSignal empty];
 				} else {
-					return [RACSequence return:message];
+					return [RACSignal return:message];
 				}
 			}]
 			array]
