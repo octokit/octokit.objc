@@ -18,6 +18,7 @@
 #import <OctoKit/OCTClient+Notifications.h>
 #import <OctoKit/OCTClient+Organizations.h>
 #import <OctoKit/OCTClient+Repositories.h>
+#import <OctoKit/OCTClient+Status.h>
 #import <OctoKit/OCTClient+User.h>
 #import <OctoKit/OCTCommit.h>
 #import <OctoKit/OCTCommitComment.h>
@@ -49,6 +50,7 @@
 #import <OctoKit/OCTResponse.h>
 #import <OctoKit/OCTServer.h>
 #import <OctoKit/OCTServerMetadata.h>
+#import <OctoKit/OCTStatus.h>
 #import <OctoKit/OCTSubmoduleContent.h>
 #import <OctoKit/OCTSymlinkContent.h>
 #import <OctoKit/OCTTeam.h>

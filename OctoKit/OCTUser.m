@@ -8,7 +8,7 @@
 
 #import "OCTUser.h"
 #import "OCTServer.h"
-#import <ReactiveCocoa/EXTKeyPathCoding.h>
+#import "EXTKeyPathCoding.h"
 #import "OCTObject+Private.h"
 
 @implementation OCTUser
