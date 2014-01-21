@@ -25,19 +25,13 @@
 
 + (instancetype)userWithLogin:(NSString *)login server:(OCTServer *)server {
 	NSMutableDictionary *userDict = [NSMutableDictionary dictionary];
-	if (login != nil) userDict[@keypath(OCTUser.new, login)] = login;
+	if (login != nil) {
+		userDict[@keypath(OCTUser.new, login)] = login;
+		userDict[@keypath(OCTUser.new, rawLogin)] = login;
+	}
 	if (server.baseURL != nil) userDict[@keypath(OCTUser.new, baseURL)] = server.baseURL;
 
 	return [self modelWithDictionary:userDict error:NULL];
-}
-
-#pragma mark MTLModel
-
-- (void)mergeLoginFromModel:(MTLModel *)model {
-	// Don't ever replace the login property, as this could be different
-	// to the login property returned by the API (eg. LDAP logins
-	// have any characters in [a-z0-9-] replaced with '-' for their GitHub
-	// Enterprise 'login').
 }
 
 #pragma mark NSObject
