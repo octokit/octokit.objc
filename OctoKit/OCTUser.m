@@ -11,6 +11,12 @@
 #import <ReactiveCocoa/EXTKeyPathCoding.h>
 #import "OCTObject+Private.h"
 
+@interface OCTUser ()
+
+@property (atomic, copy, readwrite) NSString *rawLogin;
+
+@end
+
 @implementation OCTUser
 
 #pragma mark Lifecycle
@@ -32,6 +38,14 @@
 	if (server.baseURL != nil) userDict[@keypath(OCTUser.new, baseURL)] = server.baseURL;
 
 	return [self modelWithDictionary:userDict error:NULL];
+}
+
+#pragma mark MTLModel
+
+- (void)mergeRawLoginFromModel:(OCTUser *)model {
+	if (model.rawLogin != nil) {
+		self.rawLogin = model.rawLogin;
+	}
 }
 
 #pragma mark NSObject
