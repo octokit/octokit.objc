@@ -47,7 +47,7 @@ beforeEach(^{
 	success = NO;
 	error = nil;
 
-	user = [OCTUser userWithLogin:@"octokit-testing-user" server:OCTServer.dotComServer];
+	user = [OCTUser userWithRawLogin:@"octokit-testing-user" server:OCTServer.dotComServer];
 	expect(user).notTo.beNil();
 });
 

@@ -11,13 +11,10 @@
 #import <ReactiveCocoa/EXTKeyPathCoding.h>
 #import "OCTObject+Private.h"
 
-@interface OCTUser ()
-
-@property (atomic, copy, readwrite) NSString *rawLogin;
-
-@end
-
 @implementation OCTUser
+
+@synthesize login = _login;
+@synthesize rawLogin = _rawLogin;
 
 #pragma mark Lifecycle
 
@@ -29,9 +26,9 @@
 	return [self modelWithDictionary:userDict error:NULL];
 }
 
-+ (instancetype)userWithLogin:(NSString *)login server:(OCTServer *)server {
++ (instancetype)userWithRawLogin:(NSString *)rawLogin server:(OCTServer *)server {
 	NSMutableDictionary *userDict = [NSMutableDictionary dictionary];
-	if (login != nil) userDict[@keypath(OCTUser.new, login)] = login;
+	if (rawLogin != nil) userDict[@keypath(OCTUser.new, rawLogin)] = rawLogin;
 	if (server.baseURL != nil) userDict[@keypath(OCTUser.new, baseURL)] = server.baseURL;
 
 	return [self modelWithDictionary:userDict error:NULL];
@@ -43,9 +40,13 @@
 	self = [super initWithDictionary:dictionaryValue error:error];
 	if (self == nil) return nil;
 
-	// If we don't already have a rawLogin, use login.
-	if (self.rawLogin == nil) {
-		self.rawLogin = self.login;
+	// We always need both rawLogin and login set.
+	if (_login == nil) {
+		_login = self.rawLogin;
+	}
+
+	if (_rawLogin == nil) {
+		_rawLogin = self.login;
 	}
 
 	return self;

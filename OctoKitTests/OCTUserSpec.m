@@ -73,7 +73,7 @@ describe(@"github.com user", ^{
 	});
 	
 	it(@"should initialize with a login and server", ^{
-		OCTUser *user = [OCTUser userWithLogin:@"foo" server:OCTServer.dotComServer];
+		OCTUser *user = [OCTUser userWithRawLogin:@"foo" server:OCTServer.dotComServer];
 		expect(user).notTo.beNil();
 
 		expect(user.server).to.equal(OCTServer.dotComServer);
@@ -82,7 +82,7 @@ describe(@"github.com user", ^{
 	});
 
 	it(@"should allow differing rawLogin and login properties", ^{
-		OCTUser *newUser = [OCTUser userWithLogin:@"octocat@github.com" server:OCTServer.dotComServer];
+		OCTUser *newUser = [OCTUser userWithRawLogin:@"octocat@github.com" server:OCTServer.dotComServer];
 		expect(newUser).notTo.beNil();
 
 		expect(newUser.server).to.equal(OCTServer.dotComServer);
@@ -152,7 +152,7 @@ describe(@"enterprise user", ^{
 	it(@"should initialize with a login and server", ^{
 		NSURL *baseURL = [NSURL URLWithString:@"https://10.168.1.109"];
 		OCTServer *server = [OCTServer serverWithBaseURL:baseURL];
-		OCTUser *user = [OCTUser userWithLogin:@"foo" server:server];
+		OCTUser *user = [OCTUser userWithRawLogin:@"foo" server:server];
 		expect(user).notTo.beNil();
 
 		expect(user.server).to.equal(server);
@@ -163,18 +163,18 @@ describe(@"enterprise user", ^{
 
 describe(@"equality", ^{
 	it(@"should treat users with the same server and login as equals", ^{
-		OCTUser *user1 = [OCTUser userWithLogin:@"joshaber" server:OCTServer.dotComServer];
-		OCTUser *user2 = [OCTUser userWithLogin:@"joshaber" server:OCTServer.dotComServer];
+		OCTUser *user1 = [OCTUser userWithRawLogin:@"joshaber" server:OCTServer.dotComServer];
+		OCTUser *user2 = [OCTUser userWithRawLogin:@"joshaber" server:OCTServer.dotComServer];
 		expect([user1 isEqual:user2]).to.beTruthy();
 		expect(user1.hash).to.equal(user2.hash);
 	});
 
 	it(@"shouldn't treat users with different servers or logins as equals", ^{
-		OCTUser *user1 = [OCTUser userWithLogin:@"joshaber1" server:OCTServer.dotComServer];
-		OCTUser *user2 = [OCTUser userWithLogin:@"joshaber" server:OCTServer.dotComServer];
+		OCTUser *user1 = [OCTUser userWithRawLogin:@"joshaber1" server:OCTServer.dotComServer];
+		OCTUser *user2 = [OCTUser userWithRawLogin:@"joshaber" server:OCTServer.dotComServer];
 		expect([user1 isEqual:user2]).to.beFalsy();
 
-		OCTUser *user3 = [OCTUser userWithLogin:@"joshaber" server:[OCTServer serverWithBaseURL:[NSURL URLWithString:@"https://google.com"]]];
+		OCTUser *user3 = [OCTUser userWithRawLogin:@"joshaber" server:[OCTServer serverWithBaseURL:[NSURL URLWithString:@"https://google.com"]]];
 		expect([user2 isEqual:user3]).to.beFalsy();
 	});
 
@@ -195,7 +195,7 @@ describe(@"equality", ^{
 	});
 
 	it(@"should never treat a user with an ID as equivalent to a user without", ^{
-		OCTUser *user1 = [OCTUser userWithLogin:@"joshaber" server:OCTServer.dotComServer];
+		OCTUser *user1 = [OCTUser userWithRawLogin:@"joshaber" server:OCTServer.dotComServer];
 		OCTUser *user2 = [OCTUser modelWithDictionary:@{
 			@keypath(OCTUser.new, login): @"joshaber",
 			@keypath(OCTUser.new, objectID): @42,
