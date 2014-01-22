@@ -11,16 +11,16 @@
 // A GitHub user.
 //
 // Users are equal if they come from the same server and have matching object
-// IDs, *or* if they were both created with +userWithLogin:server: and their
-// logins and servers are equal.
+// IDs, *or* if they were both created with +userWithRawLogin:server: and their
+// `rawLogin` and `server` properties are equal.
 @interface OCTUser : OCTEntity
 
 // The username or email entered by the user.
 //
-// In most cases, this will be the same as the login. However, single sign-on
+// In most cases, this will be the same as the `login`. However, single sign-on
 // systems like LDAP and CAS may have different username requirements than
-// GitHub, meaning that the login may not work directly for authentication,
-// or the rawLogin may not work directly with the API.
+// GitHub, meaning that the `login` may not work directly for authentication,
+// or the `rawLogin` may not work directly with the API.
 @property (nonatomic, copy, readonly) NSString *rawLogin;
 
 // Returns a user that has the given name and email address.
