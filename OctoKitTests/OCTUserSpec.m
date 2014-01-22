@@ -78,6 +78,21 @@ describe(@"github.com user", ^{
 
 		expect(user.server).to.equal(OCTServer.dotComServer);
 		expect(user.login).to.equal(@"foo");
+		expect(user.rawLogin).to.equal(@"foo");
+	});
+
+	it(@"should allow differing rawLogin and login properties", ^{
+		OCTUser *newUser = [OCTUser userWithLogin:@"octocat@github.com" server:OCTServer.dotComServer];
+		expect(newUser).notTo.beNil();
+
+		expect(newUser.server).to.equal(OCTServer.dotComServer);
+		expect(newUser.login).to.equal(@"octocat@github.com");
+		expect(newUser.rawLogin).to.equal(@"octocat@github.com");
+
+		[newUser mergeValuesForKeysFromModel:user];
+
+		expect(newUser.login).to.equal(@"octocat");
+		expect(newUser.rawLogin).to.equal(@"octocat@github.com");
 	});
 });
 
@@ -116,6 +131,7 @@ describe(@"enterprise user", ^{
 		expect(user.server).to.equal(enterpriseServer);
 
 		expect(user.login).to.equal(@"jspahrsummers");
+		expect(user.rawLogin).to.equal(@"jspahrsummers");
 		expect(user.objectID).to.equal(@"2");
 		expect(user.avatarURL).to.equal([NSURL URLWithString:@"https://secure.gravatar.com/avatar/cac992bb300ed4f3ed5c2a6049e552f9?d=http://10.168.1.109%2Fimages%2Fgravatars%2Fgravatar-user-420.png"]);
 		expect(user.publicRepoCount).to.equal(0);
@@ -141,6 +157,7 @@ describe(@"enterprise user", ^{
 
 		expect(user.server).to.equal(server);
 		expect(user.login).to.equal(@"foo");
+		expect(user.rawLogin).to.equal(@"foo");
 	});
 });
 
