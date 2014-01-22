@@ -74,7 +74,7 @@
 
 	if (self.objectID != nil || user.objectID != nil) return [user.objectID isEqual:self.objectID];
 
-	return [user.login isEqual:self.login];
+	return [user.rawLogin isEqual:self.rawLogin];
 }
 
 @end
