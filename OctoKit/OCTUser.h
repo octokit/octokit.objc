@@ -15,9 +15,12 @@
 // logins and servers are equal.
 @interface OCTUser : OCTEntity
 
-// The username or email as entered by the user.
-// In most cases rawLogin == login, however a single sign on login (LDAP, CAS)
-// will have any character not in the set: [a-z0-9-] replaced with '-'.
+// The username or email entered by the user.
+//
+// In most cases, this will be the same as the login. However, single sign-on
+// systems like LDAP and CAS may have different username requirements than
+// GitHub, meaning that the login may not work directly for authentication,
+// or the rawLogin may not work directly with the API.
 @property (atomic, copy, readonly) NSString *rawLogin;
 
 // Returns a user that has the given name and email address.
