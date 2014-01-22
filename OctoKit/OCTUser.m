@@ -52,9 +52,8 @@
 }
 
 - (void)mergeRawLoginFromModel:(OCTUser *)model {
-	if (model.rawLogin != nil) {
-		self.rawLogin = model.rawLogin;
-	}
+	// rawLogin should always represent the username entered by the user.
+	// so we don't ever want to merge this value.
 }
 
 #pragma mark NSObject
