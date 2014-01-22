@@ -31,16 +31,25 @@
 
 + (instancetype)userWithLogin:(NSString *)login server:(OCTServer *)server {
 	NSMutableDictionary *userDict = [NSMutableDictionary dictionary];
-	if (login != nil) {
-		userDict[@keypath(OCTUser.new, login)] = login;
-		userDict[@keypath(OCTUser.new, rawLogin)] = login;
-	}
+	if (login != nil) userDict[@keypath(OCTUser.new, login)] = login;
 	if (server.baseURL != nil) userDict[@keypath(OCTUser.new, baseURL)] = server.baseURL;
 
 	return [self modelWithDictionary:userDict error:NULL];
 }
 
 #pragma mark MTLModel
+
+- (instancetype)initWithDictionary:(NSDictionary *)dictionaryValue error:(NSError **)error {
+	self = [super initWithDictionary:dictionaryValue error:error];
+	if (self == nil) return nil;
+
+	// If we don't already have a rawLogin, use login.
+	if (self.rawLogin == nil) {
+		self.rawLogin = self.login;
+	}
+
+	return self;
+}
 
 - (void)mergeRawLoginFromModel:(OCTUser *)model {
 	if (model.rawLogin != nil) {
