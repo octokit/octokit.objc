@@ -40,11 +40,7 @@
 	self = [super initWithDictionary:dictionaryValue error:error];
 	if (self == nil) return nil;
 
-	// We always need both rawLogin and login set.
-	if (_login == nil) {
-		_login = self.rawLogin;
-	}
-
+	// We always need a rawLogin
 	if (_rawLogin == nil) {
 		_rawLogin = self.login;
 	}

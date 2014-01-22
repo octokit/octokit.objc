@@ -500,7 +500,6 @@ describe(@"sign in", ^{
 			expect(client).notTo.beNil();
 
 			expect(client.user).notTo.beNil();
-			expect(client.user.login).to.equal(user.login);
 			expect(client.user.rawLogin).to.equal(user.rawLogin);
 			expect(client.token).to.equal(token);
 			expect(client.authenticated).to.beTruthy();

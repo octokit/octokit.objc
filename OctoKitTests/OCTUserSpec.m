@@ -77,7 +77,6 @@ describe(@"github.com user", ^{
 		expect(user).notTo.beNil();
 
 		expect(user.server).to.equal(OCTServer.dotComServer);
-		expect(user.login).to.equal(@"foo");
 		expect(user.rawLogin).to.equal(@"foo");
 	});
 
@@ -86,7 +85,6 @@ describe(@"github.com user", ^{
 		expect(newUser).notTo.beNil();
 
 		expect(newUser.server).to.equal(OCTServer.dotComServer);
-		expect(newUser.login).to.equal(@"octocat@github.com");
 		expect(newUser.rawLogin).to.equal(@"octocat@github.com");
 
 		[newUser mergeValuesForKeysFromModel:user];
@@ -156,7 +154,6 @@ describe(@"enterprise user", ^{
 		expect(user).notTo.beNil();
 
 		expect(user.server).to.equal(server);
-		expect(user.login).to.equal(@"foo");
 		expect(user.rawLogin).to.equal(@"foo");
 	});
 });
