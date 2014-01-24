@@ -13,9 +13,6 @@
 
 @implementation OCTUser
 
-@synthesize login = _login;
-@synthesize rawLogin = _rawLogin;
-
 #pragma mark Lifecycle
 
 + (instancetype)userWithName:(NSString *)name email:(NSString *)email {
@@ -35,18 +32,6 @@
 }
 
 #pragma mark MTLModel
-
-- (instancetype)initWithDictionary:(NSDictionary *)dictionaryValue error:(NSError **)error {
-	self = [super initWithDictionary:dictionaryValue error:error];
-	if (self == nil) return nil;
-
-	// We always need a rawLogin
-	if (_rawLogin == nil) {
-		_rawLogin = self.login;
-	}
-
-	return self;
-}
 
 - (void)mergeRawLoginFromModel:(OCTUser *)model {
 	// rawLogin should always represent the username entered by the user.
