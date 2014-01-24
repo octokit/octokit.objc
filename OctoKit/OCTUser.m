@@ -23,9 +23,9 @@
 	return [self modelWithDictionary:userDict error:NULL];
 }
 
-+ (instancetype)userWithLogin:(NSString *)login server:(OCTServer *)server {
++ (instancetype)userWithRawLogin:(NSString *)rawLogin server:(OCTServer *)server {
 	NSMutableDictionary *userDict = [NSMutableDictionary dictionary];
-	if (login != nil) userDict[@keypath(OCTUser.new, login)] = login;
+	if (rawLogin != nil) userDict[@keypath(OCTUser.new, rawLogin)] = rawLogin;
 	if (server.baseURL != nil) userDict[@keypath(OCTUser.new, baseURL)] = server.baseURL;
 
 	return [self modelWithDictionary:userDict error:NULL];
@@ -33,17 +33,17 @@
 
 #pragma mark MTLModel
 
-- (void)mergeLoginFromModel:(MTLModel *)model {
-	// Don't ever replace the login property, as this could be different
-	// to the login property returned by the API (eg. LDAP logins
-	// have any characters in [a-z0-9-] replaced with '-' for their GitHub
-	// Enterprise 'login').
+- (void)mergeRawLoginFromModel:(OCTUser *)model {
+	// rawLogin should always represent the username entered by the user.
+	// so we don't ever want to merge this value.
 }
 
 #pragma mark NSObject
 
 - (NSUInteger)hash {
 	if (self.objectID != nil) return self.objectID.hash ^ self.server.hash;
+
+	if (self.rawLogin != nil) return self.server.hash ^ self.rawLogin.hash;
 
 	return self.server.hash ^ self.login.hash;
 }
@@ -55,9 +55,11 @@
 	BOOL equalServers = [user.server isEqual:self.server];
 	if (!equalServers) return NO;
 
-	if (self.objectID != nil || user.objectID != nil) return [user.objectID isEqual:self.objectID];
+	if (self.objectID != nil || user.objectID != nil) return [user.objectID isEqualToString:self.objectID];
 
-	return [user.login isEqual:self.login];
+	if (self.rawLogin != nil || user.rawLogin != nil) return [user.rawLogin isEqualToString:self.rawLogin];
+
+	return [user.login isEqualToString:self.login];
 }
 
 @end
