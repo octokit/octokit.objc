@@ -43,6 +43,8 @@
 - (NSUInteger)hash {
 	if (self.objectID != nil) return self.objectID.hash ^ self.server.hash;
 
+	if (self.rawLogin != nil) return self.server.hash ^ self.rawLogin.hash;
+
 	return self.server.hash ^ self.login.hash;
 }
 
@@ -53,9 +55,11 @@
 	BOOL equalServers = [user.server isEqual:self.server];
 	if (!equalServers) return NO;
 
-	if (self.objectID != nil || user.objectID != nil) return [user.objectID isEqual:self.objectID];
+	if (self.objectID != nil || user.objectID != nil) return [user.objectID isEqualToString:self.objectID];
 
-	return [user.rawLogin isEqual:self.rawLogin];
+	if (self.rawLogin != nil || user.rawLogin != nil) return [user.rawLogin isEqualToString:self.rawLogin];
+
+	return [user.login isEqualToString:self.login];
 }
 
 @end
