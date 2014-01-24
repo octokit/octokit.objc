@@ -7,6 +7,7 @@
 //
 
 #import "OCTTestClient.h"
+#import <OHHTTPStubs/OHHTTPStubs.h>
 
 SpecBegin(OCTClient)
 
@@ -47,7 +48,13 @@ beforeEach(^{
 	success = NO;
 	error = nil;
 
-	user = [OCTUser userWithRawLogin:@"octokit-testing-user" server:OCTServer.dotComServer];
+	NSDictionary *userDictionary = @{
+		@keypath(OCTUser.new, rawLogin): @"octokit-testing-user",
+		@keypath(OCTUser.new, login): @"octokit-testing-user",
+		@keypath(OCTUser.new, server): OCTServer.dotComServer,
+	};
+
+	user = [OCTUser modelWithDictionary:userDictionary error:NULL];
 	expect(user).notTo.beNil();
 });
 
@@ -500,7 +507,7 @@ describe(@"sign in", ^{
 			expect(client).notTo.beNil();
 
 			expect(client.user).notTo.beNil();
-			expect(client.user.rawLogin).to.equal(user.rawLogin);
+			expect(client.user.login).to.equal(user.login);
 			expect(client.token).to.equal(token);
 			expect(client.authenticated).to.beTruthy();
 		});
