@@ -11,7 +11,9 @@
 #import <ReactiveCocoa/EXTKeyPathCoding.h>
 #import "OCTObject+Private.h"
 
-@implementation OCTUser
+@implementation OCTUser {
+	NSString *_rawLogin;
+}
 
 #pragma mark Lifecycle
 
@@ -38,6 +40,11 @@
 	// to the login property returned by the API (eg. LDAP logins
 	// have any characters in [a-z0-9-] replaced with '-' for their GitHub
 	// Enterprise 'login').
+}
+
+- (NSString *)rawLogin {
+	if (_rawLogin == nil) return self.login;
+	return _rawLogin;
 }
 
 #pragma mark NSObject
