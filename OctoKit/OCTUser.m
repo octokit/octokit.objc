@@ -11,7 +11,9 @@
 #import <ReactiveCocoa/EXTKeyPathCoding.h>
 #import "OCTObject+Private.h"
 
-@implementation OCTUser
+@implementation OCTUser {
+	NSString *_rawLogin;
+}
 
 #pragma mark Lifecycle
 
@@ -36,6 +38,11 @@
 - (void)mergeRawLoginFromModel:(OCTUser *)model {
 	// rawLogin should always represent the username entered by the user.
 	// so we don't ever want to merge this value.
+}
+
+- (NSString *)rawLogin {
+	if (_rawLogin == nil) return self.login;
+	return _rawLogin;
 }
 
 #pragma mark NSObject
