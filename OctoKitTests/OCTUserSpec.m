@@ -190,6 +190,21 @@ describe(@"equality", ^{
 		expect(user1).to.equal(user2);
 	});
 
+	it(@"should prefer rawLogin equivalence over login equivalence", ^{
+		OCTUser *user1 = [[OCTUser alloc] initWithDictionary:@{
+			@keypath(OCTUser.new, rawLogin): @"josh.aber",
+			@keypath(OCTUser.new, login): @"josh-aber",
+			@keypath(OCTUser.new, server): OCTServer.dotComServer,
+		} error:NULL];
+		OCTUser *user2 = [[OCTUser alloc] initWithDictionary:@{
+			@keypath(OCTUser.new, rawLogin): @"josh_aber",
+			@keypath(OCTUser.new, login): @"josh-aber",
+			@keypath(OCTUser.new, server): OCTServer.dotComServer,
+		} error:NULL];
+		expect(user1).notTo.beNil();
+		expect(user2).notTo.beNil();
+		expect(user1).notTo.equal(user2);
+	});
 
 	it(@"should never treat a user with an ID as equivalent to a user without", ^{
 		OCTUser *user1 = [OCTUser userWithRawLogin:@"joshaber" server:OCTServer.dotComServer];
