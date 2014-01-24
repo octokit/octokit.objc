@@ -7,7 +7,6 @@
 //
 
 #import "OCTTestClient.h"
-#import <OHHTTPStubs/OHHTTPStubs.h>
 
 SpecBegin(OCTClient)
 
