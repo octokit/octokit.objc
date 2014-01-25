@@ -304,7 +304,7 @@ static NSString *OCTClientOAuthClientSecret = nil;
 
 	return [[[[[[[RACSignal
 		defer:^{
-			[client setAuthorizationHeaderWithUsername:user.login password:password];
+			[client setAuthorizationHeaderWithUsername:user.rawLogin password:password];
 
 			NSString *path = [NSString stringWithFormat:@"authorizations/clients/%@", clientID];
 			NSDictionary *params = @{

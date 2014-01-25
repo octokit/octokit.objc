@@ -47,7 +47,13 @@ beforeEach(^{
 	success = NO;
 	error = nil;
 
-	user = [OCTUser userWithLogin:@"octokit-testing-user" server:OCTServer.dotComServer];
+	NSDictionary *userDictionary = @{
+		@keypath(OCTUser.new, rawLogin): @"octokit-testing-user",
+		@keypath(OCTUser.new, login): @"octokit-testing-user",
+		@keypath(OCTUser.new, server): OCTServer.dotComServer,
+	};
+
+	user = [OCTUser modelWithDictionary:userDictionary error:NULL];
 	expect(user).notTo.beNil();
 });
 
