@@ -37,7 +37,7 @@ NSString * const OCTClientErrorHTTPStatusCodeKey = @"OCTClientErrorHTTPStatusCod
 NSString * const OCTClientErrorOneTimePasswordMediumKey = @"OCTClientErrorOneTimePasswordMediumKey";
 NSString * const OCTClientErrorOAuthScopesStringKey = @"OCTClientErrorOAuthScopesStringKey";
 
-NSString * const OCTClientAPIVersion = @"beta";
+NSString * const OCTClientAPIVersion = @"v3";
 
 static const NSInteger OCTClientNotModifiedStatusCode = 304;
 static NSString * const OCTClientOneTimePasswordHeaderField = @"X-GitHub-OTP";
