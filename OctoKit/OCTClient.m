@@ -465,11 +465,11 @@ static NSString *OCTClientOAuthClientSecret = nil;
 
 	#ifdef __IPHONE_OS_VERSION_MIN_REQUIRED
 	if ([UIApplication.sharedApplication canOpenURL:URL]) {
-        [UIApplication.sharedApplication openURL:URL];
-        return YES;
-    } else {
-        return NO;
-    }
+		[UIApplication.sharedApplication openURL:URL];
+		return YES;
+	} else {
+		return NO;
+	}
 	#else
 	return [NSWorkspace.sharedWorkspace openURL:URL];
 	#endif
