@@ -92,6 +92,24 @@ describe(@"github.com user", ^{
 		expect(newUser.login).to.equal(@"octocat");
 		expect(newUser.rawLogin).to.equal(@"octocat@github.com");
 	});
+
+	it(@"should only merge rawLogin if the current value is nil", ^{
+		OCTUser *newUser = [OCTUser modelWithDictionary:@{
+				@keypath(OCTUser.new, login): @"octocat",
+				@keypath(OCTUser.new, server): OCTServer.dotComServer,
+			 } error:NULL];
+		expect(newUser).notTo.beNil();
+
+		expect(newUser.server).to.equal(OCTServer.dotComServer);
+		expect(newUser.login).to.equal(@"octocat");
+		expect(newUser.rawLogin).to.beNil();
+
+		OCTUser *rawUser = [OCTUser userWithRawLogin:@"octocat@github.com" server:OCTServer.dotComServer];
+
+		[newUser mergeValuesForKeysFromModel:rawUser];
+
+		expect(newUser.rawLogin).to.equal(@"octocat@github.com");
+	});
 });
 
 describe(@"enterprise user", ^{

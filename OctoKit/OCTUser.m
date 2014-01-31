@@ -35,7 +35,11 @@
 
 - (void)mergeRawLoginFromModel:(OCTUser *)model {
 	// rawLogin should always represent the username entered by the user.
-	// so we don't ever want to merge this value.
+	// So we only want to merge it if our existing value is nil.
+
+	if (self.rawLogin == nil) {
+		[self setValue:model.rawLogin forKey:@keypath(self, rawLogin)];
+	}
 }
 
 #pragma mark NSObject
