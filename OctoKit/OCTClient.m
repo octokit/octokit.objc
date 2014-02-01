@@ -276,6 +276,9 @@ static NSString *OCTClientOAuthClientSecret = nil;
 		@(OCTClientAuthorizationScopesRepositoryDelete): @"delete_repo",
 		@(OCTClientAuthorizationScopesNotifications): @"notifications",
 		@(OCTClientAuthorizationScopesGist): @"gist",
+		@(OCTClientAuthorizationScopesPublicKeyRead): @"read:public_key",
+		@(OCTClientAuthorizationScopesPublicKeyWrite): @"write:public_key",
+		@(OCTClientAuthorizationScopesPublicKeyAdmin): @"admin:public_key",
 	};
 
 	return [[[[scopeToScopeString.rac_keySequence
