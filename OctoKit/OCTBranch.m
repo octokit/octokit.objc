@@ -17,7 +17,6 @@
 	}];
 }
 
-
 + (NSValueTransformer *)lastCommitURLJSONTransformer {
 	return [NSValueTransformer valueTransformerForName:MTLURLValueTransformerName];
 }
