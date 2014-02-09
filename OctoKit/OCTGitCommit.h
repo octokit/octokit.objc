@@ -26,4 +26,6 @@
 // The author of this commit.
 @property (nonatomic, copy, readonly) OCTUser *author;
 
+@property (nonatomic, copy, readonly) NSDate *commitDate;
+
 @end

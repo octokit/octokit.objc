@@ -7,6 +7,7 @@
 //
 
 #import "OCTGitCommit.h"
+#import "NSValueTransformer+OCTPredefinedTransformerAdditions.h"
 
 @implementation OCTGitCommit
 
@@ -15,6 +16,7 @@
 		@"commitURL": @"url",
 		@"SHA": @"sha",
 		@"message": @"commit.message",
+        @"commitDate": @"commit.author.date"
 	}];
 }
 
@@ -28,6 +30,10 @@
 
 + (NSValueTransformer *)committerJSONTransformer {
 	return [NSValueTransformer mtl_JSONDictionaryTransformerWithModelClass:OCTUser.class];
+}
+
++ (NSValueTransformer *)commitDateJSONTransformer {
+    return [NSValueTransformer valueTransformerForName:OCTDateValueTransformerName];
 }
 
 @end
