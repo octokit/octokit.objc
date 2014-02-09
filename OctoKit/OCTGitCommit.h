@@ -10,4 +10,14 @@
 
 @interface OCTGitCommit : OCTObject
 
+@property (nonatomic, copy, readonly) NSURL *commitURL;
+
+@property (nonatomic, copy, readonly) NSString *message;
+
+@property (nonatomic, copy, readonly) NSString *SHA;
+
+@property (nonatomic, copy, readonly) OCTUser *committer;
+
+@property (nonatomic, copy, readonly) OCTUser *author;
+
 @end

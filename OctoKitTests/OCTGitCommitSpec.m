@@ -6,29 +6,40 @@
 //  Copyright (c) 2014 GitHub. All rights reserved.
 //
 
-#import <XCTest/XCTest.h>
+#import "OCTGitCommit.h"
 
-@interface OCTGitCommitSpec : XCTestCase
+SpecBegin(OCTGitCommit)
 
-@end
+describe(@"github.com git commit", ^{
+	__block NSDictionary *representation;
 
-@implementation OCTGitCommitSpec
+	beforeAll(^{
+		NSURL *testDataURL = [[NSBundle bundleForClass:self.class] URLForResource:@"git_commit" withExtension:@"json"];
+		expect(testDataURL).notTo.beNil();
 
-- (void)setUp
-{
-    [super setUp];
-    // Put setup code here; it will be run once, before the first test case.
-}
+		NSData *testContentData = [NSData dataWithContentsOfURL:testDataURL];
+		expect(testContentData).notTo.beNil();
 
-- (void)tearDown
-{
-    // Put teardown code here; it will be run once, after the last test case.
-    [super tearDown];
-}
+		representation = [NSJSONSerialization JSONObjectWithData:testContentData options:0 error:NULL];
+		expect(representation).to.beKindOf(NSDictionary.class);
+	});
 
-- (void)testExample
-{
-    XCTFail(@"No implementation for \"%s\"", __PRETTY_FUNCTION__);
-}
+	__block OCTGitCommit *commit;
 
-@end
+	beforeEach(^{
+		commit = [MTLJSONAdapter modelOfClass:OCTGitCommit.class fromJSONDictionary:representation error:NULL];
+		expect(commit).notTo.beNil();
+	});
+
+	it(@"should initialize from an external representation", ^{
+		expect(commit.commitURL).to.equal([NSURL URLWithString:@"https://api.github.com/repos/octocat/Hello-World/commits/6dcb09b5b57875f334f61aebed695e2e4193db5e"]);
+		expect(commit.message).to.equal(@"Fix all the bugs");
+		expect(commit.SHA).to.equal(@"6dcb09b5b57875f334f61aebed695e2e4193db5e");
+		expect(commit.committer.login).to.equal(@"octocat");
+		expect(commit.author.login).to.equal(@"octocat");
+	});
+});
+
+
+
+SpecEnd
