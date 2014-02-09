@@ -334,6 +334,8 @@
 		D0E3E8C51835A32100EF530F /* meta.json in Resources */ = {isa = PBXBuildFile; fileRef = D0E3E8C31835A32100EF530F /* meta.json */; };
 		D0E41B8716DFF37E00E321CF /* notifications.json in Resources */ = {isa = PBXBuildFile; fileRef = D0E41B8616DFF37E00E321CF /* notifications.json */; };
 		D0E41B8816DFF37E00E321CF /* notifications.json in Resources */ = {isa = PBXBuildFile; fileRef = D0E41B8616DFF37E00E321CF /* notifications.json */; };
+		F054C0AF18A7BDD600AA2DC1 /* git_commit.json in Resources */ = {isa = PBXBuildFile; fileRef = F054C0AE18A7BDD600AA2DC1 /* git_commit.json */; };
+		F054C0B018A7BDD600AA2DC1 /* git_commit.json in Resources */ = {isa = PBXBuildFile; fileRef = F054C0AE18A7BDD600AA2DC1 /* git_commit.json */; };
 		F688018C17C1CE0F00ECC7EC /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F688018B17C1CE0F00ECC7EC /* Security.framework */; };
 		F688019D17C1CE3200ECC7EC /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F688019C17C1CE3200ECC7EC /* CoreGraphics.framework */; };
 		F6CF78D416E993A500A75F63 /* RACSignal+OCTClientAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = F6CF78D216E993A500A75F63 /* RACSignal+OCTClientAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -841,6 +843,7 @@
 		D0E3E8B118359BD000EF530F /* OCTServerMetadata.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCTServerMetadata.m; sourceTree = "<group>"; };
 		D0E3E8C31835A32100EF530F /* meta.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = meta.json; sourceTree = "<group>"; };
 		D0E41B8616DFF37E00E321CF /* notifications.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = notifications.json; sourceTree = "<group>"; };
+		F054C0AE18A7BDD600AA2DC1 /* git_commit.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = git_commit.json; sourceTree = "<group>"; };
 		F688018B17C1CE0F00ECC7EC /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.0.sdk/System/Library/Frameworks/Security.framework; sourceTree = DEVELOPER_DIR; };
 		F688019C17C1CE3200ECC7EC /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.0.sdk/System/Library/Frameworks/CoreGraphics.framework; sourceTree = DEVELOPER_DIR; };
 		F6CF78D216E993A500A75F63 /* RACSignal+OCTClientAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RACSignal+OCTClientAdditions.h"; sourceTree = "<group>"; };
@@ -1437,6 +1440,7 @@
 				88CD632817D8D77F00E2CD47 /* tree.json */,
 				D087B940181A47EB00821DCD /* user.json */,
 				9CF7FBBB179581EC00CA34FF /* user_starred.json */,
+				F054C0AE18A7BDD600AA2DC1 /* git_commit.json */,
 			);
 			path = Stubs;
 			sourceTree = "<group>";
@@ -1933,6 +1937,7 @@
 				D000EC8D18564BDD00468E84 /* ref.json in Resources */,
 				8813687417A1AF3000F74214 /* authorizations.json in Resources */,
 				D0D8C09716DFF1540070399E /* page1.json in Resources */,
+				F054C0AF18A7BDD600AA2DC1 /* git_commit.json in Resources */,
 				D0D8C09916DFF1540070399E /* page2.json in Resources */,
 				88CD632917D8D7C000E2CD47 /* tree.json in Resources */,
 				D0D8C09B16DFF1540070399E /* page3.json in Resources */,
@@ -1964,6 +1969,7 @@
 				D087B945181A485200821DCD /* access_token.json in Resources */,
 				D0D8C09C16DFF1540070399E /* page3.json in Resources */,
 				D0E3E8C51835A32100EF530F /* meta.json in Resources */,
+				F054C0B018A7BDD600AA2DC1 /* git_commit.json in Resources */,
 				D0D8C09E16DFF1540070399E /* rate_limit.json in Resources */,
 				D000EC8E18564BDD00468E84 /* ref.json in Resources */,
 				D000EC7E18564B6B00468E84 /* commit.json in Resources */,
