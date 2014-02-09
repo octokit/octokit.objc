@@ -79,4 +79,13 @@
 // Returns a signal of zero or one OCTRepository.
 - (RACSignal *)fetchRepositoryWithName:(NSString *)name owner:(NSString *)owner;
 
+// Fetches commits of a repository owned by the given `owner` and named `name` filtered by `SHA`.
+//
+// name  - The name of the repository, must be a non-empty string.
+// owner - The owner of the repository, must be a non-empty string.
+// SHA	 - SHA or branch to start listing commits from.
+//
+// Returns a signal of zero or one OCTGitCommit.
+- (RACSignal *)fetchCommitsForRepositoryWithName:(NSString *)name owner:(NSString *)owner sha:(NSString *)SHA;
+
 @end
