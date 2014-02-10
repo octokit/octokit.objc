@@ -42,6 +42,4 @@ describe(@"github.com git commit", ^{
 	});
 });
 
-
-
 SpecEnd
