@@ -92,7 +92,7 @@
 	return [[self enqueueRequest:request resultClass:OCTRepository.class] oct_parsedResults];
 }
 
-- (RACSignal *)fetchCommitsForRepositoryWithName:(NSString *)name owner:(NSString *)owner sha:(NSString *)SHA {
+- (RACSignal *)fetchCommitsForRepositoryWithName:(NSString *)name owner:(NSString *)owner SHA:(NSString *)SHA {
 	NSParameterAssert(name.length > 0);
 	NSParameterAssert(owner.length > 0);
 

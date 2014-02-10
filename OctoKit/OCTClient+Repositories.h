@@ -86,6 +86,6 @@
 // SHA   - SHA or branch to start listing commits from.
 //
 // Returns a signal of zero or one OCTGitCommit.
-- (RACSignal *)fetchCommitsForRepositoryWithName:(NSString *)name owner:(NSString *)owner sha:(NSString *)SHA;
+- (RACSignal *)fetchCommitsForRepositoryWithName:(NSString *)name owner:(NSString *)owner SHA:(NSString *)SHA;
 
 @end
