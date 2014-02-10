@@ -335,7 +335,7 @@
 		D0E41B8716DFF37E00E321CF /* notifications.json in Resources */ = {isa = PBXBuildFile; fileRef = D0E41B8616DFF37E00E321CF /* notifications.json */; };
 		D0E41B8816DFF37E00E321CF /* notifications.json in Resources */ = {isa = PBXBuildFile; fileRef = D0E41B8616DFF37E00E321CF /* notifications.json */; };
 		F054C09118A7B82A00AA2DC1 /* OCTGitCommit.h in Headers */ = {isa = PBXBuildFile; fileRef = F054C08F18A7B82A00AA2DC1 /* OCTGitCommit.h */; };
-		F054C09218A7B82A00AA2DC1 /* OCTGitCommit.h in Headers */ = {isa = PBXBuildFile; fileRef = F054C08F18A7B82A00AA2DC1 /* OCTGitCommit.h */; };
+		F054C09218A7B82A00AA2DC1 /* OCTGitCommit.h in Headers */ = {isa = PBXBuildFile; fileRef = F054C08F18A7B82A00AA2DC1 /* OCTGitCommit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F054C09318A7B82A00AA2DC1 /* OCTGitCommit.m in Sources */ = {isa = PBXBuildFile; fileRef = F054C09018A7B82A00AA2DC1 /* OCTGitCommit.m */; };
 		F054C09418A7B82A00AA2DC1 /* OCTGitCommit.m in Sources */ = {isa = PBXBuildFile; fileRef = F054C09018A7B82A00AA2DC1 /* OCTGitCommit.m */; };
 		F054C0AC18A7BDAB00AA2DC1 /* OCTGitCommitSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = F054C0AB18A7BDAB00AA2DC1 /* OCTGitCommitSpec.m */; };
@@ -1539,6 +1539,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F054C09218A7B82A00AA2DC1 /* OCTGitCommit.h in Headers */,
 				D087215A169E395F00016ACA /* OCTClient.h in Headers */,
 				9CB0588617933F26002CF498 /* OCTSubmoduleContent.h in Headers */,
 				D0BC04B818403A3200EDD926 /* OCTClient+Keys.h in Headers */,
@@ -1578,7 +1579,6 @@
 				D08721B0169E395F00016ACA /* OCTServer.h in Headers */,
 				88746BD117FA0A2C0005888A /* OCTCommitTreeEntry.h in Headers */,
 				D0BC04F718403C5A00EDD926 /* OCTClient+Gists.h in Headers */,
-				F054C09218A7B82A00AA2DC1 /* OCTGitCommit.h in Headers */,
 				D08721B6169E395F00016ACA /* OCTTeam.h in Headers */,
 				7ACC999D17F220D7001613E7 /* OCTComment.h in Headers */,
 				D08721BA169E395F00016ACA /* OCTUser.h in Headers */,

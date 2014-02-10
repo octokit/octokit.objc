@@ -57,3 +57,4 @@
 #import <OctoKit/OCTUser.h>
 #import <OctoKit/OCTComment.h>
 #import <OctoKit/OCTReviewComment.h>
+#import <OctoKit/OCTGitCommit.h>
