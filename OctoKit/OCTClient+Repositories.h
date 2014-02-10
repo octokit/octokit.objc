@@ -79,4 +79,12 @@
 // Returns a signal of zero or one OCTRepository.
 - (RACSignal *)fetchRepositoryWithName:(NSString *)name owner:(NSString *)owner;
 
+// Fetches all branches of a specific repository owned by the given `owner` and named `name`.
+//
+// name  - The name of the repository, must be a non-empty string.
+// owner - The owner of the repository, must be a non-empty string.
+//
+// Returns a signal of zero or one OCTBranch.
+- (RACSignal *)fetchBranchesForRepositoryWithName:(NSString *)name owner:(NSString *)owner;
+
 @end
