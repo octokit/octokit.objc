@@ -38,7 +38,7 @@ describe(@"github.com git commit", ^{
 		expect(commit.SHA).to.equal(@"6dcb09b5b57875f334f61aebed695e2e4193db5e");
 		expect(commit.committer.login).to.equal(@"octocat");
 		expect(commit.author.login).to.equal(@"octocat");
-        expect(commit.commitDate).to.equal([NSDate dateWithTimeIntervalSince1970:0]);
+		expect(commit.commitDate).to.equal([NSDate dateWithTimeIntervalSince1970:0]);
 	});
 });
 
