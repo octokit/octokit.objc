@@ -87,4 +87,14 @@
 // Returns a signal of zero or one OCTBranch.
 - (RACSignal *)fetchBranchesForRepositoryWithName:(NSString *)name owner:(NSString *)owner;
 
+// Fetches a single commit a specific repository owned by the given `owner` and named `name`
+// and the given SHA.
+//
+// name  - The name of the repository, must be a non-empty string.
+// owner - The owner of the repository, must be a non-empty string.
+// SHA   - The SHA of the commit.
+//
+// Returns a signal of zero or more OCTFile depending on how many files where changed.
+- (RACSignal *)fetchFullCommitForRepositoryWithName:(NSString *)name owner:(NSString *)owner SHA:(NSString *)SHA;
+
 @end
