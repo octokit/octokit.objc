@@ -388,7 +388,10 @@ static NSString *OCTClientOAuthClientSecret = nil;
 			return [client fetchUserInfo];
 		}]
 		doNext:^(OCTUser *user) {
-			client.user = user;
+			NSMutableDictionary *userDict = [user.dictionaryValue mutableCopy] ?: [NSMutableDictionary dictionary];
+			if (user.rawLogin == nil) userDict[@keypath(user.rawLogin)] = user.login;
+			OCTUser *userWithRawLogin = [OCTUser modelWithDictionary:userDict error:NULL];
+			client.user = userWithRawLogin;
 		}]
 		mapReplace:client]
 		replayLazily]
