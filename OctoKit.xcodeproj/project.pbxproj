@@ -339,6 +339,7 @@
 		F01674EB18A6D09700C434AC /* OCTBranch.m in Sources */ = {isa = PBXBuildFile; fileRef = F01674DB18A6D09000C434AC /* OCTBranch.m */; };
 		F01674ED18A6D22A00C434AC /* OCTBranchSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = F01674EC18A6D22A00C434AC /* OCTBranchSpec.m */; };
 		F01674EE18A6D22A00C434AC /* OCTBranchSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = F01674EC18A6D22A00C434AC /* OCTBranchSpec.m */; };
+		F0551DFD18A9373E005C193D /* OCTBranch.h in Headers */ = {isa = PBXBuildFile; fileRef = F01674DA18A6D09000C434AC /* OCTBranch.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F688018C17C1CE0F00ECC7EC /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F688018B17C1CE0F00ECC7EC /* Security.framework */; };
 		F688019D17C1CE3200ECC7EC /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F688019C17C1CE3200ECC7EC /* CoreGraphics.framework */; };
 		F6CF78D416E993A500A75F63 /* RACSignal+OCTClientAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = F6CF78D216E993A500A75F63 /* RACSignal+OCTClientAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1534,6 +1535,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F0551DFD18A9373E005C193D /* OCTBranch.h in Headers */,
 				D087215A169E395F00016ACA /* OCTClient.h in Headers */,
 				9CB0588617933F26002CF498 /* OCTSubmoduleContent.h in Headers */,
 				D0BC04B818403A3200EDD926 /* OCTClient+Keys.h in Headers */,
