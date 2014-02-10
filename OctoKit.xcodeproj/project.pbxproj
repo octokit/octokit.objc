@@ -334,7 +334,7 @@
 		D0E3E8C51835A32100EF530F /* meta.json in Resources */ = {isa = PBXBuildFile; fileRef = D0E3E8C31835A32100EF530F /* meta.json */; };
 		D0E41B8716DFF37E00E321CF /* notifications.json in Resources */ = {isa = PBXBuildFile; fileRef = D0E41B8616DFF37E00E321CF /* notifications.json */; };
 		D0E41B8816DFF37E00E321CF /* notifications.json in Resources */ = {isa = PBXBuildFile; fileRef = D0E41B8616DFF37E00E321CF /* notifications.json */; };
-		F01674DC18A6D09000C434AC /* OCTBranch.h in Headers */ = {isa = PBXBuildFile; fileRef = F01674DA18A6D09000C434AC /* OCTBranch.h */; };
+		F01674DC18A6D09000C434AC /* OCTBranch.h in Headers */ = {isa = PBXBuildFile; fileRef = F01674DA18A6D09000C434AC /* OCTBranch.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F01674DD18A6D09000C434AC /* OCTBranch.m in Sources */ = {isa = PBXBuildFile; fileRef = F01674DB18A6D09000C434AC /* OCTBranch.m */; };
 		F01674EB18A6D09700C434AC /* OCTBranch.m in Sources */ = {isa = PBXBuildFile; fileRef = F01674DB18A6D09000C434AC /* OCTBranch.m */; };
 		F01674ED18A6D22A00C434AC /* OCTBranchSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = F01674EC18A6D22A00C434AC /* OCTBranchSpec.m */; };
