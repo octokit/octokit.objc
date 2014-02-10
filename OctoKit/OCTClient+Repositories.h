@@ -85,7 +85,8 @@
 // owner - The owner of the repository, must be a non-empty string.
 // SHA   - SHA or branch to start listing commits from.
 //
-// Returns a signal of zero or one OCTGitCommit.
+// Returns a signal of zero or one OCTGitCommit. If no SHA is given,
+// the commit history of all branches is returned.
 - (RACSignal *)fetchCommitsForRepositoryWithName:(NSString *)name owner:(NSString *)owner SHA:(NSString *)SHA;
 
 @end
