@@ -18,6 +18,6 @@
 @property (nonatomic, copy, readonly) NSString *lastCommitSHA;
 
 // The API URL to the last commit on this branch.
-@property (nonatomic, copy, readonly) NSString *lastCommitURL;
+@property (nonatomic, copy, readonly) NSURL *lastCommitURL;
 
 @end
