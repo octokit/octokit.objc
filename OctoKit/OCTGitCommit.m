@@ -7,7 +7,6 @@
 //
 
 #import "OCTGitCommit.h"
-#import "NSValueTransformer+OCTPredefinedTransformerAdditions.h"
 
 @implementation OCTGitCommit
 
@@ -16,7 +15,10 @@
 		@"commitURL": @"url",
 		@"SHA": @"sha",
 		@"message": @"commit.message",
-		@"commitDate": @"commit.author.date"
+		@"commitDate": @"commit.author.date",
+		@"totalChanges": @"stats.total",
+		@"additions": @"stats.additions",
+		@"deletions": @"stats.deletions"
 	}];
 }
 
@@ -34,6 +36,10 @@
 
 + (NSValueTransformer *)commitDateJSONTransformer {
 	return [NSValueTransformer valueTransformerForName:OCTDateValueTransformerName];
+}
+
++ (NSValueTransformer *)filesJSONTransformer {
+	return [NSValueTransformer mtl_JSONArrayTransformerWithModelClass:OCTFile.class];
 }
 
 @end

@@ -29,4 +29,20 @@
 // The date of the commit.
 @property (nonatomic, copy, readonly) NSDate *commitDate;
 
+// The number of changes made in the commit.
+// This property is only set when fetching a full commit.
+@property (nonatomic, copy, readonly) NSNumber *totalChanges;
+
+// The number of additions made in the commit.
+// This property is only set when fetching a full commit.
+@property (nonatomic, copy, readonly) NSNumber *additions;
+
+// The number of deletions made in the commit.
+// This property is only set when fetching a full commit.
+@property (nonatomic, copy, readonly) NSNumber *deletions;
+
+// The OCTFile objects changed in the commit.
+// This property is only set when fetching a full commit.
+@property (nonatomic, copy, readonly) NSArray *files;
+
 @end
