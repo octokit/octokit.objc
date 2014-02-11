@@ -16,7 +16,7 @@
 		@"commitURL": @"url",
 		@"SHA": @"sha",
 		@"message": @"commit.message",
-	    @"commitDate": @"commit.author.date"
+		@"commitDate": @"commit.author.date"
 	}];
 }
 
