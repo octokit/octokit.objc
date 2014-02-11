@@ -13,10 +13,6 @@
 #import "OCTRepository.h"
 #import "OCTTeam.h"
 #import "OCTBranch.h"
-#import "RACSignal+OCTClientAdditions.h"
-#import "OCTFile.h"
-#import <ReactiveCocoa/ReactiveCocoa.h>
-#import "OCTGitCommit.h"
 
 @implementation OCTClient (Repositories)
 
