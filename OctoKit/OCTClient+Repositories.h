@@ -101,7 +101,7 @@
 // repository  - The repository to fetch from.
 // SHA         - The SHA of the commit.
 //
-// Returns a signal of zero or more OCTGitCommit depending on how many files where changed.
+// Returns a signal of zero or one OCTGitCommit.
 - (RACSignal *)fetchFullCommitFromRepository:(OCTRepository *)repository SHA:(NSString *)SHA;
 
 @end
