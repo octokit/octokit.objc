@@ -31,6 +31,7 @@ const NSInteger OCTClientErrorUnsupportedServer = 672;
 const NSInteger OCTClientErrorOpeningBrowserFailed = 673;
 const NSInteger OCTClientErrorRequestForbidden = 674;
 const NSInteger OCTClientErrorTokenAuthenticationUnsupported = 675;
+const NSInteger OCTClientErrorUnsupportedServerScheme = 676;
 
 NSString * const OCTClientErrorRequestURLKey = @"OCTClientErrorRequestURLKey";
 NSString * const OCTClientErrorHTTPStatusCodeKey = @"OCTClientErrorHTTPStatusCodeKey";
