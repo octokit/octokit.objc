@@ -851,7 +851,12 @@ static NSString *OCTClientOAuthClientSecret = nil;
 			break;
 
 		case 403:
-			errorCode = OCTClientErrorRequestForbidden;
+			if (operation.userInfo[OCTClientErrorRequestStateRedirected]) {
+				errorCode = OCTClientErrorUnsupportedServerScheme;
+			} else {
+				errorCode = OCTClientErrorRequestForbidden;
+			}
+
 			break;
 
 		case 422:
