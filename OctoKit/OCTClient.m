@@ -37,6 +37,7 @@ NSString * const OCTClientErrorRequestURLKey = @"OCTClientErrorRequestURLKey";
 NSString * const OCTClientErrorHTTPStatusCodeKey = @"OCTClientErrorHTTPStatusCodeKey";
 NSString * const OCTClientErrorOneTimePasswordMediumKey = @"OCTClientErrorOneTimePasswordMediumKey";
 NSString * const OCTClientErrorOAuthScopesStringKey = @"OCTClientErrorOAuthScopesStringKey";
+NSString * const OCTClientErrorRequestStateRedirected = @"OCTClientErrorRequestRedirected";
 
 NSString * const OCTClientAPIVersion = @"v3";
 
@@ -546,6 +547,30 @@ static NSString *OCTClientOAuthClientSecret = nil;
 
 		operation.successCallbackQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
 		operation.failureCallbackQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+
+		__weak AFHTTPRequestOperation *weakOperation = operation;
+		[operation setRedirectResponseBlock:^(NSURLConnection *connection, NSURLRequest *currentRequest, NSURLResponse *redirectResponse) {
+			__strong AFHTTPRequestOperation *strongOperation = weakOperation;
+			if (redirectResponse == nil) return currentRequest;
+
+			// Append OCTClientErrorRequestStateRedirected to the current
+			// operation's userInfo when redirecting to a different URL scheme
+			NSString *currentHost = currentRequest.URL.host;
+			NSString *originalHost = connection.originalRequest.URL.host;
+			NSString *currentScheme = currentRequest.URL.scheme;
+			NSString *originalScheme = connection.originalRequest.URL.scheme;
+
+			BOOL hasOriginalHost = [currentHost isEqualToString:originalHost];
+			BOOL hasOriginalScheme = [currentScheme isEqualToString:originalScheme];
+
+			if (hasOriginalHost && !hasOriginalScheme) {
+				strongOperation.userInfo = @{
+					OCTClientErrorRequestStateRedirected: @YES
+				};
+			}
+
+			return currentRequest;
+		}];
 		[self enqueueHTTPRequestOperation:operation];
 
 		return [RACDisposable disposableWithBlock:^{
