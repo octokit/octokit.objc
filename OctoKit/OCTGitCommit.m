@@ -18,7 +18,7 @@
 		@"commitDate": @"commit.author.date",
 		@"totalChanges": @"stats.total",
 		@"additions": @"stats.additions",
-		@"deletions": @"stats.deletions"
+		@"deletions": @"stats.deletions",
 	}];
 }
 
