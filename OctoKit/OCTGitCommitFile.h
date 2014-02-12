@@ -1,7 +1,7 @@
 #import <OctoKit/OctoKit.h>
 
 // A file of a commit
-@interface OCTFile : OCTObject
+@interface OCTGitCommitFile : OCTObject
 
 // The filename in the repository.
 @property (nonatomic, copy, readonly) NSString *filename;

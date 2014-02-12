@@ -80,8 +80,8 @@ describe(@"github.com git commit", ^{
 			expect(commit.countOfDeletions).to.equal(4);
 			expect(commit.files.count).to.equal(1);
 
-			OCTFile *file = commit.files[0];
-			expect(file.class).to.equal(OCTFile.class);
+			OCTGitCommitFile *file = commit.files[0];
+			expect(file.class).to.equal(OCTGitCommitFile.class);
 		});
 	});
 });

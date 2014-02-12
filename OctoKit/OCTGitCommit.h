@@ -41,7 +41,7 @@
 // This property is only set when fetching a full commit.
 @property (nonatomic, readonly) NSUInteger countOfDeletions;
 
-// The OCTFile objects changed in the commit.
+// The OCTGitCommitFile objects changed in the commit.
 // This property is only set when fetching a full commit.
 @property (nonatomic, copy, readonly) NSArray *files;
 

@@ -3,7 +3,7 @@
 // Copyright (c) 2014 GitHub. All rights reserved.
 //
 
-#import "OCTFile.h"
+#import "OCTGitCommitFile.h"
 
 SpecBegin(OCTFile)
 
@@ -19,10 +19,10 @@ describe(@"github.com file", ^{
 		@"patch": @"@@ -29,7 +29,7 @@....."
 	};
 
-	__block OCTFile *file;
+	__block OCTGitCommitFile *file;
 
 	beforeEach(^{
-		file = [MTLJSONAdapter modelOfClass:OCTFile.class fromJSONDictionary:representation error:NULL];
+		file = [MTLJSONAdapter modelOfClass:OCTGitCommitFile.class fromJSONDictionary:representation error:NULL];
 		expect(file).notTo.beNil();
 	});
 

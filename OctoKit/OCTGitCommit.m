@@ -39,7 +39,7 @@
 }
 
 + (NSValueTransformer *)filesJSONTransformer {
-	return [NSValueTransformer mtl_JSONArrayTransformerWithModelClass:OCTFile.class];
+	return [NSValueTransformer mtl_JSONArrayTransformerWithModelClass:OCTGitCommitFile.class];
 }
 
 @end

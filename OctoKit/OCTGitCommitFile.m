@@ -1,6 +1,6 @@
-#import "OCTFile.h"
+#import "OCTGitCommitFile.h"
 
-@implementation OCTFile
+@implementation OCTGitCommitFile
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
 	return [super.JSONKeyPathsByPropertyKey mtl_dictionaryByAddingEntriesFromDictionary:@{
