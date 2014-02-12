@@ -40,9 +40,9 @@ describe(@"github.com git commit", ^{
 			expect(commit.committer.login).to.equal(@"octocat");
 			expect(commit.author.login).to.equal(@"octocat");
 			expect(commit.commitDate).to.equal([NSDate dateWithTimeIntervalSince1970:0]);
-			expect(commit.totalChanges).to.beNil();
-			expect(commit.additions).to.beNil();
-			expect(commit.deletions).to.beNil();
+			expect(commit.countOfChanges).to.equal(0);
+			expect(commit.countOfAdditions).to.equal(0);
+			expect(commit.countOfDeletions).to.equal(0);
 			expect(commit.files).to.beNil();
 		});
 	});
@@ -75,9 +75,9 @@ describe(@"github.com git commit", ^{
 			expect(commit.committer.login).to.equal(@"octocat");
 			expect(commit.author.login).to.equal(@"octocat");
 			expect(commit.commitDate).to.equal([NSDate dateWithTimeIntervalSince1970:0]);
-			expect(commit.totalChanges).to.equal(@108);
-			expect(commit.additions).to.equal(@104);
-			expect(commit.deletions).to.equal(@4);
+			expect(commit.countOfChanges).to.equal(108);
+			expect(commit.countOfAdditions).to.equal(104);
+			expect(commit.countOfDeletions).to.equal(4);
 			expect(commit.files.count).to.equal(1);
 
 			OCTFile *file = commit.files[0];

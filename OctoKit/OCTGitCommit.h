@@ -31,15 +31,15 @@
 
 // The number of changes made in the commit.
 // This property is only set when fetching a full commit.
-@property (nonatomic, copy, readonly) NSNumber *totalChanges;
+@property (nonatomic, readonly) NSUInteger countOfChanges;
 
 // The number of additions made in the commit.
 // This property is only set when fetching a full commit.
-@property (nonatomic, copy, readonly) NSNumber *additions;
+@property (nonatomic, readonly) NSUInteger countOfAdditions;
 
 // The number of deletions made in the commit.
 // This property is only set when fetching a full commit.
-@property (nonatomic, copy, readonly) NSNumber *deletions;
+@property (nonatomic, readonly) NSUInteger countOfDeletions;
 
 // The OCTFile objects changed in the commit.
 // This property is only set when fetching a full commit.
