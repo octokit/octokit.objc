@@ -16,6 +16,9 @@ NSString * const OCTServerEnterpriseAPIEndpointPathComponent = @"api/v3";
 // Enterprise defaults to HTTP, and not all instances have HTTPS set up.
 NSString * const OCTServerDefaultEnterpriseScheme = @"http";
 
+// Because defaults need backups.
+NSString * const OCTServerSecureEnterpriseScheme = @"https";
+
 @interface OCTServer ()
 
 @property (nonatomic, copy, readwrite) NSURL *baseURL;

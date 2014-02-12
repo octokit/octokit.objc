@@ -12,6 +12,9 @@
 // known or specified.
 extern NSString * const OCTServerDefaultEnterpriseScheme;
 
+// The backup URL scheme to use for Enterprise URLs.
+extern NSString * const OCTServerSecureEnterpriseScheme;
+
 // Represents a GitHub server instance
 // (ie. github.com or an Enterprise instance)
 @interface OCTServer : MTLModel
