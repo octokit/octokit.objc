@@ -26,6 +26,23 @@
 // The author of this commit.
 @property (nonatomic, copy, readonly) OCTUser *author;
 
+// The date the author signed the commit.
 @property (nonatomic, copy, readonly) NSDate *commitDate;
+
+// The number of changes made in the commit.
+// This property is only set when fetching a full commit.
+@property (nonatomic, readonly) NSUInteger countOfChanges;
+
+// The number of additions made in the commit.
+// This property is only set when fetching a full commit.
+@property (nonatomic, readonly) NSUInteger countOfAdditions;
+
+// The number of deletions made in the commit.
+// This property is only set when fetching a full commit.
+@property (nonatomic, readonly) NSUInteger countOfDeletions;
+
+// The OCTGitCommitFile objects changed in the commit.
+// This property is only set when fetching a full commit.
+@property (nonatomic, copy, readonly) NSArray *files;
 
 @end

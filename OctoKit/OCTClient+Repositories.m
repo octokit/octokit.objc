@@ -13,9 +13,6 @@
 #import "OCTRepository.h"
 #import "OCTTeam.h"
 #import "OCTBranch.h"
-#import "RACSignal+OCTClientAdditions.h"
-#import <ReactiveCocoa/ReactiveCocoa.h>
-#import "OCTGitCommit.h"
 
 @implementation OCTClient (Repositories)
 
@@ -113,6 +110,17 @@
 		parameters = @{ @"sha": SHA };
 	}
 
+	NSMutableURLRequest *request = [self requestWithMethod:@"GET" path:path parameters:parameters notMatchingEtag:nil];
+
+	return [[self enqueueRequest:request resultClass:OCTGitCommit.class] oct_parsedResults];
+}
+
+- (RACSignal *)fetchCommitFromRepository:(OCTRepository *)repository SHA:(NSString *)SHA {
+	NSParameterAssert(repository);
+	NSParameterAssert(SHA.length > 0);
+
+	NSString *path = [NSString stringWithFormat:@"/repos/%@/%@/commits/%@", repository.ownerLogin, repository.name, SHA];
+	NSDictionary *parameters = @{@"sha": SHA};
 	NSMutableURLRequest *request = [self requestWithMethod:@"GET" path:path parameters:parameters notMatchingEtag:nil];
 
 	return [[self enqueueRequest:request resultClass:OCTGitCommit.class] oct_parsedResults];
