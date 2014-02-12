@@ -7,13 +7,13 @@
 @property (nonatomic, copy, readonly) NSString *filename;
 
 // The number of additions made in the commit.
-@property (nonatomic, copy, readonly) NSNumber *additions;
+@property (nonatomic, readonly) NSUInteger countOfAdditions;
 
 // The number of deletions made in the commit.
-@property (nonatomic, copy, readonly) NSNumber *deletions;
+@property (nonatomic, readonly) NSUInteger countOfDeletions;
 
 // The number of changes made in the commit.
-@property (nonatomic, copy, readonly) NSNumber *changes;
+@property (nonatomic, readonly) NSUInteger countOfChanges;
 
 // The status of the commit.
 @property (nonatomic, copy, readonly) NSString *status;

@@ -28,9 +28,9 @@ describe(@"github.com file", ^{
 
 	it(@"should initialize from an external representation", ^{
 		expect(file.filename).to.equal(@"file1.txt");
-		expect(file.additions).to.equal(@10);
-		expect(file.deletions).to.equal(@2);
-		expect(file.changes).to.equal(@12);
+		expect(file.countOfAdditions).to.equal(10);
+		expect(file.countOfDeletions).to.equal(2);
+		expect(file.countOfChanges).to.equal(12);
 		expect(file.status).to.equal(@"modified");
 		expect(file.rawURL).to.equal([NSURL URLWithString:@"https://github.com/octocat/Hello-World/raw/7ca483543807a51b6079e54ac4cc392bc29ae284/file1.txt"]);
 		expect(file.blobURL).to.equal([NSURL URLWithString:@"https://github.com/octocat/Hello-World/blob/7ca483543807a51b6079e54ac4cc392bc29ae284/file1.txt"]);
