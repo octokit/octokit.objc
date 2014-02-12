@@ -3,9 +3,7 @@
 // Copyright (c) 2014 GitHub. All rights reserved.
 //
 
-#import "OCTGitCommitFile.h"
-
-SpecBegin(OCTFile)
+SpecBegin(OCTGitCommitFile )
 
 describe(@"github.com file", ^{
 	NSDictionary *representation = @{

@@ -7,13 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1643A17DA3F90662766C5154 /* OCTFileSpecs.m in Sources */ = {isa = PBXBuildFile; fileRef = 1643AE49C95AD81D363073A5 /* OCTFileSpecs.m */; };
+		1643A17DA3F90662766C5154 /* OCTGitCommitFileSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 1643AE49C95AD81D363073A5 /* OCTGitCommitFileSpec.m */; };
 		1643A6B1F520654E5CFCC5E5 /* OCTGitCommitFile.h in Headers */ = {isa = PBXBuildFile; fileRef = 1643A4E8775FFB9B59EB1EFB /* OCTGitCommitFile.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1643A7C91D61AFD5A5B0036A /* OCTGitCommitFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 1643A453297B5EB7A0280F7D /* OCTGitCommitFile.m */; };
 		1643A87BA7CCD491EE9695AB /* OCTGitCommitFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 1643A453297B5EB7A0280F7D /* OCTGitCommitFile.m */; };
 		1643AA3739369DC29BB208AE /* git_commit_full.json in Resources */ = {isa = PBXBuildFile; fileRef = 1643A0ABD066520E65EA2DD7 /* git_commit_full.json */; };
 		1643AA827D2729506A0343EE /* OCTGitCommitFile.h in Headers */ = {isa = PBXBuildFile; fileRef = 1643A4E8775FFB9B59EB1EFB /* OCTGitCommitFile.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		1643AB5438B1AD647551A25B /* OCTFileSpecs.m in Sources */ = {isa = PBXBuildFile; fileRef = 1643AE49C95AD81D363073A5 /* OCTFileSpecs.m */; };
+		1643AB5438B1AD647551A25B /* OCTGitCommitFileSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 1643AE49C95AD81D363073A5 /* OCTGitCommitFileSpec.m */; };
 		1643ABDA2CF735AE8BD080F6 /* git_commit_full.json in Resources */ = {isa = PBXBuildFile; fileRef = 1643A0ABD066520E65EA2DD7 /* git_commit_full.json */; };
 		7A1F642B17F11EFB008155CF /* OCTIssueCommentSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A1F642A17F11EFB008155CF /* OCTIssueCommentSpec.m */; };
 		7A1F642C17F11EFB008155CF /* OCTIssueCommentSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A1F642A17F11EFB008155CF /* OCTIssueCommentSpec.m */; };
@@ -674,7 +674,7 @@
 		1643A0ABD066520E65EA2DD7 /* git_commit_full.json */ = {isa = PBXFileReference; lastKnownFileType = file.json; path = git_commit_full.json; sourceTree = "<group>"; };
 		1643A453297B5EB7A0280F7D /* OCTGitCommitFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCTGitCommitFile.m; sourceTree = "<group>"; };
 		1643A4E8775FFB9B59EB1EFB /* OCTGitCommitFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCTGitCommitFile.h; sourceTree = "<group>"; };
-		1643AE49C95AD81D363073A5 /* OCTFileSpecs.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCTFileSpecs.m; sourceTree = "<group>"; };
+		1643AE49C95AD81D363073A5 /* OCTGitCommitFileSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCTGitCommitFileSpec.m; sourceTree = "<group>"; };
 		7A1F642A17F11EFB008155CF /* OCTIssueCommentSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCTIssueCommentSpec.m; sourceTree = "<group>"; };
 		7A1F643817F120FF008155CF /* OCTComment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCTComment.h; sourceTree = "<group>"; };
 		7A1F647017F12851008155CF /* OCTReviewComment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCTReviewComment.h; sourceTree = "<group>"; };
@@ -1242,7 +1242,7 @@
 				D08721CF169E398C00016ACA /* OCTUserSpec.m */,
 				F01674EC18A6D22A00C434AC /* OCTBranchSpec.m */,
 				F054C0AB18A7BDAB00AA2DC1 /* OCTGitCommitSpec.m */,
-				1643AE49C95AD81D363073A5 /* OCTFileSpecs.m */,
+				1643AE49C95AD81D363073A5 /* OCTGitCommitFileSpec.m */,
 			);
 			name = Specs;
 			sourceTree = "<group>";
@@ -2122,7 +2122,7 @@
 				F054C0AC18A7BDAB00AA2DC1 /* OCTGitCommitSpec.m in Sources */,
 				D0DD8EF817BC5C0300657FDA /* OCTGistSpec.m in Sources */,
 				D058675616F2649800941A32 /* OCTResponseSpec.m in Sources */,
-				1643A17DA3F90662766C5154 /* OCTFileSpecs.m in Sources */,
+				1643A17DA3F90662766C5154 /* OCTGitCommitFileSpec.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2220,7 +2220,7 @@
 				F054C0AD18A7BDAB00AA2DC1 /* OCTGitCommitSpec.m in Sources */,
 				D0DD8EF917BC5C0300657FDA /* OCTGistSpec.m in Sources */,
 				D058675716F2649800941A32 /* OCTResponseSpec.m in Sources */,
-				1643AB5438B1AD647551A25B /* OCTFileSpecs.m in Sources */,
+				1643AB5438B1AD647551A25B /* OCTGitCommitFileSpec.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
