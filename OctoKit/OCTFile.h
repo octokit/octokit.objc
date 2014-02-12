@@ -15,7 +15,7 @@
 // The number of changes made in the commit.
 @property (nonatomic, readonly) NSUInteger countOfChanges;
 
-// The status of the commit.
+// The status of the commit, e.g. 'added' or 'modified'.
 @property (nonatomic, copy, readonly) NSString *status;
 
 // The GitHub URL for the whole file.
