@@ -115,7 +115,7 @@
 	return [[self enqueueRequest:request resultClass:OCTGitCommit.class] oct_parsedResults];
 }
 
-- (RACSignal *)fetchFullCommitFromRepository:(OCTRepository *)repository SHA:(NSString *)SHA {
+- (RACSignal *)fetchCommitFromRepository:(OCTRepository *)repository SHA:(NSString *)SHA {
 	NSParameterAssert(repository);
 	NSParameterAssert(SHA.length > 0);
 

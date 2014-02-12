@@ -102,6 +102,6 @@
 // SHA         - The SHA of the commit.
 //
 // Returns a signal of zero or one OCTGitCommit.
-- (RACSignal *)fetchFullCommitFromRepository:(OCTRepository *)repository SHA:(NSString *)SHA;
+- (RACSignal *)fetchCommitFromRepository:(OCTRepository *)repository SHA:(NSString *)SHA;
 
 @end
