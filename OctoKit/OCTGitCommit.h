@@ -26,7 +26,7 @@
 // The author of this commit.
 @property (nonatomic, copy, readonly) OCTUser *author;
 
-// The date of the commit.
+// The date the author signed the commit.
 @property (nonatomic, copy, readonly) NSDate *commitDate;
 
 // The number of changes made in the commit.
