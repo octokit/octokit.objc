@@ -347,7 +347,7 @@ static NSString *OCTClientOAuthClientSecret = nil;
 			return [RACSignal error:error];
 		}]
 		reduceEach:^(OCTClient *client, OCTAuthorization *authorization) {
-			client.token = [authorization.token copy];
+			client.token = authorization.token;
 			return client;
 		}]
 		replayLazily]
