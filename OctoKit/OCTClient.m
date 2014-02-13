@@ -318,12 +318,14 @@ static NSString *OCTClientOAuthClientSecret = nil;
 			request.cachePolicy = NSURLRequestReloadIgnoringLocalCacheData;
 			if (oneTimePassword != nil) [request setValue:oneTimePassword forHTTPHeaderField:OCTClientOneTimePasswordHeaderField];
 
+			RACSignal *tokenSignal = [[client
+				enqueueRequest:request resultClass:OCTAuthorization.class]
+				oct_parsedResults];
+
 			return [RACSignal combineLatest:@[
 				[RACSignal return:client],
-				[[client
-					enqueueRequest:request resultClass:OCTAuthorization.class]
-					oct_parsedResults]
-				]];
+				tokenSignal
+			]];
 		}];
 	};
 
