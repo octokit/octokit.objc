@@ -19,6 +19,7 @@
 #import "OCTUser.h"
 #import "RACSignal+OCTClientAdditions.h"
 #import <ReactiveCocoa/ReactiveCocoa.h>
+#import <ReactiveCocoa/EXTScope.h>
 
 NSString * const OCTClientErrorDomain = @"OCTClientErrorDomain";
 const NSInteger OCTClientErrorAuthenticationFailed = 666;
@@ -31,11 +32,13 @@ const NSInteger OCTClientErrorUnsupportedServer = 672;
 const NSInteger OCTClientErrorOpeningBrowserFailed = 673;
 const NSInteger OCTClientErrorRequestForbidden = 674;
 const NSInteger OCTClientErrorTokenAuthenticationUnsupported = 675;
+const NSInteger OCTClientErrorUnsupportedServerScheme = 676;
 
 NSString * const OCTClientErrorRequestURLKey = @"OCTClientErrorRequestURLKey";
 NSString * const OCTClientErrorHTTPStatusCodeKey = @"OCTClientErrorHTTPStatusCodeKey";
 NSString * const OCTClientErrorOneTimePasswordMediumKey = @"OCTClientErrorOneTimePasswordMediumKey";
 NSString * const OCTClientErrorOAuthScopesStringKey = @"OCTClientErrorOAuthScopesStringKey";
+NSString * const OCTClientErrorRequestStateRedirected = @"OCTClientErrorRequestRedirected";
 
 NSString * const OCTClientAPIVersion = @"v3";
 
@@ -300,10 +303,9 @@ static NSString *OCTClientOAuthClientSecret = nil;
 	NSString *clientSecret = self.class.clientSecret;
 	NSAssert(clientID != nil && clientSecret != nil, @"+setClientID:clientSecret: must be invoked before calling %@", NSStringFromSelector(_cmd));
 
-	OCTClient *client = [self unauthenticatedClientWithUser:user];
-
-	return [[[[[[[[RACSignal
-		defer:^{
+	RACSignal *(^authorizationSignalWithUser)(OCTUser *user) = ^(OCTUser *user) {
+		return [RACSignal defer:^{
+			OCTClient *client = [self unauthenticatedClientWithUser:user];
 			[client setAuthorizationHeaderWithUsername:user.rawLogin password:password];
 
 			NSString *path = [NSString stringWithFormat:@"authorizations/clients/%@", clientID];
@@ -316,9 +318,25 @@ static NSString *OCTClientOAuthClientSecret = nil;
 			request.cachePolicy = NSURLRequestReloadIgnoringLocalCacheData;
 			if (oneTimePassword != nil) [request setValue:oneTimePassword forHTTPHeaderField:OCTClientOneTimePasswordHeaderField];
 
-			return [client enqueueRequest:request resultClass:OCTAuthorization.class];
-		}]
+			RACSignal *tokenSignal = [[client
+				enqueueRequest:request resultClass:OCTAuthorization.class]
+				oct_parsedResults];
+
+			return [RACSignal combineLatest:@[
+				[RACSignal return:client],
+				tokenSignal
+			]];
+		}];
+	};
+
+	return [[[[authorizationSignalWithUser(user)
 		catch:^(NSError *error) {
+			if (error.code == OCTClientErrorUnsupportedServerScheme) {
+				OCTServer *secureServer = [self HTTPSEnterpriseServerWithServer:user.server];
+				OCTUser *secureUser = [OCTUser userWithRawLogin:user.rawLogin server:secureServer];
+				return authorizationSignalWithUser(secureUser);
+			}
+
 			NSNumber *statusCode = error.userInfo[OCTClientErrorHTTPStatusCodeKey];
 			if (statusCode.integerValue == 404) {
 				if (error.userInfo[OCTClientErrorOAuthScopesStringKey] != nil) {
@@ -330,14 +348,10 @@ static NSString *OCTClientOAuthClientSecret = nil;
 
 			return [RACSignal error:error];
 		}]
-		oct_parsedResults]
-		map:^(OCTAuthorization *authorization) {
-			return [authorization.token copy];
+		reduceEach:^(OCTClient *client, OCTAuthorization *authorization) {
+			client.token = authorization.token;
+			return client;
 		}]
-		doNext:^(NSString *token) {
-			client.token = token;
-		}]
-		mapReplace:client]
 		replayLazily]
 		setNameWithFormat:@"+signInAsUser: %@ password:oneTimePassword:scopes:", user];
 }
@@ -351,9 +365,20 @@ static NSString *OCTClientOAuthClientSecret = nil;
 
 	OCTClient *client = [[self alloc] initWithServer:server];
 
-	return [[[[[[[[[[self
+	return [[[[[[[[[self
 		authorizeWithServerUsingWebBrowser:server scopes:scopes]
-		flattenMap:^(NSString *temporaryCode) {
+		combineLatestWith:[RACSignal return:server]]
+		catch:^(NSError *error) {
+			if (error.code == OCTClientErrorUnsupportedServerScheme) {
+				OCTServer *secureServer = [self HTTPSEnterpriseServerWithServer:server];
+				return [[self
+					authorizeWithServerUsingWebBrowser:secureServer scopes:scopes]
+					combineLatestWith:[RACSignal return:server]];
+			}
+
+			return [RACSignal error:error];
+		}]
+		reduceEach:^(NSString *temporaryCode, OCTServer *server) {
 			NSDictionary *params = @{
 				@"client_id": clientID,
 				@"client_secret": clientSecret,
@@ -372,25 +397,32 @@ static NSString *OCTClientOAuthClientSecret = nil;
 			// JSON.
 			[request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
 
-			return [client enqueueRequest:request resultClass:OCTAccessToken.class];
+
+			RACSignal *tokenSignal = [[client
+				enqueueRequest:request resultClass:OCTAccessToken.class]
+				oct_parsedResults];
+
+			return [RACSignal combineLatest:@[
+				[RACSignal return:client],
+				tokenSignal
+			]];
 		}]
-		oct_parsedResults]
-		map:^(OCTAccessToken *accessToken) {
-			return [accessToken.token copy];
+		flatten]
+		reduceEach:^(OCTClient *client, OCTAccessToken *accessToken) {
+			client.token = [accessToken.token copy];
+			return client;
 		}]
-		doNext:^(NSString *token) {
-			client.token = token;
+		flattenMap:^(OCTClient *client) {
+			return [[[client
+				fetchUserInfo]
+				doNext:^(OCTUser *user) {
+					NSMutableDictionary *userDict = [user.dictionaryValue mutableCopy] ?: [NSMutableDictionary dictionary];
+					if (user.rawLogin == nil) userDict[@keypath(user.rawLogin)] = user.login;
+					OCTUser *userWithRawLogin = [OCTUser modelWithDictionary:userDict error:NULL];
+					client.user = userWithRawLogin;
+				}]
+				mapReplace:client];
 		}]
-		then:^{
-			return [client fetchUserInfo];
-		}]
-		doNext:^(OCTUser *user) {
-			NSMutableDictionary *userDict = [user.dictionaryValue mutableCopy] ?: [NSMutableDictionary dictionary];
-			if (user.rawLogin == nil) userDict[@keypath(user.rawLogin)] = user.login;
-			OCTUser *userWithRawLogin = [OCTUser modelWithDictionary:userDict error:NULL];
-			client.user = userWithRawLogin;
-		}]
-		mapReplace:client]
 		replayLazily]
 		setNameWithFormat:@"+signInToServerUsingWebBrowser: %@ scopes:", server];
 }
@@ -454,6 +486,11 @@ static NSString *OCTClientOAuthClientSecret = nil;
 	return [[[[client
 		enqueueRequest:request resultClass:OCTServerMetadata.class]
 		catch:^(NSError *error) {
+			if (error.code == OCTClientErrorUnsupportedServerScheme) {
+				OCTServer *secureServer = [self HTTPSEnterpriseServerWithServer:server];
+				return [self fetchMetadataForServer:secureServer];
+			}
+
 			NSNumber *statusCode = error.userInfo[OCTClientErrorHTTPStatusCodeKey];
 			if (statusCode.integerValue == 404) error = self.class.unsupportedVersionError;
 
@@ -461,6 +498,13 @@ static NSString *OCTClientOAuthClientSecret = nil;
 		}]
 		oct_parsedResults]
 		setNameWithFormat:@"+fetchMetadataForServer: %@", server];
+}
+
++ (OCTServer *)HTTPSEnterpriseServerWithServer:(OCTServer *)server {
+	NSURL *URL = server.baseURL;
+	NSURL *secureURL = [[NSURL alloc] initWithScheme:OCTServerHTTPSEnterpriseScheme host:URL.host path:URL.path];
+
+	return [OCTServer serverWithBaseURL:secureURL];
 }
 
 + (BOOL)openURL:(NSURL *)URL {
@@ -545,6 +589,31 @@ static NSString *OCTClientOAuthClientSecret = nil;
 
 		operation.successCallbackQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
 		operation.failureCallbackQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+
+		@weakify(operation);
+		operation.redirectResponseBlock = ^(NSURLConnection *connection, NSURLRequest *currentRequest, NSURLResponse *redirectResponse) {
+			@strongify(operation);
+			if (redirectResponse == nil) return currentRequest;
+
+			// Append OCTClientErrorRequestStateRedirected to the current
+			// operation's userInfo when redirecting to a different URL scheme
+			NSString *currentHost = currentRequest.URL.host;
+			NSString *originalHost = connection.originalRequest.URL.host;
+			NSString *currentScheme = currentRequest.URL.scheme;
+			NSString *originalScheme = connection.originalRequest.URL.scheme;
+
+			BOOL hasOriginalHost = [currentHost isEqual:originalHost];
+			BOOL hasOriginalScheme = [currentScheme isEqual:originalScheme];
+
+			if (hasOriginalHost && !hasOriginalScheme) {
+				operation.userInfo = @{
+					OCTClientErrorRequestStateRedirected: @YES
+				};
+			}
+
+			return currentRequest;
+		};
+
 		[self enqueueHTTPRequestOperation:operation];
 
 		return [RACDisposable disposableWithBlock:^{
@@ -825,7 +894,12 @@ static NSString *OCTClientOAuthClientSecret = nil;
 			break;
 
 		case 403:
-			errorCode = OCTClientErrorRequestForbidden;
+			if (operation.userInfo[OCTClientErrorRequestStateRedirected]) {
+				errorCode = OCTClientErrorUnsupportedServerScheme;
+			} else {
+				errorCode = OCTClientErrorRequestForbidden;
+			}
+
 			break;
 
 		case 422:
