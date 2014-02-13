@@ -19,6 +19,7 @@
 #import "OCTUser.h"
 #import "RACSignal+OCTClientAdditions.h"
 #import <ReactiveCocoa/ReactiveCocoa.h>
+#import <ReactiveCocoa/EXTScope.h>
 
 NSString * const OCTClientErrorDomain = @"OCTClientErrorDomain";
 const NSInteger OCTClientErrorAuthenticationFailed = 666;
@@ -591,9 +592,9 @@ static NSString *OCTClientOAuthClientSecret = nil;
 		operation.successCallbackQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
 		operation.failureCallbackQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
 
-		__weak AFHTTPRequestOperation *weakOperation = operation;
+		@weakify(operation);
 		[operation setRedirectResponseBlock:^(NSURLConnection *connection, NSURLRequest *currentRequest, NSURLResponse *redirectResponse) {
-			__strong AFHTTPRequestOperation *strongOperation = weakOperation;
+			@strongify(operation);
 			if (redirectResponse == nil) return currentRequest;
 
 			// Append OCTClientErrorRequestStateRedirected to the current
@@ -607,7 +608,7 @@ static NSString *OCTClientOAuthClientSecret = nil;
 			BOOL hasOriginalScheme = [currentScheme isEqualToString:originalScheme];
 
 			if (hasOriginalHost && !hasOriginalScheme) {
-				strongOperation.userInfo = @{
+				operation.userInfo = @{
 					OCTClientErrorRequestStateRedirected: @YES
 				};
 			}
