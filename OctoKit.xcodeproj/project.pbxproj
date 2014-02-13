@@ -347,7 +347,7 @@
 		F01674EB18A6D09700C434AC /* OCTBranch.m in Sources */ = {isa = PBXBuildFile; fileRef = F01674DB18A6D09000C434AC /* OCTBranch.m */; };
 		F01674ED18A6D22A00C434AC /* OCTBranchSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = F01674EC18A6D22A00C434AC /* OCTBranchSpec.m */; };
 		F01674EE18A6D22A00C434AC /* OCTBranchSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = F01674EC18A6D22A00C434AC /* OCTBranchSpec.m */; };
-		F054C09118A7B82A00AA2DC1 /* OCTGitCommit.h in Headers */ = {isa = PBXBuildFile; fileRef = F054C08F18A7B82A00AA2DC1 /* OCTGitCommit.h */; };
+		F054C09118A7B82A00AA2DC1 /* OCTGitCommit.h in Headers */ = {isa = PBXBuildFile; fileRef = F054C08F18A7B82A00AA2DC1 /* OCTGitCommit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F054C09218A7B82A00AA2DC1 /* OCTGitCommit.h in Headers */ = {isa = PBXBuildFile; fileRef = F054C08F18A7B82A00AA2DC1 /* OCTGitCommit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F054C09318A7B82A00AA2DC1 /* OCTGitCommit.m in Sources */ = {isa = PBXBuildFile; fileRef = F054C09018A7B82A00AA2DC1 /* OCTGitCommit.m */; };
 		F054C09418A7B82A00AA2DC1 /* OCTGitCommit.m in Sources */ = {isa = PBXBuildFile; fileRef = F054C09018A7B82A00AA2DC1 /* OCTGitCommit.m */; };
