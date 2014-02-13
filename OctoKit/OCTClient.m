@@ -394,12 +394,15 @@ static NSString *OCTClientOAuthClientSecret = nil;
 			// JSON.
 			[request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
 
+
+			RACSignal *tokenSignal = [[client
+				enqueueRequest:request resultClass:OCTAccessToken.class]
+				oct_parsedResults];
+
 			return [RACSignal combineLatest:@[
-					[RACSignal return:client],
-					[[client
-						enqueueRequest:request resultClass:OCTAccessToken.class]
-						oct_parsedResults]
-				]];
+				[RACSignal return:client],
+				tokenSignal
+			]];
 		}]
 		flatten]
 		reduceEach:^(OCTClient *client, OCTAccessToken *accessToken) {
