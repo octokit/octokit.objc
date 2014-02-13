@@ -12,8 +12,8 @@
 // known or specified.
 extern NSString * const OCTServerDefaultEnterpriseScheme;
 
-// The URL scheme to use for HTTPS Enterprise URLs.
-extern NSString * const OCTServerSecureEnterpriseScheme;
+// The HTTPS URL scheme to use for Enterprise URLs.
+extern NSString * const OCTServerHTTPSEnterpriseScheme;
 
 // Represents a GitHub server instance
 // (ie. github.com or an Enterprise instance)
