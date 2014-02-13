@@ -56,6 +56,9 @@ extern const NSInteger OCTClientErrorJSONParsingFailed;
 // The server is too old or new to understand our request.
 extern const NSInteger OCTClientErrorUnsupportedServer;
 
+// The server scheme is unsupported.
+extern const NSInteger OCTClientErrorUnsupportedServerScheme;
+
 // The GitHub login page could not be opened in a web browser.
 //
 // This error only affects +signInToServerUsingWebBrowser:scopes:.
