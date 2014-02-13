@@ -502,9 +502,8 @@ static NSString *OCTClientOAuthClientSecret = nil;
 }
 
 + (OCTServer *)HTTPSEnterpriseServerWithServer:(OCTServer *)server {
-	NSURLComponents *components = [[NSURLComponents alloc] initWithURL:server.baseURL resolvingAgainstBaseURL:NO];
-	components.scheme = OCTServerSecureEnterpriseScheme;
-	NSURL *secureURL = components.URL;
+	NSURL *URL = server.baseURL;
+	NSURL *secureURL = [[NSURL alloc] initWithScheme:OCTServerSecureEnterpriseScheme host:URL.host path:URL.path];
 
 	return [OCTServer serverWithBaseURL:secureURL];
 }
