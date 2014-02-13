@@ -396,6 +396,25 @@ describe(@"sign in", ^{
 		expect(client.authenticated).to.beTruthy();
 	});
 
+	it(@"requests authorization through redirects", ^{
+		NSURL *baseURL = [NSURL URLWithString:@"http://enterprise.github.com"];
+		NSString *path = [NSString stringWithFormat:@"api/v3/authorizations/clients/%@", clientID];
+
+		NSURL *HTTPURL = [baseURL URLByAppendingPathComponent:path];
+		NSURL *HTTPSURL = [[NSURL alloc] initWithScheme:@"https" host:HTTPURL.host path:HTTPURL.path];
+
+		stubResponseURL(HTTPSURL, @"authorizations.json", @{});
+		stubRedirectResponseURL(HTTPURL, 301, HTTPSURL);
+
+		OCTServer *enterpriseServer = [OCTServer serverWithBaseURL:baseURL];
+		OCTUser *enterpriseUser = [OCTUser userWithRawLogin:user.rawLogin server:enterpriseServer];
+
+		RACSignal *request = [OCTClient signInAsUser:enterpriseUser password:@"" oneTimePassword:nil scopes:OCTClientAuthorizationScopesRepository];
+		OCTClient *client = [request asynchronousFirstOrDefault:nil success:NULL error:NULL];
+		expect(client).notTo.beNil();
+		expect(client.authenticated).to.beTruthy();
+	});
+
 	it(@"should detect old server versions", ^{
 		stubResponseWithStatusCode([NSString stringWithFormat:@"/authorizations/clients/%@", clientID], 404);
 
