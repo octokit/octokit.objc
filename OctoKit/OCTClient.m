@@ -478,19 +478,15 @@ static NSString *OCTClientOAuthClientSecret = nil;
 + (RACSignal *)fetchMetadataForServer:(OCTServer *)server {
 	NSParameterAssert(server != nil);
 
+	OCTClient *client = [[self alloc] initWithServer:server];
+	NSURLRequest *request = [client requestWithMethod:@"GET" path:@"meta" parameters:nil notMatchingEtag:nil];
 
-	RACSignal * (^metadataSignalWithServer)(OCTServer *) = ^(OCTServer *server) {
-		OCTClient *client = [[self alloc] initWithServer:server];
-		NSURLRequest *request = [client requestWithMethod:@"GET" path:@"meta" parameters:nil notMatchingEtag:nil];
-
-		return [client enqueueRequest:request resultClass:OCTServerMetadata.class];
-	};
-
-	return [[[metadataSignalWithServer(server)
+	return [[[[client
+		enqueueRequest:request resultClass:OCTServerMetadata.class]
 		catch:^(NSError *error) {
 			if (error.code == OCTClientErrorUnsupportedServerScheme) {
 				OCTServer *secureServer = [self HTTPSEnterpriseServerWithServer:server];
-				return metadataSignalWithServer(secureServer);
+				return [self fetchMetadataForServer:secureServer];
 			}
 
 			NSNumber *statusCode = error.userInfo[OCTClientErrorHTTPStatusCodeKey];
