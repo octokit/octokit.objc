@@ -604,8 +604,8 @@ static NSString *OCTClientOAuthClientSecret = nil;
 			NSString *currentScheme = currentRequest.URL.scheme;
 			NSString *originalScheme = connection.originalRequest.URL.scheme;
 
-			BOOL hasOriginalHost = [currentHost isEqualToString:originalHost];
-			BOOL hasOriginalScheme = [currentScheme isEqualToString:originalScheme];
+			BOOL hasOriginalHost = [currentHost isEqual:originalHost];
+			BOOL hasOriginalScheme = [currentScheme isEqual:originalScheme];
 
 			if (hasOriginalHost && !hasOriginalScheme) {
 				operation.userInfo = @{
