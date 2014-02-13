@@ -591,7 +591,7 @@ static NSString *OCTClientOAuthClientSecret = nil;
 		operation.failureCallbackQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
 
 		@weakify(operation);
-		[operation setRedirectResponseBlock:^(NSURLConnection *connection, NSURLRequest *currentRequest, NSURLResponse *redirectResponse) {
+		operation.redirectResponseBlock = ^(NSURLConnection *connection, NSURLRequest *currentRequest, NSURLResponse *redirectResponse) {
 			@strongify(operation);
 			if (redirectResponse == nil) return currentRequest;
 
@@ -612,7 +612,8 @@ static NSString *OCTClientOAuthClientSecret = nil;
 			}
 
 			return currentRequest;
-		}];
+		};
+
 		[self enqueueHTTPRequestOperation:operation];
 
 		return [RACDisposable disposableWithBlock:^{
