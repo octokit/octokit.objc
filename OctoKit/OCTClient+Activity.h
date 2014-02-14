@@ -14,7 +14,7 @@
 
 // Check if the user starred the `repository`.
 //
-// repository - The repository used to check the starred status.
+// repository - The repository used to check the starred status. Cannot be nil.
 //
 // Returns a signal, which will send completed on success. If the client
 // is not `authenticated`, the signal will error immediately.
@@ -22,7 +22,7 @@
 
 // Star the given `repository`
 //
-// repository - The repository to star.
+// repository - The repository to star. Cannot be nil.
 //
 // Returns a signal, which will send completed on success. If the client
 // is not `authenticated`, the signal will error immediately.
@@ -30,7 +30,7 @@
 
 // Unstar the given `repository`
 //
-// repository - The repository to unstar.
+// repository - The repository to unstar. Cannot be nil.
 //
 // Returns a signal, which will send completed on success. If the client
 // is not `authenticated`, the signal will error immediately.
