@@ -13,7 +13,7 @@
 
 @implementation OCTClient (Activity)
 
-- (RACSignal *)userStarredRepository:(OCTRepository *)repository {
+- (RACSignal *)hasUserStarredRepository:(OCTRepository *)repository {
 	NSParameterAssert(repository != nil);
 	if (!self.authenticated) return [RACSignal error:self.class.authenticationRequiredError];
 

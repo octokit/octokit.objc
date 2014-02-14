@@ -18,7 +18,7 @@
 //
 // Returns a signal, which will send completed on success. If the client
 // is not `authenticated`, the signal will error immediately.
-- (RACSignal *)userStarredRepository:(OCTRepository *)repository;
+- (RACSignal *)hasUserStarredRepository:(OCTRepository *)repository;
 
 // Star the given `repository`
 //
