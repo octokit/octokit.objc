@@ -60,3 +60,4 @@
 #import <OctoKit/OCTBranch.h>
 #import <OctoKit/OCTGitCommit.h>
 #import <OctoKit/OCTGitCommitFile.h>
+#import <OctoKit/OCTClient+Actvity.h>
