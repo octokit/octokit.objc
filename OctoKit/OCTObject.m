@@ -40,7 +40,16 @@
 }
 
 + (NSUInteger)modelVersion {
-	return 5;
+	return 6;
+}
+
+- (id)decodeObjectIDWithCoder:(NSCoder *)coder modelVersion:(NSUInteger)modelVersion {
+	id objectID = [coder decodeObjectForKey:@"objectID"];
+	if ([objectID isKindOfClass:NSNumber.class]) {
+		objectID = [objectID stringValue];
+	}
+
+	return objectID;
 }
 
 + (NSDictionary *)dictionaryValueFromArchivedExternalRepresentation:(NSDictionary *)externalRepresentation version:(NSUInteger)fromVersion {
