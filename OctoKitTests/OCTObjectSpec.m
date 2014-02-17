@@ -140,8 +140,11 @@ it(@"should convert a numeric objectID to a string", ^{
 	expect(obj.objectID).to.equal(@"42");
 });
 
-it(@"should initialize without an objectID", ^{
-	OCTObject *obj = [OCTObject modelWithDictionary:@{} error:NULL];
+it(@"should initialize with a nil objectID", ^{
+	OCTObject *obj = [OCTObject modelWithDictionary:@{
+		@keypath(obj, objectID): NSNull.null
+	} error:NULL];
+
 	expect(obj).notTo.beNil();
 	expect(obj.objectID).to.beNil();
 });
