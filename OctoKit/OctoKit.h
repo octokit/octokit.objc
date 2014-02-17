@@ -10,15 +10,6 @@
 #import <OctoKit/NSURL+OCTQueryAdditions.h>
 #import <OctoKit/NSValueTransformer+OCTPredefinedTransformerAdditions.h>
 #import <OctoKit/RACSignal+OCTClientAdditions.h>
-#import <OctoKit/OCTClient.h>
-#import <OctoKit/OCTClient+Events.h>
-#import <OctoKit/OCTClient+Gists.h>
-#import <OctoKit/OCTClient+Git.h>
-#import <OctoKit/OCTClient+Keys.h>
-#import <OctoKit/OCTClient+Notifications.h>
-#import <OctoKit/OCTClient+Organizations.h>
-#import <OctoKit/OCTClient+Repositories.h>
-#import <OctoKit/OCTClient+User.h>
 #import <OctoKit/OCTCommit.h>
 #import <OctoKit/OCTCommitComment.h>
 #import <OctoKit/OCTCommitCommentEvent.h>
@@ -60,3 +51,15 @@
 #import <OctoKit/OCTBranch.h>
 #import <OctoKit/OCTGitCommit.h>
 #import <OctoKit/OCTGitCommitFile.h>
+
+// OCTClient categories
+#import <OctoKit/OCTClient.h>
+#import <OctoKit/OCTClient+Events.h>
+#import <OctoKit/OCTClient+Gists.h>
+#import <OctoKit/OCTClient+Git.h>
+#import <OctoKit/OCTClient+Keys.h>
+#import <OctoKit/OCTClient+Notifications.h>
+#import <OctoKit/OCTClient+Organizations.h>
+#import <OctoKit/OCTClient+Repositories.h>
+#import <OctoKit/OCTClient+User.h>
+#import <OctoKit/OCTClient+Activity.h>
