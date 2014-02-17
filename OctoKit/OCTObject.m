@@ -87,6 +87,17 @@
 	}
 }
 
+- (BOOL)validateObjectID:(id *)objectID error:(NSError **)error {
+	if ([*objectID isKindOfClass:NSString.class]) {
+		return YES;
+	} else if ([*objectID isKindOfClass:NSNumber.class]) {
+		*objectID = [*objectID stringValue];
+		return YES;
+	} else {
+		return NO;
+	}
+}
+
 #pragma mark NSObject
 
 - (NSUInteger)hash {

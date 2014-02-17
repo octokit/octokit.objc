@@ -130,4 +130,14 @@ it(@"should not equal a OCTObject from another server", ^{
 	expect(enterpriseObject).toNot.equal(dotComObject);
 });
 
+it(@"should convert a numeric objectID to a string", ^{
+	OCTObject *obj = [OCTObject modelWithDictionary:@{
+		@keypath(obj, objectID): @42
+	} error:NULL];
+
+	expect(obj).notTo.beNil();
+	expect(obj.objectID).to.beKindOf(NSString.class);
+	expect(obj.objectID).to.equal(@"42");
+});
+
 SpecEnd
