@@ -19,16 +19,19 @@
 
 	NSString *path = [NSString stringWithFormat:@"/user/starred/%@/%@", repository.ownerLogin, repository.name];
 	NSMutableURLRequest *request = [self requestWithMethod:@"GET" path:path parameters:nil];
-	return [[[self enqueueRequest:request resultClass:nil] reduceEach:^id (NSHTTPURLResponse *response, id responseObject) {
+	return [[[self
+		enqueueRequest:request resultClass:nil]
+		reduceEach:^(NSHTTPURLResponse *response, id _) {
 			return @(response.statusCode == 204);
-		}] catch:^RACSignal *(NSError *error) {
+		}]
+		catch:^RACSignal *(NSError *error) {
 			NSNumber *statusCode = error.userInfo[OCTClientErrorHTTPStatusCodeKey];
 			if (statusCode.integerValue == 404) {
 				return [RACSignal return:@NO];
 			} else {
 				return [RACSignal error:error];
 			}
-	}];
+		}];
 }
 
 - (RACSignal *)starRepository:(OCTRepository *)repository {
