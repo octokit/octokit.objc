@@ -19,7 +19,9 @@
 
 	NSString *path = [NSString stringWithFormat:@"/user/starred/%@/%@", repository.ownerLogin, repository.name];
 	NSMutableURLRequest *request = [self requestWithMethod:@"GET" path:path parameters:nil];
-	return [[self enqueueRequest:request resultClass:nil] ignoreValues];
+	return [[self enqueueRequest:request resultClass:nil] reduceEach:^id (NSHTTPURLResponse *response, id responseObject) {
+			return @(response.statusCode == 204);
+		}];
 }
 
 - (RACSignal *)starRepository:(OCTRepository *)repository {
