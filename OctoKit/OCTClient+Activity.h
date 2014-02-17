@@ -16,8 +16,8 @@
 //
 // repository - The repository used to check the starred status. Cannot be nil.
 //
-// Returns a signal, which will send completed on success. If the client
-// is not `authenticated`, the signal will error immediately.
+// Returns a signal, which will send a NSNumber valued @YES or @NO.
+// If the client is not `authenticated`, the signal will error immediately.
 - (RACSignal *)hasUserStarredRepository:(OCTRepository *)repository;
 
 // Star the given `repository`
