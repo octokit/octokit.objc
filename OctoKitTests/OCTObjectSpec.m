@@ -140,4 +140,10 @@ it(@"should convert a numeric objectID to a string", ^{
 	expect(obj.objectID).to.equal(@"42");
 });
 
+it(@"should initialize without an objectID", ^{
+	OCTObject *obj = [OCTObject modelWithDictionary:@{} error:NULL];
+	expect(obj).notTo.beNil();
+	expect(obj.objectID).to.beNil();
+});
+
 SpecEnd

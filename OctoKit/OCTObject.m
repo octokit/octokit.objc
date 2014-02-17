@@ -93,9 +93,9 @@
 	} else if ([*objectID isKindOfClass:NSNumber.class]) {
 		*objectID = [*objectID stringValue];
 		return YES;
-	} else {
-		return NO;
 	}
+
+	return *objectID == nil;
 }
 
 #pragma mark NSObject
