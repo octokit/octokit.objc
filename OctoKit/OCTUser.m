@@ -46,7 +46,6 @@
 
 - (NSUInteger)hash {
 	if (self.objectID != nil) return self.objectID.hash ^ self.server.hash;
-
 	if (self.rawLogin != nil) return self.server.hash ^ self.rawLogin.hash;
 
 	return self.server.hash ^ self.login.hash;

@@ -47,6 +47,10 @@
 	id objectID = externalRepresentation[@"id"];
 	if (objectID == nil) return nil;
 
+	if ([objectID isKindOfClass:NSNumber.class]) {
+		objectID = [objectID stringValue];
+	}
+
 	return @{ @"objectID": objectID };
 }
 
