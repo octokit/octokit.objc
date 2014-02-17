@@ -7,7 +7,7 @@
 //
 
 #import "OCTClient+Activity.h"
-#import "RACSignal.h"
+#import "OCTClient+Private.h"
 #import "OCTRepository.h"
 #import <ReactiveCocoa/ReactiveCocoa.h>
 
