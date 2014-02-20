@@ -83,12 +83,12 @@ extern NSString * const OCTClientAPIVersion;
 // the returned signal.
 + (RACSignal *)authorizeWithServerUsingWebBrowser:(OCTServer *)server scopes:(OCTClientAuthorizationScopes)scopes;
 
-// Converts a provided OCTServer into an OCTServer for the same
-// host but using HTTPS instead of HTTP.
+// Converts the provided OCTServer into an OCTServer for the same
+// host and path but using HTTPS instead of HTTP.
 //
-// server - The OCTServer to convert to use HTTPS.
+// server - The OCTServer to convert to using HTTPS.
 //
-// Returns an OCTServer with that uses HTTPS.
+// Returns an OCTServer that uses HTTPS.
 + (OCTServer *)HTTPSEnterpriseServerWithServer:(OCTServer *)server;
 
 @end
