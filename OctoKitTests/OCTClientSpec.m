@@ -593,4 +593,16 @@ describe(@"+fetchMetadataForServer:", ^{
 	});
 });
 
+describe(@"+HTTPSEnterpriseServerWithServer", ^{
+	it(@"should convert a http URL to a HTTPS URL", ^{
+		OCTServer *httpServer = [OCTServer serverWithBaseURL:[NSURL URLWithString:@"http://github.enterprise"]];
+		expect(httpServer.baseURL.scheme).to.equal(@"http");
+
+		OCTServer *httpsServer = [OCTClient HTTPSEnterpriseServerWithServer:httpServer];
+		expect(httpsServer.baseURL.scheme).to.equal(@"https");
+		expect(httpsServer.baseURL.host).to.equal(httpServer.baseURL.host);
+		expect(httpsServer.baseURL.path).to.equal(@"/");
+	});
+});
+
 SpecEnd
