@@ -69,7 +69,7 @@
 //
 // This dictionary contains OCTGistFileEdits keyed by filename. Deleted
 // filenames will have an NSNull value.
-@property (atomic, copy, readonly) NSDictionary *fileChanges;
+@property (nonatomic, copy) NSDictionary *fileChanges;
 
 @end
 
