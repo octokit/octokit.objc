@@ -93,6 +93,7 @@ describe(@"from JSON", ^{
 	it(@"should initialize", ^{
 		expect(gist.objectID).to.equal(@"1");
 		expect(gist.creationDate).to.equal([[[ISO8601DateFormatter alloc] init] dateFromString:@"2010-04-14 02:15:15 +0000"]);
+		expect(gist.HTMLURL).to.equal([NSURL URLWithString:@"https://gist.github.com/1"]);
 		expect(gist.files.count).to.equal(1);
 
 		OCTGistFile *file = gist.files[@"ring.erl"];
