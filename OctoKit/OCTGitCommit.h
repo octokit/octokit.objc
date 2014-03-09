@@ -45,4 +45,7 @@
 // This property is only set when fetching a full commit.
 @property (nonatomic, copy, readonly) NSArray *files;
 
+@property (nonatomic, copy, readonly) NSString *authorName;
+@property (nonatomic, copy, readonly) NSString *committerName;
+
 @end
