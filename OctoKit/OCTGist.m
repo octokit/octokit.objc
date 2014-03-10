@@ -9,6 +9,7 @@
 #import "OCTGist.h"
 #import "OCTGistFile.h"
 #import "NSValueTransformer+OCTPredefinedTransformerAdditions.h"
+#import <ReactiveCocoa/ReactiveCocoa.h>
 
 @implementation OCTGist
 
@@ -69,7 +70,7 @@
 //
 // This dictionary contains OCTGistFileEdits keyed by filename. Deleted
 // filenames will have an NSNull value.
-@property (nonatomic, copy) NSDictionary *fileChanges;
+@property (atomic, copy, readonly) NSDictionary *fileChanges;
 
 @end
 
@@ -91,13 +92,19 @@
 	return edits;
 }
 
++ (NSSet *)propertyKeys {
+	NSMutableSet *set = [super.propertyKeys mutableCopy];
+	[set addObject:@keypath(OCTGistEdit.new, fileChanges)];
+	[set removeObject:@keypath(OCTGistEdit.new, filesToModify)];
+	[set removeObject:@keypath(OCTGistEdit.new, filesToAdd)];
+	[set removeObject:@keypath(OCTGistEdit.new, filenamesToDelete)];
+	return set;
+}
+
 #pragma mark MTLJSONSerializing
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
 	return @{
-		@"filesToModify": NSNull.null,
-		@"filesToAdd": NSNull.null,
-		@"filenamesToDelete": NSNull.null,
 		@"fileChanges": @"files",
 		@"publicGist": @"public",
 	};
