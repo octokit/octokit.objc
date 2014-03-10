@@ -19,6 +19,8 @@
 		@"countOfChanges": @"stats.total",
 		@"countOfAdditions": @"stats.additions",
 		@"countOfDeletions": @"stats.deletions",
+		@"authorName": @"commit.author.name",
+		@"committerName": @"commit.committer.name",
 	}];
 }
 
