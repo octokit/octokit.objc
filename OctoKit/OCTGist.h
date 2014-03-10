@@ -17,6 +17,9 @@
 // The date at which the gist was originally created.
 @property (nonatomic, copy, readonly) NSDate *creationDate;
 
+// The webpage URL for this gist.
+@property (nonatomic, copy, readonly) NSURL *HTMLURL;
+
 @end
 
 // Changes to a gist, or a new gist.

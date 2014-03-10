@@ -18,6 +18,7 @@
 	return [super.JSONKeyPathsByPropertyKey mtl_dictionaryByAddingEntriesFromDictionary:@{
 		@"rawURL": @"raw_url",
 		@"creationDate": @"created_at",
+		@"HTMLURL": @"html_url",
 	}];
 }
 
@@ -58,6 +59,10 @@
 	// The "id" field for gists comes through as a string, which matches the
 	// type of our objectID property.
 	return nil;
+}
+
++ (NSValueTransformer *)HTMLURLJSONTransformer {
+	return [NSValueTransformer valueTransformerForName:MTLURLValueTransformerName];
 }
 
 @end
