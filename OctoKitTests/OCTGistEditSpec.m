@@ -9,9 +9,8 @@
 
 SpecBegin(OCTGistEdit)
 
-describe(@"to JSON", ^{
-
-	it(@"serializes", ^{
+describe(@"JSON serialization", ^{
+	it(@"can be serialized and deserialized", ^{
 		OCTGistEdit *edit = [[OCTGistEdit alloc] init];
 		edit.description = @"The Description";
 		edit.publicGist = YES;
@@ -26,6 +25,7 @@ describe(@"to JSON", ^{
 		edit.filesToModify = @{
 			fileEditModify.filename: fileEditModify,
 		};
+
 		NSDictionary *expectedDict = @{
 			@"public": @(edit.publicGist),
 			@"description": edit.description,
@@ -41,6 +41,7 @@ describe(@"to JSON", ^{
 				},
 			},
 		};
+		
 		NSDictionary *editDict = [MTLJSONAdapter JSONDictionaryFromModel:edit];
 		expect(editDict).to.equal(expectedDict);
 	});
