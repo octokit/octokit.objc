@@ -9,6 +9,7 @@
 #import "OCTGist.h"
 #import "OCTGistFile.h"
 #import "NSValueTransformer+OCTPredefinedTransformerAdditions.h"
+#import <ReactiveCocoa/ReactiveCocoa.h>
 
 @implementation OCTGist
 
@@ -96,13 +97,14 @@
 	return edits;
 }
 
++ (NSSet *)propertyKeys {
+	return [NSSet setWithObjects:@keypath(OCTGistEdit.new, fileChanges), @keypath(OCTGistEdit.new, description), @keypath(OCTGistEdit.new, publicGist), nil];
+}
+
 #pragma mark MTLJSONSerializing
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
 	return @{
-		@"filesToModify": NSNull.null,
-		@"filesToAdd": NSNull.null,
-		@"filenamesToDelete": NSNull.null,
 		@"fileChanges": @"files",
 		@"publicGist": @"public",
 	};
