@@ -14,11 +14,13 @@ describe(@"JSON serialization", ^{
 		OCTGistEdit *edit = [[OCTGistEdit alloc] init];
 		edit.description = @"The Description";
 		edit.publicGist = YES;
+
 		OCTGistFileEdit *fileEditAdd = [[OCTGistFileEdit alloc] init];
 		fileEditAdd.filename = @"Add";
 		fileEditAdd.content = @"Add Content";
-		edit.filesToAdd = @[fileEditAdd];
-		edit.filenamesToDelete = @[@"Delete"];
+		edit.filesToAdd = @[ fileEditAdd ];
+		edit.filenamesToDelete = @[ @"Delete" ];
+
 		OCTGistFileEdit *fileEditModify = [[OCTGistFileEdit alloc] init];
 		fileEditModify.filename = @"Modify";
 		fileEditModify.content = @"Modify Content";
@@ -34,7 +36,7 @@ describe(@"JSON serialization", ^{
 					@"content": fileEditAdd.content,
 					@"filename": fileEditAdd.filename,
 				},
-				edit.filenamesToDelete[0]: [NSNull null],
+				edit.filenamesToDelete[0]: NSNull.null,
 				fileEditModify.filename: @{
 					@"content": fileEditModify.content,
 					@"filename": fileEditModify.filename,
