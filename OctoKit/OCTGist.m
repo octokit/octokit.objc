@@ -93,12 +93,7 @@
 }
 
 + (NSSet *)propertyKeys {
-	NSMutableSet *set = [super.propertyKeys mutableCopy];
-	[set addObject:@keypath(OCTGistEdit.new, fileChanges)];
-	[set removeObject:@keypath(OCTGistEdit.new, filesToModify)];
-	[set removeObject:@keypath(OCTGistEdit.new, filesToAdd)];
-	[set removeObject:@keypath(OCTGistEdit.new, filenamesToDelete)];
-	return set;
+	return [NSSet setWithObjects:@keypath(OCTGistEdit.new, fileChanges), @keypath(OCTGistEdit.new, description), @keypath(OCTGistEdit.new, publicGist), nil];
 }
 
 #pragma mark MTLJSONSerializing
