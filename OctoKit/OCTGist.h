@@ -17,12 +17,12 @@
 // The date at which the gist was originally created.
 @property (nonatomic, copy, readonly) NSDate *creationDate;
 
+// The webpage URL for this gist.
+@property (nonatomic, copy, readonly) NSURL *HTMLURL;
+
 @end
 
 // Changes to a gist, or a new gist.
-//
-// This model only supports being transformed _to_ JSON. It cannot be
-// deserialized from JSON.
 @interface OCTGistEdit : MTLModel <MTLJSONSerializing>
 
 // If not nil, the new description to set for the gist.

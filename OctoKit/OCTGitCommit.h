@@ -45,4 +45,14 @@
 // This property is only set when fetching a full commit.
 @property (nonatomic, copy, readonly) NSArray *files;
 
+// The authors git user.name property. This is only useful if the
+// author does not have a GitHub login. Otherwise, author should 
+// be used.
+@property (nonatomic, copy, readonly) NSString *authorName;
+
+// The committer's git user.name property. This is only useful if the
+// committer does not have a GitHub login. Otherwise, committer should
+// be used.
+@property (nonatomic, copy, readonly) NSString *committerName;
+
 @end
