@@ -366,8 +366,6 @@ static NSString *OCTClientOAuthClientSecret = nil;
 	NSString *clientSecret = self.class.clientSecret;
 	NSAssert(clientID != nil && clientSecret != nil, @"+setClientID:clientSecret: must be invoked before calling %@", NSStringFromSelector(_cmd));
 
-	OCTClient *client = [[self alloc] initWithServer:server];
-
 	return [[[[[[[[[self
 		authorizeWithServerUsingWebBrowser:server scopes:scopes]
 		combineLatestWith:[RACSignal return:server]]
@@ -388,27 +386,40 @@ static NSString *OCTClientOAuthClientSecret = nil;
 				@"code": temporaryCode
 			};
 
-			// We're using -requestWithMethod: for its parameter encoding and
-			// User-Agent behavior, but we'll replace the key properties so we
-			// can POST to another host.
-			NSMutableURLRequest *request = [client requestWithMethod:@"POST" path:@"" parameters:params];
-			request.cachePolicy = NSURLRequestReloadIgnoringLocalCacheData;
-			request.URL = [NSURL URLWithString:@"login/oauth/access_token" relativeToURL:server.baseWebURL];
+			RACSignal *(^clientAndTokenSignalWithServer)(OCTServer *) = ^(OCTServer *server) {
+				OCTClient *client = [[self alloc] initWithServer:server];
 
-			// The `Accept` string we normally use (where we specify the beta
-			// version of the API) doesn't work for this endpoint. Just plain
-			// JSON.
-			[request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+				// We're using -requestWithMethod: for its parameter encoding and
+				// User-Agent behavior, but we'll replace the key properties so we
+				// can POST to another host.
+				NSMutableURLRequest *request = [client requestWithMethod:@"POST" path:@"" parameters:params];
+				request.cachePolicy = NSURLRequestReloadIgnoringLocalCacheData;
+				request.URL = [NSURL URLWithString:@"login/oauth/access_token" relativeToURL:server.baseWebURL];
 
+				// The `Accept` string we normally use (where we specify the beta
+				// version of the API) doesn't work for this endpoint. Just plain
+				// JSON.
+				[request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
 
-			RACSignal *tokenSignal = [[client
-				enqueueRequest:request resultClass:OCTAccessToken.class]
-				oct_parsedResults];
+				RACSignal *tokenSignal = [[client
+					enqueueRequest:request resultClass:OCTAccessToken.class]
+					oct_parsedResults];
 
-			return [RACSignal combineLatest:@[
-				[RACSignal return:client],
-				tokenSignal
-			]];
+				return [RACSignal combineLatest:@[
+					[RACSignal return:client],
+					tokenSignal
+				]];
+			};
+
+			return [clientAndTokenSignalWithServer(server)
+				catch:^(NSError *error) {
+					if (error.code == OCTClientErrorUnsupportedServerScheme) {
+						OCTServer *secureServer = [self HTTPSEnterpriseServerWithServer:server];
+						return clientAndTokenSignalWithServer(secureServer);
+					}
+
+					return [RACSignal error:error];
+				}];
 		}]
 		flatten]
 		reduceEach:^(OCTClient *client, OCTAccessToken *accessToken) {
@@ -876,7 +887,7 @@ static NSString *OCTClientOAuthClientSecret = nil;
 	NSInteger errorCode = OCTClientErrorConnectionFailed;
 
 	userInfo[NSLocalizedDescriptionKey] = [self defaultErrorMessageFromRequestOperation:operation];
-	
+
 	switch (HTTPCode) {
 		case 401: {
 			NSError *errorTemplate = self.class.authenticationRequiredError;
@@ -898,17 +909,16 @@ static NSString *OCTClientOAuthClientSecret = nil;
 			break;
 
 		case 403:
-			if (operation.userInfo[OCTClientErrorRequestStateRedirected]) {
-				errorCode = OCTClientErrorUnsupportedServerScheme;
-			} else {
-				errorCode = OCTClientErrorRequestForbidden;
-			}
-
+			errorCode = OCTClientErrorRequestForbidden;
 			break;
 
 		case 422:
 			errorCode = OCTClientErrorServiceRequestFailed;
 			break;
+	}
+
+	if (operation.userInfo[OCTClientErrorRequestStateRedirected] != nil) {
+		errorCode = OCTClientErrorUnsupportedServerScheme;
 	}
 
 	userInfo[OCTClientErrorHTTPStatusCodeKey] = @(HTTPCode);
