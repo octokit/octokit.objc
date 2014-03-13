@@ -917,7 +917,7 @@ static NSString *OCTClientOAuthClientSecret = nil;
 			break;
 	}
 
-	if (operation.userInfo[OCTClientErrorRequestStateRedirected]) {
+	if (operation.userInfo[OCTClientErrorRequestStateRedirected] != nil) {
 		errorCode = OCTClientErrorUnsupportedServerScheme;
 	}
 
