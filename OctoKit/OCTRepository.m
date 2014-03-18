@@ -25,6 +25,7 @@ static NSString *const OCTRepositoryHTMLIssuesPath = @"issues";
 		@"datePushed": @"pushed_at",
 		@"repoDescription": @"description",
 		@"defaultBranch": @"default_branch",
+		@"language": @"language",
 	}];
 }
 
@@ -77,6 +78,8 @@ static NSString *const OCTRepositoryHTMLIssuesPath = @"issues";
 
 	NSString *HTMLURLString = externalRepresentation[@"html_url"] ?: externalRepresentation[@"url"];
 	dictionaryValue[@"HTMLURL"] = [self.HTMLURLJSONTransformer transformedValue:HTMLURLString] ?: NSNull.null;
+	
+	dictionaryValue[@"language"] = externalRepresentation[@"language"] ?: NSNull.null;
 
 	return dictionaryValue;
 }
