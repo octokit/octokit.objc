@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workspace
+   version = "1.0">
+   <FileRef
+      location = "group:OctoKit.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:External/ReactiveCocoa/ReactiveCocoaFramework/ReactiveCocoa.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:External/Mantle/Mantle.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:External/OHHTTPStubs/OHHTTPStubs/OHHTTPStubs.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:External/Mantle/MantleTests/expecta/Expecta.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:External/Mantle/MantleTests/specta/Specta.xcodeproj">
+   </FileRef>
+</Workspace>

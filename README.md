@@ -353,6 +353,8 @@ To add OctoKit to your application:
 If you would prefer to use [CocoaPods](http://cocoapods.org), there are some [OctoKit podspecs](https://github.com/CocoaPods/Specs/tree/master/OctoKit)
 that have been generously contributed by third parties.
 
+If you’re developing OctoKit on its own, then use `OctoKit.xcworkspace`.
+
 ### Copying the frameworks
 
 _This is only needed **on OS X**._
