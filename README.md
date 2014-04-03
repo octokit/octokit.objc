@@ -176,6 +176,7 @@ as long as the URL scheme is correct.
 Whenever your app is opened from your URL, or asked to open it, you must pass it
 directly into `OCTClient`:
 
+*iOs*
 ```objc
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)URL sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
     // For handling a callback URL like my-app://oauth
@@ -187,6 +188,30 @@ directly into `OCTClient`:
     }
 }
 ```
+
+*osX*
+```objc
+// Register the callback 
+NSAppleEventManager *appleEventManager = [NSAppleEventManager sharedAppleEventManager];
+    [appleEventManager setEventHandler:self
+                           andSelector:@selector(handleGetURLEvent:withReplyEvent:)
+                         forEventClass:kInternetEventClass andEventID:kAEGetURL];
+
+# Event handler when the web page 
+- (bool)handleGetURLEvent:(NSAppleEventDescriptor*)event withReplyEvent:(NSAppleEventDescriptor*)replyEvent
+{
+    NSString* urlString = [[event paramDescriptorForKeyword:keyDirectObject] stringValue];
+    NSURL* url = [NSURL URLWithString:urlString];
+    if ([url.host isEqual:@"oauth"]) {
+        [OCTClient completeSignInWithCallbackURL:url];
+        return YES;
+    } else {
+        return NO;
+    }
+}
+
+```
+
 
 After that's set up properly, you can present the sign in page at any point. The
 pattern is very similar to [making a request](#making-requests), except that you
