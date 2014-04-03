@@ -6,7 +6,28 @@ API](http://developer.github.com), built using
 [Mantle](https://github.com/MantleFramework/Mantle), and
 [ReactiveCocoa](https://github.com/ReactiveCocoa/ReactiveCocoa).
 
-## Making Requests
+
+## <a name='TOC'>Table of Contents</a>
+
+- [Making requests](#makingRequests)
+    - [Receiving all results at once](#receivingOne)
+    - [Receiving all results at once](#receivingOne)
+    - [Receiving results on the main thread](#receivingAll)
+    - [Cancelling a request](#cancel)
+- [Authentication](#authentication)
+    - [Signing in through a browser](#browser)
+    - [Signing in through the app](#app)
+    - [Choosing an authentication method dynamically](#auto)
+    - [Saving credentials](#saveCred)
+- [Importing OctoKit](#import)
+    - [CocoaPods](#cocoapod)
+    - [Manual](#manual)
+    - [Copying the frameworks (osX only)](#copy)
+- [Contributing](https://github.com/octokit/octokit.objc/blob/master/CONTRIBUTING.md)
+    - [Code Convention](https://github.com/github/objective-c-conventions) 
+- [License](#license)
+
+## <a name='makingRequests'>Making Requests<a>
 
 In order to begin interacting with the API, you must instantiate an
 [OCTClient](OctoKit/OCTClient.h). There are two ways to create a client without
@@ -44,7 +65,8 @@ RACSignal *request = [client fetchUserRepositories];
 However, you don't need a deep understanding of RAC to use OctoKit. There are
 just a few basic operations to be aware of.
 
-### Receiving results one-by-one
+    
+### <a name='receivingOne'>Receiving all results at once</a>
 
 It often makes sense to handle each result object independently, so you can
 spread any processing out instead of doing it all at once:
@@ -67,7 +89,7 @@ spread any processing out instead of doing it all at once:
 }];
 ```
 
-### Receiving all results at once
+### <a name='receivingOne'>Receiving all results at once</a>
 
 If you can't do anything until you have _all_ of the results, you can "collect"
 them into a single array:
@@ -82,7 +104,8 @@ them into a single array:
 }];
 ```
 
-### Receiving results on the main thread
+    
+### <a name='receivingAll'>Receiving results on the main thread</a>
 
 The blocks in the above examples will be invoked in the background, to avoid
 slowing down the main thread. However, if you want to run UI code, you shouldn't
@@ -104,7 +127,7 @@ instead:
 }];
 ```
 
-### Cancelling a request
+### <a name='cancel'>Cancelling a request</a>
 
 All of the `-subscribe…` methods actually return
 a [RACDisposable](https://github.com/ReactiveCocoa/ReactiveCocoa/blob/master/ReactiveCocoaFramework/ReactiveCocoa/RACDisposable.h)
@@ -143,7 +166,7 @@ want to cancel requests:
 }
 ```
 
-## Authentication
+## <a name='authentication'>Authentication</a>
 
 OctoKit supports two variants of [OAuth2](http://developer.github.com/v3/oauth/)
 for signing in. We recommend the [browser-based
@@ -158,7 +181,7 @@ with your client ID and client secret before trying to authenticate:
 [OCTClient setClientID:@"abc123" clientSecret:@"654321abcdef"];
 ```
 
-### Signing in through a browser
+### <a name='browser'>Signing in through a browser</a>
 
 With this API, the user will be redirected to their default browser (on OS X) or
 Safari (on iOS) to sign in, and then redirected back to your app. This is the
@@ -230,7 +253,8 @@ receive an `OCTClient` instance as a reply:
 You can also choose to [receive the client on the main
 thread](#receiving-results-on-the-main-thread), just like with any other request.
 
-### Signing in through the app
+
+### <a name='app'>Signing in through the app</a>
 
 If you don't want to open a web page, you can use the native authentication flow
 and implement your own sign-in UI. However, [two-factor
@@ -298,8 +322,8 @@ might look something like this:
         }];
 }
 ```
-
-### Choosing an authentication method dynamically
+ 
+### <a name='auto'>Choosing an authentication method dynamically</a>
 
 If you really want a [native login flow](#signing-in-through-the-app) without
 sacrificing the compatibility of [browser-based
@@ -326,7 +350,8 @@ handle any errors returned:
     }];
 ```
 
-### Saving credentials
+
+### <a name='saveCred'>Saving credentials</a>
 
 Generally, you'll want to save an authenticated OctoKit session, so the user
 doesn't have to repeat the sign in process when they open your app again.
@@ -350,13 +375,22 @@ immediately. If not valid (perhaps because the OAuth token was revoked by the
 user), you'll receive an error after sending your first request, and can ask the
 user to sign in again.
 
-## Importing OctoKit
+## <a name='import'>Importing OctoKit</a>
 
 OctoKit is still new and moving fast, so we may make breaking changes from
 time-to-time, but it has partial unit test coverage and is already being used
 in [GitHub for Mac](http://mac.github.com)'s production code.
 
-To add OctoKit to your application:
+
+### <a name='cocoapod'>CocoaPods</a>
+
+[CocoaPods](http://cocoapods.org) is a great tool to manage external dependancy in objc projects.
+There are some [OctoKit podspecs](https://github.com/CocoaPods/Specs/tree/master/OctoKit)
+that have been generously contributed by third parties.
+
+
+### <a name='manual'>Manual</a>
+
 
  1. Add the OctoKit repository as a submodule of your application's
     repository.
@@ -375,12 +409,8 @@ To add OctoKit to your application:
     necessary for archive builds, but it has no negative effect otherwise).
  1. **For iOS targets**, add `-ObjC` to the "Other Linker Flags" build setting.
 
-If you would prefer to use [CocoaPods](http://cocoapods.org), there are some [OctoKit podspecs](https://github.com/CocoaPods/Specs/tree/master/OctoKit)
-that have been generously contributed by third parties.
 
-If you’re developing OctoKit on its own, then use `OctoKit.xcworkspace`.
-
-### Copying the frameworks
+### <a name='copy'>Copying the frameworks (osX only)<a/>
 
 _This is only needed **on OS X**._
 
@@ -396,7 +426,8 @@ _This is only needed **on OS X**._
  1. Now do the same (starting at step 2) for the frameworks within the External
     folder.
 
-## License
+
+## <a name='license'>License</a>
 
 OctoKit is released under the MIT license. See
 [LICENSE.md](https://github.com/Octokit/octokit.objc/blob/master/LICENSE.md).
