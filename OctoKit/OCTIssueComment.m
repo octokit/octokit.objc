@@ -18,6 +18,17 @@
 
 #pragma mark MTLJSONSerializing
 
++ (NSSet *)propertyKeys {
+	return [super.propertyKeys setByAddingObjectsFromArray:@[
+		// OCTComment
+		@"body",
+		@"commenterLogin",
+		@"creationDate",
+		@"updatedDate",
+	]];
+}
+
+
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
 	return [super.JSONKeyPathsByPropertyKey mtl_dictionaryByAddingEntriesFromDictionary:@{
 		@"HTMLURL": @"html_url",
