@@ -26,6 +26,8 @@ NSString * const OCTDateValueTransformerName = @"OCTDateValueTransformerName";
 					return dateOrDateString;
 				} else if ([dateOrDateString isKindOfClass:NSString.class]) {
 					return [NSDateFormatter oct_dateFromString:dateOrDateString];
+				} else if (dateOrDateString == NSNull.null || dateOrDateString == nil) {
+					return nil;
 				} else {
 					if (success != NULL) *success = NO;
 
