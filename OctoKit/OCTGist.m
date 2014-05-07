@@ -17,7 +17,6 @@
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
 	return [super.JSONKeyPathsByPropertyKey mtl_dictionaryByAddingEntriesFromDictionary:@{
-		@"rawURL": @"raw_url",
 		@"creationDate": @"created_at",
 		@"HTMLURL": @"html_url",
 	}];
@@ -109,6 +108,14 @@
 	return [NSSet setWithObjects:@keypath(OCTGistEdit.new, fileChanges), @keypath(OCTGistEdit.new, description), @keypath(OCTGistEdit.new, publicGist), nil];
 }
 
++ (MTLPropertyStorage)storageBehaviorForPropertyWithKey:(NSString *)propertyKey {
+	if ([propertyKey isEqualToString:@"fileChanges"]) {
+		return MTLPropertyStoragePermanent;
+	}
+
+	return [super storageBehaviorForPropertyWithKey:propertyKey];
+}
+
 #pragma mark MTLJSONSerializing
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
@@ -121,7 +128,7 @@
 }
 
 + (NSValueTransformer *)fileChangesJSONTransformer {
-	NSValueTransformer *transformer = [NSValueTransformer mtl_JSONDictionaryTransformerWithModelClass:OCTGistFileEdit.class];
+	MTLJSONAdapter *adapter = [[MTLJSONAdapter alloc] initWithModelClass:OCTGistFileEdit.class error:NULL];
 
 	return [MTLValueTransformer transformerUsingForwardBlock:^ id (NSDictionary *files, BOOL *success, NSError **error) {
 		if (![files isKindOfClass:NSDictionary.class]) {
@@ -138,14 +145,20 @@
 				continue;
 			}
 
-			OCTGistFileEdit *edit = [transformer transformedValue:change];
-			if (edit == nil) return nil;
+			OCTGistFileEdit *edit = [adapter modelFromJSONDictionary:change error:error];
+			if (edit == nil) {
+				if (success != NULL) *success = NO;
+
+				return nil;
+			}
 
 			fileChanges[filename] = edit;
 		}
 
 		return fileChanges;
 	} reverseBlock:^ id (NSDictionary *fileChanges, BOOL *success, NSError **error) {
+		if (fileChanges == nil) return nil;
+
 		if (![fileChanges isKindOfClass:NSDictionary.class]) {
 			if (success != NULL) *success = NO;
 
@@ -159,8 +172,13 @@
 				return;
 			}
 
-			NSDictionary *changes = [transformer reverseTransformedValue:edit];
-			if (changes == nil) return;
+			NSDictionary *changes = [adapter JSONDictionaryFromModel:edit error:error];
+			if (changes == nil) {
+				if (success != NULL) *success = NO;
+				*stop = YES;
+
+				return;
+			}
 
 			files[filename] = changes;
 		}];
