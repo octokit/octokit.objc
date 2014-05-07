@@ -26,15 +26,18 @@
 	static NSString * const branchRefPrefix = @"refs/heads/";
 
 	return [MTLValueTransformer
-		reversibleTransformerWithForwardBlock:^ id (NSString *ref) {
+		transformerUsingForwardBlock:^ id (NSString *ref, BOOL *success, NSError **error) {
 			if (![ref hasPrefix:branchRefPrefix]) {
 				NSLog(@"%s: Unrecognized ref prefix: %@", __func__, ref);
+
+				if (success != NULL) *success = NO;
+
 				return nil;
 			}
 
 			return [ref substringFromIndex:branchRefPrefix.length];
 		}
-		reverseBlock:^(NSString *branch) {
+		reverseBlock:^(NSString *branch, BOOL *success, NSError **error) {
 			return [branchRefPrefix stringByAppendingString:branch];
 		}];
 }

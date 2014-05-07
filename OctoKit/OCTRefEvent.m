@@ -27,13 +27,7 @@
 		@"repository": @(OCTRefTypeRepository),
 	};
 
-	return [MTLValueTransformer
-		reversibleTransformerWithForwardBlock:^(NSString *typeName) {
-			return typesByName[typeName];
-		}
-		reverseBlock:^(NSNumber *type) {
-			return [typesByName allKeysForObject:type].lastObject;
-		}];
+	return [NSValueTransformer mtl_valueMappingTransformerWithDictionary:typesByName];
 }
 
 + (NSValueTransformer *)eventTypeJSONTransformer {
@@ -42,13 +36,7 @@
 		@"DeleteEvent": @(OCTRefEventDeleted),
 	};
 
-	return [MTLValueTransformer
-		reversibleTransformerWithForwardBlock:^(NSString *typeName) {
-			return typesByName[typeName];
-		}
-		reverseBlock:^(NSNumber *type) {
-			return [typesByName allKeysForObject:type].lastObject;
-		}];
+	return [NSValueTransformer mtl_valueMappingTransformerWithDictionary:typesByName];
 }
 
 #pragma mark NSKeyValueCoding

@@ -19,7 +19,7 @@ NSString * const OCTDateValueTransformerName = @"OCTDateValueTransformerName";
 + (void)load {
 	@autoreleasepool {
 		MTLValueTransformer *dateValueTransformer = [MTLValueTransformer
-			reversibleTransformerWithForwardBlock:^ id (id dateOrDateString) {
+			transformerUsingForwardBlock:^ id (id dateOrDateString, BOOL *success, NSError **error) {
 				// Some old model versions would serialize NSDates directly, so
 				// handle that case too.
 				if ([dateOrDateString isKindOfClass:NSDate.class]) {
@@ -27,11 +27,17 @@ NSString * const OCTDateValueTransformerName = @"OCTDateValueTransformerName";
 				} else if ([dateOrDateString isKindOfClass:NSString.class]) {
 					return [NSDateFormatter oct_dateFromString:dateOrDateString];
 				} else {
+					if (success != NULL) *success = NO;
+
 					return nil;
 				}
 			}
-			reverseBlock:^ id (NSDate *date) {
-				if (![date isKindOfClass:NSDate.class]) return nil;
+			reverseBlock:^ id (NSDate *date, BOOL *success, NSError **error) {
+				if (![date isKindOfClass:NSDate.class]) {
+					if (success != NULL) *success = NO;
+
+					return nil;
+				}
 				return [NSDateFormatter oct_stringFromDate:date];
 			}];
 		

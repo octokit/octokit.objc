@@ -27,12 +27,14 @@
 }
 
 + (NSValueTransformer *)objectIDJSONTransformer {
-	return [MTLValueTransformer transformerWithBlock:^ id (id num) {
+	return [MTLValueTransformer transformerUsingForwardBlock:^ id (id num, BOOL *success, NSError **error) {
 		if ([num isKindOfClass:NSString.class]) {
 			return num;
 		} else if ([num isKindOfClass:NSNumber.class]) {
 			return [num stringValue];
 		} else {
+			if (success != NULL) *success = NO;
+
 			return nil;
 		}
 	}];
@@ -65,12 +67,7 @@
 		@"Commit": @(OCTNotificationTypeCommit),
 	};
 
-	return [MTLValueTransformer
-		reversibleTransformerWithForwardBlock:^(NSString *name) {
-			return typesByName[name] ?: @(OCTNotificationTypeUnknown);
-		} reverseBlock:^(NSNumber *type) {
-			return [typesByName allKeysForObject:type].lastObject;
-		}];
+	return [NSValueTransformer mtl_valueMappingTransformerWithDictionary:typesByName];
 }
 
 @end

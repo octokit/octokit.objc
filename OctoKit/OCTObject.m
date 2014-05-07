@@ -61,9 +61,9 @@
 
 + (NSValueTransformer *)objectIDJSONTransformer {
 	return [MTLValueTransformer
-		reversibleTransformerWithForwardBlock:^(NSNumber *num) {
+		transformerUsingForwardBlock:^(NSNumber *num, BOOL *success, NSError **error) {
 			return num.stringValue;
-		} reverseBlock:^ id (NSString *str) {
+		} reverseBlock:^ id (NSString *str, BOOL *success, NSError **error) {
 			if (str == nil) return nil;
 
 			return [NSDecimalNumber decimalNumberWithString:str];

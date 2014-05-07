@@ -35,13 +35,7 @@
 		@"reopened": @(OCTIssueActionReopened),
 	};
 
-	return [MTLValueTransformer
-		reversibleTransformerWithForwardBlock:^(NSString *actionName) {
-			return actionsByName[actionName];
-		}
-		reverseBlock:^(NSNumber *action) {
-			return [actionsByName allKeysForObject:action].lastObject;
-		}];
+	return [NSValueTransformer mtl_valueMappingTransformerWithDictionary:actionsByName];
 }
 
 #pragma mark NSKeyValueCoding

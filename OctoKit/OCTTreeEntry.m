@@ -46,13 +46,7 @@
 		@"commit": @(OCTTreeEntryTypeCommit),
 	};
 
-	return [MTLValueTransformer
-		reversibleTransformerWithForwardBlock:^(NSString *typeName) {
-			return typeByName[typeName];
-		}
-		reverseBlock:^(NSNumber *type) {
-			return [typeByName allKeysForObject:type].lastObject;
-		}];
+	return [NSValueTransformer mtl_valueMappingTransformerWithDictionary:typeByName];
 }
 
 + (NSValueTransformer *)modeJSONTransformer {
@@ -64,13 +58,7 @@
 		@"120000": @(OCTTreeEntryModeSymlink),
 	};
 
-	return [MTLValueTransformer
-		reversibleTransformerWithForwardBlock:^(NSString *typeName) {
-			return typeByName[typeName];
-		}
-		reverseBlock:^(NSNumber *type) {
-			return [typeByName allKeysForObject:type].lastObject;
-		}];
+	return [NSValueTransformer mtl_valueMappingTransformerWithDictionary:typeByName];
 }
 
 #pragma mark NSObject
