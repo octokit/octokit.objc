@@ -112,10 +112,12 @@
 #pragma mark MTLJSONSerializing
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
-	return @{
+	NSDictionary *oldImplicitMapping = [NSDictionary mtl_identityPropertyMapWithModel:self];
+
+	return [oldImplicitMapping mtl_dictionaryByAddingEntriesFromDictionary:@{
 		@"fileChanges": @"files",
 		@"publicGist": @"public",
-	};
+	}];
 }
 
 + (NSValueTransformer *)fileChangesJSONTransformer {

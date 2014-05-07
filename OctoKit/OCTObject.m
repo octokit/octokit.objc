@@ -53,10 +53,13 @@
 #pragma mark MTLJSONSerializing
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
-	return @{
-		@"objectID": @"id",
-		@"server": NSNull.null,
-	};
+	NSMutableDictionary *oldImplicitMapping = [[NSDictionary mtl_identityPropertyMapWithModel:self] mutableCopy];
+
+	oldImplicitMapping[@"objectID"] = @"id";
+
+	[oldImplicitMapping removeObjectForKey:@"server"];
+
+	return oldImplicitMapping;
 }
 
 + (NSValueTransformer *)objectIDJSONTransformer {
