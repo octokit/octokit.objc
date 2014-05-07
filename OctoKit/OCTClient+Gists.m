@@ -27,7 +27,11 @@
 
 	if (!self.authenticated) return [RACSignal error:self.class.authenticationRequiredError];
 
-	NSDictionary *parameters = [MTLJSONAdapter JSONDictionaryFromModel:edit];
+	NSError *error;
+	NSDictionary *parameters = [MTLJSONAdapter JSONDictionaryFromModel:edit error:&error];
+
+	if (parameters == nil) return [RACSignal error:error];
+
 	NSURLRequest *request = [self requestWithMethod:@"PATCH" path:[NSString stringWithFormat:@"gists/%@", gist.objectID] parameters:parameters notMatchingEtag:nil];
 	return [[self enqueueRequest:request resultClass:OCTGist.class] oct_parsedResults];
 }
@@ -37,7 +41,11 @@
 
 	if (!self.authenticated) return [RACSignal error:self.class.authenticationRequiredError];
 
-	NSDictionary *parameters = [MTLJSONAdapter JSONDictionaryFromModel:edit];
+	NSError *error;
+	NSDictionary *parameters = [MTLJSONAdapter JSONDictionaryFromModel:edit error:&error];
+
+	if (parameters == nil) return [RACSignal error:error];
+
 	NSURLRequest *request = [self requestWithMethod:@"POST" path:@"gists" parameters:parameters notMatchingEtag:nil];
 	return [[self enqueueRequest:request resultClass:OCTGist.class] oct_parsedResults];
 }
