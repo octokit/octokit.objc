@@ -66,7 +66,9 @@
 + (NSValueTransformer *)objectIDJSONTransformer {
 	// The "id" field for gists comes through as a string, which matches the
 	// type of our objectID property.
-	return nil;
+	return [MTLValueTransformer transformerUsingReversibleBlock:^(id value, BOOL *success, NSError **error) {
+		return value;
+	}];
 }
 
 + (NSValueTransformer *)HTMLURLJSONTransformer {
