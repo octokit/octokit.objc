@@ -613,9 +613,9 @@ static NSString *OCTClientOAuthClientSecret = nil;
 			// Append OCTClientErrorRequestStateRedirected to the current
 			// operation's userInfo when redirecting to a different URL scheme
 			NSString *currentHost = currentRequest.URL.host;
-			NSString *originalHost = connection.originalRequest.URL.host;
+			NSString *originalHost = request.URL.host;
 			NSString *currentScheme = currentRequest.URL.scheme;
-			NSString *originalScheme = connection.originalRequest.URL.scheme;
+			NSString *originalScheme = request.URL.scheme;
 
 			BOOL hasOriginalHost = [currentHost isEqual:originalHost];
 			BOOL hasOriginalScheme = [currentScheme isEqual:originalScheme];
