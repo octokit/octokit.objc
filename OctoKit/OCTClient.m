@@ -568,8 +568,8 @@ static NSString *OCTClientOAuthClientSecret = nil;
 #pragma mark Request Enqueuing
 
 - (RACSignal *)enqueueRequest:(NSURLRequest *)request fetchAllPages:(BOOL)fetchAllPages {
+	NSURLRequest *originalRequest = [request copy];
 	RACSignal *signal = [RACSignal createSignal:^(id<RACSubscriber> subscriber) {
-		NSURLRequest *originalRequest = [request copy];
 		AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request success:^(AFHTTPRequestOperation *operation, id responseObject) {
 			if (NSProcessInfo.processInfo.environment[OCTClientResponseLoggingEnvironmentKey] != nil) {
 				NSLog(@"%@ %@ %@ => %li %@:\n%@", request.HTTPMethod, request.URL, request.allHTTPHeaderFields, (long)operation.response.statusCode, operation.response.allHeaderFields, responseObject);
