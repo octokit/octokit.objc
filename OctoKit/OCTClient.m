@@ -569,6 +569,7 @@ static NSString *OCTClientOAuthClientSecret = nil;
 
 - (RACSignal *)enqueueRequest:(NSURLRequest *)request fetchAllPages:(BOOL)fetchAllPages {
 	RACSignal *signal = [RACSignal createSignal:^(id<RACSubscriber> subscriber) {
+		NSURLRequest *originalRequest = [request copy];
 		AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request success:^(AFHTTPRequestOperation *operation, id responseObject) {
 			if (NSProcessInfo.processInfo.environment[OCTClientResponseLoggingEnvironmentKey] != nil) {
 				NSLog(@"%@ %@ %@ => %li %@:\n%@", request.HTTPMethod, request.URL, request.allHTTPHeaderFields, (long)operation.response.statusCode, operation.response.allHeaderFields, responseObject);
@@ -613,9 +614,9 @@ static NSString *OCTClientOAuthClientSecret = nil;
 			// Append OCTClientErrorRequestStateRedirected to the current
 			// operation's userInfo when redirecting to a different URL scheme
 			NSString *currentHost = currentRequest.URL.host;
-			NSString *originalHost = request.URL.host;
+			NSString *originalHost = originalRequest.URL.host;
 			NSString *currentScheme = currentRequest.URL.scheme;
-			NSString *originalScheme = request.URL.scheme;
+			NSString *originalScheme = originalRequest.URL.scheme;
 
 			BOOL hasOriginalHost = [currentHost isEqual:originalHost];
 			BOOL hasOriginalScheme = [currentScheme isEqual:originalScheme];
