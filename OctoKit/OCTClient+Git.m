@@ -40,7 +40,7 @@
 	NSString *path = [NSString stringWithFormat:@"repos/%@/%@/git/trees", repository.ownerLogin, repository.name];
 
 	NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
-	parameters[@"tree"] = [[treeEntries.rac_sequence
+	parameters[@"tree"] = [[treeEntries.rac_signal
 		map:^(OCTTreeEntry *entry) {
 			return [MTLJSONAdapter JSONDictionaryFromModel:entry];
 		}]
