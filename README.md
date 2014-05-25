@@ -22,7 +22,7 @@ We'll focus on the second method, since we can do more with it. Let's create
 a client that connects to GitHub.com:
 
 ```objc
-OCTUser *user = [OCTUser userWithLogin:username server:OCTServer.dotComServer];
+OCTUser *user = [OCTUser userWithRawLogin:username server:OCTServer.dotComServer];
 OCTClient *client = [OCTClient unauthenticatedClientWithUser:user];
 ```
 
@@ -221,7 +221,7 @@ Enterprise users), you can attempt to authenticate. The pattern is very similar 
 as a reply:
 
 ```objc
-OCTUser *user = [OCTUser userWithLogin:username server:OCTServer.dotComServer];
+OCTUser *user = [OCTUser userWithRawLogin:username server:OCTServer.dotComServer];
 [[OCTClient
     signInAsUser:user password:password oneTimePassword:nil scopes:OCTClientAuthorizationScopesUser]
     subscribeNext:^(OCTClient *authenticatedClient) {
@@ -309,14 +309,14 @@ doesn't have to repeat the sign in process when they open your app again.
 Regardless of the authentication method you use, you'll end up with an
 `OCTClient` instance after the user signs in successfully. An authenticated
 client has `user` and `token` properties. To remember the user, you need to save
-`user.login` and the OAuth access token into the
+`user.rawLogin` and the OAuth access token into the
 [keychain](https://developer.apple.com/library/ios/documentation/Security/Conceptual/keychainServConcepts/01introduction/introduction.html).
 
 When your app is relaunched, and you want to use the saved credentials, skip the
 normal sign-in methods and create an authenticated client directly:
 
 ```objc
-OCTUser *user = [OCTUser userWithLogin:savedLogin server:OCTServer.dotComServer];
+OCTUser *user = [OCTUser userWithRawLogin:savedLogin server:OCTServer.dotComServer];
 OCTClient *client = [OCTClient authenticatedClientWithUser:user token:savedToken];
 ```
 
@@ -352,6 +352,8 @@ To add OctoKit to your application:
 
 If you would prefer to use [CocoaPods](http://cocoapods.org), there are some [OctoKit podspecs](https://github.com/CocoaPods/Specs/tree/master/OctoKit)
 that have been generously contributed by third parties.
+
+If you’re developing OctoKit on its own, then use `OctoKit.xcworkspace`.
 
 ### Copying the frameworks
 

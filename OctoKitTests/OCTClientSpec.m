@@ -35,6 +35,29 @@ void (^stubResponse)(NSString *, NSString *) = ^(NSString *path, NSString *respo
 	stubResponseWithHeaders(path, responseFilename, @{});
 };
 
+void (^stubRedirectResponseURL)(NSURL *, int, NSURL *) = ^(NSURL *URL, int statusCode, NSURL *redirectURL) {
+	[OHHTTPStubs addRequestHandler:^ id (NSURLRequest *request, BOOL onlyCheck) {
+		if (!([request.URL.scheme isEqual:URL.scheme] && [request.URL.path isEqual:URL.path])) return nil;
+
+		return [OHHTTPStubsResponse responseWithData:[NSData data] statusCode:statusCode responseTime:0 headers:@{
+			@"Location": redirectURL.absoluteString
+		}];
+	}];
+};
+
+void (^stubResponseURL)(NSURL *, NSString *, NSDictionary *) = ^(NSURL *URL, NSString *responseFilename, NSDictionary *headers) {
+	headers = [headers mtl_dictionaryByAddingEntriesFromDictionary:@{
+		@"Content-Type": @"application/json",
+	}];
+
+	[OHHTTPStubs addRequestHandler:^ id (NSURLRequest *request, BOOL onlyCheck) {
+		if (![request.URL isEqual:URL]) return nil;
+
+		NSURL *fileURL = [[NSBundle bundleForClass:self.class] URLForResource:responseFilename.stringByDeletingPathExtension withExtension:responseFilename.pathExtension];
+		return [OHHTTPStubsResponse responseWithFileURL:fileURL statusCode:200 responseTime:0 headers:headers];
+	}];
+};
+
 // A random ETag for testing.
 NSString *etag = @"644b5b0155e6404a9cc4bd9d8b1ae730";
 
@@ -373,6 +396,25 @@ describe(@"sign in", ^{
 		expect(client.authenticated).to.beTruthy();
 	});
 
+	it(@"requests authorization through redirects", ^{
+		NSURL *baseURL = [NSURL URLWithString:@"http://enterprise.github.com"];
+		NSString *path = [NSString stringWithFormat:@"api/v3/authorizations/clients/%@", clientID];
+
+		NSURL *HTTPURL = [baseURL URLByAppendingPathComponent:path];
+		NSURL *HTTPSURL = [[NSURL alloc] initWithScheme:@"https" host:HTTPURL.host path:HTTPURL.path];
+
+		stubResponseURL(HTTPSURL, @"authorizations.json", @{});
+		stubRedirectResponseURL(HTTPURL, 301, HTTPSURL);
+
+		OCTServer *enterpriseServer = [OCTServer serverWithBaseURL:baseURL];
+		OCTUser *enterpriseUser = [OCTUser userWithRawLogin:user.rawLogin server:enterpriseServer];
+
+		RACSignal *request = [OCTClient signInAsUser:enterpriseUser password:@"" oneTimePassword:nil scopes:OCTClientAuthorizationScopesRepository];
+		OCTClient *client = [request asynchronousFirstOrDefault:nil success:NULL error:NULL];
+		expect(client).notTo.beNil();
+		expect(client.authenticated).to.beTruthy();
+	});
+
 	it(@"should detect old server versions", ^{
 		stubResponseWithStatusCode([NSString stringWithFormat:@"/authorizations/clients/%@", clientID], 404);
 
@@ -529,6 +571,34 @@ describe(@"+fetchMetadataForServer:", ^{
 		expect(success).to.beFalsy();
 		expect(error.domain).to.equal(OCTClientErrorDomain);
 		expect(error.code).to.equal(OCTClientErrorUnsupportedServer);
+	});
+
+	it(@"should successfully fetch metadata through redirects", ^{
+		NSURL *baseURL = [NSURL URLWithString:@"http://enterprise.github.com"];
+		NSURL *HTTPURL = [baseURL URLByAppendingPathComponent:@"api/v3/meta"];
+		NSURL *HTTPSURL = [NSURL URLWithString:@"https://enterprise.github.com/api/v3/meta"];
+		stubResponseURL(HTTPSURL, @"meta.json", @{});
+		stubRedirectResponseURL(HTTPURL, 301, HTTPSURL);
+
+		OCTServer *server = [OCTServer serverWithBaseURL:baseURL];
+
+		RACSignal *request = [OCTClient fetchMetadataForServer:server];
+		NSError *error;
+		OCTServerMetadata *meta = [request asynchronousFirstOrDefault:nil success:NULL error:&error];
+		expect(error).to.beNil();
+		expect(meta).notTo.beNil();
+	});
+});
+
+describe(@"+HTTPSEnterpriseServerWithServer", ^{
+	it(@"should convert a http URL to a HTTPS URL", ^{
+		OCTServer *httpServer = [OCTServer serverWithBaseURL:[NSURL URLWithString:@"http://github.enterprise"]];
+		expect(httpServer.baseURL.scheme).to.equal(@"http");
+
+		OCTServer *httpsServer = [OCTClient HTTPSEnterpriseServerWithServer:httpServer];
+		expect(httpsServer.baseURL.scheme).to.equal(@"https");
+		expect(httpsServer.baseURL.host).to.equal(httpServer.baseURL.host);
+		expect(httpsServer.baseURL.path).to.equal(@"/");
 	});
 });
 

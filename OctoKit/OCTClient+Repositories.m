@@ -12,8 +12,7 @@
 #import "OCTOrganization.h"
 #import "OCTRepository.h"
 #import "OCTTeam.h"
-#import "RACSignal+OCTClientAdditions.h"
-#import <ReactiveCocoa/ReactiveCocoa.h>
+#import "OCTBranch.h"
 
 @implementation OCTClient (Repositories)
 
@@ -89,6 +88,42 @@
 	NSMutableURLRequest *request = [self requestWithMethod:@"GET" path:path parameters:nil notMatchingEtag:nil];
 	
 	return [[self enqueueRequest:request resultClass:OCTRepository.class] oct_parsedResults];
+}
+
+- (RACSignal *)fetchBranchesForRepositoryWithName:(NSString *)name owner:(NSString *)owner {
+	NSParameterAssert(name.length > 0);
+	NSParameterAssert(owner.length > 0);
+
+	NSString *path = [NSString stringWithFormat:@"/repos/%@/%@/branches", owner, name];
+	NSMutableURLRequest *request = [self requestWithMethod:@"GET" path:path parameters:nil notMatchingEtag:nil];
+
+	return [[self enqueueRequest:request resultClass:OCTBranch.class] oct_parsedResults];
+}
+
+- (RACSignal *)fetchCommitsFromRepository:(OCTRepository *)repository SHA:(NSString *)SHA {
+	NSParameterAssert(repository);
+
+	NSString *path = [NSString stringWithFormat:@"repos/%@/%@/commits", repository.ownerLogin, repository.name];
+
+	NSDictionary *parameters = nil;
+	if (SHA.length > 0) {
+		parameters = @{ @"sha": SHA };
+	}
+
+	NSMutableURLRequest *request = [self requestWithMethod:@"GET" path:path parameters:parameters notMatchingEtag:nil];
+
+	return [[self enqueueRequest:request resultClass:OCTGitCommit.class] oct_parsedResults];
+}
+
+- (RACSignal *)fetchCommitFromRepository:(OCTRepository *)repository SHA:(NSString *)SHA {
+	NSParameterAssert(repository);
+	NSParameterAssert(SHA.length > 0);
+
+	NSString *path = [NSString stringWithFormat:@"/repos/%@/%@/commits/%@", repository.ownerLogin, repository.name, SHA];
+	NSDictionary *parameters = @{@"sha": SHA};
+	NSMutableURLRequest *request = [self requestWithMethod:@"GET" path:path parameters:parameters notMatchingEtag:nil];
+
+	return [[self enqueueRequest:request resultClass:OCTGitCommit.class] oct_parsedResults];
 }
 
 @end

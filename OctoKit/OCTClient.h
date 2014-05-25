@@ -56,6 +56,9 @@ extern const NSInteger OCTClientErrorJSONParsingFailed;
 // The server is too old or new to understand our request.
 extern const NSInteger OCTClientErrorUnsupportedServer;
 
+// The server scheme is unsupported.
+extern const NSInteger OCTClientErrorUnsupportedServerScheme;
+
 // The GitHub login page could not be opened in a web browser.
 //
 // This error only affects +signInToServerUsingWebBrowser:scopes:.
@@ -108,6 +111,12 @@ extern NSString * const OCTClientErrorOneTimePasswordMediumKey;
 //                                                notifications.
 // OCTClientAuthorizationScopesGist             - Write access to the user's
 //                                                gists.
+// OCTClientAuthorizationScopesPublicKeyRead    - Read-only access to the user's public SSH keys.
+// OCTClientAuthorizationScopesPublicKeyWrite   - Read/write access to the user's public SSH keys. This
+//                                                includes OCTClientAuthorizationScopesPublicKeyRead.
+// OCTClientAuthorizationScopesPublicKeyAdmin   - Full administrative access to the user's public SSH keys,
+//                                                including permission to delete them. This includes
+//                                                OCTClientAuthorizationScopesPublicKeyWrite.
 typedef enum : NSUInteger {
 	OCTClientAuthorizationScopesPublicReadOnly = 1 << 0,
 
@@ -123,6 +132,10 @@ typedef enum : NSUInteger {
 	OCTClientAuthorizationScopesNotifications = 1 << 8,
 
 	OCTClientAuthorizationScopesGist = 1 << 9,
+
+	OCTClientAuthorizationScopesPublicKeyRead = 1 << 10,
+	OCTClientAuthorizationScopesPublicKeyWrite = 1 << 11,
+	OCTClientAuthorizationScopesPublicKeyAdmin = 1 << 12,
 } OCTClientAuthorizationScopes;
 
 // The medium used to deliver the one-time password.
