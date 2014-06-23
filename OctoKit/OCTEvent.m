@@ -62,7 +62,9 @@
 + (NSValueTransformer *)objectIDJSONTransformer {
 	// The "id" field for events comes through as a string, which matches the
 	// type of our objectID property.
-	return nil;
+	return [MTLValueTransformer transformerUsingReversibleBlock:^(id value, BOOL *success, NSError **error) {
+		return value;
+	}];
 }
 
 @end

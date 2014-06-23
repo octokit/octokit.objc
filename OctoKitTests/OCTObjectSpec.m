@@ -48,7 +48,11 @@ sharedExamplesFor(OCTObjectExternalRepresentationSharedExamplesName, ^(NSDiction
 	});
 
 	it(@"should be equal in all values that exist in both external representations", ^{
-		NSDictionary *JSONDictionary = [MTLJSONAdapter JSONDictionaryFromModel:obj];
+		NSError *error;
+		NSDictionary *JSONDictionary = [MTLJSONAdapter JSONDictionaryFromModel:obj error:&error];
+
+		expect(JSONDictionary).notTo.beNil();
+		expect(error).to.beNil();
 
 		[representation enumerateKeysAndObjectsUsingBlock:^(NSString *key, id expectedValue, BOOL *stop) {
 			id value = JSONDictionary[key];

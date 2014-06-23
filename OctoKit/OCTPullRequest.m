@@ -66,13 +66,7 @@
 		@"closed": @(OCTPullRequestStateClosed),
 	};
 
-	return [MTLValueTransformer
-		reversibleTransformerWithForwardBlock:^(NSString *stateName) {
-			return statesByName[stateName];
-		}
-		reverseBlock:^(NSNumber *state) {
-			return [statesByName allKeysForObject:state].lastObject;
-		}];
+	return [NSValueTransformer mtl_valueMappingTransformerWithDictionary:statesByName];
 }
 
 + (NSValueTransformer *)creationDateJSONTransformer {

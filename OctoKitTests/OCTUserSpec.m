@@ -159,7 +159,7 @@ describe(@"enterprise user", ^{
 	itShouldBehaveLike(OCTObjectExternalRepresentationSharedExamplesName, ^{
 		// The "url" key isn't translated back for creating the external
 		// representation, so remove it.
-		NSDictionary *modifiedRepresentation = [representation mtl_dictionaryByRemovingEntriesWithKeys:[NSSet setWithObject:@"url"]];
+		NSDictionary *modifiedRepresentation = [representation mtl_dictionaryByRemovingEntriesWithKeys:@[ @"url" ]];
 
 		return @{ OCTObjectKey: user, OCTObjectExternalRepresentationKey: modifiedRepresentation };
 	});

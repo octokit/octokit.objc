@@ -29,7 +29,7 @@
 		@keypath(OCTPublicKey.new, title): title,
 	} error:NULL];
 	
-	NSURLRequest *request = [self requestWithMethod:@"POST" path:@"user/keys" parameters:[MTLJSONAdapter JSONDictionaryFromModel:publicKey] notMatchingEtag:nil];
+	NSURLRequest *request = [self requestWithMethod:@"POST" path:@"user/keys" parameters:[MTLJSONAdapter JSONDictionaryFromModel:publicKey error:NULL] notMatchingEtag:nil];
 
 	return [[self enqueueRequest:request resultClass:OCTPublicKey.class] oct_parsedResults];
 }

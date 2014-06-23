@@ -30,8 +30,8 @@ it(@"should initialize from an external representation", ^{
 });
 
 it(@"shouldn't include the token in the serialized representation", ^{
-	NSDictionary *representation = [MTLJSONAdapter JSONDictionaryFromModel:authorization];
-	expect(representation[@"token"]).to.equal(NSNull.null);
+	NSDictionary *representation = [MTLJSONAdapter JSONDictionaryFromModel:authorization error:NULL];
+	expect(representation[@"token"]).to.beNil();
 });
 
 itShouldBehaveLike(OCTObjectArchivingSharedExamplesName, ^{
