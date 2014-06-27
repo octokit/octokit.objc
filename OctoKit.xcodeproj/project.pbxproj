@@ -272,6 +272,8 @@
 		D087B945181A485200821DCD /* access_token.json in Resources */ = {isa = PBXBuildFile; fileRef = D087B943181A485200821DCD /* access_token.json */; };
 		D087B947181A4F9200821DCD /* NSURLAdditionsSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = D087B946181A4F9200821DCD /* NSURLAdditionsSpec.m */; };
 		D087B948181A4F9200821DCD /* NSURLAdditionsSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = D087B946181A4F9200821DCD /* NSURLAdditionsSpec.m */; };
+		D09CC24719329E98003FCB80 /* libMantle-iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D09CC24519329E98003FCB80 /* libMantle-iOS.a */; };
+		D09CC24819329E98003FCB80 /* libReactiveCocoa-iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D09CC24619329E98003FCB80 /* libReactiveCocoa-iOS.a */; };
 		D0B9C8F416BC78970029C5B4 /* NSDateFormatter+OCTFormattingAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D0B9C8F116BC78970029C5B4 /* NSDateFormatter+OCTFormattingAdditions.m */; };
 		D0B9C8F516BC78970029C5B4 /* NSDateFormatter+OCTFormattingAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D0B9C8F116BC78970029C5B4 /* NSDateFormatter+OCTFormattingAdditions.m */; };
 		D0B9C8FD16BC7A260029C5B4 /* NSDateFormatterAdditionsSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = D0B9C8FC16BC7A260029C5B4 /* NSDateFormatterAdditionsSpec.m */; };
@@ -343,8 +345,6 @@
 		D4ACA54B18DBA63C00EBD899 /* Mantle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4ACA54A18DBA63C00EBD899 /* Mantle.framework */; };
 		D4ACA54D18DBA64100EBD899 /* ReactiveCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4ACA54C18DBA64100EBD899 /* ReactiveCocoa.framework */; };
 		D4ACA54F18DBA65200EBD899 /* OHHTTPStubs.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4ACA54E18DBA65200EBD899 /* OHHTTPStubs.framework */; };
-		D4ACA55118DBA66900EBD899 /* libReactiveCocoa-iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D4ACA55018DBA66900EBD899 /* libReactiveCocoa-iOS.a */; };
-		D4ACA55318DBA67000EBD899 /* libMantle-iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D4ACA55218DBA67000EBD899 /* libMantle-iOS.a */; };
 		D4ACA55518DBA67600EBD899 /* libOHHTTPStubs-iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D4ACA55418DBA67600EBD899 /* libOHHTTPStubs-iOS.a */; };
 		D4ACA55618DBA6DF00EBD899 /* ReactiveCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4ACA54C18DBA64100EBD899 /* ReactiveCocoa.framework */; };
 		D4ACA55718DBA6DF00EBD899 /* Mantle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4ACA54A18DBA63C00EBD899 /* Mantle.framework */; };
@@ -607,6 +607,8 @@
 		D087B940181A47EB00821DCD /* user.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = user.json; sourceTree = "<group>"; };
 		D087B943181A485200821DCD /* access_token.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = access_token.json; sourceTree = "<group>"; };
 		D087B946181A4F9200821DCD /* NSURLAdditionsSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSURLAdditionsSpec.m; sourceTree = "<group>"; };
+		D09CC24519329E98003FCB80 /* libMantle-iOS.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libMantle-iOS.a"; path = "External/Mantle/build/Debug-iphoneos/libMantle-iOS.a"; sourceTree = "<group>"; };
+		D09CC24619329E98003FCB80 /* libReactiveCocoa-iOS.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libReactiveCocoa-iOS.a"; path = "External/ReactiveCocoa/ReactiveCocoaFramework/build/Debug-iphoneos/libReactiveCocoa-iOS.a"; sourceTree = "<group>"; };
 		D0B9C8F016BC78970029C5B4 /* NSDateFormatter+OCTFormattingAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDateFormatter+OCTFormattingAdditions.h"; sourceTree = "<group>"; };
 		D0B9C8F116BC78970029C5B4 /* NSDateFormatter+OCTFormattingAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDateFormatter+OCTFormattingAdditions.m"; sourceTree = "<group>"; };
 		D0B9C8FC16BC7A260029C5B4 /* NSDateFormatterAdditionsSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSDateFormatterAdditionsSpec.m; sourceTree = "<group>"; };
@@ -703,8 +705,6 @@
 				D0772E9016BD3064009DFF72 /* SystemConfiguration.framework in Frameworks */,
 				D0772E8E16BD305F009DFF72 /* MobileCoreServices.framework in Frameworks */,
 				D0772E8C16BD305B009DFF72 /* Foundation.framework in Frameworks */,
-				D4ACA55118DBA66900EBD899 /* libReactiveCocoa-iOS.a in Frameworks */,
-				D4ACA55318DBA67000EBD899 /* libMantle-iOS.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -712,6 +712,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D09CC24719329E98003FCB80 /* libMantle-iOS.a in Frameworks */,
+				D09CC24819329E98003FCB80 /* libReactiveCocoa-iOS.a in Frameworks */,
 				F688019D17C1CE3200ECC7EC /* CoreGraphics.framework in Frameworks */,
 				F688018C17C1CE0F00ECC7EC /* Security.framework in Frameworks */,
 				D0476EC117791C470071F3CB /* libISO8601DateFormatter.a in Frameworks */,
@@ -812,6 +814,8 @@
 		D0871EAA169E2EFC00016ACA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D09CC24519329E98003FCB80 /* libMantle-iOS.a */,
+				D09CC24619329E98003FCB80 /* libReactiveCocoa-iOS.a */,
 				D4ACA55418DBA67600EBD899 /* libOHHTTPStubs-iOS.a */,
 				D4ACA55218DBA67000EBD899 /* libMantle-iOS.a */,
 				D4ACA55018DBA66900EBD899 /* libReactiveCocoa-iOS.a */,
