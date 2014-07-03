@@ -576,6 +576,79 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		BE9AB9C21965D6300054F3D6 /* Test */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D0476DA9177916770071F3CB /* Test.xcconfig */;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				GCC_WARN_UNUSED_VARIABLE = NO;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+			};
+			name = Test;
+		};
+		BE9AB9C31965D6300054F3D6 /* Test */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D0476DB5177916770071F3CB /* Mac-Framework.xcconfig */;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_VERSION = A;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PREFIX_HEADER = "AFNetworking/AFNetworking-Prefix.pch";
+				INFOPLIST_FILE = "AFNetworking/AFNetworking-Info.plist";
+				PRODUCT_NAME = AFNetworking;
+				WRAPPER_EXTENSION = framework;
+			};
+			name = Test;
+		};
+		BE9AB9C41965D6300054F3D6 /* Test */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D0476DB0177916770071F3CB /* iOS-StaticLibrary.xcconfig */;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				DSTROOT = /tmp/AFNetworking.dst;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PREFIX_HEADER = "AFNetworking/AFNetworking-Prefix.pch";
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = AFNetworking;
+			};
+			name = Test;
+		};
+		BE9AB9C51965D6300054F3D6 /* Test */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D0476DB5177916770071F3CB /* Mac-Framework.xcconfig */;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = NO;
+				CLANG_WARN_SUSPICIOUS_IMPLICIT_CONVERSION = NO;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_VERSION = A;
+				GCC_PREFIX_HEADER = "ISO8601DateFormatter/ISO8601DateFormatter-Prefix.pch";
+				GCC_WARN_TYPECHECK_CALLS_TO_PRINTF = NO;
+				INFOPLIST_FILE = "ISO8601DateFormatter/ISO8601DateFormatter-Info.plist";
+				PRODUCT_NAME = ISO8601DateFormatter;
+				WRAPPER_EXTENSION = framework;
+			};
+			name = Test;
+		};
+		BE9AB9C61965D6300054F3D6 /* Test */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D0476DB0177916770071F3CB /* iOS-StaticLibrary.xcconfig */;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = NO;
+				CLANG_WARN_SUSPICIOUS_IMPLICIT_CONVERSION = NO;
+				DSTROOT = /tmp/ISO8601DateFormatter.dst;
+				GCC_PREFIX_HEADER = "ISO8601DateFormatter/ISO8601DateFormatter-Prefix.pch";
+				GCC_WARN_TYPECHECK_CALLS_TO_PRINTF = NO;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = ISO8601DateFormatter;
+			};
+			name = Test;
+		};
 		D0476DA0177916250071F3CB /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D0476DA6177916770071F3CB /* Debug.xcconfig */;
@@ -802,6 +875,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D0476DA0177916250071F3CB /* Debug */,
+				BE9AB9C21965D6300054F3D6 /* Test */,
 				D0476DA1177916250071F3CB /* Release */,
 				D0476E2A1779184E0071F3CB /* Profile */,
 			);
@@ -812,6 +886,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D0476DD1177916920071F3CB /* Debug */,
+				BE9AB9C31965D6300054F3D6 /* Test */,
 				D0476DD2177916920071F3CB /* Release */,
 				D0476E2B1779184E0071F3CB /* Profile */,
 			);
@@ -822,6 +897,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D0476E09177917050071F3CB /* Debug */,
+				BE9AB9C41965D6300054F3D6 /* Test */,
 				D0476E0A177917050071F3CB /* Release */,
 				D0476E2C1779184E0071F3CB /* Profile */,
 			);
@@ -832,6 +908,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D0476E6F17791AA50071F3CB /* Debug */,
+				BE9AB9C51965D6300054F3D6 /* Test */,
 				D0476E7017791AA50071F3CB /* Release */,
 				D0476E7117791AA50071F3CB /* Profile */,
 			);
@@ -842,6 +919,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D0476E9217791AE70071F3CB /* Debug */,
+				BE9AB9C61965D6300054F3D6 /* Test */,
 				D0476E9317791AE70071F3CB /* Release */,
 				D0476E9417791AE70071F3CB /* Profile */,
 			);
