@@ -6,7 +6,7 @@ export SCRIPT_DIR=$(dirname "$0")
 ## Configuration Variables
 ##
 
-CONFIGURATION = "Test"
+CONFIGURATION="Test"
 SCHEMES="$@"
 
 config ()
