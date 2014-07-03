@@ -17,7 +17,6 @@
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
 	return [super.JSONKeyPathsByPropertyKey mtl_dictionaryByAddingEntriesFromDictionary:@{
-		@"rawURL": @"raw_url",
 		@"creationDate": @"created_at",
 		@"HTMLURL": @"html_url",
 	}];
