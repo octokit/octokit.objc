@@ -1915,7 +1915,6 @@
 				);
 				GCC_PREFIX_HEADER = "OctoKitTests/OctoKitTests-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
-					"$(OBJROOT)/UninstalledProducts/include",
 					"$(inherited)",
 					External/Mantle/MantleTests/specta/src,
 					"External/Mantle/MantleTests/expecta/src/**",
@@ -2072,7 +2071,6 @@
 				);
 				GCC_PREFIX_HEADER = "OctoKitTests/OctoKitTests-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
-					"$(OBJROOT)/UninstalledProducts/include",
 					"$(inherited)",
 					External/Mantle/MantleTests/specta/src,
 					"External/Mantle/MantleTests/expecta/src/**",
@@ -2094,7 +2092,6 @@
 				);
 				GCC_PREFIX_HEADER = "OctoKitTests/OctoKitTests-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
-					"$(OBJROOT)/UninstalledProducts/include",
 					"$(inherited)",
 					External/Mantle/MantleTests/specta/src,
 					"External/Mantle/MantleTests/expecta/src/**",
@@ -2183,7 +2180,6 @@
 				);
 				GCC_PREFIX_HEADER = "OctoKitTests/OctoKitTests-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
-					"$(OBJROOT)/UninstalledProducts/include",
 					"$(inherited)",
 					External/Mantle/MantleTests/specta/src,
 					"External/Mantle/MantleTests/expecta/src/**",
