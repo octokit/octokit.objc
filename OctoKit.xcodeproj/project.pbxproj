@@ -1900,10 +1900,6 @@
 			baseConfigurationReference = D0871FC4169E2FF500016ACA /* iOS-StaticLibrary.xcconfig */;
 			buildSettings = {
 				DSTROOT = /tmp/OctoKit.dst;
-				HEADER_SEARCH_PATHS = (
-					"$(OBJROOT)/UninstalledProducts/include",
-					"$(inherited)",
-				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = OctoKit;
 			};
@@ -2051,10 +2047,6 @@
 			baseConfigurationReference = D0871FC4169E2FF500016ACA /* iOS-StaticLibrary.xcconfig */;
 			buildSettings = {
 				DSTROOT = /tmp/OctoKit.dst;
-				HEADER_SEARCH_PATHS = (
-					"$(OBJROOT)/UninstalledProducts/include",
-					"$(inherited)",
-				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = OctoKit;
 			};
@@ -2065,10 +2057,6 @@
 			baseConfigurationReference = D0871FC4169E2FF500016ACA /* iOS-StaticLibrary.xcconfig */;
 			buildSettings = {
 				DSTROOT = /tmp/OctoKit.dst;
-				HEADER_SEARCH_PATHS = (
-					"$(OBJROOT)/UninstalledProducts/include",
-					"$(inherited)",
-				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = OctoKit;
 			};
@@ -2180,10 +2168,6 @@
 			baseConfigurationReference = D0871FC4169E2FF500016ACA /* iOS-StaticLibrary.xcconfig */;
 			buildSettings = {
 				DSTROOT = /tmp/OctoKit.dst;
-				HEADER_SEARCH_PATHS = (
-					"$(OBJROOT)/UninstalledProducts/include",
-					"$(inherited)",
-				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = OctoKit;
 			};
