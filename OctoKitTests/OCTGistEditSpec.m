@@ -12,7 +12,7 @@ SpecBegin(OCTGistEdit)
 describe(@"JSON serialization", ^{
 	it(@"can be serialized and deserialized", ^{
 		OCTGistEdit *edit = [[OCTGistEdit alloc] init];
-		edit.description = @"The Description";
+		edit.gistDescription = @"The Description";
 		edit.publicGist = YES;
 
 		OCTGistFileEdit *fileEditAdd = [[OCTGistFileEdit alloc] init];
@@ -30,7 +30,7 @@ describe(@"JSON serialization", ^{
 
 		NSDictionary *expectedDict = @{
 			@"public": @(edit.publicGist),
-			@"description": edit.description,
+			@"description": edit.gistDescription,
 			@"files": @{
 				fileEditAdd.filename: @{
 					@"content": fileEditAdd.content,

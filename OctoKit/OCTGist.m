@@ -97,7 +97,7 @@
 }
 
 + (NSSet *)propertyKeys {
-	return [NSSet setWithObjects:@keypath(OCTGistEdit.new, fileChanges), @keypath(OCTGistEdit.new, description), @keypath(OCTGistEdit.new, publicGist), nil];
+	return [NSSet setWithObjects:@keypath(OCTGistEdit.new, fileChanges), @keypath(OCTGistEdit.new, gistDescription), @keypath(OCTGistEdit.new, publicGist), nil];
 }
 
 #pragma mark MTLJSONSerializing
@@ -106,6 +106,7 @@
 	return @{
 		@"fileChanges": @"files",
 		@"publicGist": @"public",
+		@"gistDescription": @"description",
 	};
 }
 

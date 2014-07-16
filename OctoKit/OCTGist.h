@@ -26,7 +26,7 @@
 @interface OCTGistEdit : MTLModel <MTLJSONSerializing>
 
 // If not nil, the new description to set for the gist.
-@property (atomic, copy) NSString *description;
+@property (atomic, copy) NSString *gistDescription;
 
 // Files to modify, represented as OCTGistFileEdits keyed by filename.
 @property (atomic, copy) NSDictionary *filesToModify;
