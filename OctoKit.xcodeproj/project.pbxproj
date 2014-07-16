@@ -1842,7 +1842,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = BE9AB9BF1965D3910054F3D6 /* Test.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -1931,7 +1930,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D0871FBB169E2FF500016ACA /* Debug.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -1952,7 +1950,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D0871FBD169E2FF500016ACA /* Release.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -2107,7 +2104,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D0871FBC169E2FF500016ACA /* Profile.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
