@@ -53,6 +53,17 @@
 // complete, or error.
 - (RACSignal *)createBlobWithString:(NSString *)string inRepository:(OCTRepository *)repository;
 
+// Creates a blob using the given text content and encoding
+//
+// string     - The text for the new blob. This must not be nil.
+// repository - The repository in which to create the blob. This must not be
+//              nil.
+// encoding   - The encoding of the text. utf-8 or base64, must not be nil.
+//
+// Returns a signal which will send an NSString of the new blob's SHA then
+// complete, or error.
+- (RACSignal *)createBlobWithString:(NSString *)string inRepository:(OCTRepository *)repository withEncoding:(NSString *)encoding;
+
 // Fetches the commit identified by the given SHA.
 //
 // commitSHA  - The SHA of the commit to fetch. This must not be nil.
