@@ -10,6 +10,14 @@
 
 @class OCTRepository;
 
+// The types of content encodings
+//   OCTContentEncodingUTF8   - utf-8
+//   OCTContentEncodingBase64 - base64
+typedef enum : NSUInteger {
+	OCTContentEncodingUTF8,
+	OCTContentEncodingBase64
+} OCTContentEncoding;
+
 @interface OCTClient (Git)
 
 // Fetches the tree for the given reference.
@@ -62,7 +70,7 @@
 //
 // Returns a signal which will send an NSString of the new blob's SHA then
 // complete, or error.
-- (RACSignal *)createBlobWithString:(NSString *)string inRepository:(OCTRepository *)repository withEncoding:(NSString *)encoding;
+- (RACSignal *)createBlobWithString:(NSString *)string inRepository:(OCTRepository *)repository withEncoding:(OCTContentEncoding)encoding;
 
 // Fetches the commit identified by the given SHA.
 //

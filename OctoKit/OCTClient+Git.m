@@ -72,23 +72,27 @@
 - (RACSignal *)createBlobWithString:(NSString *)string inRepository:(OCTRepository *)repository {
 	NSParameterAssert(string != nil);
 	NSParameterAssert(repository != nil);
-	
-	return [self createBlobWithString:string inRepository:repository withEncoding:@"utf-8"];
+
+	return [self createBlobWithString:string inRepository:repository withEncoding:OCTContentEncodingUTF8];
 }
 
-- (RACSignal *)createBlobWithString:(NSString *)string inRepository:(OCTRepository *)repository withEncoding:(NSString *)encoding {
-    NSParameterAssert(string != nil);
+- (RACSignal *)createBlobWithString:(NSString *)string inRepository:(OCTRepository *)repository withEncoding:(OCTContentEncoding)encoding {
+	NSParameterAssert(string != nil);
 	NSParameterAssert(repository != nil);
-    NSParameterAssert(encoding != nil);
-    
+	
+	if(encoding != (OCTContentEncodingUTF8 || OCTContentEncodingBase64)){
+		encoding = OCTContentEncodingUTF8;
+	}
+	NSArray *encodings = @[@"utf-8",@"base64"];
+
 	NSString *path = [NSString stringWithFormat:@"repos/%@/%@/git/blobs", repository.ownerLogin, repository.name];
 	NSMutableURLRequest *request = [self requestWithMethod:@"POST" path:path parameters:@{
-        @"content": string,
-		@"encoding": encoding
+		@"content": string,
+		@"encoding": encodings[encoding]
 	} notMatchingEtag:nil];
-    
+
 	return [[self
-	    enqueueRequest:request resultClass:nil]
+		enqueueRequest:request resultClass:nil]
 		map:^(OCTResponse *response) {
 			return response.parsedResult[@"sha"];
 		}];
