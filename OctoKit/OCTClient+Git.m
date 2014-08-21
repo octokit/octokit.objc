@@ -80,10 +80,8 @@
 	NSParameterAssert(string != nil);
 	NSParameterAssert(repository != nil);
 	
-	if(encoding != (OCTContentEncodingUTF8 || OCTContentEncodingBase64)){
-		encoding = OCTContentEncodingUTF8;
-	}
-	NSArray *encodings = @[@"utf-8",@"base64"];
+	if(encoding != (OCTContentEncodingUTF8 || OCTContentEncodingBase64)) encoding = OCTContentEncodingUTF8;
+	NSArray *encodings = @[ @"utf-8", @"base64" ];
 
 	NSString *path = [NSString stringWithFormat:@"repos/%@/%@/git/blobs", repository.ownerLogin, repository.name];
 	NSMutableURLRequest *request = [self requestWithMethod:@"POST" path:path parameters:@{
