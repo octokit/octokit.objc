@@ -73,10 +73,19 @@
 	NSParameterAssert(string != nil);
 	NSParameterAssert(repository != nil);
 
+	return [self createBlobWithString:string inRepository:repository withEncoding:OCTContentEncodingUTF8];
+}
+
+- (RACSignal *)createBlobWithString:(NSString *)string inRepository:(OCTRepository *)repository withEncoding:(OCTContentEncoding)encoding {
+	NSParameterAssert(string != nil);
+	NSParameterAssert(repository != nil);
+	
+	NSArray *encodings = @[ @"utf-8", @"base64" ];
+
 	NSString *path = [NSString stringWithFormat:@"repos/%@/%@/git/blobs", repository.ownerLogin, repository.name];
 	NSMutableURLRequest *request = [self requestWithMethod:@"POST" path:path parameters:@{
 		@"content": string,
-		@"encoding": @"utf-8"
+		@"encoding": encodings[encoding]
 	} notMatchingEtag:nil];
 
 	return [[self
