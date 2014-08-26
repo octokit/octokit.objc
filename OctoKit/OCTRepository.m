@@ -67,6 +67,7 @@ static NSString *const OCTRepositoryHTMLIssuesPath = @"issues";
 		dictionaryValue[@"ownerLogin"] = owner[@"login"];
 	}
 
+	dictionaryValue[@"language"] = externalRepresentation[@"language"] ?: NSNull.null;
 	dictionaryValue[@"repoDescription"] = externalRepresentation[@"description"] ?: NSNull.null;
 	dictionaryValue[@"private"] = externalRepresentation[@"private"] ?: @NO;
 	dictionaryValue[@"fork"] = externalRepresentation[@"fork"] ?: @NO;
