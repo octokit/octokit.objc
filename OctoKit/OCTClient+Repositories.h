@@ -87,6 +87,34 @@
 // Returns a signal of zero or one OCTBranch.
 - (RACSignal *)fetchBranchesForRepositoryWithName:(NSString *)name owner:(NSString *)owner;
 
+// Fetches all open pull requests (returned as issues) of a specific
+// repository owned by the given `owner` and named `name`.
+//
+// name  - The name of the repository, must be a non-empty string.
+// owner - The owner of the repository, must be a non-empty string.
+//
+// Returns a signal of zero or one OCTPullRequest.
+- (RACSignal *)fetchOpenPullRequestsForRepositoryWithName:(NSString *)name owner:(NSString *)owner;
+
+// Fetches all closed pull requests (returned as issues) of a specific
+// repository owned by the given `owner` and named `name`.
+//
+// name  - The name of the repository, must be a non-empty string.
+// owner - The owner of the repository, must be a non-empty string.
+//
+// Returns a signal of zero or one OCTPullRequest.
+- (RACSignal *)fetchClosedPullRequestsForRepositoryWithName:(NSString *)name owner:(NSString *)owner;
+
+// Fetches a single pull request on a specific repository owned by the
+// given `owner` and named `name` and with the pull request number 'number'.
+//
+// name   - The name of the repository, must be a non-empty string.
+// owner  - The owner of the repository, must be a non-empty string.
+// number - The pull request number on the repository, must be integer
+//
+// Returns a signal of zero or one OCTPullRequest.
+- (RACSignal *)fetchSinglePullRequestForRepositoryWithName:(NSString *)name owner:(NSString *)owner number:(NSInteger)number;
+
 // Fetches commits of the given `repository` filtered by `SHA`.
 // If no SHA is given, the commit history of all branches is returned.
 //
