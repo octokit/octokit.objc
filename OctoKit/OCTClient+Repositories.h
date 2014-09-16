@@ -108,8 +108,8 @@
 // Fetches a single pull request on a specific repository owned by the
 // given `owner` and named `name` and with the pull request number 'number'.
 //
-// name  - The name of the repository, must be a non-empty string.
-// owner - The owner of the repository, must be a non-empty string.
+// name   - The name of the repository, must be a non-empty string.
+// owner  - The owner of the repository, must be a non-empty string.
 // number - The pull request number on the repository, must be integer
 //
 // Returns a signal of zero or one OCTPullRequest.

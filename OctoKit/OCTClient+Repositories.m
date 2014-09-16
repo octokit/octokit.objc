@@ -104,23 +104,22 @@
     NSParameterAssert(name.length > 0);
     NSParameterAssert(owner.length > 0);
     
-    NSString *path = [NSString stringWithFormat:@"/repos/%@/%@/issues", owner, name];
+    NSString *path = [NSString stringWithFormat:@"/repos/%@/%@/pulls", owner, name];
     NSMutableURLRequest *request = [self requestWithMethod:@"GET" path:path parameters:nil notMatchingEtag:nil];
     
-    return [[self enqueueRequest:request resultClass:OCTIssue.class] oct_parsedResults];
+    return [[self enqueueRequest:request resultClass:OCTPullRequest.class] oct_parsedResults];
 }
 
 - (RACSignal *)fetchClosedPullRequestsForRepositoryWithName:(NSString *)name owner:(NSString *)owner {
     NSParameterAssert(name.length > 0);
     NSParameterAssert(owner.length > 0);
     
-    NSMutableDictionary *options = [NSMutableDictionary dictionary];
-    options[@"state"] = @"closed";
+    NSDictionary *options = @{ @"state": @"closed" };
     
-    NSString *path = [NSString stringWithFormat:@"/repos/%@/%@/issues", owner, name];
+    NSString *path = [NSString stringWithFormat:@"/repos/%@/%@/pulls", owner, name];
     NSMutableURLRequest *request = [self requestWithMethod:@"GET" path:path parameters:options notMatchingEtag:nil];
     
-    return [[self enqueueRequest:request resultClass:OCTIssue.class] oct_parsedResults];
+    return [[self enqueueRequest:request resultClass:OCTPullRequest.class] oct_parsedResults];
 }
 
 - (RACSignal *)fetchSinglePullRequestForRepositoryWithName:(NSString *)name owner:(NSString *)owner number:(NSInteger)number {
