@@ -93,7 +93,7 @@
 // name  - The name of the repository, must be a non-empty string.
 // owner - The owner of the repository, must be a non-empty string.
 //
-// Returns a signal of zero or one OCTIssue.
+// Returns a signal of zero or one OCTPullRequest.
 - (RACSignal *)fetchOpenPullRequestsForRepositoryWithName:(NSString *)name owner:(NSString *)owner;
 
 // Fetches all closed pull requests (returned as issues) of a specific
@@ -102,7 +102,7 @@
 // name  - The name of the repository, must be a non-empty string.
 // owner - The owner of the repository, must be a non-empty string.
 //
-// Returns a signal of zero or one OCTIssue.
+// Returns a signal of zero or one OCTPullRequest.
 - (RACSignal *)fetchClosedPullRequestsForRepositoryWithName:(NSString *)name owner:(NSString *)owner;
 
 // Fetches a single pull request on a specific repository owned by the
