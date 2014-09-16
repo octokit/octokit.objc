@@ -100,6 +100,39 @@
 	return [[self enqueueRequest:request resultClass:OCTBranch.class] oct_parsedResults];
 }
 
+- (RACSignal *)fetchOpenPullRequestsForRepositoryWithName:(NSString *)name owner:(NSString *)owner {
+    NSParameterAssert(name.length > 0);
+    NSParameterAssert(owner.length > 0);
+    
+    NSString *path = [NSString stringWithFormat:@"/repos/%@/%@/issues", owner, name];
+    NSMutableURLRequest *request = [self requestWithMethod:@"GET" path:path parameters:nil notMatchingEtag:nil];
+    
+    return [[self enqueueRequest:request resultClass:OCTIssue.class] oct_parsedResults];
+}
+
+- (RACSignal *)fetchClosedPullRequestsForRepositoryWithName:(NSString *)name owner:(NSString *)owner {
+    NSParameterAssert(name.length > 0);
+    NSParameterAssert(owner.length > 0);
+    
+    NSMutableDictionary *options = [NSMutableDictionary dictionary];
+    options[@"state"] = @"closed";
+    
+    NSString *path = [NSString stringWithFormat:@"/repos/%@/%@/issues", owner, name];
+    NSMutableURLRequest *request = [self requestWithMethod:@"GET" path:path parameters:options notMatchingEtag:nil];
+    
+    return [[self enqueueRequest:request resultClass:OCTIssue.class] oct_parsedResults];
+}
+
+- (RACSignal *)fetchSinglePullRequestForRepositoryWithName:(NSString *)name owner:(NSString *)owner number:(NSInteger)number {
+    NSParameterAssert(name.length > 0);
+    NSParameterAssert(owner.length > 0);
+    
+    NSString *path = [NSString stringWithFormat:@"/repos/%@/%@/pulls/%ld", owner, name, (long)number];
+    NSMutableURLRequest *request = [self requestWithMethod:@"GET" path:path parameters:nil notMatchingEtag:nil];
+    
+    return [[self enqueueRequest:request resultClass:OCTPullRequest.class] oct_parsedResults];
+}
+
 - (RACSignal *)fetchCommitsFromRepository:(OCTRepository *)repository SHA:(NSString *)SHA {
 	NSParameterAssert(repository);
 
