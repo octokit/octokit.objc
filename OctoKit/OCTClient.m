@@ -569,36 +569,45 @@ static NSString *OCTClientOAuthClientSecret = nil;
 
 - (RACSignal *)enqueueRequest:(NSURLRequest *)request fetchAllPages:(BOOL)fetchAllPages {
 	NSURLRequest *originalRequest = [request copy];
+	NSLog(@"%@", NSStringFromSelector(_cmd));
 	RACSignal *signal = [RACSignal createSignal:^(id<RACSubscriber> subscriber) {
 		AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request success:^(AFHTTPRequestOperation *operation, id responseObject) {
+			NSLog(@"%@-%@", NSStringFromSelector(_cmd), @(__LINE__));
 			if (NSProcessInfo.processInfo.environment[OCTClientResponseLoggingEnvironmentKey] != nil) {
 				NSLog(@"%@ %@ %@ => %li %@:\n%@", request.HTTPMethod, request.URL, request.allHTTPHeaderFields, (long)operation.response.statusCode, operation.response.allHeaderFields, responseObject);
 			}
-
+			
+			NSLog(@"%@-%@", NSStringFromSelector(_cmd), @(__LINE__));
 			if (operation.response.statusCode == OCTClientNotModifiedStatusCode) {
 				// No change in the data.
 				[subscriber sendCompleted];
+				NSLog(@"%@-%@", NSStringFromSelector(_cmd), @(__LINE__));
 				return;
 			}
 			
+			NSLog(@"%@-%@", NSStringFromSelector(_cmd), @(__LINE__));
 			RACSignal *nextPageSignal = [RACSignal empty];
 			NSURL *nextPageURL = (fetchAllPages ? [self nextPageURLFromOperation:operation] : nil);
 			if (nextPageURL != nil) {
 				// If we got this far, the etag is out of date, so don't pass it on.
 				NSMutableURLRequest *nextRequest = [request mutableCopy];
 				nextRequest.URL = nextPageURL;
-
+				
+				NSLog(@"%@-%@", NSStringFromSelector(_cmd), @(__LINE__));
 				nextPageSignal = [self enqueueRequest:nextRequest fetchAllPages:YES];
 			}
-
+			
+			NSLog(@"%@-%@", NSStringFromSelector(_cmd), @(__LINE__));
 			[[[RACSignal
 				return:RACTuplePack(operation.response, responseObject)]
 				concat:nextPageSignal]
 				subscribe:subscriber];
 		} failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+			NSLog(@"%@-%@", NSStringFromSelector(_cmd), @(__LINE__));
 			if (NSProcessInfo.processInfo.environment[OCTClientResponseLoggingEnvironmentKey] != nil) {
 				NSLog(@"%@ %@ %@ => FAILED WITH %li", request.HTTPMethod, request.URL, request.allHTTPHeaderFields, (long)operation.response.statusCode);
 			}
+			NSLog(@"%@-%@", NSStringFromSelector(_cmd), @(__LINE__));
 
 			[subscriber sendError:[self.class errorFromRequestOperation:operation]];
 		}];
@@ -629,14 +638,17 @@ static NSString *OCTClientOAuthClientSecret = nil;
 
 			return currentRequest;
 		};
-
+		
+		NSLog(@"%@-%@", NSStringFromSelector(_cmd), @(__LINE__));
 		[self enqueueHTTPRequestOperation:operation];
+		NSLog(@"%@-%@", NSStringFromSelector(_cmd), @(__LINE__));
 
 		return [RACDisposable disposableWithBlock:^{
 			[operation cancel];
 		}];
 	}];
 	
+	NSLog(@"%@-%@", NSStringFromSelector(_cmd), @(__LINE__));
 	return [[signal
 		replayLazily]
 		setNameWithFormat:@"-enqueueRequest: %@ fetchAllPages: %i", request, (int)fetchAllPages];
