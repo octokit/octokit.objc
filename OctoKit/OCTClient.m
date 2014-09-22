@@ -572,20 +572,20 @@ static NSString *OCTClientOAuthClientSecret = nil;
 	NSLog(@"%@", NSStringFromSelector(_cmd));
 	RACSignal *signal = [RACSignal createSignal:^(id<RACSubscriber> subscriber) {
 		AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request success:^(AFHTTPRequestOperation *operation, id responseObject) {
-			NSLog(@"%@-%@", NSStringFromSelector(_cmd), @(__LINE__));
+			NSLog(@"%@-%@ (%@)", NSStringFromSelector(_cmd), @(__LINE__), request);
 			if (NSProcessInfo.processInfo.environment[OCTClientResponseLoggingEnvironmentKey] != nil) {
 				NSLog(@"%@ %@ %@ => %li %@:\n%@", request.HTTPMethod, request.URL, request.allHTTPHeaderFields, (long)operation.response.statusCode, operation.response.allHeaderFields, responseObject);
 			}
 			
-			NSLog(@"%@-%@", NSStringFromSelector(_cmd), @(__LINE__));
+			NSLog(@"%@-%@ (%@)", NSStringFromSelector(_cmd), @(__LINE__), request);
 			if (operation.response.statusCode == OCTClientNotModifiedStatusCode) {
 				// No change in the data.
 				[subscriber sendCompleted];
-				NSLog(@"%@-%@", NSStringFromSelector(_cmd), @(__LINE__));
+				NSLog(@"%@-%@ (%@)", NSStringFromSelector(_cmd), @(__LINE__), request);
 				return;
 			}
 			
-			NSLog(@"%@-%@", NSStringFromSelector(_cmd), @(__LINE__));
+			NSLog(@"%@-%@ (%@)", NSStringFromSelector(_cmd), @(__LINE__), request);
 			RACSignal *nextPageSignal = [RACSignal empty];
 			NSURL *nextPageURL = (fetchAllPages ? [self nextPageURLFromOperation:operation] : nil);
 			if (nextPageURL != nil) {
@@ -597,17 +597,17 @@ static NSString *OCTClientOAuthClientSecret = nil;
 				nextPageSignal = [self enqueueRequest:nextRequest fetchAllPages:YES];
 			}
 			
-			NSLog(@"%@-%@", NSStringFromSelector(_cmd), @(__LINE__));
+			NSLog(@"%@-%@ (%@)", NSStringFromSelector(_cmd), @(__LINE__), request);
 			[[[RACSignal
 				return:RACTuplePack(operation.response, responseObject)]
 				concat:nextPageSignal]
 				subscribe:subscriber];
 		} failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-			NSLog(@"%@-%@", NSStringFromSelector(_cmd), @(__LINE__));
+			NSLog(@"%@-%@ (%@)", NSStringFromSelector(_cmd), @(__LINE__), request);
 			if (NSProcessInfo.processInfo.environment[OCTClientResponseLoggingEnvironmentKey] != nil) {
 				NSLog(@"%@ %@ %@ => FAILED WITH %li", request.HTTPMethod, request.URL, request.allHTTPHeaderFields, (long)operation.response.statusCode);
 			}
-			NSLog(@"%@-%@", NSStringFromSelector(_cmd), @(__LINE__));
+			NSLog(@"%@-%@ (%@)", NSStringFromSelector(_cmd), @(__LINE__), request);
 
 			[subscriber sendError:[self.class errorFromRequestOperation:operation]];
 		}];
@@ -639,16 +639,16 @@ static NSString *OCTClientOAuthClientSecret = nil;
 			return currentRequest;
 		};
 		
-		NSLog(@"%@-%@", NSStringFromSelector(_cmd), @(__LINE__));
+		NSLog(@"%@-%@ (%@)", NSStringFromSelector(_cmd), @(__LINE__), request);
 		[self enqueueHTTPRequestOperation:operation];
-		NSLog(@"%@-%@", NSStringFromSelector(_cmd), @(__LINE__));
+		NSLog(@"%@-%@ (%@)", NSStringFromSelector(_cmd), @(__LINE__), request);
 
 		return [RACDisposable disposableWithBlock:^{
 			[operation cancel];
 		}];
 	}];
 	
-	NSLog(@"%@-%@", NSStringFromSelector(_cmd), @(__LINE__));
+	NSLog(@"%@-%@ (%@)", NSStringFromSelector(_cmd), @(__LINE__), request);
 	return [[signal
 		replayLazily]
 		setNameWithFormat:@"-enqueueRequest: %@ fetchAllPages: %i", request, (int)fetchAllPages];
