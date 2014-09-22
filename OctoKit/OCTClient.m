@@ -647,14 +647,21 @@ static NSString *OCTClientOAuthClientSecret = nil;
 }
 
 - (RACSignal *)enqueueRequest:(NSURLRequest *)request resultClass:(Class)resultClass fetchAllPages:(BOOL)fetchAllPages {
+	NSLog(@"%@", NSStringFromSelector(_cmd));
+	NSDate *before1 = [NSDate date];
 	return [[[self
 		enqueueRequest:request fetchAllPages:fetchAllPages]
 		reduceEach:^(NSHTTPURLResponse *response, id responseObject) {
+			NSTimeInterval elapsed1 = [[NSDate date] timeIntervalSinceDate:before1];
+			NSLog(@"%@-1: %@", NSStringFromSelector(_cmd), @(elapsed1));
 			__block BOOL loggedRemaining = NO;
 
+			NSDate *before2 = [NSDate date];
 			return [[[self
 				parsedResponseOfClass:resultClass fromJSON:responseObject]
 				map:^(id parsedResult) {
+					NSTimeInterval elapsed2 = [[NSDate date] timeIntervalSinceDate:before2];
+					NSLog(@"%@-2: %@", NSStringFromSelector(_cmd), @(elapsed2));
 					OCTResponse *parsedResponse = [[OCTResponse alloc] initWithHTTPURLResponse:response parsedResult:parsedResult];
 					NSAssert(parsedResponse != nil, @"Could not create OCTResponse with response %@ and parsedResult %@", response, parsedResult);
 
