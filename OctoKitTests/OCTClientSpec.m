@@ -265,11 +265,10 @@ describe(@"authenticated", ^{
 		stubResponse(@"/notifications", @"notifications.json");
 
 		RACSignal *request = [client fetchNotificationsNotMatchingEtag:nil includeReadNotifications:NO updatedSince:nil];
-		OCTResponse *response = [request asynchronousFirstOrDefault:nil success:&success error:&error];
+		OCTNotification *notification = [request asynchronousFirstOrDefault:nil success:&success error:&error];
 		expect(success).to.beTruthy();
 		expect(error).to.beNil();
 
-		OCTNotification *notification = response.parsedResult;
 		expect(notification).to.beKindOf(OCTNotification.class);
 		expect(notification.objectID).to.equal(@"1");
 		expect(notification.title).to.equal(@"Greetings");
