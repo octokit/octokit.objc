@@ -10,6 +10,7 @@
 #import "NSDateFormatter+OCTFormattingAdditions.h"
 #import "OCTClient+Private.h"
 #import "OCTNotification.h"
+#import "RACSignal+OCTClientAdditions.h"
 #import <ReactiveCocoa/ReactiveCocoa.h>
 
 @implementation OCTClient (Notifications)
@@ -24,7 +25,7 @@
 		parameters[@"since"] = [NSDateFormatter oct_stringFromDate:since];
 	}
 	NSURLRequest *request = [self requestWithMethod:@"GET" path:@"notifications" parameters:parameters notMatchingEtag:etag];
-	return [self enqueueRequest:request resultClass:OCTNotification.class];
+	return [[self enqueueRequest:request resultClass:OCTNotification.class] oct_parsedResults];
 }
 
 - (RACSignal *)markNotificationThreadAsReadAtURL:(NSURL *)threadURL {

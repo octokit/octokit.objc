@@ -19,7 +19,7 @@
 // since       - If not nil, only notifications updated after this date will be
 //               included.
 //
-// Returns a signal which will zero or more OCTResponses (of OCTNotifications)
+// Returns a signal which will zero or more OCTNotification
 // if new data was downloaded. On success, the signal will send completed
 // regardless of whether there was new data. If the client is not
 // `authenticated`, the signal will error immediately.
