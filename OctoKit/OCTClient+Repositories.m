@@ -142,8 +142,8 @@
 	NSMutableDictionary *params = [@{ @"title": title, @"head": head, @"body": body } mutableCopy];
 	if (body != nil) params[@"body"] = body;
 
-    NSMutableURLRequest *request = [self requestWithMethod:@"POST" path:path parameters:params notMatchingEtag:nil];
-    return [[self enqueueRequest:request resultClass:OCTPullRequest.class] oct_parsedResults];
+	NSMutableURLRequest *request = [self requestWithMethod:@"POST" path:path parameters:params notMatchingEtag:nil];
+	return [[self enqueueRequest:request resultClass:OCTPullRequest.class] oct_parsedResults];
 }
 
 - (RACSignal *)fetchCommitsFromRepository:(OCTRepository *)repository SHA:(NSString *)SHA {
