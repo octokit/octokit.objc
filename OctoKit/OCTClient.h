@@ -64,6 +64,10 @@ extern const NSInteger OCTClientErrorUnsupportedServerScheme;
 // This error only affects +signInToServerUsingWebBrowser:scopes:.
 extern const NSInteger OCTClientErrorOpeningBrowserFailed;
 
+// There was a problem establishing a secure connection, although the server is
+// reachable.
+extern const NSInteger OCTClientErrorSecureConnectionFailed;
+
 // A user info key associated with the NSURL of the request that failed.
 extern NSString * const OCTClientErrorRequestURLKey;
 
@@ -224,7 +228,7 @@ typedef enum : NSUInteger {
 + (void)setClientID:(NSString *)clientID clientSecret:(NSString *)clientSecret;
 
 // Initializes the receiver to make requests to the given GitHub server.
-// 
+//
 // When using this initializer, the `user` property will not be set.
 // +authenticatedClientWithUser:token: or +unauthenticatedClientWithUser:
 // should typically be used instead.
