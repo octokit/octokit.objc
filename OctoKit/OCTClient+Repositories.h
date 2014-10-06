@@ -121,13 +121,13 @@
 ///              Cannot be nil.
 /// title      - The title for the pull request. Cannot be nil.
 /// body       - The body for the pull request. May be nil.
-/// head       - The name of the branch which will be brought into `base`.
+/// baseBranch - The name of the branch into which the changes will be merged.
 ///              Cannot be nil.
-/// base       - The name of the branch into which the changes will be merged.
+/// headBranch - The name of the branch which will be brought into `baseBranch`.
 ///              Cannot be nil.
 ///
 /// Returns a signal of an OCTPullRequest.
-- (RACSignal *)createPullRequestInRepository:(OCTRepository *)repository title:(NSString *)title body:(NSString *)body head:(NSString *)head base:(NSString *)base;
+- (RACSignal *)createPullRequestInRepository:(OCTRepository *)repository title:(NSString *)title body:(NSString *)body baseBranch:(NSString *)baseBranch headBranch:(NSString *)headBranch;
 
 // Fetches commits of the given `repository` filtered by `SHA`.
 // If no SHA is given, the commit history of all branches is returned.
