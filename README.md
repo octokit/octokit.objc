@@ -349,7 +349,7 @@ To add OctoKit to your application:
     necessary for archive builds, but it has no negative effect otherwise).
  1. **For iOS targets**, add `-ObjC` to the "Other Linker Flags" build setting.
 
-If you would prefer to use [CocoaPods](http://cocoapods.org), there are some [OctoKit podspecs](https://github.com/CocoaPods/Specs/tree/master/OctoKit)
+If you would prefer to use [CocoaPods](http://cocoapods.org), there are some [OctoKit podspecs](https://github.com/CocoaPods/Specs/tree/master/Specs/OctoKit)
 that have been generously contributed by third parties.
 
 If you’re developing OctoKit on its own, then use `OctoKit.xcworkspace`.
