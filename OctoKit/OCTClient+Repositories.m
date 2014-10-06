@@ -132,6 +132,20 @@
     return [[self enqueueRequest:request resultClass:OCTPullRequest.class] oct_parsedResults];
 }
 
+- (RACSignal *)createPullRequestInRepository:(OCTRepository *)repository title:(NSString *)title body:(NSString *)body head:(NSString *)head base:(NSString *)base {
+	NSParameterAssert(repository !=  nil);
+	NSParameterAssert(title != nil);
+	NSParameterAssert(head != nil);
+	NSParameterAssert(base != nil);
+
+	NSString *path = [NSString stringWithFormat:@"/repos/%@/%@/pulls", repository.ownerLogin, repository.name];
+	NSMutableDictionary *params = [@{ @"title": title, @"head": head, @"body": body } mutableCopy];
+	if (body != nil) params[@"body"] = body;
+
+    NSMutableURLRequest *request = [self requestWithMethod:@"POST" path:path parameters:params notMatchingEtag:nil];
+    return [[self enqueueRequest:request resultClass:OCTPullRequest.class] oct_parsedResults];
+}
+
 - (RACSignal *)fetchCommitsFromRepository:(OCTRepository *)repository SHA:(NSString *)SHA {
 	NSParameterAssert(repository);
 
