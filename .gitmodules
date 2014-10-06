@@ -1,6 +1,6 @@
 [submodule "External/AFNetworking"]
 	path = External/AFNetworking
-	url = https://github.com/AFNetworking/AFNetworking.git
+	url = https://github.com/github/AFNetworking.git
 [submodule "External/Mantle"]
 	path = External/Mantle
 	url = https://github.com/MantleFramework/Mantle.git
