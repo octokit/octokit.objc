@@ -115,6 +115,20 @@
 // Returns a signal of zero or one OCTPullRequest.
 - (RACSignal *)fetchSinglePullRequestForRepositoryWithName:(NSString *)name owner:(NSString *)owner number:(NSInteger)number;
 
+/// Create a pull request in the repository.
+///
+/// repository - The repository on which the pull request will be created.
+///              Cannot be nil.
+/// title      - The title for the pull request. Cannot be nil.
+/// body       - The body for the pull request. May be nil.
+/// baseBranch - The name of the branch into which the changes will be merged.
+///              Cannot be nil.
+/// headBranch - The name of the branch which will be brought into `baseBranch`.
+///              Cannot be nil.
+///
+/// Returns a signal of an OCTPullRequest.
+- (RACSignal *)createPullRequestInRepository:(OCTRepository *)repository title:(NSString *)title body:(NSString *)body baseBranch:(NSString *)baseBranch headBranch:(NSString *)headBranch;
+
 // Fetches commits of the given `repository` filtered by `SHA`.
 // If no SHA is given, the commit history of all branches is returned.
 //
