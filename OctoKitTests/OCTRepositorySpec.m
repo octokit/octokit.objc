@@ -49,6 +49,42 @@ describe(@"from JSON", ^{
 		@"created_at": @"2011-01-26T19:01:12Z",
 		@"updated_at": @"2011-01-26T19:14:43Z",
 		@"default_branch": @"master",
+		@"source": @{
+			@"html_url": @"https://github.com/octocat/Hello-World",
+			@"clone_url": @"https://github.com/octocat/Hello-World.git",
+			@"git_url": @"git://github.com/octocat/Hello-World.git",
+			@"ssh_url": @"git@github.com:octocat/Hello-World.git",
+			@"id": @1296268,
+			@"owner": @{
+				@"login": @"octocat",
+			},
+
+			@"name": @"Hello-World",
+			@"description": @"This your first repo!",
+			@"language": NSNull.null,
+			@"private": @NO,
+			@"fork": @NO,
+			@"pushed_at": @"2011-01-26T19:06:43Z",
+			@"default_branch": @"master",
+		},
+		@"parent": @{
+			@"html_url": @"https://github.com/octocat/Hello-World",
+			@"clone_url": @"https://github.com/octocat/Hello-World.git",
+			@"git_url": @"git://github.com/octocat/Hello-World.git",
+			@"ssh_url": @"git@github.com:octocat/Hello-World.git",
+			@"id": @1296267,
+			@"owner": @{
+				@"login": @"octocat",
+			},
+
+			@"name": @"Hello-World",
+			@"description": @"This your first repo!",
+			@"language": NSNull.null,
+			@"private": @NO,
+			@"fork": @NO,
+			@"pushed_at": @"2011-01-26T19:06:43Z",
+			@"default_branch": @"master",
+		},
 	};
 
 	__block OCTRepository *repository;
@@ -78,6 +114,12 @@ describe(@"from JSON", ^{
 		expect(repository.HTMLURL).to.equal([NSURL URLWithString:@"https://github.com/octocat/Hello-World"]);
 		expect(repository.SSHURL).to.equal(@"git@github.com:octocat/Hello-World.git");
 		expect(repository.defaultBranch).to.equal(@"master");
+
+		expect(repository.forkSource).notTo.beNil();
+		expect(repository.forkSource.objectID).to.equal(@"1296268");
+
+		expect(repository.forkParent).notTo.beNil();
+		expect(repository.forkParent.objectID).to.equal(@"1296267");
 	});
 });
 
