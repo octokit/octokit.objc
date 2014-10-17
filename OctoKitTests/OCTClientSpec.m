@@ -10,29 +10,27 @@
 
 SpecBegin(OCTClient)
 
-void (^stubResponseWithHeaders)(NSString *, NSString *, NSDictionary *) = ^(NSString *path, NSString *responseFilename, NSDictionary *headers) {
-	headers = [headers mtl_dictionaryByAddingEntriesFromDictionary:@{
-		@"Content-Type": @"application/json",
-	}];
+void (^stubResponseWithHeaders)(NSString *, NSString *, int, NSDictionary *) = ^(NSString *path, NSString *responseFilename, int statusCode, NSDictionary *headers) {
+	if (responseFilename != nil) {
+		headers = [headers mtl_dictionaryByAddingEntriesFromDictionary:@{
+			@"Content-Type": @"application/json",
+		}];
+	}
 
 	[OHHTTPStubs addRequestHandler:^ id (NSURLRequest *request, BOOL onlyCheck) {
 		if (![request.URL.path isEqual:path]) return nil;
-		
-		NSURL *fileURL = [[NSBundle bundleForClass:self.class] URLForResource:responseFilename.stringByDeletingPathExtension withExtension:responseFilename.pathExtension];
-		return [OHHTTPStubsResponse responseWithFileURL:fileURL statusCode:200 responseTime:0 headers:headers];
-	}];
-};
 
-void (^stubResponseWithStatusCode)(NSString *, int) = ^(NSString *path, int statusCode) {
-	[OHHTTPStubs addRequestHandler:^ id (NSURLRequest *request, BOOL onlyCheck) {
-		if (![request.URL.path isEqual:path]) return nil;
-
-		return [OHHTTPStubsResponse responseWithData:[NSData data] statusCode:statusCode responseTime:0 headers:nil];
+		if (responseFilename == nil) {
+			return [OHHTTPStubsResponse responseWithData:[NSData data] statusCode:statusCode responseTime:0 headers:headers];
+		} else {
+			NSURL *fileURL = [[NSBundle bundleForClass:self.class] URLForResource:responseFilename.stringByDeletingPathExtension withExtension:responseFilename.pathExtension];
+			return [OHHTTPStubsResponse responseWithFileURL:fileURL statusCode:statusCode responseTime:0 headers:headers];
+		}
 	}];
 };
 
 void (^stubResponse)(NSString *, NSString *) = ^(NSString *path, NSString *responseFilename) {
-	stubResponseWithHeaders(path, responseFilename, @{});
+	stubResponseWithHeaders(path, responseFilename, 200, @{});
 };
 
 void (^stubRedirectResponseURL)(NSURL *, int, NSURL *) = ^(NSURL *URL, int statusCode, NSURL *redirectURL) {
@@ -45,7 +43,7 @@ void (^stubRedirectResponseURL)(NSURL *, int, NSURL *) = ^(NSURL *URL, int statu
 	}];
 };
 
-void (^stubResponseURL)(NSURL *, NSString *, NSDictionary *) = ^(NSURL *URL, NSString *responseFilename, NSDictionary *headers) {
+void (^stubResponseURL)(NSURL *, NSString *, int, NSDictionary *) = ^(NSURL *URL, NSString *responseFilename, int statusCode, NSDictionary *headers) {
 	headers = [headers mtl_dictionaryByAddingEntriesFromDictionary:@{
 		@"Content-Type": @"application/json",
 	}];
@@ -54,7 +52,7 @@ void (^stubResponseURL)(NSURL *, NSString *, NSDictionary *) = ^(NSURL *URL, NSS
 		if (![request.URL isEqual:URL]) return nil;
 
 		NSURL *fileURL = [[NSBundle bundleForClass:self.class] URLForResource:responseFilename.stringByDeletingPathExtension withExtension:responseFilename.pathExtension];
-		return [OHHTTPStubsResponse responseWithFileURL:fileURL statusCode:200 responseTime:0 headers:headers];
+		return [OHHTTPStubsResponse responseWithFileURL:fileURL statusCode:statusCode responseTime:0 headers:headers];
 	}];
 };
 
@@ -89,25 +87,25 @@ describe(@"without a user", ^{
 		expect(client.user).to.beNil();
 		expect(client.authenticated).to.beFalsy();
 	});
-	
+
 	it(@"should create a GET request with default parameters", ^{
 		NSURLRequest *request = [client requestWithMethod:@"GET" path:@"rate_limit" parameters:nil notMatchingEtag:nil];
-		
+
 		expect(request).toNot.beNil();
 		expect(request.URL).to.equal([NSURL URLWithString:@"https://api.github.com/rate_limit?per_page=100"]);
 	});
-	
+
 	it(@"should create a POST request with default parameters", ^{
 		NSURLRequest *request = [client requestWithMethod:@"POST" path:@"diver/dave" parameters:nil notMatchingEtag:nil];
-		
+
 		expect(request).toNot.beNil();
 		expect(request.URL).to.equal([NSURL URLWithString:@"https://api.github.com/diver/dave"]);
 	});
-	
+
 	it(@"should create a request using etags", ^{
 		NSString *etag = @"\"deadbeef\"";
 		NSURLRequest *request = [client requestWithMethod:@"GET" path:@"diver/dan" parameters:nil notMatchingEtag:etag];
-		
+
 		expect(request).toNot.beNil();
 		expect(request.URL).to.equal([NSURL URLWithString:@"https://api.github.com/diver/dan?per_page=100"]);
 		expect(request.allHTTPHeaderFields[@"If-None-Match"]).to.equal(etag);
@@ -134,7 +132,7 @@ describe(@"without a user", ^{
 	});
 
 	it(@"should conditionally GET a modified JSON dictionary", ^{
-		stubResponseWithHeaders(@"/rate_limit", @"rate_limit.json", @{
+		stubResponseWithHeaders(@"/rate_limit", @"rate_limit.json", 200, @{
 			@"ETag": etag,
 		});
 
@@ -157,7 +155,7 @@ describe(@"without a user", ^{
 	});
 
 	it(@"should conditionally GET an unmodified endpoint", ^{
-		stubResponseWithStatusCode(@"/rate_limit", 304);
+		stubResponseWithHeaders(@"/rate_limit", nil, 304, @{});
 
 		NSURLRequest *request = [client requestWithMethod:@"GET" path:@"rate_limit" parameters:nil notMatchingEtag:etag];
 		RACSignal *result = [client enqueueRequest:request resultClass:nil];
@@ -168,11 +166,11 @@ describe(@"without a user", ^{
 	});
 
 	it(@"should GET a paginated endpoint", ^{
-		stubResponseWithHeaders(@"/items1", @"page1.json", @{
+		stubResponseWithHeaders(@"/items1", @"page1.json", 200, @{
 			@"Link": @"<https://api.github.com/items2>; rel=\"next\", <https://api.github.com/items3>; rel=\"last\"",
 		});
 
-		stubResponseWithHeaders(@"/items2", @"page2.json", @{
+		stubResponseWithHeaders(@"/items2", @"page2.json", 200, @{
 			@"Link": @"<https://api.github.com/items3>; rel=\"next\", <https://api.github.com/items3>; rel=\"last\"",
 		});
 
@@ -196,15 +194,15 @@ describe(@"without a user", ^{
 		NSArray *expected = @[ @1, @2, @3, @4, @5, @6, @7, @8, @9 ];
 		expect(items).to.equal(expected);
 	});
-	
+
 	it(@"should GET a repository", ^{
 		stubResponse(@"/repos/octokit/octokit.objc", @"repository.json");
-		
+
 		RACSignal *request = [client fetchRepositoryWithName:@"octokit.objc" owner:@"octokit"];
 		OCTRepository *repository = [request asynchronousFirstOrDefault:nil success:&success error:&error];
 		expect(success).to.beTruthy();
 		expect(error).to.beNil();
-		
+
 		expect(repository).to.beKindOf(OCTRepository.class);
 		expect(repository.objectID).to.equal(@"7530454");
 		expect(repository.name).to.equal(@"octokit.objc");
@@ -219,19 +217,19 @@ describe(@"without a user", ^{
 		expect(repository.gitURL).to.equal([NSURL URLWithString:@"git://github.com/octokit/octokit.objc.git"]);
 		expect(repository.HTMLURL).to.equal([NSURL URLWithString:@"https://github.com/octokit/octokit.objc"]);
 	});
-	
+
 	it(@"should return nothing if repository is unmodified", ^{
-		stubResponseWithStatusCode(@"/repos/octokit/octokit.objc", 304);
-		
+		stubResponseWithHeaders(@"/repos/octokit/octokit.objc", nil, 304, @{});
+
 		RACSignal *request = [client fetchRepositoryWithName:@"octokit.objc" owner:@"octokit"];
 		expect([request asynchronousFirstOrDefault:nil success:&success error:&error]).to.beNil();
 		expect(success).to.beTruthy();
 		expect(error).to.beNil();
 	});
-	
+
 	it(@"should not GET a non existing repository", ^{
 		stubResponse(@"/repos/octokit/octokit.objc", @"repository.json");
-		
+
 		RACSignal *request = [client fetchRepositoryWithName:@"repo-does-not-exist" owner:@"octokit"];
 		expect([request asynchronousFirstOrDefault:nil success:&success error:&error]).to.beNil();
 		expect(success).to.beFalsy();
@@ -239,7 +237,7 @@ describe(@"without a user", ^{
 	});
 
 	it(@"should not treat all 404s like old server versions", ^{
-		stubResponseWithStatusCode(@"/repos/octokit/octokit.objc", 404);
+		stubResponseWithHeaders(@"/repos/octokit/octokit.objc", nil, 404, @{});
 
 		RACSignal *request = [client fetchRepositoryWithName:@"octokit.objc" owner:@"octokit"];
 		NSError *error;
@@ -284,22 +282,22 @@ describe(@"authenticated", ^{
 	});
 
 	it(@"should return nothing if notifications are unmodified", ^{
-		stubResponseWithStatusCode(@"/notifications", 304);
+		stubResponseWithHeaders(@"/notifications", nil, 304, @{});
 
 		RACSignal *request = [client fetchNotificationsNotMatchingEtag:etag includeReadNotifications:NO updatedSince:nil];
 		expect([request asynchronousFirstOrDefault:nil success:&success error:&error]).to.beNil();
 		expect(success).to.beTruthy();
 		expect(error).to.beNil();
 	});
-	
+
 	it(@"should fetch user starred repositories", ^{
 		stubResponse(@"/user/starred", @"user_starred.json");
-		
+
 		RACSignal *request = [client fetchUserStarredRepositories];
 		OCTRepository *repository = [request asynchronousFirstOrDefault:nil success:&success error:&error];
 		expect(success).to.beTruthy();
 		expect(error).to.beNil();
-		
+
 		expect(repository).to.beKindOf(OCTRepository.class);
 		expect(repository.objectID).to.equal(@"3654804");
 		expect(repository.name).to.equal(@"ThisIsATest");
@@ -313,10 +311,10 @@ describe(@"authenticated", ^{
 		expect(repository.gitURL).to.equal([NSURL URLWithString:@"git://github.com/octocat/ThisIsATest.git"]);
 		expect(repository.HTMLURL).to.equal([NSURL URLWithString:@"https://github.com/octocat/ThisIsATest"]);
 	});
-	
+
 	it(@"should return nothing if user starred repositories are unmodified", ^{
-		stubResponseWithStatusCode(@"/user/starred", 304);
-		
+		stubResponseWithHeaders(@"/user/starred", nil, 304, @{});
+
 		RACSignal *request = [client fetchUserStarredRepositories];
 		expect([request asynchronousFirstOrDefault:nil success:&success error:&error]).to.beNil();
 		expect(success).to.beTruthy();
@@ -333,15 +331,15 @@ describe(@"unauthenticated", ^{
 		expect(client.user).to.equal(user);
 		expect(client.authenticated).to.beFalsy();
 	});
-	
+
 	it(@"should fetch user starred repositories", ^{
 		stubResponse([NSString stringWithFormat:@"/users/%@/starred", user.login], @"user_starred.json");
-		
+
 		RACSignal *request = [client fetchUserStarredRepositories];
 		OCTRepository *repository = [request asynchronousFirstOrDefault:nil success:&success error:&error];
 		expect(success).to.beTruthy();
 		expect(error).to.beNil();
-		
+
 		expect(repository).to.beKindOf(OCTRepository.class);
 		expect(repository.objectID).to.equal(@"3654804");
 		expect(repository.name).to.equal(@"ThisIsATest");
@@ -403,7 +401,7 @@ describe(@"sign in", ^{
 		NSURL *HTTPURL = [baseURL URLByAppendingPathComponent:path];
 		NSURL *HTTPSURL = [[NSURL alloc] initWithScheme:@"https" host:HTTPURL.host path:HTTPURL.path];
 
-		stubResponseURL(HTTPSURL, @"authorizations.json", @{});
+		stubResponseURL(HTTPSURL, @"authorizations.json", 200, @{});
 		stubRedirectResponseURL(HTTPURL, 301, HTTPSURL);
 
 		OCTServer *enterpriseServer = [OCTServer serverWithBaseURL:baseURL];
@@ -416,7 +414,7 @@ describe(@"sign in", ^{
 	});
 
 	it(@"should detect old server versions", ^{
-		stubResponseWithStatusCode([NSString stringWithFormat:@"/authorizations/clients/%@", clientID], 404);
+		stubResponseWithHeaders([NSString stringWithFormat:@"/authorizations/clients/%@", clientID], nil, 404, @{});
 
 		RACSignal *request = [OCTClient signInAsUser:user password:@"" oneTimePassword:nil scopes:OCTClientAuthorizationScopesRepository note:nil noteURL:nil fingerprint:nil];
 		NSError *error;
@@ -441,7 +439,7 @@ describe(@"sign in", ^{
 		afterEach(^{
 			[openedURLDisposable dispose];
 		});
-		
+
 		it(@"should open the login URL", ^{
 			[[[OCTTestClient authorizeWithServerUsingWebBrowser:OCTServer.dotComServer scopes:OCTClientAuthorizationScopesRepository] publish] connect];
 
@@ -566,7 +564,7 @@ describe(@"+fetchMetadataForServer:", ^{
 	});
 
 	it(@"should fail if /meta doesn't exist", ^{
-		stubResponseWithStatusCode(@"/meta", 404);
+		stubResponseWithHeaders(@"/meta", nil, 404, @{});
 
 		RACSignal *request = [OCTClient fetchMetadataForServer:OCTServer.dotComServer];
 		NSError *error;
@@ -580,7 +578,7 @@ describe(@"+fetchMetadataForServer:", ^{
 		NSURL *baseURL = [NSURL URLWithString:@"http://enterprise.github.com"];
 		NSURL *HTTPURL = [baseURL URLByAppendingPathComponent:@"api/v3/meta"];
 		NSURL *HTTPSURL = [NSURL URLWithString:@"https://enterprise.github.com/api/v3/meta"];
-		stubResponseURL(HTTPSURL, @"meta.json", @{});
+		stubResponseURL(HTTPSURL, @"meta.json", 200, @{});
 		stubRedirectResponseURL(HTTPURL, 301, HTTPSURL);
 
 		OCTServer *server = [OCTServer serverWithBaseURL:baseURL];
