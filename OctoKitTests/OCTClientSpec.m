@@ -425,7 +425,7 @@ describe(@"sign in", ^{
 	});
 
 	it(@"should delete an existing authorization", ^{
-		stubResponse([NSString stringWithFormat:@"/authorizations/clients/%@", clientID], @"authorizations.json");
+		stubResponseWithHeaders([NSString stringWithFormat:@"/authorizations/clients/%@", clientID], @"authorizations.json", 200, @{});
 
 		__block BOOL deleted = NO;
 		[OHHTTPStubs addRequestHandler:^ id (NSURLRequest *request, BOOL onlyCheck) {

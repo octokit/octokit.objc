@@ -307,7 +307,7 @@ static NSString *OCTClientOAuthClientSecret = nil;
 	NSString *clientSecret = self.class.clientSecret;
 	NSAssert(clientID != nil && clientSecret != nil, @"+setClientID:clientSecret: must be invoked before calling %@", NSStringFromSelector(_cmd));
 
-	RACSignal *(^authorizationSignalWithUser)(OCTUser *user) = ^(OCTUser *user) {
+	RACSignal * (^authorizationSignalWithUser)(OCTUser *user) = ^(OCTUser *user) {
 		return [RACSignal defer:^{
 			OCTClient *client = [self unauthenticatedClientWithUser:user];
 			[client setAuthorizationHeaderWithUsername:user.rawLogin password:password];
@@ -326,10 +326,7 @@ static NSString *OCTClientOAuthClientSecret = nil;
 			request.cachePolicy = NSURLRequestReloadIgnoringLocalCacheData;
 			if (oneTimePassword != nil) [request setValue:oneTimePassword forHTTPHeaderField:OCTClientOneTimePasswordHeaderField];
 
-			RACSignal *tokenSignal = [[client
-				enqueueRequest:request resultClass:OCTAuthorization.class]
-				oct_parsedResults];
-
+			RACSignal *tokenSignal = [client enqueueRequest:request resultClass:OCTAuthorization.class];
 			return [RACSignal combineLatest:@[
 				[RACSignal return:client],
 				tokenSignal
@@ -337,7 +334,33 @@ static NSString *OCTClientOAuthClientSecret = nil;
 		}];
 	};
 
-	return [[[[authorizationSignalWithUser(user)
+	return [[[[[authorizationSignalWithUser(user)
+		flattenMap:^(RACTuple *clientAndResponse) {
+			RACTupleUnpack(OCTClient *client, OCTResponse *response) = clientAndResponse;
+			OCTAuthorization *authorization = response.parsedResult;
+
+			if (response.statusCode == 200) {
+				// A new authorization wasn't created, probably because one
+				// already exists. Try deleting the existing authorization, then
+				// creating a new one.
+				NSString *path = [NSString stringWithFormat:@"authorizations/%@", authorization.objectID];
+
+				NSMutableURLRequest *request = [client requestWithMethod:@"DELETE" path:path parameters:nil];
+				request.cachePolicy = NSURLRequestReloadIgnoringLocalCacheData;
+				if (oneTimePassword != nil) [request setValue:oneTimePassword forHTTPHeaderField:OCTClientOneTimePasswordHeaderField];
+
+				NSLog(@"Sending request %@", request);
+
+				return [[client
+					enqueueRequest:request resultClass:nil]
+					then:^{
+						// Try logging in again.
+						return authorizationSignalWithUser(user);
+					}];
+			} else {
+				return [RACSignal return:clientAndResponse];
+			}
+		}]
 		catch:^(NSError *error) {
 			if (error.code == OCTClientErrorUnsupportedServerScheme) {
 				OCTServer *secureServer = [self HTTPSEnterpriseServerWithServer:user.server];
@@ -356,7 +379,9 @@ static NSString *OCTClientOAuthClientSecret = nil;
 
 			return [RACSignal error:error];
 		}]
-		reduceEach:^(OCTClient *client, OCTAuthorization *authorization) {
+		reduceEach:^(OCTClient *client, OCTResponse *response) {
+			OCTAuthorization *authorization = response.parsedResult;
+
 			client.token = authorization.token;
 			return client;
 		}]
