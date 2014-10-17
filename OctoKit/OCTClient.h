@@ -294,7 +294,7 @@ typedef enum : NSUInteger {
 // scopes          - The scopes to request access to. These values can be
 //                   bitwise OR'd together to request multiple scopes.
 // note            - A human-readable string to remind the user what this OAuth
-//                   token is used for. Must not be nil.
+//                   token is used for. May be nil.
 // noteURL         - A URL to remind the user what the OAuth token is used for.
 //                   May be nil.
 // fingerpint      - A unique string to distinguish one authorization from
