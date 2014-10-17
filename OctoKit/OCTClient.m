@@ -355,8 +355,6 @@ static NSString *OCTClientOAuthClientSecret = nil;
 				request.cachePolicy = NSURLRequestReloadIgnoringLocalCacheData;
 				if (oneTimePassword != nil) [request setValue:oneTimePassword forHTTPHeaderField:OCTClientOneTimePasswordHeaderField];
 
-				NSLog(@"Sending request %@", request);
-
 				return [[client
 					enqueueRequest:request resultClass:nil]
 					then:^{
