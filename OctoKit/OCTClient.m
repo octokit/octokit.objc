@@ -787,7 +787,10 @@ static NSString *OCTClientOAuthClientSecret = nil;
 		} else if ([responseObject isKindOfClass:NSDictionary.class]) {
 			parseJSONDictionary(responseObject);
 			[subscriber sendCompleted];
-		} else if (responseObject != nil) {
+		} else if (responseObject == nil) {
+			[subscriber sendNext:nil];
+			[subscriber sendCompleted];
+		} else {
 			NSString *failureReason = [NSString stringWithFormat:NSLocalizedString(@"Response wasn't an array or dictionary (%@): %@", @""), [responseObject class], responseObject];
 			[subscriber sendError:[self parsingErrorWithFailureReason:failureReason]];
 		}
