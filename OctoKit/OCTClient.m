@@ -299,9 +299,10 @@ static NSString *OCTClientOAuthClientSecret = nil;
 		array];
 }
 
-+ (RACSignal *)signInAsUser:(OCTUser *)user password:(NSString *)password oneTimePassword:(NSString *)oneTimePassword scopes:(OCTClientAuthorizationScopes)scopes {
++ (RACSignal *)signInAsUser:(OCTUser *)user password:(NSString *)password oneTimePassword:(NSString *)oneTimePassword scopes:(OCTClientAuthorizationScopes)scopes note:(NSString *)note noteURL:(NSURL *)noteURL fingerprint:(NSString *)fingerprint {
 	NSParameterAssert(user != nil);
 	NSParameterAssert(password != nil);
+	NSParameterAssert(note != nil);
 
 	NSString *clientID = self.class.clientID;
 	NSString *clientSecret = self.class.clientSecret;
@@ -312,13 +313,17 @@ static NSString *OCTClientOAuthClientSecret = nil;
 			OCTClient *client = [self unauthenticatedClientWithUser:user];
 			[client setAuthorizationHeaderWithUsername:user.rawLogin password:password];
 
-			NSString *path = [NSString stringWithFormat:@"authorizations/clients/%@", clientID];
-			NSDictionary *params = @{
+			NSMutableDictionary *params = [@{
 				@"scopes": [self scopesArrayFromScopes:scopes],
+				@"client_id": clientID,
 				@"client_secret": clientSecret,
-			};
+				@"note": note,
+			} mutableCopy];
 
-			NSMutableURLRequest *request = [client requestWithMethod:@"PUT" path:path parameters:params];
+			if (noteURL != nil) params[@"note_url"] = noteURL.absoluteString;
+			if (fingerprint != nil) params[@"fingerprint"] = fingerprint;
+
+			NSMutableURLRequest *request = [client requestWithMethod:@"POST" path:@"authorizations" parameters:params];
 			request.cachePolicy = NSURLRequestReloadIgnoringLocalCacheData;
 			if (oneTimePassword != nil) [request setValue:oneTimePassword forHTTPHeaderField:OCTClientOneTimePasswordHeaderField];
 

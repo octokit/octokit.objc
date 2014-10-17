@@ -293,11 +293,17 @@ typedef enum : NSUInteger {
 //                   password.
 // scopes          - The scopes to request access to. These values can be
 //                   bitwise OR'd together to request multiple scopes.
+// note            - A human-readable string to remind the user what this OAuth
+//                   token is used for. Must not be nil.
+// noteURL         - A URL to remind the user what the OAuth token is used for.
+//                   May be nil.
+// fingerpint      - A unique string to distinguish one authorization from
+//                   others created for the same client ID and user. May be nil.
 //
 // Returns a signal which will send an OCTClient then complete on success, or
 // else error. If the server is too old to support this request, an error will
 // be sent with code `OCTClientErrorUnsupportedServer`.
-+ (RACSignal *)signInAsUser:(OCTUser *)user password:(NSString *)password oneTimePassword:(NSString *)oneTimePassword scopes:(OCTClientAuthorizationScopes)scopes;
++ (RACSignal *)signInAsUser:(OCTUser *)user password:(NSString *)password oneTimePassword:(NSString *)oneTimePassword scopes:(OCTClientAuthorizationScopes)scopes note:(NSString *)note noteURL:(NSURL *)noteURL fingerprint:(NSString *)fingerprint;
 
 // Opens the default web browser to the given GitHub server, and prompts the
 // user to sign in.
