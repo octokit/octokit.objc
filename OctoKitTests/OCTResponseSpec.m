@@ -34,6 +34,10 @@ beforeEach(^{
 	} copy];
 });
 
+it(@"should have a status code", ^{
+	expect(responseWithHeaders().statusCode).to.equal(200);
+});
+
 it(@"should have an etag", ^{
 	expect(responseWithHeaders().etag).to.equal(etag);
 });
