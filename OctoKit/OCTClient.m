@@ -327,8 +327,10 @@ static NSString *OCTClientOAuthClientSecret = nil;
 
 			NSMutableURLRequest *request = [client requestWithMethod:@"PUT" path:path parameters:params];
 			request.cachePolicy = NSURLRequestReloadIgnoringLocalCacheData;
-			[request setValue:OCTClientPreviewAPIVersion forHTTPHeaderField:@"Accept"];
 			if (oneTimePassword != nil) [request setValue:oneTimePassword forHTTPHeaderField:OCTClientOneTimePasswordHeaderField];
+
+			NSString *previewContentType = [NSString stringWithFormat:@"application/vnd.github.%@+json", OCTClientPreviewAPIVersion];
+			[request setValue:previewContentType forHTTPHeaderField:@"Accept"];
 
 			RACSignal *tokenSignal = [client enqueueRequest:request resultClass:OCTAuthorization.class];
 			return [RACSignal combineLatest:@[
