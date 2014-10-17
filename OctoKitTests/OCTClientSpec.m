@@ -384,7 +384,7 @@ describe(@"sign in", ^{
 	});
 
 	it(@"should request authorization", ^{
-		stubResponse([NSString stringWithFormat:@"/authorizations/clients/%@", clientID], @"authorizations.json");
+		stubResponseWithHeaders([NSString stringWithFormat:@"/authorizations/clients/%@", clientID], @"authorizations.json", 201, @{});
 
 		RACSignal *request = [OCTClient signInAsUser:user password:@"" oneTimePassword:nil scopes:OCTClientAuthorizationScopesRepository note:nil noteURL:nil fingerprint:nil];
 		OCTClient *client = [request asynchronousFirstOrDefault:nil success:NULL error:NULL];
@@ -401,7 +401,7 @@ describe(@"sign in", ^{
 		NSURL *HTTPURL = [baseURL URLByAppendingPathComponent:path];
 		NSURL *HTTPSURL = [[NSURL alloc] initWithScheme:@"https" host:HTTPURL.host path:HTTPURL.path];
 
-		stubResponseURL(HTTPSURL, @"authorizations.json", 200, @{});
+		stubResponseURL(HTTPSURL, @"authorizations.json", 201, @{});
 		stubRedirectResponseURL(HTTPURL, 301, HTTPSURL);
 
 		OCTServer *enterpriseServer = [OCTServer serverWithBaseURL:baseURL];
@@ -422,6 +422,23 @@ describe(@"sign in", ^{
 		expect(success).to.beFalsy();
 		expect(error.domain).to.equal(OCTClientErrorDomain);
 		expect(error.code).to.equal(OCTClientErrorUnsupportedServer);
+	});
+
+	it(@"should delete an existing authorization", ^{
+		stubResponse([NSString stringWithFormat:@"/authorizations/clients/%@", clientID], @"authorizations.json");
+
+		__block BOOL deleted = NO;
+		[OHHTTPStubs addRequestHandler:^ id (NSURLRequest *request, BOOL onlyCheck) {
+			if (![request.URL.path isEqual:@"/authorizations/1"] || ![request.HTTPMethod isEqual:@"DELETE"]) return nil;
+
+			deleted = YES;
+			return [OHHTTPStubsResponse responseWithData:[NSData data] statusCode:204 responseTime:0 headers:@{}];
+		}];
+
+		RACSignal *request = [OCTClient signInAsUser:user password:@"" oneTimePassword:nil scopes:OCTClientAuthorizationScopesRepository note:nil noteURL:nil fingerprint:nil];
+		[request asynchronouslyWaitUntilCompleted:&error];
+
+		expect(deleted).to.beTruthy();
 	});
 
 	describe(@"+authorizeWithServerUsingWebBrowser:scopes:", ^{
