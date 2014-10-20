@@ -297,7 +297,7 @@ typedef enum : NSUInteger {
 //                   token is used for. May be nil.
 // noteURL         - A URL to remind the user what the OAuth token is used for.
 //                   May be nil.
-// fingerpint      - A unique string to distinguish one authorization from
+// fingerprint     - A unique string to distinguish one authorization from
 //                   others created for the same client ID and user. May be nil.
 //
 // Returns a signal which will send an OCTClient then complete on success, or
