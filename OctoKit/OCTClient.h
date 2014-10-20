@@ -87,6 +87,13 @@ extern NSString * const OCTClientErrorOAuthScopesStringKey;
 // OCTClientErrorTwoFactorAuthenticationOneTimePasswordRequired.
 extern NSString * const OCTClientErrorOneTimePasswordMediumKey;
 
+/// The descriptive message returned from the API, e.g., "Validation Failed".
+extern NSString * const OCTClientErrorDescriptionKey;
+
+/// An array of specific message strings returned from the API, e.g.,
+/// "No commits between joshaber:master and joshaber:feature".
+extern NSString * const OCTClientErrorMessagesKey;
+
 // The scopes for authorization. These can be bitwise OR'd together to request
 // multiple scopes.
 //
