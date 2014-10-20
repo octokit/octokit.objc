@@ -23,6 +23,10 @@
 	return self.HTTPURLResponse.allHeaderFields[@"ETag"];
 }
 
+- (NSInteger)statusCode {
+	return self.HTTPURLResponse.statusCode;
+}
+
 - (NSInteger)maximumRequestsPerHour {
 	return [self.HTTPURLResponse.allHeaderFields[@"X-RateLimit-Limit"] integerValue];
 }
