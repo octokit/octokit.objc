@@ -345,10 +345,14 @@ static NSString *OCTClientOAuthClientSecret = nil;
 			RACTupleUnpack(OCTClient *client, OCTResponse *response) = clientAndResponse;
 			OCTAuthorization *authorization = response.parsedResult;
 
-			if (response.statusCode == 200) {
-				// A new authorization wasn't created, probably because one
-				// already exists. Try deleting the existing authorization, then
-				// creating a new one.
+			// To increase security, tokens are no longer returned when the authorization
+			// already exists. If that happens, we need to delete the existing
+			// authorization for this app and create a new one, so we end up with a token
+			// of our own.
+			//
+			// The `fingerprint` field provided will be used to ensure uniqueness and
+			// avoid deleting unrelated tokens.
+			if (authorization.token.length == 0 && response.statusCode == 200) {
 				NSString *path = [NSString stringWithFormat:@"authorizations/%@", authorization.objectID];
 
 				NSMutableURLRequest *request = [client requestWithMethod:@"DELETE" path:path parameters:nil];
