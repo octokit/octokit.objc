@@ -40,6 +40,8 @@ NSString * const OCTClientErrorHTTPStatusCodeKey = @"OCTClientErrorHTTPStatusCod
 NSString * const OCTClientErrorOneTimePasswordMediumKey = @"OCTClientErrorOneTimePasswordMediumKey";
 NSString * const OCTClientErrorOAuthScopesStringKey = @"OCTClientErrorOAuthScopesStringKey";
 NSString * const OCTClientErrorRequestStateRedirected = @"OCTClientErrorRequestRedirected";
+NSString * const OCTClientErrorDescriptionKey = @"OCTClientErrorDescriptionKey";
+NSString * const OCTClientErrorMessagesKey = @"OCTClientErrorMessagesKey";
 
 NSString * const OCTClientAPIVersion = @"v3";
 NSString * const OCTClientPreviewAPIVersion = @"mirage-preview";
@@ -862,7 +864,7 @@ static NSString *OCTClientOAuthClientSecret = nil;
 	}
 }
 
-+ (NSString *)defaultErrorMessageFromRequestOperation:(AFHTTPRequestOperation *)operation {
++ (NSDictionary *)errorUserInfoFromRequestOperation:(AFHTTPRequestOperation *)operation {
 	NSParameterAssert(operation != nil);
 
 	NSDictionary *responseDictionary = nil;
@@ -875,7 +877,8 @@ static NSString *OCTClientOAuthClientSecret = nil;
 		}
 	}
 
-	NSString *errorDescription = responseDictionary[@"message"] ?: operation.error.localizedDescription;
+	NSString *message = responseDictionary[@"message"];
+	NSString *errorDescription = message ?: operation.error.localizedDescription;
 	if (errorDescription == nil) {
 		if ([operation.error.domain isEqual:NSURLErrorDomain]) {
 			errorDescription = NSLocalizedString(@"There was a problem connecting to the server.", @"");
@@ -884,6 +887,7 @@ static NSString *OCTClientOAuthClientSecret = nil;
 		}
 	}
 
+	NSArray *errorMessages;
 	NSArray *errorDictionaries = responseDictionary[@"errors"];
 	if ([errorDictionaries isKindOfClass:NSArray.class]) {
 		NSString *errors = [[[errorDictionaries.rac_sequence
@@ -899,9 +903,20 @@ static NSString *OCTClientOAuthClientSecret = nil;
 			componentsJoinedByString:@"\n"];
 
 		errorDescription = [NSString stringWithFormat:NSLocalizedString(@"%@:\n\n%@", @""), errorDescription, errors];
+
+		errorMessages = [[errorDictionaries.rac_sequence
+			map:^(NSDictionary *info) {
+				return info[@"message"];
+			}]
+			array];
 	}
 
-	return errorDescription;
+	NSMutableDictionary *info = [NSMutableDictionary dictionary];
+	if (errorDescription != nil) info[NSLocalizedDescriptionKey] = errorDescription;
+	if (message != nil) info[OCTClientErrorDescriptionKey] = message;
+	if (errorMessages != nil) info[OCTClientErrorMessagesKey] = errorMessages;
+
+	return info;
 }
 
 + (NSNumber *)oneTimePasswordMediumFromHeader:(NSString *)OTPHeader {
@@ -928,7 +943,8 @@ static NSString *OCTClientOAuthClientSecret = nil;
 	NSMutableDictionary *userInfo = [NSMutableDictionary dictionary];
 	NSInteger errorCode = OCTClientErrorConnectionFailed;
 
-	userInfo[NSLocalizedDescriptionKey] = [self defaultErrorMessageFromRequestOperation:operation];
+	NSDictionary *errorInfo = [self errorUserInfoFromRequestOperation:operation];
+	[userInfo addEntriesFromDictionary:errorInfo];
 
 	switch (HTTPCode) {
 		case 401: {
