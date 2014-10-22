@@ -20,7 +20,6 @@
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
 	return [super.JSONKeyPathsByPropertyKey mtl_dictionaryByAddingEntriesFromDictionary:@{
 		@"pullRequestAPIURL": @"_links.pull_request.href",
-		@"commenterLogin": @"user.login",
 		@"commitSHA": @"commit_id",
 		@"originalCommitSHA": @"original_commit_id",
 		@"originalPosition": @"original_position",

@@ -21,14 +21,10 @@ NSDictionary *representation = @{
 	@"commit_id": @"6dcb09b5b57875f334f61aebed695e2e4193db5e",
 	@"user": @{
 		@"login": @"octocat",
-
-		// Omitted because the JSON parsing does not preserve these keys.
-		/*
-		@"id": @1,
 		@"avatar_url": @"https://github.com/images/error/octocat_happy.gif",
+		@"id": @1,
 		@"gravatar_id": @"somehexcode",
 		@"url": @"https://api.github.com/users/octocat"
-		*/
 	},
 	@"created_at": @"2011-04-14T16:00:49Z",
 	@"updated_at": @"2011-04-14T16:15:00Z",
@@ -69,6 +65,9 @@ it(@"should initialize", ^{
 	expect(comment.path).to.equal(@"file1.txt");
 	expect(comment.body).to.equal(@"Great stuff");
 	expect(comment.commitSHA).to.equal(@"6dcb09b5b57875f334f61aebed695e2e4193db5e");
+	expect(comment.commenter.objectID).to.equal(@"1");
+	expect(comment.commenter.login).to.equal(@"octocat");
+	expect(comment.commenter.avatarURL).to.equal([NSURL URLWithString:@"https://github.com/images/error/octocat_happy.gif"]);
 });
 
 SpecEnd

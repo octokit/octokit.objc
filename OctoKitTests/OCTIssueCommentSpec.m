@@ -7,7 +7,9 @@
 //
 
 #import "OCTIssueComment.h"
+#import "OCTUser.h"
 #import "OCTObjectSpec.h"
+
 
 SpecBegin(OCTIssueComment)
 
@@ -17,15 +19,11 @@ NSDictionary *representation = @{
 	@"html_url": @"https://github.com/octocat/Hello-World/issues/1347#issuecomment-1",
 	@"body": @"Me too",
 	@"user": @{
-		@"login": @"octocat",
-
-		// Omitted because the JSON parsing does not preserve these keys.
-		/*
 		 @"id": @1,
+		 @"login": @"octocat",
 		 @"avatar_url": @"https://github.com/images/error/octocat_happy.gif",
 		 @"gravatar_id": @"somehexcode",
 		 @"url": @"https://api.github.com/users/octocat"
-		 */
 	},
 	@"created_at": @"2011-04-14T16:00:49Z",
 	@"updated_at": @"2011-04-14T18:00:49Z"
@@ -48,6 +46,9 @@ it(@"should initialize", ^{
 	expect(comment.creationDate).to.equal([[[ISO8601DateFormatter alloc] init] dateFromString:@"2011-04-14T16:00:49Z"]);
 	expect(comment.updatedDate).to.equal([[[ISO8601DateFormatter alloc] init] dateFromString:@"2011-04-14T18:00:49Z"]);
 	expect(comment.HTMLURL).to.equal([NSURL URLWithString:@"https://github.com/octocat/Hello-World/issues/1347#issuecomment-1"]);
+	expect(comment.commenter.objectID).to.equal(@"1");
+	expect(comment.commenter.login).to.equal(@"octocat");
+	expect(comment.commenter.avatarURL).to.equal([NSURL URLWithString:@"https://github.com/images/error/octocat_happy.gif"]);
 });
 
 SpecEnd
