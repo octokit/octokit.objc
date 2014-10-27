@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "D0040CF219FEC579002869A6"
-               BuildableName = "OctoKit iOS.framework"
+               BuildableName = "OctoKit.framework"
                BlueprintName = "OctoKit iOS"
                ReferencedContainer = "container:OctoKit.xcodeproj">
             </BuildableReference>
@@ -57,7 +57,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "D0040CF219FEC579002869A6"
-            BuildableName = "OctoKit iOS.framework"
+            BuildableName = "OctoKit.framework"
             BlueprintName = "OctoKit iOS"
             ReferencedContainer = "container:OctoKit.xcodeproj">
          </BuildableReference>
@@ -76,7 +76,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "D0040CF219FEC579002869A6"
-            BuildableName = "OctoKit iOS.framework"
+            BuildableName = "OctoKit.framework"
             BlueprintName = "OctoKit iOS"
             ReferencedContainer = "container:OctoKit.xcodeproj">
          </BuildableReference>
@@ -94,7 +94,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "D0040CF219FEC579002869A6"
-            BuildableName = "OctoKit iOS.framework"
+            BuildableName = "OctoKit.framework"
             BlueprintName = "OctoKit iOS"
             ReferencedContainer = "container:OctoKit.xcodeproj">
          </BuildableReference>

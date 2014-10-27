@@ -1939,6 +1939,7 @@
 				D0040D0A19FEC579002869A6 /* Profile */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		D0040D0B19FEC579002869A6 /* Build configuration list for PBXNativeTarget "OctoKit iOS Tests" */ = {
 			isa = XCConfigurationList;
@@ -1949,6 +1950,7 @@
 				D0040D0F19FEC579002869A6 /* Profile */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		D0871EA1169E2EFC00016ACA /* Build configuration list for PBXProject "OctoKit" */ = {
 			isa = XCConfigurationList;
