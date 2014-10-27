@@ -6,9 +6,13 @@
 //  Copyright (c) 2013 GitHub. All rights reserved.
 //
 
+#import <Nimble/Nimble.h>
+#import <OctoKit/OctoKit.h>
+#import <Quick/Quick.h>
+
 #import "OCTObjectSpec.h"
 
-SpecBegin(OCTGist)
+QuickSpecBegin(OCTGist)
 
 describe(@"from JSON", ^{
 	NSDictionary *representation = @{
@@ -86,7 +90,7 @@ describe(@"from JSON", ^{
 		// representations, so don't test it.
 		NSMutableDictionary *flattenedRepresentation = [representation mutableCopy];
 		[flattenedRepresentation removeObjectForKey:@"files"];
-	
+
 		return @{ OCTObjectKey: gist, OCTObjectExternalRepresentationKey: flattenedRepresentation };
 	});
 
@@ -104,4 +108,4 @@ describe(@"from JSON", ^{
 	});
 });
 
-SpecEnd
+QuickSpecEnd

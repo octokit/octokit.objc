@@ -6,7 +6,11 @@
 //  Copyright (c) 2013 GitHub. All rights reserved.
 //
 
-SpecBegin(NSURLAdditions)
+#import <Nimble/Nimble.h>
+#import <OctoKit/OctoKit.h>
+#import <Quick/Quick.h>
+
+QuickSpecBegin(NSURLAdditions)
 
 describe(@"-oct_queryArguments", ^{
 	it(@"should return an empty dictionary for no query string", ^{
@@ -60,4 +64,4 @@ describe(@"-oct_queryArguments", ^{
 	});
 });
 
-SpecEnd
+QuickSpecEnd

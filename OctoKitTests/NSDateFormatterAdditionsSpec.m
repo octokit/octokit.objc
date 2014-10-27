@@ -6,9 +6,11 @@
 //  Copyright (c) 2013 GitHub. All rights reserved.
 //
 
-#import "NSDateFormatter+OCTFormattingAdditions.h"
+#import <Nimble/Nimble.h>
+#import <OctoKit/OctoKit.h>
+#import <Quick/Quick.h>
 
-SpecBegin(NSDateFormatterAdditions)
+QuickSpecBegin(NSDateFormatterAdditions)
 
 __block NSCalendar *gregorian;
 
@@ -52,4 +54,4 @@ it(@"shouldn't use ISO week-numbering year", ^{
 	expect([NSDateFormatter oct_stringFromDate:date]).to.equal(str);
 });
 
-SpecEnd
+QuickSpecEnd

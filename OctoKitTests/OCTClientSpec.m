@@ -6,9 +6,13 @@
 //  Copyright (c) 2013 GitHub. All rights reserved.
 //
 
+#import <Nimble/Nimble.h>
+#import <OctoKit/OctoKit.h>
+#import <Quick/Quick.h>
+
 #import "OCTTestClient.h"
 
-SpecBegin(OCTClient)
+QuickSpecBegin(OCTClient)
 
 void (^stubResponseWithHeaders)(NSString *, NSString *, NSDictionary *) = ^(NSString *path, NSString *responseFilename, NSDictionary *headers) {
 	headers = [headers mtl_dictionaryByAddingEntriesFromDictionary:@{
@@ -17,7 +21,7 @@ void (^stubResponseWithHeaders)(NSString *, NSString *, NSDictionary *) = ^(NSSt
 
 	[OHHTTPStubs addRequestHandler:^ id (NSURLRequest *request, BOOL onlyCheck) {
 		if (![request.URL.path isEqual:path]) return nil;
-		
+
 		NSURL *fileURL = [[NSBundle bundleForClass:self.class] URLForResource:responseFilename.stringByDeletingPathExtension withExtension:responseFilename.pathExtension];
 		return [OHHTTPStubsResponse responseWithFileURL:fileURL statusCode:200 responseTime:0 headers:headers];
 	}];
@@ -89,25 +93,25 @@ describe(@"without a user", ^{
 		expect(client.user).to.beNil();
 		expect(client.authenticated).to.beFalsy();
 	});
-	
+
 	it(@"should create a GET request with default parameters", ^{
 		NSURLRequest *request = [client requestWithMethod:@"GET" path:@"rate_limit" parameters:nil notMatchingEtag:nil];
-		
+
 		expect(request).toNot.beNil();
 		expect(request.URL).to.equal([NSURL URLWithString:@"https://api.github.com/rate_limit?per_page=100"]);
 	});
-	
+
 	it(@"should create a POST request with default parameters", ^{
 		NSURLRequest *request = [client requestWithMethod:@"POST" path:@"diver/dave" parameters:nil notMatchingEtag:nil];
-		
+
 		expect(request).toNot.beNil();
 		expect(request.URL).to.equal([NSURL URLWithString:@"https://api.github.com/diver/dave"]);
 	});
-	
+
 	it(@"should create a request using etags", ^{
 		NSString *etag = @"\"deadbeef\"";
 		NSURLRequest *request = [client requestWithMethod:@"GET" path:@"diver/dan" parameters:nil notMatchingEtag:etag];
-		
+
 		expect(request).toNot.beNil();
 		expect(request.URL).to.equal([NSURL URLWithString:@"https://api.github.com/diver/dan?per_page=100"]);
 		expect(request.allHTTPHeaderFields[@"If-None-Match"]).to.equal(etag);
@@ -196,15 +200,15 @@ describe(@"without a user", ^{
 		NSArray *expected = @[ @1, @2, @3, @4, @5, @6, @7, @8, @9 ];
 		expect(items).to.equal(expected);
 	});
-	
+
 	it(@"should GET a repository", ^{
 		stubResponse(@"/repos/octokit/octokit.objc", @"repository.json");
-		
+
 		RACSignal *request = [client fetchRepositoryWithName:@"octokit.objc" owner:@"octokit"];
 		OCTRepository *repository = [request asynchronousFirstOrDefault:nil success:&success error:&error];
 		expect(success).to.beTruthy();
 		expect(error).to.beNil();
-		
+
 		expect(repository).to.beKindOf(OCTRepository.class);
 		expect(repository.objectID).to.equal(@"7530454");
 		expect(repository.name).to.equal(@"octokit.objc");
@@ -219,19 +223,19 @@ describe(@"without a user", ^{
 		expect(repository.gitURL).to.equal([NSURL URLWithString:@"git://github.com/octokit/octokit.objc.git"]);
 		expect(repository.HTMLURL).to.equal([NSURL URLWithString:@"https://github.com/octokit/octokit.objc"]);
 	});
-	
+
 	it(@"should return nothing if repository is unmodified", ^{
 		stubResponseWithStatusCode(@"/repos/octokit/octokit.objc", 304);
-		
+
 		RACSignal *request = [client fetchRepositoryWithName:@"octokit.objc" owner:@"octokit"];
 		expect([request asynchronousFirstOrDefault:nil success:&success error:&error]).to.beNil();
 		expect(success).to.beTruthy();
 		expect(error).to.beNil();
 	});
-	
+
 	it(@"should not GET a non existing repository", ^{
 		stubResponse(@"/repos/octokit/octokit.objc", @"repository.json");
-		
+
 		RACSignal *request = [client fetchRepositoryWithName:@"repo-does-not-exist" owner:@"octokit"];
 		expect([request asynchronousFirstOrDefault:nil success:&success error:&error]).to.beNil();
 		expect(success).to.beFalsy();
@@ -291,15 +295,15 @@ describe(@"authenticated", ^{
 		expect(success).to.beTruthy();
 		expect(error).to.beNil();
 	});
-	
+
 	it(@"should fetch user starred repositories", ^{
 		stubResponse(@"/user/starred", @"user_starred.json");
-		
+
 		RACSignal *request = [client fetchUserStarredRepositories];
 		OCTRepository *repository = [request asynchronousFirstOrDefault:nil success:&success error:&error];
 		expect(success).to.beTruthy();
 		expect(error).to.beNil();
-		
+
 		expect(repository).to.beKindOf(OCTRepository.class);
 		expect(repository.objectID).to.equal(@"3654804");
 		expect(repository.name).to.equal(@"ThisIsATest");
@@ -313,10 +317,10 @@ describe(@"authenticated", ^{
 		expect(repository.gitURL).to.equal([NSURL URLWithString:@"git://github.com/octocat/ThisIsATest.git"]);
 		expect(repository.HTMLURL).to.equal([NSURL URLWithString:@"https://github.com/octocat/ThisIsATest"]);
 	});
-	
+
 	it(@"should return nothing if user starred repositories are unmodified", ^{
 		stubResponseWithStatusCode(@"/user/starred", 304);
-		
+
 		RACSignal *request = [client fetchUserStarredRepositories];
 		expect([request asynchronousFirstOrDefault:nil success:&success error:&error]).to.beNil();
 		expect(success).to.beTruthy();
@@ -333,15 +337,15 @@ describe(@"unauthenticated", ^{
 		expect(client.user).to.equal(user);
 		expect(client.authenticated).to.beFalsy();
 	});
-	
+
 	it(@"should fetch user starred repositories", ^{
 		stubResponse([NSString stringWithFormat:@"/users/%@/starred", user.login], @"user_starred.json");
-		
+
 		RACSignal *request = [client fetchUserStarredRepositories];
 		OCTRepository *repository = [request asynchronousFirstOrDefault:nil success:&success error:&error];
 		expect(success).to.beTruthy();
 		expect(error).to.beNil();
-		
+
 		expect(repository).to.beKindOf(OCTRepository.class);
 		expect(repository.objectID).to.equal(@"3654804");
 		expect(repository.name).to.equal(@"ThisIsATest");
@@ -441,7 +445,7 @@ describe(@"sign in", ^{
 		afterEach(^{
 			[openedURLDisposable dispose];
 		});
-		
+
 		it(@"should open the login URL", ^{
 			[[[OCTTestClient authorizeWithServerUsingWebBrowser:OCTServer.dotComServer scopes:OCTClientAuthorizationScopesRepository] publish] connect];
 
@@ -605,4 +609,4 @@ describe(@"+HTTPSEnterpriseServerWithServer", ^{
 	});
 });
 
-SpecEnd
+QuickSpecEnd

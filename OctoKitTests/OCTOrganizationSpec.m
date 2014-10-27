@@ -6,11 +6,13 @@
 //  Copyright (c) 2012 GitHub. All rights reserved.
 //
 
-#import "OCTOrganization.h"
-#import "OCTPlan.h"
+#import <Nimble/Nimble.h>
+#import <OctoKit/OctoKit.h>
+#import <Quick/Quick.h>
+
 #import "OCTObjectSpec.h"
 
-SpecBegin(OCTOrganization)
+QuickSpecBegin(OCTOrganization)
 
 NSDictionary *representation = @{
 	@"login": @"github",
@@ -79,4 +81,4 @@ it(@"should initialize", ^{
 	expect(organization.plan.privateRepos).to.equal(20);
 });
 
-SpecEnd
+QuickSpecEnd

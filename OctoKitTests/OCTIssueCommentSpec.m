@@ -6,10 +6,13 @@
 //  Copyright (c) 2013 GitHub. All rights reserved.
 //
 
-#import "OCTIssueComment.h"
+#import <Nimble/Nimble.h>
+#import <OctoKit/OctoKit.h>
+#import <Quick/Quick.h>
+
 #import "OCTObjectSpec.h"
 
-SpecBegin(OCTIssueComment)
+QuickSpecBegin(OCTIssueComment)
 
 NSDictionary *representation = @{
 	@"id": @1,
@@ -50,4 +53,4 @@ it(@"should initialize", ^{
 	expect(comment.HTMLURL).to.equal([NSURL URLWithString:@"https://github.com/octocat/Hello-World/issues/1347#issuecomment-1"]);
 });
 
-SpecEnd
+QuickSpecEnd

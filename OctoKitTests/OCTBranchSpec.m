@@ -6,10 +6,13 @@
 //  Copyright (c) 2014 GitHub. All rights reserved.
 //
 
-#import "OCTBranch.h"
+#import <Nimble/Nimble.h>
+#import <OctoKit/OctoKit.h>
+#import <Quick/Quick.h>
+
 #import "OCTObject+Private.h"
 
-SpecBegin(OCTBranch)
+QuickSpecBegin(OCTBranch)
 
 describe(@"github.com branch", ^{
 	NSDictionary *representation = @{
@@ -34,4 +37,4 @@ describe(@"github.com branch", ^{
 	});
 });
 
-SpecEnd
+QuickSpecEnd

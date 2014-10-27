@@ -6,11 +6,13 @@
 //  Copyright (c) 2013 GitHub. All rights reserved.
 //
 
+#import <Nimble/Nimble.h>
+#import <OctoKit/OctoKit.h>
+#import <Quick/Quick.h>
+
 #import "OCTObjectSpec.h"
 
-#import "OCTRef.h"
-
-SpecBegin(OCTRef)
+QuickSpecBegin(OCTRef)
 
 __block NSDictionary *representation;
 
@@ -42,4 +44,4 @@ it(@"should initialize", ^{
 	expect(ref.objectURL.absoluteString).to.equal(@"https://api.github.com/repos/octocat/Hello-World/git/commits/aa218f56b14c9653891f9e74264a383fa43fefbd");
 });
 
-SpecEnd
+QuickSpecEnd

@@ -6,22 +6,13 @@
 //  Copyright (c) 2012 GitHub. All rights reserved.
 //
 
-#import "OCTEvent.h"
-#import "OCTCommitComment.h"
-#import "OCTCommitCommentEvent.h"
-#import "OCTIssue.h"
-#import "OCTIssueEvent.h"
-#import "OCTIssueComment.h"
-#import "OCTIssueCommentEvent.h"
-#import "OCTObjectSpec.h"
-#import "OCTPullRequest.h"
-#import "OCTPullRequestEvent.h"
-#import "OCTPullRequestComment.h"
-#import "OCTPullRequestCommentEvent.h"
-#import "OCTPushEvent.h"
-#import "OCTRefEvent.h"
+#import <Nimble/Nimble.h>
+#import <OctoKit/OctoKit.h>
+#import <Quick/Quick.h>
 
-SpecBegin(OCTEvent)
+#import "OCTObjectSpec.h"
+
+QuickSpecBegin(OCTEvent)
 
 __block NSArray *eventDictionaries;
 
@@ -200,4 +191,4 @@ describe(@"OCTRefEvent", ^{
 	});
 });
 
-SpecEnd
+QuickSpecEnd

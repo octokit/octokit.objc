@@ -6,10 +6,11 @@
 //  Copyright (c) 2014 GitHub. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-#import "OCTGitCommit.h"
+#import <Nimble/Nimble.h>
+#import <OctoKit/OctoKit.h>
+#import <Quick/Quick.h>
 
-SpecBegin(OCTGitCommit)
+QuickSpecBegin(OCTGitCommit)
 
 describe(@"github.com git commit", ^{
 	describe(@"parsing a small commit", ^{
@@ -86,4 +87,4 @@ describe(@"github.com git commit", ^{
 	});
 });
 
-SpecEnd
+QuickSpecEnd

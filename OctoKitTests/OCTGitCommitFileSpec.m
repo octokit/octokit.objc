@@ -3,7 +3,11 @@
 // Copyright (c) 2014 GitHub. All rights reserved.
 //
 
-SpecBegin(OCTGitCommitFile )
+#import <Nimble/Nimble.h>
+#import <OctoKit/OctoKit.h>
+#import <Quick/Quick.h>
+
+QuickSpecBegin(OCTGitCommitFile)
 
 describe(@"github.com file", ^{
 	NSDictionary *representation = @{
@@ -36,4 +40,4 @@ describe(@"github.com file", ^{
 	});
 });
 
-SpecEnd
+QuickSpecEnd

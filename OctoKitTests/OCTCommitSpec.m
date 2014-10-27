@@ -6,11 +6,13 @@
 //  Copyright (c) 2013 GitHub. All rights reserved.
 //
 
+#import <Nimble/Nimble.h>
+#import <OctoKit/OctoKit.h>
+#import <Quick/Quick.h>
+
 #import "OCTObjectSpec.h"
 
-#import "OCTCommit.h"
-
-SpecBegin(OCTCommit)
+QuickSpecBegin(OCTCommit)
 
 __block NSDictionary *representation;
 
@@ -42,4 +44,4 @@ it(@"should initialize", ^{
 	expect(commit.treeSHA).to.equal(@"691272480426f78a0138979dd3ce63b77f706feb");
 });
 
-SpecEnd
+QuickSpecEnd

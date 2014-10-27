@@ -6,15 +6,13 @@
 //  Copyright (c) 2013 GitHub. All rights reserved.
 //
 
+#import <Nimble/Nimble.h>
+#import <OctoKit/OctoKit.h>
+#import <Quick/Quick.h>
+
 #import "OCTObjectSpec.h"
 
-#import "OCTTree.h"
-#import "OCTTreeEntry.h"
-#import "OCTBlobTreeEntry.h"
-#import "OCTContentTreeEntry.h"
-#import "OCTCommitTreeEntry.h"
-
-SpecBegin(OCTTree)
+QuickSpecBegin(OCTTree)
 
 __block NSDictionary *representation;
 
@@ -79,4 +77,4 @@ it(@"should initialize", ^{
 	expect(entry4.size).to.equal(1209);
 });
 
-SpecEnd
+QuickSpecEnd

@@ -6,12 +6,13 @@
 //  Copyright (c) 2013 GitHub. All rights reserved.
 //
 
-#import "OCTResponse.h"
-#import "OCTServer.h"
+#import <Nimble/Nimble.h>
+#import <OctoKit/OctoKit.h>
+#import <Quick/Quick.h>
 
 NSString *etag = @"\"644b5b0155e6404a9cc4bd9d8b1ae730\"";
 
-SpecBegin(OCTResponse)
+QuickSpecBegin(OCTResponse)
 
 __block NSMutableDictionary *headers;
 __block OCTResponse * (^responseWithHeaders)(void);
@@ -53,4 +54,4 @@ it(@"should have a poll interval when the header is present", ^{
 	expect(responseWithHeaders().pollInterval).to.beCloseTo(@2.5);
 });
 
-SpecEnd
+QuickSpecEnd

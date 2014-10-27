@@ -6,10 +6,13 @@
 //  Copyright (c) 2012 GitHub. All rights reserved.
 //
 
-#import "OCTRepository.h"
+#import <Nimble/Nimble.h>
+#import <OctoKit/OctoKit.h>
+#import <Quick/Quick.h>
+
 #import "OCTObjectSpec.h"
 
-SpecBegin(OCTRepository)
+QuickSpecBegin(OCTRepository)
 
 describe(@"from JSON", ^{
 	NSDictionary *representation = @{
@@ -154,4 +157,4 @@ it(@"should migrate from pre-MTLModel OCTObject", ^{
 	expect(repository.ownerLogin).to.equal(@"github");
 });
 
-SpecEnd
+QuickSpecEnd

@@ -6,12 +6,14 @@
 //  Copyright (c) 2012 GitHub. All rights reserved.
 //
 
-#import "OCTUser.h"
+#import <Nimble/Nimble.h>
+#import <OctoKit/OctoKit.h>
+#import <Quick/Quick.h>
+
 #import "OCTObject+Private.h"
-#import "OCTServer.h"
 #import "OCTObjectSpec.h"
 
-SpecBegin(OCTUser)
+QuickSpecBegin(OCTUser)
 
 describe(@"github.com user", ^{
 	NSDictionary *representation = @{
@@ -71,7 +73,7 @@ describe(@"github.com user", ^{
 		expect(user.name).to.equal(@"foobar");
 		expect(user.email).to.equal(@"foo@bar.com");
 	});
-	
+
 	it(@"should initialize with a login and server", ^{
 		OCTUser *user = [OCTUser userWithRawLogin:@"foo" server:OCTServer.dotComServer];
 		expect(user).notTo.beNil();
@@ -163,7 +165,7 @@ describe(@"enterprise user", ^{
 
 		return @{ OCTObjectKey: user, OCTObjectExternalRepresentationKey: modifiedRepresentation };
 	});
-	
+
 	it(@"should initialize with a login and server", ^{
 		NSURL *baseURL = [NSURL URLWithString:@"https://10.168.1.109"];
 		OCTServer *server = [OCTServer serverWithBaseURL:baseURL];
@@ -235,4 +237,4 @@ describe(@"equality", ^{
 	});
 });
 
-SpecEnd
+QuickSpecEnd

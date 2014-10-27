@@ -6,10 +6,13 @@
 //  Copyright (c) 2012 GitHub. All rights reserved.
 //
 
-#import "OCTPullRequestComment.h"
+#import <Nimble/Nimble.h>
+#import <OctoKit/OctoKit.h>
+#import <Quick/Quick.h>
+
 #import "OCTObjectSpec.h"
 
-SpecBegin(OCTPullRequestComment)
+QuickSpecBegin(OCTPullRequestComment)
 
 NSDictionary *representation = @{
 	@"url": @"https://api.github.com/repos/octocat/Hello-World/pulls/comments/1",
@@ -71,4 +74,4 @@ it(@"should initialize", ^{
 	expect(comment.commitSHA).to.equal(@"6dcb09b5b57875f334f61aebed695e2e4193db5e");
 });
 
-SpecEnd
+QuickSpecEnd

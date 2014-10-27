@@ -6,10 +6,13 @@
 //  Copyright (c) 2012 GitHub. All rights reserved.
 //
 
-#import "OCTCommitComment.h"
+#import <Nimble/Nimble.h>
+#import <OctoKit/OctoKit.h>
+#import <Quick/Quick.h>
+
 #import "OCTObjectSpec.h"
 
-SpecBegin(OCTCommitComment)
+QuickSpecBegin(OCTCommitComment)
 
 NSDictionary *representation = @{
 	@"html_url": @"https://github.com/octocat/Hello-World/commit/6dcb09b5b57875f334f61aebed695e2e4193db5e#commitcomment-1",
@@ -61,4 +64,4 @@ it(@"should initialize", ^{
 	expect(comment.position).to.equal(@(4));
 });
 
-SpecEnd
+QuickSpecEnd

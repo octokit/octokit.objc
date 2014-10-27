@@ -5,9 +5,13 @@
 //  Created by Chris Lundie on 2014-03-07.
 //
 
+#import <Nimble/Nimble.h>
+#import <OctoKit/OctoKit.h>
+#import <Quick/Quick.h>
+
 #import "OCTObjectSpec.h"
 
-SpecBegin(OCTGistEdit)
+QuickSpecBegin(OCTGistEdit)
 
 describe(@"JSON serialization", ^{
 	it(@"can be serialized and deserialized", ^{
@@ -43,10 +47,10 @@ describe(@"JSON serialization", ^{
 				},
 			},
 		};
-		
+
 		NSDictionary *editDict = [MTLJSONAdapter JSONDictionaryFromModel:edit];
 		expect(editDict).to.equal(expectedDict);
 	});
 });
 
-SpecEnd
+QuickSpecEnd

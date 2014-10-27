@@ -6,10 +6,11 @@
 //  Copyright (c) 2013 GitHub. All rights reserved.
 //
 
-#import "OCTAuthorization.h"
-#import "OCTObjectSpec.h"
+#import <Nimble/Nimble.h>
+#import <OctoKit/OctoKit.h>
+#import <Quick/Quick.h>
 
-SpecBegin(OCTAuthorization)
+QuickSpecBegin(OCTAuthorization)
 
 static NSString * const token = @"some-token";
 NSDictionary *representation = @{
@@ -38,4 +39,4 @@ itShouldBehaveLike(OCTObjectArchivingSharedExamplesName, ^{
 	return @{ OCTObjectKey: authorization };
 });
 
-SpecEnd
+QuickSpecEnd

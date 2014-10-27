@@ -6,9 +6,11 @@
 //  Copyright (c) 2013 GitHub. All rights reserved.
 //
 
-#import "NSValueTransformer+OCTPredefinedTransformerAdditions.h"
+#import <Nimble/Nimble.h>
+#import <OctoKit/OctoKit.h>
+#import <Quick/Quick.h>
 
-SpecBegin(NSValueTransformerAdditions)
+QuickSpecBegin(NSValueTransformerAdditions)
 
 it(@"should define a date value transformer", ^{
 	NSValueTransformer *transformer = [NSValueTransformer valueTransformerForName:OCTDateValueTransformerName];
@@ -27,4 +29,4 @@ it(@"should define a date value transformer", ^{
 	expect([transformer reverseTransformedValue:nil]).to.beNil();
 });
 
-SpecEnd
+QuickSpecEnd

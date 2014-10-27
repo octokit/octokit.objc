@@ -6,10 +6,13 @@
 //  Copyright (c) 2012 GitHub. All rights reserved.
 //
 
-#import "OCTPullRequest.h"
+#import <Nimble/Nimble.h>
+#import <OctoKit/OctoKit.h>
+#import <Quick/Quick.h>
+
 #import "OCTObjectSpec.h"
 
-SpecBegin(OCTPullRequest)
+QuickSpecBegin(OCTPullRequest)
 
 NSDictionary *representation = @{
 	@"url": @"https://api.github.com/octocat/Hello-World/pulls/1",
@@ -173,4 +176,4 @@ it(@"should initialize", ^{
 	expect(pullRequest.mergedDate).to.equal([[[ISO8601DateFormatter alloc] init] dateFromString:@"2011-01-26T19:04:12Z"]);
 });
 
-SpecEnd
+QuickSpecEnd

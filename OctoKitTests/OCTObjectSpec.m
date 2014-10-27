@@ -73,7 +73,7 @@ sharedExamplesFor(OCTObjectExternalRepresentationSharedExamplesName, ^(NSDiction
 
 SharedExamplesEnd
 
-SpecBegin(OCTObject)
+QuickSpecBegin(OCTObject)
 
 describe(@"with an ID from JSON", ^{
 	NSDictionary *representation = @{ @"id": @12345 };
@@ -161,4 +161,4 @@ it(@"should initialize with a nil objectID", ^{
 	expect(obj.objectID).to.beNil();
 });
 
-SpecEnd
+QuickSpecEnd

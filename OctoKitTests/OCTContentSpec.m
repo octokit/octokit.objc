@@ -6,14 +6,13 @@
 //  Copyright (c) 2013 GitHub. All rights reserved.
 //
 
-#import "OCTContent.h"
-#import "OCTDirectoryContent.h"
-#import "OCTFileContent.h"
-#import "OCTSubmoduleContent.h"
-#import "OCTSymlinkContent.h"
+#import <Nimble/Nimble.h>
+#import <OctoKit/OctoKit.h>
+#import <Quick/Quick.h>
+
 #import "OCTObjectSpec.h"
 
-SpecBegin(OCTContent)
+QuickSpecBegin(OCTContent)
 
 __block NSArray *contentDictionaries;
 
@@ -36,17 +35,17 @@ beforeEach(^{
 		OCTContent *content = [MTLJSONAdapter modelOfClass:OCTContent.class fromJSONDictionary:contentDict error:NULL];
 		expect(content).notTo.beNil();
 		expect(content).to.beKindOf(OCTContent.class);
-		
+
 		// Although each instance should be of the OCTContent kind none should
 		// be an instance of OCTContent itself.
 		expect(content.class).notTo.equal(OCTContent.class);
-		
+
 		expect(content.name.length).to.beGreaterThan(0);
 		mutableContent[content.name] = content;
 	}
-	
+
 	contentByName = mutableContent;
-	
+
 	expect(contentByName.count).to.equal(4);
 });
 
@@ -55,7 +54,7 @@ describe(@"OCTDirectoryContent", ^{
 		OCTDirectoryContent *content = contentByName[@"octokit"];
 		expect(content).notTo.beNil();
 		expect(content).to.beKindOf(OCTDirectoryContent.class);
-		
+
 		expect(content.name).to.equal(@"octokit");
 		expect(content.size).to.equal(0);
 		expect(content.path).to.equal(@"lib/octokit");
@@ -68,7 +67,7 @@ describe(@"OCTFileContent", ^{
 		OCTFileContent *content = contentByName[@"README.md"];
 		expect(content).notTo.beNil();
 		expect(content).to.beKindOf(OCTFileContent.class);
-		
+
 		expect(content.name).to.equal(@"README.md");
 		expect(content.size).to.equal(2706);
 		expect(content.path).to.equal(@"README.md");
@@ -83,7 +82,7 @@ describe(@"OCTSubmoduleContent", ^{
 		OCTSubmoduleContent *content = contentByName[@"qunit"];
 		expect(content).notTo.beNil();
 		expect(content).to.beKindOf(OCTSubmoduleContent.class);
-		
+
 		expect(content.name).to.equal(@"qunit");
 		expect(content.size).to.equal(0);
 		expect(content.path).to.equal(@"test/qunit");
@@ -97,7 +96,7 @@ describe(@"OCTSymlinkContent", ^{
 		OCTSymlinkContent *content = contentByName[@"some-symlink"];
 		expect(content).notTo.beNil();
 		expect(content).to.beKindOf(OCTSymlinkContent.class);
-		
+
 		expect(content.name).to.equal(@"some-symlink");
 		expect(content.size).to.equal(23);
 		expect(content.path).to.equal(@"bin/some-symlink");
@@ -106,4 +105,4 @@ describe(@"OCTSymlinkContent", ^{
 	});
 });
 
-SpecEnd
+QuickSpecEnd

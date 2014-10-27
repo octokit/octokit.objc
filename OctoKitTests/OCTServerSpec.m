@@ -6,10 +6,13 @@
 //  Copyright (c) 2012 GitHub. All rights reserved.
 //
 
-#import "OCTServer.h"
+#import <Nimble/Nimble.h>
+#import <OctoKit/OctoKit.h>
+#import <Quick/Quick.h>
+
 #import "OCTServer+Private.h"
 
-SpecBegin(OCTServer)
+QuickSpecBegin(OCTServer)
 
 it(@"should have a dotComServer", ^{
 	OCTServer *dotComServer = OCTServer.dotComServer;
@@ -29,7 +32,7 @@ it(@"should be only one dotComServer", ^{
 
 it(@"can be an enterprise instance", ^{
 	OCTServer *enterpriseServer = [OCTServer serverWithBaseURL:[NSURL URLWithString:@"https://localhost/"]];
-	
+
 	expect(enterpriseServer).toNot.beNil();
 	expect(enterpriseServer.enterprise).to.beTruthy();
 	expect(enterpriseServer.baseURL).to.equal([NSURL URLWithString:@"https://localhost/"]);
@@ -54,4 +57,4 @@ it(@"should use baseURL for equality", ^{
 	expect(secondEnterpriseServer).toNot.equal(thirdEnterpriseServer);
 });
 
-SpecEnd
+QuickSpecEnd

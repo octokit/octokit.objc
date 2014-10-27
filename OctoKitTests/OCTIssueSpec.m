@@ -6,11 +6,13 @@
 //  Copyright (c) 2012 GitHub. All rights reserved.
 //
 
-#import "OCTIssue.h"
-#import "OCTObjectSpec.h"
-#import "OCTPullRequest.h"
+#import <Nimble/Nimble.h>
+#import <OctoKit/OctoKit.h>
+#import <Quick/Quick.h>
 
-SpecBegin(OCTIssue)
+#import "OCTObjectSpec.h"
+
+QuickSpecBegin(OCTIssue)
 
 NSDictionary *representation = @{
 	@"url": @"https://api.github.com/repos/octocat/Hello-World/issues/1",
@@ -92,4 +94,4 @@ it(@"should initialize", ^{
 	expect(issue.pullRequest.HTMLURL).to.equal([NSURL URLWithString:@"https://github.com/octocat/Hello-World/issues/1"]);
 });
 
-SpecEnd
+QuickSpecEnd
