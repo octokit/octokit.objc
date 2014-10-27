@@ -11,6 +11,7 @@
 #import <Quick/Quick.h>
 
 #import "OCTTestClient.h"
+#import "OHHTTPStubs.h"
 
 QuickSpecBegin(OCTClientSpec)
 
@@ -188,7 +189,7 @@ describe(@"without a user", ^{
 		__block NSMutableArray *items = [NSMutableArray array];
 		[result subscribeNext:^(OCTResponse *response) {
 			NSDictionary *dict = response.parsedResult;
-			expect(dict).to(beKindOf(NSDictionary.class));
+			expect(dict).to(beAnInstanceOf(NSDictionary.class));
 			expect(dict[@"item"]).notTo(beNil());
 
 			[items addObject:dict[@"item"]];
@@ -209,7 +210,7 @@ describe(@"without a user", ^{
 		expect(success).to(beTruthy());
 		expect(error).to(beNil());
 
-		expect(repository).to(beKindOf(OCTRepository.class));
+		expect(repository).to(beAnInstanceOf(OCTRepository.class));
 		expect(repository.objectID).to(equal(@"7530454"));
 		expect(repository.name).to(equal(@"octokit.objc"));
 		expect(repository.ownerLogin).to(equal(@"octokit"));
@@ -274,7 +275,7 @@ describe(@"authenticated", ^{
 		expect(error).to(beNil());
 
 		OCTNotification *notification = response.parsedResult;
-		expect(notification).to(beKindOf(OCTNotification.class));
+		expect(notification).to(beAnInstanceOf(OCTNotification.class));
 		expect(notification.objectID).to(equal(@"1"));
 		expect(notification.title).to(equal(@"Greetings"));
 		expect(notification.threadURL).to(equal([NSURL URLWithString:@"https://api.github.com/notifications/threads/1"]));
@@ -304,7 +305,7 @@ describe(@"authenticated", ^{
 		expect(success).to(beTruthy());
 		expect(error).to(beNil());
 
-		expect(repository).to(beKindOf(OCTRepository.class));
+		expect(repository).to(beAnInstanceOf(OCTRepository.class));
 		expect(repository.objectID).to(equal(@"3654804"));
 		expect(repository.name).to(equal(@"ThisIsATest"));
 		expect(repository.ownerLogin).to(equal(@"octocat"));
@@ -346,7 +347,7 @@ describe(@"unauthenticated", ^{
 		expect(success).to(beTruthy());
 		expect(error).to(beNil());
 
-		expect(repository).to(beKindOf(OCTRepository.class));
+		expect(repository).to(beAnInstanceOf(OCTRepository.class));
 		expect(repository.objectID).to(equal(@"3654804"));
 		expect(repository.name).to(equal(@"ThisIsATest"));
 		expect(repository.ownerLogin).to(equal(@"octocat"));

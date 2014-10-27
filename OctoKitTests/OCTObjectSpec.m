@@ -150,7 +150,7 @@ it(@"should convert a numeric objectID to a string", ^{
 	} error:NULL];
 
 	expect(obj).notTo(beNil());
-	expect(obj.objectID).to(beKindOf(NSString.class));
+	expect(obj.objectID).to(beAnInstanceOf(NSString.class));
 	expect(obj.objectID).to(equal(@"42"));
 });
 

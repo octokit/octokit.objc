@@ -1707,6 +1707,10 @@
 					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
 					"$(inherited)",
 				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					External/OHHTTPStubs,
+				);
 				INFOPLIST_FILE = "OctoKitTests/OctoKitTests-Info.plist";
 				PRODUCT_NAME = "OctoKit Mac Tests";
 			};
@@ -1772,6 +1776,10 @@
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
 				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					External/OHHTTPStubs,
+				);
 				INFOPLIST_FILE = "OctoKitTests/OctoKitTests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -1784,6 +1792,10 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					External/OHHTTPStubs,
 				);
 				INFOPLIST_FILE = "OctoKitTests/OctoKitTests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1798,6 +1810,10 @@
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
 				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					External/OHHTTPStubs,
+				);
 				INFOPLIST_FILE = "OctoKitTests/OctoKitTests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -1810,6 +1826,10 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					External/OHHTTPStubs,
 				);
 				INFOPLIST_FILE = "OctoKitTests/OctoKitTests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1872,6 +1892,10 @@
 					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
 					"$(inherited)",
 				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					External/OHHTTPStubs,
+				);
 				INFOPLIST_FILE = "OctoKitTests/OctoKitTests-Info.plist";
 				PRODUCT_NAME = "OctoKit Mac Tests";
 			};
@@ -1884,6 +1908,10 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
 					"$(inherited)",
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					External/OHHTTPStubs,
 				);
 				INFOPLIST_FILE = "OctoKitTests/OctoKitTests-Info.plist";
 				PRODUCT_NAME = "OctoKit Mac Tests";
@@ -1921,6 +1949,10 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
 					"$(inherited)",
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					External/OHHTTPStubs,
 				);
 				INFOPLIST_FILE = "OctoKitTests/OctoKitTests-Info.plist";
 				PRODUCT_NAME = "OctoKit Mac Tests";

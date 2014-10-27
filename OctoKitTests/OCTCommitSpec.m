@@ -24,7 +24,7 @@ beforeSuite(^{
 	expect(testContentData).notTo(beNil());
 
 	representation = [NSJSONSerialization JSONObjectWithData:testContentData options:0 error:NULL];
-	expect(representation).to(beKindOf(NSDictionary.class));
+	expect(representation).to(beAnInstanceOf(NSDictionary.class));
 });
 
 __block OCTCommit *commit;

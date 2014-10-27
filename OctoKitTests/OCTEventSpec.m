@@ -24,7 +24,7 @@ beforeSuite(^{
 	expect(testEventData).notTo(beNil());
 
 	eventDictionaries = [NSJSONSerialization JSONObjectWithData:testEventData options:0 error:NULL];
-	expect(eventDictionaries).to(beKindOf(NSArray.class));
+	expect(eventDictionaries).to(beAnInstanceOf(NSArray.class));
 });
 
 __block NSDictionary *eventsByID;
@@ -37,7 +37,7 @@ beforeEach(^{
 		// We don't support all event types yet.
 		if (event == nil) continue;
 
-		expect(event).to(beKindOf(OCTEvent.class));
+		expect(event).to(beAnInstanceOf(OCTEvent.class));
 
 		// Nothing should be an instance of OCTEvent itself.
 		expect(event.class).notTo(equal(OCTEvent.class));
@@ -65,27 +65,27 @@ describe(@"archiving", ^{
 describe(@"OCTCommitCommentEvent", ^{
 	it(@"should have deserialized", ^{
 		OCTCommitCommentEvent *event = eventsByID[@"1605861091"];
-		expect(event).to(beKindOf(OCTCommitCommentEvent.class));
+		expect(event).to(beAnInstanceOf(OCTCommitCommentEvent.class));
 
 		expect(event.repositoryName).to(equal(@"github/twui"));
 		expect(event.actorLogin).to(equal(@"galaxas0"));
 		expect(event.organizationLogin).to(equal(@"github"));
 		expect(event.date).to(equal([[[ISO8601DateFormatter alloc] init] dateFromString:@"2012-10-02 22:03:12 +0000"]));
 
-		expect(event.comment).to(beKindOf(OCTCommitComment.class));
+		expect(event.comment).to(beAnInstanceOf(OCTCommitComment.class));
 	});
 });
 
 describe(@"OCTPullRequestCommentEvent", ^{
 	it(@"should have deserialized", ^{
 		OCTPullRequestCommentEvent *event = eventsByID[@"1605868324"];
-		expect(event).to(beKindOf(OCTPullRequestCommentEvent.class));
+		expect(event).to(beAnInstanceOf(OCTPullRequestCommentEvent.class));
 
 		expect(event.repositoryName).to(equal(@"github/ReactiveCocoa"));
 		expect(event.actorLogin).to(equal(@"jspahrsummers"));
 		expect(event.organizationLogin).to(equal(@"github"));
 
-		expect(event.comment).to(beKindOf(OCTPullRequestComment.class));
+		expect(event.comment).to(beAnInstanceOf(OCTPullRequestComment.class));
 		expect(event.comment.position).to(equal(14));
 		expect(event.comment.originalPosition).to(equal(14));
 		expect(event.comment.commitSHA).to(equal(@"7e731834f7fa981166cbb509a353dbe02eb5d1ea"));
@@ -97,21 +97,21 @@ describe(@"OCTPullRequestCommentEvent", ^{
 describe(@"OCTIssueCommentEvent", ^{
 	it(@"should have deserialized", ^{
 		OCTIssueCommentEvent *event = eventsByID[@"1605861266"];
-		expect(event).to(beKindOf(OCTIssueCommentEvent.class));
+		expect(event).to(beAnInstanceOf(OCTIssueCommentEvent.class));
 
 		expect(event.repositoryName).to(equal(@"github/twui"));
 		expect(event.actorLogin).to(equal(@"galaxas0"));
 		expect(event.organizationLogin).to(equal(@"github"));
 
-		expect(event.comment).to(beKindOf(OCTIssueComment.class));
-		expect(event.issue).to(beKindOf(OCTIssue.class));
+		expect(event.comment).to(beAnInstanceOf(OCTIssueComment.class));
+		expect(event.issue).to(beAnInstanceOf(OCTIssue.class));
 	});
 });
 
 describe(@"OCTPushEvent", ^{
 	it(@"should have deserialized", ^{
 		OCTPushEvent *event = eventsByID[@"1605847260"];
-		expect(event).to(beKindOf(OCTPushEvent.class));
+		expect(event).to(beAnInstanceOf(OCTPushEvent.class));
 
 		expect(event.repositoryName).to(equal(@"github/ReactiveCocoa"));
 		expect(event.actorLogin).to(equal(@"joshaber"));
@@ -128,21 +128,21 @@ describe(@"OCTPushEvent", ^{
 describe(@"OCTPullRequestEvent", ^{
 	it(@"should have deserialized", ^{
 		OCTPullRequestEvent *event = eventsByID[@"1605849683"];
-		expect(event).to(beKindOf(OCTPullRequestEvent.class));
+		expect(event).to(beAnInstanceOf(OCTPullRequestEvent.class));
 
 		expect(event.repositoryName).to(equal(@"github/ReactiveCocoa"));
 		expect(event.actorLogin).to(equal(@"joshaber"));
 		expect(event.organizationLogin).to(equal(@"github"));
 
 		expect(event.action).to(equal(OCTIssueActionOpened));
-		expect(event.pullRequest).to(beKindOf(OCTPullRequest.class));
+		expect(event.pullRequest).to(beAnInstanceOf(OCTPullRequest.class));
 	});
 });
 
 describe(@"OCTPullRequestEventAssignee", ^{
 	it(@"should have an assignee", ^{
 		OCTPullRequestEvent *event = eventsByID[@"1605825804"];
-		expect(event).to(beKindOf(OCTPullRequestEvent.class));
+		expect(event).to(beAnInstanceOf(OCTPullRequestEvent.class));
 
 		expect(event.pullRequest.assignee.objectID).to(equal(@"432536"));
 		expect(event.pullRequest.assignee.login).to(equal(@"jspahrsummers"));
@@ -152,21 +152,21 @@ describe(@"OCTPullRequestEventAssignee", ^{
 describe(@"OCTIssueEvent", ^{
 	it(@"should have deserialized", ^{
 		OCTIssueEvent *event = eventsByID[@"1605857918"];
-		expect(event).to(beKindOf(OCTIssueEvent.class));
+		expect(event).to(beAnInstanceOf(OCTIssueEvent.class));
 
 		expect(event.repositoryName).to(equal(@"github/twui"));
 		expect(event.actorLogin).to(equal(@"jwilling"));
 		expect(event.organizationLogin).to(equal(@"github"));
 
 		expect(event.action).to(equal(OCTIssueActionOpened));
-		expect(event.issue).to(beKindOf(OCTIssue.class));
+		expect(event.issue).to(beAnInstanceOf(OCTIssue.class));
 	});
 });
 
 describe(@"OCTRefEvent", ^{
 	it(@"should deserialize a creation event", ^{
 		OCTRefEvent *event = eventsByID[@"1605847125"];
-		expect(event).to(beKindOf(OCTRefEvent.class));
+		expect(event).to(beAnInstanceOf(OCTRefEvent.class));
 
 		expect(event.repositoryName).to(equal(@"github/ReactiveCocoa"));
 		expect(event.actorLogin).to(equal(@"joshaber"));
@@ -179,7 +179,7 @@ describe(@"OCTRefEvent", ^{
 
 	it(@"should deserialize a deletion event", ^{
 		OCTRefEvent *event = eventsByID[@"1605820410"];
-		expect(event).to(beKindOf(OCTRefEvent.class));
+		expect(event).to(beAnInstanceOf(OCTRefEvent.class));
 
 		expect(event.repositoryName).to(equal(@"github/twui"));
 		expect(event.actorLogin).to(equal(@"joshaber"));

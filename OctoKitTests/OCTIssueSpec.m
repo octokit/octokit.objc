@@ -88,7 +88,7 @@ it(@"should initialize", ^{
 	expect(issue.HTMLURL).to(equal([NSURL URLWithString:@"https://github.com/octocat/Hello-World/issues/1"]));
 	expect(issue.title).to(equal(@"Found a bug"));
 
-	expect(issue.pullRequest).to(beKindOf(OCTPullRequest.class));
+	expect(issue.pullRequest).to(beAnInstanceOf(OCTPullRequest.class));
 	expect(issue.pullRequest.objectID).to(equal(issue.objectID));
 	expect(issue.pullRequest.title).to(equal(issue.title));
 	expect(issue.pullRequest.HTMLURL).to(equal([NSURL URLWithString:@"https://github.com/octocat/Hello-World/issues/1"]));
