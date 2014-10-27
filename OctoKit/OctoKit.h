@@ -6,6 +6,14 @@
 //  Copyright (c) 2013 GitHub. All rights reserved.
 //
 
+#import <Foundation/Foundation.h>
+
+//! Project version number for OctoKit.
+FOUNDATION_EXPORT double OctoKitVersionNumber;
+
+//! Project version string for OctoKit.
+FOUNDATION_EXPORT const unsigned char OctoKitVersionString[];
+
 #import <OctoKit/NSDateFormatter+OCTFormattingAdditions.h>
 #import <OctoKit/NSURL+OCTQueryAdditions.h>
 #import <OctoKit/NSValueTransformer+OCTPredefinedTransformerAdditions.h>

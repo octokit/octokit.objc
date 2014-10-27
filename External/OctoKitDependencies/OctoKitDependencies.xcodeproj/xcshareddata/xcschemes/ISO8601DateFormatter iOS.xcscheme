@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "D0040CBA19FEC418002869A6"
-               BuildableName = "ISO8601DateFormatter iOS.framework"
+               BuildableName = "ISO8601DateFormatter.framework"
                BlueprintName = "ISO8601DateFormatter iOS"
                ReferencedContainer = "container:OctoKitDependencies.xcodeproj">
             </BuildableReference>
@@ -47,7 +47,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "D0040CBA19FEC418002869A6"
-            BuildableName = "ISO8601DateFormatter iOS.framework"
+            BuildableName = "ISO8601DateFormatter.framework"
             BlueprintName = "ISO8601DateFormatter iOS"
             ReferencedContainer = "container:OctoKitDependencies.xcodeproj">
          </BuildableReference>
@@ -66,7 +66,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "D0040CBA19FEC418002869A6"
-            BuildableName = "ISO8601DateFormatter iOS.framework"
+            BuildableName = "ISO8601DateFormatter.framework"
             BlueprintName = "ISO8601DateFormatter iOS"
             ReferencedContainer = "container:OctoKitDependencies.xcodeproj">
          </BuildableReference>
@@ -84,7 +84,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "D0040CBA19FEC418002869A6"
-            BuildableName = "ISO8601DateFormatter iOS.framework"
+            BuildableName = "ISO8601DateFormatter.framework"
             BlueprintName = "ISO8601DateFormatter iOS"
             ReferencedContainer = "container:OctoKitDependencies.xcodeproj">
          </BuildableReference>

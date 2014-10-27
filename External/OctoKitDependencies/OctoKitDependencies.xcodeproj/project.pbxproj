@@ -676,7 +676,7 @@
 				DYLIB_CURRENT_VERSION = 1;
 				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = NO;
 				GCC_WARN_TYPECHECK_CALLS_TO_PRINTF = NO;
-				INFOPLIST_FILE = ISO8601DateFormatter/Info.plist;
+				INFOPLIST_FILE = "ISO8601DateFormatter/ISO8601DateFormatter-Info.plist";
 				PRODUCT_NAME = ISO8601DateFormatter;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -695,7 +695,7 @@
 				DYLIB_CURRENT_VERSION = 1;
 				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = NO;
 				GCC_WARN_TYPECHECK_CALLS_TO_PRINTF = NO;
-				INFOPLIST_FILE = ISO8601DateFormatter/Info.plist;
+				INFOPLIST_FILE = "ISO8601DateFormatter/ISO8601DateFormatter-Info.plist";
 				PRODUCT_NAME = ISO8601DateFormatter;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -714,7 +714,7 @@
 				DYLIB_CURRENT_VERSION = 1;
 				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = NO;
 				GCC_WARN_TYPECHECK_CALLS_TO_PRINTF = NO;
-				INFOPLIST_FILE = ISO8601DateFormatter/Info.plist;
+				INFOPLIST_FILE = "ISO8601DateFormatter/ISO8601DateFormatter-Info.plist";
 				PRODUCT_NAME = ISO8601DateFormatter;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -733,7 +733,7 @@
 				DYLIB_CURRENT_VERSION = 1;
 				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = NO;
 				GCC_WARN_TYPECHECK_CALLS_TO_PRINTF = NO;
-				INFOPLIST_FILE = ISO8601DateFormatter/Info.plist;
+				INFOPLIST_FILE = "ISO8601DateFormatter/ISO8601DateFormatter-Info.plist";
 				PRODUCT_NAME = ISO8601DateFormatter;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -869,6 +869,7 @@
 				D0040CB019FEC274002869A6 /* Profile */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		D0040CCE19FEC418002869A6 /* Build configuration list for PBXNativeTarget "ISO8601DateFormatter iOS" */ = {
 			isa = XCConfigurationList;
@@ -879,6 +880,7 @@
 				D0040CD219FEC418002869A6 /* Profile */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		D0476D9F177916250071F3CB /* Build configuration list for PBXProject "OctoKitDependencies" */ = {
 			isa = XCConfigurationList;
