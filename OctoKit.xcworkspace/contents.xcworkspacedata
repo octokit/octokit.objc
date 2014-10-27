@@ -5,7 +5,7 @@
       location = "group:OctoKit.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:External/ReactiveCocoa/ReactiveCocoaFramework/ReactiveCocoa.xcodeproj">
+      location = "group:External/ReactiveCocoa/ReactiveCocoa.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:External/Mantle/Mantle.xcodeproj">
@@ -14,9 +14,9 @@
       location = "group:External/OHHTTPStubs/OHHTTPStubs/OHHTTPStubs.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:External/Mantle/MantleTests/expecta/Expecta.xcodeproj">
+      location = "group:External/Mantle/External/Quick/Quick/Quick.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:External/Mantle/MantleTests/specta/Specta.xcodeproj">
+      location = "group:External/Mantle/External/Quick/Externals/Nimble/Nimble.xcodeproj">
    </FileRef>
 </Workspace>

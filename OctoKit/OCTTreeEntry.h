@@ -6,7 +6,7 @@
 //  Copyright (c) 2013 GitHub. All rights reserved.
 //
 
-#import <OctoKit/OctoKit.h>
+#import "OCTObject.h"
 
 // The types of tree entries.
 //   OCTTreeEntryTypeBlob   - A blob of data.

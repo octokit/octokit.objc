@@ -6,10 +6,14 @@
 //  Copyright (c) 2012 GitHub. All rights reserved.
 //
 
-#import "OCTCommitComment.h"
+#import <ISO8601DateFormatter/ISO8601DateFormatter.h>
+#import <Nimble/Nimble.h>
+#import <OctoKit/OctoKit.h>
+#import <Quick/Quick.h>
+
 #import "OCTObjectSpec.h"
 
-SpecBegin(OCTCommitComment)
+QuickSpecBegin(OCTCommitCommentSpec)
 
 NSDictionary *representation = @{
 	@"html_url": @"https://github.com/octocat/Hello-World/commit/6dcb09b5b57875f334f61aebed695e2e4193db5e#commitcomment-1",
@@ -37,28 +41,28 @@ NSDictionary *representation = @{
 
 __block OCTCommitComment *comment;
 
-before(^{
+beforeEach(^{
 	comment = [MTLJSONAdapter modelOfClass:OCTCommitComment.class fromJSONDictionary:representation error:NULL];
-	expect(comment).notTo.beNil();
+	expect(comment).notTo(beNil());
 });
 
-itShouldBehaveLike(OCTObjectArchivingSharedExamplesName, ^{
+itBehavesLike(OCTObjectArchivingSharedExamplesName, ^{
 	return @{ OCTObjectKey: comment };
 });
 
-itShouldBehaveLike(OCTObjectExternalRepresentationSharedExamplesName, ^{
+itBehavesLike(OCTObjectExternalRepresentationSharedExamplesName, ^{
 	return @{ OCTObjectKey: comment, OCTObjectExternalRepresentationKey: representation };
 });
 
 it(@"should initialize", ^{
-	expect(comment.objectID).to.equal(@"1");
-	expect(comment.HTMLURL).to.equal([NSURL URLWithString:@"https://github.com/octocat/Hello-World/commit/6dcb09b5b57875f334f61aebed695e2e4193db5e#commitcomment-1"]);
-	expect(comment.commitSHA).to.equal(@"6dcb09b5b57875f334f61aebed695e2e4193db5e");
-	expect(comment.creationDate).to.equal([[[ISO8601DateFormatter alloc] init] dateFromString:@"2011-04-14T16:00:49Z"]);
-	expect(comment.updatedDate).to.equal([[[ISO8601DateFormatter alloc] init] dateFromString:@"2011-04-14T16:15:00Z"]);
-	expect(comment.body).to.equal(@"Great stuff");
-	expect(comment.path).to.equal(@"file1.txt");
-	expect(comment.position).to.equal(@(4));
+	expect(comment.objectID).to(equal(@"1"));
+	expect(comment.HTMLURL).to(equal([NSURL URLWithString:@"https://github.com/octocat/Hello-World/commit/6dcb09b5b57875f334f61aebed695e2e4193db5e#commitcomment-1"]));
+	expect(comment.commitSHA).to(equal(@"6dcb09b5b57875f334f61aebed695e2e4193db5e"));
+	expect(comment.creationDate).to(equal([[[ISO8601DateFormatter alloc] init] dateFromString:@"2011-04-14T16:00:49Z"]));
+	expect(comment.updatedDate).to(equal([[[ISO8601DateFormatter alloc] init] dateFromString:@"2011-04-14T16:15:00Z"]));
+	expect(comment.body).to(equal(@"Great stuff"));
+	expect(comment.path).to(equal(@"file1.txt"));
+	expect(comment.position).to(equal(@(4)));
 });
 
-SpecEnd
+QuickSpecEnd

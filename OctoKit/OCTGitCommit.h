@@ -6,7 +6,9 @@
 //  Copyright (c) 2014 GitHub. All rights reserved.
 //
 
-#import <OctoKit/OctoKit.h>
+#import "OCTObject.h"
+
+@class OCTUser;
 
 // A git commit.
 @interface OCTGitCommit : OCTObject
