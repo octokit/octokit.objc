@@ -322,6 +322,10 @@
 		D0A64ED019FEE02300B09DEB /* user_starred.json in Resources */ = {isa = PBXBuildFile; fileRef = 9CF7FBBB179581EC00CA34FF /* user_starred.json */; };
 		D0A64ED119FEE02300B09DEB /* git_commit.json in Resources */ = {isa = PBXBuildFile; fileRef = F054C0AE18A7BDD600AA2DC1 /* git_commit.json */; };
 		D0A64ED219FEE02300B09DEB /* git_commit_full.json in Resources */ = {isa = PBXBuildFile; fileRef = 1643A0ABD066520E65EA2DD7 /* git_commit_full.json */; };
+		D0A64ED419FEE20400B09DEB /* Nimble.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = D0040DDC19FEC9C7002869A6 /* Nimble.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		D0A64ED519FEE20500B09DEB /* Quick.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = D0040DDA19FEC9A8002869A6 /* Quick.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		D0A64ED619FEE20800B09DEB /* Mantle.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = D0040C8E19FEC03D002869A6 /* Mantle.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		D0A64ED719FEE20A00B09DEB /* ReactiveCocoa.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = D0040C8F19FEC03D002869A6 /* ReactiveCocoa.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D0B9C8F416BC78970029C5B4 /* NSDateFormatter+OCTFormattingAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D0B9C8F116BC78970029C5B4 /* NSDateFormatter+OCTFormattingAdditions.m */; };
 		D0B9C8FD16BC7A260029C5B4 /* NSDateFormatterAdditionsSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = D0B9C8FC16BC7A260029C5B4 /* NSDateFormatterAdditionsSpec.m */; };
 		D0BC049E1840391600EDD926 /* OCTClient+User.h in Headers */ = {isa = PBXBuildFile; fileRef = D0BC049C1840391600EDD926 /* OCTClient+User.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -424,6 +428,23 @@
 			remoteInfo = OctoClient;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		D0A64ED319FEE1F800B09DEB /* Copy Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				D0A64ED419FEE20400B09DEB /* Nimble.framework in Copy Frameworks */,
+				D0A64ED519FEE20500B09DEB /* Quick.framework in Copy Frameworks */,
+				D0A64ED619FEE20800B09DEB /* Mantle.framework in Copy Frameworks */,
+				D0A64ED719FEE20A00B09DEB /* ReactiveCocoa.framework in Copy Frameworks */,
+			);
+			name = "Copy Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		1643A0ABD066520E65EA2DD7 /* git_commit_full.json */ = {isa = PBXFileReference; lastKnownFileType = file.json; path = git_commit_full.json; sourceTree = "<group>"; };
@@ -1353,6 +1374,7 @@
 				D0040CF919FEC579002869A6 /* Sources */,
 				D0040CFA19FEC579002869A6 /* Frameworks */,
 				D0040CFB19FEC579002869A6 /* Resources */,
+				D0A64ED319FEE1F800B09DEB /* Copy Frameworks */,
 			);
 			buildRules = (
 			);
