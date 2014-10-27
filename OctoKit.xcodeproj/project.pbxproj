@@ -348,6 +348,9 @@
 		D0BC0520184041F800EDD926 /* OCTCommit.m in Sources */ = {isa = PBXBuildFile; fileRef = D0BC051D184041F800EDD926 /* OCTCommit.m */; };
 		D0BC05311840420200EDD926 /* OCTRef.h in Headers */ = {isa = PBXBuildFile; fileRef = D0BC052F1840420200EDD926 /* OCTRef.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D0BC05331840420200EDD926 /* OCTRef.m in Sources */ = {isa = PBXBuildFile; fileRef = D0BC05301840420200EDD926 /* OCTRef.m */; };
+		D0C7C39319FEF4330069B5C0 /* AFNetworking.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = D0476E3C177919200071F3CB /* AFNetworking.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		D0C7C39519FEF4370069B5C0 /* ISO8601DateFormatter.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = D0476EB317791C280071F3CB /* ISO8601DateFormatter.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		D0C7C39D19FEF5E80069B5C0 /* OctoKit.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = D0871EA8169E2EFC00016ACA /* OctoKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D0D8C09516DFF1540070399E /* events.json in Resources */ = {isa = PBXBuildFile; fileRef = D0D8C09016DFF1540070399E /* events.json */; };
 		D0D8C09716DFF1540070399E /* page1.json in Resources */ = {isa = PBXBuildFile; fileRef = D0D8C09116DFF1540070399E /* page1.json */; };
 		D0D8C09916DFF1540070399E /* page2.json in Resources */ = {isa = PBXBuildFile; fileRef = D0D8C09216DFF1540070399E /* page2.json */; };
@@ -440,6 +443,9 @@
 				D0A64ED519FEE20500B09DEB /* Quick.framework in Copy Frameworks */,
 				D0A64ED619FEE20800B09DEB /* Mantle.framework in Copy Frameworks */,
 				D0A64ED719FEE20A00B09DEB /* ReactiveCocoa.framework in Copy Frameworks */,
+				D0C7C39319FEF4330069B5C0 /* AFNetworking.framework in Copy Frameworks */,
+				D0C7C39519FEF4370069B5C0 /* ISO8601DateFormatter.framework in Copy Frameworks */,
+				D0C7C39D19FEF5E80069B5C0 /* OctoKit.framework in Copy Frameworks */,
 			);
 			name = "Copy Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
