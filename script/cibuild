@@ -12,8 +12,8 @@ config ()
 {
     # The workspace to build.
     #
-    # If not set and no workspace is found, the -workspace flag will not be
-    # passed in.
+    # If not set and no workspace is found, the -workspace flag will not be passed
+    # to `xctool`.
     #
     # Only one of `XCWORKSPACE` and `XCODEPROJ` needs to be set. The former will
     # take precedence.
@@ -22,7 +22,7 @@ config ()
     # The project to build.
     #
     # If not set and no project is found, the -project flag will not be passed
-    # in.
+    # to `xctool`.
     #
     # Only one of `XCWORKSPACE` and `XCODEPROJ` needs to be set. The former will
     # take precedence.
@@ -33,8 +33,8 @@ config ()
     # If this file does not exist, it is not considered an error.
     : ${BOOTSTRAP="$SCRIPT_DIR/bootstrap"}
 
-    # Extra options to pass.
-    : ${BUILD_OPTIONS="RUN_CLANG_STATIC_ANALYZER=NO"}
+    # Extra options to pass to xctool.
+    : ${XCTOOL_OPTIONS="RUN_CLANG_STATIC_ANALYZER=NO"}
 
     # A whitespace-separated list of default schemes to build.
     #
@@ -44,7 +44,7 @@ config ()
     export XCWORKSPACE
     export XCODEPROJ
     export BOOTSTRAP
-    export BUILD_OPTIONS
+    export XCTOOL_OPTIONS
     export SCHEMES
 }
 
@@ -83,18 +83,23 @@ find_pattern ()
     ls -d $1 2>/dev/null | head -n 1
 }
 
-run_xcodebuild ()
+run_xctool ()
 {
     if [ -n "$XCWORKSPACE" ]
     then
-        xcodebuild -workspace "$XCWORKSPACE" $BUILD_OPTIONS "$@" 2>&1
+        xctool -workspace "$XCWORKSPACE" $XCTOOL_OPTIONS "$@" 2>&1
     elif [ -n "$XCODEPROJ" ]
     then
-        xcodebuild -project "$XCODEPROJ" $BUILD_OPTIONS "$@" 2>&1
+        xctool -project "$XCODEPROJ" $XCTOOL_OPTIONS "$@" 2>&1
     else
         echo "*** No workspace or project file found."
         exit 1
     fi
+}
+
+parse_build ()
+{
+    awk -f "$SCRIPT_DIR/xctool.awk" 2>&1 >/dev/null
 }
 
 build_scheme ()
@@ -102,25 +107,47 @@ build_scheme ()
     local scheme=$1
 
     echo "*** Cleaning $scheme..."
-    run_xcodebuild -scheme "$scheme" clean >/dev/null || exit $?
+    run_xctool -scheme "$scheme" clean >/dev/null || exit $?
 
     echo "*** Building and testing $scheme..."
     echo
 
-    run_xcodebuild -scheme "$scheme" test
-    local status=$?
+    local sdkflag=
+    local action=test
 
-    if [ "$status" -eq "66" ]
+    # Determine whether we can run unit tests for this target.
+    run_xctool -scheme "$scheme" run-tests | parse_build
+
+    local awkstatus=$?
+
+    if [ "$awkstatus" -eq "1" ]
     then
-        # Unit tests probably aren't supported.
-        run_xcodebuild -scheme "$scheme" build
-        status=$?
+        # SDK not found, try for iphonesimulator.
+        sdkflag="-sdk iphonesimulator"
+
+        # Determine whether the unit tests will run with iphonesimulator
+        run_xctool $sdkflag -scheme "$scheme" run-tests | parse_build
+
+        awkstatus=$?
+
+        if [ "$awkstatus" -ne "0" ]
+        then
+            # Unit tests will not run on iphonesimulator.
+            sdkflag=""
+        fi
     fi
 
-    return "$status"
+    if [ "$awkstatus" -ne "0" ]
+    then
+        # Unit tests aren't supported.
+        action=build
+    fi
+
+    run_xctool $sdkflag -scheme "$scheme" $action
 }
 
 export -f build_scheme
-export -f run_xcodebuild
+export -f run_xctool
+export -f parse_build
 
 main
