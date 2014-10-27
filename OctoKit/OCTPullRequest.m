@@ -29,6 +29,8 @@
 		@"mergedDate": @"merged_at",
 		@"headRepository": @"head.repo",
 		@"baseRepository": @"base.repo",
+		@"headBranch": @"head.ref",
+		@"baseBranch": @"base.ref",
 	}];
 }
 

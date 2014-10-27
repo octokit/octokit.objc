@@ -26,6 +26,9 @@
 // The description of this repository.
 @property (nonatomic, copy, readonly) NSString *repoDescription;
 
+// The language of this repository.
+@property (nonatomic, copy, readonly) NSString *language;
+
 // Whether this repository is private to the owner.
 @property (nonatomic, assign, getter = isPrivate, readonly) BOOL private;
 
@@ -56,5 +59,20 @@
 // An issue number may be appended (as a path component) to this path to create
 // an individual issue's HTML URL.
 @property (nonatomic, copy, readonly) NSURL *issuesHTMLURL;
+
+/// The parent of the fork, or nil if the repository isn't a fork. This is the
+/// repository from which the receiver was forked.
+///
+/// Note that this is only populated on calls to
+/// -[OCTClient fetchRepositoryWithName:owner:].
+@property (nonatomic, copy, readonly) OCTRepository *forkParent;
+
+/// The source of the fork, or nil if the repository isn't a fork. This is the
+/// ultimate source for the network, which may be different from the
+/// `forkParent`.
+///
+/// Note that this is only populated on calls to
+/// -[OCTClient fetchRepositoryWithName:owner:].
+@property (nonatomic, copy, readonly) OCTRepository *forkSource;
 
 @end

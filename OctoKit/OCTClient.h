@@ -64,6 +64,10 @@ extern const NSInteger OCTClientErrorUnsupportedServerScheme;
 // This error only affects +signInToServerUsingWebBrowser:scopes:.
 extern const NSInteger OCTClientErrorOpeningBrowserFailed;
 
+// There was a problem establishing a secure connection, although the server is
+// reachable.
+extern const NSInteger OCTClientErrorSecureConnectionFailed;
+
 // A user info key associated with the NSURL of the request that failed.
 extern NSString * const OCTClientErrorRequestURLKey;
 
@@ -82,6 +86,13 @@ extern NSString * const OCTClientErrorOAuthScopesStringKey;
 // one-time password required by the API. Only valid when the error's code is
 // OCTClientErrorTwoFactorAuthenticationOneTimePasswordRequired.
 extern NSString * const OCTClientErrorOneTimePasswordMediumKey;
+
+/// The descriptive message returned from the API, e.g., "Validation Failed".
+extern NSString * const OCTClientErrorDescriptionKey;
+
+/// An array of specific message strings returned from the API, e.g.,
+/// "No commits between joshaber:master and joshaber:feature".
+extern NSString * const OCTClientErrorMessagesKey;
 
 // The scopes for authorization. These can be bitwise OR'd together to request
 // multiple scopes.
@@ -224,7 +235,7 @@ typedef enum : NSUInteger {
 + (void)setClientID:(NSString *)clientID clientSecret:(NSString *)clientSecret;
 
 // Initializes the receiver to make requests to the given GitHub server.
-// 
+//
 // When using this initializer, the `user` property will not be set.
 // +authenticatedClientWithUser:token: or +unauthenticatedClientWithUser:
 // should typically be used instead.

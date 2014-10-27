@@ -38,6 +38,8 @@ sharedExamplesFor(OCTObjectArchivingSharedExamplesName, ^(NSDictionary *data){
 sharedExamplesFor(OCTObjectExternalRepresentationSharedExamplesName, ^(NSDictionary *data){
 	__block OCTObject *obj;
 	__block NSDictionary *representation;
+
+	__block void (^expectRepresentationsToMatch)(NSDictionary *, NSDictionary *);
 	
 	beforeEach(^{
 		obj = data[OCTObjectKey];
@@ -45,17 +47,27 @@ sharedExamplesFor(OCTObjectExternalRepresentationSharedExamplesName, ^(NSDiction
 
 		representation = data[OCTObjectExternalRepresentationKey];
 		expect(representation).notTo.beNil();
+
+		__block void (^expectRepresentationsToMatchRecur)(NSDictionary *, NSDictionary *);
+		expectRepresentationsToMatch = ^(NSDictionary *representation, NSDictionary *JSONDictionary) {
+			[representation enumerateKeysAndObjectsUsingBlock:^(NSString *key, id expectedValue, BOOL *stop) {
+				id value = JSONDictionary[key];
+				if (value == nil) return;
+
+				if ([value isKindOfClass:NSDictionary.class]) {
+					expectRepresentationsToMatchRecur(value, expectedValue);
+				} else {
+					expect(value).to.equal(expectedValue);
+				}
+			}];
+		};
+
+		expectRepresentationsToMatchRecur = expectRepresentationsToMatch;
 	});
 
 	it(@"should be equal in all values that exist in both external representations", ^{
 		NSDictionary *JSONDictionary = [MTLJSONAdapter JSONDictionaryFromModel:obj];
-
-		[representation enumerateKeysAndObjectsUsingBlock:^(NSString *key, id expectedValue, BOOL *stop) {
-			id value = JSONDictionary[key];
-			if (value == nil) return;
-
-			expect(value).to.equal(expectedValue);
-		}];
+		expectRepresentationsToMatch(representation, JSONDictionary);
 	});
 });
 

@@ -33,12 +33,15 @@ const NSInteger OCTClientErrorOpeningBrowserFailed = 673;
 const NSInteger OCTClientErrorRequestForbidden = 674;
 const NSInteger OCTClientErrorTokenAuthenticationUnsupported = 675;
 const NSInteger OCTClientErrorUnsupportedServerScheme = 676;
+const NSInteger OCTClientErrorSecureConnectionFailed = 677;
 
 NSString * const OCTClientErrorRequestURLKey = @"OCTClientErrorRequestURLKey";
 NSString * const OCTClientErrorHTTPStatusCodeKey = @"OCTClientErrorHTTPStatusCodeKey";
 NSString * const OCTClientErrorOneTimePasswordMediumKey = @"OCTClientErrorOneTimePasswordMediumKey";
 NSString * const OCTClientErrorOAuthScopesStringKey = @"OCTClientErrorOAuthScopesStringKey";
 NSString * const OCTClientErrorRequestStateRedirected = @"OCTClientErrorRequestRedirected";
+NSString * const OCTClientErrorDescriptionKey = @"OCTClientErrorDescriptionKey";
+NSString * const OCTClientErrorMessagesKey = @"OCTClientErrorMessagesKey";
 
 NSString * const OCTClientAPIVersion = @"v3";
 
@@ -546,7 +549,7 @@ static NSString *OCTClientOAuthClientSecret = nil;
 
 - (NSMutableURLRequest *)requestWithMethod:(NSString *)method path:(NSString *)path parameters:(NSDictionary *)parameters notMatchingEtag:(NSString *)etag {
 	NSParameterAssert(method != nil);
-	
+
 	if ([method isEqualToString:@"GET"]) {
 		parameters = [parameters ?: [NSDictionary dictionary] mtl_dictionaryByAddingEntriesFromDictionary:@{
 			@"per_page": @100
@@ -580,7 +583,7 @@ static NSString *OCTClientOAuthClientSecret = nil;
 				[subscriber sendCompleted];
 				return;
 			}
-			
+
 			RACSignal *nextPageSignal = [RACSignal empty];
 			NSURL *nextPageURL = (fetchAllPages ? [self nextPageURLFromOperation:operation] : nil);
 			if (nextPageURL != nil) {
@@ -636,7 +639,7 @@ static NSString *OCTClientOAuthClientSecret = nil;
 			[operation cancel];
 		}];
 	}];
-	
+
 	return [[signal
 		replayLazily]
 		setNameWithFormat:@"-enqueueRequest: %@ fetchAllPages: %i", request, (int)fetchAllPages];
@@ -683,10 +686,10 @@ static NSString *OCTClientOAuthClientSecret = nil;
 	} else {
 		return [RACSignal error:self.class.userRequiredError];
 	}
-		
+
 	NSMutableURLRequest *request = [self requestWithMethod:method path:path parameters:parameters notMatchingEtag:nil];
 	if (self.authenticated) request.cachePolicy = NSURLRequestReloadIgnoringLocalCacheData;
-	
+
 	return [self enqueueRequest:request resultClass:resultClass];
 }
 
@@ -703,7 +706,7 @@ static NSString *OCTClientOAuthClientSecret = nil;
 
 	NSMutableCharacterSet *whitespaceAndBracketCharacterSet = [NSCharacterSet.whitespaceCharacterSet mutableCopy];
 	[whitespaceAndBracketCharacterSet addCharactersInString:@"<>"];
-	
+
 	NSArray *links = [linksString componentsSeparatedByString:@","];
 	for (NSString *link in links) {
 		NSRange semicolonRange = [link rangeOfString:@";"];
@@ -720,7 +723,7 @@ static NSString *OCTClientOAuthClientSecret = nil;
 
 		return [NSURL URLWithString:URLString];
 	}
-	
+
 	return nil;
 }
 
@@ -805,7 +808,7 @@ static NSString *OCTClientOAuthClientSecret = nil;
 		NSString * (^localizedErrorMessage)(NSString *) = ^(NSString *message) {
 			return [NSString stringWithFormat:message, resource, field];
 		};
-		
+
 		NSString *codeString = localizedErrorMessage(@"%@ %@ is missing");
 		if ([codeType isEqual:@"missing"]) {
 			codeString = localizedErrorMessage(NSLocalizedString(@"%@ %@ does not exist", @""));
@@ -821,7 +824,7 @@ static NSString *OCTClientOAuthClientSecret = nil;
 	}
 }
 
-+ (NSString *)defaultErrorMessageFromRequestOperation:(AFHTTPRequestOperation *)operation {
++ (NSDictionary *)errorUserInfoFromRequestOperation:(AFHTTPRequestOperation *)operation {
 	NSParameterAssert(operation != nil);
 
 	NSDictionary *responseDictionary = nil;
@@ -834,7 +837,8 @@ static NSString *OCTClientOAuthClientSecret = nil;
 		}
 	}
 
-	NSString *errorDescription = responseDictionary[@"message"] ?: operation.error.localizedDescription;
+	NSString *message = responseDictionary[@"message"];
+	NSString *errorDescription = message ?: operation.error.localizedDescription;
 	if (errorDescription == nil) {
 		if ([operation.error.domain isEqual:NSURLErrorDomain]) {
 			errorDescription = NSLocalizedString(@"There was a problem connecting to the server.", @"");
@@ -842,7 +846,8 @@ static NSString *OCTClientOAuthClientSecret = nil;
 			errorDescription = NSLocalizedString(@"The universe has collapsed.", @"");
 		}
 	}
-	
+
+	NSArray *errorMessages;
 	NSArray *errorDictionaries = responseDictionary[@"errors"];
 	if ([errorDictionaries isKindOfClass:NSArray.class]) {
 		NSString *errors = [[[errorDictionaries.rac_sequence
@@ -858,9 +863,20 @@ static NSString *OCTClientOAuthClientSecret = nil;
 			componentsJoinedByString:@"\n"];
 
 		errorDescription = [NSString stringWithFormat:NSLocalizedString(@"%@:\n\n%@", @""), errorDescription, errors];
+
+		errorMessages = [[errorDictionaries.rac_sequence
+			map:^(NSDictionary *info) {
+				return info[@"message"];
+			}]
+			array];
 	}
-	
-	return errorDescription;
+
+	NSMutableDictionary *info = [NSMutableDictionary dictionary];
+	if (errorDescription != nil) info[NSLocalizedDescriptionKey] = errorDescription;
+	if (message != nil) info[OCTClientErrorDescriptionKey] = message;
+	if (errorMessages != nil) info[OCTClientErrorMessagesKey] = errorMessages;
+
+	return info;
 }
 
 + (NSNumber *)oneTimePasswordMediumFromHeader:(NSString *)OTPHeader {
@@ -882,12 +898,13 @@ static NSString *OCTClientOAuthClientSecret = nil;
 
 + (NSError *)errorFromRequestOperation:(AFHTTPRequestOperation *)operation {
 	NSParameterAssert(operation != nil);
-	
+
 	NSInteger HTTPCode = operation.response.statusCode;
 	NSMutableDictionary *userInfo = [NSMutableDictionary dictionary];
 	NSInteger errorCode = OCTClientErrorConnectionFailed;
 
-	userInfo[NSLocalizedDescriptionKey] = [self defaultErrorMessageFromRequestOperation:operation];
+	NSDictionary *errorInfo = [self errorUserInfoFromRequestOperation:operation];
+	[userInfo addEntriesFromDictionary:errorInfo];
 
 	switch (HTTPCode) {
 		case 401: {
@@ -916,6 +933,21 @@ static NSString *OCTClientOAuthClientSecret = nil;
 		case 422:
 			errorCode = OCTClientErrorServiceRequestFailed;
 			break;
+
+		default:
+			if ([operation.error.domain isEqual:NSURLErrorDomain]) {
+				switch (operation.error.code) {
+					case NSURLErrorSecureConnectionFailed:
+					case NSURLErrorServerCertificateHasBadDate:
+					case NSURLErrorServerCertificateHasUnknownRoot:
+					case NSURLErrorServerCertificateUntrusted:
+					case NSURLErrorServerCertificateNotYetValid:
+					case NSURLErrorClientCertificateRejected:
+					case NSURLErrorClientCertificateRequired:
+						errorCode = OCTClientErrorSecureConnectionFailed;
+						break;
+				}
+			}
 	}
 
 	if (operation.userInfo[OCTClientErrorRequestStateRedirected] != nil) {
@@ -928,7 +960,7 @@ static NSString *OCTClientOAuthClientSecret = nil;
 
 	NSString *scopes = operation.response.allHeaderFields[OCTClientOAuthScopesHeaderField];
 	if (scopes != nil) userInfo[OCTClientErrorOAuthScopesStringKey] = scopes;
-	
+
 	return [NSError errorWithDomain:OCTClientErrorDomain code:errorCode userInfo:userInfo];
 }
 
