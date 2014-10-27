@@ -12,7 +12,7 @@
 
 #import "OCTObjectSpec.h"
 
-QuickSpecBegin(OCTCommit)
+QuickSpecBegin(OCTCommitSpec)
 
 __block NSDictionary *representation;
 

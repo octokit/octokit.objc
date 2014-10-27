@@ -12,7 +12,7 @@
 
 #import "OCTObjectSpec.h"
 
-QuickSpecBegin(OCTContent)
+QuickSpecBegin(OCTContentSpec)
 
 __block NSArray *contentDictionaries;
 

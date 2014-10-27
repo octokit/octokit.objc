@@ -12,7 +12,7 @@
 
 #import "OCTObjectSpec.h"
 
-QuickSpecBegin(OCTEvent)
+QuickSpecBegin(OCTEventSpec)
 
 __block NSArray *eventDictionaries;
 

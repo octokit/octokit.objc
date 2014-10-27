@@ -7,7 +7,7 @@
 #import <OctoKit/OctoKit.h>
 #import <Quick/Quick.h>
 
-QuickSpecBegin(OCTGitCommitFile)
+QuickSpecBegin(OCTGitCommitFileSpec)
 
 describe(@"github.com file", ^{
 	NSDictionary *representation = @{

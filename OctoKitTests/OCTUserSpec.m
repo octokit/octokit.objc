@@ -13,7 +13,7 @@
 #import "OCTObject+Private.h"
 #import "OCTObjectSpec.h"
 
-QuickSpecBegin(OCTUser)
+QuickSpecBegin(OCTUserSpec)
 
 describe(@"github.com user", ^{
 	NSDictionary *representation = @{

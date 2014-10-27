@@ -12,7 +12,7 @@
 
 #import "OCTObjectSpec.h"
 
-QuickSpecBegin(OCTCommitComment)
+QuickSpecBegin(OCTCommitCommentSpec)
 
 NSDictionary *representation = @{
 	@"html_url": @"https://github.com/octocat/Hello-World/commit/6dcb09b5b57875f334f61aebed695e2e4193db5e#commitcomment-1",

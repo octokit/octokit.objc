@@ -12,7 +12,7 @@
 
 #import "OCTObjectSpec.h"
 
-QuickSpecBegin(OCTOrganization)
+QuickSpecBegin(OCTOrganizationSpec)
 
 NSDictionary *representation = @{
 	@"login": @"github",

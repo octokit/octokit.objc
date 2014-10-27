@@ -12,7 +12,7 @@
 
 #import "OCTTestClient.h"
 
-QuickSpecBegin(OCTClient)
+QuickSpecBegin(OCTClientSpec)
 
 void (^stubResponseWithHeaders)(NSString *, NSString *, NSDictionary *) = ^(NSString *path, NSString *responseFilename, NSDictionary *headers) {
 	headers = [headers mtl_dictionaryByAddingEntriesFromDictionary:@{

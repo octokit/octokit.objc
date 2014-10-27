@@ -12,7 +12,7 @@
 
 #import "OCTObjectSpec.h"
 
-QuickSpecBegin(OCTRepository)
+QuickSpecBegin(OCTRepositorySpec)
 
 describe(@"from JSON", ^{
 	NSDictionary *representation = @{

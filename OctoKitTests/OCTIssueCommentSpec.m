@@ -12,7 +12,7 @@
 
 #import "OCTObjectSpec.h"
 
-QuickSpecBegin(OCTIssueComment)
+QuickSpecBegin(OCTIssueCommentSpec)
 
 NSDictionary *representation = @{
 	@"id": @1,

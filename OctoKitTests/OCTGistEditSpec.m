@@ -11,7 +11,7 @@
 
 #import "OCTObjectSpec.h"
 
-QuickSpecBegin(OCTGistEdit)
+QuickSpecBegin(OCTGistEditSpec)
 
 describe(@"JSON serialization", ^{
 	it(@"can be serialized and deserialized", ^{

@@ -6,9 +6,11 @@
 //  Copyright (c) 2012 GitHub. All rights reserved.
 //
 
-#import "OCTObject.h"
+#import <Nimble/Nimble.h>
+#import <Quick/Quick.h>
+#import <OctoKit/OctoKit.h>
+
 #import "OCTObject+Private.h"
-#import "OCTServer.h"
 #import "OCTObjectSpec.h"
 
 NSString * const OCTObjectArchivingSharedExamplesName = @"OCTObject archiving";
@@ -16,11 +18,11 @@ NSString * const OCTObjectExternalRepresentationSharedExamplesName = @"OCTObject
 NSString * const OCTObjectKey = @"object";
 NSString * const OCTObjectExternalRepresentationKey = @"externalRepresentation";
 
-SharedExamplesBegin(OCTObjectSharedExamples)
+QuickSharedExampleGroupsBegin(OCTObjectSharedExamples)
 
-sharedExamplesFor(OCTObjectArchivingSharedExamplesName, ^(NSDictionary *data){
+sharedExamples(OCTObjectArchivingSharedExamplesName, ^(NSDictionary *data){
 	__block OCTObject *obj;
-	
+
 	beforeEach(^{
 		obj = data[OCTObjectKey];
 		expect(obj).notTo.beNil();
@@ -35,12 +37,12 @@ sharedExamplesFor(OCTObjectArchivingSharedExamplesName, ^(NSDictionary *data){
 	});
 });
 
-sharedExamplesFor(OCTObjectExternalRepresentationSharedExamplesName, ^(NSDictionary *data){
+sharedExamples(OCTObjectExternalRepresentationSharedExamplesName, ^(NSDictionary *data){
 	__block OCTObject *obj;
 	__block NSDictionary *representation;
 
 	__block void (^expectRepresentationsToMatch)(NSDictionary *, NSDictionary *);
-	
+
 	beforeEach(^{
 		obj = data[OCTObjectKey];
 		expect(obj).notTo.beNil();
@@ -71,15 +73,15 @@ sharedExamplesFor(OCTObjectExternalRepresentationSharedExamplesName, ^(NSDiction
 	});
 });
 
-SharedExamplesEnd
+QuickSharedExampleGroupsEnd
 
-QuickSpecBegin(OCTObject)
+QuickSpecBegin(OCTObjectSpec)
 
 describe(@"with an ID from JSON", ^{
 	NSDictionary *representation = @{ @"id": @12345 };
 
 	__block OCTObject *obj;
-	
+
 	before(^{
 		obj = [MTLJSONAdapter modelOfClass:OCTObject.class fromJSONDictionary:representation error:NULL];
 		expect(obj).notTo.beNil();

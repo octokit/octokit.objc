@@ -10,7 +10,7 @@
 #import <OctoKit/OctoKit.h>
 #import <Quick/Quick.h>
 
-QuickSpecBegin(OCTGitCommit)
+QuickSpecBegin(OCTGitCommitSpec)
 
 describe(@"github.com git commit", ^{
 	describe(@"parsing a small commit", ^{

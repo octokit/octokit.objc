@@ -12,7 +12,7 @@
 
 #import "OCTServer+Private.h"
 
-QuickSpecBegin(OCTServer)
+QuickSpecBegin(OCTServerSpec)
 
 it(@"should have a dotComServer", ^{
 	OCTServer *dotComServer = OCTServer.dotComServer;

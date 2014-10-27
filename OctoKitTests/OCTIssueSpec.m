@@ -12,7 +12,7 @@
 
 #import "OCTObjectSpec.h"
 
-QuickSpecBegin(OCTIssue)
+QuickSpecBegin(OCTIssueSpec)
 
 NSDictionary *representation = @{
 	@"url": @"https://api.github.com/repos/octocat/Hello-World/issues/1",

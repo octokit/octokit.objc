@@ -12,7 +12,7 @@
 
 #import "OCTObject+Private.h"
 
-QuickSpecBegin(OCTBranch)
+QuickSpecBegin(OCTBranchSpec)
 
 describe(@"github.com branch", ^{
 	NSDictionary *representation = @{

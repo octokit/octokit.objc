@@ -12,7 +12,7 @@
 
 NSString *etag = @"\"644b5b0155e6404a9cc4bd9d8b1ae730\"";
 
-QuickSpecBegin(OCTResponse)
+QuickSpecBegin(OCTResponseSpec)
 
 __block NSMutableDictionary *headers;
 __block OCTResponse * (^responseWithHeaders)(void);
