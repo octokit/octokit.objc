@@ -15,7 +15,7 @@ QuickSpecBegin(NSValueTransformerAdditions)
 it(@"should define a date value transformer", ^{
 	NSValueTransformer *transformer = [NSValueTransformer valueTransformerForName:OCTDateValueTransformerName];
 	expect(transformer).notTo(beNil());
-	expect([transformer.class allowsReverseTransformation]).to(beTruthy());
+	expect(@([transformer.class allowsReverseTransformation])).to(beTruthy());
 
 	NSString *str = @"2011-01-26T19:06:43Z";
 

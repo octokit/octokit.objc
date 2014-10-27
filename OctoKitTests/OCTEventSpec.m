@@ -86,8 +86,8 @@ describe(@"OCTPullRequestCommentEvent", ^{
 		expect(event.organizationLogin).to(equal(@"github"));
 
 		expect(event.comment).to(beAnInstanceOf(OCTPullRequestComment.class));
-		expect(event.comment.position).to(equal(14));
-		expect(event.comment.originalPosition).to(equal(14));
+		expect(@(event.comment.position)).to(equal(@14));
+		expect(@(event.comment.originalPosition)).to(equal(@14));
 		expect(event.comment.commitSHA).to(equal(@"7e731834f7fa981166cbb509a353dbe02eb5d1ea"));
 		expect(event.comment.originalCommitSHA).to(equal(@"7e731834f7fa981166cbb509a353dbe02eb5d1ea"));
 		expect(event.pullRequest).to(beNil());
@@ -117,8 +117,8 @@ describe(@"OCTPushEvent", ^{
 		expect(event.actorLogin).to(equal(@"joshaber"));
 		expect(event.organizationLogin).to(equal(@"github"));
 
-		expect(event.commitCount).to(equal(36));
-		expect(event.distinctCommitCount).to(equal(5));
+		expect(@(event.commitCount)).to(equal(@36));
+		expect(@(event.distinctCommitCount)).to(equal(@5));
 		expect(event.previousHeadSHA).to(equal(@"623934b71f128f9bcc44482d6dc76b7fd4848d4d"));
 		expect(event.currentHeadSHA).to(equal(@"da01b97c85d2a2d2b8e4021c2e3dff693a8f2c6b"));
 		expect(event.branchName).to(equal(@"new-demo"));

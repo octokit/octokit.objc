@@ -21,7 +21,7 @@ it(@"should have a dotComServer", ^{
 	expect(dotComServer.baseURL).to(beNil());
 	expect(dotComServer.baseWebURL).to(equal([NSURL URLWithString:OCTServerDotComBaseWebURL]));
 	expect(dotComServer.APIEndpoint).to(equal([NSURL URLWithString:OCTServerDotComAPIEndpoint]));
-	expect(dotComServer.enterprise).to(beFalsy());
+	expect(@(dotComServer.enterprise)).to(beFalsy());
 });
 
 it(@"should be only one dotComServer", ^{
@@ -34,7 +34,7 @@ it(@"can be an enterprise instance", ^{
 	OCTServer *enterpriseServer = [OCTServer serverWithBaseURL:[NSURL URLWithString:@"https://localhost/"]];
 
 	expect(enterpriseServer).notTo(beNil());
-	expect(enterpriseServer.enterprise).to(beTruthy());
+	expect(@(enterpriseServer.enterprise)).to(beTruthy());
 	expect(enterpriseServer.baseURL).to(equal([NSURL URLWithString:@"https://localhost/"]));
 	expect(enterpriseServer.baseWebURL).to(equal(enterpriseServer.baseURL));
 	expect(enterpriseServer.APIEndpoint).to(equal([NSURL URLWithString:@"https://localhost/api/v3/"]));

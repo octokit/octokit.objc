@@ -41,7 +41,7 @@ itBehavesLike(OCTObjectArchivingSharedExamplesName, ^{
 it(@"should initialize", ^{
 	expect(tree.SHA).to(equal(@"HEAD"));
 	expect(tree.URL.absoluteString).to(equal(@"https://api.github.com/repos/ReactiveCocoa/ReactiveCocoa/git/trees/HEAD"));
-	expect(tree.entries.count).to(equal(4));
+	expect(@(tree.entries.count)).to(equal(@4));
 
 	OCTBlobTreeEntry *entry1 = tree.entries[0];
 	expect(entry1).to(beAnInstanceOf(OCTBlobTreeEntry.class));
@@ -50,7 +50,7 @@ it(@"should initialize", ^{
 	expect(entry1.URL.absoluteString).to(equal(@"https://api.github.com/repos/ReactiveCocoa/ReactiveCocoa/git/blobs/bfcbe8a9b4efeee4ead492e9567f2d4c57acaeb7"));
 	expect(entry1.type).to(equal(OCTTreeEntryTypeBlob));
 	expect(entry1.mode).to(equal(OCTTreeEntryModeFile));
-	expect(entry1.size).to(equal(17609));
+	expect(@(entry1.size)).to(equal(@17609));
 
 	OCTContentTreeEntry *entry2 = tree.entries[1];
 	expect(entry2).to(beAnInstanceOf(OCTContentTreeEntry.class));
@@ -74,7 +74,7 @@ it(@"should initialize", ^{
 	expect(entry4.type).to(equal(OCTTreeEntryTypeBlob));
 	expect(entry4.mode).to(equal(OCTTreeEntryModeFile));
 	expect(entry4.URL.absoluteString).to(equal(@"https://api.github.com/repos/ReactiveCocoa/ReactiveCocoa/git/blobs/dfda2ac07356f34e422df17673fc8148fae7d3b9"));
-	expect(entry4.size).to(equal(1209));
+	expect(@(entry4.size)).to(equal(@1209));
 });
 
 QuickSpecEnd

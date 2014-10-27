@@ -124,7 +124,7 @@ describe(@"with an objectID and a baseURL", ^{
 	});
 
 	it(@"should be from an enterprise server", ^{
-		expect(obj.server.enterprise).to(beTruthy());
+		expect(@(obj.server.enterprise)).to(beTruthy());
 	});
 
 	it(@"should be equal to another object with the same objectID from the same server", ^{

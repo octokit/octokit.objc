@@ -46,7 +46,7 @@ beforeEach(^{
 
 	contentByName = mutableContent;
 
-	expect(contentByName.count).to(equal(4));
+	expect(@(contentByName.count)).to(equal(@4));
 });
 
 describe(@"OCTDirectoryContent", ^{
@@ -56,7 +56,7 @@ describe(@"OCTDirectoryContent", ^{
 		expect(content).to(beAnInstanceOf(OCTDirectoryContent.class));
 
 		expect(content.name).to(equal(@"octokit"));
-		expect(content.size).to(equal(0));
+		expect(@(content.size)).to(equal(@0));
 		expect(content.path).to(equal(@"lib/octokit"));
 		expect(content.SHA).to(equal(@"a84d88e7554fc1fa21bcbc4efae3c782a70d2b9d"));
 	});
@@ -69,7 +69,7 @@ describe(@"OCTFileContent", ^{
 		expect(content).to(beAnInstanceOf(OCTFileContent.class));
 
 		expect(content.name).to(equal(@"README.md"));
-		expect(content.size).to(equal(2706));
+		expect(@(content.size)).to(equal(@2706));
 		expect(content.path).to(equal(@"README.md"));
 		expect(content.SHA).to(equal(@"2eee5e61e61bec2346fd40d56719c2f28f5e0fc3"));
 		expect(content.encoding).to(equal(@"base64"));
@@ -84,7 +84,7 @@ describe(@"OCTSubmoduleContent", ^{
 		expect(content).to(beAnInstanceOf(OCTSubmoduleContent.class));
 
 		expect(content.name).to(equal(@"qunit"));
-		expect(content.size).to(equal(0));
+		expect(@(content.size)).to(equal(@0));
 		expect(content.path).to(equal(@"test/qunit"));
 		expect(content.SHA).to(equal(@"6ca3721222109997540bd6d9ccd396902e0ad2f9"));
 		expect(content.submoduleGitURL).to(equal(@"git@github.com:octokit/octokit.objc.git"));
@@ -98,7 +98,7 @@ describe(@"OCTSymlinkContent", ^{
 		expect(content).to(beAnInstanceOf(OCTSymlinkContent.class));
 
 		expect(content.name).to(equal(@"some-symlink"));
-		expect(content.size).to(equal(23));
+		expect(@(content.size)).to(equal(@23));
 		expect(content.path).to(equal(@"bin/some-symlink"));
 		expect(content.SHA).to(equal(@"452a98979c88e093d682cab404a3ec82babebb48"));
 		expect(content.target).to(equal(@"/path/to/symlink/target"));

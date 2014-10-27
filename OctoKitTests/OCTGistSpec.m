@@ -98,13 +98,13 @@ describe(@"from JSON", ^{
 		expect(gist.objectID).to(equal(@"1"));
 		expect(gist.creationDate).to(equal([[[ISO8601DateFormatter alloc] init] dateFromString:@"2010-04-14 02:15:15 +0000"]));
 		expect(gist.HTMLURL).to(equal([NSURL URLWithString:@"https://gist.github.com/1"]));
-		expect(gist.files.count).to(equal(1));
+		expect(@(gist.files.count)).to(equal(@1));
 
 		OCTGistFile *file = gist.files[@"ring.erl"];
 		expect(file).notTo(beNil());
 		expect(file.filename).to(equal(@"ring.erl"));
 		expect(file.rawURL).to(equal([NSURL URLWithString:@"https://gist.github.com/raw/365370/8c4d2d43d178df44f4c03a7f2ac0ff512853564e/ring.erl"]));
-		expect(file.size).to(equal(932));
+		expect(@(file.size)).to(equal(@932));
 	});
 });
 

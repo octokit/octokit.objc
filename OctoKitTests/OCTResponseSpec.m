@@ -41,8 +41,8 @@ it(@"should have an etag", ^{
 
 it(@"should have rate limit info", ^{
 	OCTResponse *response = responseWithHeaders();
-	expect(response.maximumRequestsPerHour).to(equal(5000));
-	expect(response.remainingRequests).to(equal(4900));
+	expect(@(response.maximumRequestsPerHour)).to(equal(@5000));
+	expect(@(response.remainingRequests)).to(equal(@4900));
 });
 
 it(@"should not have a poll interval by default", ^{

@@ -54,7 +54,7 @@ describe(@"github.com user", ^{
 		expect(user.company).to(equal(@"GitHub"));
 		expect(user.blog).to(equal(@"https://github.com/blog"));
 		expect(user.email).to(equal(@"octocat@github.com"));
-		expect(user.publicRepoCount).to(equal(2));
+		expect(@(user.publicRepoCount)).to(equal(@2));
 	});
 
 	itBehavesLike(OCTObjectArchivingSharedExamplesName, ^{
@@ -151,7 +151,7 @@ describe(@"enterprise user", ^{
 		expect(user.login).to(equal(@"jspahrsummers"));
 		expect(user.objectID).to(equal(@"2"));
 		expect(user.avatarURL).to(equal([NSURL URLWithString:@"https://secure.gravatar.com/avatar/cac992bb300ed4f3ed5c2a6049e552f9?d=http://10.168.1.109%2Fimages%2Fgravatars%2Fgravatar-user-420.png"]));
-		expect(user.publicRepoCount).to(equal(0));
+		expect(@(user.publicRepoCount)).to(equal(@0));
 	});
 
 	itBehavesLike(OCTObjectArchivingSharedExamplesName, ^{
@@ -181,17 +181,17 @@ describe(@"equality", ^{
 	it(@"should treat users with the same server and login as equals", ^{
 		OCTUser *user1 = [OCTUser userWithRawLogin:@"joshaber" server:OCTServer.dotComServer];
 		OCTUser *user2 = [OCTUser userWithRawLogin:@"joshaber" server:OCTServer.dotComServer];
-		expect([user1 isEqual:user2]).to(beTruthy());
+		expect(@([user1 isEqual:user2])).to(beTruthy());
 		expect(user1.hash).to(equal(user2.hash));
 	});
 
 	it(@"shouldn't treat users with different servers or logins as equals", ^{
 		OCTUser *user1 = [OCTUser userWithRawLogin:@"joshaber1" server:OCTServer.dotComServer];
 		OCTUser *user2 = [OCTUser userWithRawLogin:@"joshaber" server:OCTServer.dotComServer];
-		expect([user1 isEqual:user2]).to(beFalsy());
+		expect(@([user1 isEqual:user2])).to(beFalsy());
 
 		OCTUser *user3 = [OCTUser userWithRawLogin:@"joshaber" server:[OCTServer serverWithBaseURL:[NSURL URLWithString:@"https://google.com"]]];
-		expect([user2 isEqual:user3]).to(beFalsy());
+		expect(@([user2 isEqual:user3])).to(beFalsy());
 	});
 
 	it(@"should prefer objectID equivalence", ^{

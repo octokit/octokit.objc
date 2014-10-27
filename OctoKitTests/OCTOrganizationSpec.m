@@ -70,15 +70,15 @@ it(@"should initialize", ^{
 	expect(organization.company).to(equal(@"GitHub"));
 	expect(organization.blog).to(equal(@"https://github.com/blog"));
 	expect(organization.email).to(equal(@"octocat@github.com"));
-	expect(organization.publicRepoCount).to(equal(2));
-	expect(organization.privateRepoCount).to(equal(100));
-	expect(organization.diskUsage).to(equal(10000));
-	expect(organization.collaborators).to(equal(8));
+	expect(@(organization.publicRepoCount)).to(equal(@2));
+	expect(@(organization.privateRepoCount)).to(equal(@100));
+	expect(@(organization.diskUsage)).to(equal(@10000));
+	expect(@(organization.collaborators)).to(equal(@8));
 
 	expect(organization.plan).notTo(beNil());
 	expect(organization.plan.name).to(equal(@"Medium"));
-	expect(organization.plan.space).to(equal(400));
-	expect(organization.plan.privateRepos).to(equal(20));
+	expect(@(organization.plan.space)).to(equal(@400));
+	expect(@(organization.plan.privateRepos)).to(equal(@20));
 });
 
 QuickSpecEnd

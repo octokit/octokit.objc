@@ -92,7 +92,7 @@ describe(@"without a user", ^{
 		client = [[OCTClient alloc] initWithServer:OCTServer.dotComServer];
 		expect(client).notTo(beNil());
 		expect(client.user).to(beNil());
-		expect(client.authenticated).to(beFalsy());
+		expect(@(client.authenticated)).to(beFalsy());
 	});
 
 	it(@"should create a GET request with default parameters", ^{
@@ -125,7 +125,7 @@ describe(@"without a user", ^{
 		RACSignal *result = [client enqueueRequest:request resultClass:nil];
 		OCTResponse *response = [result asynchronousFirstOrDefault:nil success:&success error:&error];
 		expect(response).notTo(beNil());
-		expect(success).to(beTruthy());
+		expect(@(success)).to(beTruthy());
 		expect(error).to(beNil());
 
 		NSDictionary *expected = @{
@@ -147,7 +147,7 @@ describe(@"without a user", ^{
 		RACSignal *result = [client enqueueRequest:request resultClass:nil];
 		OCTResponse *response = [result asynchronousFirstOrDefault:nil success:&success error:&error];
 		expect(response).notTo(beNil());
-		expect(success).to(beTruthy());
+		expect(@(success)).to(beTruthy());
 		expect(error).to(beNil());
 
 		NSDictionary *expected = @{
@@ -168,7 +168,7 @@ describe(@"without a user", ^{
 		RACSignal *result = [client enqueueRequest:request resultClass:nil];
 
 		expect([result asynchronousFirstOrDefault:nil success:&success error:&error]).to(beNil());
-		expect(success).to(beTruthy());
+		expect(@(success)).to(beTruthy());
 		expect(error).to(beNil());
 	});
 
@@ -195,7 +195,7 @@ describe(@"without a user", ^{
 			[items addObject:dict[@"item"]];
 		}];
 
-		expect([result asynchronouslyWaitUntilCompleted:&error]).to(beTruthy());
+		expect(@([result asynchronouslyWaitUntilCompleted:&error])).to(beTruthy());
 		expect(error).to(beNil());
 
 		NSArray *expected = @[ @1, @2, @3, @4, @5, @6, @7, @8, @9 ];
@@ -207,7 +207,7 @@ describe(@"without a user", ^{
 
 		RACSignal *request = [client fetchRepositoryWithName:@"octokit.objc" owner:@"octokit"];
 		OCTRepository *repository = [request asynchronousFirstOrDefault:nil success:&success error:&error];
-		expect(success).to(beTruthy());
+		expect(@(success)).to(beTruthy());
 		expect(error).to(beNil());
 
 		expect(repository).to(beAnInstanceOf(OCTRepository.class));
@@ -230,7 +230,7 @@ describe(@"without a user", ^{
 
 		RACSignal *request = [client fetchRepositoryWithName:@"octokit.objc" owner:@"octokit"];
 		expect([request asynchronousFirstOrDefault:nil success:&success error:&error]).to(beNil());
-		expect(success).to(beTruthy());
+		expect(@(success)).to(beTruthy());
 		expect(error).to(beNil());
 	});
 
@@ -239,7 +239,7 @@ describe(@"without a user", ^{
 
 		RACSignal *request = [client fetchRepositoryWithName:@"repo-does-not-exist" owner:@"octokit"];
 		expect([request asynchronousFirstOrDefault:nil success:&success error:&error]).to(beNil());
-		expect(success).to(beFalsy());
+		expect(@(success)).to(beFalsy());
 		expect(error).notTo(beNil());
 	});
 
@@ -249,7 +249,7 @@ describe(@"without a user", ^{
 		RACSignal *request = [client fetchRepositoryWithName:@"octokit.objc" owner:@"octokit"];
 		NSError *error;
 		BOOL success = [request asynchronouslyWaitUntilCompleted:&error];
-		expect(success).to(beFalsy());
+		expect(@(success)).to(beFalsy());
 		expect(error).notTo(beNil());
 		expect(error.domain).to(equal(OCTClientErrorDomain));
 		expect(error.code).to(equal(OCTClientErrorConnectionFailed));
@@ -263,7 +263,7 @@ describe(@"authenticated", ^{
 		client = [OCTClient authenticatedClientWithUser:user token:@""];
 		expect(client).notTo(beNil());
 		expect(client.user).to(equal(user));
-		expect(client.authenticated).to(beTruthy());
+		expect(@(client.authenticated)).to(beTruthy());
 	});
 
 	it(@"should fetch notifications", ^{
@@ -271,7 +271,7 @@ describe(@"authenticated", ^{
 
 		RACSignal *request = [client fetchNotificationsNotMatchingEtag:nil includeReadNotifications:NO updatedSince:nil];
 		OCTResponse *response = [request asynchronousFirstOrDefault:nil success:&success error:&error];
-		expect(success).to(beTruthy());
+		expect(@(success)).to(beTruthy());
 		expect(error).to(beNil());
 
 		OCTNotification *notification = response.parsedResult;
@@ -293,7 +293,7 @@ describe(@"authenticated", ^{
 
 		RACSignal *request = [client fetchNotificationsNotMatchingEtag:etag includeReadNotifications:NO updatedSince:nil];
 		expect([request asynchronousFirstOrDefault:nil success:&success error:&error]).to(beNil());
-		expect(success).to(beTruthy());
+		expect(@(success)).to(beTruthy());
 		expect(error).to(beNil());
 	});
 
@@ -302,7 +302,7 @@ describe(@"authenticated", ^{
 
 		RACSignal *request = [client fetchUserStarredRepositories];
 		OCTRepository *repository = [request asynchronousFirstOrDefault:nil success:&success error:&error];
-		expect(success).to(beTruthy());
+		expect(@(success)).to(beTruthy());
 		expect(error).to(beNil());
 
 		expect(repository).to(beAnInstanceOf(OCTRepository.class));
@@ -324,7 +324,7 @@ describe(@"authenticated", ^{
 
 		RACSignal *request = [client fetchUserStarredRepositories];
 		expect([request asynchronousFirstOrDefault:nil success:&success error:&error]).to(beNil());
-		expect(success).to(beTruthy());
+		expect(@(success)).to(beTruthy());
 		expect(error).to(beNil());
 	});
 });
@@ -336,7 +336,7 @@ describe(@"unauthenticated", ^{
 		client = [OCTClient unauthenticatedClientWithUser:user];
 		expect(client).notTo(beNil());
 		expect(client.user).to(equal(user));
-		expect(client.authenticated).to(beFalsy());
+		expect(@(client.authenticated)).to(beFalsy());
 	});
 
 	it(@"should fetch user starred repositories", ^{
@@ -344,7 +344,7 @@ describe(@"unauthenticated", ^{
 
 		RACSignal *request = [client fetchUserStarredRepositories];
 		OCTRepository *repository = [request asynchronousFirstOrDefault:nil success:&success error:&error];
-		expect(success).to(beTruthy());
+		expect(@(success)).to(beTruthy());
 		expect(error).to(beNil());
 
 		expect(repository).to(beAnInstanceOf(OCTRepository.class));
@@ -384,7 +384,7 @@ describe(@"sign in", ^{
 		RACSignal *request = [OCTClient signInAsUser:user password:@"" oneTimePassword:nil scopes:OCTClientAuthorizationScopesRepository];
 		NSError *error;
 		BOOL success = [request asynchronouslyWaitUntilCompleted:&error];
-		expect(success).to(beFalsy());
+		expect(@(success)).to(beFalsy());
 		expect(error.domain).to(equal(OCTClientErrorDomain));
 		expect(error.code).to(equal(OCTClientErrorTwoFactorAuthenticationOneTimePasswordRequired));
 		expect([error.userInfo[OCTClientErrorOneTimePasswordMediumKey] integerValue]).to(equal(OCTClientOneTimePasswordMediumSMS));
@@ -398,7 +398,7 @@ describe(@"sign in", ^{
 		expect(client).notTo(beNil());
 		expect(client.user).to(equal(user));
 		expect(client.token).to(equal(@"abc123"));
-		expect(client.authenticated).to(beTruthy());
+		expect(@(client.authenticated)).to(beTruthy());
 	});
 
 	it(@"requests authorization through redirects", ^{
@@ -417,7 +417,7 @@ describe(@"sign in", ^{
 		RACSignal *request = [OCTClient signInAsUser:enterpriseUser password:@"" oneTimePassword:nil scopes:OCTClientAuthorizationScopesRepository];
 		OCTClient *client = [request asynchronousFirstOrDefault:nil success:NULL error:NULL];
 		expect(client).notTo(beNil());
-		expect(client.authenticated).to(beTruthy());
+		expect(@(client.authenticated)).to(beTruthy());
 	});
 
 	it(@"should detect old server versions", ^{
@@ -426,7 +426,7 @@ describe(@"sign in", ^{
 		RACSignal *request = [OCTClient signInAsUser:user password:@"" oneTimePassword:nil scopes:OCTClientAuthorizationScopesRepository];
 		NSError *error;
 		BOOL success = [request asynchronouslyWaitUntilCompleted:&error];
-		expect(success).to(beFalsy());
+		expect(@(success)).to(beFalsy());
 		expect(error.domain).to(equal(OCTClientErrorDomain));
 		expect(error.code).to(equal(OCTClientErrorUnsupportedServer));
 	});
@@ -478,13 +478,13 @@ describe(@"sign in", ^{
 			[OCTTestClient completeSignInWithCallbackURL:differentURL];
 
 			expect(code).to(beNil());
-			expect(completed).to(beFalsy());
+			expect(@(completed)).to(beFalsy());
 
 			NSURL *matchingURL = [NSURL URLWithString:[NSString stringWithFormat:@"?state=%@&code=12345", state] relativeToURL:dotComLoginURL];
 			[OCTTestClient completeSignInWithCallbackURL:matchingURL];
 
 			expect(code).to(equal(@"12345"));
-			expect(completed).to(beTruthy());
+			expect(@(completed)).to(beTruthy());
 		});
 
 		it(@"should error when the browser cannot be opened", ^{
@@ -492,7 +492,7 @@ describe(@"sign in", ^{
 
 			NSError *error = nil;
 			BOOL success = [[OCTTestClient authorizeWithServerUsingWebBrowser:OCTServer.dotComServer scopes:OCTClientAuthorizationScopesRepository] waitUntilCompleted:&error];
-			expect(success).to(beFalsy());
+			expect(@(success)).to(beFalsy());
 			expect(error).notTo(beNil());
 
 			expect(error.domain).to(equal(OCTClientErrorDomain));
@@ -548,14 +548,14 @@ describe(@"sign in", ^{
 			BOOL success = NO;
 			NSError *error = nil;
 			OCTClient *client = [signInAndCallBack() asynchronousFirstOrDefault:nil success:&success error:&error];
-			expect(success).to(beTruthy());
+			expect(@(success)).to(beTruthy());
 			expect(error).to(beNil());
 			expect(client).notTo(beNil());
 
 			expect(client.user).notTo(beNil());
 			expect(client.user.login).to(equal(user.login));
 			expect(client.token).to(equal(token));
-			expect(client.authenticated).to(beTruthy());
+			expect(@(client.authenticated)).to(beTruthy());
 		});
 	});
 });
@@ -567,7 +567,7 @@ describe(@"+fetchMetadataForServer:", ^{
 		RACSignal *request = [OCTClient fetchMetadataForServer:OCTServer.dotComServer];
 		OCTServerMetadata *meta = [request asynchronousFirstOrDefault:nil success:NULL error:NULL];
 		expect(meta).notTo(beNil());
-		expect(meta.supportsPasswordAuthentication).to(beTruthy());
+		expect(@(meta.supportsPasswordAuthentication)).to(beTruthy());
 	});
 
 	it(@"should fail if /meta doesn't exist", ^{
@@ -576,7 +576,7 @@ describe(@"+fetchMetadataForServer:", ^{
 		RACSignal *request = [OCTClient fetchMetadataForServer:OCTServer.dotComServer];
 		NSError *error;
 		BOOL success = [request asynchronouslyWaitUntilCompleted:&error];
-		expect(success).to(beFalsy());
+		expect(@(success)).to(beFalsy());
 		expect(error.domain).to(equal(OCTClientErrorDomain));
 		expect(error.code).to(equal(OCTClientErrorUnsupportedServer));
 	});
