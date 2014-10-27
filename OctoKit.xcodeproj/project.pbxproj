@@ -507,7 +507,6 @@
 		D0871EA8169E2EFC00016ACA /* OctoKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = OctoKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0871EB3169E2EFC00016ACA /* OctoKit-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "OctoKit-Info.plist"; sourceTree = "<group>"; };
 		D0871EB5169E2EFC00016ACA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		D0871EB7169E2EFC00016ACA /* OctoKit-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "OctoKit-Prefix.pch"; sourceTree = "<group>"; };
 		D0871EC0169E2EFC00016ACA /* OctoKit Mac Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "OctoKit Mac Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0871EC9169E2EFC00016ACA /* OctoKitTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "OctoKitTests-Info.plist"; sourceTree = "<group>"; };
 		D0871ECB169E2EFC00016ACA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -516,7 +515,6 @@
 		D087200F169E31C000016ACA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		D08720A2169E332800016ACA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		D08720A4169E332E00016ACA /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
-		D0872124169E365A00016ACA /* OctoKitTests-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "OctoKitTests-Prefix.pch"; sourceTree = "<group>"; };
 		D0872127169E395F00016ACA /* OCTClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCTClient.h; sourceTree = "<group>"; };
 		D0872128169E395F00016ACA /* OCTClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCTClient.m; sourceTree = "<group>"; usesTabs = 1; };
 		D0872129169E395F00016ACA /* OCTCommitComment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCTCommitComment.h; sourceTree = "<group>"; };
@@ -852,7 +850,6 @@
 			children = (
 				D0871EB3169E2EFC00016ACA /* OctoKit-Info.plist */,
 				D0871EB4169E2EFC00016ACA /* InfoPlist.strings */,
-				D0871EB7169E2EFC00016ACA /* OctoKit-Prefix.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -871,7 +868,6 @@
 			children = (
 				D0D8C08F16DFF1540070399E /* Stubs */,
 				D0871EC9169E2EFC00016ACA /* OctoKitTests-Info.plist */,
-				D0872124169E365A00016ACA /* OctoKitTests-Prefix.pch */,
 				D0871ECA169E2EFC00016ACA /* InfoPlist.strings */,
 				D087B936181A401400821DCD /* OCTTestClient.h */,
 				D087B937181A401400821DCD /* OCTTestClient.m */,
@@ -1776,19 +1772,9 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D0040C7D19FEBF53002869A6 /* Test.xcconfig */;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_PREFIX_HEADER = "OctoKit/OctoKit-Prefix.pch";
-				HEADER_SEARCH_PATHS = (
-					"External/Mantle/MantleTests/expecta/src/**",
-					External/Mantle/MantleTests/specta/src,
-					External/OHHTTPStubs,
-				);
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				PRODUCT_NAME = OctoKit;
-				SDKROOT = macosx;
 			};
 			name = Test;
 		};
@@ -1861,19 +1847,9 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D0040C7A19FEBF53002869A6 /* Debug.xcconfig */;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_PREFIX_HEADER = "OctoKit/OctoKit-Prefix.pch";
-				HEADER_SEARCH_PATHS = (
-					"External/Mantle/MantleTests/expecta/src/**",
-					External/Mantle/MantleTests/specta/src,
-					External/OHHTTPStubs,
-				);
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				PRODUCT_NAME = OctoKit;
-				SDKROOT = macosx;
 			};
 			name = Debug;
 		};
@@ -1881,19 +1857,9 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D0040C7C19FEBF53002869A6 /* Release.xcconfig */;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_PREFIX_HEADER = "OctoKit/OctoKit-Prefix.pch";
-				HEADER_SEARCH_PATHS = (
-					"External/Mantle/MantleTests/expecta/src/**",
-					External/Mantle/MantleTests/specta/src,
-					External/OHHTTPStubs,
-				);
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				PRODUCT_NAME = OctoKit;
-				SDKROOT = macosx;
 			};
 			name = Release;
 		};
@@ -2029,19 +1995,9 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D0040C7B19FEBF53002869A6 /* Profile.xcconfig */;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_PREFIX_HEADER = "OctoKit/OctoKit-Prefix.pch";
-				HEADER_SEARCH_PATHS = (
-					"External/Mantle/MantleTests/expecta/src/**",
-					External/Mantle/MantleTests/specta/src,
-					External/OHHTTPStubs,
-				);
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				PRODUCT_NAME = OctoKit;
-				SDKROOT = macosx;
 			};
 			name = Profile;
 		};
