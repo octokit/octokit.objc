@@ -6,6 +6,7 @@
 //  Copyright (c) 2012 GitHub. All rights reserved.
 //
 
+#import <SystemConfiguration/SystemConfiguration.h>
 #import <AFNetworking/AFNetworking.h>
 
 @class OCTServer;
