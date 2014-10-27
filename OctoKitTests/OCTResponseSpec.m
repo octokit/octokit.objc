@@ -26,32 +26,32 @@ beforeEach(^{
 
 	responseWithHeaders = [^{
 		NSHTTPURLResponse *URLResponse = [[NSHTTPURLResponse alloc] initWithURL:OCTServer.dotComServer.APIEndpoint statusCode:200 HTTPVersion:@"HTTP/1.1" headerFields:headers];
-		expect(URLResponse).notTo.beNil();
+		expect(URLResponse).notTo(beNil());
 
 		OCTResponse *response = [[OCTResponse alloc] initWithHTTPURLResponse:URLResponse parsedResult:nil];
-		expect(response).notTo.beNil();
+		expect(response).notTo(beNil());
 
 		return response;
 	} copy];
 });
 
 it(@"should have an etag", ^{
-	expect(responseWithHeaders().etag).to.equal(etag);
+	expect(responseWithHeaders().etag).to(equal(etag));
 });
 
 it(@"should have rate limit info", ^{
 	OCTResponse *response = responseWithHeaders();
-	expect(response.maximumRequestsPerHour).to.equal(5000);
-	expect(response.remainingRequests).to.equal(4900);
+	expect(response.maximumRequestsPerHour).to(equal(5000));
+	expect(response.remainingRequests).to(equal(4900));
 });
 
 it(@"should not have a poll interval by default", ^{
-	expect(responseWithHeaders().pollInterval).to.beNil();
+	expect(responseWithHeaders().pollInterval).to(beNil());
 });
 
 it(@"should have a poll interval when the header is present", ^{
 	headers[@"X-Poll-Interval"] = @"2.5";
-	expect(responseWithHeaders().pollInterval).to.beCloseTo(@2.5);
+	expect(responseWithHeaders().pollInterval).to(beCloseTo(@2.5));
 });
 
 QuickSpecEnd

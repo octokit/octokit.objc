@@ -49,7 +49,7 @@ describe(@"JSON serialization", ^{
 		};
 
 		NSDictionary *editDict = [MTLJSONAdapter JSONDictionaryFromModel:edit];
-		expect(editDict).to.equal(expectedDict);
+		expect(editDict).to(equal(expectedDict));
 	});
 });
 

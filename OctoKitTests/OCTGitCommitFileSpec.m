@@ -25,18 +25,18 @@ describe(@"github.com file", ^{
 
 	beforeEach(^{
 		file = [MTLJSONAdapter modelOfClass:OCTGitCommitFile.class fromJSONDictionary:representation error:NULL];
-		expect(file).notTo.beNil();
+		expect(file).notTo(beNil());
 	});
 
 	it(@"should initialize from an external representation", ^{
-		expect(file.filename).to.equal(@"file1.txt");
-		expect(file.countOfAdditions).to.equal(10);
-		expect(file.countOfDeletions).to.equal(2);
-		expect(file.countOfChanges).to.equal(12);
-		expect(file.status).to.equal(@"modified");
-		expect(file.rawURL).to.equal([NSURL URLWithString:@"https://github.com/octocat/Hello-World/raw/7ca483543807a51b6079e54ac4cc392bc29ae284/file1.txt"]);
-		expect(file.blobURL).to.equal([NSURL URLWithString:@"https://github.com/octocat/Hello-World/blob/7ca483543807a51b6079e54ac4cc392bc29ae284/file1.txt"]);
-		expect(file.patch).to.equal(@"@@ -29,7 +29,7 @@.....");
+		expect(file.filename).to(equal(@"file1.txt"));
+		expect(file.countOfAdditions).to(equal(10));
+		expect(file.countOfDeletions).to(equal(2));
+		expect(file.countOfChanges).to(equal(12));
+		expect(file.status).to(equal(@"modified"));
+		expect(file.rawURL).to(equal([NSURL URLWithString:@"https://github.com/octocat/Hello-World/raw/7ca483543807a51b6079e54ac4cc392bc29ae284/file1.txt"]));
+		expect(file.blobURL).to(equal([NSURL URLWithString:@"https://github.com/octocat/Hello-World/blob/7ca483543807a51b6079e54ac4cc392bc29ae284/file1.txt"]));
+		expect(file.patch).to(equal(@"@@ -29,7 +29,7 @@....."));
 	});
 });
 

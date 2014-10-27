@@ -22,17 +22,17 @@ it(@"should map OCTResponses to parsedResults", ^{
 
 	__block NSUInteger count = 0;
 	[signal subscribeNext:^(id x) {
-		expect(x).to.beKindOf(OCTResponse.class);
+		expect(x).to(beKindOf(OCTResponse.class));
 		count++;
 	}];
-	expect(count).will.equal(2);
+	expect(count).toEventually(equal(2));
 
 	count = 0;
 	[[signal oct_parsedResults] subscribeNext:^(id x) {
-		expect(x).to.beKindOf(NSDictionary.class);
+		expect(x).to(beKindOf(NSDictionary.class));
 		count++;
 	}];
-	expect(count).will.equal(2);
+	expect(count).toEventually(equal(2));
 });
 
 QuickSpecEnd

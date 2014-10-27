@@ -27,13 +27,13 @@ describe(@"github.com branch", ^{
 
 	beforeEach(^{
 		branch = [MTLJSONAdapter modelOfClass:OCTBranch.class fromJSONDictionary:representation error:NULL];
-		expect(branch).notTo.beNil();
+		expect(branch).notTo(beNil());
 	});
 
 	it(@"should initialize from an external representation", ^{
-		expect(branch.name).to.equal(@"master");
-		expect(branch.lastCommitSHA).to.equal(@"6dcb09b5b57875f334f61aebed695e2e4193db5e");
-		expect(branch.lastCommitURL).to.equal([NSURL URLWithString:@""@"https://api.github.com/repos/octocat/Hello-World/commits/c5b97d5ae6c19d5c5df71a34c7fbeeda2479ccbc"]);
+		expect(branch.name).to(equal(@"master"));
+		expect(branch.lastCommitSHA).to(equal(@"6dcb09b5b57875f334f61aebed695e2e4193db5e"));
+		expect(branch.lastCommitURL).to(equal([NSURL URLWithString:@""@"https://api.github.com/repos/octocat/Hello-World/commits/c5b97d5ae6c19d5c5df71a34c7fbeeda2479ccbc"]));
 	});
 });
 

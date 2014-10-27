@@ -32,9 +32,9 @@ it(@"should parse an ISO 8601 string into a date and back", ^{
 	comps.second = 43;
 
 	NSDate *date = [NSDateFormatter oct_dateFromString:str];
-	expect(date).to.equal([gregorian dateFromComponents:comps]);
+	expect(date).to(equal([gregorian dateFromComponents:comps]));
 
-	expect([NSDateFormatter oct_stringFromDate:date]).to.equal(str);
+	expect([NSDateFormatter oct_stringFromDate:date]).to(equal(str));
 });
 
 it(@"shouldn't use ISO week-numbering year", ^{
@@ -49,9 +49,9 @@ it(@"shouldn't use ISO week-numbering year", ^{
 	comps.second = 0;
 
 	NSDate *date = [NSDateFormatter oct_dateFromString:str];
-	expect(date).to.equal([gregorian dateFromComponents:comps]);
+	expect(date).to(equal([gregorian dateFromComponents:comps]));
 
-	expect([NSDateFormatter oct_stringFromDate:date]).to.equal(str);
+	expect([NSDateFormatter oct_stringFromDate:date]).to(equal(str));
 });
 
 QuickSpecEnd

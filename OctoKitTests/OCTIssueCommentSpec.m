@@ -36,21 +36,21 @@ NSDictionary *representation = @{
 
 __block OCTIssueComment *comment;
 
-before(^{
+beforeEach(^{
 	comment = [MTLJSONAdapter modelOfClass:OCTIssueComment.class fromJSONDictionary:representation error:NULL];
-	expect(comment).notTo.beNil();
+	expect(comment).notTo(beNil());
 });
 
-itShouldBehaveLike(OCTObjectArchivingSharedExamplesName, ^{
+itBehavesLike(OCTObjectArchivingSharedExamplesName, ^{
 	return @{ OCTObjectKey: comment };
 });
 
 it(@"should initialize", ^{
-	expect(comment.objectID).to.equal(@"1");
-	expect(comment.body).to.equal(@"Me too");
-	expect(comment.creationDate).to.equal([[[ISO8601DateFormatter alloc] init] dateFromString:@"2011-04-14T16:00:49Z"]);
-	expect(comment.updatedDate).to.equal([[[ISO8601DateFormatter alloc] init] dateFromString:@"2011-04-14T18:00:49Z"]);
-	expect(comment.HTMLURL).to.equal([NSURL URLWithString:@"https://github.com/octocat/Hello-World/issues/1347#issuecomment-1"]);
+	expect(comment.objectID).to(equal(@"1"));
+	expect(comment.body).to(equal(@"Me too"));
+	expect(comment.creationDate).to(equal([[[ISO8601DateFormatter alloc] init] dateFromString:@"2011-04-14T16:00:49Z"]));
+	expect(comment.updatedDate).to(equal([[[ISO8601DateFormatter alloc] init] dateFromString:@"2011-04-14T18:00:49Z"]));
+	expect(comment.HTMLURL).to(equal([NSURL URLWithString:@"https://github.com/octocat/Hello-World/issues/1347#issuecomment-1"]));
 });
 
 QuickSpecEnd

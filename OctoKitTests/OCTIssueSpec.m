@@ -73,25 +73,25 @@ NSDictionary *representation = @{
 
 __block OCTIssue *issue;
 
-before(^{
+beforeEach(^{
 	issue = [MTLJSONAdapter modelOfClass:OCTIssue.class fromJSONDictionary:representation error:NULL];
-	expect(issue).notTo.beNil();
+	expect(issue).notTo(beNil());
 });
 
-itShouldBehaveLike(OCTObjectArchivingSharedExamplesName, ^{
+itBehavesLike(OCTObjectArchivingSharedExamplesName, ^{
 	return @{ OCTObjectKey: issue };
 });
 
 it(@"should initialize", ^{
-	expect(issue.objectID).to.equal(@"1347");
-	expect(issue.URL).to.equal([NSURL URLWithString:@"https://api.github.com/repos/octocat/Hello-World/issues/1"]);
-	expect(issue.HTMLURL).to.equal([NSURL URLWithString:@"https://github.com/octocat/Hello-World/issues/1"]);
-	expect(issue.title).to.equal(@"Found a bug");
+	expect(issue.objectID).to(equal(@"1347"));
+	expect(issue.URL).to(equal([NSURL URLWithString:@"https://api.github.com/repos/octocat/Hello-World/issues/1"]));
+	expect(issue.HTMLURL).to(equal([NSURL URLWithString:@"https://github.com/octocat/Hello-World/issues/1"]));
+	expect(issue.title).to(equal(@"Found a bug"));
 
-	expect(issue.pullRequest).to.beKindOf(OCTPullRequest.class);
-	expect(issue.pullRequest.objectID).to.equal(issue.objectID);
-	expect(issue.pullRequest.title).to.equal(issue.title);
-	expect(issue.pullRequest.HTMLURL).to.equal([NSURL URLWithString:@"https://github.com/octocat/Hello-World/issues/1"]);
+	expect(issue.pullRequest).to(beKindOf(OCTPullRequest.class));
+	expect(issue.pullRequest.objectID).to(equal(issue.objectID));
+	expect(issue.pullRequest.title).to(equal(issue.title));
+	expect(issue.pullRequest.HTMLURL).to(equal([NSURL URLWithString:@"https://github.com/octocat/Hello-World/issues/1"]));
 });
 
 QuickSpecEnd
