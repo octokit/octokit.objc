@@ -24,7 +24,7 @@ beforeSuite(^{
 	expect(testContentData).notTo(beNil());
 
 	contentDictionaries = [NSJSONSerialization JSONObjectWithData:testContentData options:0 error:NULL];
-	expect(contentDictionaries).to(beAnInstanceOf(NSArray.class));
+	expect(contentDictionaries).to(beAKindOf(NSArray.class));
 });
 
 __block NSDictionary *contentByName;
@@ -34,7 +34,7 @@ beforeEach(^{
 	for (NSDictionary *contentDict in contentDictionaries) {
 		OCTContent *content = [MTLJSONAdapter modelOfClass:OCTContent.class fromJSONDictionary:contentDict error:NULL];
 		expect(content).notTo(beNil());
-		expect(content).to(beAnInstanceOf(OCTContent.class));
+		expect(content).to(beAKindOf(OCTContent.class));
 
 		// Although each instance should be of the OCTContent kind none should
 		// be an instance of OCTContent itself.
@@ -53,7 +53,7 @@ describe(@"OCTDirectoryContent", ^{
 	it(@"should have deserialized", ^{
 		OCTDirectoryContent *content = contentByName[@"octokit"];
 		expect(content).notTo(beNil());
-		expect(content).to(beAnInstanceOf(OCTDirectoryContent.class));
+		expect(content).to(beAKindOf(OCTDirectoryContent.class));
 
 		expect(content.name).to(equal(@"octokit"));
 		expect(@(content.size)).to(equal(@0));
@@ -66,7 +66,7 @@ describe(@"OCTFileContent", ^{
 	it(@"should have deserialized", ^{
 		OCTFileContent *content = contentByName[@"README.md"];
 		expect(content).notTo(beNil());
-		expect(content).to(beAnInstanceOf(OCTFileContent.class));
+		expect(content).to(beAKindOf(OCTFileContent.class));
 
 		expect(content.name).to(equal(@"README.md"));
 		expect(@(content.size)).to(equal(@2706));
@@ -81,7 +81,7 @@ describe(@"OCTSubmoduleContent", ^{
 	it(@"should have deserialized", ^{
 		OCTSubmoduleContent *content = contentByName[@"qunit"];
 		expect(content).notTo(beNil());
-		expect(content).to(beAnInstanceOf(OCTSubmoduleContent.class));
+		expect(content).to(beAKindOf(OCTSubmoduleContent.class));
 
 		expect(content.name).to(equal(@"qunit"));
 		expect(@(content.size)).to(equal(@0));
@@ -95,7 +95,7 @@ describe(@"OCTSymlinkContent", ^{
 	it(@"should have deserialized", ^{
 		OCTSymlinkContent *content = contentByName[@"some-symlink"];
 		expect(content).notTo(beNil());
-		expect(content).to(beAnInstanceOf(OCTSymlinkContent.class));
+		expect(content).to(beAKindOf(OCTSymlinkContent.class));
 
 		expect(content.name).to(equal(@"some-symlink"));
 		expect(@(content.size)).to(equal(@23));
