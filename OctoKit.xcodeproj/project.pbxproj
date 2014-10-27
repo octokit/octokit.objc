@@ -274,6 +274,36 @@
 		D087B941181A47EB00821DCD /* user.json in Resources */ = {isa = PBXBuildFile; fileRef = D087B940181A47EB00821DCD /* user.json */; };
 		D087B944181A485200821DCD /* access_token.json in Resources */ = {isa = PBXBuildFile; fileRef = D087B943181A485200821DCD /* access_token.json */; };
 		D087B947181A4F9200821DCD /* NSURLAdditionsSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = D087B946181A4F9200821DCD /* NSURLAdditionsSpec.m */; };
+		D0A64EA319FEDF0300B09DEB /* SwiftSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0A64EA219FEDF0300B09DEB /* SwiftSpec.swift */; };
+		D0A64EA419FEDF0300B09DEB /* SwiftSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0A64EA219FEDF0300B09DEB /* SwiftSpec.swift */; };
+		D0A64EA519FEDF0E00B09DEB /* NSDateFormatterAdditionsSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = D0B9C8FC16BC7A260029C5B4 /* NSDateFormatterAdditionsSpec.m */; };
+		D0A64EA619FEDF0E00B09DEB /* NSURLAdditionsSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = D087B946181A4F9200821DCD /* NSURLAdditionsSpec.m */; };
+		D0A64EA719FEDF0E00B09DEB /* NSValueTransformerAdditionsSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = D0772E7B16BD2AD5009DFF72 /* NSValueTransformerAdditionsSpec.m */; };
+		D0A64EA819FEDF0E00B09DEB /* RACSignalAdditionsSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = F6E2EC3F16EB04C50096C268 /* RACSignalAdditionsSpec.m */; };
+		D0A64EA919FEDF0E00B09DEB /* OCTAuthorizationSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 8813686517A1A77000F74214 /* OCTAuthorizationSpec.m */; };
+		D0A64EAA19FEDF0E00B09DEB /* OCTClientSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = D05E751F16D35886001AA17B /* OCTClientSpec.m */; };
+		D0A64EAB19FEDF0E00B09DEB /* OCTCommitSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = D000EC8F18564C0800468E84 /* OCTCommitSpec.m */; };
+		D0A64EAC19FEDF0E00B09DEB /* OCTCommitCommentSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = D08721BD169E396F00016ACA /* OCTCommitCommentSpec.m */; };
+		D0A64EAD19FEDF0E00B09DEB /* OCTContentSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CB0589F17933F51002CF498 /* OCTContentSpec.m */; };
+		D0A64EAE19FEDF0E00B09DEB /* OCTEventSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = D08721BE169E396F00016ACA /* OCTEventSpec.m */; };
+		D0A64EAF19FEDF0E00B09DEB /* OCTGistSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = D0DD8EF717BC5C0300657FDA /* OCTGistSpec.m */; };
+		D0A64EB019FEDF0E00B09DEB /* OCTGistEditSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 8354246718CA99DD0011C432 /* OCTGistEditSpec.m */; };
+		D0A64EB119FEDF0E00B09DEB /* OCTIssueSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = D08721BF169E396F00016ACA /* OCTIssueSpec.m */; };
+		D0A64EB219FEDF0E00B09DEB /* OCTIssueCommentSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A1F642A17F11EFB008155CF /* OCTIssueCommentSpec.m */; };
+		D0A64EB319FEDF0E00B09DEB /* OCTObjectSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = D08721C1169E396F00016ACA /* OCTObjectSpec.m */; };
+		D0A64EB419FEDF0E00B09DEB /* OCTOrganizationSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = D08721CA169E398C00016ACA /* OCTOrganizationSpec.m */; };
+		D0A64EB519FEDF0E00B09DEB /* OCTPullRequestCommentSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = D08721CB169E398C00016ACA /* OCTPullRequestCommentSpec.m */; };
+		D0A64EB619FEDF0E00B09DEB /* OCTPullRequestSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = D08721CC169E398C00016ACA /* OCTPullRequestSpec.m */; };
+		D0A64EB719FEDF0E00B09DEB /* OCTRefSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = D000EC9218564D2A00468E84 /* OCTRefSpec.m */; };
+		D0A64EB819FEDF0E00B09DEB /* OCTRepositorySpec.m in Sources */ = {isa = PBXBuildFile; fileRef = D08721CD169E398C00016ACA /* OCTRepositorySpec.m */; };
+		D0A64EB919FEDF0E00B09DEB /* OCTResponseSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = D058675516F2649800941A32 /* OCTResponseSpec.m */; };
+		D0A64EBA19FEDF0E00B09DEB /* OCTServerSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = D08721CE169E398C00016ACA /* OCTServerSpec.m */; };
+		D0A64EBB19FEDF0E00B09DEB /* OCTTreeSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 88CD633217D8DA5A00E2CD47 /* OCTTreeSpec.m */; };
+		D0A64EBC19FEDF0E00B09DEB /* OCTUserSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = D08721CF169E398C00016ACA /* OCTUserSpec.m */; };
+		D0A64EBD19FEDF0E00B09DEB /* OCTBranchSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = F01674EC18A6D22A00C434AC /* OCTBranchSpec.m */; };
+		D0A64EBE19FEDF0E00B09DEB /* OCTGitCommitSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = F054C0AB18A7BDAB00AA2DC1 /* OCTGitCommitSpec.m */; };
+		D0A64EBF19FEDF0E00B09DEB /* OCTGitCommitFileSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 1643AE49C95AD81D363073A5 /* OCTGitCommitFileSpec.m */; };
+		D0A64EC019FEDF0E00B09DEB /* OCTTestClient.m in Sources */ = {isa = PBXBuildFile; fileRef = D087B937181A401400821DCD /* OCTTestClient.m */; };
 		D0B9C8F416BC78970029C5B4 /* NSDateFormatter+OCTFormattingAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D0B9C8F116BC78970029C5B4 /* NSDateFormatter+OCTFormattingAdditions.m */; };
 		D0B9C8FD16BC7A260029C5B4 /* NSDateFormatterAdditionsSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = D0B9C8FC16BC7A260029C5B4 /* NSDateFormatterAdditionsSpec.m */; };
 		D0BC049E1840391600EDD926 /* OCTClient+User.h in Headers */ = {isa = PBXBuildFile; fileRef = D0BC049C1840391600EDD926 /* OCTClient+User.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -539,6 +569,7 @@
 		D087B940181A47EB00821DCD /* user.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = user.json; sourceTree = "<group>"; };
 		D087B943181A485200821DCD /* access_token.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = access_token.json; sourceTree = "<group>"; };
 		D087B946181A4F9200821DCD /* NSURLAdditionsSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSURLAdditionsSpec.m; sourceTree = "<group>"; };
+		D0A64EA219FEDF0300B09DEB /* SwiftSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftSpec.swift; sourceTree = "<group>"; };
 		D0B9C8F016BC78970029C5B4 /* NSDateFormatter+OCTFormattingAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDateFormatter+OCTFormattingAdditions.h"; sourceTree = "<group>"; };
 		D0B9C8F116BC78970029C5B4 /* NSDateFormatter+OCTFormattingAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDateFormatter+OCTFormattingAdditions.m"; sourceTree = "<group>"; };
 		D0B9C8FC16BC7A260029C5B4 /* NSDateFormatterAdditionsSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSDateFormatterAdditionsSpec.m; sourceTree = "<group>"; };
@@ -836,6 +867,7 @@
 			isa = PBXGroup;
 			children = (
 				D0D8C08F16DFF1540070399E /* Stubs */,
+				D0A64EA219FEDF0300B09DEB /* SwiftSpec.swift */,
 				D0871EC9169E2EFC00016ACA /* OctoKitTests-Info.plist */,
 				D087B936181A401400821DCD /* OCTTestClient.h */,
 				D087B937181A401400821DCD /* OCTTestClient.m */,
@@ -1546,6 +1578,35 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D0A64EA519FEDF0E00B09DEB /* NSDateFormatterAdditionsSpec.m in Sources */,
+				D0A64EBC19FEDF0E00B09DEB /* OCTUserSpec.m in Sources */,
+				D0A64EBB19FEDF0E00B09DEB /* OCTTreeSpec.m in Sources */,
+				D0A64EB419FEDF0E00B09DEB /* OCTOrganizationSpec.m in Sources */,
+				D0A64EB219FEDF0E00B09DEB /* OCTIssueCommentSpec.m in Sources */,
+				D0A64EB319FEDF0E00B09DEB /* OCTObjectSpec.m in Sources */,
+				D0A64EA919FEDF0E00B09DEB /* OCTAuthorizationSpec.m in Sources */,
+				D0A64EC019FEDF0E00B09DEB /* OCTTestClient.m in Sources */,
+				D0A64EA719FEDF0E00B09DEB /* NSValueTransformerAdditionsSpec.m in Sources */,
+				D0A64EBE19FEDF0E00B09DEB /* OCTGitCommitSpec.m in Sources */,
+				D0A64EB119FEDF0E00B09DEB /* OCTIssueSpec.m in Sources */,
+				D0A64EBD19FEDF0E00B09DEB /* OCTBranchSpec.m in Sources */,
+				D0A64EAA19FEDF0E00B09DEB /* OCTClientSpec.m in Sources */,
+				D0A64EB519FEDF0E00B09DEB /* OCTPullRequestCommentSpec.m in Sources */,
+				D0A64EB719FEDF0E00B09DEB /* OCTRefSpec.m in Sources */,
+				D0A64EB919FEDF0E00B09DEB /* OCTResponseSpec.m in Sources */,
+				D0A64EB819FEDF0E00B09DEB /* OCTRepositorySpec.m in Sources */,
+				D0A64EAF19FEDF0E00B09DEB /* OCTGistSpec.m in Sources */,
+				D0A64EB619FEDF0E00B09DEB /* OCTPullRequestSpec.m in Sources */,
+				D0A64EAB19FEDF0E00B09DEB /* OCTCommitSpec.m in Sources */,
+				D0A64EBA19FEDF0E00B09DEB /* OCTServerSpec.m in Sources */,
+				D0A64EAD19FEDF0E00B09DEB /* OCTContentSpec.m in Sources */,
+				D0A64EAE19FEDF0E00B09DEB /* OCTEventSpec.m in Sources */,
+				D0A64EA419FEDF0300B09DEB /* SwiftSpec.swift in Sources */,
+				D0A64EBF19FEDF0E00B09DEB /* OCTGitCommitFileSpec.m in Sources */,
+				D0A64EAC19FEDF0E00B09DEB /* OCTCommitCommentSpec.m in Sources */,
+				D0A64EB019FEDF0E00B09DEB /* OCTGistEditSpec.m in Sources */,
+				D0A64EA619FEDF0E00B09DEB /* NSURLAdditionsSpec.m in Sources */,
+				D0A64EA819FEDF0E00B09DEB /* RACSignalAdditionsSpec.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1643,6 +1704,7 @@
 				F6E2EC4016EB04C60096C268 /* RACSignalAdditionsSpec.m in Sources */,
 				D000EC9318564D2A00468E84 /* OCTRefSpec.m in Sources */,
 				F054C0AC18A7BDAB00AA2DC1 /* OCTGitCommitSpec.m in Sources */,
+				D0A64EA319FEDF0300B09DEB /* SwiftSpec.swift in Sources */,
 				D0DD8EF817BC5C0300657FDA /* OCTGistSpec.m in Sources */,
 				D058675616F2649800941A32 /* OCTResponseSpec.m in Sources */,
 				1643A17DA3F90662766C5154 /* OCTGitCommitFileSpec.m in Sources */,
@@ -1703,6 +1765,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D0040C8819FEBF53002869A6 /* Mac-Application.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
 					"$(inherited)",
@@ -1712,7 +1775,10 @@
 					External/OHHTTPStubs,
 				);
 				INFOPLIST_FILE = "OctoKitTests/OctoKitTests-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				PRODUCT_NAME = "OctoKit Mac Tests";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Test;
 		};
@@ -1772,6 +1838,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D0040C8319FEBF53002869A6 /* iOS-Application.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -1781,7 +1848,9 @@
 					External/OHHTTPStubs,
 				);
 				INFOPLIST_FILE = "OctoKitTests/OctoKitTests-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -1789,6 +1858,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D0040C8319FEBF53002869A6 /* iOS-Application.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -1798,7 +1868,9 @@
 					External/OHHTTPStubs,
 				);
 				INFOPLIST_FILE = "OctoKitTests/OctoKitTests-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Test;
 		};
@@ -1806,6 +1878,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D0040C8319FEBF53002869A6 /* iOS-Application.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -1815,6 +1888,7 @@
 					External/OHHTTPStubs,
 				);
 				INFOPLIST_FILE = "OctoKitTests/OctoKitTests-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -1823,6 +1897,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D0040C8319FEBF53002869A6 /* iOS-Application.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -1832,6 +1907,7 @@
 					External/OHHTTPStubs,
 				);
 				INFOPLIST_FILE = "OctoKitTests/OctoKitTests-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Profile;
@@ -1888,6 +1964,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D0040C8819FEBF53002869A6 /* Mac-Application.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
 					"$(inherited)",
@@ -1897,7 +1974,10 @@
 					External/OHHTTPStubs,
 				);
 				INFOPLIST_FILE = "OctoKitTests/OctoKitTests-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				PRODUCT_NAME = "OctoKit Mac Tests";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -1905,6 +1985,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D0040C8819FEBF53002869A6 /* Mac-Application.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
 					"$(inherited)",
@@ -1914,6 +1995,8 @@
 					External/OHHTTPStubs,
 				);
 				INFOPLIST_FILE = "OctoKitTests/OctoKitTests-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				PRODUCT_NAME = "OctoKit Mac Tests";
 			};
 			name = Release;
@@ -1946,6 +2029,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D0040C8819FEBF53002869A6 /* Mac-Application.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
 					"$(inherited)",
@@ -1955,6 +2039,8 @@
 					External/OHHTTPStubs,
 				);
 				INFOPLIST_FILE = "OctoKitTests/OctoKitTests-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				PRODUCT_NAME = "OctoKit Mac Tests";
 			};
 			name = Profile;
