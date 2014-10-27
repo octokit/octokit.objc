@@ -20,11 +20,11 @@ NSString * const OCTObjectExternalRepresentationKey = @"externalRepresentation";
 
 QuickSharedExampleGroupsBegin(OCTObjectSharedExamples)
 
-sharedExamples(OCTObjectArchivingSharedExamplesName, ^(NSDictionary *data){
+sharedExamples(OCTObjectArchivingSharedExamplesName, ^(QCKDSLSharedExampleContext data) {
 	__block OCTObject *obj;
 
 	beforeEach(^{
-		obj = data[OCTObjectKey];
+		obj = data()[OCTObjectKey];
 		expect(obj).notTo(beNil());
 	});
 
@@ -37,17 +37,17 @@ sharedExamples(OCTObjectArchivingSharedExamplesName, ^(NSDictionary *data){
 	});
 });
 
-sharedExamples(OCTObjectExternalRepresentationSharedExamplesName, ^(NSDictionary *data){
+sharedExamples(OCTObjectExternalRepresentationSharedExamplesName, ^(QCKDSLSharedExampleContext data) {
 	__block OCTObject *obj;
 	__block NSDictionary *representation;
 
 	__block void (^expectRepresentationsToMatch)(NSDictionary *, NSDictionary *);
 
 	beforeEach(^{
-		obj = data[OCTObjectKey];
+		obj = data()[OCTObjectKey];
 		expect(obj).notTo(beNil());
 
-		representation = data[OCTObjectExternalRepresentationKey];
+		representation = data()[OCTObjectExternalRepresentationKey];
 		expect(representation).notTo(beNil());
 
 		__block void (^expectRepresentationsToMatchRecur)(NSDictionary *, NSDictionary *);

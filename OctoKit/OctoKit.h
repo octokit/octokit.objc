@@ -18,6 +18,7 @@ FOUNDATION_EXPORT const unsigned char OctoKitVersionString[];
 #import <OctoKit/NSURL+OCTQueryAdditions.h>
 #import <OctoKit/NSValueTransformer+OCTPredefinedTransformerAdditions.h>
 #import <OctoKit/RACSignal+OCTClientAdditions.h>
+#import <OctoKit/OCTAuthorization.h>
 #import <OctoKit/OCTCommit.h>
 #import <OctoKit/OCTCommitComment.h>
 #import <OctoKit/OCTCommitCommentEvent.h>

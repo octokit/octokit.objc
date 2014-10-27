@@ -8,10 +8,10 @@
 
 #import <Nimble/Nimble.h>
 #import <OctoKit/OctoKit.h>
+#import <OHHTTPStubs/OHHTTPStubs.h>
 #import <Quick/Quick.h>
 
 #import "OCTTestClient.h"
-#import "OHHTTPStubs.h"
 
 QuickSpecBegin(OCTClientSpec)
 
