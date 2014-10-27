@@ -17,6 +17,7 @@ FOUNDATION_EXPORT const unsigned char OctoKitVersionString[];
 #import <OctoKit/NSDateFormatter+OCTFormattingAdditions.h>
 #import <OctoKit/NSURL+OCTQueryAdditions.h>
 #import <OctoKit/NSValueTransformer+OCTPredefinedTransformerAdditions.h>
+#import <OctoKit/OCTAccessToken.h>
 #import <OctoKit/OCTAuthorization.h>
 #import <OctoKit/OCTBlobTreeEntry.h>
 #import <OctoKit/OCTBranch.h>

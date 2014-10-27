@@ -304,6 +304,24 @@
 		D0A64EBE19FEDF0E00B09DEB /* OCTGitCommitSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = F054C0AB18A7BDAB00AA2DC1 /* OCTGitCommitSpec.m */; };
 		D0A64EBF19FEDF0E00B09DEB /* OCTGitCommitFileSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 1643AE49C95AD81D363073A5 /* OCTGitCommitFileSpec.m */; };
 		D0A64EC019FEDF0E00B09DEB /* OCTTestClient.m in Sources */ = {isa = PBXBuildFile; fileRef = D087B937181A401400821DCD /* OCTTestClient.m */; };
+		D0A64EC119FEE02300B09DEB /* access_token.json in Resources */ = {isa = PBXBuildFile; fileRef = D087B943181A485200821DCD /* access_token.json */; };
+		D0A64EC219FEE02300B09DEB /* authorizations.json in Resources */ = {isa = PBXBuildFile; fileRef = 8813687317A1AD1E00F74214 /* authorizations.json */; };
+		D0A64EC319FEE02300B09DEB /* commit.json in Resources */ = {isa = PBXBuildFile; fileRef = D000EC7C18564B6B00468E84 /* commit.json */; };
+		D0A64EC419FEE02300B09DEB /* content.json in Resources */ = {isa = PBXBuildFile; fileRef = 9CB0589C17933F43002CF498 /* content.json */; };
+		D0A64EC519FEE02300B09DEB /* events.json in Resources */ = {isa = PBXBuildFile; fileRef = D0D8C09016DFF1540070399E /* events.json */; };
+		D0A64EC619FEE02300B09DEB /* meta.json in Resources */ = {isa = PBXBuildFile; fileRef = D0E3E8C31835A32100EF530F /* meta.json */; };
+		D0A64EC719FEE02300B09DEB /* notifications.json in Resources */ = {isa = PBXBuildFile; fileRef = D0E41B8616DFF37E00E321CF /* notifications.json */; };
+		D0A64EC819FEE02300B09DEB /* page1.json in Resources */ = {isa = PBXBuildFile; fileRef = D0D8C09116DFF1540070399E /* page1.json */; };
+		D0A64EC919FEE02300B09DEB /* page2.json in Resources */ = {isa = PBXBuildFile; fileRef = D0D8C09216DFF1540070399E /* page2.json */; };
+		D0A64ECA19FEE02300B09DEB /* page3.json in Resources */ = {isa = PBXBuildFile; fileRef = D0D8C09316DFF1540070399E /* page3.json */; };
+		D0A64ECB19FEE02300B09DEB /* rate_limit.json in Resources */ = {isa = PBXBuildFile; fileRef = D0D8C09416DFF1540070399E /* rate_limit.json */; };
+		D0A64ECC19FEE02300B09DEB /* ref.json in Resources */ = {isa = PBXBuildFile; fileRef = D000EC8C18564BDD00468E84 /* ref.json */; };
+		D0A64ECD19FEE02300B09DEB /* repository.json in Resources */ = {isa = PBXBuildFile; fileRef = 9CF7FB9517957A6A00CA34FF /* repository.json */; };
+		D0A64ECE19FEE02300B09DEB /* tree.json in Resources */ = {isa = PBXBuildFile; fileRef = 88CD632817D8D77F00E2CD47 /* tree.json */; };
+		D0A64ECF19FEE02300B09DEB /* user.json in Resources */ = {isa = PBXBuildFile; fileRef = D087B940181A47EB00821DCD /* user.json */; };
+		D0A64ED019FEE02300B09DEB /* user_starred.json in Resources */ = {isa = PBXBuildFile; fileRef = 9CF7FBBB179581EC00CA34FF /* user_starred.json */; };
+		D0A64ED119FEE02300B09DEB /* git_commit.json in Resources */ = {isa = PBXBuildFile; fileRef = F054C0AE18A7BDD600AA2DC1 /* git_commit.json */; };
+		D0A64ED219FEE02300B09DEB /* git_commit_full.json in Resources */ = {isa = PBXBuildFile; fileRef = 1643A0ABD066520E65EA2DD7 /* git_commit_full.json */; };
 		D0B9C8F416BC78970029C5B4 /* NSDateFormatter+OCTFormattingAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D0B9C8F116BC78970029C5B4 /* NSDateFormatter+OCTFormattingAdditions.m */; };
 		D0B9C8FD16BC7A260029C5B4 /* NSDateFormatterAdditionsSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = D0B9C8FC16BC7A260029C5B4 /* NSDateFormatterAdditionsSpec.m */; };
 		D0BC049E1840391600EDD926 /* OCTClient+User.h in Headers */ = {isa = PBXBuildFile; fileRef = D0BC049C1840391600EDD926 /* OCTClient+User.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1471,6 +1489,24 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D0A64ECA19FEE02300B09DEB /* page3.json in Resources */,
+				D0A64EC919FEE02300B09DEB /* page2.json in Resources */,
+				D0A64EC819FEE02300B09DEB /* page1.json in Resources */,
+				D0A64EC619FEE02300B09DEB /* meta.json in Resources */,
+				D0A64EC119FEE02300B09DEB /* access_token.json in Resources */,
+				D0A64ECC19FEE02300B09DEB /* ref.json in Resources */,
+				D0A64ED219FEE02300B09DEB /* git_commit_full.json in Resources */,
+				D0A64ECB19FEE02300B09DEB /* rate_limit.json in Resources */,
+				D0A64ECE19FEE02300B09DEB /* tree.json in Resources */,
+				D0A64EC319FEE02300B09DEB /* commit.json in Resources */,
+				D0A64ECF19FEE02300B09DEB /* user.json in Resources */,
+				D0A64EC719FEE02300B09DEB /* notifications.json in Resources */,
+				D0A64EC519FEE02300B09DEB /* events.json in Resources */,
+				D0A64ED119FEE02300B09DEB /* git_commit.json in Resources */,
+				D0A64ED019FEE02300B09DEB /* user_starred.json in Resources */,
+				D0A64ECD19FEE02300B09DEB /* repository.json in Resources */,
+				D0A64EC219FEE02300B09DEB /* authorizations.json in Resources */,
+				D0A64EC419FEE02300B09DEB /* content.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

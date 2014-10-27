@@ -15,7 +15,7 @@ QuickSpecBegin(NSDateFormatterAdditions)
 __block NSCalendar *gregorian;
 
 beforeEach(^{
-	gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+	gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
 	gregorian.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"];
 	gregorian.timeZone = [NSTimeZone timeZoneWithAbbreviation:@"UTC"];
 });
