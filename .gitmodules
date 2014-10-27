@@ -3,7 +3,7 @@
 	url = https://github.com/github/AFNetworking.git
 [submodule "External/Mantle"]
 	path = External/Mantle
-	url = https://github.com/MantleFramework/Mantle.git
+	url = https://github.com/Mantle/Mantle.git
 [submodule "External/ReactiveCocoa"]
 	path = External/ReactiveCocoa
 	url = https://github.com/ReactiveCocoa/ReactiveCocoa.git
