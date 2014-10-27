@@ -8,6 +8,13 @@
 
 #import <Foundation/Foundation.h>
 #import <SystemConfiguration/SystemConfiguration.h>
+
+#if __IPHONE_OS_VERSION_MIN_REQUIRED
+	#import <MobileCoreServices/MobileCoreServices.h>
+#else
+	#import <CoreServices/CoreServices.h>
+#endif
+
 #import <AFNetworking/AFNetworking.h>
 
 @class OCTServer;
