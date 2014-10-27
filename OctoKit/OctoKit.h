@@ -17,18 +17,24 @@ FOUNDATION_EXPORT const unsigned char OctoKitVersionString[];
 #import <OctoKit/NSDateFormatter+OCTFormattingAdditions.h>
 #import <OctoKit/NSURL+OCTQueryAdditions.h>
 #import <OctoKit/NSValueTransformer+OCTPredefinedTransformerAdditions.h>
-#import <OctoKit/RACSignal+OCTClientAdditions.h>
 #import <OctoKit/OCTAuthorization.h>
+#import <OctoKit/OCTBlobTreeEntry.h>
+#import <OctoKit/OCTBranch.h>
+#import <OctoKit/OCTComment.h>
 #import <OctoKit/OCTCommit.h>
 #import <OctoKit/OCTCommitComment.h>
 #import <OctoKit/OCTCommitCommentEvent.h>
+#import <OctoKit/OCTCommitTreeEntry.h>
 #import <OctoKit/OCTContent.h>
+#import <OctoKit/OCTContentTreeEntry.h>
 #import <OctoKit/OCTDirectoryContent.h>
 #import <OctoKit/OCTEntity.h>
 #import <OctoKit/OCTEvent.h>
 #import <OctoKit/OCTFileContent.h>
 #import <OctoKit/OCTGist.h>
 #import <OctoKit/OCTGistFile.h>
+#import <OctoKit/OCTGitCommit.h>
+#import <OctoKit/OCTGitCommitFile.h>
 #import <OctoKit/OCTIssue.h>
 #import <OctoKit/OCTIssueComment.h>
 #import <OctoKit/OCTIssueCommentEvent.h>
@@ -47,6 +53,7 @@ FOUNDATION_EXPORT const unsigned char OctoKitVersionString[];
 #import <OctoKit/OCTRefEvent.h>
 #import <OctoKit/OCTRepository.h>
 #import <OctoKit/OCTResponse.h>
+#import <OctoKit/OCTReviewComment.h>
 #import <OctoKit/OCTServer.h>
 #import <OctoKit/OCTServerMetadata.h>
 #import <OctoKit/OCTSubmoduleContent.h>
@@ -55,11 +62,7 @@ FOUNDATION_EXPORT const unsigned char OctoKitVersionString[];
 #import <OctoKit/OCTTree.h>
 #import <OctoKit/OCTTreeEntry.h>
 #import <OctoKit/OCTUser.h>
-#import <OctoKit/OCTComment.h>
-#import <OctoKit/OCTReviewComment.h>
-#import <OctoKit/OCTBranch.h>
-#import <OctoKit/OCTGitCommit.h>
-#import <OctoKit/OCTGitCommitFile.h>
+#import <OctoKit/RACSignal+OCTClientAdditions.h>
 
 // OCTClient categories
 #import <OctoKit/OCTClient.h>

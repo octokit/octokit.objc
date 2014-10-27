@@ -10,6 +10,8 @@
 #import <OctoKit/OctoKit.h>
 #import <Quick/Quick.h>
 
+#import "OCTObjectSpec.h"
+
 QuickSpecBegin(OCTAuthorizationSpec)
 
 static NSString * const token = @"some-token";

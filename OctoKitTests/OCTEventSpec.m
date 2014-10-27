@@ -6,6 +6,7 @@
 //  Copyright (c) 2012 GitHub. All rights reserved.
 //
 
+#import <ISO8601DateFormatter/ISO8601DateFormatter.h>
 #import <Nimble/Nimble.h>
 #import <OctoKit/OctoKit.h>
 #import <Quick/Quick.h>
@@ -49,7 +50,7 @@ beforeEach(^{
 
 	// We don't support all of the event types in the test data, so we may not
 	// have an equal amount, but we should've deserialized some.
-	expect(eventsByID.count).to(beGreaterThan(0));
+	expect(@(eventsByID.count)).to(beGreaterThan(@0));
 });
 
 describe(@"archiving", ^{
@@ -86,8 +87,8 @@ describe(@"OCTPullRequestCommentEvent", ^{
 		expect(event.organizationLogin).to(equal(@"github"));
 
 		expect(event.comment).to(beAnInstanceOf(OCTPullRequestComment.class));
-		expect(@(event.comment.position)).to(equal(@14));
-		expect(@(event.comment.originalPosition)).to(equal(@14));
+		expect(event.comment.position).to(equal(@14));
+		expect(event.comment.originalPosition).to(equal(@14));
 		expect(event.comment.commitSHA).to(equal(@"7e731834f7fa981166cbb509a353dbe02eb5d1ea"));
 		expect(event.comment.originalCommitSHA).to(equal(@"7e731834f7fa981166cbb509a353dbe02eb5d1ea"));
 		expect(event.pullRequest).to(beNil());
@@ -134,7 +135,7 @@ describe(@"OCTPullRequestEvent", ^{
 		expect(event.actorLogin).to(equal(@"joshaber"));
 		expect(event.organizationLogin).to(equal(@"github"));
 
-		expect(event.action).to(equal(OCTIssueActionOpened));
+		expect(@(event.action)).to(equal(@(OCTIssueActionOpened)));
 		expect(event.pullRequest).to(beAnInstanceOf(OCTPullRequest.class));
 	});
 });
@@ -158,7 +159,7 @@ describe(@"OCTIssueEvent", ^{
 		expect(event.actorLogin).to(equal(@"jwilling"));
 		expect(event.organizationLogin).to(equal(@"github"));
 
-		expect(event.action).to(equal(OCTIssueActionOpened));
+		expect(@(event.action)).to(equal(@(OCTIssueActionOpened)));
 		expect(event.issue).to(beAnInstanceOf(OCTIssue.class));
 	});
 });
@@ -172,8 +173,8 @@ describe(@"OCTRefEvent", ^{
 		expect(event.actorLogin).to(equal(@"joshaber"));
 		expect(event.organizationLogin).to(equal(@"github"));
 
-		expect(event.refType).to(equal(OCTRefTypeBranch));
-		expect(event.eventType).to(equal(OCTRefEventCreated));
+		expect(@(event.refType)).to(equal(@(OCTRefTypeBranch)));
+		expect(@(event.eventType)).to(equal(@(OCTRefEventCreated)));
 		expect(event.refName).to(equal(@"perform-selector"));
 	});
 
@@ -185,8 +186,8 @@ describe(@"OCTRefEvent", ^{
 		expect(event.actorLogin).to(equal(@"joshaber"));
 		expect(event.organizationLogin).to(equal(@"github"));
 
-		expect(event.refType).to(equal(OCTRefTypeBranch));
-		expect(event.eventType).to(equal(OCTRefEventDeleted));
+		expect(@(event.refType)).to(equal(@(OCTRefTypeBranch)));
+		expect(@(event.eventType)).to(equal(@(OCTRefEventDeleted)));
 		expect(event.refName).to(equal(@"fix-make-first-responder"));
 	});
 });

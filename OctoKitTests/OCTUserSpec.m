@@ -182,7 +182,7 @@ describe(@"equality", ^{
 		OCTUser *user1 = [OCTUser userWithRawLogin:@"joshaber" server:OCTServer.dotComServer];
 		OCTUser *user2 = [OCTUser userWithRawLogin:@"joshaber" server:OCTServer.dotComServer];
 		expect(@([user1 isEqual:user2])).to(beTruthy());
-		expect(user1.hash).to(equal(user2.hash));
+		expect(@(user1.hash)).to(equal(@(user2.hash)));
 	});
 
 	it(@"shouldn't treat users with different servers or logins as equals", ^{

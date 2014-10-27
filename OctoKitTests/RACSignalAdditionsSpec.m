@@ -25,14 +25,14 @@ it(@"should map OCTResponses to parsedResults", ^{
 		expect(x).to(beAnInstanceOf(OCTResponse.class));
 		count++;
 	}];
-	expect(count).toEventually(equal(2));
+	expect(@(count)).toEventually(equal(@2));
 
 	count = 0;
 	[[signal oct_parsedResults] subscribeNext:^(id x) {
 		expect(x).to(beAnInstanceOf(NSDictionary.class));
 		count++;
 	}];
-	expect(count).toEventually(equal(2));
+	expect(@(count)).toEventually(equal(@2));
 });
 
 QuickSpecEnd

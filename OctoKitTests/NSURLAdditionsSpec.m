@@ -50,8 +50,8 @@ describe(@"-oct_queryArguments", ^{
 		expect(URL.oct_queryArguments.allKeys).to(equal((@[ @"a" ])));
 
 		NSInteger value = [URL.oct_queryArguments[@"a"] integerValue];
-		expect(value).to(beGreaterThanOrEqualTo(1));
-		expect(value).to(beLessThanOrEqualTo(3));
+		expect(@(value)).to(beGreaterThanOrEqualTo(@1));
+		expect(@(value)).to(beLessThanOrEqualTo(@3));
 	});
 
 	it(@"should replace percent escapes", ^{

@@ -6,6 +6,7 @@
 //  Copyright (c) 2013 GitHub. All rights reserved.
 //
 
+#import <ISO8601DateFormatter/ISO8601DateFormatter.h>
 #import <Nimble/Nimble.h>
 #import <OctoKit/OctoKit.h>
 #import <OHHTTPStubs/OHHTTPStubs.h>
@@ -216,8 +217,8 @@ describe(@"without a user", ^{
 		expect(repository.ownerLogin).to(equal(@"octokit"));
 		expect(repository.repoDescription).to(equal(@"GitHub API client for Objective-C"));
 		expect(repository.defaultBranch).to(equal(@"master"));
-		expect(repository.isPrivate).to(equal(@NO));
-		expect(repository.isFork).to(equal(@NO));
+		expect(@(repository.isPrivate)).to(equal(@NO));
+		expect(@(repository.isFork)).to(equal(@NO));
 		expect(repository.datePushed).to(equal([[[ISO8601DateFormatter alloc] init] dateFromString:@"2013-07-08T22:08:31Z"]));
 		expect(repository.SSHURL).to(equal(@"git@github.com:octokit/octokit.objc.git"));
 		expect(repository.HTTPSURL).to(equal([NSURL URLWithString:@"https://github.com/octokit/octokit.objc.git"]));
@@ -252,7 +253,7 @@ describe(@"without a user", ^{
 		expect(@(success)).to(beFalsy());
 		expect(error).notTo(beNil());
 		expect(error.domain).to(equal(OCTClientErrorDomain));
-		expect(error.code).to(equal(OCTClientErrorConnectionFailed));
+		expect(@(error.code)).to(equal(@(OCTClientErrorConnectionFailed)));
 	});
 });
 
@@ -281,7 +282,7 @@ describe(@"authenticated", ^{
 		expect(notification.threadURL).to(equal([NSURL URLWithString:@"https://api.github.com/notifications/threads/1"]));
 		expect(notification.subjectURL).to(equal([NSURL URLWithString:@"https://api.github.com/repos/pengwynn/octokit/issues/123"]));
 		expect(notification.latestCommentURL).to(equal([NSURL URLWithString:@"https://api.github.com/repos/pengwynn/octokit/issues/comments/123"]));
-		expect(notification.type).to(equal(OCTNotificationTypeIssue));
+		expect(@(notification.type)).to(equal(@(OCTNotificationTypeIssue)));
 		expect(notification.lastUpdatedDate).to(equal([[[ISO8601DateFormatter alloc] init] dateFromString:@"2012-09-25T07:54:41-07:00"]));
 
 		expect(notification.repository).notTo(beNil());
@@ -311,7 +312,7 @@ describe(@"authenticated", ^{
 		expect(repository.ownerLogin).to(equal(@"octocat"));
 		expect(repository.repoDescription).to(beNil());
 		expect(repository.defaultBranch).to(equal(@"master"));
-		expect(repository.isPrivate).to(equal(@NO));
+		expect(@(repository.isPrivate)).to(equal(@NO));
 		expect(repository.datePushed).to(equal([[[ISO8601DateFormatter alloc] init] dateFromString:@"2013-03-26T08:31:42Z"]));
 		expect(repository.SSHURL).to(equal(@"git@github.com:octocat/ThisIsATest.git"));
 		expect(repository.HTTPSURL).to(equal([NSURL URLWithString:@"https://github.com/octocat/ThisIsATest.git"]));
@@ -353,7 +354,7 @@ describe(@"unauthenticated", ^{
 		expect(repository.ownerLogin).to(equal(@"octocat"));
 		expect(repository.repoDescription).to(beNil());
 		expect(repository.defaultBranch).to(equal(@"master"));
-		expect(repository.isPrivate).to(equal(@NO));
+		expect(@(repository.isPrivate)).to(equal(@NO));
 		expect(repository.datePushed).to(equal([[[ISO8601DateFormatter alloc] init] dateFromString:@"2013-03-26T08:31:42Z"]));
 		expect(repository.SSHURL).to(equal(@"git@github.com:octocat/ThisIsATest.git"));
 		expect(repository.HTTPSURL).to(equal([NSURL URLWithString:@"https://github.com/octocat/ThisIsATest.git"]));
@@ -386,8 +387,8 @@ describe(@"sign in", ^{
 		BOOL success = [request asynchronouslyWaitUntilCompleted:&error];
 		expect(@(success)).to(beFalsy());
 		expect(error.domain).to(equal(OCTClientErrorDomain));
-		expect(error.code).to(equal(OCTClientErrorTwoFactorAuthenticationOneTimePasswordRequired));
-		expect([error.userInfo[OCTClientErrorOneTimePasswordMediumKey] integerValue]).to(equal(OCTClientOneTimePasswordMediumSMS));
+		expect(@(error.code)).to(equal(@(OCTClientErrorTwoFactorAuthenticationOneTimePasswordRequired)));
+		expect(error.userInfo[OCTClientErrorOneTimePasswordMediumKey]).to(equal(@(OCTClientOneTimePasswordMediumSMS)));
 	});
 
 	it(@"should request authorization", ^{
@@ -428,7 +429,7 @@ describe(@"sign in", ^{
 		BOOL success = [request asynchronouslyWaitUntilCompleted:&error];
 		expect(@(success)).to(beFalsy());
 		expect(error.domain).to(equal(OCTClientErrorDomain));
-		expect(error.code).to(equal(OCTClientErrorUnsupportedServer));
+		expect(@(error.code)).to(equal(@(OCTClientErrorUnsupportedServer)));
 	});
 
 	describe(@"+authorizeWithServerUsingWebBrowser:scopes:", ^{
@@ -496,7 +497,7 @@ describe(@"sign in", ^{
 			expect(error).notTo(beNil());
 
 			expect(error.domain).to(equal(OCTClientErrorDomain));
-			expect(error.code).to(equal(OCTClientErrorOpeningBrowserFailed));
+			expect(@(error.code)).to(equal(@(OCTClientErrorOpeningBrowserFailed)));
 		});
 	});
 
@@ -578,7 +579,7 @@ describe(@"+fetchMetadataForServer:", ^{
 		BOOL success = [request asynchronouslyWaitUntilCompleted:&error];
 		expect(@(success)).to(beFalsy());
 		expect(error.domain).to(equal(OCTClientErrorDomain));
-		expect(error.code).to(equal(OCTClientErrorUnsupportedServer));
+		expect(@(error.code)).to(equal(@(OCTClientErrorUnsupportedServer)));
 	});
 
 	it(@"should successfully fetch metadata through redirects", ^{

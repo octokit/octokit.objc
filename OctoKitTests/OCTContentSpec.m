@@ -40,7 +40,7 @@ beforeEach(^{
 		// be an instance of OCTContent itself.
 		expect(content.class).notTo(equal(OCTContent.class));
 
-		expect(content.name.length).to(beGreaterThan(0));
+		expect(@(content.name.length)).to(beGreaterThan(@0));
 		mutableContent[content.name] = content;
 	}
 
