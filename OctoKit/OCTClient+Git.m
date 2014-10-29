@@ -11,6 +11,7 @@
 #import "OCTCommit.h"
 #import "OCTRef.h"
 #import "OCTRepository.h"
+#import "OCTResponse.h"
 #import "OCTTree.h"
 #import "OCTTreeEntry.h"
 #import "RACSignal+OCTClientAdditions.h"

@@ -6,12 +6,14 @@
 //  Copyright (c) 2012 GitHub. All rights reserved.
 //
 
-#import "OCTUser.h"
+#import <Nimble/Nimble.h>
+#import <OctoKit/OctoKit.h>
+#import <Quick/Quick.h>
+
 #import "OCTObject+Private.h"
-#import "OCTServer.h"
 #import "OCTObjectSpec.h"
 
-SpecBegin(OCTUser)
+QuickSpecBegin(OCTUserSpec)
 
 describe(@"github.com user", ^{
 	NSDictionary *representation = @{
@@ -40,57 +42,57 @@ describe(@"github.com user", ^{
 
 	beforeEach(^{
 		user = [MTLJSONAdapter modelOfClass:OCTUser.class fromJSONDictionary:representation error:NULL];
-		expect(user).notTo.beNil();
+		expect(user).notTo(beNil());
 	});
 
 	it(@"should initialize from an external representation", ^{
-		expect(user.server).to.equal(OCTServer.dotComServer);
-		expect(user.login).to.equal(@"octocat");
-		expect(user.name).to.equal(@"Mona Lisa Octocat");
-		expect(user.objectID).to.equal(@"1");
-		expect(user.avatarURL).to.equal([NSURL URLWithString:@"https://github.com/images/error/octocat_happy.gif"]);
-		expect(user.company).to.equal(@"GitHub");
-		expect(user.blog).to.equal(@"https://github.com/blog");
-		expect(user.email).to.equal(@"octocat@github.com");
-		expect(user.publicRepoCount).to.equal(2);
+		expect(user.server).to(equal(OCTServer.dotComServer));
+		expect(user.login).to(equal(@"octocat"));
+		expect(user.name).to(equal(@"Mona Lisa Octocat"));
+		expect(user.objectID).to(equal(@"1"));
+		expect(user.avatarURL).to(equal([NSURL URLWithString:@"https://github.com/images/error/octocat_happy.gif"]));
+		expect(user.company).to(equal(@"GitHub"));
+		expect(user.blog).to(equal(@"https://github.com/blog"));
+		expect(user.email).to(equal(@"octocat@github.com"));
+		expect(@(user.publicRepoCount)).to(equal(@2));
 	});
 
-	itShouldBehaveLike(OCTObjectArchivingSharedExamplesName, ^{
+	itBehavesLike(OCTObjectArchivingSharedExamplesName, ^{
 		return @{ OCTObjectKey: user };
 	});
 
-	itShouldBehaveLike(OCTObjectExternalRepresentationSharedExamplesName, ^{
+	itBehavesLike(OCTObjectExternalRepresentationSharedExamplesName, ^{
 		return @{ OCTObjectKey: user, OCTObjectExternalRepresentationKey: representation };
 	});
 
 	it(@"should initialize with a name and email", ^{
 		OCTUser *user = [OCTUser userWithName:@"foobar" email:@"foo@bar.com"];
-		expect(user).notTo.beNil();
+		expect(user).notTo(beNil());
 
-		expect(user.server).to.equal(OCTServer.dotComServer);
-		expect(user.name).to.equal(@"foobar");
-		expect(user.email).to.equal(@"foo@bar.com");
+		expect(user.server).to(equal(OCTServer.dotComServer));
+		expect(user.name).to(equal(@"foobar"));
+		expect(user.email).to(equal(@"foo@bar.com"));
 	});
-	
+
 	it(@"should initialize with a login and server", ^{
 		OCTUser *user = [OCTUser userWithRawLogin:@"foo" server:OCTServer.dotComServer];
-		expect(user).notTo.beNil();
+		expect(user).notTo(beNil());
 
-		expect(user.server).to.equal(OCTServer.dotComServer);
-		expect(user.rawLogin).to.equal(@"foo");
+		expect(user.server).to(equal(OCTServer.dotComServer));
+		expect(user.rawLogin).to(equal(@"foo"));
 	});
 
 	it(@"should allow differing rawLogin and login properties", ^{
 		OCTUser *newUser = [OCTUser userWithRawLogin:@"octocat@github.com" server:OCTServer.dotComServer];
-		expect(newUser).notTo.beNil();
+		expect(newUser).notTo(beNil());
 
-		expect(newUser.server).to.equal(OCTServer.dotComServer);
-		expect(newUser.rawLogin).to.equal(@"octocat@github.com");
+		expect(newUser.server).to(equal(OCTServer.dotComServer));
+		expect(newUser.rawLogin).to(equal(@"octocat@github.com"));
 
 		[newUser mergeValuesForKeysFromModel:user];
 
-		expect(newUser.login).to.equal(@"octocat");
-		expect(newUser.rawLogin).to.equal(@"octocat@github.com");
+		expect(newUser.login).to(equal(@"octocat"));
+		expect(newUser.rawLogin).to(equal(@"octocat@github.com"));
 	});
 
 	it(@"should only merge rawLogin if the current value is nil", ^{
@@ -98,17 +100,17 @@ describe(@"github.com user", ^{
 				@keypath(OCTUser.new, login): @"octocat",
 				@keypath(OCTUser.new, server): OCTServer.dotComServer,
 			 } error:NULL];
-		expect(newUser).notTo.beNil();
+		expect(newUser).notTo(beNil());
 
-		expect(newUser.server).to.equal(OCTServer.dotComServer);
-		expect(newUser.login).to.equal(@"octocat");
-		expect(newUser.rawLogin).to.beNil();
+		expect(newUser.server).to(equal(OCTServer.dotComServer));
+		expect(newUser.login).to(equal(@"octocat"));
+		expect(newUser.rawLogin).to(beNil());
 
 		OCTUser *rawUser = [OCTUser userWithRawLogin:@"octocat@github.com" server:OCTServer.dotComServer];
 
 		[newUser mergeValuesForKeysFromModel:rawUser];
 
-		expect(newUser.rawLogin).to.equal(@"octocat@github.com");
+		expect(newUser.rawLogin).to(equal(@"octocat@github.com"));
 	});
 });
 
@@ -135,7 +137,7 @@ describe(@"enterprise user", ^{
 		baseURL = [NSURL URLWithString:@"https://10.168.0.109"];
 
 		user = [MTLJSONAdapter modelOfClass:OCTUser.class fromJSONDictionary:representation error:NULL];
-		expect(user).notTo.beNil();
+		expect(user).notTo(beNil());
 
 		// This is usually set by OCTClient, but we'll do it ourselves here to simulate
 		// what OCTClient does.
@@ -144,34 +146,34 @@ describe(@"enterprise user", ^{
 
 	it(@"should initialize from an external representation", ^{
 		OCTServer *enterpriseServer = [OCTServer serverWithBaseURL:baseURL];
-		expect(user.server).to.equal(enterpriseServer);
+		expect(user.server).to(equal(enterpriseServer));
 
-		expect(user.login).to.equal(@"jspahrsummers");
-		expect(user.objectID).to.equal(@"2");
-		expect(user.avatarURL).to.equal([NSURL URLWithString:@"https://secure.gravatar.com/avatar/cac992bb300ed4f3ed5c2a6049e552f9?d=http://10.168.1.109%2Fimages%2Fgravatars%2Fgravatar-user-420.png"]);
-		expect(user.publicRepoCount).to.equal(0);
+		expect(user.login).to(equal(@"jspahrsummers"));
+		expect(user.objectID).to(equal(@"2"));
+		expect(user.avatarURL).to(equal([NSURL URLWithString:@"https://secure.gravatar.com/avatar/cac992bb300ed4f3ed5c2a6049e552f9?d=http://10.168.1.109%2Fimages%2Fgravatars%2Fgravatar-user-420.png"]));
+		expect(@(user.publicRepoCount)).to(equal(@0));
 	});
 
-	itShouldBehaveLike(OCTObjectArchivingSharedExamplesName, ^{
+	itBehavesLike(OCTObjectArchivingSharedExamplesName, ^{
 		return @{ OCTObjectKey: user };
 	});
 
-	itShouldBehaveLike(OCTObjectExternalRepresentationSharedExamplesName, ^{
+	itBehavesLike(OCTObjectExternalRepresentationSharedExamplesName, ^{
 		// The "url" key isn't translated back for creating the external
 		// representation, so remove it.
 		NSDictionary *modifiedRepresentation = [representation mtl_dictionaryByRemovingEntriesWithKeys:[NSSet setWithObject:@"url"]];
 
 		return @{ OCTObjectKey: user, OCTObjectExternalRepresentationKey: modifiedRepresentation };
 	});
-	
+
 	it(@"should initialize with a login and server", ^{
 		NSURL *baseURL = [NSURL URLWithString:@"https://10.168.1.109"];
 		OCTServer *server = [OCTServer serverWithBaseURL:baseURL];
 		OCTUser *user = [OCTUser userWithRawLogin:@"foo" server:server];
-		expect(user).notTo.beNil();
+		expect(user).notTo(beNil());
 
-		expect(user.server).to.equal(server);
-		expect(user.rawLogin).to.equal(@"foo");
+		expect(user.server).to(equal(server));
+		expect(user.rawLogin).to(equal(@"foo"));
 	});
 });
 
@@ -179,17 +181,17 @@ describe(@"equality", ^{
 	it(@"should treat users with the same server and login as equals", ^{
 		OCTUser *user1 = [OCTUser userWithRawLogin:@"joshaber" server:OCTServer.dotComServer];
 		OCTUser *user2 = [OCTUser userWithRawLogin:@"joshaber" server:OCTServer.dotComServer];
-		expect([user1 isEqual:user2]).to.beTruthy();
-		expect(user1.hash).to.equal(user2.hash);
+		expect(@([user1 isEqual:user2])).to(beTruthy());
+		expect(@(user1.hash)).to(equal(@(user2.hash)));
 	});
 
 	it(@"shouldn't treat users with different servers or logins as equals", ^{
 		OCTUser *user1 = [OCTUser userWithRawLogin:@"joshaber1" server:OCTServer.dotComServer];
 		OCTUser *user2 = [OCTUser userWithRawLogin:@"joshaber" server:OCTServer.dotComServer];
-		expect([user1 isEqual:user2]).to.beFalsy();
+		expect(@([user1 isEqual:user2])).to(beFalsy());
 
 		OCTUser *user3 = [OCTUser userWithRawLogin:@"joshaber" server:[OCTServer serverWithBaseURL:[NSURL URLWithString:@"https://google.com"]]];
-		expect([user2 isEqual:user3]).to.beFalsy();
+		expect(@([user2 isEqual:user3])).to(beFalsy());
 	});
 
 	it(@"should prefer objectID equivalence", ^{
@@ -203,9 +205,9 @@ describe(@"equality", ^{
 			@keypath(OCTUser.new, objectID): @"43",
 			@keypath(OCTUser.new, server): OCTServer.dotComServer,
 		} error:NULL];
-		expect(user1).notTo.beNil();
-		expect(user2).notTo.beNil();
-		expect(user1).to.equal(user2);
+		expect(user1).notTo(beNil());
+		expect(user2).notTo(beNil());
+		expect(user1).to(equal(user2));
 	});
 
 	it(@"should prefer rawLogin equivalence over login equivalence", ^{
@@ -219,9 +221,9 @@ describe(@"equality", ^{
 			@keypath(OCTUser.new, login): @"josh-aber",
 			@keypath(OCTUser.new, server): OCTServer.dotComServer,
 		} error:NULL];
-		expect(user1).notTo.beNil();
-		expect(user2).notTo.beNil();
-		expect(user1).notTo.equal(user2);
+		expect(user1).notTo(beNil());
+		expect(user2).notTo(beNil());
+		expect(user1).notTo(equal(user2));
 	});
 
 	it(@"should never treat a user with an ID as equivalent to a user without", ^{
@@ -231,8 +233,8 @@ describe(@"equality", ^{
 			@keypath(OCTUser.new, objectID): @"42",
 			@keypath(OCTUser.new, server): OCTServer.dotComServer,
 		} error:NULL];
-		expect(user1).notTo.equal(user2);
+		expect(user1).notTo(equal(user2));
 	});
 });
 
-SpecEnd
+QuickSpecEnd

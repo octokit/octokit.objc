@@ -6,14 +6,16 @@
 //  Copyright (c) 2013 GitHub. All rights reserved.
 //
 
-#import "NSDateFormatter+OCTFormattingAdditions.h"
+#import <Nimble/Nimble.h>
+#import <OctoKit/OctoKit.h>
+#import <Quick/Quick.h>
 
-SpecBegin(NSDateFormatterAdditions)
+QuickSpecBegin(NSDateFormatterAdditions)
 
 __block NSCalendar *gregorian;
 
 beforeEach(^{
-	gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+	gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
 	gregorian.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"];
 	gregorian.timeZone = [NSTimeZone timeZoneWithAbbreviation:@"UTC"];
 });
@@ -30,9 +32,9 @@ it(@"should parse an ISO 8601 string into a date and back", ^{
 	comps.second = 43;
 
 	NSDate *date = [NSDateFormatter oct_dateFromString:str];
-	expect(date).to.equal([gregorian dateFromComponents:comps]);
+	expect(date).to(equal([gregorian dateFromComponents:comps]));
 
-	expect([NSDateFormatter oct_stringFromDate:date]).to.equal(str);
+	expect([NSDateFormatter oct_stringFromDate:date]).to(equal(str));
 });
 
 it(@"shouldn't use ISO week-numbering year", ^{
@@ -47,9 +49,9 @@ it(@"shouldn't use ISO week-numbering year", ^{
 	comps.second = 0;
 
 	NSDate *date = [NSDateFormatter oct_dateFromString:str];
-	expect(date).to.equal([gregorian dateFromComponents:comps]);
+	expect(date).to(equal([gregorian dateFromComponents:comps]));
 
-	expect([NSDateFormatter oct_stringFromDate:date]).to.equal(str);
+	expect([NSDateFormatter oct_stringFromDate:date]).to(equal(str));
 });
 
-SpecEnd
+QuickSpecEnd
