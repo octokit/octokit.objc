@@ -14,7 +14,7 @@
       location = "group:External/OHHTTPStubs/OHHTTPStubs/OHHTTPStubs.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:External/Mantle/External/Quick/Quick/Quick.xcodeproj">
+      location = "group:External/Mantle/External/Quick/Quick.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:External/Mantle/External/Quick/Externals/Nimble/Nimble.xcodeproj">
