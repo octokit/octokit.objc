@@ -94,7 +94,7 @@
 	NSParameterAssert(name.length > 0);
 	NSParameterAssert(owner.length > 0);
 
-	NSString *path = [NSString stringWithFormat:@"/repos/%@/%@/branches", owner, name];
+	NSString *path = [NSString stringWithFormat:@"repos/%@/%@/branches", owner, name];
 	NSMutableURLRequest *request = [self requestWithMethod:@"GET" path:path parameters:nil notMatchingEtag:nil];
 
 	return [[self enqueueRequest:request resultClass:OCTBranch.class] oct_parsedResults];
@@ -104,7 +104,7 @@
     NSParameterAssert(name.length > 0);
     NSParameterAssert(owner.length > 0);
     
-    NSString *path = [NSString stringWithFormat:@"/repos/%@/%@/pulls", owner, name];
+    NSString *path = [NSString stringWithFormat:@"repos/%@/%@/pulls", owner, name];
     NSMutableURLRequest *request = [self requestWithMethod:@"GET" path:path parameters:nil notMatchingEtag:nil];
     
     return [[self enqueueRequest:request resultClass:OCTPullRequest.class] oct_parsedResults];
@@ -116,7 +116,7 @@
     
     NSDictionary *options = @{ @"state": @"closed" };
     
-    NSString *path = [NSString stringWithFormat:@"/repos/%@/%@/pulls", owner, name];
+    NSString *path = [NSString stringWithFormat:@"repos/%@/%@/pulls", owner, name];
     NSMutableURLRequest *request = [self requestWithMethod:@"GET" path:path parameters:options notMatchingEtag:nil];
     
     return [[self enqueueRequest:request resultClass:OCTPullRequest.class] oct_parsedResults];
@@ -126,7 +126,7 @@
     NSParameterAssert(name.length > 0);
     NSParameterAssert(owner.length > 0);
     
-    NSString *path = [NSString stringWithFormat:@"/repos/%@/%@/pulls/%ld", owner, name, (long)number];
+    NSString *path = [NSString stringWithFormat:@"repos/%@/%@/pulls/%ld", owner, name, (long)number];
     NSMutableURLRequest *request = [self requestWithMethod:@"GET" path:path parameters:nil notMatchingEtag:nil];
     
     return [[self enqueueRequest:request resultClass:OCTPullRequest.class] oct_parsedResults];
@@ -138,7 +138,7 @@
 	NSParameterAssert(baseBranch != nil);
 	NSParameterAssert(headBranch != nil);
 
-	NSString *path = [NSString stringWithFormat:@"/repos/%@/%@/pulls", repository.ownerLogin, repository.name];
+	NSString *path = [NSString stringWithFormat:@"repos/%@/%@/pulls", repository.ownerLogin, repository.name];
 	NSMutableDictionary *params = [@{ @"title": title, @"head": headBranch, @"base": baseBranch } mutableCopy];
 	if (body != nil) params[@"body"] = body;
 
@@ -165,7 +165,7 @@
 	NSParameterAssert(repository);
 	NSParameterAssert(SHA.length > 0);
 
-	NSString *path = [NSString stringWithFormat:@"/repos/%@/%@/commits/%@", repository.ownerLogin, repository.name, SHA];
+	NSString *path = [NSString stringWithFormat:@"repos/%@/%@/commits/%@", repository.ownerLogin, repository.name, SHA];
 	NSDictionary *parameters = @{@"sha": SHA};
 	NSMutableURLRequest *request = [self requestWithMethod:@"GET" path:path parameters:parameters notMatchingEtag:nil];
 
