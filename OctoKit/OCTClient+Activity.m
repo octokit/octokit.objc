@@ -17,7 +17,7 @@
 	NSParameterAssert(repository != nil);
 	if (!self.authenticated) return [RACSignal error:self.class.authenticationRequiredError];
 
-	NSString *path = [NSString stringWithFormat:@"/user/starred/%@/%@", repository.ownerLogin, repository.name];
+	NSString *path = [NSString stringWithFormat:@"user/starred/%@/%@", repository.ownerLogin, repository.name];
 	NSMutableURLRequest *request = [self requestWithMethod:@"GET" path:path parameters:nil];
 	return [[[self
 		enqueueRequest:request resultClass:nil]
@@ -38,7 +38,7 @@
 	NSParameterAssert(repository != nil);
 	if (!self.authenticated) return [RACSignal error:self.class.authenticationRequiredError];
 
-	NSString *path = [NSString stringWithFormat:@"/user/starred/%@/%@", repository.ownerLogin, repository.name];
+	NSString *path = [NSString stringWithFormat:@"user/starred/%@/%@", repository.ownerLogin, repository.name];
 	NSMutableURLRequest *request = [self requestWithMethod:@"PUT" path:path parameters:nil];
 	return [[self enqueueRequest:request resultClass:nil] ignoreValues];
 }
@@ -47,7 +47,7 @@
 	NSParameterAssert(repository != nil);
 	if (!self.authenticated) return [RACSignal error:self.class.authenticationRequiredError];
 
-	NSString *path = [NSString stringWithFormat:@"/user/starred/%@/%@", repository.ownerLogin, repository.name];
+	NSString *path = [NSString stringWithFormat:@"user/starred/%@/%@", repository.ownerLogin, repository.name];
 	NSMutableURLRequest *request = [self requestWithMethod:@"DELETE" path:path parameters:nil];
 	return [[self enqueueRequest:request resultClass:nil] ignoreValues];
 }
