@@ -1,15 +1,24 @@
 [submodule "External/AFNetworking"]
 	path = External/AFNetworking
 	url = https://github.com/github/AFNetworking.git
-[submodule "External/Mantle"]
-	path = External/Mantle
-	url = https://github.com/Mantle/Mantle.git
-[submodule "External/ReactiveCocoa"]
-	path = External/ReactiveCocoa
-	url = https://github.com/ReactiveCocoa/ReactiveCocoa.git
 [submodule "External/ISO8601DateFormatter"]
 	path = External/ISO8601DateFormatter
 	url = https://github.com/boredzo/iso-8601-date-formatter.git
 [submodule "External/OHHTTPStubs"]
 	path = External/OHHTTPStubs
 	url = https://github.com/github/OHHTTPStubs.git
+[submodule "Carthage.checkout/Mantle"]
+	path = Carthage.checkout/Mantle
+	url = https://github.com/Mantle/Mantle.git
+[submodule "Carthage.checkout/Nimble"]
+	path = Carthage.checkout/Nimble
+	url = https://github.com/Quick/Nimble.git
+[submodule "Carthage.checkout/Quick"]
+	path = Carthage.checkout/Quick
+	url = https://github.com/Quick/Quick.git
+[submodule "Carthage.checkout/ReactiveCocoa"]
+	path = Carthage.checkout/ReactiveCocoa
+	url = https://github.com/ReactiveCocoa/ReactiveCocoa.git
+[submodule "Carthage.checkout/xcconfigs"]
+	path = Carthage.checkout/xcconfigs
+	url = https://github.com/jspahrsummers/xcconfigs.git

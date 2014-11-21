@@ -18,62 +18,64 @@ NSString * const OCTObjectExternalRepresentationSharedExamplesName = @"OCTObject
 NSString * const OCTObjectKey = @"object";
 NSString * const OCTObjectExternalRepresentationKey = @"externalRepresentation";
 
-QuickSharedExampleGroupsBegin(OCTObjectSharedExamples)
+QuickConfigurationBegin(OCTObjectSharedExamples)
 
-sharedExamples(OCTObjectArchivingSharedExamplesName, ^(QCKDSLSharedExampleContext data) {
-	__block OCTObject *obj;
++ (void)configure:(Configuration *)configuration {
+	sharedExamples(OCTObjectArchivingSharedExamplesName, ^(QCKDSLSharedExampleContext data) {
+		__block OCTObject *obj;
 
-	beforeEach(^{
-		obj = data()[OCTObjectKey];
-		expect(obj).notTo(beNil());
+		beforeEach(^{
+			obj = data()[OCTObjectKey];
+			expect(obj).notTo(beNil());
+		});
+
+		it(@"should implement <NSCoding>", ^{
+			NSData *data = [NSKeyedArchiver archivedDataWithRootObject:obj];
+			expect(data).notTo(beNil());
+
+			OCTObject *unarchivedObj = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+			expect(unarchivedObj).to(equal(obj));
+		});
 	});
 
-	it(@"should implement <NSCoding>", ^{
-		NSData *data = [NSKeyedArchiver archivedDataWithRootObject:obj];
-		expect(data).notTo(beNil());
+	sharedExamples(OCTObjectExternalRepresentationSharedExamplesName, ^(QCKDSLSharedExampleContext data) {
+		__block OCTObject *obj;
+		__block NSDictionary *representation;
 
-		OCTObject *unarchivedObj = [NSKeyedUnarchiver unarchiveObjectWithData:data];
-		expect(unarchivedObj).to(equal(obj));
+		__block void (^expectRepresentationsToMatch)(NSDictionary *, NSDictionary *);
+
+		beforeEach(^{
+			obj = data()[OCTObjectKey];
+			expect(obj).notTo(beNil());
+
+			representation = data()[OCTObjectExternalRepresentationKey];
+			expect(representation).notTo(beNil());
+
+			__block void (^expectRepresentationsToMatchRecur)(NSDictionary *, NSDictionary *);
+			expectRepresentationsToMatch = ^(NSDictionary *representation, NSDictionary *JSONDictionary) {
+				[representation enumerateKeysAndObjectsUsingBlock:^(NSString *key, id expectedValue, BOOL *stop) {
+					id value = JSONDictionary[key];
+					if (value == nil) return;
+
+					if ([value isKindOfClass:NSDictionary.class]) {
+						expectRepresentationsToMatchRecur(value, expectedValue);
+					} else {
+						expect(value).to(equal(expectedValue));
+					}
+				}];
+			};
+
+			expectRepresentationsToMatchRecur = expectRepresentationsToMatch;
+		});
+
+		it(@"should be equal in all values that exist in both external representations", ^{
+			NSDictionary *JSONDictionary = [MTLJSONAdapter JSONDictionaryFromModel:obj];
+			expectRepresentationsToMatch(representation, JSONDictionary);
+		});
 	});
-});
+}
 
-sharedExamples(OCTObjectExternalRepresentationSharedExamplesName, ^(QCKDSLSharedExampleContext data) {
-	__block OCTObject *obj;
-	__block NSDictionary *representation;
-
-	__block void (^expectRepresentationsToMatch)(NSDictionary *, NSDictionary *);
-
-	beforeEach(^{
-		obj = data()[OCTObjectKey];
-		expect(obj).notTo(beNil());
-
-		representation = data()[OCTObjectExternalRepresentationKey];
-		expect(representation).notTo(beNil());
-
-		__block void (^expectRepresentationsToMatchRecur)(NSDictionary *, NSDictionary *);
-		expectRepresentationsToMatch = ^(NSDictionary *representation, NSDictionary *JSONDictionary) {
-			[representation enumerateKeysAndObjectsUsingBlock:^(NSString *key, id expectedValue, BOOL *stop) {
-				id value = JSONDictionary[key];
-				if (value == nil) return;
-
-				if ([value isKindOfClass:NSDictionary.class]) {
-					expectRepresentationsToMatchRecur(value, expectedValue);
-				} else {
-					expect(value).to(equal(expectedValue));
-				}
-			}];
-		};
-
-		expectRepresentationsToMatchRecur = expectRepresentationsToMatch;
-	});
-
-	it(@"should be equal in all values that exist in both external representations", ^{
-		NSDictionary *JSONDictionary = [MTLJSONAdapter JSONDictionaryFromModel:obj];
-		expectRepresentationsToMatch(representation, JSONDictionary);
-	});
-});
-
-QuickSharedExampleGroupsEnd
+QuickConfigurationEnd
 
 QuickSpecBegin(OCTObjectSpec)
 
