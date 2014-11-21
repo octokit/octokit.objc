@@ -5,18 +5,18 @@
       location = "group:OctoKit.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:External/ReactiveCocoa/ReactiveCocoa.xcodeproj">
+      location = "group:Carthage.checkout/ReactiveCocoa/ReactiveCocoa.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:External/Mantle/Mantle.xcodeproj">
+      location = "group:Carthage.checkout/Mantle/Mantle.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:External/OHHTTPStubs/OHHTTPStubs/OHHTTPStubs.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:External/Mantle/External/Quick/Quick.xcodeproj">
+      location = "group:Carthage.checkout/Quick/Quick.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:External/Mantle/External/Quick/Externals/Nimble/Nimble.xcodeproj">
+      location = "group:Carthage.checkout/Nimble/Nimble.xcodeproj">
    </FileRef>
 </Workspace>
