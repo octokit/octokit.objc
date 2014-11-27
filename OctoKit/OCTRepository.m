@@ -27,6 +27,7 @@ static NSString *const OCTRepositoryHTMLIssuesPath = @"issues";
 		@"defaultBranch": @"default_branch",
 		@"forkParent": @"parent",
 		@"forkSource": @"source",
+		@"watchersCount":@"watchers_count"
 	}];
 }
 
@@ -88,6 +89,7 @@ static NSString *const OCTRepositoryHTMLIssuesPath = @"issues";
 
 	NSString *HTMLURLString = externalRepresentation[@"html_url"] ?: externalRepresentation[@"url"];
 	dictionaryValue[@"HTMLURL"] = [self.HTMLURLJSONTransformer transformedValue:HTMLURLString] ?: NSNull.null;
+	dictionaryValue[@"watchersCount"] = externalRepresentation[@"watchers_count"];
 
 	return dictionaryValue;
 }

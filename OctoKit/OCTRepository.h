@@ -75,4 +75,6 @@
 /// -[OCTClient fetchRepositoryWithName:owner:].
 @property (nonatomic, copy, readonly) OCTRepository *forkSource;
 
+// The watchers count of this repository.
+@property (nonatomic, readonly) NSInteger *watchersCount;
 @end
