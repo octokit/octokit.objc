@@ -89,7 +89,7 @@ static NSString *const OCTRepositoryHTMLIssuesPath = @"issues";
 
 	NSString *HTMLURLString = externalRepresentation[@"html_url"] ?: externalRepresentation[@"url"];
 	dictionaryValue[@"HTMLURL"] = [self.HTMLURLJSONTransformer transformedValue:HTMLURLString] ?: NSNull.null;
-	dictionaryValue[@"watchersCount"] = externalRepresentation[@"watchers_count"];
+	dictionaryValue[@"watchersCount"] = externalRepresentation[@"watchers_count"] ?: [NSNumber numberWithInteger:-1];
 
 	return dictionaryValue;
 }

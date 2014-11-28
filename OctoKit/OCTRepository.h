@@ -76,5 +76,5 @@
 @property (nonatomic, copy, readonly) OCTRepository *forkSource;
 
 // The watchers count of this repository.
-@property (nonatomic, readonly) NSInteger *watchersCount;
+@property (nonatomic, readonly) NSNumber *watchersCount;
 @end
