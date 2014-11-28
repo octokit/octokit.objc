@@ -77,4 +77,13 @@
 
 // The watchers count of this repository.
 @property (nonatomic, readonly) NSNumber *watchersCount;
+
+// The forks count of this repository.
+@property (nonatomic, readonly) NSNumber *forksCount;
+
+// The star gazers count for this repository.
+@property (nonatomic, readonly) NSNumber *starGazersCount;
+
+// The open issues count for this repository.
+@property (nonatomic, readonly) NSNumber *openIssuesCount;
 @end

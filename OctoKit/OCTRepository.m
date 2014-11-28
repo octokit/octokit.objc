@@ -27,7 +27,10 @@ static NSString *const OCTRepositoryHTMLIssuesPath = @"issues";
 		@"defaultBranch": @"default_branch",
 		@"forkParent": @"parent",
 		@"forkSource": @"source",
-		@"watchersCount":@"watchers_count"
+		@"watchersCount":@"watchers_count",
+		@"forksCount":@"forks_count",
+		@"starGazersCount":@"stargazers_count",
+		@"openIssuesCount":@"open_issues_count",
 	}];
 }
 
@@ -90,6 +93,9 @@ static NSString *const OCTRepositoryHTMLIssuesPath = @"issues";
 	NSString *HTMLURLString = externalRepresentation[@"html_url"] ?: externalRepresentation[@"url"];
 	dictionaryValue[@"HTMLURL"] = [self.HTMLURLJSONTransformer transformedValue:HTMLURLString] ?: NSNull.null;
 	dictionaryValue[@"watchersCount"] = externalRepresentation[@"watchers_count"] ?: [NSNumber numberWithInteger:-1];
+	dictionaryValue[@"forksCount"] = externalRepresentation[@"forks_count"] ?: [NSNumber numberWithInteger:-1];
+	dictionaryValue[@"starGazersCount"] = externalRepresentation[@"stargazers_count"] ?: [NSNumber numberWithInteger:-1];
+	dictionaryValue[@"openIssuesCount"] = externalRepresentation[@"open_issues_count"] ?: [NSNumber numberWithInteger:-1];
 
 	return dictionaryValue;
 }
