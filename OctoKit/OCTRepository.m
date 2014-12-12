@@ -27,10 +27,10 @@ static NSString *const OCTRepositoryHTMLIssuesPath = @"issues";
 		@"defaultBranch": @"default_branch",
 		@"forkParent": @"parent",
 		@"forkSource": @"source",
-		@"watchersCount":@"watchers_count",
-		@"forksCount":@"forks_count",
-		@"starGazersCount":@"stargazers_count",
-		@"openIssuesCount":@"open_issues_count",
+		@"watchersCount": @"watchers_count",
+		@"forksCount": @"forks_count",
+		@"starGazersCount": @"stargazers_count",
+		@"openIssuesCount": @"open_issues_count",
 	}];
 }
 
