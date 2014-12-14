@@ -38,6 +38,12 @@
 // The date of the last push to this repository.
 @property (nonatomic, strong, readonly) NSDate *datePushed;
 
+// The last updated date of this repository.
+@property (nonatomic, strong, readonly) NSDate *dateUpdated;
+
+// The created date of this repository.
+@property (nonatomic, strong, readonly) NSDate *dateCreated;
+
 // The URL for pushing and pulling this repository over HTTPS.
 @property (nonatomic, copy, readonly) NSURL *HTTPSURL;
 
