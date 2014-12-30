@@ -176,6 +176,27 @@
     "created_at": "2014-12-28T19:40:52Z"
   },
   {
+    "id": "2484426974",
+    "type": "WatchEvent",
+    "actor": {
+      "id": 85322,
+      "login": "mattmassicotte",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/mattmassicotte",
+      "avatar_url": "https://avatars.githubusercontent.com/u/85322?"
+    },
+    "repo": {
+      "id": 26840153,
+      "name": "squiidz/bone",
+      "url": "https://api.github.com/repos/squiidz/bone"
+    },
+    "payload": {
+      "action": "started"
+    },
+    "public": true,
+    "created_at": "2014-12-27T14:45:32Z"
+  },
+  {
     "type": "PullRequestReviewCommentEvent",
     "repo": {
       "id": 3606624,

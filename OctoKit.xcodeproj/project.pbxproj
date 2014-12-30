@@ -13,6 +13,10 @@
 		1643AA827D2729506A0343EE /* OCTGitCommitFile.h in Headers */ = {isa = PBXBuildFile; fileRef = 1643A4E8775FFB9B59EB1EFB /* OCTGitCommitFile.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1643ABDA2CF735AE8BD080F6 /* git_commit_full.json in Resources */ = {isa = PBXBuildFile; fileRef = 1643A0ABD066520E65EA2DD7 /* git_commit_full.json */; };
 		1643AF381C3B63454296D2E4 /* OCTClient+Activity.h in Headers */ = {isa = PBXBuildFile; fileRef = 1643AF952EEDA532FA8C8A78 /* OCTClient+Activity.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2F288CA81A4B722A006A86DA /* OCTWatchEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = 2F288CA61A4B722A006A86DA /* OCTWatchEvent.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2F288CA91A4B722A006A86DA /* OCTWatchEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = 2F288CA61A4B722A006A86DA /* OCTWatchEvent.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2F288CAA1A4B722A006A86DA /* OCTWatchEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F288CA71A4B722A006A86DA /* OCTWatchEvent.m */; };
+		2F288CAB1A4B722A006A86DA /* OCTWatchEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F288CA71A4B722A006A86DA /* OCTWatchEvent.m */; };
 		2F90337D1A4CB5C2006F6667 /* OCTPublicEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = 2F90337B1A4CB5C2006F6667 /* OCTPublicEvent.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2F90337E1A4CB5C2006F6667 /* OCTPublicEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = 2F90337B1A4CB5C2006F6667 /* OCTPublicEvent.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2F90337F1A4CB5C2006F6667 /* OCTPublicEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F90337C1A4CB5C2006F6667 /* OCTPublicEvent.m */; };
@@ -473,6 +477,8 @@
 		1643A4E8775FFB9B59EB1EFB /* OCTGitCommitFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCTGitCommitFile.h; sourceTree = "<group>"; };
 		1643AE49C95AD81D363073A5 /* OCTGitCommitFileSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCTGitCommitFileSpec.m; sourceTree = "<group>"; };
 		1643AF952EEDA532FA8C8A78 /* OCTClient+Activity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "OCTClient+Activity.h"; sourceTree = "<group>"; };
+		2F288CA61A4B722A006A86DA /* OCTWatchEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCTWatchEvent.h; sourceTree = "<group>"; };
+		2F288CA71A4B722A006A86DA /* OCTWatchEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCTWatchEvent.m; sourceTree = "<group>"; };
 		2F90337B1A4CB5C2006F6667 /* OCTPublicEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCTPublicEvent.h; sourceTree = "<group>"; };
 		2F90337C1A4CB5C2006F6667 /* OCTPublicEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCTPublicEvent.m; sourceTree = "<group>"; };
 		2F9033831A4CB727006F6667 /* OCTForkEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCTForkEvent.h; sourceTree = "<group>"; };
@@ -1037,6 +1043,8 @@
 				D087214B169E395F00016ACA /* OCTPushEvent.m */,
 				D087214C169E395F00016ACA /* OCTRefEvent.h */,
 				D087214D169E395F00016ACA /* OCTRefEvent.m */,
+				2F288CA61A4B722A006A86DA /* OCTWatchEvent.h */,
+				2F288CA71A4B722A006A86DA /* OCTWatchEvent.m */,
 			);
 			name = Events;
 			sourceTree = "<group>";
@@ -1255,6 +1263,7 @@
 				D0040D8E19FEC6FD002869A6 /* OCTResponse.h in Headers */,
 				D0040D8F19FEC6FD002869A6 /* OCTComment.h in Headers */,
 				D0040D9019FEC6FD002869A6 /* OCTReviewComment.h in Headers */,
+				2F288CA91A4B722A006A86DA /* OCTWatchEvent.h in Headers */,
 				D0040D9119FEC6FD002869A6 /* OCTAccessToken.h in Headers */,
 				D0040D9219FEC6FD002869A6 /* OCTAuthorization.h in Headers */,
 				D0040D9319FEC6FD002869A6 /* OCTCommitComment.h in Headers */,
@@ -1326,6 +1335,7 @@
 				D0872159169E395F00016ACA /* OCTClient.h in Headers */,
 				D0BC04B718403A3200EDD926 /* OCTClient+Keys.h in Headers */,
 				9CB0588517933F26002CF498 /* OCTSubmoduleContent.h in Headers */,
+				2F288CA81A4B722A006A86DA /* OCTWatchEvent.h in Headers */,
 				D0BC04BD18403A8800EDD926 /* OCTClient+Events.h in Headers */,
 				D087215D169E395F00016ACA /* OCTCommitComment.h in Headers */,
 				D0872161169E395F00016ACA /* OCTCommitCommentEvent.h in Headers */,
@@ -1655,6 +1665,7 @@
 				D0040D6319FEC692002869A6 /* OCTClient+Keys.m in Sources */,
 				D0040DCC19FEC7CB002869A6 /* OCTPullRequest.m in Sources */,
 				D0040D6519FEC692002869A6 /* OCTPublicKey.m in Sources */,
+				2F288CAB1A4B722A006A86DA /* OCTWatchEvent.m in Sources */,
 				D0040D6919FEC692002869A6 /* OCTPullRequestComment.m in Sources */,
 				D0040D6B19FEC692002869A6 /* OCTClient+Repositories.m in Sources */,
 				D0040D6D19FEC692002869A6 /* OCTRepository.m in Sources */,
@@ -1759,6 +1770,7 @@
 				D08721B1169E395F00016ACA /* OCTServer.m in Sources */,
 				D08721B7169E395F00016ACA /* OCTTeam.m in Sources */,
 				D08721BB169E395F00016ACA /* OCTUser.m in Sources */,
+				2F288CAA1A4B722A006A86DA /* OCTWatchEvent.m in Sources */,
 				88746BE917FA0AE40005888A /* OCTContentTreeEntry.m in Sources */,
 				D0BC04F218403BE400EDD926 /* OCTClient+Repositories.m in Sources */,
 				D07DD39117A993AA005EBFE0 /* OCTGist.m in Sources */,

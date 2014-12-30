@@ -18,6 +18,7 @@
 #import "OCTPullRequestCommentEvent.h"
 #import "OCTPushEvent.h"
 #import "OCTRefEvent.h"
+#import "OCTWatchEvent.h"
 
 @interface OCTEvent ()
 
@@ -43,6 +44,7 @@
 		@"PullRequestEvent": OCTPullRequestEvent.class,
 		@"PullRequestReviewCommentEvent": OCTPullRequestCommentEvent.class,
 		@"PushEvent": OCTPushEvent.class,
+		@"WatchEvent": OCTWatchEvent.class
 	};
 }
 

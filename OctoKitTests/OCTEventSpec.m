@@ -227,4 +227,14 @@ describe(@"OCTPublicEvent", ^{
 	});
 });
 
+describe(@"OCTWatchEvent", ^{
+	it(@"should have deserialized", ^{
+		OCTWatchEvent *event = eventsByID[@"2484426974"];
+		expect(event).to(beAKindOf(OCTWatchEvent.class));
+		
+		expect(event.repositoryName).to(equal(@"squiidz/bone"));
+		expect(event.actorLogin).to(equal(@"mattmassicotte"));
+	});
+});
+
 QuickSpecEnd
