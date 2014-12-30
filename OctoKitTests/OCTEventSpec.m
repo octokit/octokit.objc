@@ -204,4 +204,17 @@ describe(@"OCTForkEvent", ^{
 	});
 });
 
+describe(@"OCTMemberEvent", ^{
+	it(@"should deserialize an addition event", ^{
+		OCTMemberEvent *event = eventsByID[@"2472813496"];
+		expect(event).to(beAKindOf(OCTMemberEvent.class));
+		
+		expect(event.repositoryName).to(equal(@"niftyn8/degenerate"));
+		expect(event.actorLogin).to(equal(@"niftyn8"));
+		
+		expect(event.memberName).to(equal(@"houndci"));
+		expect(@(event.action)).to(equal(@(OCTMemberActionAdded)));
+	});
+});
+
 QuickSpecEnd

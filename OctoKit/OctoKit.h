@@ -41,6 +41,7 @@ FOUNDATION_EXPORT const unsigned char OctoKitVersionString[];
 #import <OctoKit/OCTIssueComment.h>
 #import <OctoKit/OCTIssueCommentEvent.h>
 #import <OctoKit/OCTIssueEvent.h>
+#import <OctoKit/OCTMemberEvent.h>
 #import <OctoKit/OCTNotification.h>
 #import <OctoKit/OCTObject.h>
 #import <OctoKit/OCTOrganization.h>

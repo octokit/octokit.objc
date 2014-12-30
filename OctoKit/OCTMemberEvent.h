@@ -1,0 +1,31 @@
+//
+//  OCTMemberEvent.h
+//  OctoKit
+//
+//  Created by Tyler Stromberg on 12/25/14.
+//  Copyright (c) 2014 GitHub. All rights reserved.
+//
+
+#import "OCTEvent.h"
+
+// The type of action performed.
+//
+// OCTMemberActionUnknown      - An unknown action occurred. Member events will
+//                               never be initialized with this value -- they
+//                               will simply fail to be created.
+// OCTMemberActionAdded        - The user was added as a collaborator to the repository.
+
+typedef enum : NSUInteger {
+	OCTMemberActionUnknown = 0,
+	OCTMemberActionAdded
+} OCTMemberAction;
+
+@interface OCTMemberEvent : OCTEvent
+
+// The name of the user that was added to the repository.
+@property (nonatomic, copy, readonly) NSString *memberName;
+
+// The action that took place.
+@property (nonatomic, assign, readonly) OCTMemberAction action;
+
+@end
