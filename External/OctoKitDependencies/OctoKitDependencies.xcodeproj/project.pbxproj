@@ -156,7 +156,7 @@
 				D0040C7519FEBF49002869A6 /* README.md */,
 			);
 			name = Configuration;
-			path = ../../Carthage.checkout/xcconfigs;
+			path = ../../Carthage/Checkouts/xcconfigs;
 			sourceTree = "<group>";
 		};
 		D0040C5F19FEBF49002869A6 /* Base */ = {

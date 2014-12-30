@@ -766,7 +766,7 @@
 				D0040C8D19FEBF53002869A6 /* README.md */,
 			);
 			name = Configuration;
-			path = Carthage.checkout/xcconfigs;
+			path = Carthage/Checkouts/xcconfigs;
 			sourceTree = "<group>";
 		};
 		D0040C7719FEBF53002869A6 /* Base */ = {

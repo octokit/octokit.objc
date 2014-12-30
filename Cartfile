@@ -1,5 +1,2 @@
-github "Mantle/Mantle" ~> 1.5.2
-github "ReactiveCocoa/ReactiveCocoa" ~> 2.4.1
-github "jspahrsummers/xcconfigs" >= 0.6
-github "Quick/Quick" == 0.2.0
-github "Quick/Nimble"
+github "Mantle/Mantle" ~> 1.5.3
+github "ReactiveCocoa/ReactiveCocoa" ~> 2.4.3

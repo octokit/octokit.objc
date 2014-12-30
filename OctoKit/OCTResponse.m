@@ -7,7 +7,7 @@
 //
 
 #import "OCTResponse.h"
-#import "EXTKeyPathCoding.h"
+#import <ReactiveCocoa/EXTKeyPathCoding.h>
 
 @interface OCTResponse ()
 
