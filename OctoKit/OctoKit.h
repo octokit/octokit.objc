@@ -46,6 +46,7 @@ FOUNDATION_EXPORT const unsigned char OctoKitVersionString[];
 #import <OctoKit/OCTObject.h>
 #import <OctoKit/OCTOrganization.h>
 #import <OctoKit/OCTPlan.h>
+#import <OctoKit/OCTPublicEvent.h>
 #import <OctoKit/OCTPublicKey.h>
 #import <OctoKit/OCTPullRequest.h>
 #import <OctoKit/OCTPullRequestComment.h>

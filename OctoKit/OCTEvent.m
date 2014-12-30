@@ -13,6 +13,7 @@
 #import "OCTIssueEvent.h"
 #import "OCTIssueCommentEvent.h"
 #import "OCTMemberEvent.h"
+#import "OCTPublicEvent.h"
 #import "OCTPullRequestEvent.h"
 #import "OCTPullRequestCommentEvent.h"
 #import "OCTPushEvent.h"
@@ -38,6 +39,7 @@
 		@"IssueCommentEvent": OCTIssueCommentEvent.class,
 		@"IssuesEvent": OCTIssueEvent.class,
 		@"MemberEvent": OCTMemberEvent.class,
+		@"PublicEvent": OCTPublicEvent.class,
 		@"PullRequestEvent": OCTPullRequestEvent.class,
 		@"PullRequestReviewCommentEvent": OCTPullRequestCommentEvent.class,
 		@"PushEvent": OCTPushEvent.class,
