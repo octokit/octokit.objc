@@ -192,4 +192,16 @@ describe(@"OCTRefEvent", ^{
 	});
 });
 
+describe(@"OCTForkEvent", ^{
+	it(@"should have deserialized", ^{
+		OCTForkEvent *event = eventsByID[@"2483893273"];
+		expect(event).to(beAKindOf(OCTForkEvent.class));
+		
+		expect(event.repositoryName).to(equal(@"thoughtbot/Argo"));
+		expect(event.actorLogin).to(equal(@"jspahrsummers"));
+		
+		expect(event.forkeeRepositoryName).to(equal(@"jspahrsummers/Argo"));
+	});
+});
+
 QuickSpecEnd

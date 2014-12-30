@@ -9,6 +9,7 @@
 #import "OCTEvent.h"
 #import "NSValueTransformer+OCTPredefinedTransformerAdditions.h"
 #import "OCTCommitCommentEvent.h"
+#import "OCTForkEvent.h"
 #import "OCTIssueEvent.h"
 #import "OCTIssueCommentEvent.h"
 #import "OCTPullRequestEvent.h"
@@ -32,6 +33,7 @@
 		@"CommitCommentEvent": OCTCommitCommentEvent.class,
 		@"CreateEvent": OCTRefEvent.class,
 		@"DeleteEvent": OCTRefEvent.class,
+		@"ForkEvent": OCTForkEvent.class,
 		@"IssueCommentEvent": OCTIssueCommentEvent.class,
 		@"IssuesEvent": OCTIssueEvent.class,
 		@"PullRequestEvent": OCTPullRequestEvent.class,
