@@ -12,7 +12,7 @@
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
 	return [super.JSONKeyPathsByPropertyKey mtl_dictionaryByAddingEntriesFromDictionary:@{
-		@"forkeeRepositoryName": @"payload.forkee.full_name",
+		@"forkedRepositoryName": @"payload.forkee.full_name",
 	}];
 }
 

@@ -200,7 +200,7 @@ describe(@"OCTForkEvent", ^{
 		expect(event.repositoryName).to(equal(@"thoughtbot/Argo"));
 		expect(event.actorLogin).to(equal(@"jspahrsummers"));
 		
-		expect(event.forkeeRepositoryName).to(equal(@"jspahrsummers/Argo"));
+		expect(event.forkedRepositoryName).to(equal(@"jspahrsummers/Argo"));
 	});
 });
 
