@@ -8,6 +8,7 @@
 
 #import "OCTEvent.h"
 
+// A user forked a repository.
 @interface OCTForkEvent : OCTEvent
 
 // The name of the repository created by forking (e.g., `user/Mac`).

@@ -8,6 +8,7 @@
 
 #import "OCTEvent.h"
 
+// A user starred a repository.
 @interface OCTWatchEvent : OCTEvent
 
 @end

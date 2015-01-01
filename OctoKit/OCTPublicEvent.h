@@ -8,6 +8,7 @@
 
 #import "OCTEvent.h"
 
+// A private repository was open sourced. Without a doubt: the best GitHub event.
 @interface OCTPublicEvent : OCTEvent
 
 @end

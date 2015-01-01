@@ -20,6 +20,7 @@ typedef enum : NSUInteger {
 	OCTMemberActionAdded
 } OCTMemberAction;
 
+// A user was added as a collaborator to a repository.
 @interface OCTMemberEvent : OCTEvent
 
 // The login of the user that was added to the repository.
