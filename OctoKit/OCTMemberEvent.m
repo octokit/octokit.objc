@@ -14,7 +14,7 @@
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
 	return [super.JSONKeyPathsByPropertyKey mtl_dictionaryByAddingEntriesFromDictionary:@{
-		@"memberName": @"payload.member.login",
+		@"memberLogin": @"payload.member.login",
 		@"action": @"payload.action",
 	}];
 }

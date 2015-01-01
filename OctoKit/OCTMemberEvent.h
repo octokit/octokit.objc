@@ -22,8 +22,8 @@ typedef enum : NSUInteger {
 
 @interface OCTMemberEvent : OCTEvent
 
-// The name of the user that was added to the repository.
-@property (nonatomic, copy, readonly) NSString *memberName;
+// The login of the user that was added to the repository.
+@property (nonatomic, copy, readonly) NSString *memberLogin;
 
 // The action that took place.
 @property (nonatomic, assign, readonly) OCTMemberAction action;

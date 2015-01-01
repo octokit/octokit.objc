@@ -212,7 +212,7 @@ describe(@"OCTMemberEvent", ^{
 		expect(event.repositoryName).to(equal(@"niftyn8/degenerate"));
 		expect(event.actorLogin).to(equal(@"niftyn8"));
 		
-		expect(event.memberName).to(equal(@"houndci"));
+		expect(event.memberLogin).to(equal(@"houndci"));
 		expect(@(event.action)).to(equal(@(OCTMemberActionAdded)));
 	});
 });
