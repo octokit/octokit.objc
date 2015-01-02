@@ -192,4 +192,49 @@ describe(@"OCTRefEvent", ^{
 	});
 });
 
+describe(@"OCTForkEvent", ^{
+	it(@"should have deserialized", ^{
+		OCTForkEvent *event = eventsByID[@"2483893273"];
+		expect(event).to(beAKindOf(OCTForkEvent.class));
+		
+		expect(event.repositoryName).to(equal(@"thoughtbot/Argo"));
+		expect(event.actorLogin).to(equal(@"jspahrsummers"));
+		
+		expect(event.forkedRepositoryName).to(equal(@"jspahrsummers/Argo"));
+	});
+});
+
+describe(@"OCTMemberEvent", ^{
+	it(@"should deserialize an addition event", ^{
+		OCTMemberEvent *event = eventsByID[@"2472813496"];
+		expect(event).to(beAKindOf(OCTMemberEvent.class));
+		
+		expect(event.repositoryName).to(equal(@"niftyn8/degenerate"));
+		expect(event.actorLogin).to(equal(@"niftyn8"));
+		
+		expect(event.memberLogin).to(equal(@"houndci"));
+		expect(@(event.action)).to(equal(@(OCTMemberActionAdded)));
+	});
+});
+
+describe(@"OCTPublicEvent", ^{
+	it(@"should have deserialized", ^{
+		OCTPublicEvent *event = eventsByID[@"2485152382"];
+		expect(event).to(beAKindOf(OCTPublicEvent.class));
+		
+		expect(event.repositoryName).to(equal(@"ethanjdiamond/AmIIn"));
+		expect(event.actorLogin).to(equal(@"ethanjdiamond"));
+	});
+});
+
+describe(@"OCTWatchEvent", ^{
+	it(@"should have deserialized", ^{
+		OCTWatchEvent *event = eventsByID[@"2484426974"];
+		expect(event).to(beAKindOf(OCTWatchEvent.class));
+		
+		expect(event.repositoryName).to(equal(@"squiidz/bone"));
+		expect(event.actorLogin).to(equal(@"mattmassicotte"));
+	});
+});
+
 QuickSpecEnd

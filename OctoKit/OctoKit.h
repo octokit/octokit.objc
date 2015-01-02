@@ -32,6 +32,7 @@ FOUNDATION_EXPORT const unsigned char OctoKitVersionString[];
 #import <OctoKit/OCTEntity.h>
 #import <OctoKit/OCTEvent.h>
 #import <OctoKit/OCTFileContent.h>
+#import <OctoKit/OCTForkEvent.h>
 #import <OctoKit/OCTGist.h>
 #import <OctoKit/OCTGistFile.h>
 #import <OctoKit/OCTGitCommit.h>
@@ -40,10 +41,12 @@ FOUNDATION_EXPORT const unsigned char OctoKitVersionString[];
 #import <OctoKit/OCTIssueComment.h>
 #import <OctoKit/OCTIssueCommentEvent.h>
 #import <OctoKit/OCTIssueEvent.h>
+#import <OctoKit/OCTMemberEvent.h>
 #import <OctoKit/OCTNotification.h>
 #import <OctoKit/OCTObject.h>
 #import <OctoKit/OCTOrganization.h>
 #import <OctoKit/OCTPlan.h>
+#import <OctoKit/OCTPublicEvent.h>
 #import <OctoKit/OCTPublicKey.h>
 #import <OctoKit/OCTPullRequest.h>
 #import <OctoKit/OCTPullRequestComment.h>
@@ -63,6 +66,7 @@ FOUNDATION_EXPORT const unsigned char OctoKitVersionString[];
 #import <OctoKit/OCTTree.h>
 #import <OctoKit/OCTTreeEntry.h>
 #import <OctoKit/OCTUser.h>
+#import <OctoKit/OCTWatchEvent.h>
 #import <OctoKit/RACSignal+OCTClientAdditions.h>
 
 // OCTClient categories

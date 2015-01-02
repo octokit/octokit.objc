@@ -9,12 +9,16 @@
 #import "OCTEvent.h"
 #import "NSValueTransformer+OCTPredefinedTransformerAdditions.h"
 #import "OCTCommitCommentEvent.h"
+#import "OCTForkEvent.h"
 #import "OCTIssueEvent.h"
 #import "OCTIssueCommentEvent.h"
+#import "OCTMemberEvent.h"
+#import "OCTPublicEvent.h"
 #import "OCTPullRequestEvent.h"
 #import "OCTPullRequestCommentEvent.h"
 #import "OCTPushEvent.h"
 #import "OCTRefEvent.h"
+#import "OCTWatchEvent.h"
 
 @interface OCTEvent ()
 
@@ -32,11 +36,15 @@
 		@"CommitCommentEvent": OCTCommitCommentEvent.class,
 		@"CreateEvent": OCTRefEvent.class,
 		@"DeleteEvent": OCTRefEvent.class,
+		@"ForkEvent": OCTForkEvent.class,
 		@"IssueCommentEvent": OCTIssueCommentEvent.class,
 		@"IssuesEvent": OCTIssueEvent.class,
+		@"MemberEvent": OCTMemberEvent.class,
+		@"PublicEvent": OCTPublicEvent.class,
 		@"PullRequestEvent": OCTPullRequestEvent.class,
 		@"PullRequestReviewCommentEvent": OCTPullRequestCommentEvent.class,
 		@"PushEvent": OCTPushEvent.class,
+		@"WatchEvent": OCTWatchEvent.class
 	};
 }
 
