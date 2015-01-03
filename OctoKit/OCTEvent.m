@@ -58,6 +58,7 @@
 	return [super.JSONKeyPathsByPropertyKey mtl_dictionaryByAddingEntriesFromDictionary:@{
 		@"repositoryName": @"repo.name",
 		@"actorLogin": @"actor.login",
+		@"actorAvatarURL": @"actor.avatar_url",
 		@"organizationLogin": @"org.login",
 		@"date": @"created_at",
 	}];
@@ -71,6 +72,10 @@
 	// The "id" field for events comes through as a string, which matches the
 	// type of our objectID property.
 	return nil;
+}
+
++ (NSValueTransformer *)actorAvatarURLJSONTransformer {
+	return [NSValueTransformer valueTransformerForName:MTLURLValueTransformerName];
 }
 
 @end
