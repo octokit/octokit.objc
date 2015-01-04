@@ -17,6 +17,9 @@
 // The login of the user who instigated the event.
 @property (nonatomic, copy, readonly) NSString *actorLogin;
 
+// The URL for the avatar of the user who instigated the event.
+@property (nonatomic, copy, readonly) NSURL *actorAvatarURL;
+
 // The organization related to the event.
 @property (nonatomic, copy, readonly) NSString *organizationLogin;
 
