@@ -12,11 +12,11 @@
 //   OCTTreeEntryTypeBlob   - A blob of data.
 //   OCTTreeEntryTypeTree   - A tree of entries.
 //   OCTTreeEntryTypeCommit - A commit.
-typedef enum : NSUInteger {
+typedef NS_ENUM(NSInteger, OCTTreeEntryType) {
 	OCTTreeEntryTypeBlob,
 	OCTTreeEntryTypeTree,
-	OCTTreeEntryTypeCommit,
-} OCTTreeEntryType;
+	OCTTreeEntryTypeCommit
+};
 
 // The file mode of the entry.
 //   OCTTreeEntryModeFile         - File (blob) mode.
@@ -24,13 +24,13 @@ typedef enum : NSUInteger {
 //   OCTTreeEntryModeSubdirectory - Subdirectory (tree) mode.
 //   OCTTreeEntryModeSubmodule    - Submodule (commit) mode.
 //   OCTTreeEntryModeSymlink      - Blob which specifies the path of a symlink.
-typedef enum : NSUInteger {
+typedef NS_ENUM(NSInteger, OCTTreeEntryMode) {
 	OCTTreeEntryModeFile,
 	OCTTreeEntryModeExecutable,
 	OCTTreeEntryModeSubdirectory,
 	OCTTreeEntryModeSubmodule,
-	OCTTreeEntryModeSymlink,
-} OCTTreeEntryMode;
+	OCTTreeEntryModeSymlink
+};
 
 // A class cluster for git tree entries.
 @interface OCTTreeEntry : OCTObject
