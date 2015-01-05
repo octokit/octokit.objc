@@ -16,12 +16,12 @@
 // OCTRefTypeBranch     - A branch in a repository.
 // OCTRefTypeTag        - A tag in a repository.
 // OCTRefTypeRepository - A repository.
-typedef enum : NSUInteger {
+typedef NS_ENUM(NSInteger, OCTRefType) {
     OCTRefTypeUnknown = 0,
     OCTRefTypeBranch,
     OCTRefTypeTag,
     OCTRefTypeRepository
-} OCTRefType;
+};
 
 // The type of event that occurred around a reference.
 //
@@ -30,11 +30,11 @@ typedef enum : NSUInteger {
 //                      fail to be created.
 // OCTRefEventCreated - The reference was created on the server.
 // OCTRefEventDeleted - The reference was deleted on the server.
-typedef enum : NSUInteger {
+typedef NS_ENUM(NSInteger, OCTRefEventType) {
     OCTRefEventUnknown = 0,
     OCTRefEventCreated,
     OCTRefEventDeleted
-} OCTRefEventType;
+};
 
 // A git reference (branch or tag) was created or deleted.
 @interface OCTRefEvent : OCTEvent

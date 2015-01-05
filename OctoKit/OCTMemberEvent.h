@@ -15,10 +15,10 @@
 //                               will simply fail to be created.
 // OCTMemberActionAdded        - The user was added as a collaborator to the repository.
 
-typedef enum : NSUInteger {
+typedef NS_ENUM(NSInteger, OCTMemberAction) {
 	OCTMemberActionUnknown = 0,
 	OCTMemberActionAdded
-} OCTMemberAction;
+};
 
 // A user was added as a collaborator to a repository.
 @interface OCTMemberEvent : OCTEvent

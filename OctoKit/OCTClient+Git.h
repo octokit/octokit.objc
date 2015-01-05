@@ -13,10 +13,10 @@
 // The types of content encodings
 //   OCTContentEncodingUTF8   - utf-8
 //   OCTContentEncodingBase64 - base64
-typedef enum : NSUInteger {
+typedef NS_ENUM(NSInteger, OCTContentEncoding) {
 	OCTContentEncodingUTF8,
 	OCTContentEncodingBase64
-} OCTContentEncoding;
+};
 
 @interface OCTClient (Git)
 

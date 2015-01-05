@@ -15,10 +15,10 @@
 //
 // OCTPullRequestStateOpen   - The pull request is open.
 // OCTPullRequestStateClosed - The pull request is closed.
-typedef enum : NSUInteger {
+typedef NS_ENUM(NSInteger, OCTPullRequestState) {
     OCTPullRequestStateOpen,
     OCTPullRequestStateClosed
-} OCTPullRequestState;
+};
 
 // A pull request on a repository.
 @interface OCTPullRequest : OCTObject
