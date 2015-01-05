@@ -23,13 +23,13 @@
 //                              sync'd with the underlying git state after a
 //                              failed hook or a force push.
 
-typedef enum : NSUInteger {
+typedef NS_ENUM(NSInteger, OCTIssueAction) {
     OCTIssueActionUnknown = 0,
     OCTIssueActionOpened,
     OCTIssueActionClosed,
     OCTIssueActionReopened,
     OCTIssueActionSynchronized
-} OCTIssueAction;
+};
 
 // An issue was opened or closed or somethin'.
 @interface OCTIssueEvent : OCTEvent
