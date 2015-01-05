@@ -16,12 +16,12 @@
 // OCTNotificationTypeIssue       - A new issue, or a new comment on one.
 // OCTNotificationTypePullRequest - A new pull request, or a new comment on one.
 // OCTNotificationTypeCommit      - A new comment on a commit.
-typedef enum : NSUInteger {
+typedef NS_ENUM(NSInteger, OCTNotificationType) {
     OCTNotificationTypeUnknown,
 	OCTNotificationTypeIssue,
 	OCTNotificationTypePullRequest,
-	OCTNotificationTypeCommit,
-} OCTNotificationType;
+	OCTNotificationTypeCommit
+};
 
 // A notification of some type of activity.
 @interface OCTNotification : OCTObject
