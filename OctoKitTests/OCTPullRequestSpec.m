@@ -12,6 +12,7 @@
 #import <Quick/Quick.h>
 
 #import "OCTObjectSpec.h"
+#import "OCTObject+Private.h"
 
 QuickSpecBegin(OCTPullRequestSpec)
 
@@ -175,6 +176,13 @@ it(@"should initialize", ^{
 	expect(pullRequest.updatedDate).to(equal([[[ISO8601DateFormatter alloc] init] dateFromString:@"2011-01-26T19:02:12Z"]));
 	expect(pullRequest.closedDate).to(equal([[[ISO8601DateFormatter alloc] init] dateFromString:@"2011-01-26T19:03:12Z"]));
 	expect(pullRequest.mergedDate).to(equal([[[ISO8601DateFormatter alloc] init] dateFromString:@"2011-01-26T19:04:12Z"]));
+});
+
+it(@"should set its nested repository's servers", ^{
+	NSURL *URL = [NSURL URLWithString:@"https://myserver.com"];
+	pullRequest.baseURL = URL;
+	expect(pullRequest.baseRepository.baseURL).to(equal(URL));
+	expect(pullRequest.headRepository.baseURL).to(equal(URL));
 });
 
 QuickSpecEnd
