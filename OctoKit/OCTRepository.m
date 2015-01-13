@@ -23,10 +23,16 @@ static NSString *const OCTRepositoryHTMLIssuesPath = @"issues";
 		@"HTMLURL": @"html_url",
 		@"ownerLogin": @"owner.login",
 		@"datePushed": @"pushed_at",
+		@"dateUpdated": @"updated_at",
+		@"dateCreated": @"created_at",
 		@"repoDescription": @"description",
 		@"defaultBranch": @"default_branch",
 		@"forkParent": @"parent",
 		@"forkSource": @"source",
+		@"watchersCount": @"watchers_count",
+		@"forksCount": @"forks_count",
+		@"starGazersCount": @"stargazers_count",
+		@"openIssuesCount": @"open_issues_count",
 	}];
 }
 
@@ -82,12 +88,18 @@ static NSString *const OCTRepositoryHTMLIssuesPath = @"issues";
 	dictionaryValue[@"private"] = externalRepresentation[@"private"] ?: @NO;
 	dictionaryValue[@"fork"] = externalRepresentation[@"fork"] ?: @NO;
 	dictionaryValue[@"datePushed"] = [self.datePushedJSONTransformer transformedValue:externalRepresentation[@"pushed_at"]] ?: NSNull.null;
+	dictionaryValue[@"dateUpdated"] = [self.datePushedJSONTransformer transformedValue:externalRepresentation[@"updated_at"]] ?: NSNull.null;
+	dictionaryValue[@"dateCreated"] = [self.datePushedJSONTransformer transformedValue:externalRepresentation[@"created_at"]] ?: NSNull.null;
 	dictionaryValue[@"HTTPSURL"] = [self.HTTPSURLJSONTransformer transformedValue:externalRepresentation[@"clone_url"]] ?: NSNull.null;
 	dictionaryValue[@"SSHURL"] = externalRepresentation[@"ssh_url"] ?: NSNull.null;
 	dictionaryValue[@"gitURL"] = [self.gitURLJSONTransformer transformedValue:externalRepresentation[@"git_url"]] ?: NSNull.null;
 
 	NSString *HTMLURLString = externalRepresentation[@"html_url"] ?: externalRepresentation[@"url"];
 	dictionaryValue[@"HTMLURL"] = [self.HTMLURLJSONTransformer transformedValue:HTMLURLString] ?: NSNull.null;
+	dictionaryValue[@"watchersCount"] = externalRepresentation[@"watchers_count"] ?: [NSNumber numberWithInteger:-1];
+	dictionaryValue[@"forksCount"] = externalRepresentation[@"forks_count"] ?: [NSNumber numberWithInteger:-1];
+	dictionaryValue[@"starGazersCount"] = externalRepresentation[@"stargazers_count"] ?: [NSNumber numberWithInteger:-1];
+	dictionaryValue[@"openIssuesCount"] = externalRepresentation[@"open_issues_count"] ?: [NSNumber numberWithInteger:-1];
 
 	return dictionaryValue;
 }

@@ -38,6 +38,12 @@
 // The date of the last push to this repository.
 @property (nonatomic, strong, readonly) NSDate *datePushed;
 
+// The last updated date of this repository.
+@property (nonatomic, strong, readonly) NSDate *dateUpdated;
+
+// The created date of this repository.
+@property (nonatomic, strong, readonly) NSDate *dateCreated;
+
 // The URL for pushing and pulling this repository over HTTPS.
 @property (nonatomic, copy, readonly) NSURL *HTTPSURL;
 
@@ -75,4 +81,15 @@
 /// -[OCTClient fetchRepositoryWithName:owner:].
 @property (nonatomic, copy, readonly) OCTRepository *forkSource;
 
+// The watchers count of this repository.
+@property (nonatomic, readonly) NSNumber *watchersCount;
+
+// The forks count of this repository.
+@property (nonatomic, readonly) NSNumber *forksCount;
+
+// The star gazers count for this repository.
+@property (nonatomic, readonly) NSNumber *starGazersCount;
+
+// The open issues count for this repository.
+@property (nonatomic, readonly) NSNumber *openIssuesCount;
 @end
