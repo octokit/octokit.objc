@@ -38,6 +38,24 @@
 // The date of the last push to this repository.
 @property (nonatomic, strong, readonly) NSDate *datePushed;
 
+// The created date of this repository.
+@property (nonatomic, strong, readonly) NSDate *dateCreated;
+
+// The last updated date of this repository.
+@property (nonatomic, strong, readonly) NSDate *dateUpdated;
+
+// The number of watchers for this repository.
+@property (nonatomic, assign, readonly) NSUInteger watchersCount;
+
+// The number of forks for this repository.
+@property (nonatomic, assign, readonly) NSUInteger forksCount;
+
+// The number of stargazers for this repository.
+@property (nonatomic, assign, readonly) NSUInteger stargazersCount;
+
+// The number of open issues for this repository.
+@property (nonatomic, assign, readonly) NSUInteger openIssuesCount;
+
 // The URL for pushing and pulling this repository over HTTPS.
 @property (nonatomic, copy, readonly) NSURL *HTTPSURL;
 
