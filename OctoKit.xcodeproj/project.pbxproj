@@ -50,8 +50,6 @@
 		88CD632D17D8D7EF00E2CD47 /* OCTTree.h in Headers */ = {isa = PBXBuildFile; fileRef = 88CD632B17D8D7EF00E2CD47 /* OCTTree.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		88CD632F17D8D7EF00E2CD47 /* OCTTree.m in Sources */ = {isa = PBXBuildFile; fileRef = 88CD632C17D8D7EF00E2CD47 /* OCTTree.m */; };
 		88CD633317D8DA5A00E2CD47 /* OCTTreeSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 88CD633217D8DA5A00E2CD47 /* OCTTreeSpec.m */; };
-		941122251A06CD690090372E /* OCTAccessToken.h in Headers */ = {isa = PBXBuildFile; fileRef = D042C49D1819E12F00143E07 /* OCTAccessToken.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		941122281A06CD730090372E /* OCTAuthorization.h in Headers */ = {isa = PBXBuildFile; fileRef = 8829F2BD17A0DF5300F06991 /* OCTAuthorization.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9CB0587917933F26002CF498 /* OCTContent.h in Headers */ = {isa = PBXBuildFile; fileRef = 9CB0586F17933F26002CF498 /* OCTContent.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9CB0587B17933F26002CF498 /* OCTContent.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CB0587017933F26002CF498 /* OCTContent.m */; };
 		9CB0587D17933F26002CF498 /* OCTDirectoryContent.h in Headers */ = {isa = PBXBuildFile; fileRef = 9CB0587117933F26002CF498 /* OCTDirectoryContent.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1487,7 +1485,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastTestingUpgradeCheck = 0510;
-				LastUpgradeCheck = 0610;
+				LastUpgradeCheck = 0620;
 				ORGANIZATIONNAME = GitHub;
 				TargetAttributes = {
 					D0040CF219FEC579002869A6 = {
@@ -2044,6 +2042,7 @@
 				INFOPLIST_FILE = OctoKit/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = OctoKit;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
