@@ -453,7 +453,7 @@
 		D0476D9C177916250071F3CB /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0610;
+				LastUpgradeCheck = 0620;
 				ORGANIZATIONNAME = GitHub;
 				TargetAttributes = {
 					D0040C9819FEC274002869A6 = {
@@ -747,6 +747,7 @@
 			buildSettings = {
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				ONLY_ACTIVE_ARCH = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
