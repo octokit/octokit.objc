@@ -96,6 +96,13 @@ typedef NS_ENUM(NSInteger, OCTContentEncoding) {
 // error.
 - (RACSignal *)createCommitWithMessage:(NSString *)message inRepository:(OCTRepository *)repository pointingToTreeWithSHA:(NSString *)treeSHA parentCommitSHAs:(NSArray *)parentSHAs;
 
+// Fetches all references in the given repository.
+//
+// repository - The repository in which to fetch the references. This must not be nil.
+//
+// Returns a signal which sends zero or more OCTRef objects then complete, or error.
+- (RACSignal *)fetchAllReferencesInRepository:(OCTRepository *)repository;
+
 // Fetches a git reference given its fully-qualified name.
 //
 // refName    - The fully-qualified name of the ref to fetch (e.g.,
