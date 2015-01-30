@@ -121,6 +121,17 @@
 	return [[self enqueueRequest:request resultClass:OCTCommit.class] oct_parsedResults];
 }
 
+- (RACSignal *)fetchAllReferencesInRepository:(OCTRepository *)repository {
+	NSParameterAssert(repository != nil);
+
+	NSString *path = [NSString stringWithFormat:@"repos/%@/%@/git/refs", repository.ownerLogin, repository.name];
+
+	NSMutableURLRequest *request = [self requestWithMethod:@"GET" path:path parameters:nil];
+	request.cachePolicy = NSURLRequestReloadIgnoringLocalCacheData;
+
+	return [[self enqueueRequest:request resultClass:OCTRef.class] oct_parsedResults];
+}
+
 - (RACSignal *)fetchReference:(NSString *)refName inRepository:(OCTRepository *)repository {
 	NSParameterAssert(refName != nil);
 	NSParameterAssert(repository != nil);
