@@ -29,6 +29,7 @@ static NSString *const OCTRepositoryHTMLIssuesPath = @"issues";
 		@"forksCount": @"forks_count",
 		@"stargazersCount": @"stargazers_count",
 		@"openIssuesCount": @"open_issues_count",
+		@"subscribersCount": @"subscribers_count",
 		@"repoDescription": @"description",
 		@"defaultBranch": @"default_branch",
 		@"forkParent": @"parent",

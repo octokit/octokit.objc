@@ -44,11 +44,16 @@ describe(@"from JSON", ^{
 		@"language": NSNull.null,
 		@"private": @NO,
 		@"fork": @NO,
-		@"forks": @9,
-		@"watchers": @80,
+		@"watchers": @1403,
+		@"watchers_count": @1403,
+		@"forks": @1091,
+		@"forks_count": @1091,
+		@"stargazers_count": @1403,
+		@"open_issues": @129,
+		@"open_issues_count": @129,
+		@"subscribers_count": @1832,
 		@"size": @108,
 		@"master_branch": @"master",
-		@"open_issues": @0,
 		@"pushed_at": @"2011-01-26T19:06:43Z",
 		@"created_at": @"2011-01-26T19:01:12Z",
 		@"updated_at": @"2011-01-26T19:14:43Z",
@@ -118,6 +123,11 @@ describe(@"from JSON", ^{
 		expect(repository.HTMLURL).to(equal([NSURL URLWithString:@"https://github.com/octocat/Hello-World"]));
 		expect(repository.SSHURL).to(equal(@"git@github.com:octocat/Hello-World.git"));
 		expect(repository.defaultBranch).to(equal(@"master"));
+		expect(@(repository.watchersCount)).to(equal(@1403));
+		expect(@(repository.forksCount)).to(equal(@1091));
+		expect(@(repository.stargazersCount)).to(equal(@1403));
+		expect(@(repository.openIssuesCount)).to(equal(@129));
+		expect(@(repository.subscribersCount)).to(equal(@1832));
 
 		expect(repository.forkSource).notTo(beNil());
 		expect(repository.forkSource.objectID).to(equal(@"1296268"));

@@ -56,6 +56,9 @@
 // The number of open issues for this repository.
 @property (nonatomic, assign, readonly) NSUInteger openIssuesCount;
 
+// The number of subscribers for this repository.
+@property (nonatomic, assign, readonly) NSUInteger subscribersCount;
+
 // The URL for pushing and pulling this repository over HTTPS.
 @property (nonatomic, copy, readonly) NSURL *HTTPSURL;
 
