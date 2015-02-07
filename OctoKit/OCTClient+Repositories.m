@@ -70,12 +70,18 @@
 }
 
 - (RACSignal *)fetchRepositoryReadme:(OCTRepository *)repository {
+	return [self fetchRepositoryReadme:repository reference:nil];
+}
+
+- (RACSignal *)fetchRepositoryReadme:(OCTRepository *)repository reference:(NSString *)reference {
 	NSParameterAssert(repository != nil);
 	NSParameterAssert(repository.name.length > 0);
 	NSParameterAssert(repository.ownerLogin.length > 0);
 	
 	NSString *path = [NSString stringWithFormat:@"repos/%@/%@/readme", repository.ownerLogin, repository.name];
-	NSMutableURLRequest *request = [self requestWithMethod:@"GET" path:path parameters:nil notMatchingEtag:nil];
+	NSDictionary *parameters = (reference.length > 0 ? @{ @"ref": reference } : nil);
+	
+	NSMutableURLRequest *request = [self requestWithMethod:@"GET" path:path parameters:parameters notMatchingEtag:nil];
 	
 	return [[self enqueueRequest:request resultClass:OCTContent.class] oct_parsedResults];
 }
