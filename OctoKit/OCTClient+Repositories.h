@@ -75,7 +75,7 @@
 //
 // repository - The repository for which the readme should be fetched.
 // reference  - The name of the commit, branch or tag, may be `nil` in which
-//				case it defaults to the default repo branch.
+//case it defaults to the default repo branch.
 //
 // Returns a signal which will send zero or one OCTContent.
 - (RACSignal *)fetchRepositoryReadme:(OCTRepository *)repository reference:(NSString *)reference;
