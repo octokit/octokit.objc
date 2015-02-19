@@ -247,7 +247,7 @@ static NSString *OCTClientOAuthClientSecret = nil;
 	NSString *stableContentType = [NSString stringWithFormat:baseContentType, OCTClientAPIVersion];
 	NSString *moondragonPreviewContentType = [NSString stringWithFormat:baseContentType, OCTClientMoondragonPreviewAPIVersion];
 
-	[self setDefaultHeader:@"Accept" value:stableContentType];
+	[self setDefaultHeader:@"Accept" value:moondragonPreviewContentType];
 	[AFJSONRequestOperation addAcceptableContentTypes:[NSSet setWithObjects:stableContentType, moondragonPreviewContentType, nil]];
 
 	self.parameterEncoding = AFJSONParameterEncoding;
