@@ -242,9 +242,10 @@ static NSString *OCTClientOAuthClientSecret = nil;
 
 	[AFHTTPRequestOperation addAcceptableStatusCodes:[NSIndexSet indexSetWithIndex:OCTClientNotModifiedStatusCode]];
 
-	NSString *stableContentType = [NSString stringWithFormat:@"application/vnd.github.%@+json", OCTClientAPIVersion];
-	NSString *previewContentType = [NSString stringWithFormat:@"application/vnd.github.%@+json", OCTClientPreviewAPIVersion];
-	NSString *moondragonPreviewContentType = [NSString stringWithFormat:@"application/vnd.github.%@+json", OCTClientMoondragonPreviewAPIVersion];
+	NSString *baseContentType = @"application/vnd.github.%@+json";
+	NSString *stableContentType = [NSString stringWithFormat:baseContentType, OCTClientAPIVersion];
+	NSString *previewContentType = [NSString stringWithFormat:baseContentType, OCTClientPreviewAPIVersion];
+	NSString *moondragonPreviewContentType = [NSString stringWithFormat:baseContentType, OCTClientMoondragonPreviewAPIVersion];
 
 	[self setDefaultHeader:@"Accept" value:stableContentType];
 	[AFJSONRequestOperation addAcceptableContentTypes:[NSSet setWithObjects:stableContentType, previewContentType, moondragonPreviewContentType, nil]];
