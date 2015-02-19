@@ -45,6 +45,8 @@ NSString * const OCTClientErrorMessagesKey = @"OCTClientErrorMessagesKey";
 
 NSString * const OCTClientAPIVersion = @"v3";
 NSString * const OCTClientPreviewAPIVersion = @"mirage-preview";
+
+/// See https://developer.github.com/changes/2014-12-08-organization-permissions-api-preview/
 NSString * const OCTClientMoondragonPreviewAPIVersion = @"moondragon";
 
 static const NSInteger OCTClientNotModifiedStatusCode = 304;
