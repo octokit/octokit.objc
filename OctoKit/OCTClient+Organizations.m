@@ -16,7 +16,7 @@
 @implementation OCTClient (Organizations)
 
 - (RACSignal *)fetchUserOrganizations {
-	return [[self enqueueUserRequestWithMethod:@"GET" relativePath:@"/user/orgs" parameters:nil resultClass:OCTOrganization.class] oct_parsedResults];
+	return [[self enqueueUserRequestWithMethod:@"GET" relativePath:@"/orgs" parameters:nil resultClass:OCTOrganization.class] oct_parsedResults];
 }
 
 - (RACSignal *)fetchOrganizationInfo:(OCTOrganization *)organization {

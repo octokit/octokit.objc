@@ -17,7 +17,7 @@
 @implementation OCTClient (Repositories)
 
 - (RACSignal *)fetchUserRepositories {
-	return [[self enqueueUserRequestWithMethod:@"GET" relativePath:@"/user/repos" parameters:nil resultClass:OCTRepository.class] oct_parsedResults];
+	return [[self enqueueUserRequestWithMethod:@"GET" relativePath:@"/repos" parameters:nil resultClass:OCTRepository.class] oct_parsedResults];
 }
 
 - (RACSignal *)fetchUserStarredRepositories {
