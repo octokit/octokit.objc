@@ -46,7 +46,7 @@ NSString * const OCTClientErrorMessagesKey = @"OCTClientErrorMessagesKey";
 NSString * const OCTClientAPIVersion = @"v3";
 
 /// See https://developer.github.com/changes/2014-12-08-removing-authorizations-token/
-NSString * const OCTClientPreviewAPIVersion = @"mirage-preview";
+NSString * const OCTClientMiragePreviewAPIVersion = @"mirage-preview";
 
 /// See https://developer.github.com/changes/2014-12-08-organization-permissions-api-preview/
 NSString * const OCTClientMoondragonPreviewAPIVersion = @"moondragon";
@@ -248,7 +248,7 @@ static NSString *OCTClientOAuthClientSecret = nil;
 
 	NSString *baseContentType = @"application/vnd.github.%@+json";
 	NSString *stableContentType = [NSString stringWithFormat:baseContentType, OCTClientAPIVersion];
-	NSString *previewContentType = [NSString stringWithFormat:baseContentType, OCTClientPreviewAPIVersion];
+	NSString *previewContentType = [NSString stringWithFormat:baseContentType, OCTClientMiragePreviewAPIVersion];
 	NSString *moondragonPreviewContentType = [NSString stringWithFormat:baseContentType, OCTClientMoondragonPreviewAPIVersion];
 
 	[self setDefaultHeader:@"Accept" value:moondragonPreviewContentType];
@@ -338,7 +338,7 @@ static NSString *OCTClientOAuthClientSecret = nil;
 			request.cachePolicy = NSURLRequestReloadIgnoringLocalCacheData;
 			if (oneTimePassword != nil) [request setValue:oneTimePassword forHTTPHeaderField:OCTClientOneTimePasswordHeaderField];
 
-			NSString *previewContentType = [NSString stringWithFormat:@"application/vnd.github.%@+json", OCTClientPreviewAPIVersion];
+			NSString *previewContentType = [NSString stringWithFormat:@"application/vnd.github.%@+json", OCTClientMiragePreviewAPIVersion];
 			[request setValue:previewContentType forHTTPHeaderField:@"Accept"];
 
 			RACSignal *tokenSignal = [client enqueueRequest:request resultClass:OCTAuthorization.class];
