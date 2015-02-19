@@ -45,6 +45,9 @@ NSString * const OCTClientErrorMessagesKey = @"OCTClientErrorMessagesKey";
 
 NSString * const OCTClientAPIVersion = @"v3";
 
+/// See https://developer.github.com/changes/2014-12-08-removing-authorizations-token/
+NSString * const OCTClientPreviewAPIVersion = @"mirage-preview";
+
 /// See https://developer.github.com/changes/2014-12-08-organization-permissions-api-preview/
 NSString * const OCTClientMoondragonPreviewAPIVersion = @"moondragon";
 
@@ -245,10 +248,11 @@ static NSString *OCTClientOAuthClientSecret = nil;
 
 	NSString *baseContentType = @"application/vnd.github.%@+json";
 	NSString *stableContentType = [NSString stringWithFormat:baseContentType, OCTClientAPIVersion];
+	NSString *previewContentType = [NSString stringWithFormat:baseContentType, OCTClientPreviewAPIVersion];
 	NSString *moondragonPreviewContentType = [NSString stringWithFormat:baseContentType, OCTClientMoondragonPreviewAPIVersion];
 
 	[self setDefaultHeader:@"Accept" value:moondragonPreviewContentType];
-	[AFJSONRequestOperation addAcceptableContentTypes:[NSSet setWithObjects:stableContentType, moondragonPreviewContentType, nil]];
+	[AFJSONRequestOperation addAcceptableContentTypes:[NSSet setWithObjects:stableContentType, previewContentType, moondragonPreviewContentType, nil]];
 
 	self.parameterEncoding = AFJSONParameterEncoding;
 	[self registerHTTPOperationClass:AFJSONRequestOperation.class];
@@ -333,6 +337,9 @@ static NSString *OCTClientOAuthClientSecret = nil;
 			NSMutableURLRequest *request = [client requestWithMethod:@"PUT" path:path parameters:params];
 			request.cachePolicy = NSURLRequestReloadIgnoringLocalCacheData;
 			if (oneTimePassword != nil) [request setValue:oneTimePassword forHTTPHeaderField:OCTClientOneTimePasswordHeaderField];
+
+			NSString *previewContentType = [NSString stringWithFormat:@"application/vnd.github.%@+json", OCTClientPreviewAPIVersion];
+			[request setValue:previewContentType forHTTPHeaderField:@"Accept"];
 
 			RACSignal *tokenSignal = [client enqueueRequest:request resultClass:OCTAuthorization.class];
 			return [RACSignal combineLatest:@[
