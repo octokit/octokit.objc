@@ -45,6 +45,7 @@ NSString * const OCTClientErrorMessagesKey = @"OCTClientErrorMessagesKey";
 
 NSString * const OCTClientAPIVersion = @"v3";
 NSString * const OCTClientPreviewAPIVersion = @"mirage-preview";
+NSString * const OCTClientMoondragonPreviewAPIVersion = @"moondragon";
 
 static const NSInteger OCTClientNotModifiedStatusCode = 304;
 static NSString * const OCTClientOneTimePasswordHeaderField = @"X-GitHub-OTP";
@@ -243,9 +244,10 @@ static NSString *OCTClientOAuthClientSecret = nil;
 
 	NSString *stableContentType = [NSString stringWithFormat:@"application/vnd.github.%@+json", OCTClientAPIVersion];
 	NSString *previewContentType = [NSString stringWithFormat:@"application/vnd.github.%@+json", OCTClientPreviewAPIVersion];
+	NSString *moondragonPreviewContentType = [NSString stringWithFormat:@"application/vnd.github.%@+json", OCTClientMoondragonPreviewAPIVersion];
 
 	[self setDefaultHeader:@"Accept" value:stableContentType];
-	[AFJSONRequestOperation addAcceptableContentTypes:[NSSet setWithObjects:stableContentType, previewContentType, nil]];
+	[AFJSONRequestOperation addAcceptableContentTypes:[NSSet setWithObjects:stableContentType, previewContentType, moondragonPreviewContentType, nil]];
 
 	self.parameterEncoding = AFJSONParameterEncoding;
 	[self registerHTTPOperationClass:AFJSONRequestOperation.class];
