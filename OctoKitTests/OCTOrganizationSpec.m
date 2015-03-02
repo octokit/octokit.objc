@@ -6,11 +6,13 @@
 //  Copyright (c) 2012 GitHub. All rights reserved.
 //
 
-#import "OCTOrganization.h"
-#import "OCTPlan.h"
+#import <Nimble/Nimble.h>
+#import <OctoKit/OctoKit.h>
+#import <Quick/Quick.h>
+
 #import "OCTObjectSpec.h"
 
-SpecBegin(OCTOrganization)
+QuickSpecBegin(OCTOrganizationSpec)
 
 NSDictionary *representation = @{
 	@"login": @"github",
@@ -42,16 +44,16 @@ NSDictionary *representation = @{
 
 __block OCTOrganization *organization;
 
-before(^{
+beforeEach(^{
 	organization = [MTLJSONAdapter modelOfClass:OCTOrganization.class fromJSONDictionary:representation error:NULL];
-	expect(organization).notTo.beNil();
+	expect(organization).notTo(beNil());
 });
 
-itShouldBehaveLike(OCTObjectArchivingSharedExamplesName, ^{
+itBehavesLike(OCTObjectArchivingSharedExamplesName, ^{
 	return @{ OCTObjectKey: organization };
 });
 
-itShouldBehaveLike(OCTObjectExternalRepresentationSharedExamplesName, ^{
+itBehavesLike(OCTObjectExternalRepresentationSharedExamplesName, ^{
 	// Our shared example doesn't know how to handle recursive external
 	// representations, so don't test it.
 	NSMutableDictionary *flattenedRepresentation = [representation mutableCopy];
@@ -61,22 +63,22 @@ itShouldBehaveLike(OCTObjectExternalRepresentationSharedExamplesName, ^{
 });
 
 it(@"should initialize", ^{
-	expect(organization.login).to.equal(@"github");
-	expect(organization.name).to.equal(@"github");
-	expect(organization.objectID).to.equal(@"1");
-	expect(organization.avatarURL).to.equal([NSURL URLWithString:@"https://github.com/images/error/octocat_happy.gif"]);
-	expect(organization.company).to.equal(@"GitHub");
-	expect(organization.blog).to.equal(@"https://github.com/blog");
-	expect(organization.email).to.equal(@"octocat@github.com");
-	expect(organization.publicRepoCount).to.equal(2);
-	expect(organization.privateRepoCount).to.equal(100);
-	expect(organization.diskUsage).to.equal(10000);
-	expect(organization.collaborators).to.equal(8);
+	expect(organization.login).to(equal(@"github"));
+	expect(organization.name).to(equal(@"github"));
+	expect(organization.objectID).to(equal(@"1"));
+	expect(organization.avatarURL).to(equal([NSURL URLWithString:@"https://github.com/images/error/octocat_happy.gif"]));
+	expect(organization.company).to(equal(@"GitHub"));
+	expect(organization.blog).to(equal(@"https://github.com/blog"));
+	expect(organization.email).to(equal(@"octocat@github.com"));
+	expect(@(organization.publicRepoCount)).to(equal(@2));
+	expect(@(organization.privateRepoCount)).to(equal(@100));
+	expect(@(organization.diskUsage)).to(equal(@10000));
+	expect(@(organization.collaborators)).to(equal(@8));
 
-	expect(organization.plan).notTo.beNil();
-	expect(organization.plan.name).to.equal(@"Medium");
-	expect(organization.plan.space).to.equal(400);
-	expect(organization.plan.privateRepos).to.equal(20);
+	expect(organization.plan).notTo(beNil());
+	expect(organization.plan.name).to(equal(@"Medium"));
+	expect(@(organization.plan.space)).to(equal(@400));
+	expect(@(organization.plan.privateRepos)).to(equal(@20));
 });
 
-SpecEnd
+QuickSpecEnd

@@ -11,6 +11,7 @@
 #import "OCTCommit.h"
 #import "OCTRef.h"
 #import "OCTRepository.h"
+#import "OCTResponse.h"
 #import "OCTTree.h"
 #import "OCTTreeEntry.h"
 #import "RACSignal+OCTClientAdditions.h"
@@ -73,10 +74,19 @@
 	NSParameterAssert(string != nil);
 	NSParameterAssert(repository != nil);
 
+	return [self createBlobWithString:string inRepository:repository withEncoding:OCTContentEncodingUTF8];
+}
+
+- (RACSignal *)createBlobWithString:(NSString *)string inRepository:(OCTRepository *)repository withEncoding:(OCTContentEncoding)encoding {
+	NSParameterAssert(string != nil);
+	NSParameterAssert(repository != nil);
+	
+	NSArray *encodings = @[ @"utf-8", @"base64" ];
+
 	NSString *path = [NSString stringWithFormat:@"repos/%@/%@/git/blobs", repository.ownerLogin, repository.name];
 	NSMutableURLRequest *request = [self requestWithMethod:@"POST" path:path parameters:@{
 		@"content": string,
-		@"encoding": @"utf-8"
+		@"encoding": encodings[encoding]
 	} notMatchingEtag:nil];
 
 	return [[self
@@ -109,6 +119,17 @@
 	} notMatchingEtag:nil];
 
 	return [[self enqueueRequest:request resultClass:OCTCommit.class] oct_parsedResults];
+}
+
+- (RACSignal *)fetchAllReferencesInRepository:(OCTRepository *)repository {
+	NSParameterAssert(repository != nil);
+
+	NSString *path = [NSString stringWithFormat:@"repos/%@/%@/git/refs", repository.ownerLogin, repository.name];
+
+	NSMutableURLRequest *request = [self requestWithMethod:@"GET" path:path parameters:nil];
+	request.cachePolicy = NSURLRequestReloadIgnoringLocalCacheData;
+
+	return [[self enqueueRequest:request resultClass:OCTRef.class] oct_parsedResults];
 }
 
 - (RACSignal *)fetchReference:(NSString *)refName inRepository:(OCTRepository *)repository {

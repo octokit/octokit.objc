@@ -1,0 +1,2 @@
+github "Mantle/Mantle" ~> 1.5.3
+github "ReactiveCocoa/ReactiveCocoa" ~> 2.4.3

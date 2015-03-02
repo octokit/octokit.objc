@@ -8,6 +8,10 @@
 
 #import "OCTGitCommit.h"
 
+#import "NSValueTransformer+OCTPredefinedTransformerAdditions.h"
+#import "OCTGitCommitFile.h"
+#import "OCTUser.h"
+
 @implementation OCTGitCommit
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey {

@@ -27,6 +27,8 @@
 		@"avatarURL": @"avatar_url",
 		@"publicRepoCount": @"public_repos",
 		@"privateRepoCount": @"owned_private_repos",
+		@"publicGistCount": @"public_gists",
+		@"privateGistCount": @"private_gists",
 		@"diskUsage": @"disk_usage",
 	}];
 }

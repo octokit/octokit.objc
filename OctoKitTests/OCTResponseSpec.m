@@ -6,12 +6,13 @@
 //  Copyright (c) 2013 GitHub. All rights reserved.
 //
 
-#import "OCTResponse.h"
-#import "OCTServer.h"
+#import <Nimble/Nimble.h>
+#import <OctoKit/OctoKit.h>
+#import <Quick/Quick.h>
 
 NSString *etag = @"\"644b5b0155e6404a9cc4bd9d8b1ae730\"";
 
-SpecBegin(OCTResponse)
+QuickSpecBegin(OCTResponseSpec)
 
 __block NSMutableDictionary *headers;
 __block OCTResponse * (^responseWithHeaders)(void);
@@ -25,32 +26,36 @@ beforeEach(^{
 
 	responseWithHeaders = [^{
 		NSHTTPURLResponse *URLResponse = [[NSHTTPURLResponse alloc] initWithURL:OCTServer.dotComServer.APIEndpoint statusCode:200 HTTPVersion:@"HTTP/1.1" headerFields:headers];
-		expect(URLResponse).notTo.beNil();
+		expect(URLResponse).notTo(beNil());
 
 		OCTResponse *response = [[OCTResponse alloc] initWithHTTPURLResponse:URLResponse parsedResult:nil];
-		expect(response).notTo.beNil();
+		expect(response).notTo(beNil());
 
 		return response;
 	} copy];
 });
 
+it(@"should have a status code", ^{
+	expect(@(responseWithHeaders().statusCode)).to(equal(@200));
+});
+
 it(@"should have an etag", ^{
-	expect(responseWithHeaders().etag).to.equal(etag);
+	expect(responseWithHeaders().etag).to(equal(etag));
 });
 
 it(@"should have rate limit info", ^{
 	OCTResponse *response = responseWithHeaders();
-	expect(response.maximumRequestsPerHour).to.equal(5000);
-	expect(response.remainingRequests).to.equal(4900);
+	expect(@(response.maximumRequestsPerHour)).to(equal(@5000));
+	expect(@(response.remainingRequests)).to(equal(@4900));
 });
 
 it(@"should not have a poll interval by default", ^{
-	expect(responseWithHeaders().pollInterval).to.beNil();
+	expect(responseWithHeaders().pollInterval).to(beNil());
 });
 
 it(@"should have a poll interval when the header is present", ^{
 	headers[@"X-Poll-Interval"] = @"2.5";
-	expect(responseWithHeaders().pollInterval).to.beCloseTo(@2.5);
+	expect(responseWithHeaders().pollInterval).to(beCloseTo(@2.5));
 });
 
-SpecEnd
+QuickSpecEnd

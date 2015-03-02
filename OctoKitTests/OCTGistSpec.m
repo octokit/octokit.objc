@@ -6,9 +6,14 @@
 //  Copyright (c) 2013 GitHub. All rights reserved.
 //
 
+#import <ISO8601DateFormatter/ISO8601DateFormatter.h>
+#import <Nimble/Nimble.h>
+#import <OctoKit/OctoKit.h>
+#import <Quick/Quick.h>
+
 #import "OCTObjectSpec.h"
 
-SpecBegin(OCTGist)
+QuickSpecBegin(OCTGistSpec)
 
 describe(@"from JSON", ^{
 	NSDictionary *representation = @{
@@ -72,36 +77,36 @@ describe(@"from JSON", ^{
 
 	__block OCTGist *gist;
 
-	before(^{
+	beforeEach(^{
 		gist = [MTLJSONAdapter modelOfClass:OCTGist.class fromJSONDictionary:representation error:NULL];
-		expect(gist).notTo.beNil();
+		expect(gist).notTo(beNil());
 	});
 
-	itShouldBehaveLike(OCTObjectArchivingSharedExamplesName, ^{
+	itBehavesLike(OCTObjectArchivingSharedExamplesName, ^{
 		return @{ OCTObjectKey: gist };
 	});
 
-	itShouldBehaveLike(OCTObjectExternalRepresentationSharedExamplesName, ^{
+	itBehavesLike(OCTObjectExternalRepresentationSharedExamplesName, ^{
 		// Our shared example doesn't know how to handle recursive external
 		// representations, so don't test it.
 		NSMutableDictionary *flattenedRepresentation = [representation mutableCopy];
 		[flattenedRepresentation removeObjectForKey:@"files"];
-	
+
 		return @{ OCTObjectKey: gist, OCTObjectExternalRepresentationKey: flattenedRepresentation };
 	});
 
 	it(@"should initialize", ^{
-		expect(gist.objectID).to.equal(@"1");
-		expect(gist.creationDate).to.equal([[[ISO8601DateFormatter alloc] init] dateFromString:@"2010-04-14 02:15:15 +0000"]);
-		expect(gist.HTMLURL).to.equal([NSURL URLWithString:@"https://gist.github.com/1"]);
-		expect(gist.files.count).to.equal(1);
+		expect(gist.objectID).to(equal(@"1"));
+		expect(gist.creationDate).to(equal([[[ISO8601DateFormatter alloc] init] dateFromString:@"2010-04-14 02:15:15 +0000"]));
+		expect(gist.HTMLURL).to(equal([NSURL URLWithString:@"https://gist.github.com/1"]));
+		expect(@(gist.files.count)).to(equal(@1));
 
 		OCTGistFile *file = gist.files[@"ring.erl"];
-		expect(file).notTo.beNil();
-		expect(file.filename).to.equal(@"ring.erl");
-		expect(file.rawURL).to.equal([NSURL URLWithString:@"https://gist.github.com/raw/365370/8c4d2d43d178df44f4c03a7f2ac0ff512853564e/ring.erl"]);
-		expect(file.size).to.equal(932);
+		expect(file).notTo(beNil());
+		expect(file.filename).to(equal(@"ring.erl"));
+		expect(file.rawURL).to(equal([NSURL URLWithString:@"https://gist.github.com/raw/365370/8c4d2d43d178df44f4c03a7f2ac0ff512853564e/ring.erl"]));
+		expect(@(file.size)).to(equal(@932));
 	});
 });
 
-SpecEnd
+QuickSpecEnd

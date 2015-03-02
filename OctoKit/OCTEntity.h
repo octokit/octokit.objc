@@ -21,6 +21,9 @@
 // Returns `login` if no name is explicitly set.
 @property (atomic, copy, readonly) NSString *name;
 
+// The short biography associated with this account.
+@property (atomic, copy, readonly) NSString *bio;
+
 // The OCTRepository objects associated with this entity.
 //
 // OCTClient endpoints do not actually set this property. It is provided as
@@ -39,6 +42,9 @@
 // The name of a company associated with this account.
 @property (atomic, copy, readonly) NSString *company;
 
+// The location associated with this account.
+@property (atomic, copy, readonly) NSString *location;
+
 // The total number of collaborators that this account has on their private repositories.
 @property (atomic, assign, readonly) NSUInteger collaborators;
 
@@ -47,6 +53,18 @@
 
 // The number of private repositories owned by this account.
 @property (atomic, assign, readonly) NSUInteger privateRepoCount;
+
+// The number of public gists owned by this account.
+@property (atomic, assign, readonly) NSUInteger publicGistCount;
+
+// The number of private gists owned by this account.
+@property (atomic, assign, readonly) NSUInteger privateGistCount;
+
+// The number of followers for this account.
+@property (atomic, assign, readonly) NSUInteger followers;
+
+// The number of following for this account.
+@property (atomic, assign, readonly) NSUInteger following;
 
 // The number of kilobytes occupied by this account's repositories on disk.
 @property (atomic, assign, readonly) NSUInteger diskUsage;

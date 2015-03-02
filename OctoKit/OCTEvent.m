@@ -9,12 +9,16 @@
 #import "OCTEvent.h"
 #import "NSValueTransformer+OCTPredefinedTransformerAdditions.h"
 #import "OCTCommitCommentEvent.h"
+#import "OCTForkEvent.h"
 #import "OCTIssueEvent.h"
 #import "OCTIssueCommentEvent.h"
+#import "OCTMemberEvent.h"
+#import "OCTPublicEvent.h"
 #import "OCTPullRequestEvent.h"
 #import "OCTPullRequestCommentEvent.h"
 #import "OCTPushEvent.h"
 #import "OCTRefEvent.h"
+#import "OCTWatchEvent.h"
 
 @interface OCTEvent ()
 
@@ -32,11 +36,15 @@
 		@"CommitCommentEvent": OCTCommitCommentEvent.class,
 		@"CreateEvent": OCTRefEvent.class,
 		@"DeleteEvent": OCTRefEvent.class,
+		@"ForkEvent": OCTForkEvent.class,
 		@"IssueCommentEvent": OCTIssueCommentEvent.class,
 		@"IssuesEvent": OCTIssueEvent.class,
+		@"MemberEvent": OCTMemberEvent.class,
+		@"PublicEvent": OCTPublicEvent.class,
 		@"PullRequestEvent": OCTPullRequestEvent.class,
 		@"PullRequestReviewCommentEvent": OCTPullRequestCommentEvent.class,
 		@"PushEvent": OCTPushEvent.class,
+		@"WatchEvent": OCTWatchEvent.class
 	};
 }
 
@@ -50,6 +58,7 @@
 	return [super.JSONKeyPathsByPropertyKey mtl_dictionaryByAddingEntriesFromDictionary:@{
 		@"repositoryName": @"repo.name",
 		@"actorLogin": @"actor.login",
+		@"actorAvatarURL": @"actor.avatar_url",
 		@"organizationLogin": @"org.login",
 		@"date": @"created_at",
 	}];
@@ -63,6 +72,10 @@
 	// The "id" field for events comes through as a string, which matches the
 	// type of our objectID property.
 	return nil;
+}
+
++ (NSValueTransformer *)actorAvatarURLJSONTransformer {
+	return [NSValueTransformer valueTransformerForName:MTLURLValueTransformerName];
 }
 
 @end

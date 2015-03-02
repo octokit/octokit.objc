@@ -23,9 +23,18 @@ static NSString *const OCTRepositoryHTMLIssuesPath = @"issues";
 		@"HTMLURL": @"html_url",
 		@"ownerLogin": @"owner.login",
 		@"datePushed": @"pushed_at",
+		@"dateCreated": @"created_at",
+		@"dateUpdated": @"updated_at",
+		@"watchersCount": @"watchers_count",
+		@"forksCount": @"forks_count",
+		@"stargazersCount": @"stargazers_count",
+		@"openIssuesCount": @"open_issues_count",
+		@"subscribersCount": @"subscribers_count",
 		@"repoDescription": @"description",
 		@"defaultBranch": @"default_branch",
 		@"language": @"language",
+		@"forkParent": @"parent",
+		@"forkSource": @"source",
 	}];
 }
 
@@ -43,6 +52,14 @@ static NSString *const OCTRepositoryHTMLIssuesPath = @"issues";
 
 + (NSValueTransformer *)datePushedJSONTransformer {
 	return [NSValueTransformer valueTransformerForName:OCTDateValueTransformerName];
+}
+
++ (NSValueTransformer *)forkParentJSONTransformer {
+	return [NSValueTransformer mtl_JSONDictionaryTransformerWithModelClass:OCTRepository.class];
+}
+
++ (NSValueTransformer *)forkSourceJSONTransformer {
+	return [NSValueTransformer mtl_JSONDictionaryTransformerWithModelClass:OCTRepository.class];
 }
 
 #pragma mark Derived Properties
@@ -68,6 +85,7 @@ static NSString *const OCTRepositoryHTMLIssuesPath = @"issues";
 		dictionaryValue[@"ownerLogin"] = owner[@"login"];
 	}
 
+	dictionaryValue[@"language"] = externalRepresentation[@"language"] ?: NSNull.null;
 	dictionaryValue[@"repoDescription"] = externalRepresentation[@"description"] ?: NSNull.null;
 	dictionaryValue[@"private"] = externalRepresentation[@"private"] ?: @NO;
 	dictionaryValue[@"fork"] = externalRepresentation[@"fork"] ?: @NO;

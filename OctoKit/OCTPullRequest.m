@@ -10,6 +10,7 @@
 #import "OCTUser.h"
 #import "OCTRepository.h"
 #import "NSValueTransformer+OCTPredefinedTransformerAdditions.h"
+#import "OCTObject+Private.h"
 
 @implementation OCTPullRequest
 
@@ -29,6 +30,8 @@
 		@"mergedDate": @"merged_at",
 		@"headRepository": @"head.repo",
 		@"baseRepository": @"base.repo",
+		@"headBranch": @"head.ref",
+		@"baseBranch": @"base.ref",
 	}];
 }
 
@@ -97,6 +100,13 @@
 
 + (NSValueTransformer *)baseRepositoryJSONTransformer {
 	return [MTLValueTransformer mtl_JSONDictionaryTransformerWithModelClass:OCTRepository.class];
+}
+
+- (void)setBaseURL:(NSURL *)baseURL {
+	super.baseURL = baseURL;
+
+	self.headRepository.baseURL = baseURL;
+	self.baseRepository.baseURL = baseURL;
 }
 
 @end

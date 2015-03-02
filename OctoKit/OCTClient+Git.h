@@ -10,6 +10,14 @@
 
 @class OCTRepository;
 
+// The types of content encodings
+//   OCTContentEncodingUTF8   - utf-8
+//   OCTContentEncodingBase64 - base64
+typedef NS_ENUM(NSInteger, OCTContentEncoding) {
+	OCTContentEncodingUTF8,
+	OCTContentEncodingBase64
+};
+
 @interface OCTClient (Git)
 
 // Fetches the tree for the given reference.
@@ -53,6 +61,17 @@
 // complete, or error.
 - (RACSignal *)createBlobWithString:(NSString *)string inRepository:(OCTRepository *)repository;
 
+// Creates a blob using the given text content and encoding
+//
+// string     - The text for the new blob. This must not be nil.
+// repository - The repository in which to create the blob. This must not be
+//              nil.
+// encoding   - The encoding of the text. utf-8 or base64, must not be nil.
+//
+// Returns a signal which will send an NSString of the new blob's SHA then
+// complete, or error.
+- (RACSignal *)createBlobWithString:(NSString *)string inRepository:(OCTRepository *)repository withEncoding:(OCTContentEncoding)encoding;
+
 // Fetches the commit identified by the given SHA.
 //
 // commitSHA  - The SHA of the commit to fetch. This must not be nil.
@@ -76,6 +95,13 @@
 // Returns a signal which will send the created `OCTCommit` then complete, or
 // error.
 - (RACSignal *)createCommitWithMessage:(NSString *)message inRepository:(OCTRepository *)repository pointingToTreeWithSHA:(NSString *)treeSHA parentCommitSHAs:(NSArray *)parentSHAs;
+
+// Fetches all references in the given repository.
+//
+// repository - The repository in which to fetch the references. This must not be nil.
+//
+// Returns a signal which sends zero or more OCTRef objects then complete, or error.
+- (RACSignal *)fetchAllReferencesInRepository:(OCTRepository *)repository;
 
 // Fetches a git reference given its fully-qualified name.
 //

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0500"
+   LastUpgradeVersion = "0620"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,22 +14,22 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "D0871FE3169E309900016ACA"
-               BuildableName = "libOctoKit.a"
+               BlueprintIdentifier = "D0040CF219FEC579002869A6"
+               BuildableName = "OctoKit.framework"
                BlueprintName = "OctoKit iOS"
                ReferencedContainer = "container:OctoKit.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
             buildForTesting = "YES"
-            buildForRunning = "YES"
+            buildForRunning = "NO"
             buildForProfiling = "NO"
             buildForArchiving = "NO"
-            buildForAnalyzing = "YES">
+            buildForAnalyzing = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "D0871FF2169E309A00016ACA"
-               BuildableName = "OctoKit iOS Tests.octest"
+               BlueprintIdentifier = "D0040CFC19FEC579002869A6"
+               BuildableName = "OctoKit iOS Tests.xctest"
                BlueprintName = "OctoKit iOS Tests"
                ReferencedContainer = "container:OctoKit.xcodeproj">
             </BuildableReference>
@@ -46,13 +46,22 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "D0871FF2169E309A00016ACA"
-               BuildableName = "OctoKit iOS Tests.octest"
+               BlueprintIdentifier = "D0040CFC19FEC579002869A6"
+               BuildableName = "OctoKit iOS Tests.xctest"
                BlueprintName = "OctoKit iOS Tests"
                ReferencedContainer = "container:OctoKit.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "D0040CF219FEC579002869A6"
+            BuildableName = "OctoKit.framework"
+            BlueprintName = "OctoKit iOS"
+            ReferencedContainer = "container:OctoKit.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
    </TestAction>
    <LaunchAction
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
@@ -63,6 +72,15 @@
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
       allowLocationSimulation = "YES">
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "D0040CF219FEC579002869A6"
+            BuildableName = "OctoKit.framework"
+            BlueprintName = "OctoKit iOS"
+            ReferencedContainer = "container:OctoKit.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
@@ -72,6 +90,15 @@
       useCustomWorkingDirectory = "NO"
       buildConfiguration = "Profile"
       debugDocumentVersioning = "YES">
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "D0040CF219FEC579002869A6"
+            BuildableName = "OctoKit.framework"
+            BlueprintName = "OctoKit iOS"
+            ReferencedContainer = "container:OctoKit.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

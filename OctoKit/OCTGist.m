@@ -17,7 +17,6 @@
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
 	return [super.JSONKeyPathsByPropertyKey mtl_dictionaryByAddingEntriesFromDictionary:@{
-		@"rawURL": @"raw_url",
 		@"creationDate": @"created_at",
 		@"HTMLURL": @"html_url",
 	}];
@@ -98,7 +97,7 @@
 }
 
 + (NSSet *)propertyKeys {
-	return [NSSet setWithObjects:@keypath(OCTGistEdit.new, fileChanges), @keypath(OCTGistEdit.new, description), @keypath(OCTGistEdit.new, publicGist), nil];
+	return [NSSet setWithObjects:@keypath(OCTGistEdit.new, fileChanges), @keypath(OCTGistEdit.new, gistDescription), @keypath(OCTGistEdit.new, publicGist), nil];
 }
 
 #pragma mark MTLJSONSerializing
@@ -107,6 +106,7 @@
 	return @{
 		@"fileChanges": @"files",
 		@"publicGist": @"public",
+		@"gistDescription": @"description",
 	};
 }
 

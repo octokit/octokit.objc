@@ -6,6 +6,8 @@
 //  Copyright (c) 2012 GitHub. All rights reserved.
 //
 
+#import <Foundation/Foundation.h>
+
 // The shared example group name for verifying that an object archives and
 // unarchives successfully.
 extern NSString * const OCTObjectArchivingSharedExamplesName;

@@ -340,18 +340,19 @@ To add OctoKit to your application:
     `ReactiveCocoa.xcodeproj`, and `Mantle.xcodeproj` into the top-level of your
     application's project file or workspace. The latter three projects can be
     found within the `External` folder.
- 1. On the "Build Phases" tab of your application target, add OctoKit,
-    ReactiveCocoa, and Mantle to the "Link Binary With Libraries" phase.
-    * **On iOS**, add the `.a` libraries.
-    * **On OS X**, add the `.framework` bundles. All of the frames must also be
+ 1. On the "Build Phases" tab of your application target, add the following to the "Link Binary With Libraries" phase:
+    * **On iOS**, add the `.a` libraries for OctoKit, AFNetworking, and ISO8601DateFormatter.
+    * **On OS X**, add the `.framework` bundles for OctoKit, ReactiveCocoa, Mantle, AFNetworking, and ISO8601DateFormatter. All of the frames must also be
       added to any ["Copy Frameworks"](#copying-the-frameworks) build phase.
  1. Add `$(BUILD_ROOT)/../IntermediateBuildFilesPath/UninstalledProducts/include
     $(inherited)` to the "Header Search Paths" build setting (this is only
     necessary for archive builds, but it has no negative effect otherwise).
  1. **For iOS targets**, add `-ObjC` to the "Other Linker Flags" build setting.
 
-If you would prefer to use [CocoaPods](http://cocoapods.org), there are some [OctoKit podspecs](https://github.com/CocoaPods/Specs/tree/master/OctoKit)
+If you would prefer to use [CocoaPods](http://cocoapods.org), there are some [OctoKit podspecs](https://github.com/CocoaPods/Specs/tree/master/Specs/OctoKit)
 that have been generously contributed by third parties.
+
+If you’re developing OctoKit on its own, then use `OctoKit.xcworkspace`.
 
 ### Copying the frameworks
 

@@ -7,7 +7,7 @@
 //
 
 #import "OCTResponse.h"
-#import "EXTKeyPathCoding.h"
+#import <ReactiveCocoa/EXTKeyPathCoding.h>
 
 @interface OCTResponse ()
 
@@ -21,6 +21,10 @@
 
 - (NSString *)etag {
 	return self.HTTPURLResponse.allHeaderFields[@"ETag"];
+}
+
+- (NSInteger)statusCode {
+	return self.HTTPURLResponse.statusCode;
 }
 
 - (NSInteger)maximumRequestsPerHour {

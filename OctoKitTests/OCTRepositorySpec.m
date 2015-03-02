@@ -6,10 +6,14 @@
 //  Copyright (c) 2012 GitHub. All rights reserved.
 //
 
-#import "OCTRepository.h"
+#import <ISO8601DateFormatter/ISO8601DateFormatter.h>
+#import <Nimble/Nimble.h>
+#import <OctoKit/OctoKit.h>
+#import <Quick/Quick.h>
+
 #import "OCTObjectSpec.h"
 
-SpecBegin(OCTRepository)
+QuickSpecBegin(OCTRepositorySpec)
 
 describe(@"from JSON", ^{
 	NSDictionary *representation = @{
@@ -40,44 +44,96 @@ describe(@"from JSON", ^{
 		@"language": NSNull.null,
 		@"private": @NO,
 		@"fork": @NO,
-		@"forks": @9,
-		@"watchers": @80,
+		@"watchers": @1403,
+		@"watchers_count": @1403,
+		@"forks": @1091,
+		@"forks_count": @1091,
+		@"stargazers_count": @1403,
+		@"open_issues": @129,
+		@"open_issues_count": @129,
+		@"subscribers_count": @1832,
 		@"size": @108,
 		@"master_branch": @"master",
-		@"open_issues": @0,
 		@"pushed_at": @"2011-01-26T19:06:43Z",
 		@"created_at": @"2011-01-26T19:01:12Z",
 		@"updated_at": @"2011-01-26T19:14:43Z",
 		@"default_branch": @"master",
+		@"source": @{
+			@"html_url": @"https://github.com/octocat/Hello-World",
+			@"clone_url": @"https://github.com/octocat/Hello-World.git",
+			@"git_url": @"git://github.com/octocat/Hello-World.git",
+			@"ssh_url": @"git@github.com:octocat/Hello-World.git",
+			@"id": @1296268,
+			@"owner": @{
+				@"login": @"octocat",
+			},
+
+			@"name": @"Hello-World",
+			@"description": @"This your first repo!",
+			@"language": NSNull.null,
+			@"private": @NO,
+			@"fork": @NO,
+			@"pushed_at": @"2011-01-26T19:06:43Z",
+			@"default_branch": @"master",
+		},
+		@"parent": @{
+			@"html_url": @"https://github.com/octocat/Hello-World",
+			@"clone_url": @"https://github.com/octocat/Hello-World.git",
+			@"git_url": @"git://github.com/octocat/Hello-World.git",
+			@"ssh_url": @"git@github.com:octocat/Hello-World.git",
+			@"id": @1296267,
+			@"owner": @{
+				@"login": @"octocat",
+			},
+
+			@"name": @"Hello-World",
+			@"description": @"This your first repo!",
+			@"language": NSNull.null,
+			@"private": @NO,
+			@"fork": @NO,
+			@"pushed_at": @"2011-01-26T19:06:43Z",
+			@"default_branch": @"master",
+		},
 	};
 
 	__block OCTRepository *repository;
 
-	before(^{
+	beforeEach(^{
 		repository = [MTLJSONAdapter modelOfClass:OCTRepository.class fromJSONDictionary:representation error:NULL];
-		expect(repository).notTo.beNil();
+		expect(repository).notTo(beNil());
 	});
 
-	itShouldBehaveLike(OCTObjectArchivingSharedExamplesName, ^{
+	itBehavesLike(OCTObjectArchivingSharedExamplesName, ^{
 		return @{ OCTObjectKey: repository };
 	});
 
-	itShouldBehaveLike(OCTObjectExternalRepresentationSharedExamplesName, ^{
+	itBehavesLike(OCTObjectExternalRepresentationSharedExamplesName, ^{
 		return @{ OCTObjectKey: repository, OCTObjectExternalRepresentationKey: representation };
 	});
 
 	it(@"should initialize", ^{
-		expect(repository.objectID).to.equal(@"1296269");
-		expect(repository.name).to.equal(@"Hello-World");
-		expect(repository.repoDescription).to.equal(@"This your first repo!");
-		expect(repository.private).to.beFalsy();
-		expect(repository.fork).to.beFalsy();
-		expect(repository.ownerLogin).to.equal(@"octocat");
-		expect(repository.datePushed).to.equal([[[ISO8601DateFormatter alloc] init] dateFromString:@"2011-01-26 19:06:43 +0000"]);
-		expect(repository.HTTPSURL).to.equal([NSURL URLWithString:@"https://github.com/octocat/Hello-World.git"]);
-		expect(repository.HTMLURL).to.equal([NSURL URLWithString:@"https://github.com/octocat/Hello-World"]);
-		expect(repository.SSHURL).to.equal(@"git@github.com:octocat/Hello-World.git");
-		expect(repository.defaultBranch).to.equal(@"master");
+		expect(repository.objectID).to(equal(@"1296269"));
+		expect(repository.name).to(equal(@"Hello-World"));
+		expect(repository.repoDescription).to(equal(@"This your first repo!"));
+		expect(@(repository.private)).to(beFalsy());
+		expect(@(repository.fork)).to(beFalsy());
+		expect(repository.ownerLogin).to(equal(@"octocat"));
+		expect(repository.datePushed).to(equal([[[ISO8601DateFormatter alloc] init] dateFromString:@"2011-01-26 19:06:43 +0000"]));
+		expect(repository.HTTPSURL).to(equal([NSURL URLWithString:@"https://github.com/octocat/Hello-World.git"]));
+		expect(repository.HTMLURL).to(equal([NSURL URLWithString:@"https://github.com/octocat/Hello-World"]));
+		expect(repository.SSHURL).to(equal(@"git@github.com:octocat/Hello-World.git"));
+		expect(repository.defaultBranch).to(equal(@"master"));
+		expect(@(repository.watchersCount)).to(equal(@1403));
+		expect(@(repository.forksCount)).to(equal(@1091));
+		expect(@(repository.stargazersCount)).to(equal(@1403));
+		expect(@(repository.openIssuesCount)).to(equal(@129));
+		expect(@(repository.subscribersCount)).to(equal(@1832));
+
+		expect(repository.forkSource).notTo(beNil());
+		expect(repository.forkSource.objectID).to(equal(@"1296268"));
+
+		expect(repository.forkParent).notTo(beNil());
+		expect(repository.forkParent.objectID).to(equal(@"1296267"));
 	});
 });
 
@@ -103,13 +159,13 @@ it(@"should migrate from pre-MTLModel OCTObject", ^{
 	};
 
 	NSDictionary *dictionaryValue = [OCTRepository dictionaryValueFromArchivedExternalRepresentation:representation version:0];
-	expect(dictionaryValue).notTo.beNil();
+	expect(dictionaryValue).notTo(beNil());
 
 	OCTRepository *repository = [OCTRepository modelWithDictionary:dictionaryValue error:NULL];
-	expect(repository).notTo.beNil();
+	expect(repository).notTo(beNil());
 
 	// Test a key that actually changed format.
-	expect(repository.ownerLogin).to.equal(@"github");
+	expect(repository.ownerLogin).to(equal(@"github"));
 });
 
-SpecEnd
+QuickSpecEnd

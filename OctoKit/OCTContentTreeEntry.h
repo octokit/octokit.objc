@@ -6,7 +6,7 @@
 //  Copyright (c) 2013 GitHub. All rights reserved.
 //
 
-#import <OctoKit/OctoKit.h>
+#import "OCTTreeEntry.h"
 
 // A tree entry which has URL-addressable content.
 @interface OCTContentTreeEntry : OCTTreeEntry

@@ -6,10 +6,15 @@
 //  Copyright (c) 2012 GitHub. All rights reserved.
 //
 
-#import "OCTPullRequest.h"
-#import "OCTObjectSpec.h"
+#import <ISO8601DateFormatter/ISO8601DateFormatter.h>
+#import <Nimble/Nimble.h>
+#import <OctoKit/OctoKit.h>
+#import <Quick/Quick.h>
 
-SpecBegin(OCTPullRequest)
+#import "OCTObjectSpec.h"
+#import "OCTObject+Private.h"
+
+QuickSpecBegin(OCTPullRequestSpec)
 
 NSDictionary *representation = @{
 	@"url": @"https://api.github.com/octocat/Hello-World/pulls/1",
@@ -142,33 +147,42 @@ NSDictionary *representation = @{
 
 __block OCTPullRequest *pullRequest;
 
-before(^{
+beforeEach(^{
 	pullRequest = [MTLJSONAdapter modelOfClass:OCTPullRequest.class fromJSONDictionary:representation error:NULL];
-	expect(pullRequest).notTo.beNil();
+	expect(pullRequest).notTo(beNil());
 });
 
-itShouldBehaveLike(OCTObjectArchivingSharedExamplesName, ^{
+itBehavesLike(OCTObjectArchivingSharedExamplesName, ^{
 	return @{ OCTObjectKey: pullRequest };
 });
 
 it(@"should initialize", ^{
-	expect(pullRequest.objectID).to.equal(@"1");
-	expect(pullRequest.URL).to.equal([NSURL URLWithString:@"https://api.github.com/octocat/Hello-World/pulls/1"]);
-	expect(pullRequest.HTMLURL).to.equal([NSURL URLWithString:@"https://github.com/octocat/Hello-World/pulls/1"]);
-	expect(pullRequest.diffURL).to.equal([NSURL URLWithString:@"https://github.com/octocat/Hello-World/pulls/1.diff"]);
-	expect(pullRequest.patchURL).to.equal([NSURL URLWithString:@"https://github.com/octocat/Hello-World/pulls/1.patch"]);
-	expect(pullRequest.issueURL).to.equal([NSURL URLWithString:@"https://github.com/octocat/Hello-World/issue/1"]);
-	expect(pullRequest.state).to.equal(OCTPullRequestStateOpen);
-	expect(pullRequest.user.objectID).to.equal(@"1");
-	expect(pullRequest.user.login).to.equal(@"octocat");
-	expect(pullRequest.title).to.equal(@"new-feature");
-	expect(pullRequest.body).to.equal(@"Please pull these awesome changes");
-	expect(pullRequest.headRepository.objectID).to.equal(@"1296269");
-	expect(pullRequest.baseRepository.objectID).to.equal(@"1296271");
-	expect(pullRequest.creationDate).to.equal([[[ISO8601DateFormatter alloc] init] dateFromString:@"2011-01-26T19:01:12Z"]);
-	expect(pullRequest.updatedDate).to.equal([[[ISO8601DateFormatter alloc] init] dateFromString:@"2011-01-26T19:02:12Z"]);
-	expect(pullRequest.closedDate).to.equal([[[ISO8601DateFormatter alloc] init] dateFromString:@"2011-01-26T19:03:12Z"]);
-	expect(pullRequest.mergedDate).to.equal([[[ISO8601DateFormatter alloc] init] dateFromString:@"2011-01-26T19:04:12Z"]);
+	expect(pullRequest.objectID).to(equal(@"1"));
+	expect(pullRequest.URL).to(equal([NSURL URLWithString:@"https://api.github.com/octocat/Hello-World/pulls/1"]));
+	expect(pullRequest.HTMLURL).to(equal([NSURL URLWithString:@"https://github.com/octocat/Hello-World/pulls/1"]));
+	expect(pullRequest.diffURL).to(equal([NSURL URLWithString:@"https://github.com/octocat/Hello-World/pulls/1.diff"]));
+	expect(pullRequest.patchURL).to(equal([NSURL URLWithString:@"https://github.com/octocat/Hello-World/pulls/1.patch"]));
+	expect(pullRequest.issueURL).to(equal([NSURL URLWithString:@"https://github.com/octocat/Hello-World/issue/1"]));
+	expect(@(pullRequest.state)).to(equal(@(OCTPullRequestStateOpen)));
+	expect(pullRequest.user.objectID).to(equal(@"1"));
+	expect(pullRequest.user.login).to(equal(@"octocat"));
+	expect(pullRequest.title).to(equal(@"new-feature"));
+	expect(pullRequest.body).to(equal(@"Please pull these awesome changes"));
+	expect(pullRequest.headRepository.objectID).to(equal(@"1296269"));
+	expect(pullRequest.headBranch).to(equal(@"new-topic"));
+	expect(pullRequest.baseRepository.objectID).to(equal(@"1296271"));
+	expect(pullRequest.baseBranch).to(equal(@"master"));
+	expect(pullRequest.creationDate).to(equal([[[ISO8601DateFormatter alloc] init] dateFromString:@"2011-01-26T19:01:12Z"]));
+	expect(pullRequest.updatedDate).to(equal([[[ISO8601DateFormatter alloc] init] dateFromString:@"2011-01-26T19:02:12Z"]));
+	expect(pullRequest.closedDate).to(equal([[[ISO8601DateFormatter alloc] init] dateFromString:@"2011-01-26T19:03:12Z"]));
+	expect(pullRequest.mergedDate).to(equal([[[ISO8601DateFormatter alloc] init] dateFromString:@"2011-01-26T19:04:12Z"]));
 });
 
-SpecEnd
+it(@"should set its nested repository's servers", ^{
+	NSURL *URL = [NSURL URLWithString:@"https://myserver.com"];
+	pullRequest.baseURL = URL;
+	expect(pullRequest.baseRepository.baseURL).to(equal(URL));
+	expect(pullRequest.headRepository.baseURL).to(equal(URL));
+});
+
+QuickSpecEnd
