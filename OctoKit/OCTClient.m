@@ -44,7 +44,12 @@ NSString * const OCTClientErrorDescriptionKey = @"OCTClientErrorDescriptionKey";
 NSString * const OCTClientErrorMessagesKey = @"OCTClientErrorMessagesKey";
 
 NSString * const OCTClientAPIVersion = @"v3";
-NSString * const OCTClientPreviewAPIVersion = @"mirage-preview";
+
+/// See https://developer.github.com/changes/2014-12-08-removing-authorizations-token/
+NSString * const OCTClientMiragePreviewAPIVersion = @"mirage-preview";
+
+/// See https://developer.github.com/changes/2014-12-08-organization-permissions-api-preview/
+NSString * const OCTClientMoondragonPreviewAPIVersion = @"moondragon";
 
 static const NSInteger OCTClientNotModifiedStatusCode = 304;
 static NSString * const OCTClientOneTimePasswordHeaderField = @"X-GitHub-OTP";
@@ -241,11 +246,13 @@ static NSString *OCTClientOAuthClientSecret = nil;
 
 	[AFHTTPRequestOperation addAcceptableStatusCodes:[NSIndexSet indexSetWithIndex:OCTClientNotModifiedStatusCode]];
 
-	NSString *stableContentType = [NSString stringWithFormat:@"application/vnd.github.%@+json", OCTClientAPIVersion];
-	NSString *previewContentType = [NSString stringWithFormat:@"application/vnd.github.%@+json", OCTClientPreviewAPIVersion];
+	NSString *baseContentType = @"application/vnd.github.%@+json";
+	NSString *stableContentType = [NSString stringWithFormat:baseContentType, OCTClientAPIVersion];
+	NSString *previewContentType = [NSString stringWithFormat:baseContentType, OCTClientMiragePreviewAPIVersion];
+	NSString *moondragonPreviewContentType = [NSString stringWithFormat:baseContentType, OCTClientMoondragonPreviewAPIVersion];
 
-	[self setDefaultHeader:@"Accept" value:stableContentType];
-	[AFJSONRequestOperation addAcceptableContentTypes:[NSSet setWithObjects:stableContentType, previewContentType, nil]];
+	[self setDefaultHeader:@"Accept" value:moondragonPreviewContentType];
+	[AFJSONRequestOperation addAcceptableContentTypes:[NSSet setWithObjects:stableContentType, previewContentType, moondragonPreviewContentType, nil]];
 
 	self.parameterEncoding = AFJSONParameterEncoding;
 	[self registerHTTPOperationClass:AFJSONRequestOperation.class];
@@ -331,7 +338,7 @@ static NSString *OCTClientOAuthClientSecret = nil;
 			request.cachePolicy = NSURLRequestReloadIgnoringLocalCacheData;
 			if (oneTimePassword != nil) [request setValue:oneTimePassword forHTTPHeaderField:OCTClientOneTimePasswordHeaderField];
 
-			NSString *previewContentType = [NSString stringWithFormat:@"application/vnd.github.%@+json", OCTClientPreviewAPIVersion];
+			NSString *previewContentType = [NSString stringWithFormat:@"application/vnd.github.%@+json", OCTClientMiragePreviewAPIVersion];
 			[request setValue:previewContentType forHTTPHeaderField:@"Accept"];
 
 			RACSignal *tokenSignal = [client enqueueRequest:request resultClass:OCTAuthorization.class];
