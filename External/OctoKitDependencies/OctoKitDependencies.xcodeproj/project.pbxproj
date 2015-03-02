@@ -7,7 +7,27 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		D0476DCB177916920071F3CB /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D0476DC9177916920071F3CB /* InfoPlist.strings */; };
+		D0040CD819FEC494002869A6 /* AFHTTPClient.h in Headers */ = {isa = PBXBuildFile; fileRef = D0476DD4177916C60071F3CB /* AFHTTPClient.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D0040CD919FEC494002869A6 /* AFHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = D0476DD5177916C60071F3CB /* AFHTTPClient.m */; };
+		D0040CDA19FEC494002869A6 /* AFHTTPRequestOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = D0476DD6177916C60071F3CB /* AFHTTPRequestOperation.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D0040CDB19FEC494002869A6 /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = D0476DD7177916C60071F3CB /* AFHTTPRequestOperation.m */; };
+		D0040CDC19FEC494002869A6 /* AFImageRequestOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = D0476DD8177916C60071F3CB /* AFImageRequestOperation.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D0040CDD19FEC494002869A6 /* AFImageRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = D0476DD9177916C60071F3CB /* AFImageRequestOperation.m */; };
+		D0040CDE19FEC494002869A6 /* AFJSONRequestOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = D0476DDA177916C60071F3CB /* AFJSONRequestOperation.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D0040CDF19FEC494002869A6 /* AFJSONRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = D0476DDB177916C60071F3CB /* AFJSONRequestOperation.m */; };
+		D0040CE019FEC494002869A6 /* AFNetworkActivityIndicatorManager.h in Headers */ = {isa = PBXBuildFile; fileRef = D0476DDC177916C60071F3CB /* AFNetworkActivityIndicatorManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D0040CE119FEC494002869A6 /* AFNetworkActivityIndicatorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D0476DDD177916C60071F3CB /* AFNetworkActivityIndicatorManager.m */; };
+		D0040CE219FEC494002869A6 /* AFPropertyListRequestOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = D0476DDF177916C60071F3CB /* AFPropertyListRequestOperation.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D0040CE319FEC494002869A6 /* AFPropertyListRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = D0476DE0177916C60071F3CB /* AFPropertyListRequestOperation.m */; };
+		D0040CE419FEC494002869A6 /* AFURLConnectionOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = D0476DE1177916C60071F3CB /* AFURLConnectionOperation.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D0040CE519FEC494002869A6 /* AFURLConnectionOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = D0476DE2177916C60071F3CB /* AFURLConnectionOperation.m */; };
+		D0040CE619FEC494002869A6 /* AFXMLRequestOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = D0476DE3177916C60071F3CB /* AFXMLRequestOperation.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D0040CE719FEC494002869A6 /* AFXMLRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = D0476DE4177916C60071F3CB /* AFXMLRequestOperation.m */; };
+		D0040CE819FEC494002869A6 /* UIImageView+AFNetworking.h in Headers */ = {isa = PBXBuildFile; fileRef = D0476DE5177916C60071F3CB /* UIImageView+AFNetworking.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D0040CE919FEC494002869A6 /* UIImageView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = D0476DE6177916C60071F3CB /* UIImageView+AFNetworking.m */; };
+		D0040CEA19FEC4A6002869A6 /* AFNetworking.h in Headers */ = {isa = PBXBuildFile; fileRef = D0476DDE177916C60071F3CB /* AFNetworking.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D0040CEB19FEC4BC002869A6 /* ISO8601DateFormatter.h in Headers */ = {isa = PBXBuildFile; fileRef = D0476E9617791B630071F3CB /* ISO8601DateFormatter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D0040CEC19FEC4BC002869A6 /* ISO8601DateFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = D0476E9717791B630071F3CB /* ISO8601DateFormatter.m */; };
 		D0476DE7177916C60071F3CB /* AFHTTPClient.h in Headers */ = {isa = PBXBuildFile; fileRef = D0476DD4177916C60071F3CB /* AFHTTPClient.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D0476DE8177916C60071F3CB /* AFHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = D0476DD5177916C60071F3CB /* AFHTTPClient.m */; };
 		D0476DE9177916C60071F3CB /* AFHTTPRequestOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = D0476DD6177916C60071F3CB /* AFHTTPRequestOperation.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -24,62 +44,38 @@
 		D0476DF6177916C60071F3CB /* AFXMLRequestOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = D0476DE3177916C60071F3CB /* AFXMLRequestOperation.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D0476DF7177916C60071F3CB /* AFXMLRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = D0476DE4177916C60071F3CB /* AFXMLRequestOperation.m */; };
 		D0476DFA177916DC0071F3CB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0476DC5177916920071F3CB /* Foundation.framework */; };
-		D0476E00177917050071F3CB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0476DC5177916920071F3CB /* Foundation.framework */; };
-		D0476E0B177917180071F3CB /* AFHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = D0476DD5177916C60071F3CB /* AFHTTPClient.m */; };
-		D0476E0C1779171A0071F3CB /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = D0476DD7177916C60071F3CB /* AFHTTPRequestOperation.m */; };
-		D0476E0D1779171C0071F3CB /* AFImageRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = D0476DD9177916C60071F3CB /* AFImageRequestOperation.m */; };
-		D0476E0E1779171E0071F3CB /* AFJSONRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = D0476DDB177916C60071F3CB /* AFJSONRequestOperation.m */; };
-		D0476E0F177917200071F3CB /* AFNetworkActivityIndicatorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D0476DDD177916C60071F3CB /* AFNetworkActivityIndicatorManager.m */; };
-		D0476E10177917220071F3CB /* AFPropertyListRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = D0476DE0177916C60071F3CB /* AFPropertyListRequestOperation.m */; };
-		D0476E11177917240071F3CB /* AFURLConnectionOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = D0476DE2177916C60071F3CB /* AFURLConnectionOperation.m */; };
-		D0476E12177917250071F3CB /* AFXMLRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = D0476DE4177916C60071F3CB /* AFXMLRequestOperation.m */; };
-		D0476E13177917270071F3CB /* UIImageView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = D0476DE6177916C60071F3CB /* UIImageView+AFNetworking.m */; };
-		D0476E18177917410071F3CB /* AFNetworking.h in Headers */ = {isa = PBXBuildFile; fileRef = D0476DDE177916C60071F3CB /* AFNetworking.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D0476E19177917450071F3CB /* AFHTTPClient.h in Headers */ = {isa = PBXBuildFile; fileRef = D0476DD4177916C60071F3CB /* AFHTTPClient.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D0476E1A177917470071F3CB /* AFHTTPRequestOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = D0476DD6177916C60071F3CB /* AFHTTPRequestOperation.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D0476E1B1779174A0071F3CB /* AFImageRequestOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = D0476DD8177916C60071F3CB /* AFImageRequestOperation.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D0476E1C1779174D0071F3CB /* AFJSONRequestOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = D0476DDA177916C60071F3CB /* AFJSONRequestOperation.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D0476E1D1779174F0071F3CB /* AFNetworkActivityIndicatorManager.h in Headers */ = {isa = PBXBuildFile; fileRef = D0476DDC177916C60071F3CB /* AFNetworkActivityIndicatorManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D0476E1E177917510071F3CB /* AFPropertyListRequestOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = D0476DDF177916C60071F3CB /* AFPropertyListRequestOperation.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D0476E1F177917560071F3CB /* AFURLConnectionOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = D0476DE1177916C60071F3CB /* AFURLConnectionOperation.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D0476E20177917580071F3CB /* AFXMLRequestOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = D0476DE3177916C60071F3CB /* AFXMLRequestOperation.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D0476E211779175A0071F3CB /* UIImageView+AFNetworking.h in Headers */ = {isa = PBXBuildFile; fileRef = D0476DE5177916C60071F3CB /* UIImageView+AFNetworking.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D0476E23177918020071F3CB /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0476E22177918020071F3CB /* SystemConfiguration.framework */; };
-		D0476E25177918070071F3CB /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0476E24177918070071F3CB /* SystemConfiguration.framework */; };
-		D0476E271779180B0071F3CB /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0476E261779180B0071F3CB /* MobileCoreServices.framework */; };
 		D0476E291779181C0071F3CB /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0476E281779181C0071F3CB /* AppKit.framework */; };
-		D0476E6A17791AA50071F3CB /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D0476E6817791AA50071F3CB /* InfoPlist.strings */; };
-		D0476E8917791AE70071F3CB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0476DC5177916920071F3CB /* Foundation.framework */; };
 		D0476E9817791B630071F3CB /* ISO8601DateFormatter.h in Headers */ = {isa = PBXBuildFile; fileRef = D0476E9617791B630071F3CB /* ISO8601DateFormatter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D0476E9917791B630071F3CB /* ISO8601DateFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = D0476E9717791B630071F3CB /* ISO8601DateFormatter.m */; };
-		D0476E9A17791B630071F3CB /* ISO8601DateFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = D0476E9717791B630071F3CB /* ISO8601DateFormatter.m */; };
 		D0476EA017791B8D0071F3CB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0476DC5177916920071F3CB /* Foundation.framework */; };
-		D0476EA117791B940071F3CB /* ISO8601DateFormatter.h in Headers */ = {isa = PBXBuildFile; fileRef = D0476E9617791B630071F3CB /* ISO8601DateFormatter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F688018817C1CA7600ECC7EC /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F688018717C1CA7600ECC7EC /* Security.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		D0476DA4177916770071F3CB /* Common.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Common.xcconfig; sourceTree = "<group>"; };
-		D0476DA6177916770071F3CB /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
-		D0476DA7177916770071F3CB /* Profile.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Profile.xcconfig; sourceTree = "<group>"; };
-		D0476DA8177916770071F3CB /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
-		D0476DA9177916770071F3CB /* Test.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Test.xcconfig; sourceTree = "<group>"; };
-		D0476DAB177916770071F3CB /* Application.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Application.xcconfig; sourceTree = "<group>"; };
-		D0476DAC177916770071F3CB /* StaticLibrary.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = StaticLibrary.xcconfig; sourceTree = "<group>"; };
-		D0476DAE177916770071F3CB /* iOS-Application.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "iOS-Application.xcconfig"; sourceTree = "<group>"; };
-		D0476DAF177916770071F3CB /* iOS-Base.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "iOS-Base.xcconfig"; sourceTree = "<group>"; };
-		D0476DB0177916770071F3CB /* iOS-StaticLibrary.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "iOS-StaticLibrary.xcconfig"; sourceTree = "<group>"; };
-		D0476DB2177916770071F3CB /* Mac-Application.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Mac-Application.xcconfig"; sourceTree = "<group>"; };
-		D0476DB3177916770071F3CB /* Mac-Base.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Mac-Base.xcconfig"; sourceTree = "<group>"; };
-		D0476DB4177916770071F3CB /* Mac-DynamicLibrary.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Mac-DynamicLibrary.xcconfig"; sourceTree = "<group>"; };
-		D0476DB5177916770071F3CB /* Mac-Framework.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Mac-Framework.xcconfig"; sourceTree = "<group>"; };
-		D0476DB6177916770071F3CB /* Mac-StaticLibrary.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Mac-StaticLibrary.xcconfig"; sourceTree = "<group>"; };
-		D0476DB7177916770071F3CB /* README.md */ = {isa = PBXFileReference; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
+		D0040C6019FEBF49002869A6 /* Common.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Common.xcconfig; sourceTree = "<group>"; };
+		D0040C6219FEBF49002869A6 /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
+		D0040C6319FEBF49002869A6 /* Profile.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Profile.xcconfig; sourceTree = "<group>"; };
+		D0040C6419FEBF49002869A6 /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
+		D0040C6519FEBF49002869A6 /* Test.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Test.xcconfig; sourceTree = "<group>"; };
+		D0040C6719FEBF49002869A6 /* Application.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Application.xcconfig; sourceTree = "<group>"; };
+		D0040C6819FEBF49002869A6 /* Framework.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Framework.xcconfig; sourceTree = "<group>"; };
+		D0040C6919FEBF49002869A6 /* StaticLibrary.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = StaticLibrary.xcconfig; sourceTree = "<group>"; };
+		D0040C6B19FEBF49002869A6 /* iOS-Application.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "iOS-Application.xcconfig"; sourceTree = "<group>"; };
+		D0040C6C19FEBF49002869A6 /* iOS-Base.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "iOS-Base.xcconfig"; sourceTree = "<group>"; };
+		D0040C6D19FEBF49002869A6 /* iOS-Framework.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "iOS-Framework.xcconfig"; sourceTree = "<group>"; };
+		D0040C6E19FEBF49002869A6 /* iOS-StaticLibrary.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "iOS-StaticLibrary.xcconfig"; sourceTree = "<group>"; };
+		D0040C7019FEBF49002869A6 /* Mac-Application.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Mac-Application.xcconfig"; sourceTree = "<group>"; };
+		D0040C7119FEBF49002869A6 /* Mac-Base.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Mac-Base.xcconfig"; sourceTree = "<group>"; };
+		D0040C7219FEBF49002869A6 /* Mac-DynamicLibrary.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Mac-DynamicLibrary.xcconfig"; sourceTree = "<group>"; };
+		D0040C7319FEBF49002869A6 /* Mac-Framework.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Mac-Framework.xcconfig"; sourceTree = "<group>"; };
+		D0040C7419FEBF49002869A6 /* Mac-StaticLibrary.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Mac-StaticLibrary.xcconfig"; sourceTree = "<group>"; };
+		D0040C7519FEBF49002869A6 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		D0040C9919FEC274002869A6 /* AFNetworking.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AFNetworking.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D0040CBB19FEC418002869A6 /* ISO8601DateFormatter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ISO8601DateFormatter.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0476DBD177916920071F3CB /* AFNetworking.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AFNetworking.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0476DC5177916920071F3CB /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		D0476DC8177916920071F3CB /* AFNetworking-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "AFNetworking-Info.plist"; sourceTree = "<group>"; };
-		D0476DCA177916920071F3CB /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		D0476DCC177916920071F3CB /* AFNetworking-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AFNetworking-Prefix.pch"; sourceTree = "<group>"; };
 		D0476DD4177916C60071F3CB /* AFHTTPClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AFHTTPClient.h; path = ../../AFNetworking/AFNetworking/AFHTTPClient.h; sourceTree = "<group>"; };
 		D0476DD5177916C60071F3CB /* AFHTTPClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AFHTTPClient.m; path = ../../AFNetworking/AFNetworking/AFHTTPClient.m; sourceTree = "<group>"; };
 		D0476DD6177916C60071F3CB /* AFHTTPRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AFHTTPRequestOperation.h; path = ../../AFNetworking/AFNetworking/AFHTTPRequestOperation.h; sourceTree = "<group>"; };
@@ -99,16 +95,12 @@
 		D0476DE4177916C60071F3CB /* AFXMLRequestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AFXMLRequestOperation.m; path = ../../AFNetworking/AFNetworking/AFXMLRequestOperation.m; sourceTree = "<group>"; };
 		D0476DE5177916C60071F3CB /* UIImageView+AFNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIImageView+AFNetworking.h"; path = "../../AFNetworking/AFNetworking/UIImageView+AFNetworking.h"; sourceTree = "<group>"; };
 		D0476DE6177916C60071F3CB /* UIImageView+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImageView+AFNetworking.m"; path = "../../AFNetworking/AFNetworking/UIImageView+AFNetworking.m"; sourceTree = "<group>"; };
-		D0476DFF177917050071F3CB /* libAFNetworking.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libAFNetworking.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0476E22177918020071F3CB /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk/System/Library/Frameworks/SystemConfiguration.framework; sourceTree = DEVELOPER_DIR; };
 		D0476E24177918070071F3CB /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.1.sdk/System/Library/Frameworks/SystemConfiguration.framework; sourceTree = DEVELOPER_DIR; };
 		D0476E261779180B0071F3CB /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.1.sdk/System/Library/Frameworks/MobileCoreServices.framework; sourceTree = DEVELOPER_DIR; };
 		D0476E281779181C0071F3CB /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk/System/Library/Frameworks/AppKit.framework; sourceTree = DEVELOPER_DIR; };
 		D0476E5E17791AA50071F3CB /* ISO8601DateFormatter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ISO8601DateFormatter.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0476E6717791AA50071F3CB /* ISO8601DateFormatter-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ISO8601DateFormatter-Info.plist"; sourceTree = "<group>"; };
-		D0476E6917791AA50071F3CB /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		D0476E6B17791AA50071F3CB /* ISO8601DateFormatter-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ISO8601DateFormatter-Prefix.pch"; sourceTree = "<group>"; };
-		D0476E8817791AE70071F3CB /* libISO8601DateFormatter.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libISO8601DateFormatter.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0476E9617791B630071F3CB /* ISO8601DateFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ISO8601DateFormatter.h; path = ../../ISO8601DateFormatter/ISO8601DateFormatter.h; sourceTree = "<group>"; };
 		D0476E9717791B630071F3CB /* ISO8601DateFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ISO8601DateFormatter.m; path = ../../ISO8601DateFormatter/ISO8601DateFormatter.m; sourceTree = "<group>"; };
 		D0476E9B17791B680071F3CB /* README.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = README.txt; path = ../../ISO8601DateFormatter/README.txt; sourceTree = "<group>"; };
@@ -119,6 +111,20 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		D0040C9519FEC274002869A6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D0040CB719FEC418002869A6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D0476DB9177916920071F3CB /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -130,16 +136,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		D0476DFC177917050071F3CB /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				D0476E271779180B0071F3CB /* MobileCoreServices.framework in Frameworks */,
-				D0476E25177918070071F3CB /* SystemConfiguration.framework in Frameworks */,
-				D0476E00177917050071F3CB /* Foundation.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		D0476E5A17791AA50071F3CB /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -148,99 +144,93 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		D0476E8517791AE70071F3CB /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				D0476E8917791AE70071F3CB /* Foundation.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D0040C5E19FEBF49002869A6 /* Configuration */ = {
+			isa = PBXGroup;
+			children = (
+				D0040C5F19FEBF49002869A6 /* Base */,
+				D0040C6A19FEBF49002869A6 /* iOS */,
+				D0040C6F19FEBF49002869A6 /* Mac OS X */,
+				D0040C7519FEBF49002869A6 /* README.md */,
+			);
+			name = Configuration;
+			path = ../../Carthage/Checkouts/xcconfigs;
+			sourceTree = "<group>";
+		};
+		D0040C5F19FEBF49002869A6 /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				D0040C6019FEBF49002869A6 /* Common.xcconfig */,
+				D0040C6119FEBF49002869A6 /* Configurations */,
+				D0040C6619FEBF49002869A6 /* Targets */,
+			);
+			path = Base;
+			sourceTree = "<group>";
+		};
+		D0040C6119FEBF49002869A6 /* Configurations */ = {
+			isa = PBXGroup;
+			children = (
+				D0040C6219FEBF49002869A6 /* Debug.xcconfig */,
+				D0040C6319FEBF49002869A6 /* Profile.xcconfig */,
+				D0040C6419FEBF49002869A6 /* Release.xcconfig */,
+				D0040C6519FEBF49002869A6 /* Test.xcconfig */,
+			);
+			path = Configurations;
+			sourceTree = "<group>";
+		};
+		D0040C6619FEBF49002869A6 /* Targets */ = {
+			isa = PBXGroup;
+			children = (
+				D0040C6719FEBF49002869A6 /* Application.xcconfig */,
+				D0040C6819FEBF49002869A6 /* Framework.xcconfig */,
+				D0040C6919FEBF49002869A6 /* StaticLibrary.xcconfig */,
+			);
+			path = Targets;
+			sourceTree = "<group>";
+		};
+		D0040C6A19FEBF49002869A6 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				D0040C6B19FEBF49002869A6 /* iOS-Application.xcconfig */,
+				D0040C6C19FEBF49002869A6 /* iOS-Base.xcconfig */,
+				D0040C6D19FEBF49002869A6 /* iOS-Framework.xcconfig */,
+				D0040C6E19FEBF49002869A6 /* iOS-StaticLibrary.xcconfig */,
+			);
+			path = iOS;
+			sourceTree = "<group>";
+		};
+		D0040C6F19FEBF49002869A6 /* Mac OS X */ = {
+			isa = PBXGroup;
+			children = (
+				D0040C7019FEBF49002869A6 /* Mac-Application.xcconfig */,
+				D0040C7119FEBF49002869A6 /* Mac-Base.xcconfig */,
+				D0040C7219FEBF49002869A6 /* Mac-DynamicLibrary.xcconfig */,
+				D0040C7319FEBF49002869A6 /* Mac-Framework.xcconfig */,
+				D0040C7419FEBF49002869A6 /* Mac-StaticLibrary.xcconfig */,
+			);
+			path = "Mac OS X";
+			sourceTree = "<group>";
+		};
 		D0476D9B177916250071F3CB = {
 			isa = PBXGroup;
 			children = (
 				D0476DC6177916920071F3CB /* AFNetworking */,
 				D0476E6517791AA50071F3CB /* ISO8601DateFormatter */,
-				D0476DA2177916770071F3CB /* Configuration */,
 				D0476DBF177916920071F3CB /* Frameworks */,
+				D0040C5E19FEBF49002869A6 /* Configuration */,
 				D0476DBE177916920071F3CB /* Products */,
 			);
-			sourceTree = "<group>";
-		};
-		D0476DA2177916770071F3CB /* Configuration */ = {
-			isa = PBXGroup;
-			children = (
-				D0476DA3177916770071F3CB /* Base */,
-				D0476DAD177916770071F3CB /* iOS */,
-				D0476DB1177916770071F3CB /* Mac OS X */,
-				D0476DB7177916770071F3CB /* README.md */,
-			);
-			name = Configuration;
-			path = ../Mantle/Configuration;
-			sourceTree = "<group>";
-		};
-		D0476DA3177916770071F3CB /* Base */ = {
-			isa = PBXGroup;
-			children = (
-				D0476DA4177916770071F3CB /* Common.xcconfig */,
-				D0476DA5177916770071F3CB /* Configurations */,
-				D0476DAA177916770071F3CB /* Targets */,
-			);
-			path = Base;
-			sourceTree = "<group>";
-		};
-		D0476DA5177916770071F3CB /* Configurations */ = {
-			isa = PBXGroup;
-			children = (
-				D0476DA6177916770071F3CB /* Debug.xcconfig */,
-				D0476DA7177916770071F3CB /* Profile.xcconfig */,
-				D0476DA8177916770071F3CB /* Release.xcconfig */,
-				D0476DA9177916770071F3CB /* Test.xcconfig */,
-			);
-			path = Configurations;
-			sourceTree = "<group>";
-		};
-		D0476DAA177916770071F3CB /* Targets */ = {
-			isa = PBXGroup;
-			children = (
-				D0476DAB177916770071F3CB /* Application.xcconfig */,
-				D0476DAC177916770071F3CB /* StaticLibrary.xcconfig */,
-			);
-			path = Targets;
-			sourceTree = "<group>";
-		};
-		D0476DAD177916770071F3CB /* iOS */ = {
-			isa = PBXGroup;
-			children = (
-				D0476DAE177916770071F3CB /* iOS-Application.xcconfig */,
-				D0476DAF177916770071F3CB /* iOS-Base.xcconfig */,
-				D0476DB0177916770071F3CB /* iOS-StaticLibrary.xcconfig */,
-			);
-			path = iOS;
-			sourceTree = "<group>";
-		};
-		D0476DB1177916770071F3CB /* Mac OS X */ = {
-			isa = PBXGroup;
-			children = (
-				D0476DB2177916770071F3CB /* Mac-Application.xcconfig */,
-				D0476DB3177916770071F3CB /* Mac-Base.xcconfig */,
-				D0476DB4177916770071F3CB /* Mac-DynamicLibrary.xcconfig */,
-				D0476DB5177916770071F3CB /* Mac-Framework.xcconfig */,
-				D0476DB6177916770071F3CB /* Mac-StaticLibrary.xcconfig */,
-			);
-			path = "Mac OS X";
 			sourceTree = "<group>";
 		};
 		D0476DBE177916920071F3CB /* Products */ = {
 			isa = PBXGroup;
 			children = (
 				D0476DBD177916920071F3CB /* AFNetworking.framework */,
-				D0476DFF177917050071F3CB /* libAFNetworking.a */,
 				D0476E5E17791AA50071F3CB /* ISO8601DateFormatter.framework */,
-				D0476E8817791AE70071F3CB /* libISO8601DateFormatter.a */,
+				D0040C9919FEC274002869A6 /* AFNetworking.framework */,
+				D0040CBB19FEC418002869A6 /* ISO8601DateFormatter.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -274,8 +264,6 @@
 			isa = PBXGroup;
 			children = (
 				D0476DC8177916920071F3CB /* AFNetworking-Info.plist */,
-				D0476DC9177916920071F3CB /* InfoPlist.strings */,
-				D0476DCC177916920071F3CB /* AFNetworking-Prefix.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -320,8 +308,6 @@
 			isa = PBXGroup;
 			children = (
 				D0476E6717791AA50071F3CB /* ISO8601DateFormatter-Info.plist */,
-				D0476E6817791AA50071F3CB /* InfoPlist.strings */,
-				D0476E6B17791AA50071F3CB /* ISO8601DateFormatter-Prefix.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -338,6 +324,31 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
+		D0040C9619FEC274002869A6 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D0040CE819FEC494002869A6 /* UIImageView+AFNetworking.h in Headers */,
+				D0040CDC19FEC494002869A6 /* AFImageRequestOperation.h in Headers */,
+				D0040CDE19FEC494002869A6 /* AFJSONRequestOperation.h in Headers */,
+				D0040CD819FEC494002869A6 /* AFHTTPClient.h in Headers */,
+				D0040CE419FEC494002869A6 /* AFURLConnectionOperation.h in Headers */,
+				D0040CDA19FEC494002869A6 /* AFHTTPRequestOperation.h in Headers */,
+				D0040CE219FEC494002869A6 /* AFPropertyListRequestOperation.h in Headers */,
+				D0040CE019FEC494002869A6 /* AFNetworkActivityIndicatorManager.h in Headers */,
+				D0040CE619FEC494002869A6 /* AFXMLRequestOperation.h in Headers */,
+				D0040CEA19FEC4A6002869A6 /* AFNetworking.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D0040CB819FEC418002869A6 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D0040CEB19FEC4BC002869A6 /* ISO8601DateFormatter.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D0476DBA177916920071F3CB /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -353,23 +364,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		D0476E17177917370071F3CB /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				D0476E18177917410071F3CB /* AFNetworking.h in Headers */,
-				D0476E19177917450071F3CB /* AFHTTPClient.h in Headers */,
-				D0476E1A177917470071F3CB /* AFHTTPRequestOperation.h in Headers */,
-				D0476E1C1779174D0071F3CB /* AFJSONRequestOperation.h in Headers */,
-				D0476E1B1779174A0071F3CB /* AFImageRequestOperation.h in Headers */,
-				D0476E1D1779174F0071F3CB /* AFNetworkActivityIndicatorManager.h in Headers */,
-				D0476E1E177917510071F3CB /* AFPropertyListRequestOperation.h in Headers */,
-				D0476E1F177917560071F3CB /* AFURLConnectionOperation.h in Headers */,
-				D0476E20177917580071F3CB /* AFXMLRequestOperation.h in Headers */,
-				D0476E211779175A0071F3CB /* UIImageView+AFNetworking.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		D0476E5B17791AA50071F3CB /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -378,17 +372,45 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		D0476E9F17791B820071F3CB /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				D0476EA117791B940071F3CB /* ISO8601DateFormatter.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		D0040C9819FEC274002869A6 /* AFNetworking iOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D0040CAC19FEC274002869A6 /* Build configuration list for PBXNativeTarget "AFNetworking iOS" */;
+			buildPhases = (
+				D0040C9419FEC274002869A6 /* Sources */,
+				D0040C9519FEC274002869A6 /* Frameworks */,
+				D0040C9619FEC274002869A6 /* Headers */,
+				D0040C9719FEC274002869A6 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "AFNetworking iOS";
+			productName = AFNetworking;
+			productReference = D0040C9919FEC274002869A6 /* AFNetworking.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		D0040CBA19FEC418002869A6 /* ISO8601DateFormatter iOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D0040CCE19FEC418002869A6 /* Build configuration list for PBXNativeTarget "ISO8601DateFormatter iOS" */;
+			buildPhases = (
+				D0040CB619FEC418002869A6 /* Sources */,
+				D0040CB719FEC418002869A6 /* Frameworks */,
+				D0040CB819FEC418002869A6 /* Headers */,
+				D0040CB919FEC418002869A6 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "ISO8601DateFormatter iOS";
+			productName = ISO8601DateFormatter;
+			productReference = D0040CBB19FEC418002869A6 /* ISO8601DateFormatter.framework */;
+			productType = "com.apple.product-type.framework";
+		};
 		D0476DBC177916920071F3CB /* AFNetworking Mac */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = D0476DD0177916920071F3CB /* Build configuration list for PBXNativeTarget "AFNetworking Mac" */;
@@ -406,23 +428,6 @@
 			productName = AFNetworking;
 			productReference = D0476DBD177916920071F3CB /* AFNetworking.framework */;
 			productType = "com.apple.product-type.framework";
-		};
-		D0476DFE177917050071F3CB /* AFNetworking iOS */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = D0476E08177917050071F3CB /* Build configuration list for PBXNativeTarget "AFNetworking iOS" */;
-			buildPhases = (
-				D0476DFB177917050071F3CB /* Sources */,
-				D0476DFC177917050071F3CB /* Frameworks */,
-				D0476E17177917370071F3CB /* Headers */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = "AFNetworking iOS";
-			productName = AFNetworking;
-			productReference = D0476DFF177917050071F3CB /* libAFNetworking.a */;
-			productType = "com.apple.product-type.library.static";
 		};
 		D0476E5D17791AA50071F3CB /* ISO8601DateFormatter Mac */ = {
 			isa = PBXNativeTarget;
@@ -442,31 +447,22 @@
 			productReference = D0476E5E17791AA50071F3CB /* ISO8601DateFormatter.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		D0476E8717791AE70071F3CB /* ISO8601DateFormatter iOS */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = D0476E9117791AE70071F3CB /* Build configuration list for PBXNativeTarget "ISO8601DateFormatter iOS" */;
-			buildPhases = (
-				D0476E8417791AE70071F3CB /* Sources */,
-				D0476E8517791AE70071F3CB /* Frameworks */,
-				D0476E9F17791B820071F3CB /* Headers */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = "ISO8601DateFormatter iOS";
-			productName = ISO8601DateFormatter;
-			productReference = D0476E8817791AE70071F3CB /* libISO8601DateFormatter.a */;
-			productType = "com.apple.product-type.library.static";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		D0476D9C177916250071F3CB /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0500;
+				LastUpgradeCheck = 0620;
 				ORGANIZATIONNAME = GitHub;
+				TargetAttributes = {
+					D0040C9819FEC274002869A6 = {
+						CreatedOnToolsVersion = 6.1;
+					};
+					D0040CBA19FEC418002869A6 = {
+						CreatedOnToolsVersion = 6.1;
+					};
+				};
 			};
 			buildConfigurationList = D0476D9F177916250071F3CB /* Build configuration list for PBXProject "OctoKitDependencies" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -481,19 +477,32 @@
 			projectRoot = "";
 			targets = (
 				D0476DBC177916920071F3CB /* AFNetworking Mac */,
-				D0476DFE177917050071F3CB /* AFNetworking iOS */,
+				D0040C9819FEC274002869A6 /* AFNetworking iOS */,
 				D0476E5D17791AA50071F3CB /* ISO8601DateFormatter Mac */,
-				D0476E8717791AE70071F3CB /* ISO8601DateFormatter iOS */,
+				D0040CBA19FEC418002869A6 /* ISO8601DateFormatter iOS */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		D0040C9719FEC274002869A6 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D0040CB919FEC418002869A6 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D0476DBB177916920071F3CB /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D0476DCB177916920071F3CB /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -501,13 +510,36 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D0476E6A17791AA50071F3CB /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		D0040C9419FEC274002869A6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D0040CE519FEC494002869A6 /* AFURLConnectionOperation.m in Sources */,
+				D0040CDD19FEC494002869A6 /* AFImageRequestOperation.m in Sources */,
+				D0040CDB19FEC494002869A6 /* AFHTTPRequestOperation.m in Sources */,
+				D0040CE319FEC494002869A6 /* AFPropertyListRequestOperation.m in Sources */,
+				D0040CE719FEC494002869A6 /* AFXMLRequestOperation.m in Sources */,
+				D0040CDF19FEC494002869A6 /* AFJSONRequestOperation.m in Sources */,
+				D0040CD919FEC494002869A6 /* AFHTTPClient.m in Sources */,
+				D0040CE919FEC494002869A6 /* UIImageView+AFNetworking.m in Sources */,
+				D0040CE119FEC494002869A6 /* AFNetworkActivityIndicatorManager.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D0040CB619FEC418002869A6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D0040CEC19FEC4BC002869A6 /* ISO8601DateFormatter.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D0476DB8177916920071F3CB /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -522,22 +554,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		D0476DFB177917050071F3CB /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				D0476E0B177917180071F3CB /* AFHTTPClient.m in Sources */,
-				D0476E0C1779171A0071F3CB /* AFHTTPRequestOperation.m in Sources */,
-				D0476E0D1779171C0071F3CB /* AFImageRequestOperation.m in Sources */,
-				D0476E0E1779171E0071F3CB /* AFJSONRequestOperation.m in Sources */,
-				D0476E0F177917200071F3CB /* AFNetworkActivityIndicatorManager.m in Sources */,
-				D0476E10177917220071F3CB /* AFPropertyListRequestOperation.m in Sources */,
-				D0476E11177917240071F3CB /* AFURLConnectionOperation.m in Sources */,
-				D0476E12177917250071F3CB /* AFXMLRequestOperation.m in Sources */,
-				D0476E13177917270071F3CB /* UIImageView+AFNetworking.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		D0476E5917791AA50071F3CB /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -546,69 +562,213 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		D0476E8417791AE70071F3CB /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				D0476E9A17791B630071F3CB /* ISO8601DateFormatter.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
-/* Begin PBXVariantGroup section */
-		D0476DC9177916920071F3CB /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				D0476DCA177916920071F3CB /* en */,
-			);
-			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		D0476E6817791AA50071F3CB /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				D0476E6917791AA50071F3CB /* en */,
-			);
-			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
-
 /* Begin XCBuildConfiguration section */
+		BE9AB9C21965D6300054F3D6 /* Test */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D0040C6519FEBF49002869A6 /* Test.xcconfig */;
+			buildSettings = {
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Test;
+		};
+		BE9AB9C31965D6300054F3D6 /* Test */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D0040C7319FEBF49002869A6 /* Mac-Framework.xcconfig */;
+			buildSettings = {
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_VERSION = A;
+				INFOPLIST_FILE = "AFNetworking/AFNetworking-Info.plist";
+				PRODUCT_NAME = AFNetworking;
+				WRAPPER_EXTENSION = framework;
+			};
+			name = Test;
+		};
+		BE9AB9C51965D6300054F3D6 /* Test */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D0040C7319FEBF49002869A6 /* Mac-Framework.xcconfig */;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = NO;
+				CLANG_WARN_SUSPICIOUS_IMPLICIT_CONVERSION = NO;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_VERSION = A;
+				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = NO;
+				GCC_WARN_TYPECHECK_CALLS_TO_PRINTF = NO;
+				INFOPLIST_FILE = "ISO8601DateFormatter/ISO8601DateFormatter-Info.plist";
+				PRODUCT_NAME = ISO8601DateFormatter;
+				WRAPPER_EXTENSION = framework;
+			};
+			name = Test;
+		};
+		D0040CAD19FEC274002869A6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D0040C6D19FEBF49002869A6 /* iOS-Framework.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				INFOPLIST_FILE = "AFNetworking/AFNetworking-Info.plist";
+				PRODUCT_NAME = AFNetworking;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		D0040CAE19FEC274002869A6 /* Test */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D0040C6D19FEBF49002869A6 /* iOS-Framework.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				INFOPLIST_FILE = "AFNetworking/AFNetworking-Info.plist";
+				PRODUCT_NAME = AFNetworking;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Test;
+		};
+		D0040CAF19FEC274002869A6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D0040C6D19FEBF49002869A6 /* iOS-Framework.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				INFOPLIST_FILE = "AFNetworking/AFNetworking-Info.plist";
+				PRODUCT_NAME = AFNetworking;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		D0040CB019FEC274002869A6 /* Profile */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D0040C6D19FEBF49002869A6 /* iOS-Framework.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				INFOPLIST_FILE = "AFNetworking/AFNetworking-Info.plist";
+				PRODUCT_NAME = AFNetworking;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Profile;
+		};
+		D0040CCF19FEC418002869A6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D0040C6D19FEBF49002869A6 /* iOS-Framework.xcconfig */;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = NO;
+				CLANG_WARN_SUSPICIOUS_IMPLICIT_CONVERSION = NO;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = NO;
+				GCC_WARN_TYPECHECK_CALLS_TO_PRINTF = NO;
+				INFOPLIST_FILE = "ISO8601DateFormatter/ISO8601DateFormatter-Info.plist";
+				PRODUCT_NAME = ISO8601DateFormatter;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		D0040CD019FEC418002869A6 /* Test */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D0040C6D19FEBF49002869A6 /* iOS-Framework.xcconfig */;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = NO;
+				CLANG_WARN_SUSPICIOUS_IMPLICIT_CONVERSION = NO;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = NO;
+				GCC_WARN_TYPECHECK_CALLS_TO_PRINTF = NO;
+				INFOPLIST_FILE = "ISO8601DateFormatter/ISO8601DateFormatter-Info.plist";
+				PRODUCT_NAME = ISO8601DateFormatter;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Test;
+		};
+		D0040CD119FEC418002869A6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D0040C6D19FEBF49002869A6 /* iOS-Framework.xcconfig */;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = NO;
+				CLANG_WARN_SUSPICIOUS_IMPLICIT_CONVERSION = NO;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = NO;
+				GCC_WARN_TYPECHECK_CALLS_TO_PRINTF = NO;
+				INFOPLIST_FILE = "ISO8601DateFormatter/ISO8601DateFormatter-Info.plist";
+				PRODUCT_NAME = ISO8601DateFormatter;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		D0040CD219FEC418002869A6 /* Profile */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D0040C6D19FEBF49002869A6 /* iOS-Framework.xcconfig */;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = NO;
+				CLANG_WARN_SUSPICIOUS_IMPLICIT_CONVERSION = NO;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = NO;
+				GCC_WARN_TYPECHECK_CALLS_TO_PRINTF = NO;
+				INFOPLIST_FILE = "ISO8601DateFormatter/ISO8601DateFormatter-Info.plist";
+				PRODUCT_NAME = ISO8601DateFormatter;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Profile;
+		};
 		D0476DA0177916250071F3CB /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D0476DA6177916770071F3CB /* Debug.xcconfig */;
+			baseConfigurationReference = D0040C6219FEBF49002869A6 /* Debug.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
-				GCC_WARN_UNUSED_VARIABLE = NO;
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
-				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				ONLY_ACTIVE_ARCH = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
 		D0476DA1177916250071F3CB /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D0476DA8177916770071F3CB /* Release.xcconfig */;
+			baseConfigurationReference = D0040C6419FEBF49002869A6 /* Release.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
-				GCC_WARN_UNUSED_VARIABLE = NO;
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
-				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
 		D0476DD1177916920071F3CB /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D0476DB5177916770071F3CB /* Mac-Framework.xcconfig */;
+			baseConfigurationReference = D0040C7319FEBF49002869A6 /* Mac-Framework.xcconfig */;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				FRAMEWORK_VERSION = A;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_PREFIX_HEADER = "AFNetworking/AFNetworking-Prefix.pch";
 				INFOPLIST_FILE = "AFNetworking/AFNetworking-Info.plist";
 				PRODUCT_NAME = AFNetworking;
 				WRAPPER_EXTENSION = framework;
@@ -617,101 +777,50 @@
 		};
 		D0476DD2177916920071F3CB /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D0476DB5177916770071F3CB /* Mac-Framework.xcconfig */;
+			baseConfigurationReference = D0040C7319FEBF49002869A6 /* Mac-Framework.xcconfig */;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				FRAMEWORK_VERSION = A;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_PREFIX_HEADER = "AFNetworking/AFNetworking-Prefix.pch";
 				INFOPLIST_FILE = "AFNetworking/AFNetworking-Info.plist";
 				PRODUCT_NAME = AFNetworking;
 				WRAPPER_EXTENSION = framework;
-			};
-			name = Release;
-		};
-		D0476E09177917050071F3CB /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = D0476DB0177916770071F3CB /* iOS-StaticLibrary.xcconfig */;
-			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
-				DSTROOT = /tmp/AFNetworking.dst;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_PREFIX_HEADER = "AFNetworking/AFNetworking-Prefix.pch";
-				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = AFNetworking;
-			};
-			name = Debug;
-		};
-		D0476E0A177917050071F3CB /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = D0476DB0177916770071F3CB /* iOS-StaticLibrary.xcconfig */;
-			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
-				DSTROOT = /tmp/AFNetworking.dst;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_PREFIX_HEADER = "AFNetworking/AFNetworking-Prefix.pch";
-				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = AFNetworking;
 			};
 			name = Release;
 		};
 		D0476E2A1779184E0071F3CB /* Profile */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D0476DA8177916770071F3CB /* Release.xcconfig */;
+			baseConfigurationReference = D0040C6319FEBF49002869A6 /* Profile.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
-				GCC_WARN_UNUSED_VARIABLE = NO;
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
-				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Profile;
 		};
 		D0476E2B1779184E0071F3CB /* Profile */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D0476DB5177916770071F3CB /* Mac-Framework.xcconfig */;
+			baseConfigurationReference = D0040C7319FEBF49002869A6 /* Mac-Framework.xcconfig */;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				FRAMEWORK_VERSION = A;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_PREFIX_HEADER = "AFNetworking/AFNetworking-Prefix.pch";
 				INFOPLIST_FILE = "AFNetworking/AFNetworking-Info.plist";
 				PRODUCT_NAME = AFNetworking;
 				WRAPPER_EXTENSION = framework;
 			};
 			name = Profile;
 		};
-		D0476E2C1779184E0071F3CB /* Profile */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = D0476DB0177916770071F3CB /* iOS-StaticLibrary.xcconfig */;
-			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
-				DSTROOT = /tmp/AFNetworking.dst;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_PREFIX_HEADER = "AFNetworking/AFNetworking-Prefix.pch";
-				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = AFNetworking;
-			};
-			name = Profile;
-		};
 		D0476E6F17791AA50071F3CB /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D0476DB5177916770071F3CB /* Mac-Framework.xcconfig */;
+			baseConfigurationReference = D0040C7319FEBF49002869A6 /* Mac-Framework.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = NO;
 				CLANG_WARN_SUSPICIOUS_IMPLICIT_CONVERSION = NO;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				FRAMEWORK_VERSION = A;
-				GCC_PREFIX_HEADER = "ISO8601DateFormatter/ISO8601DateFormatter-Prefix.pch";
+				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = NO;
 				GCC_WARN_TYPECHECK_CALLS_TO_PRINTF = NO;
 				INFOPLIST_FILE = "ISO8601DateFormatter/ISO8601DateFormatter-Info.plist";
 				PRODUCT_NAME = ISO8601DateFormatter;
@@ -721,14 +830,14 @@
 		};
 		D0476E7017791AA50071F3CB /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D0476DB5177916770071F3CB /* Mac-Framework.xcconfig */;
+			baseConfigurationReference = D0040C7319FEBF49002869A6 /* Mac-Framework.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = NO;
 				CLANG_WARN_SUSPICIOUS_IMPLICIT_CONVERSION = NO;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				FRAMEWORK_VERSION = A;
-				GCC_PREFIX_HEADER = "ISO8601DateFormatter/ISO8601DateFormatter-Prefix.pch";
+				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = NO;
 				GCC_WARN_TYPECHECK_CALLS_TO_PRINTF = NO;
 				INFOPLIST_FILE = "ISO8601DateFormatter/ISO8601DateFormatter-Info.plist";
 				PRODUCT_NAME = ISO8601DateFormatter;
@@ -738,14 +847,14 @@
 		};
 		D0476E7117791AA50071F3CB /* Profile */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D0476DB5177916770071F3CB /* Mac-Framework.xcconfig */;
+			baseConfigurationReference = D0040C7319FEBF49002869A6 /* Mac-Framework.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = NO;
 				CLANG_WARN_SUSPICIOUS_IMPLICIT_CONVERSION = NO;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				FRAMEWORK_VERSION = A;
-				GCC_PREFIX_HEADER = "ISO8601DateFormatter/ISO8601DateFormatter-Prefix.pch";
+				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = NO;
 				GCC_WARN_TYPECHECK_CALLS_TO_PRINTF = NO;
 				INFOPLIST_FILE = "ISO8601DateFormatter/ISO8601DateFormatter-Info.plist";
 				PRODUCT_NAME = ISO8601DateFormatter;
@@ -753,55 +862,36 @@
 			};
 			name = Profile;
 		};
-		D0476E9217791AE70071F3CB /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = D0476DB0177916770071F3CB /* iOS-StaticLibrary.xcconfig */;
-			buildSettings = {
-				CLANG_ENABLE_OBJC_ARC = NO;
-				CLANG_WARN_SUSPICIOUS_IMPLICIT_CONVERSION = NO;
-				DSTROOT = /tmp/ISO8601DateFormatter.dst;
-				GCC_PREFIX_HEADER = "ISO8601DateFormatter/ISO8601DateFormatter-Prefix.pch";
-				GCC_WARN_TYPECHECK_CALLS_TO_PRINTF = NO;
-				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = ISO8601DateFormatter;
-			};
-			name = Debug;
-		};
-		D0476E9317791AE70071F3CB /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = D0476DB0177916770071F3CB /* iOS-StaticLibrary.xcconfig */;
-			buildSettings = {
-				CLANG_ENABLE_OBJC_ARC = NO;
-				CLANG_WARN_SUSPICIOUS_IMPLICIT_CONVERSION = NO;
-				DSTROOT = /tmp/ISO8601DateFormatter.dst;
-				GCC_PREFIX_HEADER = "ISO8601DateFormatter/ISO8601DateFormatter-Prefix.pch";
-				GCC_WARN_TYPECHECK_CALLS_TO_PRINTF = NO;
-				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = ISO8601DateFormatter;
-			};
-			name = Release;
-		};
-		D0476E9417791AE70071F3CB /* Profile */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = D0476DB0177916770071F3CB /* iOS-StaticLibrary.xcconfig */;
-			buildSettings = {
-				CLANG_ENABLE_OBJC_ARC = NO;
-				CLANG_WARN_SUSPICIOUS_IMPLICIT_CONVERSION = NO;
-				DSTROOT = /tmp/ISO8601DateFormatter.dst;
-				GCC_PREFIX_HEADER = "ISO8601DateFormatter/ISO8601DateFormatter-Prefix.pch";
-				GCC_WARN_TYPECHECK_CALLS_TO_PRINTF = NO;
-				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = ISO8601DateFormatter;
-			};
-			name = Profile;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		D0040CAC19FEC274002869A6 /* Build configuration list for PBXNativeTarget "AFNetworking iOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D0040CAD19FEC274002869A6 /* Debug */,
+				D0040CAE19FEC274002869A6 /* Test */,
+				D0040CAF19FEC274002869A6 /* Release */,
+				D0040CB019FEC274002869A6 /* Profile */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D0040CCE19FEC418002869A6 /* Build configuration list for PBXNativeTarget "ISO8601DateFormatter iOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D0040CCF19FEC418002869A6 /* Debug */,
+				D0040CD019FEC418002869A6 /* Test */,
+				D0040CD119FEC418002869A6 /* Release */,
+				D0040CD219FEC418002869A6 /* Profile */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		D0476D9F177916250071F3CB /* Build configuration list for PBXProject "OctoKitDependencies" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D0476DA0177916250071F3CB /* Debug */,
+				BE9AB9C21965D6300054F3D6 /* Test */,
 				D0476DA1177916250071F3CB /* Release */,
 				D0476E2A1779184E0071F3CB /* Profile */,
 			);
@@ -812,18 +902,9 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D0476DD1177916920071F3CB /* Debug */,
+				BE9AB9C31965D6300054F3D6 /* Test */,
 				D0476DD2177916920071F3CB /* Release */,
 				D0476E2B1779184E0071F3CB /* Profile */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		D0476E08177917050071F3CB /* Build configuration list for PBXNativeTarget "AFNetworking iOS" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				D0476E09177917050071F3CB /* Debug */,
-				D0476E0A177917050071F3CB /* Release */,
-				D0476E2C1779184E0071F3CB /* Profile */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -832,18 +913,9 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D0476E6F17791AA50071F3CB /* Debug */,
+				BE9AB9C51965D6300054F3D6 /* Test */,
 				D0476E7017791AA50071F3CB /* Release */,
 				D0476E7117791AA50071F3CB /* Profile */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		D0476E9117791AE70071F3CB /* Build configuration list for PBXNativeTarget "ISO8601DateFormatter iOS" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				D0476E9217791AE70071F3CB /* Debug */,
-				D0476E9317791AE70071F3CB /* Release */,
-				D0476E9417791AE70071F3CB /* Profile */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
