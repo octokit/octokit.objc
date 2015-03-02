@@ -81,6 +81,9 @@
 // an individual issue's HTML URL.
 @property (nonatomic, copy, readonly) NSURL *issuesHTMLURL;
 
+
+@property (nonatomic, copy, readonly) NSString *language;
+
 /// The parent of the fork, or nil if the repository isn't a fork. This is the
 /// repository from which the receiver was forked.
 ///
@@ -95,5 +98,6 @@
 /// Note that this is only populated on calls to
 /// -[OCTClient fetchRepositoryWithName:owner:].
 @property (nonatomic, copy, readonly) OCTRepository *forkSource;
+>> >> >> > 1a6667f61391f0c6aee2b2a46f2a94b80787d61a
 
 @end
