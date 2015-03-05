@@ -406,8 +406,8 @@ static NSString *OCTClientOAuthClientSecret = nil;
 			return [[[client
 				fetchUserInfo]
 				doNext:^(OCTUser *user) {
-					NSMutableDictionary *userDict = [user.dictionaryValue mutableCopy] ?: [NSMutableDictionary dictionary];
-					if (user.rawLogin == nil) userDict[@keypath(user.rawLogin)] = user.login;
+					NSMutableDictionary *userDict = user.dictionaryValue.mutableCopy ?: NSMutableDictionary.dictionary;
+					userDict[@keypath(user.rawLogin)] = client.user.rawLogin;
 					OCTUser *userWithRawLogin = [OCTUser modelWithDictionary:userDict error:NULL];
 					client.user = userWithRawLogin;
 				}]
