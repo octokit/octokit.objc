@@ -26,6 +26,6 @@
 // repository - The repository in which to create the issue. This must not be nil.
 //
 // Returns a signal which will send the created `OCTIssue` then complete, or error.
-- (RACSignal *)createIssueWithTitle:(NSString *)title body:(NSString *)body assignee:(NSString *)assignee milestone:(NSNumber *)milestone labels:(NSArray *)labels inRepository:(OCTRepository *)repository;
+- (RACSignal *)createIssueWithTitle:(NSString *)title body:(NSString *)body assignee:(NSString *)assignee milestone:(NSUInteger)milestone labels:(NSArray *)labels inRepository:(OCTRepository *)repository;
 
 @end
