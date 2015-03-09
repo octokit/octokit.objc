@@ -53,6 +53,14 @@ static NSString *const OCTRepositoryHTMLIssuesPath = @"issues";
 	return [NSValueTransformer valueTransformerForName:OCTDateValueTransformerName];
 }
 
++ (NSValueTransformer *)dateCreatedJSONTransformer {
+	return [NSValueTransformer valueTransformerForName:OCTDateValueTransformerName];
+}
+
++ (NSValueTransformer *)dateUpdatedJSONTransformer {
+	return [NSValueTransformer valueTransformerForName:OCTDateValueTransformerName];
+}
+
 + (NSValueTransformer *)forkParentJSONTransformer {
 	return [NSValueTransformer mtl_JSONDictionaryTransformerWithModelClass:OCTRepository.class];
 }
