@@ -81,3 +81,4 @@ FOUNDATION_EXPORT const unsigned char OctoKitVersionString[];
 #import <OctoKit/OCTClient+User.h>
 #import <OctoKit/OCTClient+Activity.h>
 #import <OctoKit/OCTClient+Issues.h>
+#import <OctoKit/OCTClient+Watching.h>
