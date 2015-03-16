@@ -64,8 +64,8 @@
 		9CB058A017933F51002CF498 /* OCTContentSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CB0589F17933F51002CF498 /* OCTContentSpec.m */; };
 		9CF7FB9617957A6A00CA34FF /* repository.json in Resources */ = {isa = PBXBuildFile; fileRef = 9CF7FB9517957A6A00CA34FF /* repository.json */; };
 		9CF7FBBC179581EC00CA34FF /* user_starred.json in Resources */ = {isa = PBXBuildFile; fileRef = 9CF7FBBB179581EC00CA34FF /* user_starred.json */; };
-		C7C557DC1AB6348C00181B7E /* OCTClient+Watching.h in Headers */ = {isa = PBXBuildFile; fileRef = C7C557DA1AB6348C00181B7E /* OCTClient+Watching.h */; };
-		C7C557DD1AB6348C00181B7E /* OCTClient+Watching.h in Headers */ = {isa = PBXBuildFile; fileRef = C7C557DA1AB6348C00181B7E /* OCTClient+Watching.h */; };
+		C7C557DC1AB6348C00181B7E /* OCTClient+Watching.h in Headers */ = {isa = PBXBuildFile; fileRef = C7C557DA1AB6348C00181B7E /* OCTClient+Watching.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C7C557DD1AB6348C00181B7E /* OCTClient+Watching.h in Headers */ = {isa = PBXBuildFile; fileRef = C7C557DA1AB6348C00181B7E /* OCTClient+Watching.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C7C557DE1AB6348C00181B7E /* OCTClient+Watching.m in Sources */ = {isa = PBXBuildFile; fileRef = C7C557DB1AB6348C00181B7E /* OCTClient+Watching.m */; };
 		C7C557DF1AB6348C00181B7E /* OCTClient+Watching.m in Sources */ = {isa = PBXBuildFile; fileRef = C7C557DB1AB6348C00181B7E /* OCTClient+Watching.m */; };
 		C7C557E01AB6348C00181B7E /* OCTClient+Watching.m in Sources */ = {isa = PBXBuildFile; fileRef = C7C557DB1AB6348C00181B7E /* OCTClient+Watching.m */; };
