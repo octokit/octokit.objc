@@ -15,15 +15,14 @@
 
 @implementation OCTClient (Watching)
 
-- (RACSignal *)stopWatchingRepository:(OCTRepository *)repository;
-{
+- (RACSignal *)stopWatchingRepository:(OCTRepository *)repository {
 	NSParameterAssert(repository != nil);
 	NSParameterAssert(repository.name.length > 0);
 	NSParameterAssert(repository.ownerLogin.length > 0);
 	
 	if (!self.authenticated) return [RACSignal error:self.class.authenticationRequiredError];
 	
-	NSURLRequest *request = [self requestWithMethod:@"DELETE" path:[NSString stringWithFormat:@"repos/%@/%@/subscription",repository.ownerLogin, repository.name] parameters:nil];
+	NSURLRequest *request = [self requestWithMethod:@"DELETE" path:[NSString stringWithFormat:@"repos/%@/%@/subscription", repository.ownerLogin, repository.name] parameters:nil];
 	
 	return [[self enqueueRequest:request resultClass:nil] oct_parsedResults];
 }
