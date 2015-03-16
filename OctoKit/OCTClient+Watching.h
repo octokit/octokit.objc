@@ -14,10 +14,9 @@
 
 /// Stops watching the repository.
 ///
-/// repository      - The repository in which to stop watching. This must not be nil.
+/// repository - The repository in which to stop watching. This must not be nil.
 //
 /// Returns a signal which will send complete, or error.
-
 - (RACSignal *)stopWatchingRepository:(OCTRepository *)repository;
 
 @end
