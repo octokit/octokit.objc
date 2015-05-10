@@ -22,7 +22,7 @@
 	
 	NSURLRequest *request = [self requestWithMethod:@"GET" path:@"/search/repositories" parameters:parameters notMatchingEtag:nil];
 	
-	return [[self enqueueRequest:request resultClass:OCTRepositoriesSearchResult.class] oct_parsedResults];
+	return [[self enqueueRequest:request resultClass:OCTRepositoriesSearchResult.class fetchAllPages:NO] oct_parsedResults];
 }
 
 @end
