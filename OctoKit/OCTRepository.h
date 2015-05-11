@@ -81,6 +81,8 @@
 // an individual issue's HTML URL.
 @property (nonatomic, copy, readonly) NSURL *issuesHTMLURL;
 
+@property (nonatomic, copy, readonly) NSArray *textMatches;
+
 /// The parent of the fork, or nil if the repository isn't a fork. This is the
 /// repository from which the receiver was forked.
 ///

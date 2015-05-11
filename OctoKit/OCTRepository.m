@@ -34,7 +34,8 @@ static NSString *const OCTRepositoryHTMLIssuesPath = @"issues";
 		@"defaultBranch": @"default_branch",
 		@"forkParent": @"parent",
 		@"forkSource": @"source",
-	}];
+		@"textMatches": @"text_matches",
+		}];
 }
 
 + (NSValueTransformer *)HTTPSURLJSONTransformer {

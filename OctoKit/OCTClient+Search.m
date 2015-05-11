@@ -20,7 +20,8 @@
 	if (sort.length > 0) parameters[@"sort"] = sort;
 	if (order.length > 0) parameters[@"order"] = order;
 	
-	NSURLRequest *request = [self requestWithMethod:@"GET" path:@"/search/repositories" parameters:parameters notMatchingEtag:nil];
+	NSMutableURLRequest *request = [self requestWithMethod:@"GET" path:@"/search/repositories" parameters:parameters notMatchingEtag:nil];
+	[request addValue:@"application/vnd.github.v3.text-match+json" forHTTPHeaderField:@"Accept"];
 	
 	return [[self enqueueRequest:request resultClass:OCTRepositoriesSearchResult.class fetchAllPages:NO] oct_parsedResults];
 }
