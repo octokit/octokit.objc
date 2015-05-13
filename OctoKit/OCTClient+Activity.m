@@ -22,10 +22,10 @@
 	NSMutableURLRequest *request = [self requestWithMethod:@"GET" path:path parameters:nil];
 	return [[[self
 		enqueueRequest:request resultClass:nil]
-		map:^id(OCTResponse *response) {
+		map:^(OCTResponse *response) {
 			return @(response.statusCode == 204);
 		}]
-		catch:^RACSignal *(NSError *error) {
+		catch:^(NSError *error) {
 			NSNumber *statusCode = error.userInfo[OCTClientErrorHTTPStatusCodeKey];
 			if (statusCode.integerValue == 404) {
 				return [RACSignal return:@NO];
