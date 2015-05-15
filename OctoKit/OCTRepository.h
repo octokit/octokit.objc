@@ -23,6 +23,8 @@
 // form `ownerLogin/name`.
 @property (nonatomic, copy, readonly) NSString *ownerLogin;
 
+@property (nonatomic, copy, readonly) NSURL *ownerAvatarURL;
+
 // The description of this repository.
 @property (nonatomic, copy, readonly) NSString *repoDescription;
 
