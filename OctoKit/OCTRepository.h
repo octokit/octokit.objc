@@ -23,6 +23,7 @@
 // form `ownerLogin/name`.
 @property (nonatomic, copy, readonly) NSString *ownerLogin;
 
+// The URL for any avatar image.
 @property (nonatomic, copy, readonly) NSURL *ownerAvatarURL;
 
 // The description of this repository.
@@ -83,6 +84,7 @@
 // an individual issue's HTML URL.
 @property (nonatomic, copy, readonly) NSURL *issuesHTMLURL;
 
+// Text match metadata, uses to highlight the search results.
 @property (nonatomic, copy, readonly) NSArray *textMatches;
 
 /// The parent of the fork, or nil if the repository isn't a fork. This is the

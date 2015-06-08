@@ -17,7 +17,7 @@
 		@"totalCount": @"total_count",
 		@"incompleteResults": @"incomplete_results",
 		@"repositories": @"items",
-		}];
+	}];
 }
 
 + (NSValueTransformer *)repositoriesJSONTransformer {
