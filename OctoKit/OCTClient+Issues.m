@@ -10,14 +10,14 @@
 
 @implementation OCTClient (Issues)
 
-- (RACSignal *)createIssueWithTitle:(NSString *)title body:(NSString *)body assignee:(NSString *)assignee milestone:(NSUInteger)milestone labels:(NSArray *)labels inRepository:(OCTRepository *)repository {
+- (RACSignal *)createIssueWithTitle:(NSString *)title body:(NSString *)body assignee:(NSString *)assignee milestone:(NSNumber *)milestone labels:(NSArray *)labels inRepository:(OCTRepository *)repository {
 	NSParameterAssert(title != nil);
 	NSParameterAssert(repository != nil);
 	
 	NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
 	parameters[@"title"] = title;
-	parameters[@"milestone"] = @(milestone);
 	
+	if (milestone != nil) parameters[@"milestone"] = milestone;
 	if (body != nil) parameters[@"body"] = body;
 	if (assignee != nil) parameters[@"assignee"] = assignee;
 	if (labels != nil) parameters[@"labels"] = labels;
