@@ -11,14 +11,14 @@
 
 @implementation OCTClient (Search)
 
-- (RACSignal *)searchRepositoriesWithQuery:(NSString *)query sort:(NSString *)sort order:(NSString *)order {
+- (RACSignal *)searchRepositoriesWithQuery:(NSString *)query orderBy:(NSString *)orderBy asc:(BOOL)asc {
 	NSParameterAssert(query.length > 0);
 	
 	NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
 	parameters[@"q"] = query;
 	
-	if (sort.length > 0) parameters[@"sort"] = sort;
-	if (order.length > 0) parameters[@"order"] = order;
+	if (orderBy.length > 0) parameters[@"sort"] = orderBy;
+	parameters[@"order"] = asc ? @"asc" : @"desc";
 	
 	NSMutableURLRequest *request = [self requestWithMethod:@"GET" path:@"/search/repositories" parameters:parameters notMatchingEtag:nil];
 	[request addValue:@"application/vnd.github.v3.text-match+json" forHTTPHeaderField:@"Accept"];
