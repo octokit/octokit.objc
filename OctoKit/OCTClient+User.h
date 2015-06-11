@@ -17,4 +17,8 @@
 // not. If no `user` is set, the signal will error immediately.
 - (RACSignal *)fetchUserInfo;
 
+- (RACSignal *)fetchFollowers;
+
+- (RACSignal *)fetchFollowing;
+
 @end

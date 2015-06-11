@@ -18,4 +18,12 @@
 	return [[self enqueueUserRequestWithMethod:@"GET" relativePath:@"" parameters:nil resultClass:OCTUser.class] oct_parsedResults];
 }
 
+- (RACSignal *)fetchFollowers {
+	return [[self enqueueUserRequestWithMethod:@"GET" relativePath:@"/followers" parameters:nil resultClass:OCTUser.class] oct_parsedResults];
+}
+
+- (RACSignal *)fetchFollowing {
+	return [[self enqueueUserRequestWithMethod:@"GET" relativePath:@"/following" parameters:nil resultClass:OCTUser.class] oct_parsedResults];
+}
+
 @end
