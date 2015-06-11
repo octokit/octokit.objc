@@ -18,6 +18,6 @@
 @property (nonatomic, assign, getter = isIncompleteResults, readonly) BOOL incompleteResults;
 
 // The repository array of the search results.
-@property (nonatomic, strong, readonly) NSArray *repositories;
+@property (nonatomic, copy, readonly) NSArray *repositories;
 
 @end
