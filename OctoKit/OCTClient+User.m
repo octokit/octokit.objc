@@ -18,12 +18,28 @@
 	return [[self enqueueUserRequestWithMethod:@"GET" relativePath:@"" parameters:nil resultClass:OCTUser.class] oct_parsedResults];
 }
 
-- (RACSignal *)fetchFollowers {
-	return [[self enqueueUserRequestWithMethod:@"GET" relativePath:@"/followers" parameters:nil resultClass:OCTUser.class] oct_parsedResults];
+- (RACSignal *)fetchFollowersWithPage:(NSUInteger)page {
+	NSMutableDictionary *parameters = nil;
+	
+	if (page >= 1) {
+		parameters = [NSMutableDictionary dictionary];
+		parameters[@"page"] = @(page);
+	}
+	
+	NSMutableURLRequest *request = [self requestWithMethod:@"GET" path:@"/user/followers" parameters:parameters notMatchingEtag:nil];
+	
+	return [[self enqueueRequest:request resultClass:OCTUser.class fetchAllPages:NO] oct_parsedResults];
 }
 
-- (RACSignal *)fetchFollowing {
-	return [[self enqueueUserRequestWithMethod:@"GET" relativePath:@"/following" parameters:nil resultClass:OCTUser.class] oct_parsedResults];
+- (RACSignal *)fetchFollowingWithPage:(NSUInteger)page {
+	NSMutableDictionary *parameters = nil;
+	
+	if (page >= 1) {
+		parameters = [NSMutableDictionary dictionary];
+		parameters[@"page"] = @(page);
+	}
+	
+	return [[self enqueueUserRequestWithMethod:@"GET" relativePath:@"/following" parameters:parameters resultClass:OCTUser.class] oct_parsedResults];
 }
 
 @end

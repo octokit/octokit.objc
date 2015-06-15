@@ -596,7 +596,7 @@ static NSString *OCTClientOAuthClientSecret = nil;
 
 	if ([method isEqualToString:@"GET"]) {
 		parameters = [parameters ?: [NSDictionary dictionary] mtl_dictionaryByAddingEntriesFromDictionary:@{
-			@"per_page": @100
+			@"per_page": @3
 		}];
 	}
 
