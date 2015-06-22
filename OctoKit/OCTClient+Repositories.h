@@ -21,12 +21,36 @@
 // `user` is set, the signal will error immediately.
 - (RACSignal *)fetchUserRepositories;
 
+/// Fetches the public repositories for the specified `user`.
+///
+/// user    - The specified user. This must not be nil.
+/// page    - The page parameter. Note that page numbering is 1-based and that
+///           less than 1 will return the first page.
+/// perPage - The perPage parameter. You can set a custom page size up to 100 and
+///           the default value is 30.
+///
+/// Returns a signal which sends zero or more OCTRepository objects. Private
+/// repositories will not be included.
+- (RACSignal *)fetchPublicRepositoriesForUser:(OCTUser *)user page:(NSUInteger)page perPage:(NSUInteger)perPage;
+
 // Fetches the starred repositories of the current `user`.
 //
 // Returns a signal which sends zero or more OCTRepository objects. Private
 // repositories will only be included if the client is `authenticated`. If no
 // `user` is set, the signal will error immediately.
 - (RACSignal *)fetchUserStarredRepositories;
+
+/// Fetches the starred repositories for the specified `user`.
+///
+/// user    - The specified user. This must not be nil.
+/// page    - The page parameter. Note that page numbering is 1-based and that
+///           less than 1 will return the first page.
+/// perPage - The perPage parameter. You can set a custom page size up to 100 and
+///           the default value is 30.
+///
+/// Returns a signal which sends zero or more OCTRepository objects. Private
+/// repositories will not be included.
+- (RACSignal *)fetchStarredRepositoriesForUser:(OCTUser *)user page:(NSUInteger)page perPage:(NSUInteger)perPage;
 
 // Fetches the specified organization's repositories.
 //

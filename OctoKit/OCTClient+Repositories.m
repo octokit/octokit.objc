@@ -20,8 +20,50 @@
 	return [[self enqueueUserRequestWithMethod:@"GET" relativePath:@"/repos" parameters:nil resultClass:OCTRepository.class] oct_parsedResults];
 }
 
+- (RACSignal *)fetchPublicRepositoriesForUser:(OCTUser *)user page:(NSUInteger)page perPage:(NSUInteger)perPage {
+	NSParameterAssert(user != nil);
+	
+	NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+	
+	if (page >= 1) {
+		parameters[@"page"] = @(page);
+	}
+	
+	if (perPage >= 1 && perPage <= 100) {
+		parameters[@"per_page"] = @(perPage);
+	} else {
+		parameters[@"per_page"] = @(30);
+	}
+	
+	NSString *path = [NSString stringWithFormat:@"/users/%@/repos", user.login];
+	NSMutableURLRequest *request = [self requestWithMethod:@"GET" path:path parameters:parameters notMatchingEtag:nil];
+	
+	return [[self enqueueRequest:request resultClass:OCTRepository.class fetchAllPages:NO] oct_parsedResults];
+}
+
 - (RACSignal *)fetchUserStarredRepositories {
 	return [[self enqueueUserRequestWithMethod:@"GET" relativePath:@"/starred" parameters:nil resultClass:OCTRepository.class] oct_parsedResults];
+}
+
+- (RACSignal *)fetchStarredRepositoriesForUser:(OCTUser *)user page:(NSUInteger)page perPage:(NSUInteger)perPage {
+	NSParameterAssert(user != nil);
+	
+	NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+	
+	if (page >= 1) {
+		parameters[@"page"] = @(page);
+	}
+	
+	if (perPage >= 1 && perPage <= 100) {
+		parameters[@"per_page"] = @(perPage);
+	} else {
+		parameters[@"per_page"] = @(30);
+	}
+	
+	NSString *path = [NSString stringWithFormat:@"/users/%@/starred", user.login];
+	NSMutableURLRequest *request = [self requestWithMethod:@"GET" path:path parameters:parameters notMatchingEtag:nil];
+	
+	return [[self enqueueRequest:request resultClass:OCTRepository.class fetchAllPages:NO] oct_parsedResults];
 }
 
 - (RACSignal *)fetchRepositoriesForOrganization:(OCTOrganization *)organization {

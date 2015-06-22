@@ -25,6 +25,7 @@
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
 	return [super.JSONKeyPathsByPropertyKey mtl_dictionaryByAddingEntriesFromDictionary:@{
 		@"avatarURL": @"avatar_url",
+		@"HTMLURL": @"html_url",
 		@"publicRepoCount": @"public_repos",
 		@"privateRepoCount": @"owned_private_repos",
 		@"publicGistCount": @"public_gists",
@@ -38,6 +39,10 @@
 }
 
 + (NSValueTransformer *)avatarURLJSONTransformer {
+	return [NSValueTransformer valueTransformerForName:MTLURLValueTransformerName];
+}
+
++ (NSValueTransformer *)HTMLURLJSONTransformer {
 	return [NSValueTransformer valueTransformerForName:MTLURLValueTransformerName];
 }
 
