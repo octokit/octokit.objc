@@ -28,4 +28,6 @@
 // The branch to which the commits were pushed.
 @property (nonatomic, copy, readonly) NSString *branchName;
 
+@property (nonatomic, copy, readonly) NSArray *commits;
+
 @end
