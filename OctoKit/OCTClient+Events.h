@@ -20,6 +20,6 @@
 // new data. If no `user` is set, the signal will error immediately.
 - (RACSignal *)fetchUserEventsNotMatchingEtag:(NSString *)etag;
 
-- (RACSignal *)fetchEventsForUser:(OCTUser *)user page:(NSUInteger)page perPage:(NSUInteger)perPage;
+- (RACSignal *)fetchUserReceivedEventsWithPage:(NSUInteger)page perPage:(NSUInteger)perPage;
 
 @end
