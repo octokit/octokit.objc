@@ -42,4 +42,25 @@
 	return [[self enqueueRequest:request resultClass:OCTEvent.class fetchAllPages:NO] oct_parsedResults];
 }
 
+- (RACSignal *)fetchPerformedEventsForUser:(OCTUser *)user page:(NSUInteger)page perPage:(NSUInteger)perPage {
+	NSParameterAssert(user);
+	
+	NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+	
+	if (page >= 1) {
+		parameters[@"page"] = @(page);
+	}
+	
+	if (perPage >= 1 && perPage <= 100) {
+		parameters[@"per_page"] = @(perPage);
+	} else {
+		parameters[@"per_page"] = @(30);
+	}
+	
+	NSString *path = [NSString stringWithFormat:@"users/%@/events", user.login];
+	NSMutableURLRequest *request = [self requestWithMethod:@"GET" path:path parameters:parameters notMatchingEtag:nil];
+	
+	return [[self enqueueRequest:request resultClass:OCTEvent.class fetchAllPages:NO] oct_parsedResults];
+}
+
 @end

@@ -22,4 +22,6 @@
 
 - (RACSignal *)fetchUserReceivedEventsWithPage:(NSUInteger)page perPage:(NSUInteger)perPage;
 
+- (RACSignal *)fetchPerformedEventsForUser:(OCTUser *)user page:(NSUInteger)page perPage:(NSUInteger)perPage;
+
 @end
