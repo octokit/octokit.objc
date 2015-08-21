@@ -9,6 +9,7 @@
 #import "OCTClient+Activity.h"
 #import "OCTClient+Private.h"
 #import "OCTRepository.h"
+#import "OCTResponse.h"
 #import <ReactiveCocoa/ReactiveCocoa.h>
 
 @implementation OCTClient (Activity)
@@ -21,10 +22,10 @@
 	NSMutableURLRequest *request = [self requestWithMethod:@"GET" path:path parameters:nil];
 	return [[[self
 		enqueueRequest:request resultClass:nil]
-		reduceEach:^(NSHTTPURLResponse *response, id _) {
+		map:^(OCTResponse *response) {
 			return @(response.statusCode == 204);
 		}]
-		catch:^RACSignal *(NSError *error) {
+		catch:^(NSError *error) {
 			NSNumber *statusCode = error.userInfo[OCTClientErrorHTTPStatusCodeKey];
 			if (statusCode.integerValue == 404) {
 				return [RACSignal return:@NO];

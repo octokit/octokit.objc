@@ -151,4 +151,8 @@
 	}];
 }
 
++ (NSValueTransformer *)publicGistJSONTransformer {
+	return [MTLValueTransformer valueTransformerForName:MTLBooleanValueTransformerName];
+}
+
 @end

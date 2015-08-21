@@ -22,6 +22,7 @@ static NSString *const OCTRepositoryHTMLIssuesPath = @"issues";
 		@"gitURL": @"git_url",
 		@"HTMLURL": @"html_url",
 		@"ownerLogin": @"owner.login",
+		@"ownerAvatarURL": @"owner.avatar_url",
 		@"datePushed": @"pushed_at",
 		@"dateCreated": @"created_at",
 		@"dateUpdated": @"updated_at",
@@ -34,6 +35,7 @@ static NSString *const OCTRepositoryHTMLIssuesPath = @"issues";
 		@"defaultBranch": @"default_branch",
 		@"forkParent": @"parent",
 		@"forkSource": @"source",
+		@"textMatches": @"text_matches",
 	}];
 }
 
@@ -49,7 +51,19 @@ static NSString *const OCTRepositoryHTMLIssuesPath = @"issues";
 	return [NSValueTransformer valueTransformerForName:MTLURLValueTransformerName];
 }
 
++ (NSValueTransformer *)ownerAvatarURLJSONTransformer {
+	return [NSValueTransformer valueTransformerForName:MTLURLValueTransformerName];
+}
+
 + (NSValueTransformer *)datePushedJSONTransformer {
+	return [NSValueTransformer valueTransformerForName:OCTDateValueTransformerName];
+}
+
++ (NSValueTransformer *)dateCreatedJSONTransformer {
+	return [NSValueTransformer valueTransformerForName:OCTDateValueTransformerName];
+}
+
++ (NSValueTransformer *)dateUpdatedJSONTransformer {
 	return [NSValueTransformer valueTransformerForName:OCTDateValueTransformerName];
 }
 
