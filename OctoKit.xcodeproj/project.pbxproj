@@ -468,6 +468,20 @@
 			remoteGlobalIDString = D0871EA7169E2EFC00016ACA;
 			remoteInfo = OctoClient;
 		};
+		F89F6D731B87849B00F07082 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D0476E36177919200071F3CB /* OctoKitDependencies.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = D0040C9819FEC274002869A6;
+			remoteInfo = "AFNetworking iOS";
+		};
+		F89F6D771B87849F00F07082 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D0476E36177919200071F3CB /* OctoKitDependencies.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = D0040CBA19FEC418002869A6;
+			remoteInfo = "ISO8601DateFormatter iOS";
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -1473,6 +1487,8 @@
 			buildRules = (
 			);
 			dependencies = (
+				F89F6D781B87849F00F07082 /* PBXTargetDependency */,
+				F89F6D741B87849B00F07082 /* PBXTargetDependency */,
 			);
 			name = "OctoKit iOS";
 			productName = OctoKit;
@@ -1923,6 +1939,16 @@
 			isa = PBXTargetDependency;
 			target = D0871EA7169E2EFC00016ACA /* OctoKit Mac */;
 			targetProxy = D0871EC4169E2EFC00016ACA /* PBXContainerItemProxy */;
+		};
+		F89F6D741B87849B00F07082 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "AFNetworking iOS";
+			targetProxy = F89F6D731B87849B00F07082 /* PBXContainerItemProxy */;
+		};
+		F89F6D781B87849F00F07082 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "ISO8601DateFormatter iOS";
+			targetProxy = F89F6D771B87849F00F07082 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
