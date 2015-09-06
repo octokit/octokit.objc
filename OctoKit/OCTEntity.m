@@ -19,6 +19,13 @@
 - (NSString *)name {
 	return _name ?: self.login;
 }
+#pragma mark - Date Formatter
++ (NSDateFormatter *)dateFormatter {
+	NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+	dateFormatter.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"];
+	dateFormatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:ss'Z'";
+	return dateFormatter;
+}
 
 #pragma mark MTLJSONSerializing
 
@@ -30,9 +37,16 @@
 		@"publicGistCount": @"public_gists",
 		@"privateGistCount": @"private_gists",
 		@"diskUsage": @"disk_usage",
+		@"createdAt": @"created_at"
 	}];
 }
-
++ (NSValueTransformer *)createdAtJSONTransformer {
+	return [MTLValueTransformer reversibleTransformerWithForwardBlock:^id(NSString *dateString) {
+		return [self.dateFormatter dateFromString:dateString];
+	} reverseBlock:^id(NSDate *date) {
+		return [self.dateFormatter stringFromDate:date];
+	}];
+}
 + (NSValueTransformer *)repositoriesJSONTransformer {
 	return [NSValueTransformer mtl_JSONArrayTransformerWithModelClass:OCTRepository.class];
 }
