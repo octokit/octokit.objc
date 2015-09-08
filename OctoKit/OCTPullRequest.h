@@ -79,8 +79,13 @@ typedef NS_ENUM(NSInteger, OCTPullRequestState) {
 /// The name of the branch into which the changes will be merged.
 @property (nonatomic, copy, readonly) NSString *baseBranch;
 
+/// The number of commits that this pull request contains.
 @property (nonatomic, assign, readonly) NSUInteger commits;
+
+/// The number of additions that this pull request contains.
 @property (nonatomic, assign, readonly) NSUInteger additions;
+
+/// The number of deletions that this pull request contains.
 @property (nonatomic, assign, readonly) NSUInteger deletions;
 
 @end
