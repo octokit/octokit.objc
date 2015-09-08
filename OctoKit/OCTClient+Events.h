@@ -20,8 +20,25 @@
 // new data. If no `user` is set, the signal will error immediately.
 - (RACSignal *)fetchUserEventsNotMatchingEtag:(NSString *)etag;
 
-- (RACSignal *)fetchUserReceivedEventsWithPage:(NSUInteger)page perPage:(NSUInteger)perPage;
+/// Fetches the received events of the current user.
+///
+/// offset  - Allows you to specify an offset at which items will begin being
+///           returned.
+/// perPage - The perPage parameter. You can set a custom page size up to 100 and
+///           the default value is 30.
+///
+/// Returns a signal which sends zero or more OCTEvent objects.
+- (RACSignal *)fetchUserReceivedEventsWithOffset:(NSUInteger)offset perPage:(NSUInteger)perPage;
 
-- (RACSignal *)fetchPerformedEventsForUser:(OCTUser *)user page:(NSUInteger)page perPage:(NSUInteger)perPage;
+/// Fetches the performed events for the specified `user`.
+///
+/// user    - The specified user. This must not be nil.
+/// offset  - Allows you to specify an offset at which items will begin being
+///           returned.
+/// perPage - The perPage parameter. You can set a custom page size up to 100 and
+///           the default value is 30.
+///
+/// Returns a signal which sends zero or more OCTEvent objects.
+- (RACSignal *)fetchPerformedEventsForUser:(OCTUser *)user offset:(NSUInteger)offset perPage:(NSUInteger)perPage;
 
 @end

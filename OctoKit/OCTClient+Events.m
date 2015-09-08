@@ -23,44 +23,44 @@
 	return [self enqueueRequest:request resultClass:OCTEvent.class fetchAllPages:NO];
 }
 
-- (RACSignal *)fetchUserReceivedEventsWithPage:(NSUInteger)page perPage:(NSUInteger)perPage {
+- (RACSignal *)fetchUserReceivedEventsWithOffset:(NSUInteger)offset perPage:(NSUInteger)perPage {
 	NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
 	
-	if (page >= 1) {
-		parameters[@"page"] = @(page);
+	if (perPage == 0 || perPage > 100) {
+		perPage = 30;
 	}
 	
-	if (perPage >= 1 && perPage <= 100) {
-		parameters[@"per_page"] = @(perPage);
-	} else {
-		parameters[@"per_page"] = @(30);
-	}
+	NSUInteger page = (offset / perPage) + 1;
+	NSUInteger pageOffset = offset % perPage;
+	
+	parameters[@"page"] = @(page);
+	parameters[@"per_page"] = @(perPage);
 	
 	NSString *path = [NSString stringWithFormat:@"users/%@/received_events", self.user.login];
 	NSMutableURLRequest *request = [self requestWithMethod:@"GET" path:path parameters:parameters notMatchingEtag:nil];
 	
-	return [[self enqueueRequest:request resultClass:OCTEvent.class fetchAllPages:NO] oct_parsedResults];
+	return [[[self enqueueRequest:request resultClass:OCTEvent.class fetchAllPages:NO] oct_parsedResults] skip:pageOffset];
 }
 
-- (RACSignal *)fetchPerformedEventsForUser:(OCTUser *)user page:(NSUInteger)page perPage:(NSUInteger)perPage {
-	NSParameterAssert(user);
+- (RACSignal *)fetchPerformedEventsForUser:(OCTUser *)user offset:(NSUInteger)offset perPage:(NSUInteger)perPage {
+	NSParameterAssert(user != nil);
 	
 	NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
 	
-	if (page >= 1) {
-		parameters[@"page"] = @(page);
+	if (perPage == 0 || perPage > 100) {
+		perPage = 30;
 	}
 	
-	if (perPage >= 1 && perPage <= 100) {
-		parameters[@"per_page"] = @(perPage);
-	} else {
-		parameters[@"per_page"] = @(30);
-	}
+	NSUInteger page = (offset / perPage) + 1;
+	NSUInteger pageOffset = offset % perPage;
+	
+	parameters[@"page"] = @(page);
+	parameters[@"per_page"] = @(perPage);
 	
 	NSString *path = [NSString stringWithFormat:@"users/%@/events", user.login];
 	NSMutableURLRequest *request = [self requestWithMethod:@"GET" path:path parameters:parameters notMatchingEtag:nil];
 	
-	return [[self enqueueRequest:request resultClass:OCTEvent.class fetchAllPages:NO] oct_parsedResults];
+	return [[[self enqueueRequest:request resultClass:OCTEvent.class fetchAllPages:NO] oct_parsedResults] skip:pageOffset];
 }
 
 @end
