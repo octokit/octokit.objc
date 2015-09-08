@@ -27,24 +27,24 @@
 /// Fetches the followers for the specified `user`.
 ///
 /// user    - The specified user. This must not be nil.
-/// page    - The page parameter. Note that page numbering is 1-based and that
-///           less than 1 will return the first page.
+/// offset  - Allows you to specify an offset at which items will begin being
+///           returned.
 /// perPage - The perPage parameter. You can set a custom page size up to 100 and
 ///           the default value is 30.
 ///
 /// Returns a signal which sends zero or more OCTUser objects.
-- (RACSignal *)fetchFollowersForUser:(OCTUser *)user page:(NSUInteger)page perPage:(NSUInteger)perPage;
+- (RACSignal *)fetchFollowersForUser:(OCTUser *)user offset:(NSUInteger)offset perPage:(NSUInteger)perPage;
 
 /// Fetches the following for the specified `user`.
 ///
 /// user    - The specified user. This must not be nil.
-/// page    - The page parameter. Note that page numbering is 1-based and that
-///           less than 1 will return the first page.
+/// offset  - Allows you to specify an offset at which items will begin being
+///           returned.
 /// perPage - The perPage parameter. You can set a custom page size up to 100 and
 ///           the default value is 30.
 ///
 /// Returns a signal which sends zero or more OCTUser objects.
-- (RACSignal *)fetchFollowingForUser:(OCTUser *)user page:(NSUInteger)page perPage:(NSUInteger)perPage;
+- (RACSignal *)fetchFollowingForUser:(OCTUser *)user offset:(NSUInteger)offset perPage:(NSUInteger)perPage;
 
 /// Check if the current `user` are following a user.
 ///

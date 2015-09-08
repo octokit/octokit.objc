@@ -28,46 +28,46 @@
 	return [[self enqueueRequest:request resultClass:OCTUser.class] oct_parsedResults];
 }
 
-- (RACSignal *)fetchFollowersForUser:(OCTUser *)user page:(NSUInteger)page perPage:(NSUInteger)perPage {
+- (RACSignal *)fetchFollowersForUser:(OCTUser *)user offset:(NSUInteger)offset perPage:(NSUInteger)perPage {
 	NSParameterAssert(user != nil);
 	
 	NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
 	
-	if (page >= 1) {
-		parameters[@"page"] = @(page);
+	if (perPage == 0 || perPage > 100) {
+		perPage = 30;
 	}
 	
-	if (perPage >= 1 && perPage <= 100) {
-		parameters[@"per_page"] = @(perPage);
-	} else {
-		parameters[@"per_page"] = @(30);
-	}
+	NSUInteger page = (offset / perPage) + 1;
+	NSUInteger pageOffset = offset % perPage;
+	
+	parameters[@"page"] = @(page);
+	parameters[@"per_page"] = @(perPage);
 	
 	NSString *path = [NSString stringWithFormat:@"/users/%@/followers", user.login];
 	NSMutableURLRequest *request = [self requestWithMethod:@"GET" path:path parameters:parameters notMatchingEtag:nil];
 	
-	return [[self enqueueRequest:request resultClass:OCTUser.class fetchAllPages:NO] oct_parsedResults];
+	return [[[self enqueueRequest:request resultClass:OCTUser.class fetchAllPages:NO] oct_parsedResults] skip:pageOffset];
 }
 
-- (RACSignal *)fetchFollowingForUser:(OCTUser *)user page:(NSUInteger)page perPage:(NSUInteger)perPage {
+- (RACSignal *)fetchFollowingForUser:(OCTUser *)user offset:(NSUInteger)offset perPage:(NSUInteger)perPage {
 	NSParameterAssert(user != nil);
 	
 	NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
 	
-	if (page >= 1) {
-		parameters[@"page"] = @(page);
+	if (perPage == 0 || perPage > 100) {
+		perPage = 30;
 	}
 	
-	if (perPage >= 1 && perPage <= 100) {
-		parameters[@"per_page"] = @(perPage);
-	} else {
-		parameters[@"per_page"] = @(30);
-	}
+	NSUInteger page = (offset / perPage) + 1;
+	NSUInteger pageOffset = offset % perPage;
+	
+	parameters[@"page"] = @(page);
+	parameters[@"per_page"] = @(perPage);
 	
 	NSString *path = [NSString stringWithFormat:@"/users/%@/following", user.login];
 	NSMutableURLRequest *request = [self requestWithMethod:@"GET" path:path parameters:parameters notMatchingEtag:nil];
 	
-	return [[self enqueueRequest:request resultClass:OCTUser.class fetchAllPages:NO] oct_parsedResults];
+	return [[[self enqueueRequest:request resultClass:OCTUser.class fetchAllPages:NO] oct_parsedResults] skip:pageOffset];
 }
 
 - (RACSignal *)hasFollowUser:(OCTUser *)user {
