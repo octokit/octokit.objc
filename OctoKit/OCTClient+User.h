@@ -52,7 +52,7 @@
 ///
 /// Returns a signal, which will send a NSNumber valued @YES or @NO.
 /// If the client is not `authenticated`, the signal will error immediately.
-- (RACSignal *)hasFollowUser:(OCTUser *)user;
+- (RACSignal *)doesFollowUser:(OCTUser *)user;
 
 /// Follow the given `user`.
 ///

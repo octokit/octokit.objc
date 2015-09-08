@@ -70,7 +70,7 @@
 	return [[[self enqueueRequest:request resultClass:OCTUser.class fetchAllPages:NO] oct_parsedResults] skip:pageOffset];
 }
 
-- (RACSignal *)hasFollowUser:(OCTUser *)user {
+- (RACSignal *)doesFollowUser:(OCTUser *)user {
 	NSParameterAssert(user != nil);
 	if (!self.authenticated) return [RACSignal error:self.class.authenticationRequiredError];
 	
