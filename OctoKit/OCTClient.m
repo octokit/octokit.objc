@@ -595,9 +595,11 @@ static NSString *OCTClientOAuthClientSecret = nil;
 	NSParameterAssert(method != nil);
 
 	if ([method isEqualToString:@"GET"]) {
-		parameters = [parameters ?: [NSDictionary dictionary] mtl_dictionaryByAddingEntriesFromDictionary:@{
-			@"per_page": @100
-		}];
+		if (![parameters.allKeys containsObject:@"per_page"]) {
+			parameters = [parameters ?: [NSDictionary dictionary] mtl_dictionaryByAddingEntriesFromDictionary:@{
+				@"per_page": @100
+			}];
+		}
 	}
 
 	NSMutableURLRequest *request = [self requestWithMethod:method path:[path stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] parameters:parameters];

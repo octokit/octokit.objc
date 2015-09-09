@@ -20,8 +20,46 @@
 	return [[self enqueueUserRequestWithMethod:@"GET" relativePath:@"/repos" parameters:nil resultClass:OCTRepository.class] oct_parsedResults];
 }
 
+- (RACSignal *)fetchPublicRepositoriesForUser:(OCTUser *)user offset:(NSUInteger)offset perPage:(NSUInteger)perPage {
+	NSParameterAssert(user != nil);
+	
+	NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+	
+	perPage = [self perPageWithPerPage:perPage];
+	
+	NSUInteger page = [self pageWithOffset:offset perPage:perPage];
+	NSUInteger pageOffset = [self pageOffsetWithOffset:offset perPage:perPage];
+	
+	parameters[@"page"] = @(page);
+	parameters[@"per_page"] = @(perPage);
+	
+	NSString *path = [NSString stringWithFormat:@"/users/%@/repos", user.login];
+	NSMutableURLRequest *request = [self requestWithMethod:@"GET" path:path parameters:parameters notMatchingEtag:nil];
+	
+	return [[[self enqueueRequest:request resultClass:OCTRepository.class fetchAllPages:YES] oct_parsedResults] skip:pageOffset];
+}
+
 - (RACSignal *)fetchUserStarredRepositories {
 	return [[self enqueueUserRequestWithMethod:@"GET" relativePath:@"/starred" parameters:nil resultClass:OCTRepository.class] oct_parsedResults];
+}
+
+- (RACSignal *)fetchStarredRepositoriesForUser:(OCTUser *)user offset:(NSUInteger)offset perPage:(NSUInteger)perPage {
+	NSParameterAssert(user != nil);
+	
+	NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+	
+	perPage = [self perPageWithPerPage:perPage];
+	
+	NSUInteger page = [self pageWithOffset:offset perPage:perPage];
+	NSUInteger pageOffset = [self pageOffsetWithOffset:offset perPage:perPage];
+	
+	parameters[@"page"] = @(page);
+	parameters[@"per_page"] = @(perPage);
+	
+	NSString *path = [NSString stringWithFormat:@"/users/%@/starred", user.login];
+	NSMutableURLRequest *request = [self requestWithMethod:@"GET" path:path parameters:parameters notMatchingEtag:nil];
+	
+	return [[[self enqueueRequest:request resultClass:OCTRepository.class fetchAllPages:YES] oct_parsedResults] skip:pageOffset];
 }
 
 - (RACSignal *)fetchRepositoriesForOrganization:(OCTOrganization *)organization {
