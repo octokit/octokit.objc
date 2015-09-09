@@ -19,6 +19,7 @@
 		@"previousHeadSHA": @"payload.before",
 		@"currentHeadSHA": @"payload.head",
 		@"branchName": @"payload.ref",
+		@"commits": @"payload.commits",
 	}];
 }
 

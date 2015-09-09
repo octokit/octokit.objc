@@ -28,4 +28,7 @@
 // The branch to which the commits were pushed.
 @property (nonatomic, copy, readonly) NSString *branchName;
 
+// The commits were pushed, in which was the NSDictionary object.
+@property (nonatomic, copy, readonly) NSArray *commits;
+
 @end
