@@ -10,14 +10,24 @@
 #import "OCTClient+Private.h"
 #import "OCTGist.h"
 #import "RACSignal+OCTClientAdditions.h"
+#import "NSDateFormatter+OCTFormattingAdditions.h"
 #import <ReactiveCocoa/ReactiveCocoa.h>
 
 @implementation OCTClient (Gists)
 
 - (RACSignal *)fetchGists {
+	return [self fetchGistsUpdatedSince:nil];
+}
+
+- (RACSignal *)fetchGistsUpdatedSince:(NSDate *)since {
 	if (!self.authenticated) return [RACSignal error:self.class.authenticationRequiredError];
 
-	NSURLRequest *request = [self requestWithMethod:@"GET" path:@"gists" parameters:nil notMatchingEtag:nil];
+	NSDictionary *parameters = nil;
+	if (since != nil) {
+		parameters = @{ @"since" : [NSDateFormatter oct_stringFromDate:since] };
+	}
+
+	NSURLRequest *request = [self requestWithMethod:@"GET" path:@"gists" parameters:parameters notMatchingEtag:nil];
 	return [[self enqueueRequest:request resultClass:OCTGist.class] oct_parsedResults];
 }
 
