@@ -91,4 +91,32 @@ extern NSString * const OCTClientAPIVersion;
 // Returns an OCTServer that uses HTTPS.
 + (OCTServer *)HTTPSEnterpriseServerWithServer:(OCTServer *)server;
 
+/// Retrieves the valid perPage according to the original perPage.
+///
+/// perPage - The perPage parameter. You can set a custom page size up to 100 and
+///           the default value 30 will be used if you pass 0 or greater than 100.
+///
+/// Returns the valid perPage.
+- (NSUInteger)perPageWithPerPage:(NSUInteger)perPage;
+
+/// Retrieves the corresponding page according to the offset and the valid perPage.
+///
+/// offset  - Allows you to specify an offset at which items will begin being
+///           returned.
+/// perPage - The perPage parameter. You can set a custom page size up to 100 and
+///           the default value 30 will be used if you pass 0 or greater than 100.
+///
+/// Returns the corresponding page.
+- (NSUInteger)pageWithOffset:(NSUInteger)offset perPage:(NSUInteger)perPage;
+
+/// Retrieves the corresponding pageOffset according to the offset and the valid perPage.
+///
+/// offset  - Allows you to specify an offset at which items will begin being
+///           returned.
+/// perPage - The perPage parameter. You can set a custom page size up to 100 and
+///           the default value 30 will be used if you pass 0 or greater than 100.
+///
+/// Returns the corresponding pageOffset.
+- (NSUInteger)pageOffsetWithOffset:(NSUInteger)offset perPage:(NSUInteger)perPage;
+
 @end

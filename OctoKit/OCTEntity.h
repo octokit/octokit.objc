@@ -36,6 +36,9 @@
 // The URL for any avatar image.
 @property (atomic, copy, readonly) NSURL *avatarURL;
 
+// The web URL for this account.
+@property (atomic, copy, readonly) NSURL *HTMLURL;
+
 // A reference to a blog associated with this account.
 @property (atomic, copy, readonly) NSString *blog;
 
