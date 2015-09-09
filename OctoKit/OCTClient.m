@@ -771,6 +771,21 @@ static NSString *OCTClientOAuthClientSecret = nil;
 	return nil;
 }
 
+- (NSUInteger)perPageWithPerPage:(NSUInteger)perPage {
+	if (perPage == 0 || perPage > 100) {
+		perPage = 30;
+	}
+	return perPage;
+}
+
+- (NSUInteger)pageWithOffset:(NSUInteger)offset perPage:(NSUInteger)perPage {
+	return offset / perPage + 1;
+}
+
+- (NSUInteger)pageOffsetWithOffset:(NSUInteger)offset perPage:(NSUInteger)perPage {
+	return offset % perPage;
+}
+
 #pragma mark Parsing
 
 - (NSError *)parsingErrorWithFailureReason:(NSString *)localizedFailureReason {
