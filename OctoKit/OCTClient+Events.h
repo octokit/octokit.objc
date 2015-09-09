@@ -25,7 +25,7 @@
 /// offset  - Allows you to specify an offset at which items will begin being
 ///           returned.
 /// perPage - The perPage parameter. You can set a custom page size up to 100 and
-///           the default value is 30.
+///           the default value 30 will be used if you pass 0 or greater than 100.
 ///
 /// Returns a signal which sends zero or more OCTEvent objects.
 - (RACSignal *)fetchUserReceivedEventsWithOffset:(NSUInteger)offset perPage:(NSUInteger)perPage;
@@ -36,7 +36,7 @@
 /// offset  - Allows you to specify an offset at which items will begin being
 ///           returned.
 /// perPage - The perPage parameter. You can set a custom page size up to 100 and
-///           the default value is 30.
+///           the default value 30 will be used if you pass 0 or greater than 100.
 ///
 /// Returns a signal which sends zero or more OCTEvent objects.
 - (RACSignal *)fetchPerformedEventsForUser:(OCTUser *)user offset:(NSUInteger)offset perPage:(NSUInteger)perPage;
