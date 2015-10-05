@@ -1558,8 +1558,9 @@
 		D0871E9E169E2EFC00016ACA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 0700;
 				LastTestingUpgradeCheck = 0510;
-				LastUpgradeCheck = 0620;
+				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = GitHub;
 				TargetAttributes = {
 					D0040CF219FEC579002869A6 = {
@@ -1958,6 +1959,7 @@
 			baseConfigurationReference = D0040C7D19FEBF53002869A6 /* Test.xcconfig */;
 			buildSettings = {
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = OctoKit/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
@@ -1973,6 +1975,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				FRAMEWORK_VERSION = A;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.github.$(PRODUCT_NAME:rfc1034identifier)";
 				WRAPPER_EXTENSION = framework;
 			};
 			name = Test;
@@ -1993,6 +1996,7 @@
 				INFOPLIST_FILE = "OctoKitTests/OctoKitTests-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.github.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "OctoKit Mac Tests";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -2006,6 +2010,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.github.$(PRODUCT_NAME:rfc1034identifier)";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -2019,6 +2024,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.github.$(PRODUCT_NAME:rfc1034identifier)";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -2032,6 +2038,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.github.$(PRODUCT_NAME:rfc1034identifier)";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -2045,6 +2052,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.github.$(PRODUCT_NAME:rfc1034identifier)";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -2065,6 +2073,7 @@
 				);
 				INFOPLIST_FILE = "OctoKitTests/OctoKitTests-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.github.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -2085,6 +2094,7 @@
 				);
 				INFOPLIST_FILE = "OctoKitTests/OctoKitTests-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.github.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -2105,6 +2115,7 @@
 				);
 				INFOPLIST_FILE = "OctoKitTests/OctoKitTests-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.github.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -2124,6 +2135,7 @@
 				);
 				INFOPLIST_FILE = "OctoKitTests/OctoKitTests-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.github.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Profile;
@@ -2133,6 +2145,8 @@
 			baseConfigurationReference = D0040C7A19FEBF53002869A6 /* Debug.xcconfig */;
 			buildSettings = {
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = OctoKit/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
@@ -2147,6 +2161,7 @@
 			baseConfigurationReference = D0040C7C19FEBF53002869A6 /* Release.xcconfig */;
 			buildSettings = {
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = OctoKit/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
@@ -2162,6 +2177,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				FRAMEWORK_VERSION = A;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.github.$(PRODUCT_NAME:rfc1034identifier)";
 				WRAPPER_EXTENSION = framework;
 			};
 			name = Debug;
@@ -2173,6 +2189,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				FRAMEWORK_VERSION = A;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.github.$(PRODUCT_NAME:rfc1034identifier)";
 				WRAPPER_EXTENSION = framework;
 			};
 			name = Release;
@@ -2193,6 +2210,7 @@
 				INFOPLIST_FILE = "OctoKitTests/OctoKitTests-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.github.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "OctoKit Mac Tests";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -2214,6 +2232,7 @@
 				INFOPLIST_FILE = "OctoKitTests/OctoKitTests-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.github.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "OctoKit Mac Tests";
 			};
 			name = Release;
@@ -2223,6 +2242,7 @@
 			baseConfigurationReference = D0040C7B19FEBF53002869A6 /* Profile.xcconfig */;
 			buildSettings = {
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = OctoKit/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
@@ -2238,6 +2258,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				FRAMEWORK_VERSION = A;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.github.$(PRODUCT_NAME:rfc1034identifier)";
 				WRAPPER_EXTENSION = framework;
 			};
 			name = Profile;
@@ -2258,6 +2279,7 @@
 				INFOPLIST_FILE = "OctoKitTests/OctoKitTests-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.github.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "OctoKit Mac Tests";
 			};
 			name = Profile;

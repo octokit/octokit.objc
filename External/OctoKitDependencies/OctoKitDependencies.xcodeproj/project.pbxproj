@@ -453,7 +453,7 @@
 		D0476D9C177916250071F3CB /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0620;
+				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = GitHub;
 				TargetAttributes = {
 					D0040C9819FEC274002869A6 = {
@@ -569,6 +569,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D0040C6519FEBF49002869A6 /* Test.xcconfig */;
 			buildSettings = {
+				GCC_NO_COMMON_BLOCKS = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -583,6 +584,7 @@
 				DYLIB_CURRENT_VERSION = 1;
 				FRAMEWORK_VERSION = A;
 				INFOPLIST_FILE = "AFNetworking/AFNetworking-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.AFNetworking.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = AFNetworking;
 				WRAPPER_EXTENSION = framework;
 			};
@@ -600,6 +602,7 @@
 				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = NO;
 				GCC_WARN_TYPECHECK_CALLS_TO_PRINTF = NO;
 				INFOPLIST_FILE = "ISO8601DateFormatter/ISO8601DateFormatter-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.boredzo.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = ISO8601DateFormatter;
 				WRAPPER_EXTENSION = framework;
 			};
@@ -614,6 +617,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				INFOPLIST_FILE = "AFNetworking/AFNetworking-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.AFNetworking.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = AFNetworking;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -629,6 +633,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				INFOPLIST_FILE = "AFNetworking/AFNetworking-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.AFNetworking.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = AFNetworking;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -644,6 +649,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				INFOPLIST_FILE = "AFNetworking/AFNetworking-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.AFNetworking.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = AFNetworking;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -659,6 +665,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				INFOPLIST_FILE = "AFNetworking/AFNetworking-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.AFNetworking.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = AFNetworking;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -678,6 +685,7 @@
 				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = NO;
 				GCC_WARN_TYPECHECK_CALLS_TO_PRINTF = NO;
 				INFOPLIST_FILE = "ISO8601DateFormatter/ISO8601DateFormatter-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.boredzo.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = ISO8601DateFormatter;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -697,6 +705,7 @@
 				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = NO;
 				GCC_WARN_TYPECHECK_CALLS_TO_PRINTF = NO;
 				INFOPLIST_FILE = "ISO8601DateFormatter/ISO8601DateFormatter-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.boredzo.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = ISO8601DateFormatter;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -716,6 +725,7 @@
 				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = NO;
 				GCC_WARN_TYPECHECK_CALLS_TO_PRINTF = NO;
 				INFOPLIST_FILE = "ISO8601DateFormatter/ISO8601DateFormatter-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.boredzo.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = ISO8601DateFormatter;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -735,6 +745,7 @@
 				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = NO;
 				GCC_WARN_TYPECHECK_CALLS_TO_PRINTF = NO;
 				INFOPLIST_FILE = "ISO8601DateFormatter/ISO8601DateFormatter-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.boredzo.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = ISO8601DateFormatter;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -745,6 +756,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D0040C6219FEBF49002869A6 /* Debug.xcconfig */;
 			buildSettings = {
+				ENABLE_TESTABILITY = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				ONLY_ACTIVE_ARCH = YES;
@@ -756,6 +769,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D0040C6419FEBF49002869A6 /* Release.xcconfig */;
 			buildSettings = {
+				GCC_NO_COMMON_BLOCKS = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -770,6 +784,7 @@
 				DYLIB_CURRENT_VERSION = 1;
 				FRAMEWORK_VERSION = A;
 				INFOPLIST_FILE = "AFNetworking/AFNetworking-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.AFNetworking.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = AFNetworking;
 				WRAPPER_EXTENSION = framework;
 			};
@@ -783,6 +798,7 @@
 				DYLIB_CURRENT_VERSION = 1;
 				FRAMEWORK_VERSION = A;
 				INFOPLIST_FILE = "AFNetworking/AFNetworking-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.AFNetworking.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = AFNetworking;
 				WRAPPER_EXTENSION = framework;
 			};
@@ -792,6 +808,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D0040C6319FEBF49002869A6 /* Profile.xcconfig */;
 			buildSettings = {
+				GCC_NO_COMMON_BLOCKS = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -806,6 +823,7 @@
 				DYLIB_CURRENT_VERSION = 1;
 				FRAMEWORK_VERSION = A;
 				INFOPLIST_FILE = "AFNetworking/AFNetworking-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.AFNetworking.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = AFNetworking;
 				WRAPPER_EXTENSION = framework;
 			};
@@ -823,6 +841,7 @@
 				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = NO;
 				GCC_WARN_TYPECHECK_CALLS_TO_PRINTF = NO;
 				INFOPLIST_FILE = "ISO8601DateFormatter/ISO8601DateFormatter-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.boredzo.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = ISO8601DateFormatter;
 				WRAPPER_EXTENSION = framework;
 			};
@@ -840,6 +859,7 @@
 				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = NO;
 				GCC_WARN_TYPECHECK_CALLS_TO_PRINTF = NO;
 				INFOPLIST_FILE = "ISO8601DateFormatter/ISO8601DateFormatter-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.boredzo.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = ISO8601DateFormatter;
 				WRAPPER_EXTENSION = framework;
 			};
@@ -857,6 +877,7 @@
 				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = NO;
 				GCC_WARN_TYPECHECK_CALLS_TO_PRINTF = NO;
 				INFOPLIST_FILE = "ISO8601DateFormatter/ISO8601DateFormatter-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.boredzo.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = ISO8601DateFormatter;
 				WRAPPER_EXTENSION = framework;
 			};
