@@ -12,6 +12,7 @@
 #import <Quick/Quick.h>
 
 #import "OCTObjectSpec.h"
+#import "OCTObject+Private.h"
 
 QuickSpecBegin(OCTRepositorySpec)
 
@@ -134,6 +135,13 @@ describe(@"from JSON", ^{
 
 		expect(repository.forkParent).notTo(beNil());
 		expect(repository.forkParent.objectID).to(equal(@"1296267"));
+	});
+	
+	it(@"should set its nested OCTObjects' servers", ^{
+		NSURL *URL = [NSURL URLWithString:@"https://myserver.com"];
+		repository.baseURL = URL;
+		expect(repository.forkParent.baseURL).to(equal(URL));
+		expect(repository.forkSource.baseURL).to(equal(URL));
 	});
 });
 
