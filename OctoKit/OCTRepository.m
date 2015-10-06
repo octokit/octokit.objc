@@ -7,6 +7,7 @@
 //
 
 #import "OCTRepository.h"
+#import "OCTObject+Private.h"
 #import "NSValueTransformer+OCTPredefinedTransformerAdditions.h"
 
 static NSString *const OCTRepositoryHTMLIssuesPath = @"issues";
@@ -73,6 +74,13 @@ static NSString *const OCTRepositoryHTMLIssuesPath = @"issues";
 
 + (NSValueTransformer *)forkSourceJSONTransformer {
 	return [NSValueTransformer mtl_JSONDictionaryTransformerWithModelClass:OCTRepository.class];
+}
+
+- (void)setBaseURL:(NSURL *)baseURL {
+	super.baseURL = baseURL;
+
+	self.forkParent.baseURL = baseURL;
+	self.forkSource.baseURL = baseURL;
 }
 
 #pragma mark Derived Properties
