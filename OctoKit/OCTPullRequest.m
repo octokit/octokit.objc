@@ -7,10 +7,10 @@
 //
 
 #import "OCTPullRequest.h"
+
 #import "OCTUser.h"
 #import "OCTRepository.h"
 #import "NSValueTransformer+OCTPredefinedTransformerAdditions.h"
-#import "OCTObject+Private.h"
 
 @implementation OCTPullRequest
 
@@ -100,13 +100,6 @@
 
 + (NSValueTransformer *)baseRepositoryJSONTransformer {
 	return [MTLValueTransformer mtl_JSONDictionaryTransformerWithModelClass:OCTRepository.class];
-}
-
-- (void)setBaseURL:(NSURL *)baseURL {
-	super.baseURL = baseURL;
-
-	self.headRepository.baseURL = baseURL;
-	self.baseRepository.baseURL = baseURL;
 }
 
 @end

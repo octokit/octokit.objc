@@ -85,6 +85,23 @@
 		NSString *baseURLString = [NSString stringWithFormat:@"%@://%@", baseURL.scheme, baseURL.host];
 		self.server = [OCTServer serverWithBaseURL:[NSURL URLWithString:baseURLString]];
 	}
+	
+	// Also set the base URL for any nested objects.
+	for (NSString *propertyKey in self.class.JSONKeyPathsByPropertyKey) {
+		id value = [self valueForKey:propertyKey];
+		if ([value isKindOfClass:OCTObject.class]) {
+			OCTObject *object = value;
+			object.baseURL = baseURL;
+		} else if ([value conformsToProtocol:@protocol(NSFastEnumeration)]) {
+			id<NSFastEnumeration> enumerator = value;
+			for (id value in enumerator) {
+				if ([value isKindOfClass:OCTObject.class]) {
+					OCTObject *object = value;
+					object.baseURL = baseURL;
+				}
+			}
+		}
+	}
 }
 
 - (BOOL)validateObjectID:(id *)objectID error:(NSError **)error {
