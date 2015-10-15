@@ -18,6 +18,7 @@ NSDictionary *representation = @{
 	@"url": @"https://api.github.com/repos/octocat/Hello-World/issues/1",
 	@"html_url": @"https://github.com/octocat/Hello-World/issues/1",
 	@"number": @1347,
+	@"id": @1,
 	@"state": @"open",
 	@"title": @"Found a bug",
 	@"body": @"I'm having a problem with this.",
@@ -83,11 +84,12 @@ itBehavesLike(OCTObjectArchivingSharedExamplesName, ^{
 });
 
 it(@"should initialize", ^{
-	expect(issue.objectID).to(equal(@"1347"));
+	expect(issue.objectID).to(equal(@"1"));
 	expect(issue.URL).to(equal([NSURL URLWithString:@"https://api.github.com/repos/octocat/Hello-World/issues/1"]));
 	expect(issue.HTMLURL).to(equal([NSURL URLWithString:@"https://github.com/octocat/Hello-World/issues/1"]));
 	expect(issue.title).to(equal(@"Found a bug"));
 	expect(issue.state).to(equal(@(OCTIssueStateOpen)));
+	expect(issue.number).to(equal(@"1347"));
 
 	expect(issue.pullRequest).to(beAKindOf(OCTPullRequest.class));
 	expect(issue.pullRequest.objectID).to(equal(issue.objectID));

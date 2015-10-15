@@ -39,7 +39,6 @@
 	return [super.JSONKeyPathsByPropertyKey mtl_dictionaryByAddingEntriesFromDictionary:@{
 		@"URL": @"url",
 		@"HTMLURL": @"html_url",
-		@"objectID": @"number",
 		@"pullRequestHTMLURL": @"pull_request.html_url",
 	}];
 }

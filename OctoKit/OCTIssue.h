@@ -34,4 +34,7 @@ typedef NS_ENUM(NSInteger, OCTIssueState) {
 /// The state of the issue.
 @property (nonatomic, assign, readonly) OCTIssueState state;
 
+/// The issue number.
+@property (nonatomic, copy, readonly) NSString *number;
+
 @end
