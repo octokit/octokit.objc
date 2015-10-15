@@ -55,6 +55,17 @@
 	return [NSValueTransformer valueTransformerForName:MTLURLValueTransformerName];
 }
 
++ (NSValueTransformer *)numberJSONTransformer {
+	return [MTLValueTransformer
+		reversibleTransformerWithForwardBlock:^(NSNumber *num) {
+			return num.stringValue;
+		} reverseBlock:^ id (NSString *str) {
+			if (str == nil) return nil;
+
+			return [NSDecimalNumber decimalNumberWithString:str];
+		}];
+}
+
 + (NSValueTransformer *)stateJSONTransformer {
 	NSDictionary *statesByName = @{
 		@"open": @(OCTIssueStateOpen),
