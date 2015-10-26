@@ -2006,6 +2006,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D0040C8519FEBF53002869A6 /* iOS-Framework.xcconfig */;
 			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = NO;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -2020,6 +2021,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D0040C8519FEBF53002869A6 /* iOS-Framework.xcconfig */;
 			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = NO;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -2034,6 +2036,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D0040C8519FEBF53002869A6 /* iOS-Framework.xcconfig */;
 			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = NO;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -2048,6 +2051,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D0040C8519FEBF53002869A6 /* iOS-Framework.xcconfig */;
 			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = NO;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
 				DYLIB_COMPATIBILITY_VERSION = 1;
