@@ -107,7 +107,7 @@ instead:
 ### Cancelling a request
 
 All of the `-subscribe…` methods actually return
-a [RACDisposable](https://github.com/ReactiveCocoa/ReactiveCocoa/blob/master/ReactiveCocoaFramework/ReactiveCocoa/RACDisposable.h)
+a [RACDisposable](https://github.com/ReactiveCocoa/ReactiveCocoa/blob/master/ReactiveCocoa/Objective-C/RACDisposable.h)
 object. Most of the time, you don't need it, but you can hold onto it if you
 want to cancel requests:
 
