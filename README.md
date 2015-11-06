@@ -145,7 +145,7 @@ want to cancel requests:
 
 ## Authentication
 
-OctoKit supports two variants of [OAuth2](https://developer.github.com//v3/oauth/)
+OctoKit supports two variants of [OAuth2](https://developer.github.com/v3/oauth/)
 for signing in. We recommend the [browser-based
 approach](#signing-in-through-a-browser), but you can also implement a [native
 sign-in flow](#signing-in-through-the-app) if desired.
