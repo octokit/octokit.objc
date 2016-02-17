@@ -1,9 +1,9 @@
 # OctoKit
 
 OctoKit is a Cocoa and Cocoa Touch framework for interacting with the [GitHub
-API](http://developer.github.com), built using
+API](https://developer.github.com/), built using
 [AFNetworking](https://github.com/AFNetworking/AFNetworking),
-[Mantle](https://github.com/MantleFramework/Mantle), and
+[Mantle](https://github.com/Mantle/Mantle), and
 [ReactiveCocoa](https://github.com/ReactiveCocoa/ReactiveCocoa).
 
 ## Making Requests
@@ -30,7 +30,7 @@ After we've got a client, we can start fetching data. Each request method on
 `OCTClient` returns
 a [ReactiveCocoa](https://github.com/ReactiveCocoa/ReactiveCocoa) signal, which
 is kinda like a [future or
-promise](http://en.wikipedia.org/wiki/Futures_and_promises):
+promise](https://en.wikipedia.org/wiki/Futures_and_promises):
 
 ```objc
 // Prepares a request that will load all of the user's repositories, represented
@@ -107,7 +107,7 @@ instead:
 ### Cancelling a request
 
 All of the `-subscribe…` methods actually return
-a [RACDisposable](https://github.com/ReactiveCocoa/ReactiveCocoa/blob/master/ReactiveCocoaFramework/ReactiveCocoa/RACDisposable.h)
+a [RACDisposable](https://github.com/ReactiveCocoa/ReactiveCocoa/blob/master/ReactiveCocoa/Objective-C/RACDisposable.h)
 object. Most of the time, you don't need it, but you can hold onto it if you
 want to cancel requests:
 
@@ -145,7 +145,7 @@ want to cancel requests:
 
 ## Authentication
 
-OctoKit supports two variants of [OAuth2](http://developer.github.com/v3/oauth/)
+OctoKit supports two variants of [OAuth2](https://developer.github.com/v3/oauth/)
 for signing in. We recommend the [browser-based
 approach](#signing-in-through-a-browser), but you can also implement a [native
 sign-in flow](#signing-in-through-the-app) if desired.
@@ -209,10 +209,10 @@ thread](#receiving-results-on-the-main-thread), just like with any other request
 
 If you don't want to open a web page, you can use the native authentication flow
 and implement your own sign-in UI. However, [two-factor
-authentication](https://help.github.com/articles/about-two-factor-authentication)
+authentication](https://help.github.com/articles/about-two-factor-authentication/)
 makes this process somewhat complex, and the native authentication flow may not work
 with [GitHub Enterprise](https://enterprise.github.com) instances that use [single
-sign-on](http://en.wikipedia.org/wiki/Single_sign-on).
+sign-on](https://en.wikipedia.org/wiki/Single_sign-on).
 
 Whenever the user wants to sign in, present your custom UI. After the form has
 been filled in with a username and password (and perhaps a server URL, for GitHub
@@ -329,7 +329,7 @@ user to sign in again.
 
 OctoKit is still new and moving fast, so we may make breaking changes from
 time-to-time, but it has partial unit test coverage and is already being used
-in [GitHub for Mac](http://mac.github.com)'s production code.
+in [GitHub for Mac](https://desktop.github.com/)'s production code.
 
 To add OctoKit to your application:
 
@@ -349,7 +349,7 @@ To add OctoKit to your application:
     necessary for archive builds, but it has no negative effect otherwise).
  1. **For iOS targets**, add `-ObjC` to the "Other Linker Flags" build setting.
 
-If you would prefer to use [CocoaPods](http://cocoapods.org), there are some [OctoKit podspecs](https://github.com/CocoaPods/Specs/tree/master/Specs/OctoKit)
+If you would prefer to use [CocoaPods](https://cocoapods.org/), there are some [OctoKit podspecs](https://github.com/CocoaPods/Specs/tree/master/Specs/OctoKit)
 that have been generously contributed by third parties.
 
 If you’re developing OctoKit on its own, then use `OctoKit.xcworkspace`.
