@@ -40,7 +40,7 @@
 		@(OCTClientIssueStateAll): @"all",
 	};
 	NSString *stateString = stateToStateString[@(state)];
-	NSAssert(stateString != nil, @"Unknown state: %ld", state);
+	NSAssert(stateString != nil, @"Unknown state: %@", @(state));
 
 	parameters[@"state"] = stateString;
 	if (since != nil) parameters[@"since"] = [NSDateFormatter oct_stringFromDate:since];
