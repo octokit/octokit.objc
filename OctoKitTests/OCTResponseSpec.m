@@ -6,9 +6,9 @@
 //  Copyright (c) 2013 GitHub. All rights reserved.
 //
 
-#import <Nimble/Nimble.h>
 #import <OctoKit/OctoKit.h>
-#import <Quick/Quick.h>
+@import Nimble;
+@import Quick;
 
 NSString *etag = @"\"644b5b0155e6404a9cc4bd9d8b1ae730\"";
 

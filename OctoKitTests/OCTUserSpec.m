@@ -6,9 +6,9 @@
 //  Copyright (c) 2012 GitHub. All rights reserved.
 //
 
-#import <Nimble/Nimble.h>
 #import <OctoKit/OctoKit.h>
-#import <Quick/Quick.h>
+@import Nimble;
+@import Quick;
 
 #import "OCTObject+Private.h"
 #import "OCTObjectSpec.h"
