@@ -7,6 +7,7 @@
 //
 
 #import "OCTClient+Issues.h"
+#import "NSDateFormatter+OCTFormattingAdditions.h"
 
 @implementation OCTClient (Issues)
 
@@ -26,6 +27,27 @@
 	NSURLRequest *request = [self requestWithMethod:@"POST" path:path parameters:parameters notMatchingEtag:nil];
 	
 	return [[self enqueueRequest:request resultClass:OCTIssue.class] oct_parsedResults];
+}
+
+- (RACSignal *)fetchIssuesForRepository:(OCTRepository *)repository state:(OCTClientIssueState)state notMatchingEtag:(NSString *)etag since:(NSDate *)since {
+	NSParameterAssert(repository != nil);
+
+	NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+
+	NSDictionary *stateToStateString = @{
+		@(OCTClientIssueStateOpen): @"open",
+		@(OCTClientIssueStateClosed): @"closed",
+		@(OCTClientIssueStateAll): @"all",
+	};
+	NSString *stateString = stateToStateString[@(state)];
+	NSAssert(stateString != nil, @"Unknown state: %@", @(state));
+
+	parameters[@"state"] = stateString;
+	if (since != nil) parameters[@"since"] = [NSDateFormatter oct_stringFromDate:since];
+
+	NSString *path = [NSString stringWithFormat:@"repos/%@/%@/issues", repository.ownerLogin, repository.name];
+	NSURLRequest *request = [self requestWithMethod:@"GET" path:path parameters:parameters notMatchingEtag:etag];
+	return [self enqueueRequest:request resultClass:OCTIssue.class];
 }
 
 @end

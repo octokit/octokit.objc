@@ -8,6 +8,11 @@
 
 #import "OCTObject.h"
 
+typedef NS_ENUM(NSInteger, OCTIssueState) {
+	OCTIssueStateOpen,
+	OCTIssueStateClosed,
+};
+
 @class OCTPullRequest;
 
 // An issue on a repository.
@@ -25,5 +30,11 @@
 // The pull request that is attached to (i.e., the same as) this issue, or nil
 // if this issue does not have code attached.
 @property (nonatomic, copy, readonly) OCTPullRequest *pullRequest;
+
+/// The state of the issue.
+@property (nonatomic, assign, readonly) OCTIssueState state;
+
+/// The issue number.
+@property (nonatomic, copy, readonly) NSString *number;
 
 @end

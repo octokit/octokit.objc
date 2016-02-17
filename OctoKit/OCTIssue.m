@@ -39,7 +39,6 @@
 	return [super.JSONKeyPathsByPropertyKey mtl_dictionaryByAddingEntriesFromDictionary:@{
 		@"URL": @"url",
 		@"HTMLURL": @"html_url",
-		@"objectID": @"number",
 		@"pullRequestHTMLURL": @"pull_request.html_url",
 	}];
 }
@@ -54,6 +53,32 @@
 
 + (NSValueTransformer *)pullRequestHTMLURLJSONTransformer {
 	return [NSValueTransformer valueTransformerForName:MTLURLValueTransformerName];
+}
+
++ (NSValueTransformer *)numberJSONTransformer {
+	return [MTLValueTransformer
+		reversibleTransformerWithForwardBlock:^(NSNumber *num) {
+			return num.stringValue;
+		} reverseBlock:^ id (NSString *str) {
+			if (str == nil) return nil;
+
+			return [NSDecimalNumber decimalNumberWithString:str];
+		}];
+}
+
++ (NSValueTransformer *)stateJSONTransformer {
+	NSDictionary *statesByName = @{
+		@"open": @(OCTIssueStateOpen),
+		@"closed": @(OCTIssueStateClosed),
+	};
+
+	return [MTLValueTransformer
+		reversibleTransformerWithForwardBlock:^(NSString *stateName) {
+			return statesByName[stateName];
+		}
+		reverseBlock:^(NSNumber *state) {
+			return [statesByName allKeysForObject:state].lastObject;
+		}];
 }
 
 @end

@@ -8,6 +8,12 @@
 
 #import <OctoKit/OctoKit.h>
 
+typedef NS_ENUM(NSInteger, OCTClientIssueState) {
+	OCTClientIssueStateOpen,
+	OCTClientIssueStateClosed,
+	OCTClientIssueStateAll,
+};
+
 @interface OCTClient (Issues)
 
 /// Creates an issue.
@@ -27,5 +33,18 @@
 ///
 /// Returns a signal which will send the created `OCTIssue` then complete, or error.
 - (RACSignal *)createIssueWithTitle:(NSString *)title body:(NSString *)body assignee:(NSString *)assignee milestone:(NSNumber *)milestone labels:(NSArray *)labels inRepository:(OCTRepository *)repository;
+
+/// Fetch the issues with the given state from the repository.
+///
+/// repository - The repository whose issues should be fetched. Cannot be nil.
+/// state      - The state of issues to return.
+/// etag       - An Etag from a previous request, used to avoid downloading
+//               unnecessary data. May be nil.
+/// since      - Only issues updated or created after this date will be fetched.
+///              May be nil.
+///
+/// Returns a signal which will send each `OCTResponse`-wrapped `OCTIssue`s and
+/// complete or error.
+- (RACSignal *)fetchIssuesForRepository:(OCTRepository *)repository state:(OCTClientIssueState)state notMatchingEtag:(NSString *)etag since:(NSDate *)since;
 
 @end
