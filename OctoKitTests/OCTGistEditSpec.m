@@ -5,9 +5,9 @@
 //  Created by Chris Lundie on 2014-03-07.
 //
 
-#import <Nimble/Nimble.h>
 #import <OctoKit/OctoKit.h>
-#import <Quick/Quick.h>
+@import Nimble;
+@import Quick;
 
 #import "OCTObjectSpec.h"
 

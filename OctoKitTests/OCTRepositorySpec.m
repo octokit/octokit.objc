@@ -7,9 +7,9 @@
 //
 
 #import <ISO8601DateFormatter/ISO8601DateFormatter.h>
-#import <Nimble/Nimble.h>
 #import <OctoKit/OctoKit.h>
-#import <Quick/Quick.h>
+@import Nimble;
+@import Quick;
 
 #import "OCTObjectSpec.h"
 #import "OCTObject+Private.h"

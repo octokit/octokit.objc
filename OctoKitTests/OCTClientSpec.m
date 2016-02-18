@@ -7,10 +7,10 @@
 //
 
 #import <ISO8601DateFormatter/ISO8601DateFormatter.h>
-#import <Nimble/Nimble.h>
 #import <OctoKit/OctoKit.h>
 #import <OHHTTPStubs/OHHTTPStubs.h>
-#import <Quick/Quick.h>
+@import Nimble;
+@import Quick;
 
 #import "OCTTestClient.h"
 
