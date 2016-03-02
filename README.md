@@ -1,4 +1,5 @@
 # OctoKit
+[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 
 OctoKit is a Cocoa and Cocoa Touch framework for interacting with the [GitHub
 API](https://developer.github.com/), built using
