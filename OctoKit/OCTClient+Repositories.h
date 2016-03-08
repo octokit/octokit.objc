@@ -179,4 +179,24 @@
 // Returns a signal of zero or one OCTGitCommit.
 - (RACSignal *)fetchCommitFromRepository:(OCTRepository *)repository SHA:(NSString *)SHA;
 
+// Fetches the statuses for the specified `reference` in the repository with the
+// given `name` and owned by the given `owner`.
+//
+// name       - The name of the repository, must be a non-empty string.
+// owner      - The owner of the repository, must be a non-empty string.
+// reference  - The name of the commit, branch or tag, must be a non-empty string.
+//
+// Returns a signal of zero or more OCTGitCommitStatus.
+- (RACSignal *)fetchCommitStatusesForRepositoryWithName:(NSString *)name owner:(NSString *)owner reference:(NSString *)reference;
+
+// Fetches the combined status for the specified `reference` in the repository
+// with the given `name` and owned by the given `owner`.
+//
+// name       - The name of the repository, must be a non-empty string.
+// owner      - The owner of the repository, must be a non-empty string.
+// reference  - The name of the commit, branch or tag, must be a non-empty string.
+//
+// Returns a signal of zero or one OCTCommitCombinedStatus.
+- (RACSignal *)fetchCommitCombinedStatusForRepositoryWithName:(NSString *)name owner:(NSString *)owner reference:(NSString *)reference;
+
 @end

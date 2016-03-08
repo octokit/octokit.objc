@@ -8,6 +8,8 @@
 
 #import "OCTClient+Repositories.h"
 #import "OCTClient+Private.h"
+#import "OCTCommitCombinedStatus.h"
+#import "OCTCommitStatus.h"
 #import "OCTContent.h"
 #import "OCTOrganization.h"
 #import "OCTRepository.h"
@@ -214,6 +216,28 @@
 	NSMutableURLRequest *request = [self requestWithMethod:@"GET" path:path parameters:parameters notMatchingEtag:nil];
 
 	return [[self enqueueRequest:request resultClass:OCTGitCommit.class] oct_parsedResults];
+}
+
+- (RACSignal *)fetchCommitStatusesForRepositoryWithName:(NSString *)name owner:(NSString *)owner reference:(NSString *)reference {
+	NSParameterAssert(name.length > 0);
+	NSParameterAssert(owner.length > 0);
+	NSParameterAssert(reference.length > 0);
+
+	NSString *path = [NSString stringWithFormat:@"repos/%@/%@/commits/%@/statuses", owner, name, reference];
+	NSMutableURLRequest *request = [self requestWithMethod:@"GET" path:path parameters:nil notMatchingEtag:nil];
+
+	return [[self enqueueRequest:request resultClass:OCTCommitStatus.class] oct_parsedResults];
+}
+
+- (RACSignal *)fetchCommitCombinedStatusForRepositoryWithName:(NSString *)name owner:(NSString *)owner reference:(NSString *)reference {
+	NSParameterAssert(name.length > 0);
+	NSParameterAssert(owner.length > 0);
+	NSParameterAssert(reference.length > 0);
+
+	NSString *path = [NSString stringWithFormat:@"repos/%@/%@/commits/%@/status", owner, name, reference];
+	NSMutableURLRequest *request = [self requestWithMethod:@"GET" path:path parameters:nil notMatchingEtag:nil];
+
+	return [[self enqueueRequest:request resultClass:OCTCommitCombinedStatus.class] oct_parsedResults];
 }
 
 @end
