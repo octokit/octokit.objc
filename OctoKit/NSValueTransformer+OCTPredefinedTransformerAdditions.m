@@ -11,6 +11,7 @@
 #import <Mantle/MTLValueTransformer.h>
 
 NSString * const OCTDateValueTransformerName = @"OCTDateValueTransformerName";
+NSString * const OCTBooleanStringValueTransformerName = @"OCTBooleanStringValueTransformerName";
 
 @implementation NSValueTransformer (OCTPredefinedTransformerAdditions)
 
@@ -36,6 +37,16 @@ NSString * const OCTDateValueTransformerName = @"OCTDateValueTransformerName";
 			}];
 		
 		[NSValueTransformer setValueTransformer:dateValueTransformer forName:OCTDateValueTransformerName];
+
+		MTLValueTransformer *booleanStringValueTransformer = [MTLValueTransformer
+			reversibleTransformerWithForwardBlock:^ id (NSString *booleanString) {
+				return [booleanString isEqualToString:@"1"] ? @true : @false;
+			}
+			reverseBlock:^ id (NSNumber *booleanNumber) {
+				return [booleanNumber boolValue] ? @"1" : @"0";
+			}];
+
+		[NSValueTransformer setValueTransformer:booleanStringValueTransformer forName:OCTBooleanStringValueTransformerName];
 	}
 }
 

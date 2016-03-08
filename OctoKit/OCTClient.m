@@ -295,6 +295,9 @@ static NSString *OCTClientOAuthClientSecret = nil;
 		@(OCTClientAuthorizationScopesPublicKeyRead): @"read:public_key",
 		@(OCTClientAuthorizationScopesPublicKeyWrite): @"write:public_key",
 		@(OCTClientAuthorizationScopesPublicKeyAdmin): @"admin:public_key",
+		@(OCTClientAuthorizationScopesRepositoryHooksRead): @"read:repo_hook",
+		@(OCTClientAuthorizationScopesRepositoryHooksWrite): @"write:repo_hook",
+		@(OCTClientAuthorizationScopesRepositoryHooksAdmin): @"admin:repo_hook",
 	};
 
 	return [[[[scopeToScopeString.rac_keySequence
