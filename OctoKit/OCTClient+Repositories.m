@@ -9,6 +9,7 @@
 #import "OCTClient+Repositories.h"
 #import "OCTClient+Private.h"
 #import "OCTContent.h"
+#import "OCTHook.h"
 #import "OCTOrganization.h"
 #import "OCTRepository.h"
 #import "OCTTeam.h"
@@ -214,6 +215,15 @@
 	NSMutableURLRequest *request = [self requestWithMethod:@"GET" path:path parameters:parameters notMatchingEtag:nil];
 
 	return [[self enqueueRequest:request resultClass:OCTGitCommit.class] oct_parsedResults];
+}
+
+- (RACSignal *)fetchHooksForRepository:(OCTRepository *)repository {
+	NSParameterAssert(repository);
+
+	NSString *path = [NSString stringWithFormat:@"repos/%@/%@/hooks", repository.ownerLogin, repository.name];
+	NSMutableURLRequest *request = [self requestWithMethod:@"GET" path:path parameters:nil notMatchingEtag:nil];
+
+	return [[self enqueueRequest:request resultClass:OCTHook.class fetchAllPages:NO] oct_parsedResults];
 }
 
 @end

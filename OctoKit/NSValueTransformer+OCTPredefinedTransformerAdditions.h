@@ -16,5 +16,11 @@
 // unmodified).
 extern NSString * const OCTDateValueTransformerName;
 
+// The name for a value transformer that converts a Github string representation
+// of a boolean ("0" or "1") into a NSNumber (with an underlying BOOL) and back.
+// Mantle's automatic unboxing ensures this can safely be mapped to native BOOL
+// properties.
+extern NSString * const OCTBooleanStringValueTransformerName;
+
 @interface NSValueTransformer (OCTPredefinedTransformerAdditions)
 @end

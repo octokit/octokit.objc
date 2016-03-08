@@ -179,4 +179,11 @@
 // Returns a signal of zero or one OCTGitCommit.
 - (RACSignal *)fetchCommitFromRepository:(OCTRepository *)repository SHA:(NSString *)SHA;
 
+// Fetches hooks for the given `repository`.
+//
+// repository  - The repository to fetch from.
+//
+// Returns a signal of zero or more OCTHook sub-class instances.
+- (RACSignal *)fetchHooksForRepository:(OCTRepository *)repository;
+
 @end
