@@ -23,8 +23,10 @@ FOUNDATION_EXPORT const unsigned char OctoKitVersionString[];
 #import <OctoKit/OCTBranch.h>
 #import <OctoKit/OCTComment.h>
 #import <OctoKit/OCTCommit.h>
+#import <OctoKit/OCTCommitCombinedStatus.h>
 #import <OctoKit/OCTCommitComment.h>
 #import <OctoKit/OCTCommitCommentEvent.h>
+#import <OctoKit/OCTCommitStatus.h>
 #import <OctoKit/OCTCommitTreeEntry.h>
 #import <OctoKit/OCTContent.h>
 #import <OctoKit/OCTContentTreeEntry.h>
