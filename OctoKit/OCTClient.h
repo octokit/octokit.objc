@@ -156,6 +156,7 @@ typedef NS_OPTIONS(NSUInteger, OCTClientAuthorizationScopes) {
 	OCTClientAuthorizationScopesPublicKeyRead = 1 << 10,
 	OCTClientAuthorizationScopesPublicKeyWrite = 1 << 11,
 	OCTClientAuthorizationScopesPublicKeyAdmin = 1 << 12,
+	OCTClientAuthorizationScopesOrgRead = 1 << 13,
 };
 
 // The medium used to deliver the one-time password.
