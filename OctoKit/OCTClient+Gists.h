@@ -47,7 +47,7 @@
 
 // Delete a gist
 //
-// gsit - The gist to delete. This must not be nill.
+// gist - The gist to delete. This must not be nill.
 //
 // Returns a signal, which will send completed on success. If the client
 // is not `authenticated`, the signal will error immediately.

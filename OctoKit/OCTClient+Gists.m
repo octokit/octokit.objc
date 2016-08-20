@@ -55,8 +55,7 @@
 - (RACSignal *)deleteGist:(OCTGist *)gist {
 	NSParameterAssert(gist != nil);
 	
-	if (!self.authenticated)
-		return [RACSignal error:self.class.authenticationRequiredError];
+	if (!self.authenticated) return [RACSignal error:self.class.authenticationRequiredError];
 	
 	NSURLRequest *request = [self requestWithMethod:@"DELETE" path:[NSString stringWithFormat:@"gists/%@", gist.objectID] parameters:nil notMatchingEtag:nil];
 	return [[self enqueueRequest:request resultClass:nil] ignoreValues];
