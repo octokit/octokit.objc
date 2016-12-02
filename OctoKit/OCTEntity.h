@@ -75,6 +75,8 @@
 // The plan that this account is on.
 @property (atomic, strong, readonly) OCTPlan *plan;
 
+// The date of joined on of this account
+@property (nonatomic, copy, readonly) NSDate *createdAt;
 // Updates the receiver's repositories with data from the set of remote
 // repositories.
 - (void)mergeRepositoriesWithRemoteCounterparts:(NSArray *)remoteRepositories;
