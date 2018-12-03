@@ -1,3 +1,5 @@
+**NOTE:** This repository is no longer supported or updated by GitHub. If you wish to continue to develop this code yourself, we recommend you fork it.
+
 # OctoKit
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 
